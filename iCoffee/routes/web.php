@@ -11,6 +11,7 @@
 |
 */
 
+
 //admin
 Route::get('/admin','AdminController@index');
 Route::get('/super-admin','SuperAdminController@index');
@@ -33,4 +34,17 @@ Route::get('/pencairan-investasi','AdminController@pencairanInvestasi');
 Route::get('/laporan-investasi','AdminController@laporanInvestasi');
 
 
-// Route::get('/laporan-investasi','AdminController@laporanInvestasi');
+// jual beli
+Route::get('/', function () {
+    return view('index');
+});
+	
+Route::get('/mantap', function(){
+    return view('Jualbeli.index');
+});
+
+Route::get('/jualbeli1', function(){
+    return view('Jualbeli.index');
+});
+
+
