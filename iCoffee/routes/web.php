@@ -39,8 +39,8 @@ Route::get('/', function () {
     return view('index');
 });
 	
-Route::get('/mantap', function(){
-    return view('Jualbeli.index');
+Route::get('/masuk', function(){
+    return view('masuk');
 });
 
 Route::get('/jualbeli1', function(){
