@@ -75,7 +75,7 @@
 	          <li class="nav-item"><a href="blog.html" class="nav-link">Lelang</a></li>
 	          <li class="nav-item"><a href="investasi.html" class="nav-link">Investasi</a></li>
 	          <!-- <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-plus"></span>Pasang Iklan</a></li> -->
-			  <li class="nav-item"><a href="#" class="nav-link">Masuk</a></li>
+			  <li class="nav-item"><a href="masuk.html" class="nav-link">Masuk</a></li>
 	        </ul>
 	      </div>
 	    </div>
