@@ -31,3 +31,6 @@ Route::get('/produk-investasi','AdminController@produkInvestasi');
 Route::get('/progres-investasi','AdminController@progresInvestasi');
 Route::get('/pencairan-investasi','AdminController@pencairanInvestasi');
 Route::get('/laporan-investasi','AdminController@laporanInvestasi');
+
+
+// Route::get('/laporan-investasi','AdminController@laporanInvestasi');
