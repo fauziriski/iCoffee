@@ -14,4 +14,4 @@
 Route::get('/', function () {
     return view('index');
 });
-	
+	date_default_timezone_get()
