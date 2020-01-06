@@ -16,5 +16,10 @@ Route::get('/', function () {
 });
 	
 Route::get('/mantap', function(){
-    return view('/investasi/index');
+    return view('Jualbeli.index');
 });
+
+Route::get('/jualbeli1', function(){
+    return view('Jualbeli.index');
+});
+

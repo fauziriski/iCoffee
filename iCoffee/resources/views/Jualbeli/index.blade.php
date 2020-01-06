@@ -57,7 +57,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><img src="logo.png" width="15%" height="10%"></a>
+          <a class="navbar-brand" href="index.html"><img src="Jualbeli/logo.png" width="15%" height="10%"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
           </button>
@@ -86,7 +86,7 @@
       </nav>
     <!-- END nav -->
 
-    <div class="hero-wrap hero-bread" style="background-image: url('images/coffee.jpg');">
+    <div class="hero-wrap hero-bread" style="background-image: url('Jualbeli/images/coffee.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -481,7 +481,7 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-			  <h2 class="ftco-heading-2"><img src="logo.png" width="35%" height="8%"></h2>
+			  <h2 class="ftco-heading-2"><img src="Jualbeli/logo.png" width="35%" height="8%"></h2>
 			  <h2 >Hubungi</h2>
 			  <div class="block-23 mb-3">
 				<ul>
