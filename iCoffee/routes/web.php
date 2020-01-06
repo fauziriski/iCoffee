@@ -15,3 +15,6 @@ Route::get('/', function () {
     return view('index');
 });
 	
+Route::get('/mantap', function(){
+    return view('/investasi/index');
+});
