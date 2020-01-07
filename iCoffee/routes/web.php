@@ -11,7 +11,7 @@
 |
 */
 
-
+Route::group(['middleware'=>'Admin'],function (){
 //admin
 Route::get('/admin','AdminController@index');
 Route::get('/super-admin','SuperAdminController@index');
@@ -33,15 +33,29 @@ Route::get('/progres-investasi','AdminController@progresInvestasi');
 Route::get('/pencairan-investasi','AdminController@pencairanInvestasi');
 Route::get('/laporan-investasi','AdminController@laporanInvestasi');
 
+});
+
+//admin login
+Route::get('/masuk_admin','UserController@adminMasuk');
+Route::post('/admin_login','UserController@prosesAdminMasuk');
+
+
+
+//login/regis pengguna
+
+Route::get('/masuk','UserController@masuk');
+Route::get('/daftar','UserController@daftar');
+Route::post('/daftar_user','UserController@prosesDaftar');
+Route::post('/user_login','UserController@prosesMasuk');
+Route::get('/keluar','UserController@keluar');
+
+
 
 // jual beli
 Route::get('/', function () {
     return view('index');
 });
 	
-Route::get('/masuk', function(){
-    return view('masuk');
-});
 
 Route::get('/jual-beli', function(){
     return view('jual-beli.index');

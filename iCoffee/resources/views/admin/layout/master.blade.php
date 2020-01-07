@@ -38,8 +38,14 @@
 
 </head>
 <body>
+	@section('sidebar')
 	@include('admin.layout.sidebar')
+	@show
+
+	@section('navbar')
 	@include('admin.layout.navbar')
+	@show
+
 	@yield('content')
 
 
@@ -47,7 +53,9 @@
 	<div id="wrapper">
 
 	</div>
+	@section('footbar')
 	@include('admin.layout.footbar')
+	@show
 
 
 </div>
