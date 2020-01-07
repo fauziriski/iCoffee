@@ -1,4 +1,4 @@
-@extends('jual-beli.layouts.app')
+@extends('jual-beli.layoutsjb.apps')
 
 @section('content')
 
@@ -131,7 +131,7 @@
 				  </div>
 				  
           	</div>
-          	<p><a href="cart.html" class="btn btn-black py-3 px-5">Beli</a></p>
+          	<p><a href="/jual-beli/keranjang" class="btn btn-black py-3 px-5">Beli</a></p>
     			</div>
 			</div>
 
@@ -157,12 +157,12 @@
     			
     				<div class="col-md-6 col-lg-3 ftco-animate">
             <div class="product">
-              <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
+              <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
                 <span class="status">30%</span>
                 <div class="overlay"></div>
               </a>
               <div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="product-single.html">Kopi Arabika</a></h3>
+                <h3><a href="/jual-beli/produk">Kopi Arabika</a></h3>
                 <div class="d-flex">
                   <div class="pricing">
                     <p class="price"><span class="price-sale">Rp 30.000/Kg</span></p>
@@ -170,10 +170,10 @@
                 </div>
                 <div class="bottom-area d-flex px-3">
                   <div class="m-auto d-flex">
-                    <a href="product-single.html" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                    <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                       <span><i class="ion-ios-menu"></i></span>
                     </a>
-                    <a href="cart.html" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                    <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
                       <span><i class="ion-ios-cart"></i></span>
                     </a>
                     
@@ -184,11 +184,11 @@
           </div>
           <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="product">
-                        <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
+                        <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-single.html">Kopi Robusta</a></h3>
+                            <h3><a href="/jual-beli/produk">Kopi Robusta</a></h3>
                             <div class="d-flex">
                                 <div class="pricing">
                                     <p class="price"><span class="price-sale">Rp 15.000/Kg</span></p>
@@ -196,10 +196,10 @@
                             </div>
                             <div class="bottom-area d-flex px-3">
                                 <div class="m-auto d-flex">
-                                    <a href="product-single.html" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                    <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                         <span><i class="ion-ios-menu"></i></span>
                                     </a>
-                                    <a href="cart.html" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                    <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                         <span><i class="ion-ios-cart"></i></span>
                                     </a>
                                     
@@ -210,11 +210,11 @@
                 </div>
           <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="product">
-                        <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
+                        <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-single.html">Kopi Luwak</a></h3>
+                            <h3><a href="/jual-beli/produk">Kopi Luwak</a></h3>
                             <div class="d-flex">
                                 <div class="pricing">
                                     <p class="price"><span class="price-sale">Rp 25.000/Kg</span></p>
@@ -222,10 +222,10 @@
                             </div>
                             <div class="bottom-area d-flex px-3">
                                 <div class="m-auto d-flex">
-                                    <a href="product-single.html" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                    <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                         <span><i class="ion-ios-menu"></i></span>
                                     </a>
-                                    <a href="cart.html" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                    <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                         <span><i class="ion-ios-cart"></i></span>
                                     </a>
                                     
@@ -236,11 +236,11 @@
                 </div>
           <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="product">
-                        <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
+                        <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-single.html">Kopi Liberika</a></h3>
+                            <h3><a href="/jual-beli/produk">Kopi Liberika</a></h3>
                             <div class="d-flex">
                                 <div class="pricing">
                                     <p class="price"><span class="price-sale">Rp 50.000/Kg</span></p>
@@ -248,10 +248,10 @@
                             </div>
                             <div class="bottom-area d-flex px-3">
                                 <div class="m-auto d-flex">
-                                    <a href="product-single.html" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                    <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                         <span><i class="ion-ios-menu"></i></span>
                                     </a>
-                                    <a href="cart.html" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                    <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                         <span><i class="ion-ios-cart"></i></span>
                                     </a>
                                     
@@ -265,7 +265,7 @@
     </section>
 
 
-    @endsection
+    
 
   <script>
 		$(document).ready(function(){
@@ -302,7 +302,8 @@
 		    });
 		    
 		});
-	</script>
-    
-  </body>
-</html>
+  </script>
+  
+
+@endsection
+

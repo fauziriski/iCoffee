@@ -51,18 +51,20 @@
 		    </div>
 		  </div>
     </div>
+
+
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="" href="/"></a><img src="{{asset('Jualbeli/logo.png') }}" width="7%" height="10%">
+	      <a class="navbar-brand" href="/"><img src="{{asset('Jualbeli/logo.png') }}" width="15%" height="10%"></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Beranda</a></li>
+	          <li class="nav-item"><a href="/" class="nav-link">Beranda</a></li>
 	           <li class="nav-item">
-				 <a href="shop.html" class="nav-link">JualBelis</a>
+				 <a href="/jual-beli" class="nav-link">JualBeli</a>
               <!-- <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
               	<a class="dropdown-item" href="shop.html">Shop</a>
@@ -72,10 +74,10 @@
                 <a class="dropdown-item" href="checkout.html">Checkout</a>
               </div> -->
             </li>
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Lelang</a></li>
-	          <li class="nav-item"><a href="investasi.html" class="nav-link">Investasi</a></li>
+	          <li class="nav-item"><a href="/lelang" class="nav-link">Lelang</a></li>
+	          <li class="nav-item"><a href="/investasi" class="nav-link">Investasi</a></li>
 	          <!-- <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-plus"></span>Pasang Iklan</a></li> -->
-			  <li class="nav-item"><a href="masuk.html" class="nav-link">Masuk</a></li>
+			  <li class="nav-item"><a href="/" class="nav-link">Masuk</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -99,7 +101,7 @@
           <div class="row mb-5">
             <div class="col-md">
               <div class="ftco-footer-widget mb-4">
-          <h2 class="ftco-heading-2"><img src="Jualbeli/logo.png" width="35%" height="8%"></h2>
+          <h2 class="ftco-heading-2"><img src="{{asset('Jualbeli/logo.png') }}" width="35%" height="8%"></h2>
           <h2 >Hubungi</h2>
           <div class="block-23 mb-3">
           <ul>

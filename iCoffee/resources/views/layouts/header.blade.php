@@ -33,7 +33,7 @@
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item"><a href="index.html" class="nav-link">Beranda</a></li>
 	            <li class="nav-item">
-				        <a href="shop.html" class="nav-link">JualBeli</a>
+				        <a href="/jual-beli" class="nav-link">JualBeli</a>
                 <!-- <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                   <a class="dropdown-item" href="shop.html">Shop</a>

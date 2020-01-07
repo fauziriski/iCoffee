@@ -1,4 +1,4 @@
-@extends('Jualbeli.layouts.app')
+@extends('jual-beli.layoutsjb.apps')
 
 @section('content')
 
@@ -95,13 +95,12 @@
     						<span>Rp 500.000</span>
     					</p>
     				</div>
-    				<p><a href="checkout.html" class="btn btn-primary py-2 px-5">Checkout</a></p>
+    				<p><a href="/jual-beli/checkout" class="btn btn-primary py-2 px-5">Checkout</a></p>
     			</div>
     		</div>
 			</div>
 		</section>
-    @endsection
-
+   
   <script>
 		$(document).ready(function(){
 
@@ -139,5 +138,5 @@
 		});
 	</script>
     
-  </body>
-</html>
+
+@endsection
