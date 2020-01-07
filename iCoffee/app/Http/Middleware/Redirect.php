@@ -3,11 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Alert;
-use Illuminate\Support\Facades\Session;
+use Auth;
 
-
-class Admin
+class Redirect
 {
     /**
      * Handle an incoming request.
@@ -16,13 +14,11 @@ class Admin
      * @param  \Closure  $next
      * @return mixed
      */
-
     public function handle($request, Closure $next)
     {
-        if(empty(Session::has('adminSession'))){
-            Alert::info('Silahkan login dahulu!')->autoClose(2000);
-            return redirect('/');
-        }
-        return $next($request);
+       if (!$this->roles->check()) {
+        return redirect()->to('/');
     }
+    return $next($request);
+}
 }

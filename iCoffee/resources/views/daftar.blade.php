@@ -19,7 +19,6 @@
            
             <form action="{{url('/daftar_user')}}" method="post">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="hidden" name="user_type" value="user" />
                 <div class="form-group col-sm-12 mt-4">
                     <label for="formGroupExampleInput" class="bmd-label-floating">Nama</label>
                     <input type="text" class="form-control" name="name" value="{{old('name')}}"/>

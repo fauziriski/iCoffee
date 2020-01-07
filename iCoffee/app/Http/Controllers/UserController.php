@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Session;
 use Alert;
 
 class UserController extends Controller
-{
+{	
+
 	public function daftar(){
 		return view('daftar');
 	}
@@ -37,7 +38,7 @@ class UserController extends Controller
 
 	public function prosesMasuk(Request $request){
         $input_data=$request->all();
-        if(Auth::attempt(['email'=>$input_data['email'],'password'=>$input_data['password'],'user_type'=>'user'])){
+        if(Auth::attempt(['email'=>$input_data['email'],'password'=>$input_data['password']])){
             Session::put('userSession',$input_data['email']);
             Alert::success('Berhasil masuk!')->autoClose(2000);
             return redirect('/');

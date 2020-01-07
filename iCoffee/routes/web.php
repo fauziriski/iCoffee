@@ -10,29 +10,32 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+Route::group(['middleware'=>'redirect'],function (){
 
-Route::group(['middleware'=>'Admin'],function (){
+	Route::group(['middleware'=>'admin'],function (){
 //admin
-Route::get('/admin','AdminController@index');
-Route::get('/super-admin','SuperAdminController@index');
+		Route::get('/admin','AdminController@index');
+		Route::get('/super-admin','SuperAdminController@index');
 
 //admin jual-beli
-Route::get('/validasi-pembeli','AdminController@validasiPembeli');
-Route::get('/jenis-produk','AdminController@jenisProduk');
-Route::get('/laporan-penjualan','AdminController@laporanPenjualan');
+		Route::get('/validasi-pembeli','AdminController@validasiPembeli');
+		Route::get('/jenis-produk','AdminController@jenisProduk');
+		Route::get('/laporan-penjualan','AdminController@laporanPenjualan');
 
 //admin Lelang
-Route::get('/validasi-produk-lelang','AdminController@validasiProdukLelang');
-Route::get('/proses-lelang','AdminController@prosesLelang');
-Route::get('/laporan-lelang','AdminController@laporanLelang');
+		Route::get('/validasi-produk-lelang','AdminController@validasiProdukLelang');
+		Route::get('/proses-lelang','AdminController@prosesLelang');
+		Route::get('/laporan-lelang','AdminController@laporanLelang');
 
 //admin investasi
-Route::get('/kelompok-petani','AdminController@kelompokPetani');
-Route::get('/produk-investasi','AdminController@produkInvestasi');
-Route::get('/progres-investasi','AdminController@progresInvestasi');
-Route::get('/pencairan-investasi','AdminController@pencairanInvestasi');
-Route::get('/laporan-investasi','AdminController@laporanInvestasi');
+		Route::get('/kelompok-petani','AdminController@kelompokPetani');
+		Route::get('/produk-investasi','AdminController@produkInvestasi');
+		Route::get('/progres-investasi','AdminController@progresInvestasi');
+		Route::get('/pencairan-investasi','AdminController@pencairanInvestasi');
+		Route::get('/laporan-investasi','AdminController@laporanInvestasi');
 
+	});
 });
 
 //admin login
@@ -53,25 +56,25 @@ Route::get('/keluar','UserController@keluar');
 
 // jual beli
 Route::get('/', function () {
-    return view('index');
+	return view('index');
 });
-	
+
 
 Route::get('/jual-beli', function(){
-    return view('jual-beli.index');
+	return view('jual-beli.index');
 });
 
 Route::get('/jual-beli/produk', function(){
-    return view('jual-beli.detailproduk');
+	return view('jual-beli.detailproduk');
 });
 
 Route::get('/jual-beli/checkout', function(){
-    return view('jual-beli.checkout');
+	return view('jual-beli.checkout');
 });
 
 
 Route::get('/jual-beli/keranjang', function(){
-    return view('jual-beli.keranjang');
+	return view('jual-beli.keranjang');
 });
 
 

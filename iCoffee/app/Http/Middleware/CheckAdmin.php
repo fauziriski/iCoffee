@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
-use Alert;
-use Illuminate\Support\Facades\Session;
+use App\User;
 
-class User
+class CheckAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,12 @@ class User
      */
     public function handle($request, Closure $next)
     {
-        if(empty(Session::has('userSession'))){
-            Alert::info('Silahkan login dahulu!')->autoClose(2000);
-            return redirect('masuk');
+        $userRoles = Auth::user()->roles->pluck('name');
+
+        if(!$userRoles->contains('superadmin')) {
+            return redirect('/');
         }
+
         return $next($request);
     }
 }
