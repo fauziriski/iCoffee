@@ -8485,7 +8485,7 @@ h1, h2, h3, h4, h5,
   background: #f7f6f2 !important; }
 
 .bg-primary {
-  background: #C9AA5A; }
+  background:  #ee4d2d; }
 
 .bg-secondary {
   background: #ffe6eb !important; }
@@ -10099,3 +10099,4 @@ textarea.form-control {
   .vl {
     display: none;
   }
+}
