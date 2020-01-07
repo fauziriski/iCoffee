@@ -61,7 +61,7 @@ class UserController extends Controller
 
 	public function prosesAdminMasuk(Request $request){
         $input_data=$request->all();
-        if(Auth::attempt(['email'=>$input_data['email'],'password'=>$input_data['password'],'user_type'=>'admin'])){
+        if(Auth::attempt(['email'=>$input_data['email'],'password'=>$input_data['password']])){
             Session::put('adminSession',$input_data['email']);
             Alert::success('Berhasil masuk!')->autoClose(2000);
             return redirect('beranda');
