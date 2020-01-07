@@ -1,4 +1,4 @@
-@extends('Jualbeli.layouts.app')
+@extends('jual-beli.layoutsjb.apps')
 
 @section('content')
 
@@ -247,8 +247,7 @@
         </div>
       </div>
 	</section>
-	
-    @endsection
+
 
   <script>
 		$(document).ready(function(){
@@ -286,6 +285,6 @@
 		    
 		});
 	</script>
+
+@endsection
     
-  </body>
-</html>
