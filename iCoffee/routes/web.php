@@ -13,26 +13,26 @@
 
 // Route::group(['middleware'=>'redirect'],function (){
 // Route::group(['middleware'=>'admin'],function (){
-// //admin
-// 	Route::get('/admin','AdminController@index');
-// 	Route::get('/super-admin','SuperAdminController@index');
+//admin
+	Route::get('/admin','AdminController@index');
+	Route::get('/super-admin','SuperAdminController@index');
 
-// //admin jual-beli
-// 	Route::get('/validasi-pembeli','AdminController@validasiPembeli');
-// 	Route::get('/jenis-produk','AdminController@jenisProduk');
-// 	Route::get('/laporan-penjualan','AdminController@laporanPenjualan');
+//admin jual-beli
+	Route::get('/validasi-pembeli','AdminController@validasiPembeli');
+	Route::get('/jenis-produk','AdminController@jenisProduk');
+	Route::get('/laporan-penjualan','AdminController@laporanPenjualan');
 
-// //admin Lelang
-// 	Route::get('/validasi-produk-lelang','AdminController@validasiProdukLelang');
-// 	Route::get('/proses-lelang','AdminController@prosesLelang');
-// 	Route::get('/laporan-lelang','AdminController@laporanLelang');
+//admin Lelang
+	Route::get('/validasi-produk-lelang','AdminController@validasiProdukLelang');
+	Route::get('/proses-lelang','AdminController@prosesLelang');
+	Route::get('/laporan-lelang','AdminController@laporanLelang');
 
-// //admin investasi
-// 	Route::get('/kelompok-petani','AdminController@kelompokPetani');
-// 	Route::get('/produk-investasi','AdminController@produkInvestasi');
-// 	Route::get('/progres-investasi','AdminController@progresInvestasi');
-// 	Route::get('/pencairan-investasi','AdminController@pencairanInvestasi');
-// 	Route::get('/laporan-investasi','AdminController@laporanInvestasi');
+//admin investasi
+	Route::get('/kelompok-petani','AdminController@kelompokPetani');
+	Route::get('/produk-investasi','AdminController@produkInvestasi');
+	Route::get('/progres-investasi','AdminController@progresInvestasi');
+	Route::get('/pencairan-investasi','AdminController@pencairanInvestasi');
+	Route::get('/laporan-investasi','AdminController@laporanInvestasi');
 
 // });
 // });
@@ -81,13 +81,22 @@ Route::get('user/pasang-jualbeli', function(){
 	return view('jual-beli.pasang');
 });
 
+
+
+//lelang
+Route::get('/lelang', function () {
+	return view('jual-beli.lelang.index');
+});
+
 Route::get('user/pasang-lelang', function(){
 	return view('jual-beli.pasanglelang');
 });
 
+
 // investasi
-Route::get('/investasi', function(){
-	return view ('investasi.index');
+
+Route::get('/investasi', function () {
+	return view('investasi.index');
 });
 
 Route::get('user/pasang-investasi', function(){

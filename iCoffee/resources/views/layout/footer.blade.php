@@ -11,12 +11,12 @@
       </div>
       <div class="row mb-5">
         <div class="col-md">
-          <div class="ftco-footer-widget mb-4">
+          <div class="ftco-footer-widget">
             <h2 class="ftco-heading-2"><img src="logo.png" width="35%" height="8%"></h2>
             <h2 >Hubungi</h2>
             <div class="block-23 mb-3">
               <ul>
-                <li><span class="icon icon-map-marker"></span><span class="text">Jl. Pagar Alam (Gang PU) No.44 Kedaton Bandar Lampung 35145</span></li>
+                <li><a href="#"><span class="icon icon-map-marker"></span><span class="text">Jl. Pagar Alam (Gang PU) No.44 Kedaton Bandar Lampung 35145</span></a></li>
                 <li><a href="#"><span class="icon icon-phone"></span><span class="text">+62 811 7861 595</span></a></li>
                 <li><a href="#"><span class="icon icon-envelope"></span><span class="text">contact@icoffee.com</span></a></li>
               </ul>

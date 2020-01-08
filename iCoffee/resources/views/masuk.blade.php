@@ -5,7 +5,6 @@
 @section('footer')
 @endsection
 
-@include('sweetalert::alert')
 
 <div class="container ftco-animate">
 	<div class="text-center">
