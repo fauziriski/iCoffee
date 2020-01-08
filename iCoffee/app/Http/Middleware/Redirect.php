@@ -16,9 +16,10 @@ class Redirect
      */
     public function handle($request, Closure $next)
     {
-       if (!$this->roles->check()) {
-        return redirect()->to('/');
+        if (!Auth::check()) {
+            return redirect('/');
+        }
+        return $next($request);
     }
-    return $next($request);
-}
+
 }

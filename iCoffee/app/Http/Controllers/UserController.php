@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -31,12 +32,12 @@ class UserController extends Controller
 		$input_data=$request->all();
 		$input_data['password']=Hash::make($input_data['password']);
 		User::create($input_data);
+        
+        Alert::success('Berhasil terdaftar, silahkan login')->autoClose(2000);
+        return redirect('masuk');
+    }
 
-		Alert::success('Berhasil terdaftar, silahkan login')->autoClose(2000);
-		return redirect('masuk');
-	}
-
-	public function prosesMasuk(Request $request){
+    public function prosesMasuk(Request $request){
         $input_data=$request->all();
         if(Auth::attempt(['email'=>$input_data['email'],'password'=>$input_data['password']])){
             Session::put('userSession',$input_data['email']);
@@ -48,7 +49,7 @@ class UserController extends Controller
         }
     }
 
-     public function keluar(){
+    public function keluar(){
         Auth::logout();
         Session::forget('userSession');
         Alert::success('Berhasil keluar!')->autoClose(2000);
@@ -56,18 +57,18 @@ class UserController extends Controller
     }
 
     public function adminMasuk(){
-		return view('admin.masuk-admin');
-	}
+      return view('admin.masuk-admin');
+  }
 
-	public function prosesAdminMasuk(Request $request){
-        $input_data=$request->all();
-        if(Auth::attempt(['email'=>$input_data['email'],'password'=>$input_data['password']])){
-            Session::put('adminSession',$input_data['email']);
-            Alert::success('Berhasil masuk!')->autoClose(2000);
-            return redirect('beranda');
-        }else{
-            Alert::error('Akun tidak valid!')->autoClose(2000);
-            return redirect('/');
-        }
+  public function prosesAdminMasuk(Request $request){
+    $input_data=$request->all();
+    if(Auth::attempt(['email'=>$input_data['email'],'password'=>$input_data['password']])){
+        Session::put('adminSession',$input_data['email']);
+        Alert::success('Berhasil masuk!')->autoClose(2000);
+        return redirect('beranda');
+    }else{
+        Alert::error('Akun tidak valid!')->autoClose(2000);
+        return redirect('/');
     }
+}
 }
