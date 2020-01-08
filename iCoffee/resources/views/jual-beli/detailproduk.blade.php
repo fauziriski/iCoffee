@@ -1,5 +1,6 @@
 @extends('jual-beli.layouts.app')
-
+@section('sidebar')
+@endsection
 @section('content')
 
 

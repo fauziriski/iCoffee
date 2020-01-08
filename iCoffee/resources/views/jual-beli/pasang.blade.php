@@ -1,185 +1,89 @@
-@extends('investasi.layouts.app')
+@extends('jual-beli.layouts.app')
 
 @section('content')
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-md-3 cart-detail sidebar ftco-animate">
-                <div class="sidebar-box">
-                    <row class="row justify-content-md-center">
 
-                        <div class="text-center">
-                            <img src="/images/tonii.png" width="60%" style="border-radius: 50%">
-                            
-                        </div>
-                        </row>
-                    <br>
-
-                    <row class="row justify-content-md-5">
-                        <div class="col-md-12 col-sm-12">
-                            <h5 class="text-center">Ahmad Fathoni</h5>
-                            </div>
-                    </row>
-                    <br>
-
-                    <row class="row justify-content-md-center">
-                        <div class="col-sm-12">
-                            <p><a href="#"class="btn btn-primary py-3 px-4">Edit Profil</a></p>
-                            </div>
-                    </row>
-                    <br>
-                    
-
-                    <row class="row justify-content-md-center">
-                        <div class="col-sm-12">
-                            <ul class="nav flex-column">
-
-                              <li class="nav-item">
-                                <h5>Jual Beli</h5>
-                                <hr>
-                              </li>
-                                
-                              <li class="nav-item ">
-                                <a href="#"><span class="icon icon-tags"></span><span class="text"> Penjualan</span></a>
-                              </li>
-                              <li class="nav-item ">
-                                   <a href="#"><span class="oi oi-loop"></span><span class="text"> Transaksi Jual</span></a>
-                              </li>
-
-                            </ul>
-                            </div>
-                    </row>
-                    <br>
-
-                    <row class="row justify-content-md-center">
-                        <div class="col-sm-12">
-                            <ul class="nav flex-column">
-
-                              <li class="nav-item">
-                                <h5>Lelang</h5>
-                                <hr>
-                              </li>
-                                
-                              <li class="nav-item">
-                                <a href="#"><span class="icon icon-timer"></span><span class="text"> Produk Lelang</span></a>
-                              </li>
-                              <li class="nav-item">
-                                   <a href="#"><span class="oi oi-list"></span><span class="text"> Riwayat Lelang</span></a>
-                              </li>
-
-                            </ul>
-                            </div>
-                    </row>
-                    <br>
-
-                    <row class="row justify-content-md-center">
-                        <div class="col-sm-12">
-                            <ul class="nav flex-column">
-
-                              <li class="nav-item">
-                                <h5>Investasi</h5>
-                                <hr>
-                              </li>
-                                
-                              <li class="nav-item">
-                                <a href="#"><span class="oi oi-people"></span><span class="text"> Jadi Mitra</span></a>
-                              </li>
-                              <li class="nav-item">
-                                   <a href="#"><span class="oi oi-bar-chart"></span><span class="text"> Progress Investasi</span></a>
-                              </li>
-
-                            </ul>
-                            </div>
-                    </row>
-            
-                </div>
-               </div>
-
-               <div style="margin-left: 2%;"></div>
-                    <div class="col-md-7 ftco-animate cart-detail">
-                        <form action="#">
-                            <h3 class="mt-3 pl-2">Pasang Produk Investasi</h3>
-                <div class="row align-items-end pl-3">
-                    <div class="col-md-12">
-                    <div class="form-group">
-                        <div class="images">
-                            <div class="pic">
-                              Tambah
-                            </div>
-                          </div>
-                        <label for="firstname">Nama Produk</label>
-                    <input type="text" class="form-control" placeholder="">
-                    </div>
-                </div>
-
-                <div class="w-100"></div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="country">Harga</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Rp</div>
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="country">Stok</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="">                 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="country">Kategori</label>
-                            <div class="select-wrap">
-                            <select name="" id="" class="form-control">
-                                <option value="">Arabika</option>
-                                <option value="">Robusta</option>
-                                <option value="">Luwak</option>
-                                <option value="">Jawa</option>
-                                <option value="">Flores</option>
-                                <option value="">Hijau</option>
-                            </select>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                        <label for="streetaddress">Deskripsi</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" type="text"></textarea>
-                    </div>
-                    </div>
-                
-
-
-                    <div class="w-100"></div>
-                    <br>
-                    
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="w-100"></div>
-                            <p><a href="#"class="btn btn-primary py-3 px-4">Tambah Produk</a></p>
-                        </div>
-
-                        
-                    </div>
-
-                    
-            
-                </div>
-            </form><!-- END -->
-                        </div>
-                        
+<div class="col-md-9">
+ <div class="card">
+   <article class="card-group-item">
+    <header class="card-header"><h6 class="title">Pasang Produk</h6></header>
+    <form action="{{url('pasang-produk-jual')}}">
+      <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="images">
+              <div class="pic">
+                Tambah Foto
+              </div>
             </div>
-        </div>
-    </div>
-    </div>
-</section>
+          </div>
+          <div class="form-group">
+            <label for="nama">Nama Produk</label>
+            <input type="text" class="form-control" name="nama_produk">
+            <span class="text-danger">{{$errors->first('nama_produk')}}</span>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="harga">Harga </label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">Rp</div>
+                  </div>
+                  <input type="number" class="form-control" placeholder="Dalam Rupiah" name="stok">
+                  <span class="text-danger">{{$errors->first('name')}}</span>
+                </div>
+              </div>
+            </div>
 
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="stok">Stok</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="" placeholder="Satuan" name="stok">
+                  <span class="text-danger">{{$errors->first('stok')}}</span>
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">Kg</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="country">Kategori</label>
+                <div class="select-wrap">
+                  <select name="id_kategori" id="" class="form-control">
+                    <option value="">Arabika</option>
+                    <option value="">Robusta</option>
+                    <option value="">Luwak</option>
+                    <option value="">Jawa</option>
+                    <option value="">Flores</option>
+                    <option value="">Hijau</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="deskripsi">Deskripsi</label>
+                <textarea class="form-control" rows="5" type="text" name="deskripsi"></textarea>
+                <span class="text-danger">{{$errors->first('stok')}}</span>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary float-right py-2 px-4">Pasang Produk</button>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div><!-- tutup side -->
+</div>
+</section>
 @endsection

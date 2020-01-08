@@ -77,7 +77,7 @@ Route::get('/jual-beli/keranjang', function(){
 	return view('jual-beli.keranjang');
 });
 
-Route::get('user/pasang-jualbeli', function(){
+Route::get('/pasang-jualbeli', function(){
 	return view('jual-beli.pasang');
 });
 
@@ -88,7 +88,7 @@ Route::get('/lelang', function () {
 	return view('jual-beli.lelang.index');
 });
 
-Route::get('user/pasang-lelang', function(){
+Route::get('/pasang-lelang', function(){
 	return view('jual-beli.pasanglelang');
 });
 
@@ -99,8 +99,9 @@ Route::get('/investasi', function () {
 	return view('investasi.index');
 });
 
-Route::get('user/pasang-investasi', function(){
+Route::get('/pasang-investasi', function(){
 	return view('investasi.pasang');
 });
+
 
 

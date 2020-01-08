@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="{{asset('Jualbeli/css/flaticon.css') }}">
   <link rel="stylesheet" href="{{asset('Jualbeli/css/icomoon.css') }}">
   <link rel="stylesheet" href="{{asset('Jualbeli/css/style.css') }}">
+  <link rel="stylesheet" href="{{asset('css/images.css') }}">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
 
 </head>
@@ -35,6 +36,9 @@
 @include('jual-beli.layouts.header')
 @show
 
+@section('sidebar')
+@include('jual-beli.layouts.sidebar')
+@show
 @yield('content')
 
 @section('footer')
@@ -58,5 +62,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="{{asset('Jualbeli/js/google-map.js') }}"></script>
 <script src="{{asset('Jualbeli/js/main.js') }}"></script>
+<script src="{{asset('js/images.js') }}"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@
 @section('footer')
 @endsection
 
+
 @include('sweetalert::alert')
 
 
@@ -39,11 +40,11 @@
                     <input type="password" class="form-control" name="password_confirmation" value="{{old('password_confirmation')}}"/>
                     <span class="text-danger">{{$errors->first('password_confirmation')}}</span><br>
                 </div>
-                <button type="submit" class="btn btn-primary mt-5">Daftar</button>
+                <button type="submit" class="btn btn-primary mt-3 py-3">Daftar</button>
                 <div class="text-center mt-3">atau</div>
-                <a href="#" class="btn loginBtn--facebook mt-3 col-md-12 text-white"><i class="fa fa-facebook-f white-text"></i> Login with Facebook</a>
+                <a href="#" class="btn loginBtn--facebook mt-3 col-md-12 text-white py-3"><i class="fab fa-facebook-f fa-fw"></i> Login with Facebook</a>
                 <br>
-                <a href="#" class="btn loginBtn--google mt-2 col-md-12 text-white"><i class="fa fa-google-plus"></i> Login with google</a>
+                <a href="#" class="btn loginBtn--google mt-2 col-md-12 text-white py-3"><i class="fab fa-google fa-fw"></i> Login with google</a>
             </form>
         </div>
     </div>

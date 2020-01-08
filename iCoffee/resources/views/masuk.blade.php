@@ -8,7 +8,7 @@
 
 <div class="container ftco-animate">
 	<div class="text-center">
-		<img src="logo.png" width="20%" height="20%" style="margin-top: 12%">
+		<img src="logo.png" width="20%" height="20%" style="margin-top: 5%;">
     <h6 class="mb-4" style="margin-top: 1%">Belum punya akun? Daftar <a href ="{{url('daftar')}}">disini.</a></h6>
   </div>
   <div class="col-md-7 d-flex mb-5 mt-5 mx-auto">
@@ -31,11 +31,11 @@
           <p style="text-align: right; margin-top: -30px;">Lupa Password?</p>
 
         </div>
-        <button type="submit" class="btn btn-primary">Masuk</button> 
+        <button type="submit" class="btn btn-primary mt-3 py-3">Masuk</button>
         <div class="text-center mt-3">atau</div>
-        <a href="#" class="btn loginBtn--facebook mt-3 col-md-12 text-white"><i class="fab fa-facebook-f fa-fw"></i> Login with Facebook</a>
+        <a href="#" class="btn loginBtn--facebook mt-3 col-md-12 text-white py-3"><i class="fab fa-facebook-f fa-fw"></i> Login with Facebook</a>
         <br>
-        <a href="#" class="btn loginBtn--google mt-2 col-md-12 text-white"><i class="fab fa-google fa-fw"></i> Login with google</a>
+        <a href="#" class="btn loginBtn--google mt-2 col-md-12 text-white py-3"><i class="fab fa-google fa-fw"></i> Login with google</a>
       </form>
     </div>
   </div>

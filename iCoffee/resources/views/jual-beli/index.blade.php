@@ -1,5 +1,6 @@
 @extends('jual-beli.layouts.app')
-
+@section('sidebar')
+@endsection
 @section('content')
     <div class="hero-wrap hero-bread" style="background-image: url('Jualbeli/images/coffee.jpg');">
       <div class="container">

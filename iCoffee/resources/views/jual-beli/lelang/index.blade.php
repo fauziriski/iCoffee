@@ -1,5 +1,6 @@
 @extends('jual-beli.layouts.app')
-
+@section('sidebar')
+@endsection
 @section('content')
 
     <div class="hero-wrap hero-bread" style="background-image: url('images/photo-1550470789-fc6193fd518c.jpg');">
