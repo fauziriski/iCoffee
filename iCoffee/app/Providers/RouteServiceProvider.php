@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    // public const HOME = '/home';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -42,11 +42,48 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
+
+        $this->mapAdminRoutes();
+
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
 
+        
+
         //
+    }
+
+    /**
+     * Define the "SuperAdmin" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    // protected function mapSuperAdminRoutes()
+    // {
+    //     Route::middleware('web','auth','role:superadmin')
+    //          ->prefix('super-admin')
+    //          ->name('superadmin.')
+    //          ->namespace($this->namespace . '\Admin')
+    //          ->group(base_path('routes/superadmin.php'));
+    // }
+
+    /**
+     * Define the "Admin" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapAdminRoutes()
+    {
+        Route::middleware('web','auth','role:admin')
+             ->prefix('admin')
+             ->name('admin.')
+             ->namespace($this->namespace. '\Admin')
+             ->group(base_path('routes/admin.php'));
     }
 
     /**

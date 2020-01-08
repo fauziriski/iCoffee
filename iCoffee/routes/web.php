@@ -105,3 +105,7 @@ Route::get('/pasang-investasi', function(){
 
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
