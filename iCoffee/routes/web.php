@@ -77,5 +77,11 @@ Route::get('/jual-beli/keranjang', function(){
 });
 
 
+// investasi
+Route::get('/investasi', function(){
+	return view ('investasi.index');
+});
+
+
 
 
