@@ -76,12 +76,21 @@ Route::get('/jual-beli/keranjang', function(){
 	return view('jual-beli.keranjang');
 });
 
+Route::get('user/pasang-jualbeli', function(){
+	return view('jual-beli.pasang');
+});
+
+Route::get('user/pasang-lelang', function(){
+	return view('jual-beli.pasanglelang');
+});
 
 // investasi
 Route::get('/investasi', function(){
 	return view ('investasi.index');
 });
 
-
+Route::get('user/pasang-investasi', function(){
+	return view('investasi.pasang');
+});
 
 
