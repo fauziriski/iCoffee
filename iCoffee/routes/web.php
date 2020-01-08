@@ -11,8 +11,8 @@
 |
 */
 
-Route::group(['middleware'=>'redirect'],function (){
-Route::group(['middleware'=>'admin'],function (){
+// Route::group(['middleware'=>'redirect'],function (){
+// Route::group(['middleware'=>'admin'],function (){
 //admin
 	Route::get('/admin','AdminController@index');
 	Route::get('/super-admin','SuperAdminController@index');
@@ -34,8 +34,8 @@ Route::group(['middleware'=>'admin'],function (){
 	Route::get('/pencairan-investasi','AdminController@pencairanInvestasi');
 	Route::get('/laporan-investasi','AdminController@laporanInvestasi');
 
-});
-});
+// });
+// });
 
 
 //admin login
