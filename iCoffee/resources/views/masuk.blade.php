@@ -1,11 +1,10 @@
-@extends('layouts.app')
+@extends('layout.app')
 @section('header')
 @endsection
 @section('content')
 @section('footer')
 @endsection
 
-@include('sweetalert::alert')
 
 <div class="container ftco-animate">
 	<div class="text-center">

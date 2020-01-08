@@ -86,8 +86,9 @@ Route::get('user/pasang-lelang', function(){
 });
 
 // investasi
-Route::get('/investasi', function(){
-	return view ('investasi.index');
+
+Route::get('/investasi', function () {
+	return view('investasi.index');
 });
 
 Route::get('user/pasang-investasi', function(){
