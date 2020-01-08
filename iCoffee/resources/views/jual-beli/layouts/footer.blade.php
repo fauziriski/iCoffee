@@ -55,6 +55,17 @@
           </div>
         </div>
       </div>
+       <div class="col-md">
+        <div class="ftco-footer-widget">
+          <h2 class="ftco-heading-2">Lelang</h2>
+          <div class="d-flex">
+            <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
+              <li><a href="#" class="py-2 d-block">Ikut Lelang di iCoffee</a></li>
+              <li><a href="#" class="py-2 d-block">Daftarkan Produk ke Lelang</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <div class="col-md">
         <div class="ftco-footer-widget">
           <h2 class="ftco-heading-2">Tentang iCoffee</h2>

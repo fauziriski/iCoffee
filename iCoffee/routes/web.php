@@ -81,9 +81,17 @@ Route::get('user/pasang-jualbeli', function(){
 	return view('jual-beli.pasang');
 });
 
+
+
+//lelang
+Route::get('/lelang', function () {
+	return view('jual-beli.lelang.index');
+});
+
 Route::get('user/pasang-lelang', function(){
 	return view('jual-beli.pasanglelang');
 });
+
 
 // investasi
 
