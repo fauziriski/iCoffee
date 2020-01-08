@@ -1,4 +1,4 @@
-@extends('jual-beli.layoutsjb.apps')
+@extends('jual-beli.layouts.app')
 
 @section('content')
 
