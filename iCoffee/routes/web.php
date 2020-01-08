@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware'=>'redirect'],function (){
+
 Route::group(['middleware'=>'admin'],function (){
 //admin
 	Route::get('/admin','AdminController@index');
@@ -35,7 +35,7 @@ Route::group(['middleware'=>'admin'],function (){
 	Route::get('/laporan-investasi','AdminController@laporanInvestasi');
 
 });
-});
+
 
 //admin login
 Route::get('/masuk_admin','UserController@adminMasuk');
