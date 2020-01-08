@@ -237,7 +237,6 @@
     				</div>
     			</div>
 
-
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
     					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-5.jpg" alt="Colorlib Template">
@@ -337,7 +336,7 @@
 
     	<div class="container">
 			<div class="row justify-content-end">
-				<div class="col">
+				<div class="col-mb-5">
 					<img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
 				</div>
          		<div class="col heading-section ftco-animate deal-of-the-day ftco-animate">
@@ -357,8 +356,7 @@
        		</div>   		
     	</div>
 
-    <hr>
-    <br>
+  
     
 
   <!-- loader -->
