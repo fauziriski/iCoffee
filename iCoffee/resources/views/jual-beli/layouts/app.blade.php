@@ -37,9 +37,12 @@
 @include('jual-beli.layouts.header')
 @show
 
+@guest
+@else
 @section('sidebar')
 @include('jual-beli.layouts.sidebar')
 @show
+@endguest
 
 @yield('content')
 

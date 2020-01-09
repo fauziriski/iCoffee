@@ -34,9 +34,12 @@
 @include('investasi.layouts.header')
 @show
 
+@guest
+@else
 @section('sidebar')
 @include('investasi.layouts.sidebar')
 @show
+@endguest
 
 @yield('content')
 
