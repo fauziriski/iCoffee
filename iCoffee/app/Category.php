@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Shop_product extends Model
+class Category extends Model
 {
     protected $fillable = [
-        'id_pengguna','id_kategori','nama_produk','detail_produk','stok','harga','gambar',
+        'kategori',
     ];
 
     public $timestamps = true;
