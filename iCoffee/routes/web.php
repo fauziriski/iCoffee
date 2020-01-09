@@ -46,11 +46,11 @@ Route::post('/admin_login','UserController@prosesAdminMasuk');
 
 //login/regis pengguna
 
-Route::get('/masuk','UserController@masuk');
-Route::get('/daftar','UserController@daftar');
-Route::post('/daftar_user','UserController@prosesDaftar');
-Route::post('/user_login','UserController@prosesMasuk');
-Route::get('/keluar','UserController@keluar');
+// Route::get('/masuk','UserController@masuk');
+// Route::get('/daftar','UserController@daftar');
+// Route::post('/daftar_user','UserController@prosesDaftar');
+// Route::post('/user_login','UserController@prosesMasuk');
+// Route::get('/keluar','UserController@keluar');
 
 
 
