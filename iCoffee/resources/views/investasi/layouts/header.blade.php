@@ -22,41 +22,38 @@
       </div>
     </div>
   </div>
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="index.html"><img src="logo.png" width="15%" height="10%"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menu
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <img src="logo.png" width="10%" height="5%"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
 
-
-      <div class="collapse navbar-collapse" id="ftco-nav">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="{{url('/')}}" class="nav-link">Beranda</a></li>
-          <li class="nav-item">
-            <a href="{{url('jual-beli')}}" class="nav-link">JualBeli</a>
-
-                <!-- <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" href="shop.html">Shop</a>
-                  <a class="dropdown-item" href="wishlist.html">Wishlist</a>
-                  <a class="dropdown-item" href="product-single.html">Single Product</a>
-                  <a class="dropdown-item" href="cart.html">Cart</a>
-                  <a class="dropdown-item" href="checkout.html">Checkout</a>
-              </div> -->
-          </li>
-          <li class="nav-item"><a href="{{url('lelang')}}" class="nav-link">Lelang</a></li>
-          <li class="nav-item"><a href="{{url('investasi')}}" class="nav-link">Investasi</a></li>
-          <!-- <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-plus"></span>Pasang Iklan</a></li> -->
-
+          <li class="nav-item active">
+            <li class="nav-item"><a href="{{url('/')}}" class="nav-link">Beranda</a></li>
+            <li class="nav-item"><a href="{{url('jual-beli')}}" class="nav-link">JualBeli</a></li>
+            <li class="nav-item"><a href="{{url('lelang')}}" class="nav-link">Lelang</a></li>
+            <li class="nav-item"><a href="{{url('investasi')}}" class="nav-link">Investasi</a></li>
+            <div class="dropdown ml-2 mt-1">
+              <button type="button" class="btn btn-primary btn-outline-primary my-2 px-3 py-1 my-sm-0" data-toggle="dropdown">
+               <i class="fa fa-plus"></i>&nbsp;Pasang Produk
+             </button>
+             <div class="dropdown-menu">
+              <a class="dropdown-item" href="{{url('pasang-jualbeli')}}">Penjualan</a>
+              <a class="dropdown-item" href="{{url('pasang-lelang')}}">Lelang</a>
+              <a class="dropdown-item" href="{{url('pasang-investasi')}}">Investasi</a>
+            </div>
+          </div>
           @if(Auth::check())
-          <li class="nav-item"><a href="{{url('keluar')}}" class="nav-link">Keluar</a></li>
-          </li>
-          @else
-           <li class="nav-item"><a href="{{url('masuk')}}" class="nav-link">Masuk</a></li>
-          @endif
-
+          <li class="nav-item ml-2"><a href="{{url('keluar')}}" class="nav-link">| Keluar</a></li>
+        </li>
+        @else
+        <li class="nav-item ml-2"><a href="{{url('masuk')}}" class="nav-link">| Masuk</a></li>
+        @endif
       </ul>
+    </div> 
   </div>
-</div>
 </nav>
+</div>
