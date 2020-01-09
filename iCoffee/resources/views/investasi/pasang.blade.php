@@ -2,7 +2,6 @@
 @section('title', 'Pasang Produk | Investasi')
 @section('content')
 
-
 <div class="col-md-9">
    <div class="card">
      <article class="card-group-item">
@@ -24,7 +23,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
               <div class="form-group">
                 <label for="harga">Harga </label>
                 <div class="input-group">
@@ -37,7 +36,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div class="form-group">
         <label for="stok">Stok</label>
         <div class="input-group">

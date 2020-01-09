@@ -48,7 +48,7 @@
           </div>
 
           @guest
-          <li class="nav-item ml-2"><a href="{{ __('login') }}" class="nav-link">| Masuk</a></li>
+          <li class="nav-item ml-2"><a href="{{ __('login') }}" class="nav-link">Masuk</a></li>
          
         @else
         <li class="nav-item ml-2 dropdown">  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
