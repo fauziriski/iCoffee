@@ -1,4 +1,5 @@
 @extends('jual-beli.layouts.app')
+@section('title', 'Checkout')
 @section('sidebar')
 @endsection
 @section('content')

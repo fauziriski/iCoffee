@@ -11,7 +11,5 @@
 |*/
 
 Route::get('/', function(){
-
-    return 'admin page';
-	// return view('admin.beranda')->name('dashboard');
+	return view('admin.beranda');
 });

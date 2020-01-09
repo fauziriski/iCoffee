@@ -1,4 +1,5 @@
 @extends('investasi.layouts.app')
+@section('title', 'Beranda | Investasi')
 @section('sidebar')
 @endsection
 @section('content')

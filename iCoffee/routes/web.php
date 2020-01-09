@@ -44,16 +44,6 @@
 
 
 
-//login/regis pengguna
-
-// Route::get('/masuk','UserController@masuk');
-// Route::get('/daftar','UserController@daftar');
-// Route::post('/daftar_user','UserController@prosesDaftar');
-// Route::post('/user_login','UserController@prosesMasuk');
-// Route::get('/keluar','UserController@keluar');
-
-
-
 // jual beli
 Route::get('/', function () {
 	return view('index');
@@ -81,7 +71,7 @@ Route::get('/pasang-jualbeli', function(){
 	return view('jual-beli.pasang');
 });
 
-Route::get('/pasang-jualbeli', 'HomeController@pasangJualan');
+Route::get('/pasang-lelang', 'ProdukLelang@pasangJualan');
 
 
 //lelang
