@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
   
-
+  <link href="{{asset('admin/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="{{asset('investasi/css/open-iconic-bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/animate.css') }}">
   
@@ -24,15 +24,18 @@
   <link rel="stylesheet" href="{{asset('investasi/css/bootstrap-datepicker.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/jquery.timepicker.css') }}">
 
-  
+  <link rel="stylesheet" href="{{asset('investasi/css/images.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/flaticon.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/icomoon.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/style.css') }}">
 </head>
 
 @section('header')
-
 @include('investasi.layouts.header')
+@show
+
+@section('sidebar')
+@include('investasi.layouts.sidebar')
 @show
 
 @yield('content')
@@ -54,12 +57,13 @@
 <script src="{{asset('investasi/js/jquery.animateNumber.min.js')}}"></script>
 <script src="{{asset('investasi/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('investasi/js/scrollax.min.js')}}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="{{asset('investasi/js/images.js')}}"></script>
 <script src="{{asset('investasi/js/google-map.js')}}"></script>
 <script src="{{asset('investasi/js/main.js')}}"></script>
 <script src="{{asset('js/google-map.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-<script src="{{asset('js/images.js')}}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+
 
 
 </body>

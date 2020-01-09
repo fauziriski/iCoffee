@@ -89,7 +89,7 @@ Route::get('/lelang', function () {
 });
 
 Route::get('/pasang-lelang', function(){
-	return view('jual-beli.pasanglelang');
+	return view('jual-beli.lelang.pasang');
 });
 
 

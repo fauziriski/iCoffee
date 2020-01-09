@@ -1,5 +1,6 @@
 @extends('investasi.layouts.app')
-
+@section('sidebar')
+@endsection
 @section('content')
 
     <div class="hero-wrap hero-bread" style="background-image: url('images/petani.jpg');">
