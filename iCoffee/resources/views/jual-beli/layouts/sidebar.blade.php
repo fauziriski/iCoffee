@@ -8,7 +8,7 @@
           <header class="card-header"><h6 class="title">Profile</h6></header>
           <div class="filter-content">
             <div class="list-group list-group-flush">
-              <li href="#" class="list-group-item"><img src="/images/tonii.png" width="25%" style="border-radius: 50%">&nbsp;&nbsp; Ahmad Fathoni</li>
+            <li href="#" class="list-group-item"><img src="/images/tonii.png" width="25%" style="border-radius: 50%">&nbsp;&nbsp; {{ Auth::user()->name }}</li>
               <a href="{{url('edit-profile')}}" class="list-group-item"><span class="icon icon-edit"></span>&nbsp;&nbsp; Edit Profile</a>
             </div> 
           </div>
