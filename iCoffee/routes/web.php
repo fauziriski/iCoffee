@@ -81,6 +81,7 @@ Route::get('/pasang-jualbeli', function(){
 	return view('jual-beli.pasang');
 });
 
+Route::get('/pasang-jualbeli', 'HomeController@pasangJualan');
 
 
 //lelang

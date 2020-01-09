@@ -50,7 +50,7 @@
           <li class="nav-item ml-2"><a href="{{url('keluar')}}" class="nav-link">| Keluar</a></li>
         </li>
         @else
-        <li class="nav-item ml-2"><a href="{{url('masuk')}}" class="nav-link">| Masuk</a></li>
+        <li class="nav-item ml-2"><a href="{{url('login')}}" class="nav-link">| Masuk</a></li>
         @endif
       </ul>
     </div> 
