@@ -77,9 +77,7 @@ Route::get('/jual-beli/keranjang', function(){
 	return view('jual-beli.keranjang');
 });
 
-Route::get('/pasang-jualbeli', function(){
-	return view('jual-beli.pasang');
-});
+Route::get('/pasang-jualbeli', 'ProdukController@pasangjualbeli');
 
 
 
