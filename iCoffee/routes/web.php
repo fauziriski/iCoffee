@@ -78,6 +78,8 @@ Route::get('/jual-beli/keranjang', function(){
 });
 
 Route::get('/pasang-jualbeli', 'ProdukController@pasangjualbeli');
+Route::post('/pasang-produk/berhasil', 'ProdukController@pasangproduk');
+
 
 
 
