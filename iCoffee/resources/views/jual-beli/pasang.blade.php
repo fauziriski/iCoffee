@@ -6,7 +6,8 @@
  <div class="card">
    <article class="card-group-item">
     <header class="card-header"><h6 class="title">Pasang Produk</h6></header>
-    <form action="{{url('pasang-produk-jual')}}">
+    <form action="/pasang-produk/berhasil" method="post">
+      @csrf
       <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
         <div class="col-md-12">
           <div class="form-group">
@@ -29,8 +30,8 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">Rp</div>
                   </div>
-                  <input type="number" class="form-control" placeholder="Dalam Rupiah" name="stok">
-                  <span class="text-danger">{{$errors->first('name')}}</span>
+                  <input type="number" class="form-control" placeholder="Dalam Rupiah" name="harga">
+                  <span class="text-danger">{{$errors->first('harga')}}</span>
                 </div>
               </div>
             </div>
@@ -53,12 +54,12 @@
                 <label for="country">Kategori</label>
                 <div class="select-wrap">
                   <select name="id_kategori" id="" class="form-control">
-                    <option value="">Arabika</option>
-                    <option value="">Robusta</option>
-                    <option value="">Luwak</option>
-                    <option value="">Jawa</option>
-                    <option value="">Flores</option>
-                    <option value="">Hijau</option>
+                    <option value="1">Arabika</option>
+                    <option value="2">Robusta</option>
+                    <option value="3">Luwak</option>
+                    <option value="4">Jawa</option>
+                    <option value="5">Flores</option>
+                    <option value="6">Hijau</option>
                   </select>
                 </div>
               </div>
@@ -67,8 +68,8 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>
-                <textarea class="form-control" rows="5" type="text" name="deskripsi"></textarea>
-                <span class="text-danger">{{$errors->first('stok')}}</span>
+                <textarea class="form-control" rows="5" type="text" name="detail_produk"></textarea>
+                <span class="text-danger">{{$errors->first('detail_produk')}}</span>
               </div>
             </div>
 
