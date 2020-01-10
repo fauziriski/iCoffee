@@ -13,3 +13,4 @@
 
 
 Route::get('/', 'HomeController@index');
+Route::get('/data-pelanggan', 'HomeController@index');
