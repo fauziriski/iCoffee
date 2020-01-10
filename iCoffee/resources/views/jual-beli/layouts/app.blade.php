@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>iCoffee</title>
+   <title>@yield('title')</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
@@ -37,9 +37,12 @@
 @include('jual-beli.layouts.header')
 @show
 
+@guest
+@else
 @section('sidebar')
 @include('jual-beli.layouts.sidebar')
 @show
+@endguest
 
 @yield('content')
 

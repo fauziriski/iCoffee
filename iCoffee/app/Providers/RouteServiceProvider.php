@@ -44,6 +44,7 @@ class RouteServiceProvider extends ServiceProvider
     {
 
         $this->mapAdminRoutes();
+        $this->mapSuperAdminRoutes();
 
         $this->mapApiRoutes();
 
@@ -61,14 +62,14 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    // protected function mapSuperAdminRoutes()
-    // {
-    //     Route::middleware('web','auth','role:superadmin')
-    //          ->prefix('super-admin')
-    //          ->name('superadmin.')
-    //          ->namespace($this->namespace . '\Admin')
-    //          ->group(base_path('routes/superadmin.php'));
-    // }
+    protected function mapSuperAdminRoutes()
+    {
+        Route::middleware('web','auth','role:superadmin')
+        ->prefix('super-admin')
+        ->name('superadmin.')
+        ->namespace($this->namespace . '\SuperAdmin')
+        ->group(base_path('routes/superadmin.php'));
+    }
 
     /**
      * Define the "Admin" routes for the application.

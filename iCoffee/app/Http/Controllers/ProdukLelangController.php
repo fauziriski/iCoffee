@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ProdukLelangController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,14 +21,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    
+       public function pasangLelang()
     {
-        return view('home');
-    }
-
-       public function pasangJualan()
-    {
-        return view('jual-beli.pasang');
+        return view('jual-beli.lelang.pasang');
     }
 
 

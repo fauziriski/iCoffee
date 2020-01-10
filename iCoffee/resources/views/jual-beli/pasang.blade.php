@@ -1,5 +1,5 @@
 @extends('jual-beli.layouts.app')
-
+@section('title', 'Pasang Produk')
 @section('content')
 
 <div class="col-md-9">
