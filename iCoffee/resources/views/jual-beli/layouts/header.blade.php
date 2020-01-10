@@ -49,28 +49,28 @@
 
           @guest
           <li class="nav-item ml-2"><a href="{{ __('login') }}" class="nav-link"> Masuk</a></li>
-         
-        @else
-        <li class="nav-item ml-2 dropdown">  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-          {{ Auth::user()->name }} <span class="caret"></span>
-        </a>
-
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">
-            {{ __('Logout') }}
+          
+          @else
+          <li class="nav-item ml-2 dropdown">  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            &nbsp;&nbsp;&nbsp;Hai, {{ Auth::user()->name }} <span class="caret"></span>
           </a>
 
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-            </form>
-        </div>
-      </li>
-        
-        @endguest
-      </ul>
-    </div> 
-  </div>
+          <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown">
+           <a class="dropdown-item" href="{{ route('logout') }}"
+           onclick="event.preventDefault();
+           document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+           {{ __('Keluar') }}
+         </a>
+
+         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+        </form>
+      </div>
+    </li>
+    
+    @endguest
+  </ul>
+</div> 
+</div>
 </nav>
 </div>

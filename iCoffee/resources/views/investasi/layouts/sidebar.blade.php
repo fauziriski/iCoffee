@@ -1,4 +1,4 @@
-@guest
+
 <section class="ftco-section">
   <div class="container">
     <div class="row">
@@ -8,8 +8,6 @@
           <header class="card-header"><h6 class="title">Profile</h6></header>
           <div class="filter-content">
             <div class="list-group list-group-flush">
-
-              @else
             <li href="#" class="list-group-item"><img src="/images/tonii.png" width="25%" style="border-radius: 50%">&nbsp;&nbsp; {{ Auth::user()->name }}</li>
               <a href="{{url('edit-profile')}}" class="list-group-item"><span class="icon icon-edit"></span>&nbsp;&nbsp; Edit Profile</a>
             </div> 
@@ -44,5 +42,3 @@
         </article> 
       </div>
     </div>
-
-    @endguest

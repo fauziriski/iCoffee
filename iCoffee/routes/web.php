@@ -38,10 +38,6 @@
 // // });
 
 
-// //admin login
-// Route::get('/masuk_admin','UserController@adminMasuk');
-// Route::post('/admin_login','UserController@prosesAdminMasuk');
-
 
 
 // jual beli
@@ -68,8 +64,8 @@ Route::get('/jual-beli/keranjang', function(){
 });
 
 Route::get('/pasang-jualbeli', 'ProdukController@pasangjualbeli');
-
-Route::get('/pasang-lelang', 'ProdukLelang@pasangJualan');
+Route::get('/pasang-lelang', 'ProdukLelangController@pasangLelang');
+Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi');
 
 
 //lelang
@@ -77,21 +73,11 @@ Route::get('/lelang', function () {
 	return view('jual-beli.lelang.index');
 });
 
-Route::get('/pasang-lelang', function(){
-	return view('jual-beli.lelang.pasang');
-});
-
-
 // investasi
 
 Route::get('/investasi', function () {
 	return view('investasi.index');
 });
-
-Route::get('/pasang-investasi', function(){
-	return view('investasi.pasang');
-});
-
 
 
 Auth::routes();

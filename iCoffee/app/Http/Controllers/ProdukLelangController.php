@@ -22,9 +22,9 @@ class ProdukLelangController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     
-       public function pasangJualan()
+       public function pasangLelang()
     {
-        return view('jual-beli.pasang');
+        return view('jual-beli.lelang.pasang');
     }
 
 

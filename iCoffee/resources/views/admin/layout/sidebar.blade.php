@@ -9,7 +9,12 @@
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
       </div>
-      <div class="sidebar-brand-text mx-3">Admin</div>
+     
+      @can('isSuperadmin')
+      <div class="sidebar-brand-text mx-3">Admain</div>
+      @else
+       <div class="sidebar-brand-text mx-3">Admin</div>
+       @endcan
     </a>
 
     <!-- Divider -->
@@ -106,6 +111,11 @@
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
-
     </ul>
+
+
+
+
+
+
     <!-- End of Sidebar -->

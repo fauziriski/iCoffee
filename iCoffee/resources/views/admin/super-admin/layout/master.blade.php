@@ -19,8 +19,8 @@
 	<link href="{{asset('admin/assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
 </head>
-@include('super-admin.layout.sidebar')
-@include('super-admin.layout.navbar')
+@include('admin.super-admin.layout.sidebar')
+@include('admin.super-admin.layout.navbar')
 @yield('content')
 
 <body>
