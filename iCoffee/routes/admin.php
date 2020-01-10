@@ -12,4 +12,8 @@
 
 Route::get('/', function(){
 	return view('admin.beranda');
-});
+})->name('dashboard');
+
+Route::get('/coba', function(){
+	return view('admin.beranda');
+})->name('dashboard');

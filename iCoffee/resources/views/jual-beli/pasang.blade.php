@@ -6,17 +6,11 @@
  <div class="card">
    <article class="card-group-item">
     <header class="card-header"><h6 class="title">Pasang Produk</h6></header>
-    <form action="/pasang-produk/berhasil" method="post">
+    <form action="/pasang-produk/berhasil" method="post"  enctype="multipart/form-data">
       @csrf
       <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
         <div class="col-md-12">
-          <div class="form-group">
-            <div class="images">
-              <div class="pic">
-                Tambah Foto
-              </div>
-            </div>
-          </div>
+
           <div class="form-group">
             <label for="nama">Nama Produk</label>
             <input type="text" class="form-control" name="nama_produk">
@@ -71,6 +65,16 @@
                 <textarea class="form-control" rows="5" type="text" name="detail_produk"></textarea>
                 <span class="text-danger">{{$errors->first('detail_produk')}}</span>
               </div>
+            </div>
+
+                      
+              <div class="form-group">
+
+                @for ($i = 0; $i < 5; $i++)
+
+                  <input type="file" name="image[]" class="form-control-file" >
+                @endfor
+
             </div>
 
             <div class="col-md-12 mt-3">

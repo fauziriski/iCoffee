@@ -33,6 +33,31 @@ class ProdukController extends Controller
         $timestamps = date('YmdHis');
         $id_pelanggan = Auth::id();
         $oldMarker = $timestamps.$id_pelanggan;
+        
+        $size = count(collect($request)->get('image'));
+
+        $this->validate($request,[
+
+            'image' => 'required'
+        ]);
+
+        $folderPath = public_path("Uploads\Produk\{$oldMarker}");
+        $response = mkdir($folderPath);
+        $nama = array();
+        
+
+        if($files = $request->file('image')){
+
+            foreach($files as $image){
+                $name=$image->getClientOriginalName();
+                $image->move($folderPath,$name);
+                $nama[]=$name;
+                
+            }
+
+
+        }
+    
 
 
         $order = Shop_product::create([
@@ -40,7 +65,7 @@ class ProdukController extends Controller
             'id_kategori' => '1',
             'nama_produk' => $request->nama_produk,
             'detail_produk' => $request->detail_produk,
-            'gambar' => 'coba.png',
+            'gambar' => $nama[0],
             'harga' => $request->harga,
             'stok' => $request->stok,
             'kode_produk' => $oldMarker
@@ -50,16 +75,30 @@ class ProdukController extends Controller
         $id = $order->id;
 
         
+        for ($i=0; $i < $size ; $i++) {
+            Image::create([
+                'id_pelanggan' => $id_pelanggan,
+                'id_produk' => $id,
+                'nama_gambar' => $nama[$i],
+                'kode_produk' => $oldMarker
 
-        Image::create([
-            'id_pelanggan' => $id_pelanggan,
-            'id_produk' => $id,
-            'nama_gambar' => 'coba.png',
-            'kode_produk' => $oldMarker
-
-        ]);
+            ]);
+        }
 
         return redirect('/');
+    }
+
+
+    public function index()
+    {
+        $id_customer = Auth::id();
+    
+        $products = DB::table('products')->paginate(8);
+        $cart = Cart::where('id_customer', $id_customer)->get();
+        $size = $cart->count();
+ 
+    
+        return view('User.index',compact('products','size'));
     }
     
 }
