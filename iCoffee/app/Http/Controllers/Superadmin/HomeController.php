@@ -10,4 +10,8 @@ class HomeController extends Controller
 	public function index(){
 		return view('admin.super-admin.beranda');
 	}
+
+	public function dataPelanggan(){
+		return view('super-admin.data-pelanggan');
+	}
 }
