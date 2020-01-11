@@ -12,5 +12,5 @@
 
 
 
-Route::get('/', 'HomeController@index');
-Route::get('/data-pelanggan', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('dashboard');
+Route::get('/data-pelanggan', 'HomeController@dataPelanggan');
