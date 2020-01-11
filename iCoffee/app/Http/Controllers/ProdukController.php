@@ -75,7 +75,7 @@ class ProdukController extends Controller
         $id = $order->id;
 
         
-        for ($i=0; $i < $size ; $i++) {
+        for ($i=1; $i < $size ; $i++) {
             Image::create([
                 'id_pelanggan' => $id_pelanggan,
                 'id_produk' => $id,

@@ -12,6 +12,6 @@ class HomeController extends Controller
 	}
 
 	public function dataPelanggan(){
-		return view('super-admin.data-pelanggan');
+		return view('admin.super-admin.data-pelanggan');
 	}
 }
