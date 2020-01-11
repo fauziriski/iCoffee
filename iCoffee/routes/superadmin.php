@@ -13,4 +13,4 @@
 
 
 Route::get('/', 'HomeController@index')->name('dashboard');
-Route::get('/data-pelanggan', 'HomeController@dataPelanggan');
+Route::get('/data-pelanggan', 'KelolaPenggunaController@dataPelanggan');
