@@ -36,6 +36,7 @@
     @include('layout.header')
     @show
     @yield('content')
+    @include('sweetalert::alert')
     @section('footer')
     @include('layout.footer')
     @show
