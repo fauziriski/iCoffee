@@ -34,9 +34,8 @@
 					<td>0895165901662</td>
 					<td>{{$keluar->created_at}}</td>
 					<td>
-						<a href="" class="btn btn-primary"><i class="fas fa-eye fa-sm text-white-50"></i> Lihat</a>
-						<a href="" class="btn btn-info"><i class="fas fa-check fa-sm text-white-50"></i> Validasi</a>
-						<a href="" class="btn btn-danger"><i class="fas fa-times fa-sm text-white-50"></i> Tolak</a>
+						<a href="" class="btn btn-primary"><i class="fas fa-eye fa-sm text-white-50"></i> Edit</a>
+						<a href="" class="btn btn-danger"><i class="fas fa-times fa-sm text-white-50"></i> Hapus</a>
 					</tr>
 					@endforeach
 				</tbody>
