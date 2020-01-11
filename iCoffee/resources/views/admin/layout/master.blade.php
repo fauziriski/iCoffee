@@ -17,6 +17,8 @@
 
 	<!-- Custom styles for this template-->
 	<link href="{{asset('admin/assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{asset('DataTables/datatables.min.css') }}"/>
+	
 	<style type="text/css">
 		table{
 			width:100%;
@@ -103,26 +105,14 @@
 <!-- Page level custom scripts -->
 <script src="{{asset('admin/assets/js/demo/chart-area-demo.js') }}"></script>
 <script src="{{asset('admin/assets/js/demo/chart-pie-demo.js') }}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="{{asset('DataTables/datatables.min.js') }}"></script>
+@yield('footer_scripts')
 
 <script>
-	$(document).ready(function() {
-		$('#example').DataTable(
-
-		{     
-
-			"aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
-			"iDisplayLength": 5
-
-		} 
-		);
-	} );
-
-
+	
 	function checkAll(bx) {
 		var cbs = document.getElementsByTagName('input');
 		for(var i=0; i < cbs.length; i++) {
@@ -132,6 +122,7 @@
 		}
 	}
 </script>
+
 
 <script>
     // Set the date we're counting down to

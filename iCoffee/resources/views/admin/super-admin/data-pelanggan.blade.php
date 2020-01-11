@@ -14,33 +14,40 @@
 			<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>  Download Excel</a>
 		</div>
 		
-		<table id="example" class="table table-striped table-bordered" style="width:100%">
+		<table id="table_id" class="table table-striped table-bordered" style="width:100%">
 			<thead>
 				<tr>
-					<th><input type="checkbox" onclick="checkAll(this)"></th>
 					<th>Nama Pengguna</th>
 					<th>Email Pengguna</th>
-					<th>No. Telp</th>
 					<th>Begabung</th>
-					<th>Aksi</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($user as $keluar)
-				<tr>
-					<td><input type="checkbox" name=""></td>
-					<td>{{$keluar->name}}</td>
-					<td>{{$keluar->email}}</td>
-					<td>0895165901662</td>
-					<td>{{$keluar->created_at}}</td>
-					<td>
-						<a href="" class="btn btn-primary"><i class="fas fa-eye fa-sm text-white-50"></i> Edit</a>
-						<a href="" class="btn btn-danger"><i class="fas fa-times fa-sm text-white-50"></i> Hapus</a>
-					</tr>
-					@endforeach
-				</tbody>
-			</table>
-		</div>
+				
+			</tbody>
+		</table>
 	</div>
+</div>
 
-	@endsection
+@endsection
+@section('footer_scripts')
+<script>
+	$(document).ready( function () {
+		$('#table_id').DataTable({
+			processing:true,
+			serverside:true,
+			ajax: "{{route('get.data.siswa')}}",
+
+			columns: [
+
+			{data: 'name', name: 'name'},
+
+			{data:'email', name:'email'},
+
+			{data:'created_at', name:'created_at'},
+
+			],
+
+		} );
+	</script>
+	@stop
