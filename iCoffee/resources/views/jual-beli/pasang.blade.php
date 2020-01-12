@@ -48,10 +48,10 @@
                 <label for="country">Kategori</label>
                 <div class="select-wrap">
                   <select name="id_kategori" id="" class="form-control">
-                    <option value="1">Arabika</option>
-                    <option value="2">Robusta</option>
-                    <option value="3">Luwak</option>
-                    <option value="4">Jawa</option>
+                    <option value="1">Robusta</option>
+                    <option value="2">Arabika</option>
+                    <option value="3">Honey</option>
+                    <option value="4">Natural</option>
                     <option value="5">Flores</option>
                     <option value="6">Hijau</option>
                   </select>
