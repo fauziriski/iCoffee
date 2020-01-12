@@ -45,14 +45,12 @@ Route::get('/', function () {
 	return view('index');
 });
 
+Route::get('/jual-beli','ProdukController@index');
 
-Route::get('/jual-beli', function(){
-	return view('jual-beli.index');
-});
-
-Route::get('/jual-beli/produk', function(){
-	return view('jual-beli.detailproduk');
-});
+// Route::get('/jual-beli/produk', function(){
+// 	return view('jual-beli.detailproduk');
+// });
+Route::get('/jual-beli/produk/{id}','ProdukController@detail');
 
 Route::get('/jual-beli/checkout', function(){
 	return view('jual-beli.checkout');

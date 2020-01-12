@@ -6,7 +6,7 @@
 
 
     <section class="ftco-section">
-    	<div class="container">
+    	{{-- <div class="container">
     		<div class="row">
     			<div class="col-lg-6 mb-5 ftco-animate">
     				<a href="{{ asset('Jualbeli/images/product-1.jpg') }}" class="image-popup"><img src="{{ asset('Jualbeli/images/product-1.jpg') }}" class="img-fluid" alt="Colorlib Template"></a>
@@ -43,7 +43,25 @@
           </div>
         </div>
       </div>
-    			</div>
+          </div> --}}
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6 mb-5 pl-4 md-5 pr-2 ftco-animatee">
+          <div class="home-slider owl-carousel">
+            
+    
+            <div class="slider-item">
+              <img class="img-fluid" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" alt="Colorlib Template">
+            </div>
+
+            @foreach($image as $data)
+            <div class="slider-item">
+              <img class="img-fluid" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$data->nama_gambar) }}" alt="Colorlib Template">
+            </div>
+            @endforeach
+          </div>
+              </div>
+          
 
 
 
@@ -51,7 +69,7 @@
 
 
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-    				<h3>Kopi Arabika</h3>
+    				<h3>{{ $products->nama_produk }}</h3>
     				<!-- <div class="rating d-flex">
 							<p class="text-left mr-4">
 								<a href="#" class="mr-2">5.0</a>
@@ -69,7 +87,7 @@
 							</p>
 						</div> -->
 
-					<p class="price"><span>Rp 30.000 / Kg</span></p>
+					<p class="price"><span>Rp {{ $products->harga }} / Kg</span></p>
 
           <div class="row">
 					<p class="text-left">
@@ -77,7 +95,7 @@
 						<a href="#" class="mr-2" style="color: #000;">Stok
             </div>
               <div class="col">
-              <span class="mr-4" style="color: #bbb;">100 Kg</span>
+              <span class="mr-4" style="color: #bbb;">{{ $products->stok }} Kg</span>
             </div>
             </a>
 					</p>
@@ -89,7 +107,7 @@
 						  <a href="#" class="mr-4" style="color: #000;">Kategori
             </div>
             <div class="col">
-              <span class="mr-4" style="color: #bbb;">Kopi Arabika</span>
+              <span class="mr-4" style="color: #bbb;">{{$products->category->kategori}}</span>
             </div>
             </a>
 					</p>
@@ -97,7 +115,7 @@
 					
     				<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
 						</p> -->
-						<div class="row mt-4">
+						<div class="row mt-2">
 							<div class="col-md-6">
 								<div class="form-group d-flex">
 		              <!-- <div class="select-wrap"> -->
@@ -133,14 +151,15 @@
 				  </div>
 				  
           	</div>
-          	<p><a href="/jual-beli/keranjang" class="btn btn-black py-3 px-5">Beli</a></p>
+          	<p><a href="/jual-beli/keranjang" class="btn btn-primary py-3 px-5">Beli</a></p>
     			</div>
 			</div>
-
+      
+      <div class="row">
 			<div class="col mb-5 ftco-animate">
-				<p>Kopi arabika merupakan tipe kopi tradisional dengan cita rasa terbaik. Sebagian besar kopi yang ada dibuat dengan menggunakan biji kopi jenis ini. Kopi ini berasal dari Etiopia dan sekarang telah dibudidayakan di berbagai belahan dunia, mulai dari Amerika Latin, Afrika Tengah, Afrika Timur, India, dan Indonesia. Secara umum, kopi ini tumbuh di negara-negara beriklim tropis atau subtropis. Kopi arabika tumbuh pada ketinggian 600–2000 m di atas permukaan laut. Tanaman ini dapat tumbuh hingga 3 meter bila kondisi lingkungannya baik. Suhu tumbuh optimalnya adalah 18–26 C. Biji kopi yang dihasilkan berukuran cukup kecil dan berwarna hijau hingga merah gelap. Selain itu, kopi arabika juga memiliki rasa dan aroma yang lebih nikmat, serta kandungan kafeinnya lebih rendah sehingga baik untuk dikonsumsi. Kopi arabika memiliki aroma yang kuat, sifat kekentalan (body) ringan hingga sedang dan tingkat keasaman tinggi. Selain itu, kandungan kafein kopi arabika lebih rendah dibanding robusta yaitu sekitar 0,8–1,5%.
-				</p>
-			</div>
+				<p>{{ $products->detail_produk }}</p>
+      </div>
+    </div>
 			
 
     	</div>

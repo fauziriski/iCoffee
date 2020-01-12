@@ -11,4 +11,7 @@ class Image extends Model
     ];
 
     public $timestamps = true;
+
+
+    
 }
