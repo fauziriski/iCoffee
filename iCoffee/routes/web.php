@@ -83,7 +83,7 @@ Route::get('/investasi', function () {
 });
 
 
-
+Route::get('/data-pelanggan', 'Superadmin\KelolaPenggunaController@dataPelanggan')->name('data-pelanggan');
 
 Auth::routes();
 
