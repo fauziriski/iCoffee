@@ -10,8 +10,6 @@ use App\User;
 class KelolaPenggunaController extends Controller
 {
 	public function dataPelanggan(){
-		// $user = User::select('users.*');
-		// return DataTables::eloquent($user)->tojson();
 
 		if(request()->ajax())
 		{
@@ -28,6 +26,16 @@ class KelolaPenggunaController extends Controller
 
 		return view('admin.super-admin.data-pelanggan');
 	}
+
+	public function hapusPelanggan($id)
+	{
+
+		$data = User::findOrFail($id);
+		$data->delete();
+		return view('admin.super-admin.data-pelanggan');
+
+	}
+
 
 }
 

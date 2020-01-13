@@ -14,3 +14,7 @@
 
 Route::get('/', 'HomeController@index')->name('dashboard');
 Route::get('/data-pelanggan', 'KelolaPenggunaController@dataPelanggan')->name('data-pelanggan');
+// Route::post('/update-pelanggan', 'KelolaPengguna@updatePelanggan')->name('pelanggan.update');
+Route::get('/hapus-pelanggan/{id}', 'KelolaPenggunaController@hapusPelanggan');
+
+

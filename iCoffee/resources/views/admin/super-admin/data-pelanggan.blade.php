@@ -28,36 +28,21 @@
 </div>
 
 
-<div id="formModal" class="modal fade" role="dialog">
+
+
+<div id="confirmModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Edit Data Pelanggan</h4>
+			
 			</div>
 			<div class="modal-body">
-				<span id="form_result"></span>
-				<form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
-					@csrf
-					<div class="form-group">
-						<label class="control-label col-md-4" >Nama : </label>
-						<div class="col-md-8">
-							<input type="text" name="name" id="name" class="form-control" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-4">Email : </label>
-						<div class="col-md-8">
-							<input type="email" name="email" id="email" class="form-control" />
-						</div>
-					</div>
-					<br />
-					<div class="form-group" align="center">
-						<input type="hidden" name="action" id="action" />
-						<input type="hidden" name="hidden_id" id="hidden_id" />
-						<input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Tambah" />
-					</div>
-				</form>
+				<h4 align="center" style="margin:0;">Apakah anda yakin ingin menghapus?</h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -88,32 +73,32 @@ $('#table_id').DataTable({
 });
 
 
-//modal edit
+var user_id;
 
-$('#create_record').click(function(){
-	$('.modal-title').text("Edit Data Pelanggan");
-	$('#action_button').val("Edit");
-	$('#action').val("Edit");
-	$('#formModal').modal('show');
+$(document).on('click', '.delete', function(){
+	user_id = $(this).attr('id');
+	$('#confirmModal').modal('show');
 });
 
-$(document).on('click', '.edit', function(){
-	var id = $(this).attr('id');
-	$('#form_result').html('');
+$('#ok_button').click(function(){
 	$.ajax({
-		url:"user/"+id+"/edit",
-		dataType:"json",
-		success:function(html){
-			$('#nama').val(html.data.name);
-			$('#deskripsi').val(html.data.email);
-			$('#hidden_id').val(html.data.id);
-			$('.modal-title').text("Ubah Data");
-			$('#action_button').val("Ubah");
-			$('#action').val("Ubah");
-			$('#formModal').modal('show');
+		url:"hapus-pelanggan/"+user_id,
+		beforeSend:function(){
+			$('#ok_button').text('Sedang Menghapus ...');
+		},
+		success:function()
+		{
+			setTimeout(function(){
+				$('#confirmModal').modal('hide');
+				$('#table_id').DataTable().ajax.reload();
+			}, 1000);
 		}
 	})
 });
+
 });
+
+
+
 </script>
 @stop
