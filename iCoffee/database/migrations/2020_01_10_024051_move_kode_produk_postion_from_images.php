@@ -13,13 +13,13 @@ class MoveKodeProdukPostionFromImages extends Migration
      */
     public function up()
     {
-        Schema::table('images', function (Blueprint $table) {
-            $table->string('kode_produk')->after('id_produk');
-        });
+        // Schema::table('images', function (Blueprint $table) {
+        //     $table->string('kode_produk')->after('id_produk');
+        // });
 
-        Schema::table('shop_products', function (Blueprint $table) {
-            $table->string('kode_produk')->after('id_kategori');
-        });
+        // Schema::table('shop_products', function (Blueprint $table) {
+        //     $table->string('kode_produk')->after('id_kategori');
+        // });
     }
 
     /**

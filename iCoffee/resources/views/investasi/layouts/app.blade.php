@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="{{asset('investasi/css/flaticon.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/icomoon.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/style.css') }}">
+  <link rel="stylesheet" href="{{asset('investasi/css/gambar.less')}}">
 </head>
 
 @section('header')
@@ -65,6 +66,7 @@
 <script src="{{asset('investasi/js/main.js')}}"></script>
 <script src="{{asset('js/google-map.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.2.0/less.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 
 

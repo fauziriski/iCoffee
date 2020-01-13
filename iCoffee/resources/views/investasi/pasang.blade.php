@@ -10,11 +10,10 @@
           <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
             <div class="col-md-12">
               <div class="form-group">
-                <div class="images">
-                  <div class="pic">
-                    Tambah Foto
+                <div class="wrapper">
+                <input type="file" id="file" accept="image/*"/>
+<label for="file" class="btn-2">upload</label>
                 </div>
-            </div>
         </div>
         <div class="form-group">
             <label for="nama">Nama Produk</label>
