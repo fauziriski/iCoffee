@@ -66,7 +66,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapSuperAdminRoutes()
     {
         Route::middleware('web','auth','role:superadmin')
-        ->prefix('super-admin')
+        ->prefix('akses-superadmin')
         ->name('superadmin.')
         ->namespace($this->namespace . '\Superadmin')
         ->group(base_path('routes/superadmin.php'));
@@ -82,6 +82,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAdminRoutes()
     {
         Route::middleware('web','auth','role:admin')
+        ->prefix('akses-admin')
+        ->name('admin.')
         ->namespace($this->namespace. '\Admin')
         ->group(base_path('routes/admin.php'));
     }

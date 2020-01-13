@@ -29,22 +29,23 @@
     			</div>
     		</div>
     		<div class="row">
+
+                @foreach($products as $data)
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="{{ asset('Jualbeli/images/product-1.jpg') }}" alt="Colorlib Template">
-    						<span class="status">30%</span>
+    					<a href="/jual-beli/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid" src="{{ url('/Uploads/Produk/{'.$data->kode_produk.'}/'.$data->gambar) }}" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="/jual-beli/produk">Kopi Arabika</a></h3>
+    						<h3><a href="/jual-beli/produk/{{ $data->id }}">{{ $data->nama_produk }}</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
-		    						<p class="price"><span class="price-sale">Rp 30.000/Kg</span></p>
+		    						<p class="price"><span class="price-sale">Rp. {{ $data->harga }} / Kg</span></p>
 		    					</div>
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    							<a href="/jual-beli/produk/{{ $data->id }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 	    								<span><i class="ion-ios-menu"></i></span>
 	    							</a>
 	    							<a href="cart.html" class="buy-now d-flex justify-content-center align-items-center mx-1">
@@ -55,24 +56,25 @@
     						</div>
     					</div>
     				</div>
-    			</div>
+                </div>
+                @endforeach
 
     			
 
     		</div>
     		<div class="row mt-5">
           <div class="col text-center">
-            <div class="block-27">
+            {{-- <div class="block-27"> --}}
               <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
+                {{-- <li>{{ $products->render() }}</li> --}}
+                {{ $products->render() }}
+                {{-- <li><a href="#">{{ $products->render() }}</a></li> --}}
+                {{-- <li><a href="#">3</a></li>
                 <li><a href="#">4</a></li>
                 <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
+                <li><a href="#">&gt;</a></li> --}}
               </ul>
-            </div>
+            {{-- </div> --}}
           </div>
         </div>
     	</div>

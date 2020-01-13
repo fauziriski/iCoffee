@@ -24,7 +24,7 @@
   </div>
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
-      <img src="logo.png" width="10%" height="5%"></a>
+      <img src="{{asset('logo.png') }}" width="10%" height="5%"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

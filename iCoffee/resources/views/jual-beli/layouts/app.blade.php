@@ -45,6 +45,7 @@
 @endguest
 
 @yield('content')
+@include('sweetalert::alert')
 
 @section('footer')
 @include('jual-beli.layouts.footer')

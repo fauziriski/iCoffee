@@ -1,23 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Intervention\Image\ImageManagerStatic as Images;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Shop_product;
-use App\Category;
 use App\Image;
+use DB;
 
 
 
 class ProdukController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function pasangjualbeli()
     {
@@ -50,7 +46,11 @@ class ProdukController extends Controller
 
             foreach($files as $image){
                 $name=$image->getClientOriginalName();
-                $image->move($folderPath,$name);
+                $image_resize = Images::make($image->getRealPath());
+                $image_resize->resize(690, 547);
+                $image_resize->crop(500, 500);
+                $image_resize->save($folderPath .'/'. $name);
+                // $image_resize->move($folderPath,$name);
                 $nama[]=$name;
                 
             }
@@ -62,7 +62,7 @@ class ProdukController extends Controller
 
         $order = Shop_product::create([
             'id_pelanggan' => $id_pelanggan,
-            'id_kategori' => '1',
+            'id_kategori' => $request->id_kategori,
             'nama_produk' => $request->nama_produk,
             'detail_produk' => $request->detail_produk,
             'gambar' => $nama[0],
@@ -85,20 +85,28 @@ class ProdukController extends Controller
             ]);
         }
 
-        return redirect('/');
+        return redirect('/jual-beli');
     }
 
 
     public function index()
     {
+        // $id_customer = Auth::id();
+        
+        $products = Shop_product::orderBy('created_at','desc')->paginate(12);
+    
+        return view('jual-beli.index',compact('products'));
+    }
+
+    public function detail($id)
+    {
         $id_customer = Auth::id();
+        
+        $products = Shop_product::find($id);
+        $produk_terkait = Shop_product::where('id_kategori', $products->id_kategori)->take(4)->get();
+        $image = Image::where('id_produk', $products->id)->get();
     
-        $products = DB::table('products')->paginate(8);
-        $cart = Cart::where('id_customer', $id_customer)->get();
-        $size = $cart->count();
- 
-    
-        return view('User.index',compact('products','size'));
+        return view('jual-beli.detailproduk',compact('products','image','produk_terkait'));
     }
     
 }

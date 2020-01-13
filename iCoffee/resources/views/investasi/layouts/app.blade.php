@@ -43,6 +43,7 @@
 @endguest
 
 @yield('content')
+@include('sweetalert::alert')
 
 @section('footer')
 @include('investasi.layouts.footer')

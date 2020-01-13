@@ -10,6 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |*/
 
-Route::get('/', 'HomeController@index');
-Route::get('validasi-pembeli', 'PenggunaController@validasiPembeli')->name('validasi-pembeli');
+Route::get('/', 'HomeController@index')->name('dashboard');
+Route::get('/validasi-pembeli', 'HomeController@validasiPembeli');
 
