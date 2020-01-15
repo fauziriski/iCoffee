@@ -108,5 +108,7 @@ class ProdukController extends Controller
     
         return view('jual-beli.detailproduk',compact('products','image','produk_terkait'));
     }
+
+    
     
 }

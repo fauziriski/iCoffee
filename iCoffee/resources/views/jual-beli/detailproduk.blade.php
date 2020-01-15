@@ -87,72 +87,89 @@
 							</p>
 						</div> -->
 
-					<p class="price"><span>Rp {{ $products->harga }} / Kg</span></p>
+					  <p class="price"><span>Rp {{ $products->harga }} / Kg</span></p>
 
-          <div class="row">
-					<p class="text-left">
-            <div class="col-2">
-						<a href="#" class="mr-2" style="color: #000;">Stok
+            <div class="row">
+              <p class="text-left">
+                <div class="col-2">
+                <a href="#" class="mr-2" style="color: #000;">Stok
+                </div>
+                  <div class="col">
+                  <span class="mr-4" style="color: #bbb;">{{ $products->stok }} Kg</span>
+                </div>
+                </a>
+              </p>
             </div>
-              <div class="col">
-              <span class="mr-4" style="color: #bbb;">{{ $products->stok }} Kg</span>
-            </div>
-            </a>
-					</p>
-          </div>
 
-          <div class="row">
-					<p class="text-left">
-            <div class="col-2">
-						  <a href="#" class="mr-4" style="color: #000;">Kategori
+            <div class="row">
+              <p class="text-left">
+                <div class="col-2">
+                  <a href="#" class="mr-4" style="color: #000;">Kategori
+                </div>
+                <div class="col">
+                  <span class="mr-4" style="color: #bbb;">{{$products->category->kategori}}</span>
+                </div>
+                </a>
+              </p>
             </div>
-            <div class="col">
-              <span class="mr-4" style="color: #bbb;">{{$products->category->kategori}}</span>
-            </div>
-            </a>
-					</p>
+            
+              <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
+              </p> -->
+
+              <form action="/jual-beli/keranjang/tambah-produk" method="post"  enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="id_produk" value="{{$products->id}}">
+                <input type="hidden" name="nama_produk" value="{{$products->nama_produk}}">
+                <input type="hidden" name="harga" value="{{$products->harga}}">
+                <input type="hidden" name="gambar" value="{{$products->gambar}}">
+                <input type="hidden" name="kode_produk" value="{{$products->kode_produk}}">
+
+
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <div class="form-group d-flex">
+                    <!-- <div class="select-wrap"> -->
+                      <!-- <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
+                      <!-- <select name="" id="" class="form-control">
+                        <option value="">Small</option>
+                        <option value="">Medium</option>
+                        <option value="">Large</option>
+                        <option value="">Extra Large</option>
+                      </select> -->
+                    <!-- </div> -->
+                  </div>
+                </div>
+                <div class="w-100"></div>
+                <div class="input-group col-md-6 d-flex mb-3">
+                  <span class="input-group-btn mr-2">
+                      <button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
+                      <i class="ion-ios-remove"></i>
+                      </button>
+                  </span>
+              
+                  <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                  <span class="input-group-btn ml-2">
+                      <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+                        <i class="ion-ios-add"></i>
+                    </button>
+                  </span>
+                </div>
+
+                <div class="w-100"></div>
+                <div class="col-md-12">
+                  <p style="color: #000;">Terjual 30 Produk</p>
+              
+                </div>
+
+
+            
+              </div>
+              {{-- <button type="submit" class="btn btn-primary mt-3 py-3">Masuk</button> --}}
+              <p><input type="submit" class="btn btn-primary py-3 px-5" value="Beli"></p>
+              {{-- <p><a type="submit" class="btn btn-primary mt-3 py-3"></a>Beli</p> --}}
           </div>
-					
-    				<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
-						</p> -->
-						<div class="row mt-2">
-							<div class="col-md-6">
-								<div class="form-group d-flex">
-		              <!-- <div class="select-wrap"> -->
-	                  <!-- <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
-	                  <!-- <select name="" id="" class="form-control">
-	                  	<option value="">Small</option>
-	                    <option value="">Medium</option>
-	                    <option value="">Large</option>
-	                    <option value="">Extra Large</option>
-	                  </select> -->
-	                <!-- </div> -->
-		            			</div>
-							</div>
-							<div class="w-100"></div>
-							<div class="input-group col-md-6 d-flex mb-3">
-	             	<span class="input-group-btn mr-2">
-	                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
-	                   <i class="ion-ios-remove"></i>
-	                	</button>
-						</span>
-						
-	             	<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-	             	<span class="input-group-btn ml-2">
-	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-	                     <i class="ion-ios-add"></i>
-	                 </button>
-	             	</span>
-	          	</div>
-	          	<div class="w-100"></div>
-	          	<div class="col-md-12">
-					  <p style="color: #000;">Terjual 30 Produk</p>
-					  
-				  </div>
-				  
-          	</div>
-          	<p><a href="/jual-beli/keranjang" class="btn btn-primary py-3 px-5">Beli</a></p>
-    			</div>
+          </form>
+
 			</div>
       
       <div class="row">

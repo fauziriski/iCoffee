@@ -47,21 +47,19 @@ Route::get('/', function () {
 
 Route::get('/jual-beli','ProdukController@index');
 
-// Route::get('/jual-beli/produk', function(){
-// 	return view('jual-beli.detailproduk');
-// });
 Route::get('/jual-beli/produk/{id}','ProdukController@detail');
+
+Route::get('/jual-beli/keranjang','KeranjangjbController@keranjang');
+
+Route::post('/jual-beli/keranjang/tambah-produk','KeranjangjbController@tambahkeranjang');
 
 Route::get('/jual-beli/checkout', function(){
 	return view('jual-beli.checkout');
 });
 
 
-Route::get('/jual-beli/keranjang', function(){
-	return view('jual-beli.keranjang');
-});
 
-Route::get('/pasang-jualbeli', 'ProdukController@pasangjualbeli');
+Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
 Route::post('/pasang-produk/berhasil', 'ProdukController@pasangproduk');
 
 
