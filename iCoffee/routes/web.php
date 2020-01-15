@@ -76,8 +76,13 @@ Route::get('/investasi', function () {
 	return view('investasi.index');
 });
 
+Route::get('/jadi-mitra', 'KelompokTani@index');
+Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi');
+Route::post('/daftar-kelompok/store', 'KelompokTani@store');
+Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store');
+Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store');
 
-
+Route::get('/data-pelanggan', 'Superadmin\KelolaPenggunaController@dataPelanggan')->name('data-pelanggan');
 
 Auth::routes();
 

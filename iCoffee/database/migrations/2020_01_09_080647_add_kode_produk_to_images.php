@@ -15,6 +15,7 @@ class AddKodeProdukToImages extends Migration
     {
         Schema::table('images', function (Blueprint $table) {
             $table->string('kode_produk');
+            
         });
     }
 

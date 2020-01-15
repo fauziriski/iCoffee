@@ -109,72 +109,10 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <script type="text/javascript" src="{{asset('DataTables/datatables.min.js') }}"></script>
-@yield('footer_scripts')
-
-<script>
-	
-	function checkAll(bx) {
-		var cbs = document.getElementsByTagName('input');
-		for(var i=0; i < cbs.length; i++) {
-			if(cbs[i].type == 'checkbox') {
-				cbs[i].checked = bx.checked;
-			}
-		}
-	}
-</script>
+@yield('js')
 
 
-<script>
-    // Set the date we're counting down to
-    var countDownDate = new Date("Jan 7, 2020 15:37:25").getTime();
 
-    // Update the count down every 1 second
-    var x = setInterval(function() {
-
-      // Get today's date and time
-      var now = new Date().getTime();
-      
-      // Find the distance between now and the count down date
-      var distance = countDownDate - now;
-      
-      // Time calculations for days, hours, minutes and seconds
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
-      // Output the result in an element with id="demo"
-      document.getElementById("demo1").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo2").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo3").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo4").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo5").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo6").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      
-      // If the count down is over, write some text 
-      if (distance < 0) {
-      	clearInterval(x);
-      	document.getElementById("demo1").innerHTML = "EXPIRED";
-      	document.getElementById("demo2").innerHTML = "EXPIRED";
-      	document.getElementById("demo3").innerHTML = "EXPIRED";
-      	document.getElementById("demo4").innerHTML = "EXPIRED";
-      	document.getElementById("demo5").innerHTML = "EXPIRED";
-      	document.getElementById("demo6").innerHTML = "EXPIRED";
-      }
-  }, 1000);
-</script>
 
 </body>
 

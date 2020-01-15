@@ -13,4 +13,4 @@
 
 
 Route::get('/', 'HomeController@index')->name('dashboard');
-Route::get('/data-pelanggan', 'KelolaPenggunaController@dataPelanggan')->name('ajax.get.data-pelanggan');
+Route::get('/data-pelanggan', 'KelolaPenggunaController@dataPelanggan')->name('data-pelanggan');
