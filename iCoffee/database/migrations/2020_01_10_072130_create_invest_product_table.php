@@ -27,14 +27,14 @@ class CreateInvestProductTable extends Migration
             $table->integer('profit_periode');
             $table->timestamps();
 
-            $table->foreign('id_kategori')
-                ->references('id')
-                ->on('categories')
-                ->onDelete('cascade');
-            $table->foreign('id_kelompok_tani')
-                ->references('id')
-                ->on('kelompok_tani')
-                ->onDelete('cascade');
+            // $table->foreign('id_kategori')
+            //     ->references('id')
+            //     ->on('categories')
+            //     ->onDelete('cascade');
+            // $table->foreign('id_kelompok_tani')
+            //     ->references('id')
+            //     ->on('kelompok_tani')
+            //     ->onDelete('cascade');
         });
     }
 

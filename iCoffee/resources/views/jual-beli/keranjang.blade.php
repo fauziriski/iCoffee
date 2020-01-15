@@ -4,7 +4,8 @@
 @endsection
 @section('content')
 
-	<form action="/action_page.php" oninput="total.value=parseInt(harga.value)*parseInt(quantity.value)">
+	<form action="/jual-beli/checkout-barang" method="POST" oninput="total.value=parseInt(harga.value)*parseInt(quantity.value)">
+		@csrf
     <section class="ftco-section ftco-cart">
 			<div class="container">
 				<div class="row">
@@ -18,7 +19,8 @@
 						        <th>Nama Produk</th>
 						        <th>Harga</th>
 						        <th>Jumlah</th>
-						        <th>Total</th>
+								<th>Total</th>
+								<th>&nbsp;</th>
 						      </tr>
 						    </thead>
 						    <tbody>
@@ -26,7 +28,7 @@
 									
 								
 						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						        <td class="product-remove"><input type="checkbox" name="id[]" value="{{$data->id}}" ></td>
 						        
 						        <td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Produk/{'.$data->kode_produk.'}/'.$data->image) }});"></div></td>
 
@@ -35,25 +37,32 @@
 						        </td>
 						        
 						        <td class="price">{{ $data->harga }}</td>
-						        <input type="hidden" id="harga" name="harga" value="{{ $data->harga }}" readonly>
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-										{{-- <span class="input-group-btn mr-2">
-											<button type="button" class="quantity-left-minus btn"  data-quantity="minus" data-field="quantity">
-											<i class="ion-ios-remove"></i>
+						        <input type="hidden" id="harga" name="harga[]" value="{{ $data->harga }}" readonly>
+								
+								
+
+								<td class="quantity">
+									<form action="/jual-beli/update-keranjang" method="post" class="form-user">
+										<input type="hidden" id="id_qty" value="{{ $data->id}}">
+										<div class="input-group mb-3">
+											<span class="input-group-btn mr-2">
+												<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
+												<i class="ion-ios-remove"></i>
+												</button>
+											</span>
+								
+											<input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{ $data->jumlah }}" value="1" min="1" max="100">
+											<span class="input-group-btn ml-2">
+												<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+												<i class="ion-ios-add"></i>
 											</button>
-										</span> --}}
-							
-										<input type="number" id="jumlah" name="quantity" class="form-control input-number" value="{{ $data->jumlah }}" min="1" max="100">
-										{{-- <span class="input-group-btn ml-2">
-											<button type="button" class="quantity-right-plus btn" data-quantity="plus" data-field="quantity">
-											<i class="ion-ios-add"></i>
-										</button>
-										</span> --}}
-									</div>
+											</span>
+										</div>
+									</form>
 					          </td>
 						        
-						        <td class="total"><output name="total" for="harga jumlah">{{ $data->total }}</output></td>
+								<td class="total"><output name="total" for="harga jumlah">{{ $data->total }}</output></td>
+								<td class="product-remove"><a href="/jual-beli/keranjang/hapus/{{ $data->id }}"><span class="oi oi-trash"></span></a></td>
 							  </tr><!-- END TR-->
 							  
 
@@ -116,83 +125,9 @@
 			</div>
 		</section>
    
-  <script>
-		$(document).ready(function(){
+	
 
-		var quantitiy=1;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
-
-		
-
-		jQuery(document).ready(function(){
-			// This button will increment the value
-			$('[data-quantity="plus"]').click(function(e){
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				fieldName = $(this).attr('data-field');
-				// Get its current value
-				var currentVal = parseInt($('input[name='+fieldName+']').val());
-				// If is not undefined
-				if (!isNaN(currentVal)) {
-					// Increment
-					$('input[name='+fieldName+']').val(currentVal + 1);
-				} else {
-					// Otherwise put a 0 there
-					$('input[name='+fieldName+']').val(0);
-				}
-			});
-			// This button will decrement the value till 0
-			$('[data-quantity="minus"]').click(function(e) {
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				fieldName = $(this).attr('data-field');
-				// Get its current value
-				var currentVal = parseInt($('input[name='+fieldName+']').val());
-				// If it isn't undefined or its greater than 0
-				if (!isNaN(currentVal) && currentVal > 0) {
-					// Decrement one
-					$('input[name='+fieldName+']').val(currentVal - 1);
-				} else {
-					// Otherwise put a 0 there
-					$('input[name='+fieldName+']').val(0);
-				}
-			});
-		});
-
-
-	</script>
+{{-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> --}}
     
 
 @endsection

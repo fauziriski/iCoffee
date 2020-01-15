@@ -9,6 +9,7 @@ use App\User;
 use App\Shop_product;
 use App\Image;
 use App\JbCart;
+use App\Address;
 use DB;
 
 class KeranjangjbController extends Controller
@@ -56,6 +57,43 @@ class KeranjangjbController extends Controller
     public function checkout()
     {
         return view('jual-beli.checkout');
+    }
+
+    public function checkoutbarang(Request $request)
+    {
+        $id_customer = Auth::user()->id;
+        $alamat = Address::where('id_pelanggan', $id_customer)->first();
+        $id = $request->id;
+
+        $checkout = JbCart::whereIn('id', $request->id)->get();
+        
+        // dd($checkout);
+        
+        return view('jual-beli.checkout', compact('checkout','alamat'));
+
+
+    }
+
+    public function updatekeranjang(Request $request)
+    {
+        dd($request);
+        $cart = JbCart::where('id', $request->id)->first();
+        $cart->update([
+            'jumlah' => $request->quantity
+
+        ]);
+    }
+
+    
+
+    public function hapus($id)
+    {
+        $flight = JbCart::find($id);
+
+        $flight->delete();
+
+        return redirect('/jual-beli/keranjang');
+
     }
     
 }

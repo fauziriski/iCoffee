@@ -17,8 +17,8 @@
 								<div class="form-group">
 									<div class="row align-items-end">
 										<div class="col-xl-6 ftco-animate">
-											<p class="col-lg-12">Fauzi Riski</p>
-											<p class="col-lg-12">Jl. Durian 2 no 20,tanjung karang pusat, bandar lampung - Tanjung Karang Pusat, Kota Bandar Lampung, 35116</p>
+											<p class="col-lg-12">{{ $alamat->nama }}</p>
+											<p class="col-lg-12">{{ $alamat->address }} - {{ $alamat->provinsi }}, {{ $alamat->kota_kabupaten }}, {{ $alamat->kecamatan }},  {{ $alamat->kode_pos }}</p>
 										</div>
 
 										<div class="col">
@@ -41,7 +41,7 @@
 				    				<table class="table">
 									    <thead class="">
 									      <tr class="text-center">
-									        <th>&nbsp;</th>
+						
 									        <th>&nbsp;</th>
 									        <th>Nama Produk</th>
 									        <th>Harga</th>
@@ -50,38 +50,26 @@
 									      </tr>
 									    </thead>
 									    <tbody>
+										@foreach ($checkout as $data)
 									      <tr class="text-center">
-									        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+									 
 									        
-									        <td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
+									        <td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Produk/{'.$data->kode_produk.'}/'.$data->image) }});"></div></td>
 									        
 									        <td class="product-name">
-									        	<h3>Bell Pepper</h3>
+									        	<h3>{{ $data->nama_produk }}</h3>
 									        </td>
 									        
-									        <td class="price">Rp 300.000</td>
+									        <td class="price">{{ $data->harga }}</td>
 									        
-									        <td class="total">1</td>
+									        <td class="total">{{ $data->jumlah }}</td>
 									        
-									        <td class="total">Rp 300.000</td>
+									        <td class="total">{{ $data->total }}</td>
 									      </tr><!-- END TR-->
-
-									      <tr class="text-center">
-									        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-									        
-									        <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
-									        
-									        <td class="product-name">
-									        	<h3>Bell Pepper</h3>
-
-									        </td>
-									        
-									        <td class="price">Rp 200.000</td>
-									        
-									        <td class="total">1</td>
-									        
-									        <td class="total">Rp 200.000</td>
-									      </tr><!-- END TR-->
+							
+											
+										@endforeach
+									    
 									    </tbody>
 									  </table>
 								  </div>
