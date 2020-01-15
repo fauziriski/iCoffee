@@ -134,8 +134,9 @@
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Kelola Jual-Beli :</h6>
-              <a class="collapse-item" href="{{ url('/admin/validasi-pembeli')}}">Validasi Pembeli</a>
+              <a class="collapse-item" href="{{ url('admin/validasi-pembeli')}}">Validasi Pembeli</a>
               <a class="collapse-item" href="{{url('jenis-produk')}}">Jenis Produk</a>
+              <a class="collapse-item" href="{{url('akses-admin/kategori-produk')}}">Kategori Produk</a>
               <div class="collapse-divider"></div>
               <h6 class="collapse-header">Laporan :</h6>
               <a class="collapse-item" href="{{url('laporan-penjualan')}}">Laporan Penjualan</a>

@@ -8,7 +8,7 @@ class Category extends Model
 {
 
     protected $fillable = [
-        'kategori',
+        'kategori','updated_at',
     ];
 
     public $timestamps = true;
