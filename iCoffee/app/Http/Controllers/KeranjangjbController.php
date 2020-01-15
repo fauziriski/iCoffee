@@ -52,5 +52,10 @@ class KeranjangjbController extends Controller
 
         return redirect('/jual-beli/keranjang');
     }
+
+    public function checkout()
+    {
+        return view('jual-beli.checkout');
+    }
     
 }
