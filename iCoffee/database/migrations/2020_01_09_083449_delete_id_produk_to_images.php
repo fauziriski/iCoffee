@@ -14,7 +14,7 @@ class DeleteIdProdukToImages extends Migration
     public function up()
     {
         Schema::table('images', function (Blueprint $table) {
-            $table->dropColumn('name');
+            //$table->dropColumn('name');
         });
     }
 
@@ -25,8 +25,8 @@ class DeleteIdProdukToImages extends Migration
      */
     public function down()
     {
-        Schema::table('images', function (Blueprint $table) {
-            $table->string('name');
-        });
+        // Schema::table('images', function (Blueprint $table) {
+        //     $table->string('name');
+        // });
     }
 }

@@ -36,6 +36,7 @@
           <div class="filter-content">
             <div class="list-group list-group-flush">
               <a href="{{url('jadi-mitra')}}" class="list-group-item"><span class="oi oi-people"></span>&nbsp;&nbsp; Jadi Mitra</a>
+              <a href="{{url('produk-investasi')}}" class="list-group-item"><span class="fa fa-leaf"></span>&nbsp;&nbsp; Produk Investasi</a>
               <a href="{{url('progres-investasi')}}" class="list-group-item"><span class="oi oi-bar-chart"></span>&nbsp;&nbsp; Progres Investasi</a>
             </div>
           </div>

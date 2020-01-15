@@ -19,21 +19,23 @@ Route::get('/', function () {
 
 Route::get('/jual-beli','ProdukController@index');
 
-// Route::get('/jual-beli/produk', function(){
-// 	return view('jual-beli.detailproduk');
-// });
 Route::get('/jual-beli/produk/{id}','ProdukController@detail');
 
-Route::get('/jual-beli/checkout', function(){
-	return view('jual-beli.checkout');
-});
+Route::get('/jual-beli/keranjang','KeranjangjbController@keranjang');
+
+Route::post('/jual-beli/keranjang/tambah-produk','KeranjangjbController@tambahkeranjang');
+
+Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
+
+Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
+
+Route::post('/jual-beli/update-keranjang', 'KeranjangjbController@updatekeranjang');
+
+Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 
 
-Route::get('/jual-beli/keranjang', function(){
-	return view('jual-beli.keranjang');
-});
 
-Route::get('/pasang-jualbeli', 'ProdukController@pasangjualbeli');
+Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
 Route::post('/pasang-produk/berhasil', 'ProdukController@pasangproduk');
 
 
@@ -52,6 +54,11 @@ Route::get('/investasi', function () {
 	return view('investasi.index');
 });
 
+Route::get('/jadi-mitra', 'KelompokTani@index');
+Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi');
+Route::post('/daftar-kelompok/store', 'KelompokTani@store');
+Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store');
+Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store');
 
 
 Auth::routes();
