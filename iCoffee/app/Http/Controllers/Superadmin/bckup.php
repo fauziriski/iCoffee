@@ -117,3 +117,72 @@
 
 	</script>
 	@stop
+
+
+
+
+
+
+
+
+
+
+	<?php
+
+namespace App\Http\Controllers\Superadmin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\User;
+use App\Model_has_role;
+use DB;
+
+
+
+class KelolaPenggunaController extends Controller
+{
+	public function dataPelanggan(){
+
+			
+			// $role = DB::table('model_has_roles')->where('role_id', '3')->get();
+			// $pengguna = array();
+			// foreach ($role as $data) {
+			// 	$pengguna[] = DB::table('users')->where('id', $data->model_id)->get();
+			// }
+
+			// $pengguna = array('role' => $pengguna);
+			// return json_encode($pengguna);
+			$model_id = Model_has_role::select('model_id')->where('role_id', 3)->get();
+			
+			foreach ($model_id as $model_ids) {
+				$pelanggan[] = User::where('id', $model_ids->model_id)->get();
+			}
+
+			dd($pelanggan);
+
+			
+		return view('admin.super-admin.data-pelanggan');
+	}
+
+	public function hapusPengguna($id)
+	{
+
+		$data = User::findOrFail($id);
+		$data->delete();
+		return view('admin.super-admin.data-pelanggan');
+
+	}
+
+
+}
+
+
+
+		// $role = DB::table('model_has_roles')->where('role_id', '3')->get();
+			// $pengguna = array();
+			// foreach ($role as $data) {
+			// 	$pengguna[] = DB::table('users')->where('id', $data->model_id)->get();
+			// }
+
+			// $pengguna = array('role' => $pengguna);
+			// return json_encode($pengguna);

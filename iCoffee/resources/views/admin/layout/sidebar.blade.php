@@ -48,7 +48,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Kelola Pengguna :</h6>
             <a class="collapse-item" href="{{url('akses-superadmin/data-pelanggan')}}">Data Pelanggan</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Data Administrator</a>
+            <a class="collapse-item" href="{{url('akses-superadmin/data-admin')}}">Data Administrator</a>
           </div>
         </div>
       </li>
