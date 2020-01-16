@@ -33,7 +33,7 @@ Route::post('/jual-beli/update-keranjang', 'KeranjangjbController@updatekeranjan
 
 Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 
-
+Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 
 Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
 Route::post('/pasang-produk/berhasil', 'ProdukController@pasangproduk');

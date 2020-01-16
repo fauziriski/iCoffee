@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['nama_perorangan','deskripsi','alamat','jumlah_petani','gambar','kartu_keluarga','surat_nikah'];
+    protected $fillable = [
+        'id_pelanggan','id_alamat','nama','status','invoice','payment','shipping','pesan','id_penjual','total_bayar'
+    ];
+
+    
     public $timestamps = true;
 }
 

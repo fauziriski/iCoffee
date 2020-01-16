@@ -100,6 +100,11 @@ class KeranjangjbController extends Controller
 
     }
 
+    public function pesanbarang(Request $request)
+    {
+        dd($request);
+    }
+
     
 
     public function hapus($id)
