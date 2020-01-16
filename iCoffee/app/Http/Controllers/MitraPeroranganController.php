@@ -39,7 +39,7 @@ class MitraPeroranganController extends Controller
     
         ]);
         $id = $mitra->id;
-        $mitra = Mitra_koperasi::find($id);
+        $mitra = Mitra_perorangan::find($id);
         $mitra->id_mitra = 'PR'.$id;
         $mitra->save();
     }
