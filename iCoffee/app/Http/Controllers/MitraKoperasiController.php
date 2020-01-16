@@ -28,7 +28,7 @@ class MitraKoperasiController extends Controller
                 }
             }
             
-            Mitra_koperasi::create([
+            $mitra = Mitra_koperasi::create([
                 'nama_koperasi' => $request->nama_koperasi,
                 'alamat' => $request->alamat,
                 'jumlah_petani' => $request->jumlah_petani,
@@ -37,8 +37,11 @@ class MitraKoperasiController extends Controller
                 'ad_art' => $request->ad_art->getClientOriginalName(),
                 'akte' => $request->akte->getClientOriginalName(),
                 'ktp_pengurus' => $request->ktp_pengurus->getClientOriginalName()
-                
-        
+
             ]);
+            $id = $mitra->id;
+            $mitra = Mitra_koperasi::find($id);
+            $mitra->id_mitra = 'KP'.$id;
+            $mitra->save();
         }
 }

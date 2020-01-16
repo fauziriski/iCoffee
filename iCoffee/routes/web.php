@@ -85,6 +85,7 @@ Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi');
 Route::post('/daftar-kelompok/store', 'KelompokTani@store');
 Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store');
 Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store');
+Route::post('/pasang-investasi/store','ProdukInvestasiController@store');
 
 Route::get('/data-pelanggan', 'Superadmin\KelolaPenggunaController@dataPelanggan')->name('data-pelanggan');
 

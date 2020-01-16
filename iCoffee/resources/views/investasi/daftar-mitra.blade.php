@@ -117,7 +117,7 @@
                         </div>
                     </div>
                   </div>
-                  <input type="hidden" name="id_pengguna" class="form-control" value="{{ Auth::user()->id }}">
+    
                 <div class="form-group">
                     <label for="nama">Nama Kelompok</label>
                     <input type="text" class="form-control" name="nama_kelompok">

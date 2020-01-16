@@ -31,10 +31,6 @@ class CreateInvestProductTable extends Migration
                 ->references('id')
                 ->on('categories')
                 ->onDelete('cascade');
-            $table->foreign('id_kelompok_tani')
-                ->references('id')
-                ->on('kelompok_tani')
-                ->onDelete('cascade');
         });
     }
 
