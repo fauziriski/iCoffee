@@ -14,3 +14,6 @@
 
 Route::get('/', 'HomeController@index')->name('dashboard');
 Route::get('/data-pelanggan', 'KelolaPenggunaController@dataPelanggan')->name('data-pelanggan');
+Route::get('/hapus-pengguna/{id}', 'KelolaPenggunaController@hapusPengguna')->name('hapus-pengguna');
+
+

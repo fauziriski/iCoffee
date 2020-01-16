@@ -11,34 +11,6 @@
 |
 */
 
-// Route::group(['middleware'=>'redirect'],function (){
-// Route::group(['middleware'=>'admin'],function (){
-//admin
-// 	Route::get('/admin','AdminController@index');
-// 	Route::get('/super-admin','SuperAdminController@index');
-
-// //admin jual-beli
-// 	Route::get('/validasi-pembeli','AdminController@validasiPembeli');
-// 	Route::get('/jenis-produk','AdminController@jenisProduk');
-// 	Route::get('/laporan-penjualan','AdminController@laporanPenjualan');
-
-// //admin Lelang
-// 	Route::get('/validasi-produk-lelang','AdminController@validasiProdukLelang');
-// 	Route::get('/proses-lelang','AdminController@prosesLelang');
-// 	Route::get('/laporan-lelang','AdminController@laporanLelang');
-
-// //admin investasi
-// 	Route::get('/kelompok-petani','AdminController@kelompokPetani');
-// 	Route::get('/produk-investasi','AdminController@produkInvestasi');
-// 	Route::get('/progres-investasi','AdminController@progresInvestasi');
-// 	Route::get('/pencairan-investasi','AdminController@pencairanInvestasi');
-// 	Route::get('/laporan-investasi','AdminController@laporanInvestasi');
-
-// // });
-// // });
-
-
-
 
 // jual beli
 Route::get('/', function () {
@@ -88,7 +60,6 @@ Route::post('/daftar-kelompok/store', 'KelompokTani@store');
 Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store');
 Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store');
 
-Route::get('/data-pelanggan', 'Superadmin\KelolaPenggunaController@dataPelanggan')->name('data-pelanggan');
 
 Auth::routes();
 
