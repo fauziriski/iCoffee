@@ -27,7 +27,7 @@ class MitraPeroranganController extends Controller
             }
         }
         
-        Mitra_perorangan::create([
+        $mitra = Mitra_perorangan::create([
             'nama_perorangan' => $request->nama_perorangan,
             'alamat' => $request->alamat,
             'jumlah_petani' => $request->jumlah_petani,
@@ -38,5 +38,9 @@ class MitraPeroranganController extends Controller
             
     
         ]);
+        $id = $mitra->id;
+        $mitra = Mitra_perorangan::find($id);
+        $mitra->id_mitra = 'PR'.$id;
+        $mitra->save();
     }
 }

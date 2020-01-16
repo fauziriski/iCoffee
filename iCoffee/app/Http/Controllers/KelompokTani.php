@@ -25,7 +25,7 @@ class KelompokTani extends Controller
             $file->move('Uploads/kelompok_tani',$filename);
         
         
-        Kelompok_tani::create([
+        $kelompok = Kelompok_tani::create([
             'id_pengguna' => $request->id_pengguna,
             'nama_kelompok' => $request->nama_kelompok,
             'alamat' => $request->alamat,
@@ -35,6 +35,10 @@ class KelompokTani extends Controller
 
     
         ]);
+        $id = $kelompok->id;
+        $kelompok = Kelompok_tani::find($id);
+        $kelompok->id_mitra = 'KT'.$id;
+        $kelompok->save();
         }
     }
 
