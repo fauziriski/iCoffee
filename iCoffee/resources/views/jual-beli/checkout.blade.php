@@ -112,9 +112,12 @@
 			            				<div class="form-group">
 			            					<label for="country">State / Country</label>
 			            					<div class="select-wrap">
-								                  <select name="" id="" class="form-control">
-								                  	<option value="">J&T (Rp 22.000)</option>
-								                    <option value="">JNE (Rp 19.000)</option>
+								                  <select name="ongkir" id="mySelect" class="form-control">
+													@foreach ($delivery as $data)
+											
+													
+												  	<option value="{{ $data->id }}">{{ $data->ongkos_kirim }}  {{$data->delivery_category->nama_pengiriman}}</option>
+													@endforeach
 								                  </select>
 								            </div>
 								        </div>
@@ -146,7 +149,7 @@
 			    					<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Bank BCA</label>
+											   <label><input type="radio" name="bank" class="mr-2"> Bank BCA</label>
 											</div>
 										</div>
 									</div>
@@ -155,7 +158,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Bank BNI</label>
+											   <label><input type="radio" name="bank" class="mr-2"> Bank BNI</label>
 											</div>
 										</div>
 									</div>
@@ -163,7 +166,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Bank Mandiri</label>
+											   <label><input type="radio" name="bank" class="mr-2"> Bank Mandiri</label>
 											</div>
 										</div>
 									</div>
@@ -171,7 +174,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Bank BRI</label>
+											   <label><input type="radio" name="bank" class="mr-2"> Bank BRI</label>
 											</div>
 										</div>
 									</div>
@@ -179,7 +182,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Bank Lainnya</label>
+											   <label><input type="radio" name="bank" class="mr-2"> Bank Lainnya</label>
 											</div>
 										</div>
 									</div>
@@ -192,16 +195,16 @@
 			    					<h3>Cart Totals</h3>
 			    					<p class="d-flex">
 			    						<span>Subtotal untuk Produk</span>
-			    						<span>Rp 500.000</span>
+			    						<span>Rp {{ $jumlah }}</span>
 			    					</p>
 			    					<p class="d-flex">
 			    						<span>Total Ongkos Kirim</span>
-			    						<span>Rp 22.000</span>
+			    						<span id="demo" >Rp 22.000</span>
 			    					</p>
 			    					<hr>
 			    					<p class="d-flex">
 			    						<span>Total Pembayaran</span>
-			    						<span>Rp 522.000</span>
+			    						<span>Rp {{ $jumlah }}</span>
 			    					</p>
 			    					
 			    				</div>
@@ -239,42 +242,16 @@
 	</section>
 
 
-  <script>
-		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
-	</script>
 
 @endsection
-    
+ 
+@section('js')
+	
+	<script>
+		function myFunction() {
+		  var x = document.getElementById("mySelect").value;
+		  document.getElementById("demo").innerHTML = x;
+		}
+		</script>
+
+@stop

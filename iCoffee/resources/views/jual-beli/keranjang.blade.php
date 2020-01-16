@@ -28,7 +28,7 @@
 									
 								
 						      <tr class="text-center">
-						        <td class="product-remove"><input type="checkbox" name="id[]" value="{{$data->id}}" ></td>
+						        <td class="product-remove"><input type="checkbox" name="id[]" value="{{$data->id}}"></td>
 						        
 						        <td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Produk/{'.$data->kode_produk.'}/'.$data->image) }});"></div></td>
 
@@ -52,7 +52,7 @@
 												</button>
 											</span>
 								
-											<input type="text" id="quantity" name="quantity" class="form-control input-number" required value="{{ $data->jumlah }}" min="1" max="100">
+											<input type="text" id="{{ $data->id }}" name="quantity[]" class="form-control input-number" required value="{{ $data->jumlah }}" min="1" max="100">
 											<span class="input-group-btn ml-2">
 												<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
 												<i class="ion-ios-add"></i>
@@ -132,3 +132,55 @@
     
 
 @endsection
+@section('js')
+	
+@foreach ($keranjang as $data)
+	
+
+<script>
+	$(document).ready(function(){
+  
+	var quantitiy=0;
+	   $('.quantity-right-plus').click(function(e){
+		
+		// Stop acting like a button
+		e.preventDefault();
+		// Get the field name
+		var quantity = parseInt($('#{!!json_encode($data->id)!!}').val());
+		
+		// If is not undefined
+		  
+		  $('#{!!json_encode($data->id)!!}').val(quantity + 1);
+  
+		  var data = $('.form-user').serialize();
+  
+		  $.ajax({
+			  type: 'POST',
+			  url: "/jual-beli/update-keranjang",
+			  data: data
+			  // success: function() {
+			  //   $('.tampildata').load("tampil.php");
+			  // }
+		  });
+		
+	  });
+  
+	   $('.quantity-left-minus').click(function(e){
+		// Stop acting like a button
+		e.preventDefault();
+		// Get the field name
+		var quantity = parseInt($('#quantity').val());
+		
+		// If is not undefined
+		
+		  // Increment
+		  if(quantity>0){
+		  $('#quantity').val(quantity - 1);
+		  }
+	  });
+	  
+	});
+  </script>
+@endforeach
+
+  @stop

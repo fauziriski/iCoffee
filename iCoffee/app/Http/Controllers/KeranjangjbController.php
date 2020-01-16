@@ -10,6 +10,7 @@ use App\Shop_product;
 use App\Image;
 use App\JbCart;
 use App\Address;
+use App\Delivery;
 use DB;
 
 class KeranjangjbController extends Controller
@@ -61,6 +62,11 @@ class KeranjangjbController extends Controller
 
     public function checkoutbarang(Request $request)
     {
+        $this->validate($request,[
+
+            'id' => 'required'
+        ]);
+
         $id_customer = Auth::user()->id;
         $alamat = Address::where('id_pelanggan', $id_customer)->first();
         $id = $request->id;
@@ -70,8 +76,16 @@ class KeranjangjbController extends Controller
         // dd($checkout);
         $jumlah = $checkout->sum('total');
 
+        $delivery = Delivery::Where(function($x) {
+                $x->where('asal', 'JAKARTA PUSAT')
+                  ->Where('tujuan', 'BANDAR LAMPUNG');
+                })->orWhere(function($q) {
+                    $q->where('asal', 'BANDAR LAMPUNG')
+                      ->Where('tujuan', 'JAKARTA PUSAT');
+                    })->get();
+      
         
-        return view('jual-beli.checkout', compact('checkout','alamat','jumlah'));
+        return view('jual-beli.checkout', compact('checkout','alamat','jumlah','delivery'));
 
 
     }

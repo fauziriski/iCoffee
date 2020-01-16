@@ -29,7 +29,7 @@ Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
 
 Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
 
-Route::post('/jual-beli/update-keranjang', 'KeranjangjbController@updatekeranjang');
+Route::post('/jual-beli/update-keranjang', 'KeranjangjbController@updatekeranjang')->name('jual-beli.editdata');
 
 Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 
