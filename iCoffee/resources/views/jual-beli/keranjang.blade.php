@@ -42,8 +42,9 @@
 								
 
 								<td class="quantity">
-									<form action="/jual-beli/update-keranjang" method="post" class="form-user">
+									<form method="post" class="form-user">
 										<input type="hidden" id="id_qty" value="{{ $data->id}}">
+
 										<div class="input-group mb-3">
 											<span class="input-group-btn mr-2">
 												<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
@@ -51,7 +52,7 @@
 												</button>
 											</span>
 								
-											<input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{ $data->jumlah }}" value="1" min="1" max="100">
+											<input type="text" id="quantity" name="quantity" class="form-control input-number" required value="{{ $data->jumlah }}" min="1" max="100">
 											<span class="input-group-btn ml-2">
 												<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
 												<i class="ion-ios-add"></i>

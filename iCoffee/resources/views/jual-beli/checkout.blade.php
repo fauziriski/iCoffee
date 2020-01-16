@@ -124,7 +124,7 @@
 				          				<label for="country">Subtotal</label>
 				          				<div class="cart-detail">
 				          					
-				          					<h6 class="text-center">Total Pembayaran Rp 500.000</h6>
+				          					<h6 class="text-center">Total Pembayaran Rp {{ $jumlah }}</h6>
 			            				</div>
 			            			</div>
 			          			</div>

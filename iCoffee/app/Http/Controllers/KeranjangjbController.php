@@ -68,20 +68,22 @@ class KeranjangjbController extends Controller
         $checkout = JbCart::whereIn('id', $request->id)->get();
         
         // dd($checkout);
+        $jumlah = $checkout->sum('total');
+
         
-        return view('jual-beli.checkout', compact('checkout','alamat'));
+        return view('jual-beli.checkout', compact('checkout','alamat','jumlah'));
 
 
     }
 
     public function updatekeranjang(Request $request)
     {
-        dd($request);
         $cart = JbCart::where('id', $request->id)->first();
         $cart->update([
             'jumlah' => $request->quantity
 
         ]);
+
     }
 
     
