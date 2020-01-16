@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIdPenggunaToKelompokTani extends Migration
+class AddIdMitraToKelompokTani extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,7 @@ class AddIdPenggunaToKelompokTani extends Migration
     public function up()
     {
         Schema::table('kelompok_tani', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_pengguna');
-
-            $table->foreign('id_pengguna')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+            $table->string('id_mitra')->nullable();
         });
     }
 
@@ -32,7 +27,6 @@ class AddIdPenggunaToKelompokTani extends Migration
     {
         Schema::table('kelompok_tani', function (Blueprint $table) {
             //
-            $table->dropColumn('id_pengguna');
         });
     }
 }

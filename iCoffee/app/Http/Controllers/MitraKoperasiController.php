@@ -13,7 +13,8 @@ class MitraKoperasiController extends Controller
                 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'ad_art'  => 'required|mimes:doc,docx,pdf|max:2048',
                 'akte'  => 'required|mimes:doc,docx,pdf|max:2048',
-                'ktp_pengurus'  => 'required|mimes:doc,docx,pdf|max:2048'
+                'ktp_pengurus'  => 'required|mimes:doc,docx,pdf|max:2048',
+                'email' => 'unique:users,email'
             ]);
             $foldername = $request->nama_koperasi;
             $folderPath = public_path("Uploads\Mitra Koperasi\{$foldername}");
@@ -28,7 +29,7 @@ class MitraKoperasiController extends Controller
                 }
             }
             
-            Mitra_koperasi::create([
+            $mitra = Mitra_koperasi::create([
                 'nama_koperasi' => $request->nama_koperasi,
                 'alamat' => $request->alamat,
                 'jumlah_petani' => $request->jumlah_petani,
@@ -36,9 +37,14 @@ class MitraKoperasiController extends Controller
                 'gambar' => $request->gambar->getClientOriginalName(),
                 'ad_art' => $request->ad_art->getClientOriginalName(),
                 'akte' => $request->akte->getClientOriginalName(),
-                'ktp_pengurus' => $request->ktp_pengurus->getClientOriginalName()
-                
-        
+                'ktp_pengurus' => $request->ktp_pengurus->getClientOriginalName(),
+                'email' => $request->email,
+                'no_hp' => $request->no_hp
+
             ]);
+            $id = $mitra->id;
+            $mitra = Mitra_koperasi::find($id);
+            $mitra->id_mitra = 'KP'.$id;
+            $mitra->save();
         }
 }

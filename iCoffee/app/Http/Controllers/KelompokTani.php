@@ -15,7 +15,8 @@ class KelompokTani extends Controller
     public function store(Request $request){
         $this->validate($request,[
 
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'email' => 'unique:users,email'
         ]);
         
         if($request->hasfile('gambar')){
@@ -25,16 +26,22 @@ class KelompokTani extends Controller
             $file->move('Uploads/kelompok_tani',$filename);
         
         
-        Kelompok_tani::create([
+        $kelompok = Kelompok_tani::create([
             'id_pengguna' => $request->id_pengguna,
             'nama_kelompok' => $request->nama_kelompok,
             'alamat' => $request->alamat,
             'jumlah_petani' => $request->jumlah,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $filename
+            'gambar' => $filename,
+            'email' => $request->email,
+            'no_hp' => $request->no_hp
 
     
         ]);
+        $id = $kelompok->id;
+        $kelompok = Kelompok_tani::find($id);
+        $kelompok->id_mitra = 'KT'.$id;
+        $kelompok->save();
         }
     }
 
