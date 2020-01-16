@@ -51,6 +51,7 @@
 @include('jual-beli.layouts.footer')
 @show
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script src="{{asset('Jualbeli/js/jquery.min.js') }}"></script>
 <script src="{{asset('Jualbeli/js/jquery-migrate-3.0.1.min.js') }}"></script>
@@ -70,5 +71,56 @@
 <script src="{{asset('Jualbeli/js/main.js') }}"></script>
 <script src="{{asset('Jualbeli/js/images.js') }}"></script>
 
+<script>
+  $(document).ready(function(){
+
+  var quantitiy=0;
+     $('.quantity-right-plus').click(function(e){
+      
+      // Stop acting like a button
+      e.preventDefault();
+      // Get the field name
+      var quantity = parseInt($('#quantity').val());
+      
+      // If is not undefined
+        
+        $('#quantity').val(quantity + 1);
+
+        var data = $('.form-user').serialize();
+          $.ajax({
+            type: 'POST',
+            url: "/jual-beli/update-keranjang",
+            data: data,
+            success: function() {
+              $('.tampildata').load("tampil.php");
+            }
+          });
+        });
+
+     $('.quantity-left-minus').click(function(e){
+      // Stop acting like a button
+      e.preventDefault();
+      // Get the field name
+      var quantity = parseInt($('#quantity').val());
+      
+      // If is not undefined
+      
+        // Increment
+        if(quantity>0){
+        $('#quantity').val(quantity - 1);
+        }
+        var data = $('.form-user').serialize();
+          $.ajax({
+            type: 'POST',
+            url: "/jual-beli/update-keranjang",
+            data: data,
+            success: function() {
+              $('.tampildata').load("tampil.php");
+            }
+          });
+        });
+    
+  });
+</script>
 </body>
 </html>

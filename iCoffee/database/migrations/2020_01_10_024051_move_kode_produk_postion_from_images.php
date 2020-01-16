@@ -29,12 +29,12 @@ class MoveKodeProdukPostionFromImages extends Migration
      */
     public function down()
     {
-        Schema::table('images', function (Blueprint $table) {
-            $table->string('kode_produk')->after('updated_at');
-        });
+        // Schema::table('images', function (Blueprint $table) {
+        //     $table->string('kode_produk')->after('updated_at');
+        // });
 
-        Schema::table('shop_products', function (Blueprint $table) {
-            $table->string('kode_produk')->after('updated_at');
-        });
+        // Schema::table('shop_products', function (Blueprint $table) {
+        //     $table->string('kode_produk')->after('updated_at');
+        // });
     }
 }

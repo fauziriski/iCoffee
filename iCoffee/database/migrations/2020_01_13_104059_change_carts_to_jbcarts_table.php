@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DeleteIdProdukToImages extends Migration
+class ChangeCartsToJbcartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class DeleteIdProdukToImages extends Migration
      */
     public function up()
     {
-        Schema::table('images', function (Blueprint $table) {
-            //$table->dropColumn('name');
+        Schema::rename('carts', 'jbcarts');
+        Schema::table('jbcarts', function (Blueprint $table) {
+            //
         });
     }
 
@@ -25,8 +26,9 @@ class DeleteIdProdukToImages extends Migration
      */
     public function down()
     {
-        // Schema::table('images', function (Blueprint $table) {
-        //     $table->string('name');
-        // });
+        Schema::rename('jbcarts', 'carts');
+        Schema::table('jbcarts', function (Blueprint $table) {
+            //
+        });
     }
 }

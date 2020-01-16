@@ -14,50 +14,35 @@
 			<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>  Download Excel</a>
 		</div>
 		
-		<table id="table_id" class="table table-striped table-bordered" style="width:100%">
-			<thead>
-				<tr>
-					<th>Nama Pengguna</th>
-					<th>Email Pengguna</th>
-					<th>Begabung</th>
-					<th>Aksi</th>
-				</tr>
-			</thead>
-		</table>
+		<div class="table-responsive">
+			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
+				<thead>
+					<tr>
+						<th>Nama Pengguna</th>
+						<th>Email Pengguna</th>
+						<th>Begabung</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
 	</div>
 </div>
 
 
-<div id="formModal" class="modal fade" role="dialog">
+<div id="confirmModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Edit Data Pelanggan</h4>
+				
 			</div>
 			<div class="modal-body">
-				<span id="form_result"></span>
-				<form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
-					@csrf
-					<div class="form-group">
-						<label class="control-label col-md-4" >Nama : </label>
-						<div class="col-md-8">
-							<input type="text" name="name" id="name" class="form-control" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-4">Email : </label>
-						<div class="col-md-8">
-							<input type="email" name="email" id="email" class="form-control" />
-						</div>
-					</div>
-					<br />
-					<div class="form-group" align="center">
-						<input type="hidden" name="action" id="action" />
-						<input type="hidden" name="hidden_id" id="hidden_id" />
-						<input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Tambah" />
-					</div>
-				</form>
+				<h5 align="center" style="margin:0;">Apakah anda yakin ingin menghapus?</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -71,9 +56,29 @@
 	$(document).ready(function(){
 //read
 $('#table_id').DataTable({
+
+	oLanguage: {
+		"sProcessing":   "Sedang memproses ...",
+		"sLengthMenu":   "Tampilkan _MENU_ entri",
+		"sZeroRecords":  "Tidak ditemukan data yang sesuai",
+		"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+		"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+		"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+		"sInfoPostFix":  "",
+		"sSearch":       "Cari:",
+		"sUrl":          "",
+		"oPaginate": {
+			"sFirst":    "Pertama",
+			"sPrevious": "Sebelumnya",
+			"sNext":     "Selanjutnya",
+			"sLast":     "Terakhir"
+		}
+	},
+	
+
 	processing: true,
 	serverSide: true,
-	ajax: '{{ route('data-pelanggan') }}',
+	ajax: '{{ route('superadmin.data-pelanggan') }}',
 
 	columns:[
 
@@ -88,32 +93,27 @@ $('#table_id').DataTable({
 });
 
 
-//modal edit
+var user_id;
 
-$('#create_record').click(function(){
-	$('.modal-title').text("Edit Data Pelanggan");
-	$('#action_button').val("Edit");
-	$('#action').val("Edit");
-	$('#formModal').modal('show');
+$(document).on('click', '.delete', function(){
+	user_id = $(this).attr('id');
+	$('#confirmModal').modal('show');
 });
 
-$(document).on('click', '.edit', function(){
-	var id = $(this).attr('id');
-	$('#form_result').html('');
+$('#ok_button').click(function(){
 	$.ajax({
-		url:"user/"+id+"/edit",
-		dataType:"json",
-		success:function(html){
-			$('#nama').val(html.data.name);
-			$('#deskripsi').val(html.data.email);
-			$('#hidden_id').val(html.data.id);
-			$('.modal-title').text("Ubah Data");
-			$('#action_button').val("Ubah");
-			$('#action').val("Ubah");
-			$('#formModal').modal('show');
+		url:"hapus-pengguna/"+user_id,
+		success:function()
+		{
+			setTimeout(function(){
+				$('#confirmModal').modal('hide');
+				$('#table_id').DataTable().ajax.reload();
+			}, 500);
 		}
 	})
 });
+
 });
+
 </script>
 @stop

@@ -11,34 +11,6 @@
 |
 */
 
-// Route::group(['middleware'=>'redirect'],function (){
-// Route::group(['middleware'=>'admin'],function (){
-//admin
-// 	Route::get('/admin','AdminController@index');
-// 	Route::get('/super-admin','SuperAdminController@index');
-
-// //admin jual-beli
-// 	Route::get('/validasi-pembeli','AdminController@validasiPembeli');
-// 	Route::get('/jenis-produk','AdminController@jenisProduk');
-// 	Route::get('/laporan-penjualan','AdminController@laporanPenjualan');
-
-// //admin Lelang
-// 	Route::get('/validasi-produk-lelang','AdminController@validasiProdukLelang');
-// 	Route::get('/proses-lelang','AdminController@prosesLelang');
-// 	Route::get('/laporan-lelang','AdminController@laporanLelang');
-
-// //admin investasi
-// 	Route::get('/kelompok-petani','AdminController@kelompokPetani');
-// 	Route::get('/produk-investasi','AdminController@produkInvestasi');
-// 	Route::get('/progres-investasi','AdminController@progresInvestasi');
-// 	Route::get('/pencairan-investasi','AdminController@pencairanInvestasi');
-// 	Route::get('/laporan-investasi','AdminController@laporanInvestasi');
-
-// // });
-// // });
-
-
-
 
 // jual beli
 Route::get('/', function () {
@@ -47,21 +19,23 @@ Route::get('/', function () {
 
 Route::get('/jual-beli','ProdukController@index');
 
-// Route::get('/jual-beli/produk', function(){
-// 	return view('jual-beli.detailproduk');
-// });
 Route::get('/jual-beli/produk/{id}','ProdukController@detail');
 
-Route::get('/jual-beli/checkout', function(){
-	return view('jual-beli.checkout');
-});
+Route::get('/jual-beli/keranjang','KeranjangjbController@keranjang');
+
+Route::post('/jual-beli/keranjang/tambah-produk','KeranjangjbController@tambahkeranjang');
+
+Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
+
+Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
+
+Route::post('/jual-beli/update-keranjang', 'KeranjangjbController@updatekeranjang');
+
+Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 
 
-Route::get('/jual-beli/keranjang', function(){
-	return view('jual-beli.keranjang');
-});
 
-Route::get('/pasang-jualbeli', 'ProdukController@pasangjualbeli');
+Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
 Route::post('/pasang-produk/berhasil', 'ProdukController@pasangproduk');
 
 
@@ -87,7 +61,6 @@ Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store');
 Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store');
 Route::post('/pasang-investasi/store','ProdukInvestasiController@store');
 
-Route::get('/data-pelanggan', 'Superadmin\KelolaPenggunaController@dataPelanggan')->name('data-pelanggan');
 
 Auth::routes();
 

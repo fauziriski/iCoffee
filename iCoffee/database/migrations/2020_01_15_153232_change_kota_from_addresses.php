@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DeleteIdProdukToImages extends Migration
+class ChangeKotaFromAddresses extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class DeleteIdProdukToImages extends Migration
      */
     public function up()
     {
-        Schema::table('images', function (Blueprint $table) {
-            //$table->dropColumn('name');
+        Schema::table('addresses', function (Blueprint $table) {
+            // $table->renameColumn('kota/kabupaten', 'kota_kabupaten');
+            $table->dropColumn('kota/kabupaten');
         });
     }
 
@@ -25,8 +26,8 @@ class DeleteIdProdukToImages extends Migration
      */
     public function down()
     {
-        // Schema::table('images', function (Blueprint $table) {
-        //     $table->string('name');
-        // });
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->dropColumn('kota/kabupaten');
+        });
     }
 }
