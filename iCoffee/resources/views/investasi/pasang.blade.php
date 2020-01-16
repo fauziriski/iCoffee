@@ -50,7 +50,10 @@
         <label for="country">Periode Kontrak</label>
         <div class="select-wrap">
           <select name="kontrak" class="form-control">
-            <option value="">6 bulan</option>
+            <option value="6">6 bulan</option>
+            <option value="12">12 bulan</option>
+            <option value="18">18 bulan</option>
+            <option value="24">24 bulan</option>
         </select>
     </div>
 </div>
@@ -61,7 +64,8 @@
     <label for="country">Periode Bagi Hasil</label>
     <div class="select-wrap">
       <select name="bagi_hasil" class="form-control">
-        <option value="">6 bulan</option>
+        <option value="6">6 bulan</option>
+        <option value="12">12 bulan</option>
     </select>
 </div>
 </div>

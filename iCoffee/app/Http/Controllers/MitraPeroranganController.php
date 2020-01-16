@@ -12,7 +12,8 @@ class MitraPeroranganController extends Controller
 
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'kartu_keluarga'  => 'required|mimes:doc,docx,pdf|max:2048',
-            'surat_nikah'  => 'required|mimes:doc,docx,pdf|max:2048'
+            'surat_nikah'  => 'required|mimes:doc,docx,pdf|max:2048',
+            'email' => 'unique:users,email'
         ]);
         $foldername = $request->nama_perorangan;
         $folderPath = public_path("Uploads\Mitra Perorangan\{$foldername}");
@@ -34,7 +35,9 @@ class MitraPeroranganController extends Controller
             'deskripsi' => $request->deskripsi,
             'gambar' => $request->gambar->getClientOriginalName(),
             'kartu_keluarga' => $request->kartu_keluarga->getClientOriginalName(),
-            'surat_nikah' => $request->surat_nikah->getClientOriginalName()
+            'surat_nikah' => $request->surat_nikah->getClientOriginalName(),
+            'email' => $request->email,
+            'no_hp' => $request->no_hp
             
     
         ]);

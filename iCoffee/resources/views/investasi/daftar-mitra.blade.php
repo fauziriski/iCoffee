@@ -42,7 +42,22 @@
                     <input type="text" class="form-control" name="nama_koperasi">
                     <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                 </div>
-    
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="harga">Email</label>
+                      <input type="email" class="form-control" name="email">
+                      <span class="text-danger">{{$errors->first('nama_produk')}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="harga">No Handphone</label>
+                      <input type="text" class="form-control" name="no_hp">
+                      <span class="text-danger">{{$errors->first('nama_produk')}}</span>
+                    </div>
+                  </div>
+                </div>
                 <div class="row">
                       <div class="col-md-9">
                           <div class="form-group">
@@ -123,7 +138,22 @@
                     <input type="text" class="form-control" name="nama_kelompok">
                     <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                 </div>
-    
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="harga">Email</label>
+                      <input type="email" class="form-control" name="email">
+                      <span class="text-danger">{{$errors->first('nama_produk')}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="harga">No Handphone</label>
+                      <input type="text" class="form-control" name="no_hp">
+                      <span class="text-danger">{{$errors->first('nama_produk')}}</span>
+                    </div>
+                  </div>
+                </div>
                 <div class="row">
                       <div class="col-md-9">
                           <div class="form-group">
@@ -186,7 +216,22 @@
                   <input type="text" class="form-control" name="nama_perorangan">
                   <span class="text-danger">{{$errors->first('nama_produk')}}</span>
               </div>
-  
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="harga">Email</label>
+                    <input type="email" class="form-control" name="email">
+                    <span class="text-danger">{{$errors->first('nama_produk')}}</span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="harga">No Handphone</label>
+                    <input type="text" class="form-control" name="no_hp">
+                    <span class="text-danger">{{$errors->first('nama_produk')}}</span>
+                  </div>
+                </div>
+              </div>
               <div class="row">
                     <div class="col-md-9">
                         <div class="form-group">
