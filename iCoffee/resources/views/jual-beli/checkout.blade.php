@@ -108,16 +108,24 @@
 		          			<div class="col-md-6 p-1 p-md-3">
 			          			<div class="row align-items-end">
 
-			            			<div class="col-md-12 ">
+			            			<div class="col-md-6">
 			            				<div class="form-group">
-			            					<label for="country">Ongkos Kirim</label>
+			            					<label for="country">Pilih Kurir</label>
 			            					<div class="select-wrap">
-								                  <select name="ongkir" id="mySelect" class="form-control">
-													@foreach ($delivery as $data)
-											
-													
-												  	<option value="{{ $data->id }}">{{ $data->ongkos_kirim }}  {{$data->delivery_category->nama_pengiriman}} (2-4 Hari)</option>
-													@endforeach
+								                  <select name="kurir" id="kurir" class="form-control">
+								                  	<option value="tiki">TIKI</option>
+								                    <option value="jne">JNE</option>
+								                  </select>
+								            </div>
+								        </div>
+			            			</div>
+
+			            			<div class="col-md-6 ">
+			            				<div class="form-group">
+			            					<label for="country">State / Country</label>
+			            					<div class="select-wrap">
+								                  <select name="biaya" id="biaya" class="form-control">
+								                  	<option value=""></option>
 								                  </select>
 								            </div>
 								        </div>
@@ -241,6 +249,8 @@
 @endsection
  
 @section('js')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	
 	<script>
 		function myFunction() {
@@ -248,5 +258,31 @@
 		  document.getElementById("demo").innerHTML = x;
 		}
 		</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+		$('select[name="kurir"]').on('change', function() {
+			var provinceID = $(this).val();
+				if(provinceID) {
+				$.ajax({
+					url: '/jual-beli/checkout/kurir/'+encodeURI(provinceID),
+					type: "GET",
+					dataType: "json",
+					success:function(data) {
+					$('select[name="biaya"]').empty();
+					$.each(data, function(key, value) {
+						$('select[name="biaya"]').append('<option value="'+ value["rajaongkir"]["results"][0]["costs"][$i]["cost"][0]["value"] +'">'+ value +'</option>');
+						});
+					}
+				});
+				}else{
+				$('select[name="biaya"]').empty();
+				}
+			});
+			});
+
+
+	</script>
 
 @stop

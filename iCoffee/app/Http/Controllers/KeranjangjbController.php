@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Intervention\Image\ImageManagerStatic as Images;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
 use App\User;
 use App\Shop_product;
 use App\Image;
@@ -68,24 +69,49 @@ class KeranjangjbController extends Controller
         ]);
 
         $id_customer = Auth::user()->id;
-        $alamat = Address::where('id_pelanggan', $id_customer)->first();
+        $alamat = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
+        
         $id = $request->id;
 
         $checkout = JbCart::whereIn('id', $request->id)->get();
         
-        // dd($checkout);
+        
+        foreach ($checkout as $data) {
+
+            
+            $produk[] = Shop_product::find($data->id_produk);
+            
+        }
+
+        foreach ($produk as $data) {
+
+            $alamat_penjual[] = Address::where('id_pelanggan', $data->id_pelanggan)
+                                        ->where('status', 1)->first();
+            
+        }
+
+        $berat = $checkout->sum('jumlah');
         $jumlah = $checkout->sum('total');
 
-        $delivery = Delivery::Where(function($x) {
-                $x->where('asal', 'JAKARTA PUSAT')
-                  ->Where('tujuan', 'BANDAR LAMPUNG');
-                })->orWhere(function($q) {
-                    $q->where('asal', 'BANDAR LAMPUNG')
-                      ->Where('tujuan', 'JAKARTA PUSAT');
-                    })->get();
-      
+        $pengirim = $alamat_penjual[0]->kota_kabupaten;
+        $penerima = $alamat->kota_kabupaten;
+
+        // $delivery = Delivery::Where(function($x) {
+        //         $x->where('asal', 'JAKARTA PUSAT')
+        //           ->Where('tujuan', 'BANDAR LAMPUNG');
+        //         })->orWhere(function($q) {
+        //             $q->where('asal', 'BANDAR LAMPUNG')
+        //               ->Where('tujuan', 'JAKARTA PUSAT');
+        //             })->get();
+
+        // $request->session()->keep([$alamat_penjual], [$alamat]);
+        session(['alamat_penjual' => $pengirim]);
+        session(['alamat' => $penerima]);
+        session(['berat' => $berat]);
         
-        return view('jual-beli.checkout', compact('checkout','alamat','jumlah','delivery'));
+
+
+        return view('jual-beli.checkout', compact('checkout','alamat','jumlah'));
 
 
     }
@@ -114,6 +140,43 @@ class KeranjangjbController extends Controller
         $flight->delete();
 
         return redirect('/jual-beli/keranjang');
+
+    }
+
+    public function cekongkir($kurir)
+    {
+        $client = new Client();
+
+        $alamat_penjual = $request->session()->get('alamat_penjual');
+        $alamat = $request->session()->get('alamat');
+        $berat = $request->session()->get('berat');
+
+
+        try{
+            $response = $client->request('POST','https://api.rajaongkir.com/starter/cost',
+                [
+                    'body' => 'origin='.$alamat_penjual.'&destination='.$alamat.'&weight='.$request->berat.'&courier=tiki',
+                    'headers' => [
+                        'key' => '173f863cc1b39ff155f1d8058cebc703',
+                        'content-type' => 'application/x-www-form-urlencoded',
+                        
+                    ]
+                ]
+            );
+        }
+        catch(RequestException $e){
+            var_dump($e->getResponse()->getBody()->getContents());
+        }
+        $json = $response->getBody()->getContents();
+
+
+        $array_result = json_decode($json, true);
+
+        $myJSON = json_encode($array_result);
+
+        echo $myJSON;
+
+        // return response()->json($array_result);
 
     }
     
