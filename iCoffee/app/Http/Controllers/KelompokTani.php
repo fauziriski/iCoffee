@@ -34,8 +34,8 @@ class KelompokTani extends Controller
             'deskripsi' => $request->deskripsi,
             'gambar' => $filename,
             'email' => $request->email,
-            'no_hp' => $request->no_hp
-
+            'no_hp' => $request->no_hp,
+            'status' => $request->status
     
         ]);
         $id = $kelompok->id;

@@ -37,7 +37,8 @@ class MitraPeroranganController extends Controller
             'kartu_keluarga' => $request->kartu_keluarga->getClientOriginalName(),
             'surat_nikah' => $request->surat_nikah->getClientOriginalName(),
             'email' => $request->email,
-            'no_hp' => $request->no_hp
+            'no_hp' => $request->no_hp,
+            'status' => $request->status
             
     
         ]);

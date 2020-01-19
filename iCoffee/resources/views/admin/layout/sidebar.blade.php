@@ -186,8 +186,11 @@
           </a>
           <div id="collapsePagess" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Validasi Petani :</h6>
+              <a class="collapse-item" href="{{url('akses-admin/mitra-koperasi')}}">Mitra Koperasi</a>
+              <a class="collapse-item" href="{{url('akses-admin/kelompok-tani')}}">Mitra Kelompok Tani</a>
+              <a class="collapse-item" href="{{url('akses-admin/mitra-perorangan')}}">Mitra Perorangan</a>
               <h6 class="collapse-header">Kelola Investasi :</h6>
-              <a class="collapse-item" href="{{url('kelompok-petani')}}">Kelompok Petani</a>
               <a class="collapse-item" href="{{url('produk-investasi')}}">Produk Investasi</a>
               <a class="collapse-item" href="{{url('progres-investasi')}}">Progres Investasi</a>
               <a class="collapse-item" href="{{url('pencairan-investasi')}}">Pencairan Investasi</a>

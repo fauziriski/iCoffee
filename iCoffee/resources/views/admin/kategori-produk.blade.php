@@ -212,17 +212,15 @@
 		});
 
 
-
-		var kategori_id;
-
+		var mitra_id;
 		$(document).on('click', '.delete', function(){
-			kategori_id = $(this).attr('id');
+			mitra_id = $(this).attr('id');
 			$('#confirmModal').modal('show');
 		});
 
 		$('#ok_button').click(function(){
 			$.ajax({
-				url:"hapus-kategori/"+kategori_id,
+				url:"hapus-kategori/"+mitra_id,
 				success:function(data)
 				{
 					setTimeout(function(){
