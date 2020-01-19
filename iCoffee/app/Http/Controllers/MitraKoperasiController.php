@@ -17,6 +17,7 @@ class MitraKoperasiController extends Controller
             'email' => 'unique:users,email',
             'no_hp' => 'unique:mitra_koperasi,no_hp'
         ]);
+        
         $foldername = $request->no_hp;
         $folderPath = public_path("Uploads\Mitra_Koperasi\{$foldername}");
         $response = mkdir($folderPath);

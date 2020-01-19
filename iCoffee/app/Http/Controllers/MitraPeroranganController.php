@@ -13,10 +13,12 @@ class MitraPeroranganController extends Controller
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'kartu_keluarga'  => 'required|mimes:doc,docx,pdf|max:2048',
             'surat_nikah'  => 'required|mimes:doc,docx,pdf|max:2048',
-            'email' => 'unique:users,email'
+            'email' => 'unique:users,email',
+            'no_hp' => 'unique:mitra_perorangan,no_hp'
         ]);
-        $foldername = $request->nama_perorangan;
-        $folderPath = public_path("Uploads\Mitra Perorangan\{$foldername}");
+
+        $foldername = $request->no_hp;
+        $folderPath = public_path("Uploads\Mitra_Perorangan\{$foldername}");
         $response = mkdir($folderPath);
         
         $inputan = array('gambar', 'kartu_keluarga', 'surat_nikah');

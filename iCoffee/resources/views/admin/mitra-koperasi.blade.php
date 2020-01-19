@@ -94,12 +94,12 @@
 					<div class="form-group">
 						<label class="control-label col-md-4" >Pesan : </label>
 						<div class="col-md-12">
-							<textarea type="text" id="pesan" class="form-control" name="pesan" rows="5"></textarea>
+							<textarea type="text" id="pesan3" class="form-control" name="pesan" rows="5"></textarea>
 						</div>
 					</div>
 					<div class="mt-5"></div>
 					<div align="right">
-						<input type="submit" name="action_button" id="action_button" class="btn btn-primary" value="Kirim" />
+						<input type="submit" name="action_button" id="action_button3" class="btn btn-primary" value="Kirim" />
 						<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
 					</div>
 				</form>
@@ -240,10 +240,10 @@
 						url:"validasi-koperasi/"+id,
 						dataType:"json",
 						success:function(html){
-							$('#hidden_id').val(html.data.id);
+							$('#hidden_id2').val(html.data.id);
 							$('.modal-title').text("Konfirmasi");
 							$('#action_button').val("Tolak");
-							$('#status').val("ditolak");
+							$('#status2').val("ditolak");
 							$('.text').text("Apakah anda yakin ingin tolak?")
 							$('#action').val("Tolak");
 							$('#modalVerifikasi').modal('show');
@@ -287,8 +287,8 @@
 						success:function(html){
 							$('#hidden_id3').val(html.data.id);
 							$('#email3').val(html.data.email);
-							$('#action_button').val("Kirim Pesan");
-							$('#action').val("Pesan");
+							$('#action_button3').val("Kirim Pesan");
+							$('#action3').val("Pesan");
 							$('#modalPesan').modal('show');
 						}
 					})
