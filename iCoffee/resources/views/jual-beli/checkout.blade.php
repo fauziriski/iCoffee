@@ -8,7 +8,8 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col ftco-animate">
-
+			<form action="/jual-beli/pesanbarang" method="post">
+				@csrf
           	<h3 class="mb-4 billing-heading">Checkout</h3>
 
           		<div class="col-md-12 ">
@@ -20,6 +21,9 @@
 											<p class="col-lg-12">{{ $alamat->nama }}</p>
 											<p class="col-lg-12">{{ $alamat->address }} - {{ $alamat->provinsi }}, {{ $alamat->kota_kabupaten }}, {{ $alamat->kecamatan }},  {{ $alamat->kode_pos }}</p>
 										</div>
+
+											<input type="hidden" name="alamat" value="{{ $alamat->id }}">
+											<input type="hidden" name="alamat" value="{{ $alamat->nama }}">
 
 										<div class="col">
 											<p><a href="checkout.html" class="btn btn-primary py-3 px-4 col-lg-7 align-self-end">Ganti Alamat</a></p>	
@@ -65,8 +69,15 @@
 									        <td class="total">{{ $data->jumlah }}</td>
 									        
 									        <td class="total">{{ $data->total }}</td>
-									      </tr><!-- END TR-->
-							
+										  </tr><!-- END TR-->
+
+										  <input type="hidden" name="id_produk[]" value="{{ $data->id }}">
+										  <input type="hidden" name="id_penjual[]" value="{{ $data->id_pelanggan }}">
+										  <input type="hidden" name="harga[]" value="{{ $data->harga }}">
+										  <input type="hidden" name="jumlah[]" value="{{ $data->jumlah }}">
+										  <input type="hidden" name="nama_produk[]" value="{{ $data->nama_produk }}">
+										  <input type="hidden" name="total[]" value="{{ $data->total }}">
+					
 											
 										@endforeach
 									    
@@ -96,13 +107,14 @@
 
 		          			<div class="col-md-6 p-1 p-md-3">
 			          			<div class="row align-items-end">
-				          			<div class="col-md-6">
+
+			            			<div class="col-md-6">
 			            				<div class="form-group">
-			            					<label for="country">Pilih Durasi</label>
+			            					<label for="country">Pilih Kurir</label>
 			            					<div class="select-wrap">
-								                  <select name="" id="" class="form-control">
-								                  	<option value="">Cepat (1 Hari)</option>
-								                    <option value="">Reguler (2-4 Hari)</option>
+								                  <select name="kurir" id="kurir" class="form-control">
+								                  	<option value="tiki">TIKI</option>
+								                    <option value="jne">JNE</option>
 								                  </select>
 								            </div>
 								        </div>
@@ -112,12 +124,8 @@
 			            				<div class="form-group">
 			            					<label for="country">State / Country</label>
 			            					<div class="select-wrap">
-								                  <select name="ongkir" id="mySelect" class="form-control">
-													@foreach ($delivery as $data)
-											
-													
-												  	<option value="{{ $data->id }}">{{ $data->ongkos_kirim }}  {{$data->delivery_category->nama_pengiriman}}</option>
-													@endforeach
+								                  <select name="biaya" id="biaya" class="form-control">
+								                  	<option value=""></option>
 								                  </select>
 								            </div>
 								        </div>
@@ -149,7 +157,7 @@
 			    					<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="bank" class="mr-2"> Bank BCA</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="1"> Bank BCA</label>
 											</div>
 										</div>
 									</div>
@@ -158,7 +166,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="bank" class="mr-2"> Bank BNI</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="2"> Bank BNI</label>
 											</div>
 										</div>
 									</div>
@@ -166,7 +174,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="bank" class="mr-2"> Bank Mandiri</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="3"> Bank Mandiri</label>
 											</div>
 										</div>
 									</div>
@@ -174,15 +182,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="bank" class="mr-2"> Bank BRI</label>
-											</div>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-											   <label><input type="radio" name="bank" class="mr-2"> Bank Lainnya</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="4"> Bank BRI</label>
 											</div>
 										</div>
 									</div>
@@ -210,15 +210,18 @@
 			    				</div>
 			    				<div class="row">
 			    				<div class="col-md-8 offset-md-7">
-			    				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Buat Pesanan</a></p>
+								{{-- <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Buat Pesanan</a></p> --}}
+								<p><input type="submit" class="btn btn-primary py-3 px-4" value="Buat Pesanan"></p>
 			    			</div>
 			    		</div>
 			    			</div>
 			    		</div>
       			</div>
 
-
-	         </div>
+			</form>
+			 </div>
+		</div>
+      </div>
 
     </section> <!-- .section -->
 
@@ -246,6 +249,8 @@
 @endsection
  
 @section('js')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	
 	<script>
 		function myFunction() {
@@ -253,5 +258,31 @@
 		  document.getElementById("demo").innerHTML = x;
 		}
 		</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+		$('select[name="kurir"]').on('change', function() {
+			var provinceID = $(this).val();
+				if(provinceID) {
+				$.ajax({
+					url: '/jual-beli/checkout/kurir/'+encodeURI(provinceID),
+					type: "GET",
+					dataType: "json",
+					success:function(data) {
+					$('select[name="biaya"]').empty();
+					$.each(data, function(key, value) {
+						$('select[name="biaya"]').append('<option value="'+ value["rajaongkir"]["results"][0]["costs"][$i]["cost"][0]["value"] +'">'+ value +'</option>');
+						});
+					}
+				});
+				}else{
+				$('select[name="biaya"]').empty();
+				}
+			});
+			});
+
+
+	</script>
 
 @stop

@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Address extends Model
+class Province extends Model
 {
     protected $fillable = [
-        'id_pelanggan', 'nama', 'provinsi', 'kabupaten/kota', 'kode_pos', 'address', 'no_hp','status'
+        'id','nama'
     ];
 
     public $timestamps = true;

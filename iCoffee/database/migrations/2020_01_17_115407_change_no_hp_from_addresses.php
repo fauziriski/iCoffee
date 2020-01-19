@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddKotaFromAddresses extends Migration
+class ChangeNoHpFromAddresses extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddKotaFromAddresses extends Migration
     public function up()
     {
         Schema::table('addresses', function (Blueprint $table) {
-            $table->string('kota_kabupaten');
+            $table->string('no_hp')->change();
         });
     }
 
@@ -26,7 +26,7 @@ class AddKotaFromAddresses extends Migration
     public function down()
     {
         Schema::table('addresses', function (Blueprint $table) {
-            $table->dropColumn('kota_kabupaten');
+            $table->integer('no_hp')->change();
         });
     }
 }
