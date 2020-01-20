@@ -35,7 +35,7 @@ Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 
 Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 
-Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
+Route::get('/pasang-jualbeli', 'ProdukController@pasangjualbeli');
 Route::post('/pasang-produk/berhasil', 'ProdukController@pasangproduk');
 
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
