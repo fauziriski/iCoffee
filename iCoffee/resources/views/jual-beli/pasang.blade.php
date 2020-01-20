@@ -67,7 +67,7 @@
               </div>
             </div>
 
-                      
+            <div class="col-md-12">
               <div class="form-group">
 
                 @for ($i = 0; $i < 5; $i++)
@@ -76,6 +76,7 @@
                 @endfor
 
             </div>
+          </div>
 
             <div class="col-md-12 mt-3">
                 <button type="submit" class="btn btn-primary float-right py-3 px-4">Pasang Produk</button>

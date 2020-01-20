@@ -36,12 +36,15 @@ Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 
 Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
-Route::post('/pasang-produk/berhasil', 'ProdukController@pasangproduk');
+Route::post('/pasang-produk/berhasil', 'HomeController@pasangproduk');
 
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 
 
 Route::get('/pasang-lelang', 'ProdukLelangController@pasangLelang');
+
+Route::post('/pasang-lelang/berhasil', 'ProdukLelangController@pasangLelangberhasil');
+
 Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi');
 
 Route::get('page/getprovince', 'ApiController@getprovince');
