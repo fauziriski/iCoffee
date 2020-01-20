@@ -55,9 +55,7 @@
 	<div id="wrapper">
 
 	</div>
-	@section('footbar')
-	@include('admin.layout.footbar')
-	@show
+	
 
 
 </div>

@@ -16,32 +16,32 @@ class KelompokTani extends Controller
         $this->validate($request,[
 
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'email' => 'unique:users,email'
+            'email' => 'unique:users,email',
+            'no_hp' => 'unique:kelompok_tani,no_hp'
         ]);
         
         if($request->hasfile('gambar')){
             $file = $request->file('gambar');
             $extension = $file->getClientOriginalExtension();
-            $filename = time().$request->id_pengguna.'.'.$extension;
-            $file->move('Uploads/kelompok_tani',$filename);
-        
-        
-        $kelompok = Kelompok_tani::create([
-            'id_pengguna' => $request->id_pengguna,
-            'nama_kelompok' => $request->nama_kelompok,
-            'alamat' => $request->alamat,
-            'jumlah_petani' => $request->jumlah,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => $filename,
-            'email' => $request->email,
-            'no_hp' => $request->no_hp
+            $filename = time().'.'.$extension;
+            $file->move('Uploads/Kelompok_tani',$filename);
 
-    
-        ]);
-        $id = $kelompok->id;
-        $kelompok = Kelompok_tani::find($id);
-        $kelompok->id_mitra = 'KT'.$id;
-        $kelompok->save();
+
+            $kelompok = Kelompok_tani::create([
+                'nama_kelompok' => $request->nama_kelompok,
+                'alamat' => $request->alamat,
+                'jumlah_petani' => $request->jumlah,
+                'deskripsi' => $request->deskripsi,
+                'gambar' => $filename,
+                'email' => $request->email,
+                'no_hp' => $request->no_hp,
+                'status' => $request->status
+
+            ]);
+            $id = $kelompok->id;
+            $kelompok = Kelompok_tani::find($id);
+            $kelompok->id_mitra = 'KT'.$id;
+            $kelompok->save();
         }
     }
 

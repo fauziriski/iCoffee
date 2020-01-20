@@ -6,16 +6,11 @@
  <div class="card">
    <article class="card-group-item">
     <header class="card-header"><h6 class="title">Pasang Produk Lelang</h6></header>
-    <form action="{{url('pasang-produk-jual')}}">
+    <form action="/pasang-lelang/berhasil" method="post"  enctype="multipart/form-data">
+      @csrf
       <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
         <div class="col-md-12">
-          <div class="form-group">
-            <div class="images">
-              <div class="pic">
-                Tambah Foto
-              </div>
-            </div>
-          </div>
+
           <div class="form-group">
             <label for="nama">Nama Produk</label>
             <input type="text" class="form-control" name="nama_produk">
@@ -30,7 +25,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">Rp</div>
                   </div>
-                  <input type="number" class="form-control" placeholder="Dalam Rupiah" name="stok">
+                  <input type="number" class="form-control" placeholder="Dalam Rupiah" name="harga_awal">
                   <span class="text-danger">{{$errors->first('name')}}</span>
                 </div>
               </div>
@@ -55,8 +50,12 @@
               <div class="form-group">
                 <label for="country">Jangka Waktu</label>
                 <div class="select-wrap">
-                  <select name="id_kategori" id="" class="form-control">
-                    <option value="">3 Hari</option>
+                  <select name="lama_lelang" id="" class="form-control">
+                    <option value="3">3 Hari</option>
+                    <option value="4">4 Hari</option>
+                    <option value="5">5 Hari</option>
+                    <option value="6">6 Hari</option>
+                    <option value="7">7 Hari</option>
                   </select>
                 </div>
               </div>
@@ -67,12 +66,12 @@
                 <label for="country">Kategori</label>
                 <div class="select-wrap">
                   <select name="id_kategori" id="" class="form-control">
-                    <option value="">Arabika</option>
-                    <option value="">Robusta</option>
-                    <option value="">Luwak</option>
-                    <option value="">Jawa</option>
-                    <option value="">Flores</option>
-                    <option value="">Hijau</option>
+                    <option value="1">Robusta</option>
+                    <option value="2">Arabika</option>
+                    <option value="3">Honey</option>
+                    <option value="4">Natural</option>
+                    <option value="5">Flores</option>
+                    <option value="6">Hijau</option>
                   </select>
                 </div>
               </div>
@@ -97,6 +96,19 @@
                 <label for="deskripsi">Deskripsi</label>
                 <textarea class="form-control" rows="5" type="text" name="deskripsi"></textarea>
                 <span class="text-danger">{{$errors->first('stok')}}</span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+
+                  <input type="file" name="images" class="form-control-file" required>
+         
+
+                @for ($i = 0; $i < 4; $i++)
+
+                  <input type="file" name="image[]" class="form-control-file" >
+                @endfor
+
               </div>
             </div>
 

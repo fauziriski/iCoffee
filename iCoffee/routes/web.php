@@ -29,18 +29,26 @@ Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
 
 Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
 
-Route::post('/jual-beli/update-keranjang', 'KeranjangjbController@updatekeranjang');
+Route::post('/jual-beli/update-keranjang', 'KeranjangjbController@updatekeranjang')->name('jual-beli.editdata');
 
 Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 
-
+Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 
 Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
-Route::post('/pasang-produk/berhasil', 'ProdukController@pasangproduk');
+Route::post('/pasang-produk/berhasil', 'HomeController@pasangproduk');
+
+Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 
 
 Route::get('/pasang-lelang', 'ProdukLelangController@pasangLelang');
-Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth');
+
+
+Route::post('/pasang-lelang/berhasil', 'ProdukLelangController@pasangLelangberhasil');
+
+Route::get('page/getprovince', 'ApiController@getprovince');
+Route::get('page/getcity', 'ApiController@getcity');
+Route::get('page/cekshipping', 'ApiController@cekshipping');
 
 
 //lelang
@@ -58,6 +66,7 @@ Route::post('/daftar-kelompok/store', 'KelompokTani@store');
 Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store');
 Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store');
 Route::post('/pasang-investasi/store','ProdukInvestasiController@store')->middleware('auth');
+Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth');
 
 
 Auth::routes();

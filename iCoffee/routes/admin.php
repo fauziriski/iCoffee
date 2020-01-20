@@ -13,12 +13,31 @@
 Route::get('/', 'HomeController@index')->name('dashboard');
 
 Route::get('/kategori-produk', 'KelolaProdukController@index')->name('kategori-produk');
-
 Route::post('/kategori-produk/store', 'KelolaProdukController@store')->name('kategori-produk.store');
-
 Route::post('/kategori-produk/update', 'KelolaProdukController@update')->name('kategori-produk.update');
-
 Route::get('/edit-kategori/{id}', 'KelolaProdukController@edit')->name('edit-kategori');
-
 Route::get('/hapus-kategori/{id}', 'KelolaProdukController@destroy')->name('hapus-kategori');
+
+Route::get('/mitra-koperasi', 'MitraKoperasiController@mitraKoperasi')->name('mitra-koperasi');
+Route::get('/validasi-koperasi/{id}', 'MitraKoperasiController@validasiKoperasi')->name('validasi-koperasi');
+Route::post('/tolak-koperasi/update', 'MitraKoperasiController@tolakKoperasi')->name('tolak-koperasi.update');
+Route::post('/validasi-petani/koperasi', 'ValidasiPetaniController@koperasi')->name('validasi-petani.koperasi');
+
+Route::get('/mitra-perorangan', 'MitraPeroranganController@mitraPerorangan')->name('mitra-perorangan');
+Route::get('/validasi-perorangan/{id}', 'MitraPeroranganController@validasiPerorangan')->name('validasi-perorangan');
+Route::post('/tolak-perorangan/update', 'MitraPeroranganController@tolakPerorangan')->name('tolak-perorangan.update');
+Route::post('/validasi-petani/perorangan', 'ValidasiPetaniController@perorangan')->name('validasi-petani.perorangan');
+
+Route::get('/kelompok-tani', 'MitraKelompokController@kelompokTani')->name('kelompok-tani');
+Route::get('/validasi-kelompok/{id}', 'MitraKelompokController@validasiKelompok')->name('validasi-kelompok');
+Route::post('/tolak-kelompok/update', 'MitraKelompokController@tolakKelompok')->name('tolak-kelompok.update');
+Route::post('/validasi-petani/kelompok', 'ValidasiPetaniController@kelompok')->name('validasi-petani.kelompok');
+
+
+
+
+
+
+
+
 

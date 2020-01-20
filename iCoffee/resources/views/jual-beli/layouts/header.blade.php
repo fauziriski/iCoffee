@@ -56,6 +56,13 @@
           </a>
 
           <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown">
+
+            <a class="dropdown-item" href="/jual-beli/keranjang">
+              <i class="ion-ios-cart"></i>
+                Keranjang
+             </a>
+
+
            <a class="dropdown-item" href="{{ route('logout') }}"
            onclick="event.preventDefault();
            document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

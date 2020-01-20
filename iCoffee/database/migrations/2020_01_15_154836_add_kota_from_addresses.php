@@ -26,7 +26,7 @@ class AddKotaFromAddresses extends Migration
     public function down()
     {
         Schema::table('addresses', function (Blueprint $table) {
-            $table->dropColumn('kota_kabupaten',);
+            $table->dropColumn('kota_kabupaten');
         });
     }
 }

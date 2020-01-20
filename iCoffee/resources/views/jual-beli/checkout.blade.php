@@ -8,7 +8,8 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col ftco-animate">
-
+			<form action="/jual-beli/pesanbarang" method="post">
+				@csrf
           	<h3 class="mb-4 billing-heading">Checkout</h3>
 
           		<div class="col-md-12 ">
@@ -20,6 +21,9 @@
 											<p class="col-lg-12">{{ $alamat->nama }}</p>
 											<p class="col-lg-12">{{ $alamat->address }} - {{ $alamat->provinsi }}, {{ $alamat->kota_kabupaten }}, {{ $alamat->kecamatan }},  {{ $alamat->kode_pos }}</p>
 										</div>
+
+											<input type="hidden" name="id_alamat" value="{{ $alamat->id }}">
+											<input type="hidden" name="nama_alamat" value="{{ $alamat->nama }}">
 
 										<div class="col">
 											<p><a href="checkout.html" class="btn btn-primary py-3 px-4 col-lg-7 align-self-end">Ganti Alamat</a></p>	
@@ -65,10 +69,21 @@
 									        <td class="total">{{ $data->jumlah }}</td>
 									        
 									        <td class="total">{{ $data->total }}</td>
-									      </tr><!-- END TR-->
-							
+										  </tr><!-- END TR-->
+										  <input type="hidden" name="id[]" value="{{ $data->id_produk }}">
+										  <input type="hidden" name="id_produk[]" value="{{ $data->id_produk }}">
+										  <input type="hidden" name="id_penjual[]" value="{{ $data->id_pelanggan }}">
+										  <input type="hidden" name="harga[]" value="{{ $data->harga }}">
+										  <input type="hidden" name="jumlah[]" value="{{ $data->jumlah }}">
+										  <input type="hidden" name="nama_produk[]" value="{{ $data->nama_produk }}">
+										  <input type="hidden" name="kode_produk[]" value="{{ $data->kode_produk }}">
+										  <input type="hidden" name="gambar[]" value="{{ $data->image }}">
+										  <input type="hidden" name="total[]" value="{{ $data->total }}">
+					
 											
 										@endforeach
+
+
 									    
 									    </tbody>
 									  </table>
@@ -96,35 +111,37 @@
 
 		          			<div class="col-md-6 p-1 p-md-3">
 			          			<div class="row align-items-end">
-				          			<div class="col-md-6">
+
+			            			<div class="col-md-12">
 			            				<div class="form-group">
-			            					<label for="country">Pilih Durasi</label>
+			            					<label for="country">Pilih Kurir</label>
 			            					<div class="select-wrap">
-								                  <select name="" id="" class="form-control">
-								                  	<option value="">Cepat (1 Hari)</option>
-								                    <option value="">Reguler (2-4 Hari)</option>
+								                  <select name="kurir" id="kurir" class="form-control" onchange="myFunction()" required>
+													<option selected disabled="disabled" value="" >Pilih Kurir</option>
+													@for ($i = 0; $i < count($costjne[0]["costs"]); $i++)
+												  <option value="{{ $costjne[0]["costs"][$i]["cost"][0]["value"] }}: JNE: {{ $costjne[0]["costs"][$i]["service"] }} " >JNE {{ $costjne[0]["costs"][$i]["cost"][0]["value"] }} ( {{ $costjne[0]["costs"][$i]["service"] }} {{ $costjne[0]["costs"][$i]["cost"][0]["etd"] }} Hari )</option>
+													@endfor
+
+													@for ($i = 0; $i < count($costtiki[0]["costs"]); $i++)
+												  <option value="{{ $costtiki[0]["costs"][$i]["cost"][0]["value"] }}: TIKI: {{ $costjne[0]["costs"][$i]["service"] }}">TIKI {{ $costtiki[0]["costs"][$i]["cost"][0]["value"] }} ( {{ $costtiki[0]["costs"][$i]["service"] }} {{ $costtiki[0]["costs"][$i]["cost"][0]["etd"] }} Hari )</option>
+													@endfor
+
+													@for ($i = 0; $i < count($costpos[0]["costs"]); $i++)
+												  <option value="{{ $costpos[0]["costs"][$i]["cost"][0]["value"] }}: POS: {{ $costjne[0]["costs"][$i]["service"] }}">POS {{ $costpos[0]["costs"][$i]["cost"][0]["value"] }} ( {{ $costpos[0]["costs"][$i]["service"] }} {{ $costpos[0]["costs"][$i]["cost"][0]["etd"] }} )</option>
+													@endfor
+						                    
 								                  </select>
 								            </div>
 								        </div>
 			            			</div>
 
-			            			<div class="col-md-6 ">
-			            				<div class="form-group">
-			            					<label for="country">State / Country</label>
-			            					<div class="select-wrap">
-								                  <select name="" id="" class="form-control">
-								                  	<option value="">J&T (Rp 22.000)</option>
-								                    <option value="">JNE (Rp 19.000)</option>
-								                  </select>
-								            </div>
-								        </div>
-		            				</div>
-
 				          			<div class="col-md-12 p-1 p-md-3">
 				          				<label for="country">Subtotal</label>
 				          				<div class="cart-detail">
+
+										  	<input type="hidden" name="total_bayar" value="{{ $jumlah }}">
 				          					
-				          					<h6 class="text-center">Total Pembayaran Rp {{ $jumlah }}</h6>
+				          					<h6 class="text-center">Total Pembayaran Rp. {{ $jumlah }}</h6>
 			            				</div>
 			            			</div>
 			          			</div>
@@ -146,7 +163,7 @@
 			    					<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Bank BCA</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="BCA" required> Bank BCA</label>
 											</div>
 										</div>
 									</div>
@@ -155,7 +172,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Bank BNI</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="BNI"> Bank BNI</label>
 											</div>
 										</div>
 									</div>
@@ -163,7 +180,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Bank Mandiri</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="Mandiri"> Bank Mandiri</label>
 											</div>
 										</div>
 									</div>
@@ -171,15 +188,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Bank BRI</label>
-											</div>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Bank Lainnya</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="BRI"> Bank BRI</label>
 											</div>
 										</div>
 									</div>
@@ -192,30 +201,33 @@
 			    					<h3>Cart Totals</h3>
 			    					<p class="d-flex">
 			    						<span>Subtotal untuk Produk</span>
-			    						<span>Rp 500.000</span>
+			    						<span>Rp. {{ $jumlah }}</span>
 			    					</p>
 			    					<p class="d-flex">
 			    						<span>Total Ongkos Kirim</span>
-			    						<span>Rp 22.000</span>
+			    						<span id="demo" ></span>
 			    					</p>
 			    					<hr>
 			    					<p class="d-flex">
 			    						<span>Total Pembayaran</span>
-			    						<span>Rp 522.000</span>
+			    						<span id="total"></span>
 			    					</p>
 			    					
 			    				</div>
 			    				<div class="row">
 			    				<div class="col-md-8 offset-md-7">
-			    				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Buat Pesanan</a></p>
+								{{-- <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Buat Pesanan</a></p> --}}
+								<p><input type="submit" class="btn btn-primary py-3 px-4" value="Buat Pesanan"></p>
 			    			</div>
 			    		</div>
 			    			</div>
 			    		</div>
       			</div>
 
-
-	         </div>
+			</form>
+			 </div>
+		</div>
+      </div>
 
     </section> <!-- .section -->
 
@@ -239,42 +251,58 @@
 	</section>
 
 
-  <script>
-		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
-	</script>
 
 @endsection
-    
+ 
+@section('js')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+	<script>
+		function myFunction() {
+		  var x = document.getElementById("kurir").value;
+		  var y = {!!json_encode($jumlah)!!};
+		  var z = parseInt(x)+parseInt(y);
+		  document.getElementById("demo").innerHTML = "Rp. " +x;
+		  document.getElementById("total").innerHTML = "Rp. " +z;		
+		}
+		</script>
+
+	{{-- <script>
+		function myTotal() {
+		var x = document.getElementById("kurir").value;
+		
+		
+		console.log(z);
+		
+		}
+
+	</script> --}}
+
+	{{-- <script type="text/javascript">
+		$(document).ready(function() {
+
+		$('select[name="kurir"]').on('change', function() {
+			var provinceID = $(this).val();
+				if(provinceID) {
+				$.ajax({
+					url: '/jual-beli/checkout/kurir/'+encodeURI(provinceID),
+					type: "GET",
+					dataType: "json",
+					success:function(data) {
+					$('select[name="biaya"]').empty();
+					$.each(data, function(key, value) {
+						$('select[name="biaya"]').append('<option value="'+ value["rajaongkir"]["results"][0]["costs"][$i]["cost"][0]["value"] +'">'+ value +'</option>');
+						});
+					}
+				});
+				}else{
+				$('select[name="biaya"]').empty();
+				}
+			});
+			});
+
+
+	</script> --}}
+
+@stop
