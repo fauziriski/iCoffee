@@ -12,7 +12,10 @@ use App\Image;
 use App\JbCart;
 use App\Address;
 use App\Delivery;
+use App\Order;
+use App\Orderdetail;
 use DB;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class KeranjangjbController extends Controller
 {
@@ -90,7 +93,7 @@ class KeranjangjbController extends Controller
             
         }
 
-        $berat = $checkout->sum('jumlah');
+        $berat = $checkout->sum('jumlah')*1000;
         $jumlah = $checkout->sum('total');
 
         $pengirim = $alamat_penjual[0]->kota_kabupaten;
@@ -110,8 +113,43 @@ class KeranjangjbController extends Controller
         session(['berat' => $berat]);
         
 
+        //jne
+        $costjne = RajaOngkir::ongkosKirim([
+            'origin'        => $pengirim,     // ID kota/kabupaten asal
+            'destination'   => $penerima,      // ID kota/kabupaten tujuan
+            'weight'        => $berat,    // berat barang dalam gram
+            'courier'       => 'jne'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+        ])->get();
 
-        return view('jual-beli.checkout', compact('checkout','alamat','jumlah'));
+        //tiki
+        $costtiki = RajaOngkir::ongkosKirim([
+            'origin'        => $pengirim,     // ID kota/kabupaten asal
+            'destination'   => $penerima,      // ID kota/kabupaten tujuan
+            'weight'        => $berat,    // berat barang dalam gram
+            'courier'       => 'tiki'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+        ])->get();
+        
+        //pos
+        $costpos = RajaOngkir::ongkosKirim([
+            'origin'        => $pengirim,     // ID kota/kabupaten asal
+            'destination'   => $penerima,      // ID kota/kabupaten tujuan
+            'weight'        => $berat,    // berat barang dalam gram
+            'courier'       => 'pos'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+        ])->get();
+
+        // $kurir =  $costjne[0]['costs'][2]['cost'][0]['value'];
+        // echo $kurir;
+
+        // dd($costjne[0]["code"]);
+
+        // for($i=0; $i<count($costjne[0]["costs"]); $i++)
+        // {
+        //     echo $costjne[0]["costs"][$i]["cost"][0]["value"];
+        // }
+
+
+
+        return view('jual-beli.checkout', compact('checkout','alamat','jumlah','costpos','costtiki','costjne'));
 
 
     }
@@ -128,7 +166,84 @@ class KeranjangjbController extends Controller
 
     public function pesanbarang(Request $request)
     {
-        dd($request);
+        $id_customer = Auth::user()->id;
+        $hitung = count(collect($request)->get('id_produk'));
+        for ($i=0; $i < $hitung ; $i++)
+        {
+        $id_produks[] = $request->id_produk[$i];
+        }    
+
+        $split = explode(': ', $request->kurir);
+
+        // $alamat = Address::where('id', $request->id_alamat)->where('status', 1)->first();
+        // dd($request);
+        $timestamps = date('YmdHis');
+        $invoice = $timestamps.$id_customer;
+        $totalbayar = $request->total_bayar+$split[0];
+
+        $order = Order::create([
+            'id_pelanggan' => $id_customer,
+            'id_alamat' => $request->id_alamat,
+            'nama' => $request->nama_alamat,
+            'invoice' => $invoice,
+            'status' => '1',
+            'payment' => $request->bank,
+            'shipping' => $request->kurir,
+            'pesan' => $request->pesan,
+            'total_bayar' =>$totalbayar
+
+        ]);
+
+        $id = $order->id;
+
+        
+        for ($i=0; $i < $hitung ; $i++)
+        {
+            $id_penjual = Shop_product::whereIn('id',$id_produks)->get();
+        }
+
+        for ($i=0; $i < $hitung ; $i++) {
+
+            $orderdetail = Orderdetail::create([
+                'id_pelanggan' => $id_customer,
+                'id_penjual' => $id_penjual[$i]->id_pelanggan,
+                'id_order' => $id,
+                'id_produk' => $request->id_produk[$i],
+                'nama_produk' =>$request->nama_produk[$i],
+                'invoice' => $invoice,
+                'jumlah' => $request->jumlah[$i],
+                'harga' => $request->harga[$i],
+                'total' => $request->total[$i],
+                'kode_produk' => $id_penjual[$i]->kode_produk,
+                'gambar' => $id_penjual[$i]->gambar
+    
+                
+            ]);
+            
+            $ids[] = $orderdetail->id;
+
+
+        }
+
+        $ongkir = $split[0];
+
+
+        for ($i=0; $i < $hitung ; $i++) {
+
+            Delivery::create([
+                'ongkos_kirim' => $ongkir,
+                'id_orderdetails' => $ids[$i],
+                'nama' => $request->kurir,
+                'invoice' =>  ''
+      
+            ]);
+
+        }
+        
+        return redirect('/jual-beli');
+        
+        
+        
     }
 
     

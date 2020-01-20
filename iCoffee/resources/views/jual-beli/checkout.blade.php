@@ -22,8 +22,8 @@
 											<p class="col-lg-12">{{ $alamat->address }} - {{ $alamat->provinsi }}, {{ $alamat->kota_kabupaten }}, {{ $alamat->kecamatan }},  {{ $alamat->kode_pos }}</p>
 										</div>
 
-											<input type="hidden" name="alamat" value="{{ $alamat->id }}">
-											<input type="hidden" name="alamat" value="{{ $alamat->nama }}">
+											<input type="hidden" name="id_alamat" value="{{ $alamat->id }}">
+											<input type="hidden" name="nama_alamat" value="{{ $alamat->nama }}">
 
 										<div class="col">
 											<p><a href="checkout.html" class="btn btn-primary py-3 px-4 col-lg-7 align-self-end">Ganti Alamat</a></p>	
@@ -70,16 +70,20 @@
 									        
 									        <td class="total">{{ $data->total }}</td>
 										  </tr><!-- END TR-->
-
-										  <input type="hidden" name="id_produk[]" value="{{ $data->id }}">
+										  <input type="hidden" name="id[]" value="{{ $data->id_produk }}">
+										  <input type="hidden" name="id_produk[]" value="{{ $data->id_produk }}">
 										  <input type="hidden" name="id_penjual[]" value="{{ $data->id_pelanggan }}">
 										  <input type="hidden" name="harga[]" value="{{ $data->harga }}">
 										  <input type="hidden" name="jumlah[]" value="{{ $data->jumlah }}">
 										  <input type="hidden" name="nama_produk[]" value="{{ $data->nama_produk }}">
+										  <input type="hidden" name="kode_produk[]" value="{{ $data->kode_produk }}">
+										  <input type="hidden" name="gambar[]" value="{{ $data->image }}">
 										  <input type="hidden" name="total[]" value="{{ $data->total }}">
 					
 											
 										@endforeach
+
+
 									    
 									    </tbody>
 									  </table>
@@ -108,34 +112,36 @@
 		          			<div class="col-md-6 p-1 p-md-3">
 			          			<div class="row align-items-end">
 
-			            			<div class="col-md-6">
+			            			<div class="col-md-12">
 			            				<div class="form-group">
 			            					<label for="country">Pilih Kurir</label>
 			            					<div class="select-wrap">
-								                  <select name="kurir" id="kurir" class="form-control">
-								                  	<option value="tiki">TIKI</option>
-								                    <option value="jne">JNE</option>
+								                  <select name="kurir" id="kurir" class="form-control" onchange="myFunction()" required>
+													<option selected disabled="disabled" value="" >Pilih Kurir</option>
+													@for ($i = 0; $i < count($costjne[0]["costs"]); $i++)
+												  <option value="{{ $costjne[0]["costs"][$i]["cost"][0]["value"] }}: JNE: {{ $costjne[0]["costs"][$i]["service"] }} " >JNE {{ $costjne[0]["costs"][$i]["cost"][0]["value"] }} ( {{ $costjne[0]["costs"][$i]["service"] }} {{ $costjne[0]["costs"][$i]["cost"][0]["etd"] }} Hari )</option>
+													@endfor
+
+													@for ($i = 0; $i < count($costtiki[0]["costs"]); $i++)
+												  <option value="{{ $costtiki[0]["costs"][$i]["cost"][0]["value"] }}: TIKI: {{ $costjne[0]["costs"][$i]["service"] }}">TIKI {{ $costtiki[0]["costs"][$i]["cost"][0]["value"] }} ( {{ $costtiki[0]["costs"][$i]["service"] }} {{ $costtiki[0]["costs"][$i]["cost"][0]["etd"] }} Hari )</option>
+													@endfor
+
+													@for ($i = 0; $i < count($costpos[0]["costs"]); $i++)
+												  <option value="{{ $costpos[0]["costs"][$i]["cost"][0]["value"] }}: POS: {{ $costjne[0]["costs"][$i]["service"] }}">POS {{ $costpos[0]["costs"][$i]["cost"][0]["value"] }} ( {{ $costpos[0]["costs"][$i]["service"] }} {{ $costpos[0]["costs"][$i]["cost"][0]["etd"] }} )</option>
+													@endfor
+						                    
 								                  </select>
 								            </div>
 								        </div>
 			            			</div>
 
-			            			<div class="col-md-6 ">
-			            				<div class="form-group">
-			            					<label for="country">State / Country</label>
-			            					<div class="select-wrap">
-								                  <select name="biaya" id="biaya" class="form-control">
-								                  	<option value=""></option>
-								                  </select>
-								            </div>
-								        </div>
-		            				</div>
-
 				          			<div class="col-md-12 p-1 p-md-3">
 				          				<label for="country">Subtotal</label>
 				          				<div class="cart-detail">
+
+										  	<input type="hidden" name="total_bayar" value="{{ $jumlah }}">
 				          					
-				          					<h6 class="text-center">Total Pembayaran Rp {{ $jumlah }}</h6>
+				          					<h6 class="text-center">Total Pembayaran Rp. {{ $jumlah }}</h6>
 			            				</div>
 			            			</div>
 			          			</div>
@@ -157,7 +163,7 @@
 			    					<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="bank" class="mr-2" value="1"> Bank BCA</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="BCA" required> Bank BCA</label>
 											</div>
 										</div>
 									</div>
@@ -166,7 +172,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="bank" class="mr-2" value="2"> Bank BNI</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="BNI"> Bank BNI</label>
 											</div>
 										</div>
 									</div>
@@ -174,7 +180,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="bank" class="mr-2" value="3"> Bank Mandiri</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="Mandiri"> Bank Mandiri</label>
 											</div>
 										</div>
 									</div>
@@ -182,7 +188,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-											   <label><input type="radio" name="bank" class="mr-2" value="4"> Bank BRI</label>
+											   <label><input type="radio" name="bank" class="mr-2" value="BRI"> Bank BRI</label>
 											</div>
 										</div>
 									</div>
@@ -195,16 +201,16 @@
 			    					<h3>Cart Totals</h3>
 			    					<p class="d-flex">
 			    						<span>Subtotal untuk Produk</span>
-			    						<span>Rp {{ $jumlah }}</span>
+			    						<span>Rp. {{ $jumlah }}</span>
 			    					</p>
 			    					<p class="d-flex">
 			    						<span>Total Ongkos Kirim</span>
-			    						<span id="demo" >Rp 22.000</span>
+			    						<span id="demo" ></span>
 			    					</p>
 			    					<hr>
 			    					<p class="d-flex">
 			    						<span>Total Pembayaran</span>
-			    						<span>Rp {{ $jumlah }}</span>
+			    						<span id="total"></span>
 			    					</p>
 			    					
 			    				</div>
@@ -254,12 +260,26 @@
 	
 	<script>
 		function myFunction() {
-		  var x = document.getElementById("mySelect").value;
-		  document.getElementById("demo").innerHTML = x;
+		  var x = document.getElementById("kurir").value;
+		  var y = {!!json_encode($jumlah)!!};
+		  var z = parseInt(x)+parseInt(y);
+		  document.getElementById("demo").innerHTML = "Rp. " +x;
+		  document.getElementById("total").innerHTML = "Rp. " +z;		
 		}
 		</script>
 
-	<script type="text/javascript">
+	{{-- <script>
+		function myTotal() {
+		var x = document.getElementById("kurir").value;
+		
+		
+		console.log(z);
+		
+		}
+
+	</script> --}}
+
+	{{-- <script type="text/javascript">
 		$(document).ready(function() {
 
 		$('select[name="kurir"]').on('change', function() {
@@ -283,6 +303,6 @@
 			});
 
 
-	</script>
+	</script> --}}
 
 @stop
