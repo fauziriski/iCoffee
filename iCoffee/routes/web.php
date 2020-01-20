@@ -40,7 +40,7 @@ Route::post('/pasang-produk/berhasil', 'ProdukController@pasangproduk');
 
 
 Route::get('/pasang-lelang', 'ProdukLelangController@pasangLelang');
-Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi');
+Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth');
 
 
 //lelang
@@ -50,16 +50,14 @@ Route::get('/lelang', function () {
 
 // investasi
 
-Route::get('/investasi', function () {
-	return view('investasi.index');
-});
-
+Route::get('/investasi', 'ProdukInvestasiController@index');
+Route::get('/invest/produk/{id}','ProdukInvestasiController@detail');
 Route::get('/jadi-mitra', 'KelompokTani@index');
-Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi');
+Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi')->middleware('auth');
 Route::post('/daftar-kelompok/store', 'KelompokTani@store');
 Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store');
 Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store');
-Route::post('/pasang-investasi/store','ProdukInvestasiController@store');
+Route::post('/pasang-investasi/store','ProdukInvestasiController@store')->middleware('auth');
 
 
 Auth::routes();
