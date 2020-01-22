@@ -14,64 +14,156 @@
 			<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>  Download Excel</a>
 		</div>
 		
-		<table id="example" class="table table-striped table-bordered" style="width:100%">
-			<thead>
-				<tr>
-					<th><input type="checkbox" onclick="checkAll(this)"></th>
-					<th>Nama Produk</th>
-					<th>Harga Produk</th>
-					<th>Satuan Produk (Kg)</th>
-					<th>Update</th>
-					<th>Aksi</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><input type="checkbox" name=""></td>
-					<td>Kopi Robusta</td>
-					<td>Rp. 100.000</td>
-					<td>1 Kg</td>
-					<td>Sabtu, 04 Januari 2020 07:38</td>
-					<td>
-						<a href="" class="btn btn-primary"><i class="fas fa-eye fa-sm text-white-50"></i> Lihat</a>
-						<a href="" class="btn btn-danger"><i class="fas fa-check fa-sm text-white-50"></i> Hapus</a>
-					</tr>
+		<div class="table-responsive">
+			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
+				<thead>
 					<tr>
-					<td><input type="checkbox" name=""></td>
-					<td>Kopi Arabika</td>
-					<td>Rp. 100.000</td>
-					<td>1 Kg</td>
-					<td>Sabtu, 04 Januari 2020 07:38</td>
-					<td>
-						<a href="" class="btn btn-primary"><i class="fas fa-eye fa-sm text-white-50"></i> Lihat</a>
-						<a href="" class="btn btn-danger"><i class="fas fa-check fa-sm text-white-50"></i> Hapus</a>
+						<th>Kode Produk</th>
+						<th>Nama Produk</th>
+						<th>Harga</th>
+						<th>Stok</th>
+						<th>Tgl Pasang</th>
+						<th></th>
 					</tr>
-					<tr>
-					<td><input type="checkbox" name=""></td>
-					<td>Kopi Luwak</td>
-					<td>Rp. 100.000</td>
-					<td>1 Kg</td>
-					<td>Sabtu, 04 Januari 2020 07:38</td>
-					<td>
-						<a href="" class="btn btn-primary"><i class="fas fa-eye fa-sm text-white-50"></i> Lihat</a>
-						<a href="" class="btn btn-danger"><i class="fas fa-check fa-sm text-white-50"></i> Hapus</a>
-					</tr>
-					<tr>
-					<td><input type="checkbox" name=""></td>
-					<td>Kopi Robusta</td>
-					<td>Rp. 100.000</td>
-					<td>1 Kg</td>
-					<td>Sabtu, 04 Januari 2020 07:38</td>
-					<td>
-						<a href="" class="btn btn-primary"><i class="fas fa-eye fa-sm text-white-50"></i> Lihat</a>
-						<a href="" class="btn btn-danger"><i class="fas fa-check fa-sm text-white-50"></i> Hapus</a>
-					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+</div>
 
-					
+<!-- <div id="modalLihat" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Detail</h5>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<span id="form_lihat"></span>
+				<div class="form-group">
+					<div class="form-group">
+						<label class="control-label col-md-4" >Foto : </label>
+						<div class="col-md-12">
+							<c id="store_image1"></c>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-4" >Nama Perorangan : </label>
+							<div class="col-md-12">
+								<input type="text" id="nama_koperasi1" class="form-control" disabled/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-4" >Deskripsi : </label>
+							<div class="col-md-12">
+								<textarea type="text" id="deskripsi1" class="form-control" disabled></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-4" >Alamat : </label>
+							<div class="col-md-12">
+								<textarea type="text" id="alamat1" class="form-control" disabled></textarea>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label>Kartu Keluarga &nbsp;&nbsp;&nbsp;&nbsp;: </label>
+							<span id="kk"></span>
+						</div>
+						<div class="col-md-6">
+							<label>Surat Nikah &nbsp;: </label>
+							<span id="surat_nikah"></span>
+						</div>	
+						<br />
 
-					</tbody>
-				</table>
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+
+		<div id="confirmModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Konfirmasi</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<h5 align="center" style="margin:0;">Apakah anda yakin ingin menghapus produk?</h5>
+					</div>
+					<div class="modal-footer">
+						<button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
 			</div>
 		</div>
+	</div>
 
-		@endsection
+	@endsection
+	@section('js')
+
+
+	<script>
+		$(document).ready(function(){
+			$('#table_id').DataTable({
+
+				oLanguage: {
+					"sProcessing":   "Sedang memproses ...",
+					"sLengthMenu":   "Tampilkan _MENU_ entri",
+					"sZeroRecords":  "Tidak ditemukan data yang sesuai",
+					"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+					"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+					"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+					"sInfoPostFix":  "",
+					"sSearch":       "Cari:",
+					"sUrl":          "",
+					"oPaginate": {
+						"sFirst":    "Pertama",
+						"sPrevious": "Sebelumnya",
+						"sNext":     "Selanjutnya",
+						"sLast":     "Terakhir"
+					}
+				},
+
+
+				processing: true,
+				serverSide: true,
+
+				ajax: '{{ route('admin.jenis-produk') }}',
+
+				columns:[
+
+				{data: 'kode_produk', name:'kode_produk'},
+				{data: 'nama_produk', name:'nama_produk'},
+				{data: 'harga', name:'harga'},
+				{data: 'stok', name:'stok'},
+				{data: 'created_at', name:'created_at'},
+				{data: 'action', name: 'action',orderable: false}
+
+				]
+			});
+
+			
+			var id_produk;
+			$(document).on('click', '.delete', function(){
+				id_produk = $(this).attr('id');
+				$('#confirmModal').modal('show');
+			});
+
+			$('#ok_button').click(function(){
+				$.ajax({
+					url:"hapus-produk/"+id_produk,
+					success:function(data)
+					{
+						setTimeout(function(){
+							$('#confirmModal').modal('hide');
+							$('#table_id').DataTable().ajax.reload();
+						}, 500);
+					}
+				})
+			});
+
+		});
+
+	</script>
+	@stop

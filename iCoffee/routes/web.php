@@ -35,17 +35,18 @@ Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 
 Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 
+
 Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
 Route::post('/pasang-produk/berhasil', 'HomeController@pasangproduk');
+
 
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 
 
 Route::get('/pasang-lelang', 'ProdukLelangController@pasangLelang');
 
-Route::post('/pasang-lelang/berhasil', 'ProdukLelangController@pasangLelangberhasil');
 
-Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi');
+Route::post('/pasang-lelang/berhasil', 'ProdukLelangController@pasangLelangberhasil');
 
 Route::get('page/getprovince', 'ApiController@getprovince');
 Route::get('page/getcity', 'ApiController@getcity');
@@ -57,16 +58,15 @@ Route::get('/lelang', 'ProdukController@lelang');
 
 // investasi
 
-Route::get('/investasi', function () {
-	return view('investasi.index');
-});
-
+Route::get('/investasi', 'ProdukInvestasiController@index');
+Route::get('/invest/produk/{id}','ProdukInvestasiController@detail');
 Route::get('/jadi-mitra', 'KelompokTani@index');
-Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi');
+Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi')->middleware('auth');
 Route::post('/daftar-kelompok/store', 'KelompokTani@store');
 Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store');
 Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store');
-Route::post('/pasang-investasi/store','ProdukInvestasiController@store');
+Route::post('/pasang-investasi/store','ProdukInvestasiController@store')->middleware('auth');
+Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth');
 
 
 Auth::routes();
