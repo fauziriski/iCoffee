@@ -35,8 +35,10 @@ Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 
 Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 
+
 Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
 Route::post('/pasang-produk/berhasil', 'HomeController@pasangproduk');
+
 
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 
@@ -52,9 +54,7 @@ Route::get('page/cekshipping', 'ApiController@cekshipping');
 
 
 //lelang
-Route::get('/lelang', function () {
-	return view('jual-beli.lelang.index');
-});
+Route::get('/lelang', 'ProdukController@lelang');
 
 // investasi
 

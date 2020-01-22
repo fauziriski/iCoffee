@@ -28,6 +28,7 @@ class ValidasiPetaniController extends Controller
 			'no_hp' => $request->no_hp,
 			'password' =>$request->password,
 			'kode' =>$request->kode
+
 		);
 
 		$form_data2 = array(
@@ -68,7 +69,7 @@ class ValidasiPetaniController extends Controller
 		return response()->json(['success' => 'Berhasil divalidasi.']);
 	}
 
-		public function kelompok(Request $request)
+	public function kelompok(Request $request)
 	{	
 
 		$form_data = array(

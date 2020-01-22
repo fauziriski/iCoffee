@@ -33,6 +33,9 @@ Route::get('/validasi-kelompok/{id}', 'MitraKelompokController@validasiKelompok'
 Route::post('/tolak-kelompok/update', 'MitraKelompokController@tolakKelompok')->name('tolak-kelompok.update');
 Route::post('/validasi-petani/kelompok', 'ValidasiPetaniController@kelompok')->name('validasi-petani.kelompok');
 
+Route::get('/jenis-produk', 'JualBeliController@jenisProduk')->name('jenis-produk');
+Route::get('/hapus-produk/{id}', 'JualBeliController@hapus')->name('hapus-produk');
+
 
 
 
