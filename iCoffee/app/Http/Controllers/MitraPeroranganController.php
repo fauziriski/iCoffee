@@ -17,16 +17,20 @@ class MitraPeroranganController extends Controller
             'no_hp' => 'unique:mitra_perorangan,no_hp'
         ]);
 
-        $foldername = $request->no_hp;
+        $timestamps = date('YmdHis');
+        $foldername = $request->email.'-'.$timestamps;
         $folderPath = public_path("Uploads\Mitra_Perorangan\{$foldername}");
         $response = mkdir($folderPath);
+        $filenames = array();
         
         $inputan = array('gambar', 'kartu_keluarga', 'surat_nikah');
-        foreach($inputan as $value){
-            if($request->hasfile($value)){
-                $file = $request->file($value);
+        for($i=0;$i<3;$i++){
+            if($request->hasfile($inputan[$i])){
+                $file = $request->file($inputan[$i]);
                 $filename = $file->getClientOriginalName();
-                $file->move($folderPath,$filename);
+                $filenames = str_replace(" ","_",$filename);
+                $inputan[$i] = $filenames;
+                $file->move($folderPath,$filenames);
             }
         }
         
@@ -35,12 +39,14 @@ class MitraPeroranganController extends Controller
             'alamat' => $request->alamat,
             'jumlah_petani' => $request->jumlah_petani,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $request->gambar->getClientOriginalName(),
-            'kartu_keluarga' => $request->kartu_keluarga->getClientOriginalName(),
-            'surat_nikah' => $request->surat_nikah->getClientOriginalName(),
+            'gambar' => $inputan[0],
+            'kartu_keluarga' => $inputan[1],
+            'surat_nikah' => $inputan[2],
             'email' => $request->email,
             'no_hp' => $request->no_hp,
-            'status' => $request->status
+            'status' => $request->status,
+            'kode' => $foldername
+
             
     
         ]);
