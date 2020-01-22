@@ -23,6 +23,10 @@ class ProdukController extends Controller
         return view('jual-beli.index',compact('products'));
     }
 
+    public function lelang() {
+        return view('jual-beli.lelang.index');
+    }
+
     public function detail($id)
     {
         $id_customer = Auth::id();
