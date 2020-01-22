@@ -37,6 +37,7 @@
 
 
 	</style>
+	@yield('css')
 
 </head>
 <body>
@@ -96,6 +97,7 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{asset('admin/assets/js/sb-admin-2.min.js') }}"></script>
+<script src="{{asset('admin/assets/js/medium-lightbox.js') }}"></script>
 
 
 <!------ Include the above in your HEAD tag ---------->
