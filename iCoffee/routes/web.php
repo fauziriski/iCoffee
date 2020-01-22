@@ -54,9 +54,7 @@ Route::get('page/cekshipping', 'ApiController@cekshipping');
 
 
 //lelang
-Route::get('/lelang', function () {
-	return view('jual-beli.lelang.index');
-});
+Route::get('/lelang', 'ProdukController@lelang');
 
 // investasi
 

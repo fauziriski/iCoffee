@@ -27,6 +27,7 @@ class ValidasiPetaniController extends Controller
 			'gambar' => $request->gambar,
 			'no_hp' => $request->no_hp,
 			'password' =>$request->password,
+			'kode' =>$request->kode
 
 		);
 
@@ -54,6 +55,7 @@ class ValidasiPetaniController extends Controller
 			'gambar' => $request->gambar,
 			'no_hp' => $request->no_hp,
 			'password' =>$request->password,
+			'kode' =>$request->kode
 		);
 
 		$form_data2 = array(
@@ -80,6 +82,7 @@ class ValidasiPetaniController extends Controller
 			'gambar' => $request->gambar,
 			'no_hp' => $request->no_hp,
 			'password' =>$request->password,
+			'kode' =>$request->kode
 		);
 
 		$form_data2 = array(

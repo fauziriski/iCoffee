@@ -30,18 +30,7 @@
     			</div>
     		</div>
     		<div class="row">
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="product-lelang.html">Kopi Arabika</a></h3>
-    					
-                               <p class="price" id="demo4"></p>  
-    					</div>
-    				</div>
-    			</div>
+    			
     			<div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="product">
                         <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
@@ -53,142 +42,8 @@
                         </div>
                     </div>
                 </div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Luwak</a></h3>
-                                    <p class="price" id="demo2"></p>     
-                        </div>
-                    </div>
-                </div>
-    			
-
-
-
-
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-5.jpg" alt="Colorlib Template">
-                          
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Arabic</a></h3>
-                            
-                                    <p class="price" id="demo3"></p>  
-                              
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-6.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Robusta</a></h3>
-                            
-                                    <p class="price" id="demo12"></p>  
-                                
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-7.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Luwak</a></h3>
-                         
-                                    <p class="price" id="demo11"></p>  
-                              
-                        
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-8.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Liberika</a></h3>
-                           <p class="price" id="demo10"></p>  
-                        </div>
-                    </div>
-                </div>
-
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
-                            <span class="status">30%</span>
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Arabika</a></h3>
-                          
-                                   <p class="price" id="demo8"></p>  
-                              
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Robusta</a></h3>
-                           
-                                       <p class="price" id="demo5"></p>  
-                                
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Luwak</a></h3>
-                            
-                                     <p class="price" id="demo6"></p>  
-                                
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Liberika</a></h3>
-                           
-                                    <p class="price" id="demo7"></p>  
-                               
-                    </div>
-                </div>
-        	</div>
-
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Liberika</a></h3>
-                           
-                                    <p class="price" id="demo9"></p>  
-                               
-                    </div>
-                </div>
-            </div>
+    	
+            
         </div>
     		<div class="row mt-5">
           <div class="col text-center">
@@ -212,7 +67,9 @@
 
   <script>
     // Set the date we're counting down to
-    var countDownDate = new Date("Jan 10, 2020 15:37:25").getTime();
+    var sis = 27;
+    
+    var countDownDate = new Date("2020-01-21 15:37:25").getTime();
 
     // Update the count down every 1 second
     var x = setInterval(function() {
@@ -232,55 +89,11 @@
       // Output the result in an element with id="demo"
       document.getElementById("demo1").innerHTML = days + "d " + hours + "h "
       + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo2").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo3").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo4").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo5").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo6").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo7").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo8").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo9").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo10").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo11").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
-
-      document.getElementById("demo12").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
         
       // If the count down is over, write some text 
       if (distance < 0) {
         clearInterval(x);
         document.getElementById("demo1").innerHTML = "EXPIRED";
-        document.getElementById("demo2").innerHTML = "EXPIRED";
-        document.getElementById("demo3").innerHTML = "EXPIRED";
-        document.getElementById("demo4").innerHTML = "EXPIRED";
-        document.getElementById("demo5").innerHTML = "EXPIRED";
-        document.getElementById("demo6").innerHTML = "EXPIRED";
-        document.getElementById("demo7").innerHTML = "EXPIRED";
-        document.getElementById("demo8").innerHTML = "EXPIRED";
-        document.getElementById("demo9").innerHTML = "EXPIRED";
-        document.getElementById("demo10").innerHTML = "EXPIRED";
-        document.getElementById("demo11").innerHTML = "EXPIRED";
-        document.getElementById("demo12").innerHTML = "EXPIRED";
       }
     }, 1000);
     </script>

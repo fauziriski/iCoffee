@@ -41,8 +41,12 @@ class ProdukLelangController extends Controller
         ]);
 
         // dd($request);
+        $lama = $request->lama_lelang;
         
         $timestamps = date('YmdHis');
+        $tanggal_mulai = date('Y-m-d H:i:s');
+        $tanggal_selesai = date("Y-m-d H:i:s", strtotime("+". $lama ."days"));
+        dd($tanggal_selesai);
         $id_pelanggan = Auth::user()->id;
         $oldMarker = $timestamps.$id_pelanggan;
 
@@ -78,7 +82,7 @@ class ProdukLelangController extends Controller
             }
         }
 
-        $order = Auction_product::create([
+        $produk = Auction_product::create([
             'id_pelelang' => $id_pelanggan,
             'nama_produk' => $request->nama_produk,
             'desc_produk' => $request->deskripsi,
@@ -92,19 +96,21 @@ class ProdukLelangController extends Controller
 
         ]);
 
-        $id = $order->id;
+        $id = $produk->id;
 
         
-        for ($i=1; $i < $size ; $i++) {
-            Auction_image::create([
-                'id_pelelang' => $id_pelanggan,
-                'id_produk' => $id,
-                'nama_gambar' => $nama[$i],
-                'kode_produk' => $oldMarker
+        for ($i=0; $i < $size ; $i++) {
+            $produkdetails = Auction_image::create([
+                            'id_pelelang' => $id_pelanggan,
+                            'id_produk' => $id,
+                            'nama_gambar' => $nama[$i],
+                            'kode_produk' => $oldMarker
 
-            ]);
+                        ]);
+         
+            
         }
-        return redirect('/jual-beli');
+        return redirect('/lelang');
         
     }
     

@@ -19,12 +19,16 @@ class KelompokTani extends Controller
             'email' => 'unique:users,email',
             'no_hp' => 'unique:kelompok_tani,no_hp'
         ]);
-        
+        $timestamps = date('YmdHis');
+        $foldername = $request->email.'-'.$timestamps;
+        $folderPath = public_path("Uploads\Kelompok_Tani\{$foldername}");
+        $response = mkdir($folderPath);
+
         if($request->hasfile('gambar')){
             $file = $request->file('gambar');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extension;
-            $file->move('Uploads/Kelompok_tani',$filename);
+            $filename = $file->getClientOriginalName();
+            $filenames = str_replace(" ","_",$filename);
+            $file->move($folderPath,$filenames);
 
 
             $kelompok = Kelompok_tani::create([
@@ -35,7 +39,8 @@ class KelompokTani extends Controller
                 'gambar' => $filename,
                 'email' => $request->email,
                 'no_hp' => $request->no_hp,
-                'status' => $request->status
+                'status' => $request->status,
+                'kode' => $foldername
 
             ]);
             $id = $kelompok->id;
