@@ -30,18 +30,19 @@
     			</div>
     		</div>
     		<div class="row">
-    			
+    			@foreach($products as $data)
     			<div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="product">
-                        <a href="product-lelang.html" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
+                        <a href="/lelang/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid" src="{{ url('/Uploads/Lelang/{'.$data->kode_lelang.'}/'.$data->gambar) }}" alt="Colorlib Template">
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="product-lelang.html">Kopi Jawa</a></h3>
-                             <p class="price" id="demo1"></p>     
+                            <h3><a href="/lelang/produk/{{ $data->id }}">{{ $data->nama_produk }}</a></h3>
+                             <p class="demo" id="{{ $data->id }}" name="{{ $data->id }}"  style="color:#ee4d2c;"></p>     
                         </div>
                     </div>
-                </div>
+            </div>
+            @endforeach
     	
             
         </div>
@@ -68,34 +69,58 @@
   <script>
     // Set the date we're counting down to
     var sis = 27;
+
+    var data = {!!json_encode($data->tanggal_berakhir)!!};
+    var  u = {!!json_encode($products)!!};
+    var p = u.data;
+
+    var length = p.length;
+
+    var panjang =  {!!json_encode($panjang)!!};
     
-    var countDownDate = new Date("2020-01-21 15:37:25").getTime();
+    for (i = 0; i < length; i++) {
 
+      // var array = u.data[i];
+      // var id = array.id;
+      // var y =  array.tanggal_berakhir;
+   
+     
+  
+     
+    
+    // var countDownDate = new Date("2020-01-21 15:37:25").getTime();
     // Update the count down every 1 second
-    var x = setInterval(function() {
-
+      var x = setInterval(function() {
+        for (i = 0; i < length; i++) {
+          var array = u.data[i];
+          var id = array.id;
+          var y =  array.tanggal_berakhir;
+          var count = new Date(y).getTime();
       // Get today's date and time
       var now = new Date().getTime();
         
       // Find the distance between now and the count down date
-      var distance = countDownDate - now;
-        
+      var distance = count - now;
+
       // Time calculations for days, hours, minutes and seconds
       var days = Math.floor(distance / (1000 * 60 * 60 * 24));
       var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
         
       // Output the result in an element with id="demo"
-      document.getElementById("demo1").innerHTML = days + "d " + hours + "h "
+      document.getElementById(id).innerHTML = days + "d " + hours + "h "
       + minutes + "m " + seconds + "s ";
+        }
         
-      // If the count down is over, write some text 
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("demo1").innerHTML = "EXPIRED";
-      }
-    }, 1000);
+        // If the count down is over, write some text 
+            if (distance < 0) {
+              clearInterval(x);
+              document.getElementById(id). innerHTML = "EXPIRED";
+            }
+      }, 1000);
+    }
     </script>
     
   </body>
