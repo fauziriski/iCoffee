@@ -38,6 +38,7 @@ class JualBeliController extends Controller
 
 	// 	}
 	// }
+	// https://stackoverflow.com/questions/34259048/calling-img-src-tag-in-loop
 
 	public function lihatProduk($id)
 	{
