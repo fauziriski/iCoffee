@@ -56,6 +56,7 @@
 					<input type="hidden" name="jumlah_petani" id="jumlah_petani2" />
 					<input type="hidden" name="gambar" id="gambar2" />
 					<input type="hidden" name="no_hp" id="no_hp2" />
+					<input type="hidden" name="kode" id="kode" />
 					<div class="text">
 						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
 						<div class="mt-5"></div>
@@ -194,7 +195,8 @@
 					{data: 'deskripsi', name:'deskripsi', visible: false},
 					{data: 'alamat', name:'alamat', visible: false},
 					{data: 'gambar', name:'gambar', visible: false},
-					{data: 'id_mitra', name:'id_mitra', visible: false}
+					{data: 'id_mitra', name:'id_mitra', visible: false},
+					{data: 'kode', name:'kode', visible:false}
 
 					]
 				});
@@ -209,7 +211,7 @@
 							$('#nama_koperasi1').val(html.data.nama_kelompok);
 							$('#deskripsi1').val(html.data.deskripsi);
 							$('#alamat1').val(html.data.alamat);
-							$('#store_image1').html("<img src={{ URL::to('/') }}/Uploads/Kelompok_tani/"+ html.data.gambar +" width='200' height='200' class='img-thumbnail' />");
+							$('#store_image1').html("<img src={{ URL::to('/') }}/Uploads/Kelompok_Tani/{" + html.data.kode+"}/"+ html.data.gambar +" width='200' height='200' class='img-thumbnail' />");
 							$('#modalLihat').modal('show');
 						}
 					})
@@ -252,6 +254,7 @@
 							$('#jumlah_petani2').val(html.data.jumlah_petani);
 							$('#gambar2').val(html.data.gambar);
 							$('#no_hp2').val(html.data.no_hp);
+							$('#kode').val(html.data.kode);
 							$('.text').text("Apakah anda yakin ingin validasi?")
 							$('#action_button').val("Validasi");
 							$('#action').val("Verifikasi");

@@ -4,6 +4,53 @@
 
 @section('content')
 
+@section('css')
+
+<style>
+
+	@media (min-width: 480px) {
+		.modal-img {
+			width: 100%;
+			height: 100%;
+
+		}
+	}
+
+	@media (min-width: 640px) {
+		.modal-img {
+			width: 200%;
+			height: 100%;
+			margin-left: -50%;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.modal-img {
+			width: 200%;
+			height: 200%;
+			margin-left: -50%;
+		}
+	}
+
+	@media (min-width: 992px) {
+		.modal-img {
+			width: 300%;
+			height: 200%;
+			margin-left: -100%;
+		}
+	}
+
+	@media (min-width: 1200px) {
+		.modal-img {
+			width: 300%;
+			height: 200%;
+			margin-left: -100%;
+		}
+	}
+</style>
+
+@stop
+
 <body id="page-top">
 	<!-- Begin Page Content -->
 	<div class="container-fluid">
@@ -31,7 +78,27 @@
 	</div>
 </div>
 
-<!-- <div id="modalLihat" class="modal fade" role="dialog">
+
+<div id="confirmModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4>Konfirmasi</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<h5 align="center" style="margin:0;">Apakah anda yakin ingin menghapus produk?</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div id="modalLihat" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -44,126 +111,148 @@
 					<div class="form-group">
 						<label class="control-label col-md-4" >Foto : </label>
 						<div class="col-md-12">
-							<c id="store_image1"></c>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-md-4" >Nama Perorangan : </label>
-							<div class="col-md-12">
-								<input type="text" id="nama_koperasi1" class="form-control" disabled/>
+							
+							<!-- 
+							<figure class="zoom-effect">
+								<div class="aspectRatioPlaceholder">
+									<div class="aspect-ratio-fill"></div>
+									<p id="store_image1" class="imge" data-width="475" data-height="360" />
+								</div>
+							</figure> -->
+							<!-- https://stackoverflow.com/questions/49536873/display-image-on-single-bootstrap-modal -->
+							<!-- https://www.webslesson.info/2018/09/upload-image-in-laravel-using-ajax.html -->
+
+
+							<div id="image">
+								<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
+									<img src="" id="store_image1" width="100px" height="100px"/>
+								</a>
+
+								<div>   
+
+									<div>   
+										<div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
+											<div class="modal-dialog modal-sm">
+												<div class="modal-content">
+													<img class="modal-img" />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 mt-3" >Deskripsi : </label>
+										<div class="col-md-12">
+											<textarea type="text" id="detail_produk1" name="detail_produk" class="form-control" disabled></textarea>
+										</div>
+									</div>
+									<br />
+									<div align="right">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-md-4" >Deskripsi : </label>
-							<div class="col-md-12">
-								<textarea type="text" id="deskripsi1" class="form-control" disabled></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-md-4" >Alamat : </label>
-							<div class="col-md-12">
-								<textarea type="text" id="alamat1" class="form-control" disabled></textarea>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<label>Kartu Keluarga &nbsp;&nbsp;&nbsp;&nbsp;: </label>
-							<span id="kk"></span>
-						</div>
-						<div class="col-md-6">
-							<label>Surat Nikah &nbsp;: </label>
-							<span id="surat_nikah"></span>
-						</div>	
-						<br />
-
 					</div>
-				</div>
-			</div>
-		</div> -->
+
+					@endsection
+					@section('js')
 
 
-		<div id="confirmModal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4>Konfirmasi</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<h5 align="center" style="margin:0;">Apakah anda yakin ingin menghapus produk?</h5>
-					</div>
-					<div class="modal-footer">
-						<button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+					<script>
+						$(document).ready(function(){
+							$('#table_id').DataTable({
 
-	@endsection
-	@section('js')
-
-
-	<script>
-		$(document).ready(function(){
-			$('#table_id').DataTable({
-
-				oLanguage: {
-					"sProcessing":   "Sedang memproses ...",
-					"sLengthMenu":   "Tampilkan _MENU_ entri",
-					"sZeroRecords":  "Tidak ditemukan data yang sesuai",
-					"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-					"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
-					"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
-					"sInfoPostFix":  "",
-					"sSearch":       "Cari:",
-					"sUrl":          "",
-					"oPaginate": {
-						"sFirst":    "Pertama",
-						"sPrevious": "Sebelumnya",
-						"sNext":     "Selanjutnya",
-						"sLast":     "Terakhir"
-					}
-				},
+								oLanguage: {
+									"sProcessing":   "Sedang memproses ...",
+									"sLengthMenu":   "Tampilkan _MENU_ entri",
+									"sZeroRecords":  "Tidak ditemukan data yang sesuai",
+									"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+									"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+									"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+									"sInfoPostFix":  "",
+									"sSearch":       "Cari:",
+									"sUrl":          "",
+									"oPaginate": {
+										"sFirst":    "Pertama",
+										"sPrevious": "Sebelumnya",
+										"sNext":     "Selanjutnya",
+										"sLast":     "Terakhir"
+									}
+								},
 
 
-				processing: true,
-				serverSide: true,
+								processing: true,
+								serverSide: true,
 
-				ajax: '{{ route('admin.jenis-produk') }}',
+								ajax: '{{ route('admin.jenis-produk') }}',
 
-				columns:[
+								columns:[
 
-				{data: 'kode_produk', name:'kode_produk'},
-				{data: 'nama_produk', name:'nama_produk'},
-				{data: 'harga', name:'harga'},
-				{data: 'stok', name:'stok'},
-				{data: 'created_at', name:'created_at'},
-				{data: 'action', name: 'action',orderable: false}
+								{data: 'kode_produk', name:'kode_produk'},
+								{data: 'nama_produk', name:'nama_produk'},
+								{data: 'harga', name:'harga'},
+								{data: 'stok', name:'stok'},
+								{data: 'created_at', name:'created_at'},
+								{data: 'action', name: 'action',orderable: false},
+								{data: 'detail_produk', name:'detail_produk', visible: false},
+								{data: 'gambar', name:'gambar', visible: false}
 
-				]
-			});
+								]
+							});
 
-			
-			var id_produk;
-			$(document).on('click', '.delete', function(){
-				id_produk = $(this).attr('id');
-				$('#confirmModal').modal('show');
-			});
 
-			$('#ok_button').click(function(){
-				$.ajax({
-					url:"hapus-produk/"+id_produk,
-					success:function(data)
-					{
-						setTimeout(function(){
-							$('#confirmModal').modal('hide');
-							$('#table_id').DataTable().ajax.reload();
-						}, 500);
-					}
-				})
-			});
+							$(document).on('click', '.lihat', function(){
+								var id = $(this).attr('id');
+								$('#form_lihat').html('');
+								$.ajax({
+									url:"lihat-produk/"+id,
+									dataType:"json",
+									success:function(html){
+										$('#detail_produk1').val(html.data.detail_produk);
+										var img = "/Uploads/Produk/{" + html.data.kode_produk  +"}/"+ html.data.gambar +"";
+										$("#store_image1").attr("src",img);
+										var lihat = html.data_gambar;
+										console.log(lihat);
+										$('#modalLihat').modal('show');
 
-		});
+									}
+								})
+							});
 
-	</script>
-	@stop
+
+
+							var id_produk;
+							$(document).on('click', '.delete', function(){
+								id_produk = $(this).attr('id');
+								$('#confirmModal').modal('show');
+							});
+
+							$('#ok_button').click(function(){
+								$.ajax({
+									url:"hapus-produk/"+id_produk,
+									success:function(data)
+									{
+										setTimeout(function(){
+											$('#confirmModal').modal('hide');
+											$('#table_id').DataTable().ajax.reload();
+										}, 500);
+									}
+								})
+							});
+
+						});
+
+					</script>
+
+					<script>
+
+						$(function(){
+							$("#image img").on("click",function(){
+								var src = $(this).attr("src");
+								$(".modal-img").prop("src",src);
+							})
+						})
+
+					</script>
+
+					@stop

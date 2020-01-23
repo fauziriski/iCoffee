@@ -8,27 +8,32 @@ use App\Mitra_koperasi;
 class MitraKoperasiController extends Controller
 {
     public function store(Request $request){
+        
         $this->validate($request,[
 
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'ad_art'  => 'required|mimes:doc,docx,pdf|max:2048',
-            'akte'  => 'required|mimes:doc,docx,pdf|max:2048',
-            'ktp_pengurus'  => 'required|mimes:doc,docx,pdf|max:2048',
+            'ad_art'  => 'required|mimes:doc,docx,pdf',
+            'akte'  => 'required|mimes:doc,docx,pdf',
+            'ktp_pengurus'  => 'required|mimes:doc,docx,pdf',
             'email' => 'unique:users,email',
             'no_hp' => 'unique:mitra_koperasi,no_hp'
         ]);
-        
-        $foldername = $request->no_hp;
+        $timestamps = date('YmdHis');
+        $foldername = $request->email.'-'.$timestamps;
         $folderPath = public_path("Uploads\Mitra_Koperasi\{$foldername}");
         $response = mkdir($folderPath);
+        $filenames = array();
 
-
+     
         $inputan = array('gambar', 'ad_art', 'akte','ktp_pengurus');
-        foreach($inputan as $value){
-            if($request->hasfile($value)){
-                $file = $request->file($value);
-                $filename = $filename = $file->getClientOriginalName();
-                $file->move($folderPath,$filename);
+    
+        for($i=0;$i<4;$i++){
+            if($request->hasfile($inputan[$i])){
+                $file = $request->file($inputan[$i]);
+                $filename = $file->getClientOriginalName();
+                $filenames = str_replace(" ","_",$filename);
+                $inputan[$i] = $filenames;
+                $file->move($folderPath,$filenames);
             }
         }
 
@@ -37,13 +42,14 @@ class MitraKoperasiController extends Controller
             'alamat' => $request->alamat,
             'jumlah_petani' => $request->jumlah_petani,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $request->gambar->getClientOriginalName(),
-            'ad_art' => $request->ad_art->getClientOriginalName(),
-            'akte' => $request->akte->getClientOriginalName(),
-            'ktp_pengurus' => $request->ktp_pengurus->getClientOriginalName(),
+            'gambar' => $inputan[0],
+            'ad_art' => $inputan[1],
+            'akte' => $inputan[2],
+            'ktp_pengurus' => $inputan[3],
             'email' => $request->email,
             'no_hp' => $request->no_hp,
-            'status' => $request->status
+            'status' => $request->status,
+            'kode' => $foldername
 
         ]);
         $id = $mitra->id;

@@ -12,6 +12,9 @@ class Image extends Model
 
     public $timestamps = true;
 
-
+ public function shop_products()
+    {
+    	return $this->hasOne('App\Shop_products', 'id', 'id_produk');
+    }
     
 }

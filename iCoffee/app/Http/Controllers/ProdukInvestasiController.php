@@ -32,7 +32,7 @@ class ProdukInvestasiController extends Controller
             'gambar' => 'required'
         ]);
 
-        $folderPath = public_path("Uploads\Investasi\Produk\{$id_mitra}\{$code}");
+        $folderPath = public_path("Uploads\Investasi\Produk\{$code}");
         $response = mkdir($folderPath);
         $nama = array();
         

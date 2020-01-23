@@ -71,7 +71,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="stok">Jumlah Petani</label>
-                        <input type="number" class="form-control" id="" name="jumlah_petani">
+                        <input type="number" class="form-control" min="1"  name="jumlah_petani">
                         <span class="text-danger">{{$errors->first('stok')}}</span>
                     </div>
                 </div>
@@ -168,7 +168,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="stok">Jumlah Petani</label>
-                        <input type="number" class="form-control" id="" name="jumlah">
+                        <input type="number" class="form-control" min="1" name="jumlah">
                         <span class="text-danger">{{$errors->first('stok')}}</span>
                     </div>
                 </div>
@@ -247,7 +247,7 @@
               <div class="col-md-3">
                   <div class="form-group">
                       <label for="stok">Jumlah Petani</label>
-                      <input type="number" class="form-control" name="jumlah_petani">
+                      <input type="number" class="form-control" min="1" name="jumlah_petani">
                       <span class="text-danger">{{$errors->first('stok')}}</span>
                   </div>
               </div>
