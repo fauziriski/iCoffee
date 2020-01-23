@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="{{asset('Jualbeli/css/style.css') }}">
   <link rel="stylesheet" href="{{asset('Jualbeli/css/images.css') }}">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
