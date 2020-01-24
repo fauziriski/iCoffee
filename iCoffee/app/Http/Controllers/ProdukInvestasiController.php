@@ -12,18 +12,18 @@ class ProdukInvestasiController extends Controller
 
     public function produkInvestasi()
     {
-        return view('investasi.produk');
+        return view('investasi.mitra.produk');
     }
 
     public function pasangInvestasi()
     {
-        return view('investasi.pasang');
+        return view('investasi.mitra.pasang');
     }
 
     public function store(Request $request)
     {
         
-        $id_mitra = Auth::id();
+        $id_mitra = Auth::user()->id_mitra;
         $timestamps = date('YmdHis');
         $code = $timestamps.$id_mitra;
         $size = count(collect($request)->get('gambar'));
@@ -75,7 +75,7 @@ class ProdukInvestasiController extends Controller
             ]);
         }
 
-        return redirect('/investasi');
+        return redirect('/mitra/produk-investasi');
     }
 
     public function index(){

@@ -26,7 +26,7 @@ class AddIdPenjualToOrders extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('id_penjual',);
+            $table->dropColumn('id_penjual');
         });
     }
 }
