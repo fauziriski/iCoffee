@@ -59,13 +59,14 @@ class ProdukInvestasiController extends Controller
             'roi' => $request->roi,
             'periode' => $request->periode,
             'profit_periode' => $request->profit_periode,
-            'kode_produk' => $code
+            'kode_produk' => $code,
+            'status' => '1'
             
         ]);
 
         $id = $product->id;
         
-        for ($i=1; $i < $size ; $i++) {
+        for ($i=0; $i < $size ; $i++) {
             Invest_product_image::create([
                 'id_mitra' => $id_mitra,
                 'id_produk' => $id,

@@ -103,6 +103,16 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <script type="text/javascript" src="{{asset('DataTables/datatables.min.js') }}"></script>
+<script>
+
+$(function(){
+	$("#image img").on("click",function(){
+		var src = $(this).attr("src");
+		$(".modal-img").prop("src",src);
+	})
+})
+
+</script>
 @yield('js')
 
 

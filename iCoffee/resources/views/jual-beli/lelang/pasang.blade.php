@@ -104,7 +104,7 @@
                   <input type="file" name="images" class="form-control-file" required>
          
 
-                @for ($i = 0; $i < 4; $i++)
+                @for ($i = 0; $i < 5; $i++)
 
                   <input type="file" name="image[]" class="form-control-file" >
                 @endfor

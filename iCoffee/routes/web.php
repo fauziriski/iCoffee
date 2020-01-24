@@ -42,7 +42,8 @@ Route::get('page/cekshipping', 'ApiController@cekshipping');
 Route::get('/pasang-lelang', 'ProdukLelangController@pasangLelang');
 Route::post('/pasang-lelang/berhasil', 'ProdukLelangController@pasangLelangberhasil');
 Route::get('/lelang', 'ProdukController@lelang');
-Route::get('/lelang/produk/{id}', 'ProdukController@detaillelang');
+Route::get('/lelang/produk/{id}', 'ProdukLelangController@detaillelang');
+Route::get('/lelang/produk/data/{id}', 'ProdukLelangController@datalelang');
 Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
 
 

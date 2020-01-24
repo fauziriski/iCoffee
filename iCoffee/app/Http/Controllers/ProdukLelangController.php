@@ -90,7 +90,8 @@ class ProdukLelangController extends Controller
             'kelipatan' => $request->kelipatan,
             'harga_awal' => $request->harga_awal,
             'lama_lelang' => $request->lama_lelang,
-            'gambar' => $name,
+            'gambar' => $nama[0],
+            'stok' => $request->stok,
             'kode_lelang' => $oldMarker,
             'id_kategori' => $request->id_kategori,
             'tanggal_mulai' => $tanggal_mulai,
@@ -127,10 +128,52 @@ class ProdukLelangController extends Controller
         
     }
 
-    public function tawar(Request $request)
+    public function detaillelang($id)
     {
 
+        $products = Auction_product::find($id);
 
+        $proses = Auction_process::where('id_produk', $products->id)->latest('updated_at')->first();
+        $tawar = $proses->penawaran+$proses->kelipatan;
+
+        $produk_terkait = Auction_product::where('id_kategori', $products->id_kategori)->take(4)->get();
+        $image = Auction_image::where('id_produk', $products->id)->get();
+
+        $penawar = Auction_process::where('id_produk', $products->id)->latest('updated_at')->take(4)->get();
+        $i = 1;
+    
+        return view('jual-beli.lelang.detaillelang',compact('products','image','produk_terkait','proses','tawar', 'penawar','i'));
+    }
+
+    public function tawar(Request $request)
+    {
+        $process = Auction_process::create([
+            'id_produk' => $request->id_produk,
+            'id_pelelang' => $request->id_pelelang,
+            'id_penawar' => $request->id_penawar,
+            'nama' => $request->nama,
+            'penawaran' => $request->penawaran,
+            'pemenang' => '0',
+            'kelipatan' => $request->kelipatan,
+            'status' => '1'
+        ]);
+        $i = 1;
+
+        return response()->json($process);
+
+
+
+    }
+
+    public function datalelang($id)
+    {
+
+        $products = Auction_product::find($id);
+
+        $penawar = Auction_process::where('id_produk', $products->id)->latest('updated_at')->take(4)->get();
+        $i = 1;
+    
+        return view('jual-beli.lelang.data',compact('penawar','i'));
     }
     
 
