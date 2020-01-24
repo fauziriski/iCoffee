@@ -65,3 +65,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/mitra','MitraController@index');
+Route::get('/mitra/login','MitraController@showLoginForm');
+Route::post('/mitra/login','MitraController@login');

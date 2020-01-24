@@ -46,11 +46,7 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-
-        'mitra' => [
-            'driver' => 'session',
-            'provider' => 'mitra',
-        ],
+        
     ],
 
     /*
@@ -76,10 +72,6 @@ return [
             'model' => App\User::class,
         ],
 
-        'mitra' => [
-            'driver' => 'eloquent',
-            'model' => App\Mitra_tervalidasi::class,
-        ],
     ],
 
     /*
@@ -100,12 +92,6 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'mitra' => [
-            'provider' => 'mitra',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
