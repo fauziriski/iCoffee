@@ -22,15 +22,11 @@
                   </div>
                   @endforeach
                 </div>
-                    </div>
-
-
-
-
+            </div>
 
 
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
-                <h3>{{ $products->nama_produk}}</h3>
+              <h3>{{ $products->nama_produk}}</h3>
                 <!-- <div class="rating d-flex">
                         <p class="text-left mr-4">
                             <a href="#" class="mr-2">5.0</a>
@@ -49,90 +45,93 @@
                     </div> -->
 
 
-      <div class="row">
+              <div class="row">
                 <p class="text-left">
 
-        <div class="col-5">
-          <i class="fa fa-money"></i> Harga Awal
-        </div>
-          <div class="col">
-          <span class="mr-4" style="color: #bbb;">Rp {{ $products->harga_awal}}</span>
-        </div>
+                  <div class="col-5">
+                    <i class="fa fa-money"></i> Harga Awal
+                  </div>
+                  <div class="col">
+                    <span class="mr-4" style="color: #bbb;">Rp {{ $products->harga_awal}}</span>
+                  </div>
        
                 </p>
-      </div>
-
-      <div class="row">
-      <p class="text-left">
-
-        <div class="col-5">
-          <i class="oi oi-transfer"></i> Penawaran Terakhir
-        </div>
-          <div class="col">
-          <span class="mr-4" style="color: #bbb;">Rp {{ $proses->penawaran }}</span>
-        </div>
-     
-      </p>
-      </div>
-
-      <div class="row mt-2">
-        <p class="text-left">
-
-                <div class="col">
-                <h4 id="demo1" style="color:#ee4d2c;"></h4>
-                </div>
-        
-        </p>
-      </div>
-                
-                <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
-                    </p> -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group d-flex">
-                  <!-- <div class="select-wrap"> -->
-                  <!-- <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
-                  <!-- <select name="" id="" class="form-control">
-                      <option value="">Small</option>
-                    <option value="">Medium</option>
-                    <option value="">Large</option>
-                    <option value="">Extra Large</option>
-                  </select> -->
-                <!-- </div> -->
-                            </div>
-                        </div>
-                        <div class="w-100"></div>
-           <div class="col-md-12">
-              <p style="color: #000;">Harga Tawar</p>
-            </div>
-                        <div class="input-group col-md-6 d-flex mb-3">
-                            <div class="input-group">
-
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Rp</div>
-                                  </div>
-                
-                 <input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{ $tawar }}" readonly>
-                            </div>
-
               </div>
+
+              <div class="row">
+                <p class="text-left">
+
+                  <div class="col-5">
+                    <i class="oi oi-transfer"></i> Penawaran Terakhir
+                  </div>
+                  <div class="col">
+                    <span class="mr-4" style="color: #bbb;">Rp {{ $proses->penawaran }}</span>
+                  </div>
               
+                </p>
+              </div>
+
+              <div class="row mt-2">
+                <p class="text-left">
+                  <div class="col">
+                    <h4 id="demo1" style="color:#ee4d2c;"></h4>
+                  </div>
+                </p>
+              </div>
+                        
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group d-flex">
+                              <!-- <div class="select-wrap"> -->
+                              <!-- <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
+                              <!-- <select name="" id="" class="form-control">
+                                  <option value="">Small</option>
+                                <option value="">Medium</option>
+                                <option value="">Large</option>
+                                <option value="">Extra Large</option>
+                              </select> -->
+                            <!-- </div> -->
+                          </div>
+                      </div>
+                      <div class="w-100"></div>
+                      <div class="col-md-12">
+                        <p style="color: #000;">Harga Tawar</p>
+                      </div>
+                      <div class="input-group col-md-6 d-flex mb-3">
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text">Rp</div>
+                              </div>
+                            <input type="text" id="penawaran_coba" name="penawaran" class="form-control input-number" value="{{ $tawar }}" readonly>
+                          </div>
+
+                      </div>
               
+                      </div>
+                  <form  method="post" id="sample_form" >
+                    @csrf
+                    <input type="hidden" name="id_produk" value="{{$products->id}}">
+                    <input type="hidden" name="id_pelelang" value="{{$products->id_pelelang}}">
+                    <input type="hidden" name="id_penawar" value="{{ Auth::user()->id}}">
+                    <input type="hidden" name="nama" value="{{ Auth::user()->name }}">
+                    <input type="hidden" name="penawaran" id="penawaran"  value="{{ $tawar }}">
+                    <input type="hidden" name="kelipatan" value="{{ $products->kelipatan }}">
+                    <p><input class="btn btn-primary py-3 px-1" id="tawar" value="Tawar" readonly></p>
+                  </form>
           </div>
-          <p><a href="cart.html" class="btn btn-black py-3 px-5">Tawar</a></p>
-            </div>
         </div>
+      
 
         <ul class="col nav nav-pills" id="pills-tab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" color="white">Mitra Koperasi</a>
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" color="white">Deskripsi</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Mitra Kelompok Tani</a>
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Penawaran</a>
           </li>
           
         </ul>
-
+        <br>
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <div class="col mb-5 ftco-animate">
@@ -143,37 +142,32 @@
           
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
           <div class="col-md-12 ftco-animate">
-            <div class="cart-list">
-              <table class="table">
-                <thead class="thead-primary">
-                  <tr class="text-center">>
+ 
+              <table class="table" id="table_id">
+      
+                  <tr class="text-center">
                     <th>No</th>
                     <th>Nama</th>
                     <th>Jumlah Tawar</th>
                   </tr>
-                </thead>
-                <tbody>
                   
                 @foreach ($penawar as $data)
-                    
-            
-                  <tr class="text-center">
-                    <td class="product-remove">{{ $i++ }}</td>
 
-                    <td class="product-name">
-                  <h3>{{ $data->nama }}</h3>
-                    </td>
+                  <tr class="item{{$data->id}}">
+                    <td>{{ $i++ }}</td>
+
+                    <td>{{ $data->nama }}</td>
                     
-                    <td class="price">{{ $data->penawaran }}</td>
+                    <td>Rp {{ $data->penawaran }}</td>
                 
             
                 </tr><!-- END TR-->
 
                 @endforeach
             
-              </tbody>
+         
               </table>
-            </div>
+       
           </div>
           </div>
           
@@ -302,6 +296,13 @@
     </div>
 </section>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+
+
+
 
 <script>
     // Set the date we're counting down to
@@ -336,11 +337,36 @@
         document.getElementById("demo1").innerHTML = "EXPIRED";
       }
     }, 1000);
-    </script>
+</script>
+
+
+<script>
+
+$(document).ready(function() {
+   
+   $('#tawar').on('click', function() {
+    var data = $('#sample_form').serialize();
+    console.log(data)
+    $.ajax({
+					url:"/lelang/produk/tawar",
+					method:"POST",
+					data: data,
+					success:function(data)
+					{
+            alert('Tawaran Anda Berhasil');
+            var penawaranselanjutnya = parseInt(data.penawaran) + parseInt(data.kelipatan);
+            $('#penawaran_coba').replaceWith('<input type="text" id="penawaran_coba" name="penawaran_coba" class="form-control input-number" value="'+ penawaranselanjutnya +'" readonly>');
+            $('#penawaran').replaceWith('<input type="hidden" id="penawaran" name="penawaran" value="'+ penawaranselanjutnya +'">');
+            $('#table_id').load("/lelang/produk/data/"+ data.id_produk);
+            
+            
+					}
+				});
+
+  });
+});
+
+</script>
  
-    </script>
-    
-  </body>
-</html>
 
 @endsection
