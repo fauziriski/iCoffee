@@ -191,7 +191,7 @@
               <a class="collapse-item" href="{{url('akses-admin/kelompok-tani')}}">Mitra Kelompok Tani</a>
               <a class="collapse-item" href="{{url('akses-admin/mitra-perorangan')}}">Mitra Perorangan</a>
               <h6 class="collapse-header">Kelola Investasi :</h6>
-              <a class="collapse-item" href="{{url('produk-investasi')}}">Produk Investasi</a>
+              <a class="collapse-item" href="{{url('akses-admin/validasi-produk-investasi')}}">Validasi Produk Investasi</a>
               <a class="collapse-item" href="{{url('progres-investasi')}}">Progres Investasi</a>
               <a class="collapse-item" href="{{url('pencairan-investasi')}}">Pencairan Investasi</a>
 

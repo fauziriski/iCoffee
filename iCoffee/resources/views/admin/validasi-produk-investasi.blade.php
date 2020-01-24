@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin | Validasi Produk Lelang')
+@section('title', 'Admin | Validasi Produk Investasi')
 
 @section('content')
 
@@ -57,7 +57,7 @@
 
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Validasi Produk Lelang</h1>
+			<h1 class="h3 mb-0 text-gray-800">Validasi Produk Investasi</h1>
 			<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>  Download Excel</a>
 		</div>
 		
@@ -67,20 +67,20 @@
 					<tr>
 						<th>Kode Produk</th>
 						<th>Nama Produk</th>
-						<th>Harga Awal</th>
-						<th>Jumlah (Kg)</th>
-						<th>Tgl Mulai</th>
-						<th>Tgl Berakhir</th>
-						<th>Status</th>
-						<th></th>					
+						<th>Harga</th>
+						<th>Unit</th>
+						<th>Periode Kontrak</th>
+						<th>Periode Hasil</th>
+						<th>ROI/Tahun</th>
+						<th>Tgl Pasang</th>	
+						<th>Status</th>	
+						<th></th>				
 					</tr>
 				</thead>
 			</table>
 		</div>
 	</div>
 </div>
-
-
 
 
 <div id="modalPesan" class="modal fade" role="dialog">
@@ -228,20 +228,22 @@
 								processing: true,
 								serverSide: true,
 
-								ajax: '{{ route('admin.validasi-produk-lelang') }}',
+								ajax: '{{ route('admin.validasi-produk-investasi') }}',
 
 								columns:[
 
-								{data: 'kode_lelang', name:'kode_lelang'},
+								{data: 'kode_produk', name:'kode_produk'},
 								{data: 'nama_produk', name:'nama_produk'},
-								{data: 'harga_awal', name:'harga_awal'},
+								{data: 'harga', name:'harga'},
 								{data: 'stok', name:'stok'},
-								{data: 'tanggal_mulai', name:'tanggal_mulai'},
-								{data: 'tanggal_berakhir', name:'tanggal_berakhir'},
+								{data: 'periode', name:'periode'},
+								{data: 'profit_periode', name:'profit_periode'},
+								{data: 'roi', name:'roi'},
+								{data: 'created_at', name:'created_at'},
 								{data: 'status', name:'status'},
 								{data: 'action', name: 'action',orderable: false},
-								{data: 'desc_produk', name:'desc_produk', visible: false},
-								{data: 'gambar', name:'gambar', visible: false}
+								{data: 'detail_produk', name:'detail_produk', visible: false},
+								{data: 'id_mitra', name:'id_mitra', visible: false}
 
 								]
 							});
@@ -251,19 +253,18 @@
 								var id = $(this).attr('id');
 								$('#form_lihat').html('');
 								$.ajax({
-									url:"lihat-produk-lelang/"+id,
+									url:"lihat-produk-investasi/"+id,
 									dataType:"json",
 									success:function(html){
-										$('#detail_produk1').val(html.data.desc_produk);
-
+										$('#detail_produk1').val(html.data.detail_produk);
 
 										var lihat = html.data_gambar;
 										var panjang = lihat.length;
 
 										for(var i = 0; i<panjang; i++){
 											var kode_produk = lihat[i].kode_produk;
-											var nama_gambar = lihat[i].nama_gambar;
-											var img = "/Uploads/Lelang/{" + kode_produk  +"}/"+nama_gambar +"";
+											var nama = lihat[i].nama;
+											var img = "/Uploads/Investasi/Produk/{"+ kode_produk +"}/"+ nama +"";
 											$("#"+i).attr("src",img);
 
 										}
@@ -280,7 +281,7 @@
 								var id = $(this).attr('id');
 								$('#form_konfirmasi').html('');
 								$.ajax({
-									url:"produk-lelang/"+id,
+									url:"produk-investasi/"+id,
 									dataType:"json",
 									success:function(html){
 										$('#hidden_id2').val(html.data.id);
@@ -298,7 +299,7 @@
 								var id = $(this).attr('id');
 								$('#form_konfirmasi').html('');
 								$.ajax({
-									url:"produk-lelang/"+id,
+									url:"produk-investasi/"+id,
 									dataType:"json",
 									success:function(html){
 										$('#hidden_id2').val(html.data.id);
@@ -316,7 +317,7 @@
 								var id = $(this).attr('id');
 								$('#form_konfirmasi').html('');
 								$.ajax({
-									url:"produk-lelang/"+id,
+									url:"produk-investasi/"+id,
 									dataType:"json",
 									success:function(html){
 										$('#hidden_id2').val(html.data.id);
@@ -334,7 +335,7 @@
 								var id = $(this).attr('id');
 								$('#form_pesan').html('');
 								$.ajax({
-									url:"produk-lelang/"+id,
+									url:"produk-investasi/"+id,
 									dataType:"json",
 									success:function(html){
 										$('#hidden_id3').val(html.data.id);
@@ -351,7 +352,7 @@
 								if($('#action2').val() == 'Tolak')
 								{
 									$.ajax({
-										url:"{{ route('admin.tolak-produk-lelang') }}",
+										url:"{{ route('admin.tolak-produk-investasi') }}",
 										method:"POST",
 										data: new FormData(this),
 										contentType: false,
@@ -373,7 +374,7 @@
 								if($('#action2').val() == "Validasi")
 								{
 									$.ajax({
-										url:"{{ route('admin.divalidasi-produk-lelang') }}",
+										url:"{{ route('admin.divalidasi-produk-investasi') }}",
 										method:"POST",
 										data: new FormData(this),
 										contentType: false,
@@ -394,7 +395,7 @@
 								if($('#action2').val() == "Proses")
 								{
 									$.ajax({
-										url:"{{ route('admin.proses-produk-lelang') }}",
+										url:"{{ route('admin.proses-produk-investasi') }}",
 										method:"POST",
 										data: new FormData(this),
 										contentType: false,

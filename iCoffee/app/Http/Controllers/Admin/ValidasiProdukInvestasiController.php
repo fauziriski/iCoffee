@@ -5,20 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
-use App\Auction_product;
-use App\Auction_image;
-use App\Auction_process;
+use App\Invest_product;
+use App\Invest_product_image;
 
-
-
-class ValidasiProdukController extends Controller
+class ValidasiProdukInvestasiController extends Controller
 {
-	public function ProdukLelang()
+	public function ProdukInvestasi()
 	{
 		if(request()->ajax())
 		{	
 
-			return datatables()->of(Auction_product::latest()->get())
+			return datatables()->of(Invest_product::latest()->get())
 			->addColumn('action', function($data){
 				
 				if ($data->status == "1") {
@@ -60,24 +57,24 @@ class ValidasiProdukController extends Controller
 			->make(true);
 		}
 
-		return view('admin.validasi-produk-lelang');
+		return view('admin.validasi-produk-investasi');
 	}
 
-	public function ValidasiProduk($id)
+	public function dataProdukInvestasi($id)
 	{
 		if(request()->ajax())
 		{
-			$data = Auction_product::findOrFail($id);
+			$data = Invest_product::findOrFail($id);
 			return response()->json(['data' => $data]);
 		}
 	}
 
-	public function lihatProdukLelang($id)
+	public function lihatProdukInvestasi($id)
 	{
 		if(request()->ajax()){
 
-			$data = Auction_product::find($id);
-			$data_gambar = Auction_image::where('id_produk', $data->id)->get();
+			$data = Invest_product::find($id);
+			$data_gambar = Invest_product_image::where('id_produk', $data->id)->get();
 
 			return response()->json([
 				'data' => $data,
@@ -86,36 +83,36 @@ class ValidasiProdukController extends Controller
 		}
 	}
 
-	public function TolakProdukLelang(Request $request)
+	public function TolakProdukInvestasi(Request $request)
 	{
 
 		$form_data = array(
 			'status' => $request->status,
 		);
 
-		Auction_product::whereId($request->hidden_id2)->update($form_data);
+		Invest_product::whereId($request->hidden_id2)->update($form_data);
 		return response()->json(['success' => 'Berhasil Ditolak']);
 	}
 
-	public function ValidasiProdukLelang(Request $request)
+	public function ValidasiProdukInvestasi(Request $request)
 	{
 
 		$form_data = array(
 			'status' => $request->status,
 		);
 
-		Auction_product::whereId($request->hidden_id2)->update($form_data);
+		Invest_product::whereId($request->hidden_id2)->update($form_data);
 		return response()->json(['success' => 'Berhasil Divalidasi']);
 	}
 
-	public function ProsesProdukLelang(Request $request)
+	public function ProsesProdukInvestasi(Request $request)
 	{	
 		
 		$form_data = array(
 			'status' => $request->status,
 		);
 
-		Auction_product::whereId($request->hidden_id2)->update($form_data);
+		Invest_product::whereId($request->hidden_id2)->update($form_data);
 		return response()->json(['success' => 'Berhasil Diproses']);
 	}
 }
