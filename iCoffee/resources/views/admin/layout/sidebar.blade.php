@@ -161,7 +161,7 @@
           <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Kelola Lelang :</h6>
-              <a class="collapse-item" href="{{url('validasi-produk-lelang')}}">Validasi Produk</a>
+              <a class="collapse-item" href="{{ url('akses-admin/validasi-produk-lelang')}}">Validasi Produk</a>
               <a class="collapse-item" href="{{url('proses-lelang')}}">Proses Lelang</a>
               <div class="collapse-divider"></div>
               <h6 class="collapse-header">Laporan :</h6>

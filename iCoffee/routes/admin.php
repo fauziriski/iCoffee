@@ -37,6 +37,7 @@ Route::get('/jenis-produk', 'JualBeliController@jenisProduk')->name('jenis-produ
 Route::get('/lihat-produk/{id}', 'JualBeliController@lihatProduk')->name('lihat-produk');
 Route::get('/hapus-produk/{id}', 'JualBeliController@hapus')->name('hapus-produk');
 
+Route::get('/validasi-produk-lelang', 'ValidasiProdukController@ProdukLelang')->name('validasi-produk-lelang');
 
 
 
