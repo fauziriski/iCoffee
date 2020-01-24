@@ -38,6 +38,12 @@ Route::get('/lihat-produk/{id}', 'JualBeliController@lihatProduk')->name('lihat-
 Route::get('/hapus-produk/{id}', 'JualBeliController@hapus')->name('hapus-produk');
 
 Route::get('/validasi-produk-lelang', 'ValidasiProdukController@ProdukLelang')->name('validasi-produk-lelang');
+Route::get('/lihat-produk-lelang/{id}', 'ValidasiProdukController@lihatProdukLelang')->name('lihat-produk-lelang');
+Route::get('/produk-lelang/{id}', 'ValidasiProdukController@ValidasiProduk')->name('produk-lelang');
+Route::post('/tolak-produk-lelang/update', 'ValidasiProdukController@TolakProdukLelang')->name('tolak-produk-lelang');
+Route::post('/divalidasi-produk-lelang/update', 'ValidasiProdukController@ValidasiProdukLelang')->name('divalidasi-produk-lelang');
+Route::post('/proses-produk-lelang/update', 'ValidasiProdukController@ProsesProdukLelang')->name('proses-produk-lelang');
+
 
 
 
