@@ -14,7 +14,7 @@ class DeleteIdPenjualFromOrders extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('id_penjual',);
+            $table->dropColumn('id_penjual');
         });
     }
 

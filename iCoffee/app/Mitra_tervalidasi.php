@@ -2,13 +2,40 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Mitra_tervalidasi extends Model
+class Mitra_tervalidasi extends Authenticatable
 {
-    protected $table = 'mitra_tervalidasi';
+    use Notifiable;
+
     protected $guard = 'mitra';
-    protected $fillable = ['nama_koperasi','deskripsi','alamat','jumlah_petani','gambar','id_mitra','email','no_hp','password','kode'];
-    protected $hidden = ['password'];
+    protected $table = 'mitra_tervalidasi';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+	protected $fillable = ['nama_koperasi','deskripsi','alamat','jumlah_petani','gambar','id_mitra','email','no_hp','password','kode'];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
     public $timestamps = true;
 }

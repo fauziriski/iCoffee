@@ -37,6 +37,21 @@ Route::get('/jenis-produk', 'JualBeliController@jenisProduk')->name('jenis-produ
 Route::get('/lihat-produk/{id}', 'JualBeliController@lihatProduk')->name('lihat-produk');
 Route::get('/hapus-produk/{id}', 'JualBeliController@hapus')->name('hapus-produk');
 
+Route::get('/validasi-produk-lelang', 'ValidasiProdukLelangController@ProdukLelang')->name('validasi-produk-lelang');
+Route::get('/lihat-produk-lelang/{id}', 'ValidasiProdukLelangController@lihatProdukLelang')->name('lihat-produk-lelang');
+Route::get('/produk-lelang/{id}', 'ValidasiProdukLelangController@dataProdukLelang')->name('produk-lelang');
+Route::post('/tolak-produk-lelang/update', 'ValidasiProdukLelangController@TolakProdukLelang')->name('tolak-produk-lelang');
+Route::post('/divalidasi-produk-lelang/update', 'ValidasiProdukLelangController@ValidasiProdukLelang')->name('divalidasi-produk-lelang');
+Route::post('/proses-produk-lelang/update', 'ValidasiProdukLelangController@ProsesProdukLelang')->name('proses-produk-lelang');
+
+
+Route::get('/validasi-produk-investasi', 'ValidasiProdukInvestasiController@ProdukInvestasi')->name('validasi-produk-investasi');
+Route::get('/lihat-produk-investasi/{id}', 'ValidasiProdukInvestasiController@lihatProdukInvestasi')->name('lihat-produk-investasi');
+Route::get('/produk-investasi/{id}', 'ValidasiProdukInvestasiController@dataProdukInvestasi')->name('produk-investasi');
+Route::post('/tolak-produk-investasi/update', 'ValidasiProdukInvestasiController@TolakProdukInvestasi')->name('tolak-produk-investasi');
+Route::post('/divalidasi-produk-investasi/update', 'ValidasiProdukInvestasiController@ValidasiProdukInvestasi')->name('divalidasi-produk-investasi');
+Route::post('/proses-produk-investasi/update', 'ValidasiProdukInvestasiController@ProsesProdukInvestasi')->name('proses-produk-investasi');
+
 
 
 

@@ -46,6 +46,17 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'mitra' => [
+            'driver' => 'session',
+            'provider' => 'mitras',
+        ],
+
+        'api-mitra' => [
+            'driver' => 'token',
+            'provider' => 'mitras',
+            'hash' => false,
+        ],
         
     ],
 
@@ -72,6 +83,11 @@ return [
             'model' => App\User::class,
         ],
 
+        'mitras' => [
+            'driver' => 'eloquent',
+            'model' => App\Mitra::class,
+        ],
+
     ],
 
     /*
@@ -92,6 +108,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'mitras' => [
+            'provider' => 'mitras',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

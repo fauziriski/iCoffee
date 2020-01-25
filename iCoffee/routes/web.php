@@ -55,18 +55,22 @@ Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
 Route::get('/investasi', 'ProdukInvestasiController@index');
 Route::get('/invest/produk/{id}','ProdukInvestasiController@detail');
 Route::get('/jadi-mitra', 'KelompokTani@index');
-Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi')->middleware('auth');
+// Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi')->middleware('auth');
 Route::post('/daftar-kelompok/store', 'KelompokTani@store');
 Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store');
 Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store');
-Route::post('/pasang-investasi/store','ProdukInvestasiController@store')->middleware('auth');
-Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth');
+// Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth');
 
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/mitra','MitraController@index');
-Route::get('/mitra/login','MitraController@showLoginForm');
-Route::post('/mitra/login','MitraController@login');
+Route::group(['prefix' => 'mitra'], function(){
+	Route::get('/','MitraController@index')->name('mitra.home');
+	Route::get('/login','Mitra\LoginController@showLoginForm')->name('mitra.login');
+	Route::post('/login','Mitra\LoginController@login')->name('mitra.login.submit');
+	Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi')->middleware('auth:mitra');
+	Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth:mitra');
+	Route::post('/pasang-investasi','ProdukInvestasiController@store')->middleware('auth:mitra');
+});

@@ -112,20 +112,11 @@
 						<label class="control-label col-md-4" >Foto : </label>
 						<div class="col-md-12">
 							
-							<!-- 
-							<figure class="zoom-effect">
-								<div class="aspectRatioPlaceholder">
-									<div class="aspect-ratio-fill"></div>
-									<p id="store_image1" class="imge" data-width="475" data-height="360" />
-								</div>
-							</figure> -->
-							<!-- https://stackoverflow.com/questions/49536873/display-image-on-single-bootstrap-modal -->
-							<!-- https://www.webslesson.info/2018/09/upload-image-in-laravel-using-ajax.html -->
-
-
 							<div id="image">
 								<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
-									<img src="" id="store_image1" width="100px" height="100px"/>
+									@for ($i = 0; $i < 5; $i++)
+									<img src="" id="{{$i}}" width="100px" height="100px"/>
+									@endfor
 								</a>
 
 								<div>   
@@ -209,10 +200,19 @@
 									dataType:"json",
 									success:function(html){
 										$('#detail_produk1').val(html.data.detail_produk);
-										var img = "/Uploads/Produk/{" + html.data.kode_produk  +"}/"+ html.data.gambar +"";
-										$("#store_image1").attr("src",img);
+
+
 										var lihat = html.data_gambar;
-										console.log(lihat);
+										var panjang = lihat.length;
+
+										for(var i = 0; i<panjang; i++){
+											var nama_gambar = lihat[i].nama_gambar;
+											var kode_produk = lihat[i].kode_produk;
+											var img = "/Uploads/Produk/{" + kode_produk  +"}/"+nama_gambar +"";
+											$("#"+i).attr("src",img);
+
+										}
+
 										$('#modalLihat').modal('show');
 
 									}

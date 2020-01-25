@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Invest_product extends Model
 {
     protected $table = 'invest_product';
-    protected $fillable = ['id_mitra','id_kategori','nama_produk','detail_produk','gambar','harga','stok','roi','periode','profit_periode','kode_produk'];
+    protected $fillable = ['id_mitra','id_kategori','nama_produk','detail_produk','gambar','harga','stok','roi','periode','profit_periode','kode_produk','status'];
     public $timestamps = true;
 
     public function category()

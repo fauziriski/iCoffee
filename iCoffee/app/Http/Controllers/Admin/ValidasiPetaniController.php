@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Mitra_tervalidasi;
+use App\Mitra;
 use App\Mitra_koperasi;
 use App\Mitra_perorangan;
 use App\Kelompok_tani;
@@ -20,7 +20,7 @@ class ValidasiPetaniController extends Controller
 		$form_data = array(
 			'id_mitra' => $request->id_mitra,
 			'email' => $request->email,
-			'nama_koperasi' => $request->nama_koperasi,
+			'nama' => $request->nama_koperasi,
 			'deskripsi' => $request->deskripsi,
 			'alamat' => $request->alamat,
 			'jumlah_petani' => $request->jumlah_petani,
@@ -37,7 +37,7 @@ class ValidasiPetaniController extends Controller
 
 		Mitra_koperasi::whereId($request->hidden_id)->update($form_data2);
 
-		Mitra_tervalidasi::create($form_data);
+		Mitra::create($form_data);
 
 		return response()->json(['success' => 'Berhasil divalidasi.']);
 	}
@@ -48,7 +48,7 @@ class ValidasiPetaniController extends Controller
 		$form_data = array(
 			'id_mitra' => $request->id_mitra,
 			'email' => $request->email,
-			'nama_koperasi' => $request->nama_koperasi,
+			'nama' => $request->nama_koperasi,
 			'deskripsi' => $request->deskripsi,
 			'alamat' => $request->alamat,
 			'jumlah_petani' => $request->jumlah_petani,
@@ -64,7 +64,7 @@ class ValidasiPetaniController extends Controller
 
 		Mitra_perorangan::whereId($request->hidden_id)->update($form_data2);
 
-		Mitra_tervalidasi::create($form_data);
+		Mitra::create($form_data);
 
 		return response()->json(['success' => 'Berhasil divalidasi.']);
 	}
@@ -75,7 +75,7 @@ class ValidasiPetaniController extends Controller
 		$form_data = array(
 			'id_mitra' => $request->id_mitra,
 			'email' => $request->email,
-			'nama_koperasi' => $request->nama_koperasi,
+			'nama' => $request->nama_koperasi,
 			'deskripsi' => $request->deskripsi,
 			'alamat' => $request->alamat,
 			'jumlah_petani' => $request->jumlah_petani,
@@ -91,7 +91,7 @@ class ValidasiPetaniController extends Controller
 
 		Kelompok_tani::whereId($request->hidden_id)->update($form_data2);
 
-		Mitra_tervalidasi::create($form_data);
+		Mitra::create($form_data);
 
 		return response()->json(['success' => 'Berhasil divalidasi.']);
 	}

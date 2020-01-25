@@ -12,18 +12,18 @@ class ProdukInvestasiController extends Controller
 
     public function produkInvestasi()
     {
-        return view('investasi.produk');
+        return view('investasi.mitra.produk');
     }
 
     public function pasangInvestasi()
     {
-        return view('investasi.pasang');
+        return view('investasi.mitra.pasang');
     }
 
     public function store(Request $request)
     {
         
-        $id_mitra = Auth::id();
+        $id_mitra = Auth::user()->id_mitra;
         $timestamps = date('YmdHis');
         $code = $timestamps.$id_mitra;
         $size = count(collect($request)->get('gambar'));
@@ -59,13 +59,14 @@ class ProdukInvestasiController extends Controller
             'roi' => $request->roi,
             'periode' => $request->periode,
             'profit_periode' => $request->profit_periode,
-            'kode_produk' => $code
+            'kode_produk' => $code,
+            'status' => '1'
             
         ]);
 
         $id = $product->id;
         
-        for ($i=1; $i < $size ; $i++) {
+        for ($i=0; $i < $size ; $i++) {
             Invest_product_image::create([
                 'id_mitra' => $id_mitra,
                 'id_produk' => $id,
@@ -75,7 +76,7 @@ class ProdukInvestasiController extends Controller
             ]);
         }
 
-        return redirect('/investasi');
+        return redirect('/mitra/produk-investasi');
     }
 
     public function index(){
