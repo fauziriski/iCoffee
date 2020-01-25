@@ -57,11 +57,15 @@
 
           <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown">
 
-            <a class="dropdown-item" href="/jual-beli/keranjang">
-              <i class="ion-ios-cart"></i>
-                Keranjang
+
+
+            <a class="dropdown-item" href="/profil/edit">
+              <i class="ion-ios-person mr-3"></i>Profil
              </a>
 
+            <a class="dropdown-item" href="/jual-beli/keranjang">
+              <i class="ion-ios-cart mr-3"></i>Keranjang
+             </a>
 
            <a class="dropdown-item" href="{{ route('logout') }}"
            onclick="event.preventDefault();

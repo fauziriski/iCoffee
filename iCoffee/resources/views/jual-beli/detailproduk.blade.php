@@ -192,23 +192,24 @@
     	</div>
     	<div class="container">
     		<div class="row">
-    			
+            @foreach ($produk_terkait as $data)
+                
+            
     				<div class="col-md-6 col-lg-3 ftco-animate">
             <div class="product">
-              <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
-                <span class="status">30%</span>
+              <a href="/jual-beli/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid" src="{{ url('/Uploads/Produk/{'.$data->kode_produk.'}/'.$data->gambar) }}" alt="Colorlib Template">
                 <div class="overlay"></div>
               </a>
               <div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="/jual-beli/produk">Kopi Arabika</a></h3>
+                <h3><a href="/jual-beli/produk/{{ $data->id }}">{{ $data->nama_produk }}</a></h3>
                 <div class="d-flex">
                   <div class="pricing">
-                    <p class="price"><span class="price-sale">Rp 30.000/Kg</span></p>
+                    <p class="price"><span class="price-sale">Rp {{ $data->harga }} /Kg</span></p>
                   </div>
                 </div>
                 <div class="bottom-area d-flex px-3">
                   <div class="m-auto d-flex">
-                    <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                    <a href="/jual-beli/produk/{{ $data->id }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                       <span><i class="ion-ios-menu"></i></span>
                     </a>
                     <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
@@ -220,84 +221,10 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="/jual-beli/produk">Kopi Robusta</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    <p class="price"><span class="price-sale">Rp 15.000/Kg</span></p>
-                                </div>
-                            </div>
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                        <span><i class="ion-ios-menu"></i></span>
-                                    </a>
-                                    <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                        <span><i class="ion-ios-cart"></i></span>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="/jual-beli/produk">Kopi Luwak</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    <p class="price"><span class="price-sale">Rp 25.000/Kg</span></p>
-                                </div>
-                            </div>
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                        <span><i class="ion-ios-menu"></i></span>
-                                    </a>
-                                    <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                        <span><i class="ion-ios-cart"></i></span>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="/jual-beli/produk">Kopi Liberika</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    <p class="price"><span class="price-sale">Rp 50.000/Kg</span></p>
-                                </div>
-                            </div>
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                        <span><i class="ion-ios-menu"></i></span>
-                                    </a>
-                                    <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                        <span><i class="ion-ios-cart"></i></span>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+          @endforeach
+          
+ 
     		</div>
     	</div>
     </section>

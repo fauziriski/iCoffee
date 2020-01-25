@@ -103,6 +103,11 @@ class HomeController extends Controller
         return redirect('/jual-beli');
     }
 
+    public function profil()
+    {
+        return view('jual-beli.profil');
+    }
+
 
 
 }
