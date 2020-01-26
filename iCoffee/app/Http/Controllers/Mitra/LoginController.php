@@ -49,7 +49,7 @@ class LoginController extends Controller
         if(Auth::guard('mitra')->attempt($credentials, $request->member)){
             return redirect()->intended(route('mitra.home'));
         }
-        dd($request);
+        return redirect()->back();
     }
 
 }

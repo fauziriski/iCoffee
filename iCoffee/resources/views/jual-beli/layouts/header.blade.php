@@ -43,7 +43,6 @@
              <div class="dropdown-menu">
               <a class="dropdown-item" href="{{url('pasang-jualbeli')}}">Penjualan</a>
               <a class="dropdown-item" href="{{url('pasang-lelang')}}">Lelang</a>
-              <a class="dropdown-item" href="{{url('pasang-investasi')}}">Investasi</a>
             </div>
           </div>
 

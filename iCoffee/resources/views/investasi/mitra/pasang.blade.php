@@ -2,11 +2,11 @@
 @section('title', 'Pasang Produk | Investasi')
 @section('content')
 
-<div class="col-md-9">
+<div class="col-md-9 mx-auto">
    <div class="card">
      <article class="card-group-item">
         <header class="card-header"><h6 class="title">Pasang Produk Investasi</h6></header>
-        <form action="mitra/pasang-investasi" method="POST" enctype="multipart/form-data">
+        <form action="\mitra/pasang-investasi" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
             <div class="col-md-12">
@@ -134,7 +134,7 @@
    function load_json_data(id, parent_id)
    {
     var html_code = '';
-    $.getJSON('country_state_city.json', function(data){
+    $.getJSON('/country_state_city.json', function(data){
   
      html_code += '<option value="">Pilih Periode '+id+'</option>';
      $.each(data, function(key, value){

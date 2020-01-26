@@ -11,7 +11,7 @@
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
 			<h1 class="h3 mb-0 text-gray-800">Produk Investasi</h1>
-			<a href="/mitra/pasang-investasi" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Tambah Produk</a>
+			<a href="/mitra/pasang-investasi" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus-circle fa-sm text-white-50"></i>  Tambah Produk</a>
 		</div>
 		
 		<div class="table-responsive">
@@ -21,8 +21,9 @@
 						<th>Nama</th>
 						<th>Harga</th>
 						<th>Stok</th>
+						<th>Profit (%/Tahun)</th>
 						<th>Periode</th>
-						<th>Profit Periode</th>
+						<th>Periode Return</th>
 						<th>Status</th>
 						<th></th>
 
@@ -33,7 +34,7 @@
 	</div>
 </div>
 
-<div id="modalVerifikasi" class="modal fade" role="dialog">
+{{-- <div id="modalVerifikasi" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -160,14 +161,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-
-		@endsection
-		@section('js')
-
-
-		<script>
+		</div> --}}
+@endsection
+@section('js')
+	<script>
 			$(document).ready(function(){
 				$('#table_id').DataTable({
 
@@ -193,154 +190,21 @@
 					processing: true,
 					serverSide: true,
 
-					ajax: '{{ route('admin.mitra-koperasi') }}',
+					ajax: '{{ route('investasi.mitra.produk') }}',
 
 					columns:[
 
-					{data: 'nama_koperasi', name:'nama_koperasi'},
-					{data: 'jumlah_petani', name:'jumlah_petani'},
-					{data: 'email', name:'email'},
-					{data: 'no_hp', name:'no_hp'},
-					{data: 'created_at', name:'created_at'},
-					{data: 'status', name:'status'},
+					{data: 'nama_produk', name:'nama_produk'},
+					{data: 'harga', name:'harga'},
+					{data: 'stok', name:'stok'},
+					{data: 'roi', name:'roi'},
+					{data: 'periode', name:'periode'},
+					{data: 'profit_periode', name:'profit_periode'},
+					{data: 'proses', name:'proses'},
 					{data: 'action', name: 'action',orderable: false},
-					{data: 'deskripsi', name:'deskripsi', visible: false},
-					{data: 'alamat', name:'alamat', visible: false},
-					{data: 'gambar', name:'gambar', visible: false},
-					{data: 'ad_art', name:'ad_art', visible: false},
-					{data: 'akte', name:'akte', visible: false},
-					{data: 'ktp_pengurus', name:'ktp_pengurus', visible: false},
-					{data: 'id_mitra', name:'id_mitra', visible: false},
-					{data: 'kode', name:'kode', visible:false}
 
 					]
 				});
-
-				$(document).on('click', '.lihat', function(){
-					var id = $(this).attr('id');
-					$('#form_lihat').html('');
-					$.ajax({
-						url:"validasi-koperasi/"+id,
-						dataType:"json",
-						success:function(html){
-							$('#nama_koperasi1').val(html.data.nama_koperasi);
-							$('#deskripsi1').val(html.data.deskripsi);
-							$('#alamat1').val(html.data.alamat);
-							$('#store_image1').html("<img src={{ URL::to('/') }}/Uploads/Mitra_Koperasi/{" + html.data.kode+"}/"+ html.data.gambar +" width='200' height='200' class='img-thumbnail' />");
-							$('#ad_art1').html("<a href={{ URL::to('/') }}/Uploads/Mitra_Koperasi/{" + html.data.kode  +"}/"+ html.data.ad_art +" target='_blank'>&nbsp;lihat</a>");
-							$('#akte1').html("<a href={{ URL::to('/') }}/Uploads/Mitra_Koperasi/{" + html.data.kode  +"}/"+ html.data.akte +" target='_blank'>&nbsp;lihat</a>");
-							$('#ktp_pengurus1').html("<a href={{ URL::to('/') }}/Uploads/Mitra_Koperasi/{" + html.data.kode  +"}/"+ html.data.ktp_pengurus +" target='_blank'>&nbsp;lihat</a>");
-							$('#modalLihat').modal('show');
-						}
-					})
-				});
-
-				$(document).on('click', '.tolak', function(){
-					var id = $(this).attr('id');
-					$('#form_konfirmasi').html('');
-					$.ajax({
-						url:"validasi-koperasi/"+id,
-						dataType:"json",
-						success:function(html){
-							$('#hidden_id2').val(html.data.id);
-							$('.modal-title').text("Konfirmasi");
-							$('#action_button').val("Tolak");
-							$('#status2').val("ditolak");
-							$('.text').text("Apakah anda yakin ingin tolak?")
-							$('#action').val("Tolak");
-							$('#modalVerifikasi').modal('show');
-						}
-					})
-				});
-
-				$(document).on('click', '.verifikasi', function(){
-					var id = $(this).attr('id');
-					$('#form_konfirmasi').html('');
-					$.ajax({
-						url:"validasi-koperasi/"+id,
-						dataType:"json",
-						success:function(html){
-							$('#hidden_id2').val(html.data.id);
-							$('.modal-title2').text("Konfirmasi");
-							$('#status2').val("divalidasi");
-							$('#password2').val("password");
-							$('#id_mitra2').val(html.data.id_mitra);
-							$('#email2').val(html.data.email);
-							$('#nama_koperasi2').val(html.data.nama_koperasi);
-							$('#deskripsi2').val(html.data.deskripsi);
-							$('#alamat2').val(html.data.alamat);
-							$('#jumlah_petani2').val(html.data.jumlah_petani);
-							$('#gambar2').val(html.data.gambar);
-							$('#no_hp2').val(html.data.no_hp);
-							$('#kode').val(html.data.kode);
-							$('.text').text("Apakah anda yakin ingin validasi?")
-							$('#action_button').val("Validasi");
-							$('#action').val("Verifikasi");
-							$('#modalVerifikasi').modal('show');
-						}
-					})
-				});
-
-				$(document).on('click', '.pesan', function(){
-					var id = $(this).attr('id');
-					$('#form_pesan').html('');
-					$.ajax({
-						url:"validasi-koperasi/"+id,
-						dataType:"json",
-						success:function(html){
-							$('#hidden_id3').val(html.data.id);
-							$('#email3').val(html.data.email);
-							$('#action_button3').val("Kirim Pesan");
-							$('#action3').val("Pesan");
-							$('#modalPesan').modal('show');
-						}
-					})
-				});
-
-				$('#sample_form').on('submit', function(event){
-					event.preventDefault();
-					if($('#action').val() == 'Tolak')
-					{
-						$.ajax({
-							url:"{{ route('admin.tolak-koperasi.update') }}",
-							method:"POST",
-							data: new FormData(this),
-							contentType: false,
-							cache:false,
-							processData: false,
-							dataType:"json",
-
-							success:function(data)
-							{
-								setTimeout(function(){
-									$('#modalVerifikasi').modal('hide');
-									$('#table_id').DataTable().ajax.reload();
-								}, 500);
-							}
-						});
-					}
-
-					if($('#action').val() == "Verifikasi")
-					{
-						$.ajax({
-							url:"{{ route('admin.validasi-petani.koperasi') }}",
-							method:"POST",
-							data: new FormData(this),
-							contentType: false,
-							cache:false,
-							processData: false,
-							dataType:"json",
-							success:function(data)
-							{
-								setTimeout(function(){
-									$('#modalVerifikasi').modal('hide');
-									$('#table_id').DataTable().ajax.reload();
-								}, 500);
-							}
-						});
-					}
-				});
 			});
-
-		</script>
-		@stop
+	</script>
+@endsection
