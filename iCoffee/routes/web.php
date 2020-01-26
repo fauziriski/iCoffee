@@ -17,6 +17,9 @@ Route::get('/', function () {
 	return view('index');
 });
 
+//profil
+route::get('/profil/edit', 'HomeController@profil');
+
 // jual beli
 Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
 Route::post('/pasang-produk/berhasil', 'HomeController@pasangproduk');

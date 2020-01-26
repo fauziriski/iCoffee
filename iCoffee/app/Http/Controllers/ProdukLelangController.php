@@ -88,6 +88,7 @@ class ProdukLelangController extends Controller
             'nama_produk' => $request->nama_produk,
             'desc_produk' => $request->deskripsi,
             'kelipatan' => $request->kelipatan,
+            'stok' => $request->stok,
             'harga_awal' => $request->harga_awal,
             'lama_lelang' => $request->lama_lelang,
             'gambar' => $nama[0],

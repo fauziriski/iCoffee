@@ -32,7 +32,10 @@ class ProdukController extends Controller
 
         
         $products = Shop_product::find($id);
-        $produk_terkait = Shop_product::where('id_kategori', $products->id_kategori)->take(4)->get();
+        $produk_terkait = Shop_product::where('id_kategori', $products->id_kategori)->where('id', '!=', $id)->take(4)->get();
+        if($produk_terkait->isEmpty()){
+            $produk_terkait = Shop_product::where('id', '!=', $id)->orderBy('created_at','desc')->take(4)->get();
+        }
         $image = Image::where('id_produk', $products->id)->get();
     
         return view('jual-beli.detailproduk',compact('products','image','produk_terkait'));
@@ -47,22 +50,7 @@ class ProdukController extends Controller
         return view('jual-beli.lelang.index', compact('products','panjang'));
     }
 
-    public function detaillelang($id)
-    {
-
-        $products = Auction_product::find($id);
-
-        $proses = Auction_process::where('id_produk', $products->id)->latest('updated_at')->first();
-        $tawar = $proses->penawaran+$proses->kelipatan;
-
-        $produk_terkait = Auction_product::where('id_kategori', $products->id_kategori)->take(4)->get();
-        $image = Auction_image::where('id_produk', $products->id)->get();
-
-        $penawar = Auction_process::where('id_produk', $products->id)->latest('updated_at')->take(4)->get();
-        $i = 1;
-    
-        return view('jual-beli.lelang.detaillelang',compact('products','image','produk_terkait','proses','tawar', 'penawar','i'));
-    }
+   
 
     
     

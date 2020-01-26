@@ -118,8 +118,8 @@
                     <input type="hidden" name="kelipatan" value="{{ $products->kelipatan }}">
                     <p><input class="btn btn-primary py-3 px-1" id="tawar" value="Tawar" readonly></p>
                   </form>
-          </div>
-        </div>
+            </div>
+    </div>
       
 
         <ul class="col nav nav-pills" id="pills-tab" role="tablist">
