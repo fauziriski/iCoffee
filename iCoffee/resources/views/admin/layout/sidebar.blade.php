@@ -162,7 +162,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Kelola Lelang :</h6>
               <a class="collapse-item" href="{{ url('akses-admin/validasi-produk-lelang')}}">Validasi Produk</a>
-              <a class="collapse-item" href="{{url('proses-lelang')}}">Proses Lelang</a>
+              <a class="collapse-item" href="{{url('akses-admin/proses-lelang')}}">Proses Lelang</a>
               <div class="collapse-divider"></div>
               <h6 class="collapse-header">Laporan :</h6>
               <a class="collapse-item" href="{{url('laporan-lelang')}}">Laporan Lelang</a>

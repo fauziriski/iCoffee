@@ -52,6 +52,11 @@ Route::post('/tolak-produk-investasi/update', 'ValidasiProdukInvestasiController
 Route::post('/divalidasi-produk-investasi/update', 'ValidasiProdukInvestasiController@ValidasiProdukInvestasi')->name('divalidasi-produk-investasi');
 Route::post('/proses-produk-investasi/update', 'ValidasiProdukInvestasiController@ProsesProdukInvestasi')->name('proses-produk-investasi');
 
+Route::get('/proses-lelang', 'ProsesLelangController@prosesLelang')->name('proses-lelang');
+Route::get('/data-proses-lelang/{id}', 'ProsesLelangController@dataLelang')->name('data-proses-lelang');
+
+
+
 
 
 
