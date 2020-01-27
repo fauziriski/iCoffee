@@ -6,12 +6,43 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Invest_product;
 use App\Invest_product_image;
+use DB;
+use DataTables;
+use App\Mitra;
 
 class ProdukInvestasiController extends Controller
 {
 
     public function produkInvestasi()
     {
+        if(request()->ajax())
+		{	
+
+			return datatables()->of(Invest_product::where('id_mitra', Auth::user()->id_mitra)->latest()->get())
+			->addColumn('action', function($data){
+				$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>';
+				return $button;
+            })
+            ->addColumn('proses', function($data){
+				if ($data->status == 1) {
+					$proses = 'Belum Divalidasi';
+
+                }
+                elseif ($data->status == 2) {
+					$proses = 'Sudah Divalidasi';
+
+                }
+                elseif ($data->status == 0) {
+					$proses = 'Ditolak';
+
+                }
+				return $proses;
+			})
+			
+			->rawColumns(['action','proses'])
+			->make(true);
+        }
+        
         return view('investasi.mitra.produk');
     }
 
@@ -80,7 +111,7 @@ class ProdukInvestasiController extends Controller
     }
 
     public function index(){
-        $products = Invest_product::orderBy('created_at','desc')->paginate(12);
+        $products = Invest_product::where('status', 2)->orderBy('created_at','desc')->paginate(12);
     
         return view('investasi.index',compact('products'));
     }
@@ -90,7 +121,8 @@ class ProdukInvestasiController extends Controller
         $products = Invest_product::find($id);
         $produk_terkait = Invest_product::where('id_kategori', $products->id_kategori)->take(4)->get();
         $image = Invest_product_image::where('id_produk', $products->id)->get();
+        $mitra = Mitra::where('id_mitra', $products->id_mitra)->get();
     
-        return view('investasi.detailproduk',compact('products','image','produk_terkait'));
+        return view('investasi.detailproduk',compact('products','image','produk_terkait','mitra'));
     }
 }

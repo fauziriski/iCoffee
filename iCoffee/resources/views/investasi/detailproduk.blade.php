@@ -210,7 +210,6 @@
             $collect->push($profit);
           }
           $collect->push(0);
-          echo $collect;
       @endphp
 			<div class="col mb-5 ftco-animate">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -281,23 +280,24 @@
           </div>
           <br>
           <hr>
-          <h4>Kelompok Tani</h4>
+          <h4>Mitra Proyek</h4>
+          @foreach ($mitra as $item)
           <div class="container">
-          <div class="row">
-            <div class="col-md-4-sm-4">
-              <img src="\images/Logo.jpg" height="130px" width="170px">
-          </div>
-          <div class="col-1">
-            
-          </div>
-            <div class="col-md-7-sm-7-ml-2">
-              <h5>Kelompok Tani Mulya Sari</h5>
-              <hr>
-              <p>Operator iCoffee</p>
-              <i class="fa fa-leaf fa-lg"></i> 331 Dikelola <i class="fa fa-user fa-lg"></i> 10 Petani <i class="fa fa-map fa-lg"></i> Jl. Purnawirawan
+            <div class="row">
+              <div class="col-md-4-sm-4">
+                <img src="\images/Logo.jpg" height="130px" width="170px">
             </div>
-          </div>
-			   </div>
+            <div class="col-1">
+            </div>
+              <div class="col-md-7-sm-7-ml-2">
+                <h5>{{$item->nama}}</h5>
+                <hr>
+                <p>Operator iCoffee</p>
+                <i class="fa fa-leaf fa-lg"></i> 331 Dikelola <i class="fa fa-user fa-lg"></i> {{$item->jumlah_petani}} Petani <i class="fa fa-map fa-lg"></i> {{$item->alamat}}
+              </div>
+            </div>
+           </div>
+          @endforeach
     	</div>
 
 			
