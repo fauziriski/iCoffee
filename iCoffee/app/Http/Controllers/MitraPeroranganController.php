@@ -54,5 +54,7 @@ class MitraPeroranganController extends Controller
         $mitra = Mitra_perorangan::find($id);
         $mitra->id_mitra = 'PR'.$id;
         $mitra->save();
+
+        return redirect('jadi-mitra');
     }
 }

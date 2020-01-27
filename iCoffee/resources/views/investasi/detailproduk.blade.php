@@ -88,7 +88,7 @@
 							</p>
 						</div> -->
 
-					  <p class="price"><h5>Rp {{ $products->harga }} / Unit</h5></p>
+					  <p class="price"><h5>@money($products->harga) / Unit</h5></p>
 
             <div class="row">
               <p class="text-left">
@@ -104,7 +104,7 @@
             <div class="row">
               <p class="text-left">
                 <div class="col">
-                  <i class="fa fa-money"></i> Return yang didapat
+                  <i class="fa fa-percent"></i> Return yang didapat
                 </div>
                 <div class="col">
                   <p>{{$products->roi}}% Per Tahun</p>
