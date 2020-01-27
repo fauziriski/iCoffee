@@ -63,6 +63,8 @@ Route::post('/daftar-kelompok/store', 'KelompokTani@store')->middleware('auth');
 Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store')->middleware('auth');
 Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store')->middleware('auth');
 // Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth');
+Route::get('/jadi-investor','InvestorController@formInvestor')->middleware('auth');
+Route::post('/jadi-investor','InvestorController@store');
 
 
 Auth::routes();
@@ -76,4 +78,5 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi')->name('investasi.mitra.produk')->middleware('auth:mitra');
 	Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth:mitra');
 	Route::post('/pasang-investasi','ProdukInvestasiController@store')->middleware('auth:mitra');
+	Route::get('/logout','Mitra\LoginController@logout');
 });
