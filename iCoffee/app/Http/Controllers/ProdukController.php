@@ -42,8 +42,17 @@ class ProdukController extends Controller
     }
 
     public function lelang() {
+        // alert()->html('<i>HTML</i> <u>example</u>',"
+        //                 You can use <b>bold text</b>,
+        //                 <a href='//github.com'>links</a>
+        //                 and other HTML tags
+        //                 ",'success')->autoClose(5000);
 
-        $products = Auction_product::orderBy('created_at','desc')->paginate(12);
+                // example:
+        alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.')->showConfirmButton('Confirm', '#3085d6');
+
+
+        $products = Auction_product::where('status', 2)->orderBy('created_at','desc')->paginate(12);
 
         $panjang = count($products);
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Images;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Auction_product;
 use App\Auction_process;
 use App\Auction_image;
@@ -125,25 +126,54 @@ class ProdukLelangController extends Controller
             
             
         }
+        Alert::success('Berhasil');
         return redirect('/lelang');
         
     }
 
     public function detaillelang($id)
     {
+        $id_pelanggan = Auth::user()->id;
+        $nama_pelanggan = Auth::user()->name;
 
         $products = Auction_product::find($id);
 
         $proses = Auction_process::where('id_produk', $products->id)->latest('updated_at')->first();
+        // dd($proses);
+
+
+        if(empty($proses))
+        {
+            $process = Auction_process::create([
+                'id_produk' => $products->id,
+                'id_pelelang' => $products->id_pelelang,
+                'id_penawar' => $products->id_pelelang,
+                'nama' => 'pelelang',
+                'penawaran' => $products->harga_awal,
+                'pemenang' => '0',
+                'kelipatan' => $products->kelipatan,
+                'status' => '1'
+            ]);
+
+            $proses = Auction_process::where('id_produk', $products->id)->latest('updated_at')->first();
+
+        }
         $tawar = $proses->penawaran+$proses->kelipatan;
 
-        $produk_terkait = Auction_product::where('id_kategori', $products->id_kategori)->take(4)->get();
+        $produk_terkait = Auction_product::where('id_kategori', $products->id_kategori)->where('status', 2)->where('id','!=', $id)->take(4)->get();
+
+        if($produk_terkait->isEmpty())
+        {
+            $produk_terkait = Auction_product::where('status', 2)->take(4)->get();
+        }
+        $panjang = count($produk_terkait);
         $image = Auction_image::where('id_produk', $products->id)->get();
 
         $penawar = Auction_process::where('id_produk', $products->id)->latest('updated_at')->take(4)->get();
+
         $i = 1;
     
-        return view('jual-beli.lelang.detaillelang',compact('products','image','produk_terkait','proses','tawar', 'penawar','i'));
+        return view('jual-beli.lelang.detaillelang',compact('products','image','produk_terkait','proses','tawar', 'penawar','i','panjang'));
     }
 
     public function tawar(Request $request)
@@ -159,6 +189,7 @@ class ProdukLelangController extends Controller
             'status' => '1'
         ]);
         $i = 1;
+        Alert::success('Tawaran Anda Berhasil');
 
         return response()->json($process);
 

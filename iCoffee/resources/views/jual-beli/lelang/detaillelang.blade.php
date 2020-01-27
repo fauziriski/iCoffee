@@ -134,15 +134,17 @@
         <br>
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <div class="col mb-5 ftco-animate">
-                <p>{{ $products->desc_produk }}</p>
+            <div class="row">
+              <div class="col mb-5 ftco-animate">
+                  <p>{{ $products->desc_produk }}</p>
+              </div>
             </div>
           </div>
 
           
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
           <div class="col-md-12 ftco-animate">
- 
+            <div class="cart-list">
               <table class="table" id="table_id">
       
                   <tr class="text-center">
@@ -186,112 +188,22 @@
     </div>
     <div class="container">
         <div class="row">
-            
-                <div class="col-md-6 col-lg-3 ftco-animate">
-        <div class="product">
-          <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
-            <span class="status">30%</span>
-            <div class="overlay"></div>
-          </a>
-          <div class="text py-3 pb-4 px-3 text-center">
-            <h3><a href="/jual-beli/produk">Kopi Arabika</a></h3>
-            <div class="d-flex">
-              <div class="pricing">
-                <p class="price"><span class="price-sale">Rp 30.000/Kg</span></p>
-              </div>
-            </div>
-            <div class="bottom-area d-flex px-3">
-              <div class="m-auto d-flex">
-                <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                  <span><i class="ion-ios-menu"></i></span>
+        @foreach ($produk_terkait as $data)
+        <div class="col-md-6 col-lg-3 ftco-animate">
+            <div class="product">
+                <a href="/lelang/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid" src="{{ url('/Uploads/Lelang/{'.$data->kode_lelang.'}/'.$data->gambar) }}" alt="Colorlib Template">
+                    <div class="overlay"></div>
                 </a>
-                <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                  <span><i class="ion-ios-cart"></i></span>
-                </a>
-                
-              </div>
+                <div class="text py-3 pb-4 px-3 text-center">
+                    <h3><a href="/lelang/produk/{{ $data->id }}">{{ $data->nama_produk }}</a></h3>
+                    <p class="demo" id="{{ $data->id }}" name="{{ $data->id }}"  style="color:#ee4d2c;"></p>     
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="product">
-                    <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
-                        <div class="overlay"></div>
-                    </a>
-                    <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="/jual-beli/produk">Kopi Robusta</a></h3>
-                        <div class="d-flex">
-                            <div class="pricing">
-                                <p class="price"><span class="price-sale">Rp 15.000/Kg</span></p>
-                            </div>
-                        </div>
-                        <div class="bottom-area d-flex px-3">
-                            <div class="m-auto d-flex">
-                                <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                    <span><i class="ion-ios-cart"></i></span>
-                                </a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-      <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="product">
-                    <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
-                        <div class="overlay"></div>
-                    </a>
-                    <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="/jual-beli/produk">Kopi Luwak</a></h3>
-                        <div class="d-flex">
-                            <div class="pricing">
-                                <p class="price"><span class="price-sale">Rp 25.000/Kg</span></p>
-                            </div>
-                        </div>
-                        <div class="bottom-area d-flex px-3">
-                            <div class="m-auto d-flex">
-                                <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                    <span><i class="ion-ios-cart"></i></span>
-                                </a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-      <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="product">
-                    <a href="/jual-beli/produk" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
-                        <div class="overlay"></div>
-                    </a>
-                    <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="/jual-beli/produk">Kopi Liberika</a></h3>
-                        <div class="d-flex">
-                            <div class="pricing">
-                                <p class="price"><span class="price-sale">Rp 50.000/Kg</span></p>
-                            </div>
-                        </div>
-                        <div class="bottom-area d-flex px-3">
-                            <div class="m-auto d-flex">
-                                <a href="/jual-beli/produk" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                    <span><i class="ion-ios-cart"></i></span>
-                                </a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+        @endforeach
+
+
         </div>
     </div>
 </section>
@@ -299,45 +211,107 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="http://malsup.github.com/jquery.form.js"></script>
+<script>
+  // Set the date we're counting down to
+  var  u = {!!json_encode($products)!!};
+  var id = u.tanggal_berakhir;
 
+  var countDownDate = new Date(id).getTime();
 
+  // Update the count down every 1 second
+  var x = setInterval(function() {
 
+    // Get today's date and time
+    var now = new Date().getTime();
+      
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+      
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+    // Output the result in an element with id="demo"
+    document.getElementById("demo1").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
 
+      
+    // If the count down is over, write some text 
+    if (distance < 0) {
+      clearInterval(x);
+      $('#tawar').replaceWith('<input class="btn btn-primary py-3 px-1" id="selesai" value="Selesai" readonly>');
+      document.getElementById("demo1").innerHTML = "EXPIRED";
+    }
+  }, 1000);
+</script>
 
 <script>
-    // Set the date we're counting down to
-    var  u = {!!json_encode($products)!!};
-    var id = u.tanggal_berakhir;
-    console.log(id);
-    var countDownDate = new Date(id).getTime();
+  // Set the date we're counting down to
+  var sis = 27;
 
-    // Update the count down every 1 second
+  var data = {!!json_encode($data->tanggal_berakhir)!!};
+  var  u = {!!json_encode($produk_terkait)!!};
+  var p = u;
+
+  // console.log(p[0].id);
+
+  var length = p.length;
+  var panjang =  {!!json_encode($panjang)!!};
+  
+
+    // var array = u.data[i];
+    // var id = array.id;
+    // var y =  array.tanggal_berakhir;
+ 
+   
+
+   
+  
+  // var countDownDate = new Date("2020-01-21 15:37:25").getTime();
+  // Update the count down every 1 second
     var x = setInterval(function() {
+      for (i = 0; i < length; i++) {
+        var array = p[i];
+        var id = array.id;
+       
+        var y =  array.tanggal_berakhir;
+        var count = new Date(y).getTime();
+        // Get today's date and time
+        var now = new Date().getTime();
+          
+        // Find the distance between now and the count down date
+        var distance = count - now;
 
-      // Get today's date and time
-      var now = new Date().getTime();
-        
-      // Find the distance between now and the count down date
-      var distance = countDownDate - now;
-        
-      // Time calculations for days, hours, minutes and seconds
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-      // Output the result in an element with id="demo"
-      document.getElementById("demo1").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+        // Output the result in an element with id="demo"
+        document.getElementById(id).innerHTML = days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
 
-        
+      
+
+      
       // If the count down is over, write some text 
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("demo1").innerHTML = "EXPIRED";
+          if (distance < 0) {
+            
+            clearInterval(x);
+            document.getElementById(id).innerHTML = "EXPIRED";
+          }
       }
+          
     }, 1000);
-</script>
+  
+  
+  </script>
+
+
+
 
 
 <script>
@@ -346,14 +320,12 @@ $(document).ready(function() {
    
    $('#tawar').on('click', function() {
     var data = $('#sample_form').serialize();
-    console.log(data)
     $.ajax({
 					url:"/lelang/produk/tawar",
 					method:"POST",
 					data: data,
 					success:function(data)
 					{
-            alert('Tawaran Anda Berhasil');
             var penawaranselanjutnya = parseInt(data.penawaran) + parseInt(data.kelipatan);
             $('#penawaran_coba').replaceWith('<input type="text" id="penawaran_coba" name="penawaran_coba" class="form-control input-number" value="'+ penawaranselanjutnya +'" readonly>');
             $('#penawaran').replaceWith('<input type="hidden" id="penawaran" name="penawaran" value="'+ penawaranselanjutnya +'">');

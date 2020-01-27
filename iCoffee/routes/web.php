@@ -18,7 +18,10 @@ Route::get('/', function () {
 });
 
 //profil
+route::get('/profil/tambahalamat', 'HomeController@tambahalamat');
+route::post('/profil/tambah' , 'HomeController@tambah_alamat');
 route::get('/profil/edit', 'HomeController@profil');
+route::get('profil/carikota/{id}', 'HomeController@carikota');
 
 // jual beli
 Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');

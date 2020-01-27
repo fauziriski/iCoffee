@@ -73,6 +73,7 @@
     var data = {!!json_encode($data->tanggal_berakhir)!!};
     var  u = {!!json_encode($products)!!};
     var p = u.data;
+    console.log(u);
 
     var length = p.length;
 
@@ -112,13 +113,14 @@
       // Output the result in an element with id="demo"
       document.getElementById(id).innerHTML = days + "d " + hours + "h "
       + minutes + "m " + seconds + "s ";
-        }
+        
         
         // If the count down is over, write some text 
             if (distance < 0) {
               clearInterval(x);
               document.getElementById(id). innerHTML = "EXPIRED";
             }
+          }
       }, 1000);
     }
     </script>

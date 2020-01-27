@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Images;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\User;
+use App\Address;
 use App\Shop_product;
 use App\Image;
+use App\Province;
+use App\City;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
+
 
 class HomeController extends Controller
 {
@@ -105,8 +111,53 @@ class HomeController extends Controller
 
     public function profil()
     {
-        return view('jual-beli.profil');
+        $id_pelanggan = Auth::user()->id;
+        $nama_pelanggan = Auth::user()->name;
+        $user = User::where('id', $id_pelanggan)->first();
+        $address = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->first();
+        $provinsi = Province::all();
+
+        if(empty($address))
+        {
+            return view('jual-beli.tambahalammat', compact('user', 'address', 'provinsi'));       
+
+        }
+        
+        return view('jual-beli.profil', compact('user', 'address', 'provinsi'));
     }
+
+    public function tambahalamat()
+    {
+        $provinsi = Province::all();
+        return view('jual-beli.tambahalamat', compact('provinsi'));
+    }
+
+    public function carikota($id)
+    {
+        $kota = City::where('id_provinsi', $id)->get();
+        return response()->json($kota);
+    }
+
+    public function tambah_alamat(Request $request)
+    {
+        $id_pelanggan = Auth::user()->id;
+        $tambah_alamat = Address::create([
+            'id_pelanggan' => $id_pelanggan,
+            'nama' => $request->nama,
+            'provinsi' => $request->provinsi,
+            'kota_kabupaten' => $request->kota_kabupaten,
+            'kecamatan' => $request->kecamatan,
+            'kode_pos' => $request->kode_pos,
+            'no_hp'=> $request->no_hp,
+            'address' => $request->alamat,
+            'status' => '1'
+
+        ]);
+        Alert::success('Berhasil');
+
+        return redirect('/profil/edit');
+    }
+
 
 
 
