@@ -11,4 +11,12 @@ class Province extends Model
     ];
 
     public $timestamps = true;
+
+    public function address(){ 
+        return $this->hasMany('App\Address'); 
+    }
+
+    public function city(){ 
+        return $this->hasMany('App\City'); 
+    }
 }

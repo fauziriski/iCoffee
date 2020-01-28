@@ -49,7 +49,7 @@ class ProdukController extends Controller
         //                 ",'success')->autoClose(5000);
 
                 // example:
-        alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.')->showConfirmButton('Confirm', '#3085d6');
+
 
 
         $products = Auction_product::where('status', 2)->orderBy('created_at','desc')->paginate(12);
@@ -57,6 +57,12 @@ class ProdukController extends Controller
         $panjang = count($products);
 
         return view('jual-beli.lelang.index', compact('products','panjang'));
+    }
+
+
+    public function invoice()
+    {
+        return view('jual-beli.invoice');
     }
 
    

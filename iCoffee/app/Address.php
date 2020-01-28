@@ -11,4 +11,14 @@ class Address extends Model
     ];
 
     public $timestamps = true;
+
+
+    public function province(){
+    	return $this->belongsTo('App\Province', 'provinsi');
+    }
+
+
+    public function city(){
+    	return $this->belongsTo('App\City', 'kota_kabupaten');
+    }
 }

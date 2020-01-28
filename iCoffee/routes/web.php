@@ -21,6 +21,10 @@ Route::get('/', function () {
 route::get('/profil/tambahalamat', 'HomeController@tambahalamat');
 route::post('/profil/tambah' , 'HomeController@tambah_alamat');
 route::get('/profil/edit', 'HomeController@profil');
+route::post('/profil/tambah' , 'HomeController@tambah_alamat');
+route::post('/profil/edit_profil', 'HomeController@edit_profil');
+route::get('/profil/cekalamat/{id}', 'HomeController@cekalamat');
+route::post('/profil/alamat/edit', 'HomeController@editalamat');
 route::get('profil/carikota/{id}', 'HomeController@carikota');
 
 // jual beli
@@ -36,6 +40,7 @@ Route::post('/jual-beli/update-keranjang', 'KeranjangjbController@updatekeranjan
 Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
+Route::get('/jual-beli/invoice', 'ProdukController@invoice');
 
 
 
