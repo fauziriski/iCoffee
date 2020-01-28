@@ -55,8 +55,16 @@ class ValidasiProdukLelangController extends Controller
 
 				return $status;
 			})
+
+			->addColumn('lama_hari', function($data){
+				$ambil = $data->lama_lelang;
+				$hari = "hari";
+				$lama_hari = $ambil.$hari;
+
+				return $lama_hari;
+			})
 			
-			->rawColumns(['action','status'])
+			->rawColumns(['action','status','lama_hari'])
 			->make(true);
 		}
 
@@ -99,9 +107,14 @@ class ValidasiProdukLelangController extends Controller
 
 	public function ValidasiProdukLelang(Request $request)
 	{
+		$lama = $request->lama_lelang;
+		$tanggal_mulai = date('Y-m-d H:i:s');
+		$tanggal_selesai = date("Y-m-d H:i:s", strtotime("+". $lama ."days"));
 
 		$form_data = array(
 			'status' => $request->status,
+			'tanggal_mulai' => $tanggal_mulai,
+			'tanggal_berakhir' => $tanggal_selesai
 		);
 
 		Auction_product::whereId($request->hidden_id2)->update($form_data);

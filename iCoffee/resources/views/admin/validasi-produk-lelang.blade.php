@@ -69,8 +69,7 @@
 						<th>Nama Produk</th>
 						<th>Harga Awal</th>
 						<th>Jumlah (Kg)</th>
-						<th>Tgl Mulai</th>
-						<th>Tgl Berakhir</th>
+						<th>Lama Lelang</th>
 						<th>Status</th>
 						<th></th>					
 					</tr>
@@ -135,6 +134,7 @@
 					<input type="hidden" name="status" id="status2" value="" />
 					<input type="hidden" name="hidden_id2" id="hidden_id2" />
 					<input type="hidden" name="action" id="action2" />
+					<input type="hidden" name="lama_lelang" id="lama_lelang2" value="" />
 					<div class="text2">
 						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
 						<div class="mt-5"></div>
@@ -205,6 +205,10 @@
 					<script>
 						$(document).ready(function(){
 							$('#table_id').DataTable({
+								dom: 'Bfrtip',
+								buttons: [
+								'copy', 'csv', 'excel', 'pdf', 'print'
+								],
 
 								oLanguage: {
 									"sProcessing":   "Sedang memproses ...",
@@ -236,12 +240,12 @@
 								{data: 'nama_produk', name:'nama_produk'},
 								{data: 'harga_awal', name:'harga_awal'},
 								{data: 'stok', name:'stok'},
-								{data: 'tanggal_mulai', name:'tanggal_mulai'},
-								{data: 'tanggal_berakhir', name:'tanggal_berakhir'},
+								{data: 'lama_hari', name:'lama_hari'},
 								{data: 'status', name:'status'},
 								{data: 'action', name: 'action',orderable: false},
 								{data: 'desc_produk', name:'desc_produk', visible: false},
-								{data: 'gambar', name:'gambar', visible: false}
+								{data: 'gambar', name:'gambar', visible: false},
+								{data: 'lama_lelang', name:'lama_lelang', visible: false}
 
 								]
 							});
@@ -320,6 +324,7 @@
 									dataType:"json",
 									success:function(html){
 										$('#hidden_id2').val(html.data.id);
+										$('#lama_lelang2').val(html.data.lama_lelang);
 										$('.modal-title2').text("Konfirmasi");
 										$('#action_button2').val("validasi");
 										$('#status2').val("2");

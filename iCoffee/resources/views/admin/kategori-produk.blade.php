@@ -85,6 +85,11 @@
 	$(document).ready(function(){
 
 		$('#kategori_table').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+			],
+			
 			oLanguage: {
 				"sProcessing":   "Sedang memproses ...",
 				"sLengthMenu":   "Tampilkan _MENU_ entri",
