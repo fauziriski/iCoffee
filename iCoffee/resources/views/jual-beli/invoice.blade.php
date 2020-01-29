@@ -6,148 +6,138 @@
 
 
 <div class="container mt-5">
-    
-    <!-- Simple Invoice - START -->
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                
-                    <h2>Invoice for purchase #33221</h2>
-                
-                <hr>
-                <div class="row">
-                    <div class="col-xs-12 col-md-3 col-lg-3 pull-left">
-                        <div class="panel panel-default height">
-                            <div class="panel-heading">Billing Details</div>
-                            <div class="panel-body">
-                                <strong>David Peere:</strong><br>
-                                1111 Army Navy Drive<br>
-                                Arlington<br>
-                                VA<br>
-                                <strong>22 203</strong><br>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3 col-lg-3">
-                        <div class="panel panel-default height">
-                            <div class="panel-heading">Payment Information</div>
-                            <div class="panel-body">
-                                <strong>Card Name:</strong> Visa<br>
-                                <strong>Card Number:</strong> ***** 332<br>
-                                <strong>Exp Date:</strong> 09/2020<br>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3 col-lg-3">
-                        <div class="panel panel-default height">
-                            <div class="panel-heading">Order Preferences</div>
-                            <div class="panel-body">
-                                <strong>Gift:</strong> No<br>
-                                <strong>Express Delivery:</strong> Yes<br>
-                                <strong>Insurance:</strong> No<br>
-                                <strong>Coupon:</strong> No<br>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3 col-lg-3 pull-right">
-                        <div class="panel panel-default height">
-                            <div class="panel-heading">Shipping Address</div>
-                            <div class="panel-body">
-                                <strong>David Peere:</strong><br>
-                                1111 Army Navy Drive<br>
-                                Arlington<br>
-                                VA<br>
-                                <strong>22 203</strong><br>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="text-center"><strong>Order summary</strong></h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-condensed">
-                                <thead>
-                                    <tr>
-                                        <td><strong>Item Name</strong></td>
-                                        <td class="text-center"><strong>Item Price</strong></td>
-                                        <td class="text-center"><strong>Item Quantity</strong></td>
-                                        <td class="text-right"><strong>Total</strong></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Samsung Galaxy S5</td>
-                                        <td class="text-center">$900</td>
-                                        <td class="text-center">1</td>
-                                        <td class="text-right">$900</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Samsung Galaxy S5 Extra Battery</td>
-                                        <td class="text-center">$30.00</td>
-                                        <td class="text-center">1</td>
-                                        <td class="text-right">$30.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Screen protector</td>
-                                        <td class="text-center">$7</td>
-                                        <td class="text-center">4</td>
-                                        <td class="text-right">$28</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="highrow"></td>
-                                        <td class="highrow"></td>
-                                        <td class="highrow text-center"><strong>Subtotal</strong></td>
-                                        <td class="highrow text-right">$958.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="emptyrow"></td>
-                                        <td class="emptyrow"></td>
-                                        <td class="emptyrow text-center"><strong>Shipping</strong></td>
-                                        <td class="emptyrow text-right">$20</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
-                                        <td class="emptyrow"></td>
-                                        <td class="emptyrow text-center"><strong>Total</strong></td>
-                                        <td class="emptyrow text-right">$978.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<div class="invoice-title">
+		<h3>Invoice</h3><h3 class="pull-right">Order # {{ $order->invoice }}</h3>
+	</div>
+	@foreach ($id_penjual as $data)
+		
+	
+    <div class="row mb-3">
+        <div class="col-md-12">	
+    		<hr>
+    		<div class="row">
+    			<div class="col-md-3 col-6">
+    				<address>
+    				<strong>Billed To:</strong><br>
+    					John Smith<br>
+    					1234 Main<br>
+    					Apt. 4B<br>
+    					Springfield, ST 54321
+    				</address>
+    			</div>
+    			<div class="col-md-3 col-6">
+    				<address>
+        			<strong>Shipped To:</strong><br>
+    					Jane Smith<br>
+    					1234 Main<br>
+    					Apt. 4B<br>
+    					Springfield, ST 54321
+    				</address>
+    			</div>
+    		   		
+    			<div class="col-md-3 col-6">
+    				<address>
+    					<strong>Payment Method:</strong><br>
+    					Visa ending **** 4242<br>
+    					jsmith@email.com
+    				</address>
+    			</div>
+    			<div class="col-md-3 col-6">
+    				<address>
+    					<strong>Order Date:</strong><br>
+    					March 7, 2014<br><br>
+    				</address>
+    			</div>
+    		</div>
+    	</div>
     </div>
     
-    <style>
-    
-    .table > tbody > tr > .emptyrow {
-        border-top: none;
-    }
-    
-    .table > thead > tr > .emptyrow {
-        border-bottom: none;
-    }
-    
-    .table > tbody > tr > .highrow {
-        border-top: 3px solid;
-    }
-    </style>
-    
-    <!-- Simple Invoice - END -->
-    
-    </div>
-    
-    </body>
-    </html>
+    <div class="row mb-5">
+    	<div class="col-md-12">
+    		<div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="card-header"><strong>Order summary</strong></h3>
+    			</div>
+    			<div class="panel-body">
+    				<div class="table-responsive col-sm-12">
+    					<table class="table table-condensed">
+    						<thead>
+                                <tr>
+        							<td><strong>Item</strong></td>
+        							<td class="text-center"><strong>Price</strong></td>
+        							<td class="text-center"><strong>Quantity</strong></td>
+        							<td class="text-center"><strong>Totals</strong></td>
+                                </tr>
+    						</thead>
+    						<tbody>
+    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
+    							<tr>
+    								<td>BS-200</td>
+    								<td class="text-center">$10.99</td>
+    								<td class="text-center">1</td>
+    								<td class="text-right">$10.99</td>
+    							</tr>
+                                <tr>
+        							<td>BS-400</td>
+    								<td class="text-center">$20.00</td>
+    								<td class="text-center">3</td>
+    								<td class="text-right">$60.00</td>
+    							</tr>
+                                <tr>
+            						<td>BS-1000</td>
+    								<td class="text-center">$600.00</td>
+    								<td class="text-center">1</td>
+    								<td class="text-right">$600.00</td>
+    							</tr>
+    							<tr>
+    								<td class="thick-line"></td>
+    								<td class="thick-line"></td>
+    								<td class="thick-line text-center"><strong>Subtotal</strong></td>
+    								<td class="thick-line text-right">$670.99</td>
+    							</tr>
+    							<tr>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Shipping</strong></td>
+    								<td class="no-line text-right">$15</td>
+    							</tr>
+    							<tr>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Total</strong></td>
+    								<td class="no-line text-right">$685.99</td>
+    							</tr>
+    						</tbody>
+    					</table>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+	</div>
+	
+	@endforeach
+</div>
+
+
+<style>
+
+.invoice-title h2, .invoice-title h3 {
+    display: inline-block;
+}
+
+.table > tbody > tr > .no-line {
+    border-top: none;
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 2px solid;
+}
+
+</style>
 
 
 @endsection

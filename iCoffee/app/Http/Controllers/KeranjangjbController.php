@@ -202,6 +202,13 @@ class KeranjangjbController extends Controller
             $id_penjual = Shop_product::whereIn('id',$id_produks)->get();
         }
 
+        
+
+        for ($i=0; $i < $hitung ; $i++)
+        {
+            $alamat_penjual = Address::where('id_pelanggan', $id_penjual[$i]->id_pelanggan)->get();
+        }
+
         for ($i=0; $i < $hitung ; $i++) {
 
             $orderdetail = Orderdetail::create([
@@ -215,7 +222,8 @@ class KeranjangjbController extends Controller
                 'harga' => $request->harga[$i],
                 'total' => $request->total[$i],
                 'kode_produk' => $id_penjual[$i]->kode_produk,
-                'gambar' => $id_penjual[$i]->gambar
+                'gambar' => $id_penjual[$i]->gambar,
+                'id_alamat_penjual' => $alamat_penjual[$i]->id
     
                 
             ]);
@@ -240,10 +248,38 @@ class KeranjangjbController extends Controller
 
         }
         
-        return redirect('/jual-beli');
+        return redirect('/jual-beli/invoice/'.$invoice);
         
         
+    }
+
+    public function invoice($invoice)
+    {
+        $id_pembeli = Auth::user()->id;
+        $order = Order::where('invoice', $invoice)->first();
+        $orderdetail = Orderdetail::where('invoice', $invoice)->get();
         
+        $hitung = $orderdetail->count();
+        $datas = 0;
+        
+        
+        for ($i=0; $i < $hitung ; $i++) {
+            
+            if ($datas != $orderdetail[$i]->id_penjual) {
+                $datas = $orderdetail[$i]->id_penjual;
+                $id_penjual[] = $orderdetail[$i]->id_penjual;
+        
+            }
+        }
+        $jumlah_pelanggan = count($id_penjual);
+
+        for ($i=0; $i < $jumlah_pelanggan; $i++) { 
+            
+            $alamat_penjual[] = Address::where('id_pelanggan', $id_penjual[$i])->get();
+        }
+        $alamat_pembeli = Address::where('id', $order->id_alamat)->first();
+
+        return view('jual-beli.invoice', compact('order', 'orderdetail', 'alamat_penjual', 'alamat_penjual', 'id_penjual'));
     }
 
     
