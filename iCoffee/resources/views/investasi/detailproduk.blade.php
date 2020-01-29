@@ -88,7 +88,7 @@
 							</p>
 						</div> -->
 
-					  <p class="price"><h5>Rp {{ $products->harga }} / Unit</h5></p>
+					  <p class="price"><h5>@money($products->harga) / Unit</h5></p>
 
             <div class="row">
               <p class="text-left">
@@ -191,7 +191,7 @@
             
               </div>
               {{-- <button type="submit" class="btn btn-primary mt-3 py-3">Masuk</button> --}}
-              <p><a href="cart.html" class="btn btn-primary py-3 px-5"><i class="fa fa-credit-card"> </i>&nbsp;&nbsp;&nbsp; Salurkan Pembayaran</a></p>
+              <p><a href="\invest/checkout" class="btn btn-primary py-3 px-5"><i class="fa fa-credit-card"> </i>&nbsp;&nbsp;&nbsp; Salurkan Pembayaran</a></p>
               {{-- <p><a type="submit" class="btn btn-primary mt-3 py-3"></a>Beli</p> --}}
           </div>
           </form>
@@ -248,7 +248,7 @@
                   {{$i}}
                 </div>
                 <div class="col">
-                  Rp. {{$profit}}
+                  @money($profit)
                 </div>
                 <div class="col">
                   {{$products->roi}}%
@@ -260,7 +260,7 @@
                   Pengembalian Modal
                 </div>
                 <div class="col">
-                  Rp. {{$products->harga}}
+                  @money($products->harga)
                 </div>
                 <div class="col">
                 </div>
@@ -270,7 +270,7 @@
                   Total
                 </div>
                 <div class="col">
-                  Rp. {{$total}}
+                  @money($total)
                 </div>
                 <div class="col">
                   -

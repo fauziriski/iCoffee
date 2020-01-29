@@ -9,6 +9,7 @@ use App\Invest_product_image;
 use DB;
 use DataTables;
 use App\Mitra;
+use App\Investor;
 
 class ProdukInvestasiController extends Controller
 {
@@ -124,5 +125,15 @@ class ProdukInvestasiController extends Controller
         $mitra = Mitra::where('id_mitra', $products->id_mitra)->get();
     
         return view('investasi.detailproduk',compact('products','image','produk_terkait','mitra'));
+    }
+
+    public function checkout()
+    {
+        if(Investor::where('status',1)->where('id_pengguna', Auth::id())->first()){
+            return redirect('/jadi-investor');
+        }
+        else{
+            echo "bachoot";
+        }
     }
 }
