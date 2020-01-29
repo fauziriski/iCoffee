@@ -196,11 +196,12 @@ class HomeController extends Controller
 
     public function editalamat(Request $request)
     {
-
+        $id_pelanggan = Auth::user()->id;
         $alamat = Address::where('id', $request->id_alamat_edit)->first();
 
-        $update_alamat = update([
+        $update_alamat = $alamat->update([
             'nama' => $request->nama_edit,
+            'id_pelanggan' => $id_pelanggan,
             'provinsi' => $request->provinsi_edit,
             'kota_kabupaten' => $request->kota_kabupaten_edit,
             'kecamatan' => $request->kecamatan_edit,
@@ -208,11 +209,8 @@ class HomeController extends Controller
             'no_hp'=> $request->no_hp_edit,
             'address' => $request->alamat_edit
         ]);
-
-        Alert::success('Berhasil');
-
-
-        return redirect('/profil/edit');
+        
+        return response()->json();
 
     }
 

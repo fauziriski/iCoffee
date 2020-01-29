@@ -133,16 +133,16 @@
     
               <div class="form-group">
                 <label for="nama">Nama</label>
-                <input type="text" class="form-control" name="nama" required>
-                <span class="text-danger">{{$errors->first('nama_produk')}}</span>
+                <input type="text" class="form-control" id="nama_alamat" name="nama_alamat" required>
+                <span class="text-danger">{{$errors->first('nama_alamat')}}</span>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="handphoe">No Handphone</label>
                     <div class="input-group">
-                      <input type="number" class="form-control" id="" placeholder="08123456789" name="no_hp" required>
-                      <span class="text-danger">{{$errors->first('stok')}}</span>
+                      <input type="number" class="form-control" id="no_hp_alamat" placeholder="08123456789" name="no_hp_alamat" required>
+                      <span class="text-danger">{{$errors->first('no_hp_alamat')}}</span>
                     </div>
                   </div>
                 </div>
@@ -151,7 +151,7 @@
                   <div class="form-group">
                     <label for="country">Provinsi</label>
                     <div class="select-wrap">
-                      <select name="provinsi_alamat" id="" class="form-control" required>
+                      <select name="provinsi_alamat" id="provinsi_alamat" class="form-control" required>
                         @foreach ($provinsi as $info)
                         <option value="{{ $info['id'] }}">{{ $info['nama'] }}</option>
                         @endforeach
@@ -175,8 +175,8 @@
                     <div class="form-group">
                       <label for="stok">Kecamatan</label>
                       <div class="input-group">
-                        <input type="text" class="form-control" id="" placeholder="Tanjung Pinang" name="kecamatan" required>
-                        <span class="text-danger">{{$errors->first('kecamatan')}}</span>
+                        <input type="text" class="form-control" id="kecamatan_alamat" placeholder="Tanjung Pinang" name="kecamatan_alamat" required>
+                        <span class="text-danger">{{$errors->first('kecamatan_alamat')}}</span>
                       </div>
                     </div>
                   </div>
@@ -185,8 +185,8 @@
                     <div class="form-group">
                       <label for="stok">Kode Pos</label>
                       <div class="input-group">
-                        <input type="number" class="form-control" id="" placeholder="35198" name="kode_pos" required>
-                        <span class="text-danger">{{$errors->first('kode_pos')}}</span>
+                        <input type="number" class="form-control" id="kode_pos_alamat" placeholder="35198" name="kode_pos_alamat" required>
+                        <span class="text-danger">{{$errors->first('kode_pos_alamat')}}</span>
                       </div>
                     </div>
                   </div>
@@ -194,8 +194,8 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="deskripsi">Alamat</label>
-                      <textarea class="form-control" rows="5" type="text" name="alamat" placeholder="Jl. Pagar Alam (Gang PU) No.44" required></textarea>
-                      <span class="text-danger">{{$errors->first('alamat')}}</span>
+                      <textarea class="form-control" rows="5" type="text" id="alamat_alamat" name="alamat_alamat" placeholder="Jl. Pagar Alam (Gang PU) No.44" required></textarea>
+                      <span class="text-danger">{{$errors->first('alamat_alamat')}}</span>
                     </div>
                   </div>
     
@@ -284,7 +284,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form method="post" enctype="multipart/form-data" id="editalamatform" action="/profil/alamat/edit">
+                <form method="post" enctype="multipart/form-data" id="editalamatform">
                   @csrf
                   <input type="hidden" id="id_alamat_edit" name="id_alamat_edit">
                   <div class="form-group">
@@ -300,6 +300,7 @@
                   <div class="form-group">
                     <label for="provinsi_edit" class="col-form-label">Provinsi</label>
                       <select name="provinsi_edit" required id="provinsi_edit" class="form-control">
+                        <option value="" id="prov_coba"></option>
                         @foreach ($provinsi as $info)
                           <option value="{{ $info['id'] }}">{{ $info['nama'] }}</option>
                         @endforeach
@@ -309,6 +310,7 @@
                   <div class="form-group">
                     <label for="kota_kabupaten_edit" class="col-form-label">Kota/Kabupaten</label>
                     <select name="kota_kabupaten_edit" id="" class="form-control" required>
+                      <option value="" id="kota_coba"></option>
                       <option class="form-control" value="">Select City</option>
                   </select>
                   </div>
@@ -402,6 +404,8 @@
                 $('#id_alamat_edit').replaceWith('<input type="hidden" id="id_alamat_edit" name="id_alamat_edit" required value="'+ data.alamat.id +'">');
                 $('#nama_edit').replaceWith('<input type="text" class="form-control" id="nama_edit" name="nama_edit" required value="'+ data.alamat.nama +'">');
                 $('#no_hp_edit').replaceWith('<input type="text" class="form-control" id="no_hp_edit" name="no_hp_edit" required value="'+ data.alamat.no_hp +'">');
+                $('#prov_coba').replaceWith('<option value="'+ data.alamat.provinsi +'" selected>'+ data.provinsi +'</option>');
+                $('#kota_coba').replaceWith('<option value="'+ data.alamat.kota_kabupaten +'" selected>'+ data.kota +'</option>');
                 $('#kecamatan_edit').replaceWith('<input type="text" class="form-control" id="kecamatan_edit" name="kecamatan_edit" required value="'+ data.alamat.kecamatan +'">');
                 $('#kode_pos_edit').replaceWith('<input type="text" class="form-control" id="kode_pos_edit" name="kode_pos_edit" required value="'+ data.alamat.kode_pos +'">');
                 $('#alamat_edit').replaceWith('<input type="text" class="form-control" id="alamat_edit" name="alamat_edit" required value="'+ data.alamat.address +'">');
@@ -420,7 +424,16 @@
     $.ajax({
 					url:"/profil/alamat/edit",
 					method:"POST",
-					data: data
+          dataType: 'json',
+					data: data,
+          success:function(data){
+            swal(
+              'Berhasil',
+              'Edit alamat berhasil',
+              'success'
+            );
+            location.reload();
+          }
 				});
 
   });
