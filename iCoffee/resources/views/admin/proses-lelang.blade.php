@@ -93,175 +93,164 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				<span id="form_lihat_penawaran"></span>
+				
 				<div class="form-group">
 					<div class="form-group">
 
-							<div class="table-responsive">
-								<table id="penawaran" class="table table-striped table-bordered" style="width:100%">
-									<thead>
-										<tr>
-											<th>Nama</th>
-											<th>Penawaran</th>	
-											<th></th>			
-										</tr>
-									</thead>			
-								</table>
-							</div>
+						<div class="table-responsive">
+							<table id="penawaran" class="table table-striped table-bordered" style="width:100%">
+								<thead>
+									<tr>
+										<th>Nama</th>
+										<th>Penawaran</th>			
+									</tr>
+								</thead>
+								<tbody>
+
+								</tbody>			
+							</table>
 						</div>
 					</div>
-					
-					<br />
-					<div align="right">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-					</div>
+				</div>
+
+				<br />
+				<div align="right">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 
 
 
-	@endsection
-	@section('js')
+@endsection
+@section('js')
 
 
-	<script>
-		$(document).ready(function(){
-			$('#table_id').DataTable({
-				dom: 'Bfrtip',
-				buttons: [
-				'copy', 'csv', 'excel', 'pdf', 'print'
-				],
+<script>
+	$(document).ready(function(){
+		$('#table_id').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+			],
 
-				oLanguage: {
-					"sProcessing":   "Sedang memproses ...",
-					"sLengthMenu":   "Tampilkan _MENU_ entri",
-					"sZeroRecords":  "Tidak ditemukan data yang sesuai",
-					"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-					"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
-					"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
-					"sInfoPostFix":  "",
-					"sSearch":       "Cari:",
-					"sUrl":          "",
-					"oPaginate": {
-						"sFirst":    "Pertama",
-						"sPrevious": "Sebelumnya",
-						"sNext":     "Selanjutnya",
-						"sLast":     "Terakhir"
-					}
-				},
-
-
-				processing: true,
-				serverSide: true,
-
-				ajax: '{{ route('admin.proses-lelang') }}',
+			oLanguage: {
+				"sProcessing":   "Sedang memproses ...",
+				"sLengthMenu":   "Tampilkan _MENU_ entri",
+				"sZeroRecords":  "Tidak ditemukan data yang sesuai",
+				"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+				"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+				"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+				"sInfoPostFix":  "",
+				"sSearch":       "Cari:",
+				"sUrl":          "",
+				"oPaginate": {
+					"sFirst":    "Pertama",
+					"sPrevious": "Sebelumnya",
+					"sNext":     "Selanjutnya",
+					"sLast":     "Terakhir"
+				}
+			},
 
 
-				columns:[
+			processing: true,
+			serverSide: true,
 
-				{data: 'kode_lelang', name:'kode_lelang'},
-				{data: 'nama_produk', name:'nama_produk'},
-				{data: 'harga_awal', name:'harga_awal'},
-				{data: 'stok', name:'stok'},
-				{
-					'data': null,
-					'render': function (data, type, row) {
-						return '<p id="'+ row.id +'"></p>'
-
-					}
-				},
-				{data: 'action', name: 'action',orderable: false},
-				{data: 'desc_produk', name:'desc_produk', visible: false},
-				{data: 'gambar', name:'gambar', visible: false},
-				{data: 'tanggal_berakhir', name:'tanggal_berakhir', visible: false}
+			ajax: '{{ route('admin.proses-lelang') }}',
 
 
-				]
+			columns:[
 
-			});
+			{data: 'kode_lelang', name:'kode_lelang'},
+			{data: 'nama_produk', name:'nama_produk'},
+			{data: 'harga_awal', name:'harga_awal'},
+			{data: 'stok', name:'stok'},
+			{
+				'data': null,
+				'render': function (data, type, row) {
+					return '<p id="'+ data.id +'"></p>'
 
-
-
-			$(document).on('click', '.lihat_penawaran', function(){
-				var id = $(this).attr('id');
-				$('#form_lihat_penawaran').html('');
-				$.ajax({
-					url:"data-proses-lelang/"+id,
-					dataType:"json",
-					success:function(html){
-
-						$('#modalLihatPenawaran').modal('show');
-						$('#penawaran').DataTable({
-
-							columns:[
-
-							{data: 'nama', name:'nama'},
-							{data: 'penawaran', name:'penawaran'},
-							{data: 'action', name: 'action',orderable: false}
+				}
+			},
+			{data: 'action', name: 'action',orderable: false},
+			{data: 'desc_produk', name:'desc_produk', visible: false},
+			{data: 'gambar', name:'gambar', visible: false},
+			{data: 'tanggal_berakhir', name:'tanggal_berakhir', visible: false}
 
 
-							]
-
-						});
-						var lihat = html.data_proses;
-						var a = lihat;
-						var gabung = a.nama;
-						console.log(gabung);
-
-
-					}
-				})
-			});
+			]
 
 		});
 
 
 
-	</script>
+		$(document).on('click','.lihat_penawaran', function(){
+			var id = $(this).attr('id');
+			$('#modalLihatPenawaran').modal('show');
+			$('#penawaran').DataTable({
+				processing: true,
+				serverSide: true,
 
-	<script>
-
-		var  u = {!!json_encode($status)!!};
-		var p = u;
-
-		var length = p.length;
-		for (i = 0; i < length; i++) {
-
-			var x = setInterval(function() {
-				for (i = 0; i < length; i++) {
-					var array = p[i];
-					var id = array.id;
-
-					var y =  array.tanggal_berakhir;
-					var count = new Date(y).getTime();
-
-					var now = new Date().getTime();
-
-					var distance = count - now;
+				ajax: '{!! url('akses-admin/data-proses-lelang') !!}'+'/'+id,
 
 
-					var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-					var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-					var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-					var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+				columns: [
+				{ data: 'nama', name: 'nama' },
+				{ data: 'penawaran', name: 'penawaran' }
+				]
+
+			});
+		});
+	});
 
 
-					document.getElementById(id).innerHTML = days + "d " + hours + "h "
-					+ minutes + "m " + seconds + "s ";
 
 
-					if (distance < 0) {
+</script>
 
-						clearInterval(x);
-						document.getElementById(id).innerHTML = "EXPIRED";
-					}
+<script>
+
+	var  u = {!!json_encode($status)!!};
+	var p = u;
+
+	var length = p.length;
+	for (i = 0; i < length; i++) {
+
+		var x = setInterval(function() {
+			for (i = 0; i < length; i++) {
+				var array = p[i];
+				var id = array.id;
+
+				var y =  array.tanggal_berakhir;
+				var count = new Date(y).getTime();
+
+				var now = new Date().getTime();
+
+				var distance = count - now;
+
+
+				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+				document.getElementById(id).innerHTML = days + "d " + hours + "h "
+				+ minutes + "m " + seconds + "s ";
+
+
+				if (distance < 0) {
+
+					clearInterval(x);
+					document.getElementById(id).innerHTML = "EXPIRED";
 				}
+			}
 
-			}, 1000);
-		}
-	</script>
+		}, 1000);
+	}
+</script>
 
-	@stop
+@stop

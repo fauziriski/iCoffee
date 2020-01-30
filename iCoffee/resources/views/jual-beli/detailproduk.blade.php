@@ -47,19 +47,19 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-6 mb-5 pl-4 md-5 pr-2 ftco-animatee">
-          <div class="home-slider owl-carousel">
-            
-    
-            <div class="slider-item">
-              <img class="img-fluid" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" alt="Colorlib Template">
-            </div>
+                <div class="home-slider owl-carousel">
+                  
+          
+                  <div class="slider-item">
+                    <img class="img-fluid" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" alt="Colorlib Template">
+                  </div>
 
-            @foreach($image as $data)
-            <div class="slider-item">
-              <img class="img-fluid" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$data->nama_gambar) }}" alt="Colorlib Template">
-            </div>
-            @endforeach
-          </div>
+                  @foreach($image as $data)
+                  <div class="slider-item">
+                    <img class="img-fluid" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$data->nama_gambar) }}" alt="Colorlib Template">
+                  </div>
+                  @endforeach
+                </div>
               </div>
           
 
@@ -172,15 +172,45 @@
 
 			</div>
       
-      <div class="row">
-			<div class="col mb-5 ftco-animate">
-				<p>{{ $products->detail_produk }}</p>
-      </div>
-    </div>
+        <div class="row">
+          <div class="col mb-5 ftco-animate">
+            <p>{{ $products->detail_produk }}</p>
+          </div>
+        </div>
+        <br>
+        <hr>
+
+        <div class="row ">
+          <div class="container">
+            <div class="row">
+              <div class="col-2">
+                <img src="{{ asset('market-icons.png')}}" height="100%" width="100%">
+              </div>
+         
+              <div class="col-6">
+                <br>
+                <h5>{{$products->user->name}}</h5>
+              
+                <p>{{ $alamat->city->nama }}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+    
 			
 
-    	</div>
+      </div>
+     
+
+      
+      
     </section>
+
+   
+
+  
+      
 
     <section class="ftco-section">
     	<div class="container">

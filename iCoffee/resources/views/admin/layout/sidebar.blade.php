@@ -194,6 +194,8 @@
               <a class="collapse-item" href="{{url('akses-admin/validasi-produk-investasi')}}">Validasi Produk Investasi</a>
               <a class="collapse-item" href="{{url('progres-investasi')}}">Progres Investasi</a>
               <a class="collapse-item" href="{{url('pencairan-investasi')}}">Pencairan Investasi</a>
+              <h6 class="collapse-header">Kelola Investor :</h6>
+              <a class="collapse-item" href="{{url('akses-admin/validasi-investor')}}">Validasi Investor</a>
 
               <div class="collapse-divider"></div>
               <h6 class="collapse-header">Laporan :</h6>

@@ -8,6 +8,7 @@ use Validator;
 use App\User;
 use App\Shop_product;
 use App\Image;
+use App\Address;
 use App\Auction_product;
 use App\Auction_process;
 use App\Auction_image;
@@ -37,8 +38,9 @@ class ProdukController extends Controller
             $produk_terkait = Shop_product::where('id', '!=', $id)->orderBy('created_at','desc')->take(4)->get();
         }
         $image = Image::where('id_produk', $products->id)->get();
-    
-        return view('jual-beli.detailproduk',compact('products','image','produk_terkait'));
+        $alamat =  Address::where('id_pelanggan', $products->id_pelanggan)->where('status', 1)->first();
+        
+        return view('jual-beli.detailproduk',compact('products','image','produk_terkait', 'alamat'));
     }
 
     public function lelang() {

@@ -104,13 +104,15 @@
                                 </tr>
     						</thead>
     						<tbody>
-    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
+    							@for ($j = 0; $j < $hitungdataorder[$i]; $j++)
     							<tr>
-    								<td>BS-200</td>
-									<td class="text-center"></td>
-    								<td class="text-center">1</td>
-    								<td class="text-right">$10.99</td>
-    							</tr>
+									<td>{{ $orderdetaildata[$i][$j]->nama_produk }}</td>
+									<td class="text-center">{{  $orderdetaildata[$i][$j]->harga  }}</td>
+    								<td class="text-center">{{  $orderdetaildata[$i][$j]->jumlah  }}</td>
+    								<td class="text-right">{{  $orderdetaildata[$i][$j]->total  }}</td>
+								</tr>
+								
+								@endfor
                                 
     							<tr>
     								<td class="thick-line"></td>

@@ -34,6 +34,7 @@
 
 						        <td class="product-name">
 									<h3>{{ $data->nama_produk }}</h3>
+									<p>{{ $data->shop_product->user->name }}</p>
 						        </td>
 						        
 						        <td class="price">{{ $data->harga }}</td>
