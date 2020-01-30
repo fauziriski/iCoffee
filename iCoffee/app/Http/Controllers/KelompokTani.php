@@ -44,6 +44,7 @@ class KelompokTani extends Controller
             $kelompok->id_mitra = 'KT'.$id;
             $kelompok->save();
         }
+        return redirect('jadi-mitra');
     }
 
     public function index(){

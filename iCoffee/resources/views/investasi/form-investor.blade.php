@@ -17,7 +17,7 @@
               <div class="form-group">
                 <label for="harga">No. KTP* </label>
                 <div class="input-group">
-                  <input type="number" class="form-control" name="no_ktp">
+                  <input type="number" min="1"class="form-control" name="no_ktp">
                   <span class="text-danger">{{$errors->first('harga')}}</span>
                 </div>
               </div>
