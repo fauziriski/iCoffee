@@ -70,7 +70,8 @@ Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store')->midd
 // Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth');
 Route::get('/jadi-investor','InvestorController@formInvestor')->middleware('auth');
 Route::post('/jadi-investor','InvestorController@store');
-Route::get('/invest/checkout', 'ProdukInvestasiController@checkout')->middleware('auth');
+Route::post('/invest/checkout', 'ProdukInvestasiController@checkout')->middleware('auth');
+Route::post('/invest/checkout/berhasil', 'ProdukInvestasiController@pay')->middleware('auth');
 
 
 Auth::routes();
