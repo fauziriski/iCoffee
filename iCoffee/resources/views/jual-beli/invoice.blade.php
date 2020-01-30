@@ -9,43 +9,77 @@
 	<div class="invoice-title">
 		<h3>Invoice</h3><h3 class="pull-right">Order # {{ $order->invoice }}</h3>
 	</div>
-	@foreach ($id_penjual as $data)
-		
+	@for ($i = 0; $i < $jumlah_pelanggan; $i++)
 	
-    <div class="row mb-3">
+    <div class="row mb-2">
         <div class="col-md-12">	
     		<hr>
     		<div class="row">
     			<div class="col-md-3 col-6">
     				<address>
-    				<strong>Billed To:</strong><br>
-    					John Smith<br>
-    					1234 Main<br>
-    					Apt. 4B<br>
-    					Springfield, ST 54321
+					<strong>Pengirim :</strong><br>
+						
+						{{ $alamat_penjual[$i][0]->nama }}<br>
+						{{ $alamat_penjual[$i][0]->address }},
+						{{ $alamat_penjual[$i][0]->kecamatan }},
+						{{ $alamat_penjual[$i][0]->city->nama }},
+    					{{ $alamat_penjual[$i][0]->province->nama }}, 			
+						{{ $alamat_penjual[$i][0]->kode_pos }}
     				</address>
     			</div>
     			<div class="col-md-3 col-6">
     				<address>
-        			<strong>Shipped To:</strong><br>
-    					Jane Smith<br>
-    					1234 Main<br>
-    					Apt. 4B<br>
-    					Springfield, ST 54321
+        			<strong>Penerima :</strong><br>
+						{{ $alamat_pembeli->nama }}<br>
+						{{ $alamat_pembeli->address }},
+						{{ $alamat_pembeli->kecamatan }},
+						{{ $alamat_pembeli->city->nama }},
+						{{ $alamat_pembeli->province->nama }}, 			
+						{{ $alamat_pembeli->kode_pos }}
     				</address>
     			</div>
     		   		
     			<div class="col-md-3 col-6">
     				<address>
-    					<strong>Payment Method:</strong><br>
-    					Visa ending **** 4242<br>
-    					jsmith@email.com
+    					<strong>Metode Pembayaran :</strong><br>
+    					{{ $rekening->bank_name }} {{ $rekening->no_rekening }}<br>
+
     				</address>
     			</div>
     			<div class="col-md-3 col-6">
     				<address>
-    					<strong>Order Date:</strong><br>
-    					March 7, 2014<br><br>
+    					<strong>Tanggal Order :</strong><br>
+						{{ $order->created_at}}<br>
+						
+						<strong>Status :</strong><br>
+						@if ( $order->status == 1)
+							<div class="alert alert-warning" role="alert">
+								Belum Dibayar
+							</div>		  
+						@elseif( $order->status == 2)
+							<div class="alert alert-info" role="alert">
+								Sudah Dibayar
+							</div>
+
+						@elseif( $order->status == 3)
+							<div class="alert alert-info" role="alert">
+								Di Serahkan ke Penjual
+							</div>
+						@elseif( $order->status == 4)
+							<div class="alert alert-info" role="alert">
+								Penjual Menerima dan Barang di Proses
+							</div>
+						@elseif( $order->status == 5)
+							<div class="alert alert-info" role="alert">
+								Barang Dikirim
+							</div>
+						@elseif( $order->status == 6)
+							<div class="alert alert-success" role="alert">
+								Selesai
+							</div>
+							
+						@endif
+    					
     				</address>
     			</div>
     		</div>
@@ -56,39 +90,28 @@
     	<div class="col-md-12">
     		<div class="panel panel-default">
     			<div class="panel-heading">
-    				<h3 class="card-header"><strong>Order summary</strong></h3>
+    				<h3 class="card-header"><strong>Detail Order</strong></h3>
     			</div>
     			<div class="panel-body">
     				<div class="table-responsive col-sm-12">
     					<table class="table table-condensed">
     						<thead>
                                 <tr>
-        							<td><strong>Item</strong></td>
-        							<td class="text-center"><strong>Price</strong></td>
-        							<td class="text-center"><strong>Quantity</strong></td>
-        							<td class="text-center"><strong>Totals</strong></td>
+        							<td class="text-center"><strong>Nama Produk</strong></td>
+        							<td class="text-center"><strong>Harga</strong></td>
+        							<td class="text-center"><strong>Jumlah</strong></td>
+        							<td class="text-center"><strong>Total</strong></td>
                                 </tr>
     						</thead>
     						<tbody>
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
     							<tr>
     								<td>BS-200</td>
-    								<td class="text-center">$10.99</td>
+									<td class="text-center"></td>
     								<td class="text-center">1</td>
     								<td class="text-right">$10.99</td>
     							</tr>
-                                <tr>
-        							<td>BS-400</td>
-    								<td class="text-center">$20.00</td>
-    								<td class="text-center">3</td>
-    								<td class="text-right">$60.00</td>
-    							</tr>
-                                <tr>
-            						<td>BS-1000</td>
-    								<td class="text-center">$600.00</td>
-    								<td class="text-center">1</td>
-    								<td class="text-right">$600.00</td>
-    							</tr>
+                                
     							<tr>
     								<td class="thick-line"></td>
     								<td class="thick-line"></td>
@@ -98,15 +121,10 @@
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Shipping</strong></td>
+    								<td class="no-line text-center"><strong>Biaya Pengiriman</strong></td>
     								<td class="no-line text-right">$15</td>
     							</tr>
-    							<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Total</strong></td>
-    								<td class="no-line text-right">$685.99</td>
-    							</tr>
+
     						</tbody>
     					</table>
     				</div>
@@ -115,7 +133,7 @@
     	</div>
 	</div>
 	
-	@endforeach
+	@endfor
 </div>
 
 

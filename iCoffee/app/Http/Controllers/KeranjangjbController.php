@@ -14,6 +14,7 @@ use App\Address;
 use App\Delivery;
 use App\Order;
 use App\Orderdetail;
+use App\Account;
 use DB;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 
@@ -260,26 +261,42 @@ class KeranjangjbController extends Controller
         $orderdetail = Orderdetail::where('invoice', $invoice)->get();
         
         $hitung = $orderdetail->count();
-        $datas = 0;
         
+        $datas = array();
+   
         
         for ($i=0; $i < $hitung ; $i++) {
             
-            if ($datas != $orderdetail[$i]->id_penjual) {
-                $datas = $orderdetail[$i]->id_penjual;
+            if (!(in_array($orderdetail[$i]->id_penjual, $datas))) {
+                $datas[] = $orderdetail[$i]->id_penjual;
                 $id_penjual[] = $orderdetail[$i]->id_penjual;
+            }
+
+        }
+
         
+        $jumlah_pelanggan = count($id_penjual);
+
+        for ($i=0; $i < $jumlah_pelanggan ; $i++) {
+            $orderdetailcek = Orderdetail::where('invoice', $invoice)->where('id_penjual',$id_penjual[$i])->get();
+            $jumlahorder =  $orderdetailcek->count();
+            for ($j=0; $j < $jumlahorder ; $j++) { 
+                $orderdetaildata[$i] = Orderdetail::where('invoice', $invoice)->where('id_penjual',$id_penjual[$i])->get();
             }
         }
-        $jumlah_pelanggan = count($id_penjual);
+
+        dd($orderdetaildata[0][1]->id);
+        
 
         for ($i=0; $i < $jumlah_pelanggan; $i++) { 
             
             $alamat_penjual[] = Address::where('id_pelanggan', $id_penjual[$i])->get();
         }
+  
         $alamat_pembeli = Address::where('id', $order->id_alamat)->first();
+        $rekening = Account::where('bank_name', $order->payment)->first();
 
-        return view('jual-beli.invoice', compact('order', 'orderdetail', 'alamat_penjual', 'alamat_penjual', 'id_penjual'));
+        return view('jual-beli.invoice', compact('order', 'orderdetail', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'jumlah_pelanggan', 'rekening'));
     }
 
     
