@@ -56,5 +56,7 @@ class MitraKoperasiController extends Controller
         $mitra = Mitra_koperasi::find($id);
         $mitra->id_mitra = 'KP'.$id;
         $mitra->save();
+
+        return redirect('jadi-mitra');
     }
 }

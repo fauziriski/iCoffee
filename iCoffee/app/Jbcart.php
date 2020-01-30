@@ -11,5 +11,13 @@ class Jbcart extends Model
     ];
 
     public $timestamps = true;
+
+    public function shop_product()
+    {
+    	return $this->belongsTo('App\Shop_product', 'id_produk');
+    }
+
+    
+
     
 }

@@ -88,7 +88,7 @@
 							</p>
 						</div> -->
 
-					  <p class="price"><h5>Rp {{ $products->harga }} / Unit</h5></p>
+					  <p class="price"><h5>@money($products->harga) / Unit</h5></p>
 
             <div class="row">
               <p class="text-left">
@@ -104,7 +104,7 @@
             <div class="row">
               <p class="text-left">
                 <div class="col">
-                  <i class="fa fa-money"></i> Return yang didapat
+                  <i class="fa fa-percent"></i> Return yang didapat
                 </div>
                 <div class="col">
                   <p>{{$products->roi}}% Per Tahun</p>
@@ -147,13 +147,10 @@
               <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
               </p> -->
 
-              <form action="/jual-beli/keranjang/tambah-produk" method="post"  enctype="multipart/form-data">
+              <form action="/invest/checkout" method="post"  enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id_produk" value="{{$products->id}}">
-                <input type="hidden" name="nama_produk" value="{{$products->nama_produk}}">
-                <input type="hidden" name="harga" value="{{$products->harga}}">
-                <input type="hidden" name="gambar" value="{{$products->gambar}}">
-                <input type="hidden" name="kode_produk" value="{{$products->kode_produk}}">
+                <input type="hidden" name="id_mitra" value="{{$products->id_mitra}}">
 
 
               <div class="row mt-2">
@@ -191,7 +188,11 @@
             
               </div>
               {{-- <button type="submit" class="btn btn-primary mt-3 py-3">Masuk</button> --}}
-              <p><a href="cart.html" class="btn btn-primary py-3 px-5"><i class="fa fa-credit-card"> </i>&nbsp;&nbsp;&nbsp; Salurkan Pembayaran</a></p>
+              {{-- <button type="submit" class="btn btn-primary py-3 px-5"><i class="fa fa-credit-card"> </i>&nbsp;&nbsp;&nbsp; Salurkan Pembayaran</button> --}}
+           
+              <input type="submit" class="btn btn-primary py-3 px-5" value="Salurkan Pembayaran">
+               
+         
               {{-- <p><a type="submit" class="btn btn-primary mt-3 py-3"></a>Beli</p> --}}
           </div>
           </form>
@@ -248,7 +249,7 @@
                   {{$i}}
                 </div>
                 <div class="col">
-                  Rp. {{$profit}}
+                  @money($profit)
                 </div>
                 <div class="col">
                   {{$products->roi}}%
@@ -260,7 +261,7 @@
                   Pengembalian Modal
                 </div>
                 <div class="col">
-                  Rp. {{$products->harga}}
+                  @money($products->harga)
                 </div>
                 <div class="col">
                 </div>
@@ -270,7 +271,7 @@
                   Total
                 </div>
                 <div class="col">
-                  Rp. {{$total}}
+                  @money($total)
                 </div>
                 <div class="col">
                   -

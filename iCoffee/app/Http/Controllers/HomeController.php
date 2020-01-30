@@ -115,11 +115,8 @@ class HomeController extends Controller
         $id_pelanggan = Auth::user()->id;
         $nama_pelanggan = Auth::user()->name;
         $user = User::where('id', $id_pelanggan)->first();
-        $address = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->first();
         $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->get();
-        $provinsi_user = Province::where('id', $address->provinsi)->first();
-        $kota_user = City::where('id', $address->kota_kabupaten)->first();
-        $provinsi = Province::all();
+
 
 
         if($cekalamat->isEmpty())
@@ -128,6 +125,14 @@ class HomeController extends Controller
             return redirect('/profil/tambahalamat');       
 
         }
+        $address = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->first();
+
+        $provinsi_user = Province::where('id', $address->provinsi)->first();
+        $kota_user = City::where('id', $address->kota_kabupaten)->first();
+        $provinsi = Province::all();
+
+
+        
         
         return view('jual-beli.profil', compact('user', 'address', 'provinsi', 'provinsi_user', 'kota_user', 'cekalamat'));
     }
@@ -213,6 +218,8 @@ class HomeController extends Controller
         return response()->json();
 
     }
+
+
 
 
 }
