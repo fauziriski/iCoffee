@@ -18,4 +18,15 @@ class Shop_product extends Model
     	return $this->belongsTo('App\Category', 'id_kategori');
     }
 
+    public function user()
+    {
+    	return $this->belongsTo('App\User', 'id_pelanggan');
+    }
+
+    public function jbcart()
+    {
+    	return $this->hasMany('App\Jbcart');
+    }
+
+
 }
