@@ -60,10 +60,7 @@ class ProdukController extends Controller
     }
 
 
-    public function invoice()
-    {
-        return view('jual-beli.invoice');
-    }
+   
 
    
 

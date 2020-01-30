@@ -40,7 +40,7 @@ Route::post('/jual-beli/update-keranjang', 'KeranjangjbController@updatekeranjan
 Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
-Route::get('/jual-beli/invoice', 'ProdukController@invoice');
+Route::get('/jual-beli/invoice/{invoice}', 'KeranjangjbController@invoice');
 
 
 
