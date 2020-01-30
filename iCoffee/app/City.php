@@ -11,4 +11,15 @@ class City extends Model
     ];
 
     public $timestamps = true;
+
+    public function category()
+    {
+    	return $this->belongsTo('App\Category', 'id_provinsi');
+    }
+
+    public function address(){ 
+        return $this->hasMany('App\Address'); 
+    }
+
+
 }

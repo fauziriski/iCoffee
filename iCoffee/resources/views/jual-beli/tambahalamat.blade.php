@@ -116,7 +116,7 @@
                 }
             });
             }else{
-            $('select[name="city_origin"]').empty();
+            $('select[name="kota_kabupaten"]').empty();
               }
            });
     });

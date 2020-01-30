@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Images;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -114,17 +115,43 @@ class HomeController extends Controller
         $id_pelanggan = Auth::user()->id;
         $nama_pelanggan = Auth::user()->name;
         $user = User::where('id', $id_pelanggan)->first();
-        $address = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->first();
-        $provinsi = Province::all();
+        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->get();
 
-        if(empty($address))
+
+
+        if($cekalamat->isEmpty())
         {
-            return view('jual-beli.tambahalammat', compact('user', 'address', 'provinsi'));       
+            Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/tambahalamat');       
 
         }
+        $address = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->first();
+
+        $provinsi_user = Province::where('id', $address->provinsi)->first();
+        $kota_user = City::where('id', $address->kota_kabupaten)->first();
+        $provinsi = Province::all();
+
+
         
-        return view('jual-beli.profil', compact('user', 'address', 'provinsi'));
+        
+        return view('jual-beli.profil', compact('user', 'address', 'provinsi', 'provinsi_user', 'kota_user', 'cekalamat'));
     }
+
+
+    public function edit_profil(Request $request)
+    {
+
+        $id_user = $request->id_user;
+        $id_alamat = $request->id_alamat;
+
+        $user = User::where('id', $id_user)->first();
+        $alamat = Address::where('id', $id_user)->first();
+
+        dd($user);
+
+    }
+
+
 
     public function tambahalamat()
     {
@@ -156,6 +183,40 @@ class HomeController extends Controller
         Alert::success('Berhasil');
 
         return redirect('/profil/edit');
+    }
+
+    public function cekalamat($id)
+    {
+        $id_pelanggan = Auth::user()->id;
+
+        $alamat = Address::where('id', $id)->first();
+        $provinsi = $alamat->province->nama;
+        $kota = $alamat->city->nama;
+
+        return response()->json(array(
+            'alamat' => $alamat,
+            'provinsi' =>  $provinsi,
+            'kota' => $kota  ));
+    }
+
+    public function editalamat(Request $request)
+    {
+        $id_pelanggan = Auth::user()->id;
+        $alamat = Address::where('id', $request->id_alamat_edit)->first();
+
+        $update_alamat = $alamat->update([
+            'nama' => $request->nama_edit,
+            'id_pelanggan' => $id_pelanggan,
+            'provinsi' => $request->provinsi_edit,
+            'kota_kabupaten' => $request->kota_kabupaten_edit,
+            'kecamatan' => $request->kecamatan_edit,
+            'kode_pos' => $request->kode_pos_edit,
+            'no_hp'=> $request->no_hp_edit,
+            'address' => $request->alamat_edit
+        ]);
+        
+        return response()->json();
+
     }
 
 

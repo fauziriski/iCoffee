@@ -14,6 +14,7 @@ use App\Address;
 use App\Delivery;
 use App\Order;
 use App\Orderdetail;
+use App\Account;
 use DB;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 
@@ -202,6 +203,13 @@ class KeranjangjbController extends Controller
             $id_penjual = Shop_product::whereIn('id',$id_produks)->get();
         }
 
+        
+
+        for ($i=0; $i < $hitung ; $i++)
+        {
+            $alamat_penjual = Address::where('id_pelanggan', $id_penjual[$i]->id_pelanggan)->get();
+        }
+
         for ($i=0; $i < $hitung ; $i++) {
 
             $orderdetail = Orderdetail::create([
@@ -215,7 +223,8 @@ class KeranjangjbController extends Controller
                 'harga' => $request->harga[$i],
                 'total' => $request->total[$i],
                 'kode_produk' => $id_penjual[$i]->kode_produk,
-                'gambar' => $id_penjual[$i]->gambar
+                'gambar' => $id_penjual[$i]->gambar,
+                'id_alamat_penjual' => $alamat_penjual[$i]->id
     
                 
             ]);
@@ -240,10 +249,54 @@ class KeranjangjbController extends Controller
 
         }
         
-        return redirect('/jual-beli');
+        return redirect('/jual-beli/invoice/'.$invoice);
         
         
+    }
+
+    public function invoice($invoice)
+    {
+        $id_pembeli = Auth::user()->id;
+        $order = Order::where('invoice', $invoice)->first();
+        $orderdetail = Orderdetail::where('invoice', $invoice)->get();
         
+        $hitung = $orderdetail->count();
+        
+        $datas = array();
+   
+        
+        for ($i=0; $i < $hitung ; $i++) {
+            
+            if (!(in_array($orderdetail[$i]->id_penjual, $datas))) {
+                $datas[] = $orderdetail[$i]->id_penjual;
+                $id_penjual[] = $orderdetail[$i]->id_penjual;
+            }
+
+        }
+
+        
+        $jumlah_pelanggan = count($id_penjual);
+
+        for ($i=0; $i < $jumlah_pelanggan ; $i++) {
+            $orderdetailcek = Orderdetail::where('invoice', $invoice)->where('id_penjual',$id_penjual[$i])->get();
+            $jumlahorder =  $orderdetailcek->count();
+            for ($j=0; $j < $jumlahorder ; $j++) { 
+                $orderdetaildata[$i] = Orderdetail::where('invoice', $invoice)->where('id_penjual',$id_penjual[$i])->get();
+            }
+        }
+
+        dd($orderdetaildata[0][1]->id);
+        
+
+        for ($i=0; $i < $jumlah_pelanggan; $i++) { 
+            
+            $alamat_penjual[] = Address::where('id_pelanggan', $id_penjual[$i])->get();
+        }
+  
+        $alamat_pembeli = Address::where('id', $order->id_alamat)->first();
+        $rekening = Account::where('bank_name', $order->payment)->first();
+
+        return view('jual-beli.invoice', compact('order', 'orderdetail', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'jumlah_pelanggan', 'rekening'));
     }
 
     

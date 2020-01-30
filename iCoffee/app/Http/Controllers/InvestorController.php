@@ -50,6 +50,6 @@ class InvestorController extends Controller
             'npwp' => $inputan[1],
             'status' => 1
         ]);
-        return redirect('jadi-investor')->with('status', 'Data anda berhasil disimpan!');
+        return redirect('/jadi-investor');
     }
 }
