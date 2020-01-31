@@ -142,6 +142,11 @@ class ProdukInvestasiController extends Controller
 
     public function pay(Request $request)
     {
-        dd($request);
+        $produk = Invest_product::find($request->id_produk);
+        $qty = $request->qty;
+        $total = $request->total;
+        $bank = $request->id_bank;
+        $mitra = $mitra = Mitra::where('id_mitra', $request->id_mitra)->first();
+        return view('investasi.pembayaran',compact('produk','mitra'))->with('qty',$qty);
     }
 }
