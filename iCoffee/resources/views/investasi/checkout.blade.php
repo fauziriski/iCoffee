@@ -361,7 +361,8 @@ ul li:hover {
 						<input type="hidden" name="qty" value="{{$qty}}">
 						<input type="hidden" name="total" value="{{$produk->harga*$qty}}">
 						<input type="hidden" name="id_produk" value="{{$produk->id}}">
-						<input type="hidden" name="id_mitra" value="{{$produk->id_mitra}}">
+            <input type="hidden" name="id_mitra" value="{{$produk->id_mitra}}">
+            <input type="hidden" name="id_bank" id="bank" value="3">
 						<button class='pay-btn'>Mulai Membiayai Petani</button>
 					</form>
 				  
@@ -412,23 +413,25 @@ window.onclick = function(e) {
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
       document.getElementById('current-card').innerHTML = 'Bank BCA';
-	  document.getElementById('norek').innerHTML = 
-		"1. Masukkan Kartu Anda. <br/>" +
-		"2. Pilih Bahasa. <br/>" +
-		"3. Masukkan PIN ATM Anda. <br/>" +
-		"4. Pilih 'Menu Lainnya'. <br/>" +
-		"5. Pilih 'Transfer'. <br/>" +
-		"6. Pilih Jenis rekening yang akan Anda gunakan (Contoh: 'Dari Rekening Tabungan')." +
-		"7. Pilih 'Virtual Account Billing'. <br/>" +
-		"8. Masukkan nomor Virtual Account Anda (contoh: 8277895360122288). <br/>";
-    }
+      document.getElementById('bank').value = 1;
+      document.getElementById('norek').innerHTML = 
+      "1. Masukkan Kartu Anda. <br/>" +
+      "2. Pilih Bahasa. <br/>" +
+      "3. Masukkan PIN ATM Anda. <br/>" +
+      "4. Pilih 'Menu Lainnya'. <br/>" +
+      "5. Pilih 'Transfer'. <br/>" +
+      "6. Pilih Jenis rekening yang akan Anda gunakan (Contoh: 'Dari Rekening Tabungan')." +
+      "7. Pilih 'Virtual Account Billing'. <br/>" +
+      "8. Masukkan nomor Virtual Account Anda (contoh: 8277895360122288). <br/>";
+      }
     else if (e.target.innerHTML === 'Bank Mandiri') {
          document.getElementById('credit-card-image').src = 'https://cdn.worldvectorlogo.com/logos/bank-mandiri.svg';
           activeDropdown.classList.remove('visible');
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
       document.getElementById('current-card').innerHTML = 'Bank Mandiri';
-	  document.getElementById('norek').innerHTML = 'Bank BCA';     
+	    document.getElementById('norek').innerHTML = 'Bank BCA';
+      document.getElementById('bank').value = 2;  
     }
     else if (e.target.innerHTML === 'Bank BNI') {
          document.getElementById('credit-card-image').src = 'https://seeklogo.com/images/B/bank-bni-logo-737EE0F32C-seeklogo.com.png';
@@ -436,7 +439,8 @@ window.onclick = function(e) {
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
       document.getElementById('current-card').innerHTML = 'Bank BNI';
-	  document.getElementById('norek').innerHTML = 'Bank BCA';
+      document.getElementById('norek').innerHTML = 'Bank BCA';
+      document.getElementById('bank').value = 3;
     }
 	else if (e.target.innerHTML === 'Bank BRI') {
          document.getElementById('credit-card-image').src = 'https://seeklogo.com/images/B/bank-bri-bank-rakyat-logo-C06D6783A8-seeklogo.com.png';
@@ -444,7 +448,8 @@ window.onclick = function(e) {
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
       document.getElementById('current-card').innerHTML = 'Bank BRI';
-	  document.getElementById('norek').innerHTML = 'Bank BCA';
+	    document.getElementById('norek').innerHTML = 'Bank BCA';
+      document.getElementById('bank').value = 4;
     }
   }
   else if (e.target.className !== 'dropdown-btn' && activeDropdown) {
@@ -454,7 +459,7 @@ window.onclick = function(e) {
 }
 </script>
 <link rel="stylesheet" href="{{asset('investasi/css/chartist.css')}}">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.0/chartist.min.js"></script>
+<script src="{{asset('investasi/js/chartist.js')}}"></script>
 <script src="{{asset('investasi/js/point-labels.js')}}"></script>
 <script src="https://igrow.asia/api/public/vendor/chartist/plugins/chartist-plugin-axistitle.js"></script>
 <script>
@@ -483,7 +488,8 @@ new Chartist.Line('.ct-chart', {
           y: 50
         },
         textAnchor: 'middle',
-        flipTitle: true
+        flipTitle: true,
+        onlyInteger: true
       },
       axisY: {
         axisTitle: 'Profit',
@@ -493,7 +499,8 @@ new Chartist.Line('.ct-chart', {
           y: 0
         },
         textAnchor: 'middle',
-        flipTitle: false
+        flipTitle: false,
+        onlyInteger: true
       }
     }),
     Chartist.plugins.ctPointLabels({
