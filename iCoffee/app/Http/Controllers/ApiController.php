@@ -17,7 +17,7 @@ class ApiController extends Controller
             $response = $client->get('https://api.rajaongkir.com/starter/province',
                 array(
                     'headers' => array(
-                        'key' => '173f863cc1b39ff155f1d8058cebc703',
+                        'key' => '67dfa01ca5a249bb1dd3ab73623eb07d',
                         
                     )
                 )
@@ -51,7 +51,7 @@ class ApiController extends Controller
             $response = $client->get('https://api.rajaongkir.com/starter/city',
                 array(
                     'headers' => array(
-                        'key' => '173f863cc1b39ff155f1d8058cebc703',
+                        'key' => '67dfa01ca5a249bb1dd3ab73623eb07d',
                         
                     )
                 )
@@ -87,7 +87,7 @@ class ApiController extends Controller
                 [
                     'body' => 'origin='.$request->origin.'&destination='.$request->destination.'&weight='.$request->weight.'&courier=tiki',
                     'headers' => [
-                        'key' => '173f863cc1b39ff155f1d8058cebc703',
+                        'key' => '67dfa01ca5a249bb1dd3ab73623eb07d',
                         'content-type' => 'application/x-www-form-urlencoded',
                         
                     ]
@@ -119,7 +119,7 @@ class ApiController extends Controller
                 [
                     'body' => 'origin=501&destination=114&weight=1&courier=tiki',
                     'headers' => [
-                        'key' => '173f863cc1b39ff155f1d8058cebc703',
+                        'key' => '67dfa01ca5a249bb1dd3ab73623eb07d',
                         'content-type' => 'application/x-www-form-urlencoded',
                         
                     ]

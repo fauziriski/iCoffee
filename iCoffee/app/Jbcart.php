@@ -17,6 +17,7 @@ class Jbcart extends Model
     	return $this->belongsTo('App\Shop_product', 'id_produk');
     }
 
+
     
 
     

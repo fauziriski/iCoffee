@@ -36,13 +36,15 @@
 
 						
 		
-				
+				@for ($i = 0; $i < $jumlah_penjual; $i++)
 	          	<div class="col-md-12">
+					<h3>{{ $penjual[$i]->name }}</h3>
+					
 	          		<div class="cart-detail p-3 p-md-4">
 	          			<div class="row">
 			    			<div class="col-md-12 ftco-animate">
-			    				<div class="cart-list">
-				    				<table class="table">
+			    				<div class="table-responsive col-sm-12">
+				    				<table class="table table-condensed">
 									    <thead class="">
 									      <tr class="text-center">
 						
@@ -54,23 +56,21 @@
 									      </tr>
 									    </thead>
 									    <tbody>
-										@foreach ($checkout as $data)
+										
+											
+										@for ($j = 0; $j < $jumlah_data_checkout[$i]; $j++)
+											
+										
 									      <tr class="text-center">
-									 
-									        
-									        <td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Produk/{'.$data->kode_produk.'}/'.$data->image) }});"></div></td>
-									        
+									        <td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Produk/{'.$checkout_data[$i][$j]->kode_produk.'}/'.$checkout_data[$i][$j]->image) }});"></div></td>
 									        <td class="product-name">
-									        	<h3>{{ $data->nama_produk }}</h3>
+									        	<h3>{{ $checkout_data[$i][$j]->nama_produk }}</h3>
 									        </td>
-									        
-									        <td class="price">{{ $data->harga }}</td>
-									        
-									        <td class="total">{{ $data->jumlah }}</td>
-									        
-									        <td class="total">{{ $data->total }}</td>
+									        <td class="price">{{ $checkout_data[$i][$j]->harga }}</td>
+									        <td class="total">{{ $checkout_data[$i][$j]->jumlah }}</td>
+									        <td class="total">{{ $checkout_data[$i][$j]->total }}</td>
 										  </tr><!-- END TR-->
-										  <input type="hidden" name="id[]" value="{{ $data->id_produk }}">
+										  {{-- <input type="hidden" name="id[]" value="{{ $data->id_produk }}">
 										  <input type="hidden" name="id_produk[]" value="{{ $data->id_produk }}">
 										  <input type="hidden" name="id_penjual[]" value="{{ $data->id_pelanggan }}">
 										  <input type="hidden" name="harga[]" value="{{ $data->harga }}">
@@ -79,9 +79,9 @@
 										  <input type="hidden" name="kode_produk[]" value="{{ $data->kode_produk }}">
 										  <input type="hidden" name="gambar[]" value="{{ $data->image }}">
 										  <input type="hidden" name="total[]" value="{{ $data->total }}">
-					
+					 --}}
 											
-										@endforeach
+					 					@endfor
 
 
 									    
@@ -116,18 +116,19 @@
 			            				<div class="form-group">
 			            					<label for="country">Pilih Kurir</label>
 			            					<div class="select-wrap">
-								                  <select name="kurir" id="kurir" class="form-control" onchange="myFunction()" required>
+												<select name="kurir" id="kurir{{ $penjual[$i]->id }}" class="kurir form-control"  required>
+													{{-- onchange="myFunction()" --}}
 													<option selected disabled="disabled" value="" >Pilih Kurir</option>
-													@for ($i = 0; $i < count($costjne[0]["costs"]); $i++)
-												  <option value="{{ $costjne[0]["costs"][$i]["cost"][0]["value"] }}: JNE: {{ $costjne[0]["costs"][$i]["service"] }} " >JNE {{ $costjne[0]["costs"][$i]["cost"][0]["value"] }} ( {{ $costjne[0]["costs"][$i]["service"] }} {{ $costjne[0]["costs"][$i]["cost"][0]["etd"] }} Hari )</option>
+													@for ($k = 0; $k < count($costjne[$i][0]["costs"]); $k++)
+												  <option value="{{ $costjne[$i][0]["costs"][$k]["cost"][0]["value"] }}: JNE: {{ $costjne[$i][0]["costs"][$k]["service"] }} " >JNE {{ $costjne[$i][0]["costs"][$k]["cost"][0]["value"] }} ( {{ $costjne[$i][0]["costs"][$k]["service"] }} {{ $costjne[$i][0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
 													@endfor
 
-													@for ($i = 0; $i < count($costtiki[0]["costs"]); $i++)
-												  <option value="{{ $costtiki[0]["costs"][$i]["cost"][0]["value"] }}: TIKI: {{ $costjne[0]["costs"][$i]["service"] }}">TIKI {{ $costtiki[0]["costs"][$i]["cost"][0]["value"] }} ( {{ $costtiki[0]["costs"][$i]["service"] }} {{ $costtiki[0]["costs"][$i]["cost"][0]["etd"] }} Hari )</option>
+													@for ($k = 0; $k < count($costtiki[$i][0]["costs"]); $k++)
+												  <option value="{{ $costtiki[$i][0]["costs"][$k]["cost"][0]["value"] }}: TIKI: {{ $costtiki[$i][0]["costs"][$k]["service"] }}">TIKI {{ $costtiki[$i][0]["costs"][$k]["cost"][0]["value"] }} ( {{ $costtiki[$i][0]["costs"][$k]["service"] }} {{ $costtiki[$i][0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
 													@endfor
 
-													@for ($i = 0; $i < count($costpos[0]["costs"]); $i++)
-												  <option value="{{ $costpos[0]["costs"][$i]["cost"][0]["value"] }}: POS: {{ $costjne[0]["costs"][$i]["service"] }}">POS {{ $costpos[0]["costs"][$i]["cost"][0]["value"] }} ( {{ $costpos[0]["costs"][$i]["service"] }} {{ $costpos[0]["costs"][$i]["cost"][0]["etd"] }} )</option>
+													@for ($k = 0; $k < count($costpos[$i][0]["costs"]); $k++)
+												  <option value="{{ $costpos[$i][0]["costs"][$k]["cost"][0]["value"] }}: POS: {{ $costpos[$i][0]["costs"][$k]["service"] }}">POS {{ $costpos[$i][0]["costs"][$k]["cost"][0]["value"] }} ( {{ $costpos[$i][0]["costs"][$k]["service"] }} {{ $costpos[$i][0]["costs"][$k]["cost"][0]["etd"] }} )</option>
 													@endfor
 						                    
 								                  </select>
@@ -139,9 +140,9 @@
 				          				<label for="country">Subtotal</label>
 				          				<div class="cart-detail">
 
-										  	<input type="hidden" name="total_bayar" value="{{ $jumlah }}">
+										  	<input type="hidden" name="total_bayar" value="{{ $jumlah[$i] }}">
 				          					
-				          					<h6 class="text-center">Total Pembayaran Rp. {{ $jumlah }}</h6>
+				          					<h6 class="text-center">Total Pembayaran Rp. {{ $jumlah[$i] }}</h6>
 			            				</div>
 			            			</div>
 			          			</div>
@@ -151,7 +152,8 @@
 		          	</div>
 
 
-	          	</div>
+				  </div>
+				  @endfor
 
 
 
@@ -201,7 +203,7 @@
 			    					<h3>Cart Totals</h3>
 			    					<p class="d-flex">
 			    						<span>Subtotal untuk Produk</span>
-			    						<span>Rp. {{ $jumlah }}</span>
+			    						<span>Rp. {{ $jumlah_seluruh }}</span>
 			    					</p>
 			    					<p class="d-flex">
 			    						<span>Total Ongkos Kirim</span>
@@ -259,50 +261,50 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	
 	<script>
+		$(document).ready(function() {
+			var penjual =  {!!json_encode($penjual)!!};
+			length = penjual.length
+			for (i = 0; i < length; i++) {
+				id = penjual[i].id;
+			}
+			
+
+			$(function(){
+				
+				$(".kurir").change(function() {
+					var sum = 0;
+					for (i = 0; i < length; i++) {
+						console.log('mantap');
+						$("#kurir"+penjual[i].id).each(function() {
+							sum += parseInt($(this).val());
+						});
+						
+					}
+					var c = sum;
+
+					var y = {!!json_encode($jumlah_seluruh)!!};
+					var z = parseInt(c)+parseInt(y);
+
+					document.getElementById("demo").innerHTML = "Rp. " +sum;
+					document.getElementById("total").innerHTML = "Rp. " +z;
+				});
+			
+
+			});
+		})
+		
+		
+		/*POWZI PUNYA
 		function myFunction() {
-		  var x = document.getElementById("kurir").value;
-		  var y = {!!json_encode($jumlah)!!};
+				  var x = document.getElementById("kurir"+id).value;
+				  console.log(x);
+		  var y = {!!json_encode($jumlah_seluruh)!!};
 		  var z = parseInt(x)+parseInt(y);
 		  document.getElementById("demo").innerHTML = "Rp. " +x;
-		  document.getElementById("total").innerHTML = "Rp. " +z;		
+		  document.getElementById("total").innerHTML = "Rp. " +z;
 		}
+		*/
 		</script>
 
-	{{-- <script>
-		function myTotal() {
-		var x = document.getElementById("kurir").value;
-		
-		
-		console.log(z);
-		
-		}
-
-	</script> --}}
-
-	{{-- <script type="text/javascript">
-		$(document).ready(function() {
-
-		$('select[name="kurir"]').on('change', function() {
-			var provinceID = $(this).val();
-				if(provinceID) {
-				$.ajax({
-					url: '/jual-beli/checkout/kurir/'+encodeURI(provinceID),
-					type: "GET",
-					dataType: "json",
-					success:function(data) {
-					$('select[name="biaya"]').empty();
-					$.each(data, function(key, value) {
-						$('select[name="biaya"]').append('<option value="'+ value["rajaongkir"]["results"][0]["costs"][$i]["cost"][0]["value"] +'">'+ value +'</option>');
-						});
-					}
-				});
-				}else{
-				$('select[name="biaya"]').empty();
-				}
-			});
-			});
-
-
-	</script> --}}
 
 @stop

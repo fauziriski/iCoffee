@@ -114,7 +114,40 @@ class KeranjangjbController extends Controller
                 
             }
         }
+        
+
         $jumlah_penjual = count($datas);
+        for ($i=0; $i < $jumlah_penjual  ; $i++) { 
+            $data_coba_checkout = $datas[$i];
+            $data_checkout = array();
+            $hitungdatacheckout = array();
+            for ($j=0; $j < $hitung_jumlah_alamat_penjual ; $j++) { 
+                if ( $checkout[$j]->id_penjual == $data_coba_checkout) {
+                    $data_checkout[] = $checkout[$j];
+                    $hitungdatacheckout[] += 1;
+
+                }   
+            }
+            $jumlah_data = count($hitungdatacheckout);
+            $jumlah_data_checkout[] = $jumlah_data;
+            $checkout_data[] = $data_checkout;
+            
+        }
+
+        for ($i=0; $i < $jumlah_penjual; $i++) { 
+            $penjual[] = User::where('id', $datas[$i])->first();
+        }
+
+
+        // for ($i=0; $i < $jumlah_penjual  ; $i++) { 
+        //     for ($j=0; $j <$jumlah_data_checkout[$i] ; $j++) { 
+        //         echo $checkout_data[$i][$j]->nama_produk; 
+        //     }
+        //     echo'<br>';
+        // }
+
+        // dd($checkout_data);
+
         for ($i=0; $i < $jumlah_penjual  ; $i++) { 
             $data_coba = $datas[$i];
             $data_jumlah_checkout = 0;
@@ -129,6 +162,8 @@ class KeranjangjbController extends Controller
             $jumlah[] = $data_total_checkout;
             
         }
+        $jumlah_seluruh = array_sum($jumlah);
+
 
         // $berat = $checkout->sum('jumlah')*1000;
         // $jumlah = $checkout->sum('total');
@@ -151,38 +186,39 @@ class KeranjangjbController extends Controller
         session(['alamat_penjual' => $pengirim]);
         session(['alamat' => $penerima]);
         session(['berat' => $berat]);
+
+
         $costjne = array();
+        $costtiki = array();
+        $costpos = array();
         
         for ($i=0; $i < $jumlah_penjual ; $i++) { 
 
+            //jne
             $costjne[] = RajaOngkir::ongkosKirim([
                 'origin'        => $pengirim[$i],     // ID kota/kabupaten asal
                 'destination'   => $penerima,      // ID kota/kabupaten tujuan
                 'weight'        => $berat[$i],    // berat barang dalam gram
                 'courier'       => 'jne'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
             ])->get();
+        
+            //tiki
+            $costtiki[] = RajaOngkir::ongkosKirim([
+                'origin'        => $pengirim[$i],     // ID kota/kabupaten asal
+                'destination'   => $penerima,      // ID kota/kabupaten tujuan
+                'weight'        => $berat[$i],    // berat barang dalam gram
+                'courier'       => 'tiki'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+            ])->get();
+            
+            //pos
+            $costpos[] = RajaOngkir::ongkosKirim([
+                'origin'        => $pengirim[$i],     // ID kota/kabupaten asal
+                'destination'   => $penerima,      // ID kota/kabupaten tujuan
+                'weight'        => $berat[$i],    // berat barang dalam gram
+                'courier'       => 'pos'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+            ])->get();
 
         }
-
-        dd($costjne);
-        
-
-        //tiki
-        $costtiki = RajaOngkir::ongkosKirim([
-            'origin'        => $pengirim,     // ID kota/kabupaten asal
-            'destination'   => $penerima,      // ID kota/kabupaten tujuan
-            'weight'        => $berat,    // berat barang dalam gram
-            'courier'       => 'tiki'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
-        ])->get();
-        
-        //pos
-        $costpos = RajaOngkir::ongkosKirim([
-            'origin'        => $pengirim,     // ID kota/kabupaten asal
-            'destination'   => $penerima,      // ID kota/kabupaten tujuan
-            'weight'        => $berat,    // berat barang dalam gram
-            'courier'       => 'pos'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
-        ])->get();
-
         // $kurir =  $costjne[0]['costs'][2]['cost'][0]['value'];
         // echo $kurir;
 
@@ -191,11 +227,22 @@ class KeranjangjbController extends Controller
         // for($i=0; $i<count($costjne[0]["costs"]); $i++)
         // {
         //     echo $costjne[0]["costs"][$i]["cost"][0]["value"];
+        
         // }
 
 
+        // for ($i=0; $i < $jumlah_penjual  ; $i++) {
+        //     for($k = 0; $k < count($costjne[$i][0]["costs"]); $k++) {
+        //         echo $costjne[$i][0]["costs"][$k]["cost"][0]["etd"];
+                
+        //     }
 
-        return view('jual-beli.checkout', compact('checkout','alamat','jumlah','costpos','costtiki','costjne'));
+        // }
+        
+
+
+
+        return view('jual-beli.checkout', compact('checkout','jumlah_penjual','jumlah_seluruh','alamat','jumlah','penjual','costpos','checkout_data','costtiki','costjne','jumlah_data_checkout'));
 
 
     }
