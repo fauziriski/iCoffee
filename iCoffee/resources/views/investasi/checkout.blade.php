@@ -1,5 +1,5 @@
 @extends('investasi.layouts.app')
-@section('title', 'Checkout Investasi')
+@section('title', 'Biayai Produk Investasi')
 @section('css')
 <style>
 body,html {
@@ -271,6 +271,19 @@ ul li:hover {
     border-radius:10px;
   }
 }
+.chartist-tooltip {
+  opacity: 0;
+  position: absolute;
+  margin: 20px 0 0 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #FFF;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.chartist-tooltip.tooltip-show {
+  opacity: 1;
+}
 </style>	
 @endsection
 @section('sidebar')
@@ -278,7 +291,7 @@ ul li:hover {
 @section('content')
 <section class="ftco-section">
 	<div class='container'>
-		<div class='window'>
+		<div class='window ftco-animate'>
 		  <div class='order-info'>
 			<div class='order-info-content'>
 			  <h2>Produk Investasi</h2>
@@ -303,8 +316,11 @@ ul li:hover {
 						</tbody>
 			
 					</table>
-				  <div class='line'></div>
-				  <table class='order-table'>
+          <div class='line'></div>
+          <h2>Simulasi Keuntungan</h2>
+          <br>
+          <div class="ct-chart"></div>
+				  {{-- <table class='order-table'>
 					<tbody>
 						<h2>Mitra Proyek</h2>
 					<tr>
@@ -321,7 +337,7 @@ ul li:hover {
 					</tbody>
 					
 				</table>
-				<div class="desc" align="justify">{{ Str::limit('Untuk program kemitraan pembenihan jagung kali ini akan dilakukan oleh Kelompok Tani Eko Proyo yang berada di Desa Sukoanyar, Kecamatan Wajak, Kabupaten Malang, Provinsi Jawa Timur yang akan memberdayakan ± 120 orang lebih petani jagung dengan rencana luas garapan ± 40 hektar serta estimasi produksi benih jagung hibrida sebesar ± 2 ton per hektar dalam 1 (satu) siklus produksi.',285) }}</div>
+				<div class="desc" align="justify">{{ Str::limit('Untuk program kemitraan pembenihan jagung kali ini akan dilakukan oleh Kelompok Tani Eko Proyo yang berada di Desa Sukoanyar, Kecamatan Wajak, Kabupaten Malang, Provinsi Jawa Timur yang akan memberdayakan ± 120 orang lebih petani jagung dengan rencana luas garapan ± 40 hektar serta estimasi produksi benih jagung hibrida sebesar ± 2 ton per hektar dalam 1 (satu) siklus produksi.',285) }}</div> --}}
 			  
 	  </div>
 	  </div>
@@ -356,7 +372,19 @@ ul li:hover {
 			</div>
 	  </div>
 
-
+    @php
+      $loop = $produk->periode/$produk->profit_periode;
+      $profit = $produk->harga*($produk->roi/100)*$qty;
+      $collection = collect([0]);
+      $collect = collect([0]);
+      for($i=1;$i<=$loop+1;$i++){
+        $collection->push($i);
+      }
+      for($i=1;$i<=$loop;$i++){
+        $collect->push($profit);
+      }
+      $collect->push(0);
+    @endphp
 </section>
 @endsection
 @section('scripts')
@@ -424,5 +452,57 @@ window.onclick = function(e) {
     activeDropdown = null;
   }
 }
+</script>
+<link rel="stylesheet" href="{{asset('investasi/css/chartist.css')}}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.0/chartist.min.js"></script>
+<script src="{{asset('investasi/js/point-labels.js')}}"></script>
+<script src="https://igrow.asia/api/public/vendor/chartist/plugins/chartist-plugin-axistitle.js"></script>
+<script>
+new Chartist.Line('.ct-chart', {
+  labels: {!! json_encode($collection)!!},
+  series: [{!! json_encode($collect)!!}]
+}, {
+  chartPadding: {
+    top: 20,
+    right: 0,
+    bottom: 30,
+    left: 60
+  },
+  low: 0,
+  showArea: true,
+  axisY: {
+    onlyInteger: true
+  },    
+  plugins: [
+    Chartist.plugins.ctAxisTitle({
+      axisX: {
+        axisTitle: 'Tahun',
+        axisClass: 'ct-axis-title',
+        offset: {
+          x: 0,
+          y: 50
+        },
+        textAnchor: 'middle',
+        flipTitle: true
+      },
+      axisY: {
+        axisTitle: 'Profit',
+        axisClass: 'ct-axis-title',
+        offset: {
+          x: 0,
+          y: 0
+        },
+        textAnchor: 'middle',
+        flipTitle: false
+      }
+    }),
+    Chartist.plugins.ctPointLabels({
+      textAnchor: 'middle',
+      labelInterpolationFnc: function(value) {
+        return 'Rp ' + value
+      }
+    })
+  ]
+});
 </script>
 @endsection

@@ -56,14 +56,8 @@ class ProsesLelangController extends Controller
 			$data_proses = Auction_process::where('id_produk', $data->id)->get();
 
 			return datatables()->of($data_proses)
-				->addColumn('action2', function($data){
-				$button = 
-				'<button type="button" name="lihat_pemenang" id="'.$data->id.'" class="lihat_pemenang btn btn-success btn-sm"><i class="fa fa-trophy"></i> Lihat Pemenang</button>';
-				
-				return $button;
-			})
 
-			->rawColumns(['action'])
+			
 			->make(true);
 
 		}
@@ -71,10 +65,11 @@ class ProsesLelangController extends Controller
 			// $data_gambar = Auction_image::where('id_produk', $data->id)->get();
 
 			// $data_proses = Auction_process::where('id_produk', $data->id)->get();
-
-			return response()->json([
-				'data_proses' => $data_proses,
-			]);
+// $data = Auction_product::find($id);
+// 			$data_proses = Auction_process::where('id_produk', $data->id)->get();
+// 			return response()->json([
+// 				'data_proses' => $data_proses,
+// 			]);
 		
 		// $data = Auction_product::find($id);
 		// $data_proses = Auction_process::where('id_produk', $data->id)->get();

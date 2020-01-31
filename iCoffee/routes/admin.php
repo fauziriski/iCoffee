@@ -44,7 +44,6 @@ Route::post('/tolak-produk-lelang/update', 'ValidasiProdukLelangController@Tolak
 Route::post('/divalidasi-produk-lelang/update', 'ValidasiProdukLelangController@ValidasiProdukLelang')->name('divalidasi-produk-lelang');
 Route::post('/proses-produk-lelang/update', 'ValidasiProdukLelangController@ProsesProdukLelang')->name('proses-produk-lelang');
 
-
 Route::get('/validasi-produk-investasi', 'ValidasiProdukInvestasiController@ProdukInvestasi')->name('validasi-produk-investasi');
 Route::get('/lihat-produk-investasi/{id}', 'ValidasiProdukInvestasiController@lihatProdukInvestasi')->name('lihat-produk-investasi');
 Route::get('/produk-investasi/{id}', 'ValidasiProdukInvestasiController@dataProdukInvestasi')->name('produk-investasi');
@@ -52,8 +51,15 @@ Route::post('/tolak-produk-investasi/update', 'ValidasiProdukInvestasiController
 Route::post('/divalidasi-produk-investasi/update', 'ValidasiProdukInvestasiController@ValidasiProdukInvestasi')->name('divalidasi-produk-investasi');
 Route::post('/proses-produk-investasi/update', 'ValidasiProdukInvestasiController@ProsesProdukInvestasi')->name('proses-produk-investasi');
 
+Route::get('/validasi-investor', 'ValidasiInvestorController@dataInvestor')->name('validasi-investor');
+Route::get('/data-investor/{id}', 'ValidasiInvestorController@idInvestor')->name('data-investor');
+Route::post('/tolak-investor/update', 'ValidasiInvestorController@tolakInvestor')->name('tolak-investor.update');
+Route::post('/validasi-investor/update', 'ValidasiInvestorController@validasiInvestor')->name('validasi-investor.update');
+
+
+
 Route::get('/proses-lelang', 'ProsesLelangController@prosesLelang')->name('proses-lelang');
-Route::get('/data-proses-lelang/{id}', 'ProsesLelangController@dataLelang')->name('data-proses-lelang');
+Route::get('/data-proses-lelang/{id}', 'ProsesLelangController@dataLelang');
 
 
 
