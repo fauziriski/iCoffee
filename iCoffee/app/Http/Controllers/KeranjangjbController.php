@@ -52,7 +52,8 @@ class KeranjangjbController extends Controller
             'harga' => $request->harga,
             'kode_produk' => $request->kode_produk,
             'total' => $total,
-            'image' => $request->gambar
+            'image' => $request->gambar,
+            'id_penjual' => $request->id_penjual
 
         ]);
 
@@ -100,41 +101,71 @@ class KeranjangjbController extends Controller
         }
 
         $hitung_jumlah_alamat_penjual = count($alamat_penjual);
+        
         $datas = array();
+        $berat = array();
+        $jumlah = array();
+
+
         
         for ($i=0; $i < $hitung_jumlah_alamat_penjual ; $i++) { 
-            if (!(in_array($checkout[$i]->shop_product->id_pelanggan, $datas))) {
-                $datas[] = $checkout[$i]->shop_product->id_pelanggan;
+            if (!(in_array($checkout[$i]->id_penjual, $datas))) {
+                $datas[] = $checkout[$i]->id_penjual;
                 
             }
         }
         $jumlah_penjual = count($datas);
+        for ($i=0; $i < $jumlah_penjual  ; $i++) { 
+            $data_coba = $datas[$i];
+            $data_jumlah_checkout = 0;
+            $data_total_checkout = 0;
+            for ($j=0; $j < $hitung_jumlah_alamat_penjual ; $j++) { 
+                if ( $checkout[$j]->id_penjual == $data_coba) {
+                    $data_jumlah_checkout += $checkout[$j]->jumlah*1000;
+                    $data_total_checkout += $checkout[$j]->total;
+                }   
+            }
+            $berat[] = $data_jumlah_checkout;
+            $jumlah[] = $data_total_checkout;
+            
+        }
+
+        // $berat = $checkout->sum('jumlah')*1000;
+        // $jumlah = $checkout->sum('total');
+
+      
+
+        $pengirim =  array();
+
+        for ($i=0; $i < $hitung_jumlah_alamat_penjual ; $i++) { 
+            if (!(in_array($alamat_penjual[$i]->kota_kabupaten, $pengirim))) {
+                $pengirim[] = $alamat_penjual[$i]->kota_kabupaten;
+                
+            }
+        }
 
 
-        // for ($i=0; $i < $jumlah_penjual ; $i++) { 
-        //     $checkout = JbCart::whereIn('', )->get();
-        // }
-
-        dd($datas);
-
-        $berat = $checkout->sum('jumlah')*1000;
-        $jumlah = $checkout->sum('total');
-
-        $pengirim = $alamat_penjual[0]->kota_kabupaten;
+        // $pengirim = $alamat_penjual[0]->kota_kabupaten;
         $penerima = $alamat->kota_kabupaten;
 
         session(['alamat_penjual' => $pengirim]);
         session(['alamat' => $penerima]);
         session(['berat' => $berat]);
+        $costjne = array();
         
+        for ($i=0; $i < $jumlah_penjual ; $i++) { 
 
-        //jne
-        $costjne = RajaOngkir::ongkosKirim([
-            'origin'        => $pengirim,     // ID kota/kabupaten asal
-            'destination'   => $penerima,      // ID kota/kabupaten tujuan
-            'weight'        => $berat,    // berat barang dalam gram
-            'courier'       => 'jne'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
-        ])->get();
+            $costjne[] = RajaOngkir::ongkosKirim([
+                'origin'        => $pengirim[$i],     // ID kota/kabupaten asal
+                'destination'   => $penerima,      // ID kota/kabupaten tujuan
+                'weight'        => $berat[$i],    // berat barang dalam gram
+                'courier'       => 'jne'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+            ])->get();
+
+        }
+
+        dd($costjne);
+        
 
         //tiki
         $costtiki = RajaOngkir::ongkosKirim([

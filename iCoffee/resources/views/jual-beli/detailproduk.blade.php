@@ -119,6 +119,7 @@
               <form action="/jual-beli/keranjang/tambah-produk" method="post"  enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id_produk" value="{{$products->id}}">
+                <input type="hidden" name="id_penjual" value="{{$products->id_pelanggan}}">
                 <input type="hidden" name="nama_produk" value="{{$products->nama_produk}}">
                 <input type="hidden" name="harga" value="{{$products->harga}}">
                 <input type="hidden" name="gambar" value="{{$products->gambar}}">
