@@ -354,7 +354,7 @@ ul li:hover {
 						</div>
 						</td></tr>
 					</table>
-					<img src='https://seeklogo.com/images/B/bank-bni-logo-737EE0F32C-seeklogo.com.png' height='80' class='credit-card-image' id='credit-card-image'></img>
+					<img src='\bni.png' height='80' class='credit-card-image' id='credit-card-image'></img>
 					<div id="norek">Nomor Rekening : 187823287 a.n. iCoffee</div>
 					<form action="/invest/checkout/berhasil" method="POST">
 						@csrf
@@ -408,7 +408,7 @@ window.onclick = function(e) {
   console.log(activeDropdown)
   if (e.target.tagName === 'LI' && activeDropdown){
     if (e.target.innerHTML === 'Bank BCA') {
-      document.getElementById('credit-card-image').src = 'https://cdn.worldvectorlogo.com/logos/bca-bank-central-asia.svg';
+      document.getElementById('credit-card-image').src = '/bca.svg';
           activeDropdown.classList.remove('visible');
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
@@ -425,16 +425,16 @@ window.onclick = function(e) {
       "8. Masukkan nomor Virtual Account Anda (contoh: 8277895360122288). <br/>";
       }
     else if (e.target.innerHTML === 'Bank Mandiri') {
-         document.getElementById('credit-card-image').src = 'https://cdn.worldvectorlogo.com/logos/bank-mandiri.svg';
+         document.getElementById('credit-card-image').src = '/mandiri.svg';
           activeDropdown.classList.remove('visible');
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
       document.getElementById('current-card').innerHTML = 'Bank Mandiri';
 	    document.getElementById('norek').innerHTML = 'Bank BCA';
-      document.getElementById('bank').value = 2;  
+      document.getElementById('bank').value = 4;  
     }
     else if (e.target.innerHTML === 'Bank BNI') {
-         document.getElementById('credit-card-image').src = 'https://seeklogo.com/images/B/bank-bni-logo-737EE0F32C-seeklogo.com.png';
+         document.getElementById('credit-card-image').src = '/bni.png';
           activeDropdown.classList.remove('visible');
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
@@ -443,13 +443,13 @@ window.onclick = function(e) {
       document.getElementById('bank').value = 3;
     }
 	else if (e.target.innerHTML === 'Bank BRI') {
-         document.getElementById('credit-card-image').src = 'https://seeklogo.com/images/B/bank-bri-bank-rakyat-logo-C06D6783A8-seeklogo.com.png';
+         document.getElementById('credit-card-image').src = '/bri.png';
           activeDropdown.classList.remove('visible');
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
       document.getElementById('current-card').innerHTML = 'Bank BRI';
 	    document.getElementById('norek').innerHTML = 'Bank BCA';
-      document.getElementById('bank').value = 4;
+      document.getElementById('bank').value = 2;
     }
   }
   else if (e.target.className !== 'dropdown-btn' && activeDropdown) {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Daftar Kelompok | Investasi</title>
+  <title>Pembayaran | Investasi</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
@@ -214,13 +214,32 @@
     
 <div class="container">
     <div class="card">
+      @if ($bank->id == 1)
+        <label>Nomor Rekening:</label>
+        <img src="\bca.svg" class="logo-card">
+        <p>{{$bank->no_rekening}}</p>
+        <label>Atas Nama:</label>
+        <p>iCoffee</p>
+      @elseif($bank->id == 2)
+        <label>Nomor Rekening:</label>
+        <img src="\bri.png" class="logo-card">
+        <p>{{$bank->no_rekening}}</p>
+        <label>Atas Nama:</label>
+        <p>iCoffee</p>
+      @elseif($bank->id == 3)
+        <label>Nomor Rekening:</label>
+        <img src="\bni.png" class="logo-card">
+        <p>{{$bank->no_rekening}}</p>
+        <label>Atas Nama:</label>
+        <p>iCoffee</p>
+      @elseif($bank->id == 4)
+        <label>Nomor Rekening:</label>
+        <img src="\mandiri.svg" class="logo-card">
+        <p>{{$bank->no_rekening}}</p>
+        <label>Atas Nama:</label>
+        <p>iCoffee</p>
+      @endif
       
-        
-      <label>Nomor Rekening:</label>
-      <img src="https://seeklogo.com/images/B/bank-bni-logo-737EE0F32C-seeklogo.com.png" class="logo-card">
-      <p>1717051053</p>
-      <label>Atas Nama:</label>
-      <p>iCoffee</p>
     </div>
     <div class="receipt">
       <h3>Terima Kasih!</h3>
@@ -236,7 +255,7 @@
         <p>Total: @money($produk->harga*$qty)</p>
       </div>
       <p class="putih">Silahkan lakukan pembayaran ke rekening iCoffee yang tertera diatas.</p>
-      <input type="button" value="Konfirmasi Pembayaran" style="color:#22a877; float: right; border-radius:10px; background:white;">
+      <a href="/investasi/konfirmasi-pembayaran" type="button">
     </div>
   </div>
 @section('footer')

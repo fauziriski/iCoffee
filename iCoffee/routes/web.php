@@ -72,6 +72,8 @@ Route::get('/jadi-investor','InvestorController@formInvestor')->middleware('auth
 Route::post('/jadi-investor','InvestorController@store');
 Route::post('/invest/checkout', 'ProdukInvestasiController@checkout')->middleware('auth');
 Route::post('/invest/checkout/berhasil', 'ProdukInvestasiController@pay')->middleware('auth');
+Route::get('/invest/profile','InvestorController@profile')->middleware('auth');
+Route::get('/invest/konfirmasi','InvestorController@confirm')->middleware('auth');
 
 
 Auth::routes();

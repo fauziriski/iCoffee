@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Account extends Model
 {
     protected $fillable = [
-        'bank_name', 'no_rekekening',
+        'bank_name', 'no_rekening',
     ];
     public $timestamps = true;
     

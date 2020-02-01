@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Investor;
 use Illuminate\Support\Facades\Auth;
+use App\invest_order;
+use App\Invest_product;
 
 class InvestorController extends Controller
 {
@@ -51,5 +53,22 @@ class InvestorController extends Controller
             'status' => 1
         ]);
         return redirect('/jadi-investor');
+    }
+
+    public function profile()
+    {
+        return view('investasi.konfirmasi');
+    }
+
+    public function confirm()
+    {
+        $order = invest_order::where('id_investor', Auth::id())->where('status',1)->get();
+        foreach($order as $ord){
+            $produk[] = Invest_product::where('id', $ord->id_produk)->get();
+        }
+        
+        // $produk = Invest_produk::where('id',$)
+
+        return view('investasi.konfirmasi',compact('order','produk'));
     }
 }
