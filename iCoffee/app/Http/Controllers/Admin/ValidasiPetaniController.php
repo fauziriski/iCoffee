@@ -10,6 +10,7 @@ use App\Mitra_perorangan;
 use App\Kelompok_tani;
 use DB;
 use DataTables;
+use Illuminate\Support\Facades\Hash;
 
 class ValidasiPetaniController extends Controller
 {
@@ -26,9 +27,8 @@ class ValidasiPetaniController extends Controller
 			'jumlah_petani' => $request->jumlah_petani,
 			'gambar' => $request->gambar,
 			'no_hp' => $request->no_hp,
-			'password' =>$request->password,
+			'password' =>Hash::make($request->password),
 			'kode' =>$request->kode
-
 		);
 
 		$form_data2 = array(
@@ -54,7 +54,7 @@ class ValidasiPetaniController extends Controller
 			'jumlah_petani' => $request->jumlah_petani,
 			'gambar' => $request->gambar,
 			'no_hp' => $request->no_hp,
-			'password' =>$request->password,
+			'password' =>Hash::make($request->password),
 			'kode' =>$request->kode
 		);
 
@@ -81,7 +81,7 @@ class ValidasiPetaniController extends Controller
 			'jumlah_petani' => $request->jumlah_petani,
 			'gambar' => $request->gambar,
 			'no_hp' => $request->no_hp,
-			'password' =>$request->password,
+			'password' =>Hash::make($request->password),
 			'kode' =>$request->kode
 		);
 

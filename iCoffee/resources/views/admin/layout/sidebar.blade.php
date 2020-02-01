@@ -93,10 +93,10 @@
         </a>
         <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Kelola Pengeluaran :</h6>
-            <a class="collapse-item" href="{{url('validasi-pembayaran')}}">Jual-Beli</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Lelang</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Investasi</a>
+            <h6 class="collapse-header">Kelola Pengeluaran:</h6>
+            <a class="collapse-item" href="{{url('validasi-pembayaran')}}">Administrasi</a>
+            <a class="collapse-item" href="{{url('jenis-produk')}}">Pembelian Aset</a>
+            <a class="collapse-item" href="{{url('jenis-produk')}}">Lain-lain</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Laporan :</h6>
             <a class="collapse-item" href="{{url('laporan-penjualan')}}">Laporan Pengeluaran</a>

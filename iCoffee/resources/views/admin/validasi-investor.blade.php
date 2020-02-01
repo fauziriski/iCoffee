@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin | Mitra Perorangan')
+@section('title', 'Admin | Validasi Investor')
 
 @section('content')
 
@@ -10,7 +10,7 @@
 
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Mitra Perorangan</h1>
+			<h1 class="h3 mb-0 text-gray-800">Validasi Investor</h1>
 			<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>  Download Excel</a>
 		</div>
 		
@@ -18,10 +18,8 @@
 			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
 				<thead>
 					<tr>
-						<th>Nama Perorangan</th>
-						<th>Jumlah Petani</th>
-						<th>Email</th>
-						<th>No Hp</th>
+						<th>NO KTP</th>
+						<th>NPWP</th>
 						<th>Terdaftar</th>
 						<th>Status</th>
 						<th></th>
@@ -193,24 +191,16 @@
 					processing: true,
 					serverSide: true,
 
-					ajax: '{{ route('admin.mitra-perorangan') }}',
+					ajax: '{{ route('admin.validasi-investor') }}',
 
 					columns:[
 
-					{data: 'nama_perorangan', name:'nama_perorangan'},
-					{data: 'jumlah_petani', name:'jumlah_petani'},
-					{data: 'email', name:'email'},
-					{data: 'no_hp', name:'no_hp'},
+					{data: 'no_ktp', name:'no_ktp'},
+					{data: 'no_npwp', name:'no_npwp'},
 					{data: 'created_at', name:'created_at'},
 					{data: 'status', name:'status'},
-					{data: 'action', name: 'action',orderable: false},
-					{data: 'deskripsi', name:'deskripsi', visible: false},
-					{data: 'alamat', name:'alamat', visible: false},
-					{data: 'gambar', name:'gambar', visible: false},
-					{data: 'kartu_keluarga', name:'kartu_keluarga', visible: false},
-					{data: 'surat_nikah', name:'surat_nikah', visible: false},
-					{data: 'id_mitra', name:'id_mitra', visible: false},
-					{data: 'kode', name:'kode', visible:false}
+					{data: 'action', name: 'action',orderable: false}
+				
 
 					]
 				});
