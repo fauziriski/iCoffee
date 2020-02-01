@@ -15,6 +15,13 @@ class CreateInvestOrdersTable extends Migration
     {
         Schema::create('invest_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('id_produk');
+            $table->unsignedBigInteger('id_investor');
+            $table->unsignedBigInteger('id_bank');
+            $table->string('id_mitra');
+            $table->integer('qty');
+            $table->integer('total');
+            $table->integer('status');
             $table->timestamps();
         });
     }

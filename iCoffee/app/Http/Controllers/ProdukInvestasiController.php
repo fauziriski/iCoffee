@@ -10,6 +10,7 @@ use DB;
 use DataTables;
 use App\Mitra;
 use App\Investor;
+use App\invest_order;
 
 class ProdukInvestasiController extends Controller
 {
@@ -142,11 +143,22 @@ class ProdukInvestasiController extends Controller
 
     public function pay(Request $request)
     {
+        $id_investor = Auth::id();
         $produk = Invest_product::find($request->id_produk);
         $qty = $request->qty;
         $total = $request->total;
         $bank = $request->id_bank;
         $mitra = $mitra = Mitra::where('id_mitra', $request->id_mitra)->first();
+        invest_order::create([
+            'id_produk' => $request->id_produk,
+            'id_investor' => $id_investor,
+            'id_bank' => $bank,
+            'id_mitra' => $request->id_mitra,
+            'qty' => $qty,
+            'total' => $total,
+            'status' => 1
+        ]);
+
         return view('investasi.pembayaran',compact('produk','mitra'))->with('qty',$qty);
     }
 }
