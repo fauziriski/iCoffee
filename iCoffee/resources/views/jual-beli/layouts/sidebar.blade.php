@@ -18,7 +18,9 @@
           <div class="filter-content">
             <div class="list-group list-group-flush">
               <a href="{{url('pasang-produk')}}" class="list-group-item"><span class="icon icon-tags"></span>&nbsp;&nbsp; Pasang Produk</a>
-              <a href="{{url('tranksaksi-jual')}}" class="list-group-item"><span class="oi oi-loop"></span>&nbsp;&nbsp; Tranksaksi Jual</a>
+              <a href="{{url('tranksaksi-jual')}}" class="list-group-item"><span class="oi oi-loop"></span>&nbsp;&nbsp; Transaksi</a>
+              <a href="{{url('tranksaksi-jual')}}" class="list-group-item"><span><i class="fas fa-th-large" aria-hidden="true"></i></span>&nbsp;&nbsp; Produk Anda</a>
+              <a href="{{url('tranksaksi-jual')}}" class="list-group-item"><span><i class="fas fa-handshake" aria-hidden="true"></i></span>&nbsp; Konfirmasi Pembayraan </a>
             </div> 
           </div>
         </article> 
@@ -28,15 +30,7 @@
             <div class="list-group list-group-flush">
               <a href="{{url('produk-lelang')}}" class="list-group-item"><span class="icon icon-timer"></span>&nbsp;&nbsp; Produk Lelang</a>
               <a href="{{url('riwayat-lelang')}}" class="list-group-item"><span class="oi oi-list"></span>&nbsp;&nbsp; Riwayat Lelang</a>
-            </div>
-          </div>
-        </article> 
-        <article class="card-group-item">
-          <header class="card-header mt-3"><h6 class="title">Investasi</h6></header>
-          <div class="filter-content">
-            <div class="list-group list-group-flush">
-              <a href="{{url('jadi-mitra')}}" class="list-group-item"><span class="oi oi-people"></span>&nbsp;&nbsp; Jadi Mitra</a>
-              <a href="{{url('jadi-investor')}}" class="list-group-item"><span class="oi oi-bar-chart"></span>&nbsp;&nbsp; Jadi Investor</a>
+              <a href="{{url('tranksaksi-jual')}}" class="list-group-item"><span><i class="fas fa-handshake" aria-hidden="true"></i></span>&nbsp; Konfirmasi Pembayraan </a>
             </div>
           </div>
         </article> 

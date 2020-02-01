@@ -19,7 +19,7 @@
 									<div class="row align-items-end">
 										<div class="col-xl-6 ftco-animate">
 											<p class="col-lg-12">{{ $alamat->nama }}</p>
-											<p class="col-lg-12">{{ $alamat->address }} - {{ $alamat->provinsi }}, {{ $alamat->kota_kabupaten }}, {{ $alamat->kecamatan }},  {{ $alamat->kode_pos }}</p>
+											<p class="col-lg-12">{{ $alamat->address }} - {{ $alamat->province->nama }}, {{ $alamat->city->nama }}, {{ $alamat->kecamatan }},  {{ $alamat->kode_pos }}</p>
 										</div>
 
 											<input type="hidden" name="id_alamat" value="{{ $alamat->id }}">
@@ -39,6 +39,7 @@
 				@for ($i = 0; $i < $jumlah_penjual; $i++)
 	          	<div class="col-md-12">
 					<h3>{{ $penjual[$i]->name }}</h3>
+				  	<input type="hidden" name="id_toko[{{ $i }}]" value="{{ $penjual[$i]->id }}">
 					
 	          		<div class="cart-detail p-3 p-md-4">
 	          			<div class="row">
@@ -70,16 +71,16 @@
 									        <td class="total">{{ $checkout_data[$i][$j]->jumlah }}</td>
 									        <td class="total">{{ $checkout_data[$i][$j]->total }}</td>
 										  </tr><!-- END TR-->
-										  {{-- <input type="hidden" name="id[]" value="{{ $data->id_produk }}">
-										  <input type="hidden" name="id_produk[]" value="{{ $data->id_produk }}">
-										  <input type="hidden" name="id_penjual[]" value="{{ $data->id_pelanggan }}">
-										  <input type="hidden" name="harga[]" value="{{ $data->harga }}">
-										  <input type="hidden" name="jumlah[]" value="{{ $data->jumlah }}">
-										  <input type="hidden" name="nama_produk[]" value="{{ $data->nama_produk }}">
-										  <input type="hidden" name="kode_produk[]" value="{{ $data->kode_produk }}">
-										  <input type="hidden" name="gambar[]" value="{{ $data->image }}">
-										  <input type="hidden" name="total[]" value="{{ $data->total }}">
-					 --}}
+										  <input type="hidden" name="id_keranjang[]" value="{{ $checkout_data[$i][$j]->id  }}">
+										  <input type="hidden" name="id_produk[{{ $i }}][{{ $j }}]" value="{{ $checkout_data[$i][$j]->id_produk   }}">
+										  <input type="hidden" name="id_penjual[{{ $i }}][{{ $j }}]" value="{{ $checkout_data[$i][$j]->id_penjual }}">
+										  <input type="hidden" name="harga[{{ $i }}][{{ $j }}]" value="{{ $checkout_data[$i][$j]->harga }}">
+										  <input type="hidden" name="jumlah[{{ $i }}][{{ $j }}]" value="{{$checkout_data[$i][$j]->jumlah }}">
+										  <input type="hidden" name="nama_produk[{{ $i }}][{{ $j }}]" value="{{$checkout_data[$i][$j]->nama_produk }}">
+										  <input type="hidden" name="kode_produk[{{ $i }}][{{ $j }}]" value="{{ $checkout_data[$i][$j]->kode_produk }}">
+										  <input type="hidden" name="gambar[{{ $i }}][{{ $j }}]" value="{{ $checkout_data[$i][$j]->image }}">
+										  <input type="hidden" name="total[{{ $i }}][{{ $j }}]" value="{{ $checkout_data[$i][$j]->total }}">
+					
 											
 					 					@endfor
 
@@ -104,7 +105,7 @@
 		          				<div class="form-group">
 			                		<div class="form-group">
 		                				<label for="pesan">Pesan untuk penjual (Opsional)</label>
-		                  				<textarea rows="5" type="text" name="pesan" class="form-control" ></textarea>
+		                  				<textarea rows="5" type="text" name="pesan[]" class="form-control" ></textarea>
 		                			</div>
 		          				</div>
 		          			</div>
@@ -116,7 +117,7 @@
 			            				<div class="form-group">
 			            					<label for="country">Pilih Kurir</label>
 			            					<div class="select-wrap">
-												<select name="kurir" id="kurir{{ $penjual[$i]->id }}" class="kurir form-control"  required>
+												<select name="kurir[{{ $i }}]" id="kurir{{ $penjual[$i]->id }}" class="kurir form-control"  required>
 													{{-- onchange="myFunction()" --}}
 													<option selected disabled="disabled" value="" >Pilih Kurir</option>
 													@for ($k = 0; $k < count($costjne[$i][0]["costs"]); $k++)
@@ -140,7 +141,7 @@
 				          				<label for="country">Subtotal</label>
 				          				<div class="cart-detail">
 
-										  	<input type="hidden" name="total_bayar" value="{{ $jumlah[$i] }}">
+										  	<input type="hidden" name="total_bayar[]" value="{{ $jumlah[$i] }}">
 				          					
 				          					<h6 class="text-center">Total Pembayaran Rp. {{ $jumlah[$i] }}</h6>
 			            				</div>

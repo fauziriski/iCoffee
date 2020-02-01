@@ -12,6 +12,7 @@ use App\Image;
 use App\JbCart;
 use App\Address;
 use App\Delivery;
+use App\Delivery_category;
 use App\Order;
 use App\Orderdetail;
 use App\Account;
@@ -259,83 +260,103 @@ class KeranjangjbController extends Controller
 
     public function pesanbarang(Request $request)
     {
+
         $id_customer = Auth::user()->id;
-        $hitung = count(collect($request)->get('id_produk'));
+        $hitung = count(collect($request)->get('id_toko'));
+        $jumlah_keranjang = count(collect($request)->get('id_keranjang'));
+
         for ($i=0; $i < $hitung ; $i++)
         {
-        $id_produks[] = $request->id_produk[$i];
+            $id_produks[] = $request->id_produk[$i];
         }    
 
-        $split = explode(': ', $request->kurir);
+        for ($i=0; $i < $hitung ; $i++) { 
+            $split[] = explode(': ', $request->kurir[$i]);
+        }
 
+        for ($i=0; $i < $hitung ; $i++) { 
+            $kategori_pengiriman[] = Delivery_category::where('nama_pengiriman', $split[$i][1])->first();
+        }
         // $alamat = Address::where('id', $request->id_alamat)->where('status', 1)->first();
         // dd($request);
         $timestamps = date('YmdHis');
         $invoice = $timestamps.$id_customer;
-        $totalbayar = $request->total_bayar+$split[0];
 
-        $order = Order::create([
-            'id_pelanggan' => $id_customer,
-            'id_alamat' => $request->id_alamat,
-            'nama' => $request->nama_alamat,
-            'invoice' => $invoice,
-            'status' => '1',
-            'payment' => $request->bank,
-            'shipping' => $request->kurir,
-            'pesan' => $request->pesan,
-            'total_bayar' =>$totalbayar
-
-        ]);
-
-        $id = $order->id;
-
-        
-        for ($i=0; $i < $hitung ; $i++)
-        {
-            $id_penjual = Shop_product::whereIn('id',$id_produks)->get();
+        for ($i=0; $i < $hitung ; $i++) { 
+            $totalbayar[] = $request->total_bayar[$i]+$split[$i][0];
         }
 
-        
-
-        for ($i=0; $i < $hitung ; $i++)
-        {
-            $alamat_penjual = Address::where('id_pelanggan', $id_penjual[$i]->id_pelanggan)->get();
+        for ($i=0; $i < $jumlah_keranjang ; $i++) { 
+            $flight = JbCart::where('id', $request->id_keranjang[$i])->first();
+            $flight->delete();
         }
 
-        for ($i=0; $i < $hitung ; $i++) {
 
-            $orderdetail = Orderdetail::create([
-                'id_pelanggan' => $id_customer,
-                'id_penjual' => $id_penjual[$i]->id_pelanggan,
-                'id_order' => $id,
-                'id_produk' => $request->id_produk[$i],
-                'nama_produk' =>$request->nama_produk[$i],
-                'invoice' => $invoice,
-                'jumlah' => $request->jumlah[$i],
-                'harga' => $request->harga[$i],
-                'total' => $request->total[$i],
-                'kode_produk' => $id_penjual[$i]->kode_produk,
-                'gambar' => $id_penjual[$i]->gambar,
-                'id_alamat_penjual' => $alamat_penjual[$i]->id
+        for ($i=0; $i < $hitung ; $i++) { 
+
+            $order[] = Order::create([
+                        'id_pelanggan' => $id_customer,
+                        'id_alamat' => $request->id_alamat,
+                        'nama' => $request->nama_alamat,
+                        'invoice' => $invoice,
+                        'status' => '1',
+                        'payment' => $request->bank,
+                        'shipping' => $request->kurir[$i],
+                        'pesan' => $request->pesan[$i],
+                        'total_bayar' =>$request->total_bayar[$i],
+                        'id_penjual' => $request->id_toko[$i]
     
-                
-            ]);
-            
-            $ids[] = $orderdetail->id;
-
+            ]);      
 
         }
 
-        $ongkir = $split[0];
+        for ($i=0; $i < $hitung ; $i++) { 
+            $id[] = $order[$i]->id;
+        }
+
+        for ($i=0; $i < $hitung ; $i++) { 
+            $id[] = $order[$i]->id;
+        }
+
+        for ($i=0; $i < $hitung ; $i++) { 
+            for ($j=0; $j < count($request->id_penjual[$i]) ; $j++) { 
+                $alamat_penjual[$i][] = Address::where('id_pelanggan', $request->id_penjual[$i][$j])->where('status', 1)->first();
+            }
+        }
+
+        for ($i=0; $i < $hitung ; $i++) { 
+            for ($j=0; $j < count($request->id_penjual[$i]) ; $j++) { 
+
+                $orderdetail[$i][] = Orderdetail::create([
+                                'id_pelanggan' => $id_customer,
+                                'id_penjual' => $request->id_penjual[$i][$j],
+                                'id_order' => $id[$i],
+                                'id_produk' => $request->id_produk[$i][$j],
+                                'nama_produk' =>$request->nama_produk[$i][$j],
+                                'invoice' => $invoice,
+                                'jumlah' => $request->jumlah[$i][$j],
+                                'harga' => $request->harga[$i][$j],
+                                'total' => $request->total[$i][$j],
+                                'kode_produk' =>  $request->total[$i][$j],
+                                'gambar' => $request->gambar[$i][$j],
+                                'id_alamat_penjual' => $alamat_penjual[$i][$j]->id
+        
+                    
+                ]);
+                $ids[$i][] = $orderdetail[$i][$j]->id;
+            }
+
+        }
 
 
         for ($i=0; $i < $hitung ; $i++) {
 
             Delivery::create([
-                'ongkos_kirim' => $ongkir,
-                'id_orderdetails' => $ids[$i],
-                'nama' => $request->kurir,
-                'invoice' =>  ''
+                'ongkos_kirim' => $split[$i][0],
+                'id_order' => $id[$i],
+                'nama' => $request->kurir[$i],
+                'invoice' =>  '',
+                'id_kategori_kurir' => $kategori_pengiriman[$i]->id
       
             ]);
 
@@ -349,27 +370,19 @@ class KeranjangjbController extends Controller
     public function invoice($invoice)
     {
         $id_pembeli = Auth::user()->id;
-        $order = Order::where('invoice', $invoice)->first();
+        $order = Order::where('invoice', $invoice)->get();
         $orderdetail = Orderdetail::where('invoice', $invoice)->get();
+
+        $hitung_orderdetil = $orderdetail->count();
         
-        $hitung = $orderdetail->count();
-        
-        $datas = array();
-   
+        $hitung = $order->count();
         
         for ($i=0; $i < $hitung ; $i++) {
-            
-            if (!(in_array($orderdetail[$i]->id_penjual, $datas))) {
-                $datas[] = $orderdetail[$i]->id_penjual;
-                $id_penjual[] = $orderdetail[$i]->id_penjual;
-            }
-
+            $id_penjual[] =  $order[$i]->id_penjual;
         }
 
-        
-        $jumlah_pelanggan = count($id_penjual);
 
-        for ($i=0; $i < $jumlah_pelanggan ; $i++) {
+        for ($i=0; $i < $hitung ; $i++) {
             $orderdetailcek = Orderdetail::where('invoice', $invoice)->where('id_penjual',$id_penjual[$i])->get();
             $jumlahorder =  $orderdetailcek->count();
             $hitungdataorder[] = $jumlahorder;
@@ -379,18 +392,42 @@ class KeranjangjbController extends Controller
             }
 
         }
-    
-        
 
-        for ($i=0; $i < $jumlah_pelanggan; $i++) { 
-            
-            $alamat_penjual[] = Address::where('id_pelanggan', $id_penjual[$i])->get();
+        for ($i=0; $i < $hitung ; $i++) { 
+            $alamat_pembeli[] = Address::where('id', $order[$i]->id_alamat)->first();
         }
-  
-        $alamat_pembeli = Address::where('id', $order->id_alamat)->first();
-        $rekening = Account::where('bank_name', $order->payment)->first();
 
-        return view('jual-beli.invoice', compact('order', 'hitungdataorder' , 'orderdetaildata', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'jumlah_pelanggan', 'rekening'));
+        $id_alamat_penjual = array();
+        for ($i=0; $i < $hitung_orderdetil ; $i++) { 
+            if (!(in_array($orderdetail[$i]->id_alamat_penjual, $id_alamat_penjual))) {
+                $id_alamat_penjual[] = $orderdetail[$i]->id_alamat_penjual;
+                
+            }
+        }
+
+        for ($i=0; $i < $hitung; $i++) { 
+            
+            $alamat_penjual[] = Address::where('id', $id_alamat_penjual[$i])->first();
+        }
+   
+
+        for ($i=0; $i < $hitung; $i++) {
+            $rekening[] = Account::where('bank_name', $order[$i]->payment)->first();
+        }
+
+        for ($i=0; $i < $hitung; $i++) {
+            $kurir[] = explode(': ', $order[$i]->shipping);
+        }
+
+        for ($i=0; $i < $hitung; $i++) {
+            $sum[] = $kurir[$i][0]+$order[$i]->total_bayar;
+
+        }
+
+        $jumlah_seluruh = array_sum($sum);
+
+
+        return view('jual-beli.invoice', compact('order','hitung', 'kurir', 'jumlah_seluruh' , 'hitungdataorder' , 'orderdetaildata', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'hitung', 'rekening'));
     }
 
     
