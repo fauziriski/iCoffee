@@ -42,6 +42,8 @@ Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 Route::get('/jual-beli/invoice/{invoice}', 'KeranjangjbController@invoice');
 Route::get('/jual-beli/transaksi', 'HomeController@transaksi');
+Route::get('/jual-beli/konfirmasi', 'HomeController@pembayaran');
+Route::post('/jual-beli/konfirmasi/pembayaran', 'HomeController@konfirmasipembayaran');
 
 
 
@@ -57,6 +59,8 @@ Route::get('/lelang', 'ProdukController@lelang');
 Route::get('/lelang/produk/{id}', 'ProdukLelangController@detaillelang');
 Route::get('/lelang/produk/data/{id}', 'ProdukLelangController@datalelang');
 Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
+Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaran');
+Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
 
 
 // investasi

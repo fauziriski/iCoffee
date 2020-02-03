@@ -18,59 +18,33 @@
        </header>
        <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
-            <div class="col-md-12  mt-3 mb-3 ftco-animate">
-
+            <div class="container" style="border-radius: 400px;">
+            @for ($i = 0; $i < $hitung_invoice; $i++)
+            
                 <div class="row mt-3">
-                    <div class="col-md-10">
-                        Tanggal
-                    </div>
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" name="edit_alamat" value="" data-whatever="@mdo">Detail</button>
-                        
+                    <div class="col">
+                        <p>Tanggal : <strong>{{ $tanggal[$i] }}</strong></p>
                     </div>
                 </div>
-
-                <div class="row mt-3">
-                    <div class="col-md-4 mt-2">
-                        <strong><p>Nama Toko</p></strong>
-                                <p> invoice</p>
+                
+                <div class="row">
+                    <div class="col">
+                        <p>Invoice : <strong style="color:#ee4d2c">{{ $invoice[$i] }}</strong></p>
                     </div>
-
-                    <div class="col-md-4 mt-2">
-                        <p>Status</p>
-                        <strong><p>pesanan</p></strong>
+                    <div class="col">
+                        <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ $cek_data[$i] }}</strong></p>
                     </div>
-
-                    <div class="col-md-4 mt-2">
-                        <p>Total Belanja</p>
-                        <strong><p>Rp</p></strong>
+                    <div class="col">
+                        <a href="/jual-beli/invoice/{{ $invoice[$i] }}"><span class="oi oi-eye"></span>&nbsp; Detail Pesanan </a>
                     </div>
                 </div>
-
-                <div class="row mt-3">
-                    <div class="col-md-4 mt-2">
-                        <strong><p>Nama Produk</p></strong>
-                        <p>Jumlah Produk</p>
-                    </div>
-
-                    <div class="col-md-4 mt-2">
-                        <p>Harga Produk</p>
-                        <strong><p>Rp. </p></strong>
-                    </div>
-
-                    <div class="col-md-4 mt-2">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" name="edit_alamat" value="" data-whatever="@mdo">Beli Lagi</button>
-                        
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    
-                </div>
-
-
+                <hr>
+        
+                @endfor
             </div>
+
+           
+         </div>
 
         </div>
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">

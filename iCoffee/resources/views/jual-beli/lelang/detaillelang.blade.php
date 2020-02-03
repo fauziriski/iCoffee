@@ -242,12 +242,16 @@
     if (distance < 0) {
       clearInterval(x);
       $('#tawar').replaceWith('<input class="btn btn-primary py-3 px-1" id="selesai" value="Selesai" readonly>');
+      var penawar_terakhir = {!!json_encode($penawar)!!};
+            console.log(penawar_terakhir);
       document.getElementById("demo1").innerHTML = "EXPIRED";
     }
   }, 1000);
 </script>
 
+
 <script>
+  /*
   // Set the date we're counting down to
   var sis = 27;
 
@@ -255,18 +259,8 @@
   var  u = {!!json_encode($produk_terkait)!!};
   var p = u;
 
-  // console.log(p[0].id);
-
   var length = p.length;
   var panjang =  {!!json_encode($panjang)!!};
-  
-
-    // var array = u.data[i];
-    // var id = array.id;
-    // var y =  array.tanggal_berakhir;
- 
-   
-
    
   
   // var countDownDate = new Date("2020-01-21 15:37:25").getTime();
@@ -293,13 +287,10 @@
         // Output the result in an element with id="demo"
         document.getElementById(id).innerHTML = days + "d " + hours + "h "
         + minutes + "m " + seconds + "s ";
-
-      
-
       
       // If the count down is over, write some text 
           if (distance < 0) {
-            
+
             clearInterval(x);
             document.getElementById(id).innerHTML = "EXPIRED";
           }
@@ -307,12 +298,8 @@
           
     }, 1000);
   
-  
+  */
   </script>
-
-
-
-
 
 <script>
 
