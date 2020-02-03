@@ -163,6 +163,8 @@ class KeranjangjbController extends Controller
             $jumlah[] = $data_total_checkout;
             
         }
+
+        
         $jumlah_seluruh = array_sum($jumlah);
 
 
@@ -179,6 +181,7 @@ class KeranjangjbController extends Controller
                 
             }
         }
+        
 
 
         // $pengirim = $alamat_penjual[0]->kota_kabupaten;

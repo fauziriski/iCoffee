@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Images;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\User;
+use App\Order;
+use App\Orderdetail;
 use App\Address;
 use App\Shop_product;
 use App\Image;
@@ -217,6 +219,22 @@ class HomeController extends Controller
         
         return response()->json();
 
+    }
+
+    public function transaksi()
+    {
+        // BLM BAYAR 1
+        // sudah dibbayar 2
+        // proses penjual 3
+        // penjual menerima 4 dibatalkan 0
+        // dikriim 5
+        // terkirim 6
+        // komplin 7
+        $id_pelanggan = Auth::user()->id;
+        $transaksipembeli = Order::where('id_pelanggan', $id_pelanggan)->get();
+        $transaksipenjual = Order::where('id_pelanggan', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->get();
+        
+        return view('jual-beli.transaksi');
     }
 
 
