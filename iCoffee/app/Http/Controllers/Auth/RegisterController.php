@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\User;
+use App\Joint_account;
 
 class RegisterController extends Controller
 {
@@ -73,6 +74,11 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+        ]);
+
+        $rekber = Joint_account::create([
+            'user_id' => $user->id,
+            'saldo' => 0
         ]);
 
         $user->assignRole('user');

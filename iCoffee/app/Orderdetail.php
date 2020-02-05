@@ -13,4 +13,9 @@ class Orderdetail extends Model
 
     
     public $timestamps = true;
+
+    public function addresses()
+    {
+    	return $this->belongsTo('App\Address', 'id_alamat_penjual');
+    }
 }

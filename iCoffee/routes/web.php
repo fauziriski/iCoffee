@@ -41,7 +41,15 @@ Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 Route::get('/jual-beli/invoice/{invoice}', 'KeranjangjbController@invoice');
-
+Route::get('/jual-beli/invoice_penjual/{invoice}', 'KeranjangjbController@invoice_penjual');
+Route::get('/jual-beli/transaksi', 'HomeController@transaksi');
+Route::get('/jual-beli/konfirmasi', 'HomeController@pembayaran');
+Route::post('/jual-beli/konfirmasi/pembayaran', 'HomeController@konfirmasipembayaran');
+Route::post('/jual-beli/pesanan/terima', 'KeranjangjbController@pesananditerima');
+Route::post('/jual-beli/pesanan/inputresi', 'KeranjangjbController@inputresi');
+Route::post('/jual-beli/pesanan/selesai', 'KeranjangjbController@pesananselesai');
+Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'KeranjangjbController@komplain');
+Route::post('/jual-beli/pesanan/komplain', 'KeranjangjbController@komplaindiproses');
 
 
 Route::get('page/getprovince', 'ApiController@getprovince');
@@ -56,6 +64,8 @@ Route::get('/lelang', 'ProdukController@lelang');
 Route::get('/lelang/produk/{id}', 'ProdukLelangController@detaillelang');
 Route::get('/lelang/produk/data/{id}', 'ProdukLelangController@datalelang');
 Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
+Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaran');
+Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
 
 
 // investasi

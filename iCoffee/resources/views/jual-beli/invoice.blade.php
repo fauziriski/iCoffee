@@ -7,9 +7,9 @@
 
 <div class="container mt-5">
 	<div class="invoice-title">
-		<h3>Invoice</h3><h3 class="pull-right">Order # {{ $order->invoice }}</h3>
+		<h3>Invoice</h3><h3 class="pull-right">Order # {{ $order[0]->invoice }}</h3>
 	</div>
-	@for ($i = 0; $i < $jumlah_pelanggan; $i++)
+	@for ($i = 0; $i < $hitung; $i++)
 	
     <div class="row mb-2">
         <div class="col-md-12">	
@@ -19,63 +19,90 @@
     				<address>
 					<strong>Pengirim :</strong><br>
 						
-						{{ $alamat_penjual[$i][0]->nama }}<br>
-						{{ $alamat_penjual[$i][0]->address }},
-						{{ $alamat_penjual[$i][0]->kecamatan }},
-						{{ $alamat_penjual[$i][0]->city->nama }},
-    					{{ $alamat_penjual[$i][0]->province->nama }}, 			
-						{{ $alamat_penjual[$i][0]->kode_pos }}
+						{{ $alamat_penjual[$i]->nama }}<br>
+						{{ $alamat_penjual[$i]->address }},
+						{{ $alamat_penjual[$i]->kecamatan }},
+						{{ $alamat_penjual[$i]->city->nama }},
+    					{{ $alamat_penjual[$i]->province->nama }}, 			
+						{{ $alamat_penjual[$i]->kode_pos }}
     				</address>
     			</div>
     			<div class="col-md-3 col-6">
     				<address>
         			<strong>Penerima :</strong><br>
-						{{ $alamat_pembeli->nama }}<br>
-						{{ $alamat_pembeli->address }},
-						{{ $alamat_pembeli->kecamatan }},
-						{{ $alamat_pembeli->city->nama }},
-						{{ $alamat_pembeli->province->nama }}, 			
-						{{ $alamat_pembeli->kode_pos }}
+						{{ $alamat_pembeli[$i]->nama }}<br>
+						{{ $alamat_pembeli[$i]->address }},
+						{{ $alamat_pembeli[$i]->kecamatan }},
+						{{ $alamat_pembeli[$i]->city->nama }},
+						{{ $alamat_pembeli[$i]->province->nama }}, 			
+						{{ $alamat_pembeli[$i]->kode_pos }}
     				</address>
     			</div>
     		   		
     			<div class="col-md-3 col-6">
     				<address>
     					<strong>Metode Pembayaran :</strong><br>
-    					{{ $rekening->bank_name }} {{ $rekening->no_rekening }}<br>
+    					{{ $rekening[$i]->bank_name }} {{ $rekening[$i]->no_rekening }}<br>
 
     				</address>
     			</div>
     			<div class="col-md-3 col-6">
     				<address>
     					<strong>Tanggal Order :</strong><br>
-						{{ $order->created_at}}<br>
+						{{ $order[$i]->created_at}}<br>
 						
 						<strong>Status :</strong><br>
-						@if ( $order->status == 1)
+						@if ( $order[$i]->status == 1)
 							<div class="alert alert-warning" role="alert">
 								Belum Dibayar
 							</div>		  
-						@elseif( $order->status == 2)
+						@elseif( $order[$i]->status == 2)
 							<div class="alert alert-info" role="alert">
 								Sudah Dibayar
 							</div>
 
-						@elseif( $order->status == 3)
+						@elseif( $order[$i]->status == 3)
 							<div class="alert alert-info" role="alert">
 								Di Serahkan ke Penjual
 							</div>
-						@elseif( $order->status == 4)
+						@elseif( $order[$i]->status == 4)
 							<div class="alert alert-info" role="alert">
 								Penjual Menerima dan Barang di Proses
 							</div>
-						@elseif( $order->status == 5)
+						@elseif( $order[$i]->status == 5)
 							<div class="alert alert-info" role="alert">
 								Barang Dikirim
 							</div>
-						@elseif( $order->status == 6)
+						@elseif( $order[$i]->status == 6)
 							<div class="alert alert-success" role="alert">
 								Selesai
+							</div>
+						@elseif( $order[$i]->status == 7)
+							<div class="alert alert-info" role="alert">
+								komplain
+							</div>
+						@elseif( $order[$i]->status == 8)
+							<div class="alert alert-info" role="alert">
+								Pembayaran Sedang di Proses
+							</div>
+						@elseif( $order[$i]->status == 9)
+							<div class="alert alert-danger" role="alert">
+								Pembelian dibatalkan
+							</div>
+						
+						@elseif( $order[$i]->status == 10)
+							<div class="alert alert-info" role="alert">
+								Komplain dibatalkan
+							</div>
+
+						@elseif( $order[$i]->status == 11)
+							<div class="alert alert-info" role="alert">
+								Komplain diterima
+							</div>
+
+						@elseif( $order[$i]->status == 0)
+							<div class="alert alert-danger" role="alert">
+								Penjual Menolak Pesanan
 							</div>
 							
 						@endif
@@ -107,9 +134,9 @@
     							@for ($j = 0; $j < $hitungdataorder[$i]; $j++)
     							<tr>
 									<td>{{ $orderdetaildata[$i][$j]->nama_produk }}</td>
-									<td class="text-center">{{  $orderdetaildata[$i][$j]->harga  }}</td>
+									<td class="text-center">Rp {{  $orderdetaildata[$i][$j]->harga  }}</td>
     								<td class="text-center">{{  $orderdetaildata[$i][$j]->jumlah  }}</td>
-    								<td class="text-right">{{  $orderdetaildata[$i][$j]->total  }}</td>
+    								<td class="text-right">Rp {{  $orderdetaildata[$i][$j]->total  }}</td>
 								</tr>
 								
 								@endfor
@@ -118,17 +145,30 @@
     								<td class="thick-line"></td>
     								<td class="thick-line"></td>
     								<td class="thick-line text-center"><strong>Subtotal</strong></td>
-    								<td class="thick-line text-right">$670.99</td>
+									<td class="thick-line text-right">Rp {{ $order[$i]->total_bayar}}</td>
     							</tr>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
     								<td class="no-line text-center"><strong>Biaya Pengiriman</strong></td>
-    								<td class="no-line text-right">$15</td>
-    							</tr>
+    								<td class="no-line text-right">Rp {{ $kurir[$i][0] }}</td>
+								</tr>
+								
 
     						</tbody>
-    					</table>
+						</table>
+						
+						@if ( $order[$i]->status == 5)
+							<form action="/jual-beli/pesanan/selesai" method="post">
+								@csrf
+								<input type="hidden" name="id" required value="{{ $order[$i]->id }}">
+								<input type="hidden" name="invoice" required value="{{ $order[0]->invoice }}">
+								<input type="hidden" name="jumlah_seluruh" required value="{{ $order[$i]->total_bayar+$kurir[$i][0] }}">
+								<p class="float-right"><input type="submit" class="btn btn-secondary  py-3 px-5" name="submit" value="Komplain">
+									<input type="submit" class="btn btn-primary py-3 px-5" name="submit" value="Diterima">
+							</p>
+							</form>
+						@endif
     				</div>
     			</div>
     		</div>
@@ -136,6 +176,17 @@
 	</div>
 	
 	@endfor
+	
+
+	<div class="row mb-5">
+    	<div class="col-md-12">
+    		<div class="panel panel-default">
+				<div class="panel-heading">
+    				<h3 class="card-header"><strong>Total</strong><strong class="float-right">{{ $jumlah_seluruh}}</strong></h3>
+    			</div>
+    		</div>
+    	</div>
+	</div>
 </div>
 
 
