@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Invest_product;
 use App\invest_order;
 use Auth;
+use Illuminate\Support\Str;
 
 class MitraController extends Controller
 {
@@ -33,6 +34,19 @@ class MitraController extends Controller
         for($i=0;$i<count($dana);$i++){
             $total += $dana[$i]->total;
         }
-        return view('investasi.mitra.index')->with('produk',$produk)->with('total',$total)->with('investor',$investor);
+        if(Str::contains(Auth::user()->id_mitra, 'KT')){
+            $kode = Auth::user()->kode;
+            $gambar = Auth::user()->gambar;
+            $path = "Uploads\Kelompok_tani\{$kode}\{$gambar}";
+        }elseif(Str::contains(Auth::user()->id_mitra, 'KP')){
+            $kode = Auth::user()->kode;
+            $gambar = Auth::user()->gambar;
+            $path = "Uploads\Mitra_Koperasi\{$kode}\{$gambar}";
+        }else{
+            $kode = Auth::user()->kode;
+            $gambar = Auth::user()->gambar;
+            $path = "Uploads\Mitra_Perorangan\{$kode}\{$gambar}";
+        }
+        return view('investasi.mitra.index')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('path',$path);
     }
 }
