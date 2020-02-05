@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Investor;
 use Illuminate\Support\Facades\Auth;
+use App\invest_order;
+use App\Invest_product;
+use App\Invest_confirm;
 
 class InvestorController extends Controller
 {
@@ -51,5 +54,62 @@ class InvestorController extends Controller
             'status' => 1
         ]);
         return redirect('/jadi-investor');
+    }
+
+    public function profile()
+    {
+        return view('investasi.profil');
+    }
+
+    public function confirm()
+    {
+        $order = invest_order::where('id_investor', Auth::id())->where('status',1)->get();
+        foreach($order as $ord){
+            $produk[] = Invest_product::where('id', $ord->id_produk)->get();
+        }
+        
+        // $produk = Invest_produk::where('id',$)
+
+        return view('investasi.konfirmasi',compact('order','produk'));
+    }
+
+    public function confirmStore(Request $request)
+    {
+        $this->validate($request,[
+            'gambar' => 'required|image|'
+        ]);
+
+        if($request->hasfile('gambar')){
+            $file = $request->file('gambar');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $request->id_order.time().'.'.$extension;
+            $file->move('Uploads/Investasi/Konfirmasi',$filename);
+        }
+
+        Invest_confirm::create([
+            'id_investor' => Auth::id(),
+            'id_order' => $request->id_order,
+            'bank' => $request->nama_bank,
+            'nama' => $request->nama,
+            'nominal' =>$request->nominal,
+            'gambar' => $filename,
+            'status' => 1,
+            'norek' => $request->norek
+        ]);
+        return redirect('/invest/konfirmasi');
+    }
+
+    public function orderDetail()
+    {
+        
+    }
+
+    public function orderHistory()
+    {
+        $order = invest_order::where('id_investor',Auth::id())->get();
+        foreach($order as $ord){
+            $produk[] = Invest_product::where('id', $ord->id_produk)->get();
+        }
+        return view('investasi.riwayatorder',compact('order','produk'));
     }
 }

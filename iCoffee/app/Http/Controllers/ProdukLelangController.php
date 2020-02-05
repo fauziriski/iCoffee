@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Images;
 use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
 use App\Auction_product;
 use App\Auction_process;
+use App\Auction_winner;
 use App\Auction_image;
 
 class ProdukLelangController extends Controller
@@ -30,6 +32,7 @@ class ProdukLelangController extends Controller
     
     public function pasangLelang()
     {
+    
         return view('jual-beli.lelang.pasang');
     }
 
@@ -39,7 +42,6 @@ class ProdukLelangController extends Controller
         $this->validate($request,[
 
             'images' => 'required',
-            'image' => 'required'
         ]);
 
         // dd($request);
@@ -138,6 +140,44 @@ class ProdukLelangController extends Controller
 
         $products = Auction_product::find($id);
 
+
+        $tanggal_selesai = $products->tanggal_berakhir;
+
+        $cek = Carbon::parse($tanggal_selesai);
+        $tanggal_mulai =  Carbon::parse(date('Y-m-d H:i:s'));
+        $now = Carbon::now()->timestamp;
+        $endday =  $cek->timestamp;
+
+        $waktu = $endday-$now;
+
+        if($waktu <= 0)
+        {
+            $pemenang = Auction_process::where('id_produk', $products->id)->latest('updated_at')->first();
+
+            $cek_auction_winner = Auction_winner::where('id_produk_lelang', $products->id)->first();
+
+            if($cek_auction_winner == NULL)
+            {
+                $pemenang_lelang = Auction_winner::create([
+                    'id_pemenang' => $pemenang->id_penawar,
+                    'id_pelelang' => $pemenang->id_pelelang,
+                    'id_produk_lelang' => $pemenang->id_produk,
+                    'jumlah_penawaran' => $pemenang->penawaran,
+                    'status' => '1'
+                ]);
+            }
+        
+        } elseif($waktu > 0) {
+            $cek_auction_winner = Auction_winner::where('id_produk_lelang', $products->id)->first();
+
+            if(!($cek_auction_winner == NULL))
+            {
+                $cek_auction_winner->delete();
+            }
+
+        }
+
+
         $proses = Auction_process::where('id_produk', $products->id)->latest('updated_at')->first();
         // dd($proses);
 
@@ -178,6 +218,14 @@ class ProdukLelangController extends Controller
 
     public function tawar(Request $request)
     {
+        $id_pelanggan = Auth::user()->id;
+
+        if($request->id_pelelang == $id_pelanggan){
+
+            return response()->json(['response' => 'Gagal', 'data' => $request]);
+        }
+
+
         $process = Auction_process::create([
             'id_produk' => $request->id_produk,
             'id_pelelang' => $request->id_pelelang,
@@ -191,7 +239,7 @@ class ProdukLelangController extends Controller
         $i = 1;
         Alert::success('Tawaran Anda Berhasil');
 
-        return response()->json($process);
+        return response()->json(['response' => 'Berhasil', 'data' => $process]);
 
 
 
@@ -208,6 +256,4 @@ class ProdukLelangController extends Controller
         return view('jual-beli.lelang.data',compact('penawar','i'));
     }
     
-
-
 }

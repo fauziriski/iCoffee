@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Delivery extends Model
 {
     protected $fillable = [
-        'id_orderdetails','nama','invoice','ongkos_kirim',
+        'id_order','nama','invoice','ongkos_kirim','id_kategori_kurir'
     ];
 
     public $timestamps = true;

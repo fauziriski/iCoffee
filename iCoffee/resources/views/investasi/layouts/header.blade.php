@@ -51,10 +51,12 @@
           </a>
 
           <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown">
-           <a class="dropdown-item" href="{{ route('logout') }}"
-           onclick="event.preventDefault();
-           document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-           {{ __('Keluar') }}
+            <a class="dropdown-item" href="/invest/profil"><i class="fas fa-user-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+            {{ __('Profil') }}
+            <a class="dropdown-item" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+            {{ __('Keluar') }}
          </a>
 
          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Joint_account;
 
 class LoginController extends Controller
 {
@@ -43,7 +44,18 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        $cek_rekber = Joint_account::where('user_id', $user->id)->first();
+
+        if( empty($cek_rekber) )
+        {
+            $rekber = Joint_account::create([
+                'user_id' => $user->id,
+                'saldo' => 0
+            ]);
+        }
+
       Alert::success('Berhasil Masuk');
+
       if($user->hasRole('admin')){
         return redirect()->route('admin.dashboard');
     }elseif ($user->hasRole('superadmin')) {
@@ -51,6 +63,17 @@ class LoginController extends Controller
     }elseif ($user->hasRole('adminkeuangan')) {
         return redirect()->route('adminkeuangan.dashboard');
     }
+
+
+      if($user->hasRole('admin'))
+      {
+          return redirect()->route('admin.dashboard');
+
+      }elseif ($user->hasRole('superadmin')) 
+      {
+          return redirect()->route('superadmin.dashboard');
+      }
+
 }
 
 }

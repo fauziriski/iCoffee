@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Images;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\User;
+use App\Order;
+use App\Orderdetail;
 use App\Address;
 use App\Shop_product;
 use App\Image;
 use App\Province;
 use App\City;
+use App\Confirm_payment;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 
@@ -218,6 +221,163 @@ class HomeController extends Controller
         return response()->json();
 
     }
+
+    public function transaksi()
+    {
+        // blm bayar 1
+        // sudah dibbayar 2
+        // proses penjual 3
+        // penjual menerima 4 menolak 0
+        // dikriim 5
+        // terkirim 6
+        // komplin 7
+        // konfirmasi diproses 8
+        // batalkan pesanan pembeli 9
+        $id_pelanggan = Auth::user()->id;
+        $transaksipembeli = Order::where('id_pelanggan', $id_pelanggan)->get();
+        $transaksipenjual = Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->get();
+
+        $jumlah_transaksi_penjual = count($transaksipenjual);
+        $kurir_data = array();
+        $total_bayar = array();
+        for ($i=0; $i < $jumlah_transaksi_penjual ; $i++) { 
+            $kurir_penjual = explode(': ',  $transaksipenjual[$i]->shipping);
+            $kurir_data[] =  $kurir_penjual[0];
+            $total_bayar[] =  $transaksipenjual[$i]->total_bayar+$kurir_penjual[0];
+        }
+
+        $jumlah_transaksi_beli = count($transaksipembeli);
+
+        $invoice = array();
+        $tanggal = array();
+        
+
+        for ($i=0; $i < $jumlah_transaksi_beli; $i++) { 
+            if(!(in_array($transaksipembeli[$i]->invoice, $invoice))){
+                $invoice[] = $transaksipembeli[$i]->invoice;
+                $tanggal[] = $transaksipembeli[$i]->created_at;
+            }
+        }
+        $cek_data = array();
+
+        $hitung_invoice = count($invoice);
+        for ($i=0; $i < $hitung_invoice; $i++) { 
+            $total_pembayaran = 0;
+            $total_ongkos_kirim = 0;
+            $jumlah_seluruh = 0;
+            $ongkir = 0;
+            $jumlah_invoice = Order::where('invoice', $invoice[$i])->get();
+            $hitung_jumlah_invoice = count($jumlah_invoice);
+            for ($j=0; $j < $hitung_jumlah_invoice ; $j++) { 
+                $kurir = explode(': ', $jumlah_invoice[$j]->shipping);
+                $ongkir += $kurir[0];
+                $jumlah_seluruh +=  $jumlah_invoice[$j]->total_bayar;                
+            }
+            $cek_data[] =  $jumlah_seluruh+$ongkir;
+
+        }
+
+        return view('jual-beli.transaksi', compact('invoice','tanggal', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
+    }
+
+    public function pembayaran()
+    {
+        $id_pelanggan = Auth::user()->id;
+        $transaksipenjual = Order::where('id_pelanggan', $id_pelanggan)->where('status',1)->get();
+
+        $jumlah_invoice = count($transaksipenjual);
+
+        $data_invoice = array();
+        $data_tanggal = array();
+        for ($i=0; $i < $jumlah_invoice ; $i++) { 
+            if(!(in_array($transaksipenjual[$i]->invoice, $data_invoice))){
+                $data_invoice[] = $transaksipenjual[$i]->invoice;
+                $data_tanggal[] = date('Y-m-d', strtotime($transaksipenjual[$i]->created_at));
+
+            }
+        }
+        $jumlah = count($data_invoice);
+
+        return view('jual-beli.confirm_payment', compact('data_invoice', 'jumlah', 'data_tanggal','transaksipenjual'));
+    } 
+
+    public function konfirmasipembayaran(Request $request)
+    {
+        $id_pelanggan = Auth::user()->id;
+        $this->validate($request,[
+            'foto_bukti' => 'required|image|max:2048'
+        ]);
+
+        $folderPath = public_path("Uploads\Konfirmasi_Pembayaran\JualBeli\{$request->invoice}");
+        $response = mkdir($folderPath);
+        
+        $image = $request->foto_bukti;
+        $name=$image->getClientOriginalName();
+        $image_resize = Images::make($image->getRealPath());
+        $image_resize->save($folderPath .'/'. $name);
+
+        $confirm_pesanan = Confirm_payment::create([
+            'id_pelanggan' => $id_pelanggan,
+            'email' => $request->email,
+            'no_rekening_pengirim' => $request->no_rekening_pengirim,
+            'nama_bank_pengirim' => $request->nama_bank_pengirim,
+            'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
+            'jasa' => '1',
+            'no_telp' => $request->no_telp,
+            'jumlah_transfer' => $request->jumlah_transfer,
+            'invoice' => $request->invoice,
+            'foto_bukti' => $name,
+            'status' => '1'
+        ]);
+
+        $order = Order::where('invoice', $request->invoice)->update([
+            'status' => '8'
+        ]);
+
+        Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
+
+        return redirect('/jual-beli');
+    }
+
+    public function konfirmasipembayaranlelang(Request $request)
+    {
+        $id_pelanggan = Auth::user()->id;
+        $this->validate($request,[
+            'foto_bukti' => 'required|image|max:2048'
+        ]);
+
+        $folderPath = public_path("Uploads\Konfirmasi_Pembayaran\{$request->invoice}");
+        $response = mkdir($folderPath);
+        
+        $image = $request->foto_bukti;
+        $name=$image->getClientOriginalName();
+        $image_resize = Images::make($image->getRealPath());
+        $image_resize->save($folderPath .'/'. $name);
+
+        $confirm_pesanan = Confirm_payment::create([
+            'id_pelanggan' => $id_pelanggan,
+            'email' => $request->email,
+            'no_rekening_pengirim' => $request->no_rekening_pengirim,
+            'nama_bank_pengirim' => $request->nama_bank_pengirim,
+            'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
+            'jasa' => '1',
+            'no_telp' => $request->no_telp,
+            'jumlah_transfer' => $request->jumlah_transfer,
+            'invoice' => $request->invoice,
+            'foto_bukti' => $name,
+            'status' => '1'
+        ]);
+
+        $order = Order::where('invoice', $request->invoice)->update([
+            'status' => '8'
+        ]);
+
+        Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
+
+        return redirect('/jual-beli');
+    }
+
+
 
 
 

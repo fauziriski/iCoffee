@@ -65,7 +65,7 @@
                     <i class="oi oi-transfer"></i> Penawaran Terakhir
                   </div>
                   <div class="col">
-                    <span class="mr-4" style="color: #bbb;">Rp {{ $proses->penawaran }}</span>
+                    <span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp {{ $proses->penawaran }}</span>
                   </div>
               
                 </p>
@@ -242,12 +242,16 @@
     if (distance < 0) {
       clearInterval(x);
       $('#tawar').replaceWith('<input class="btn btn-primary py-3 px-1" id="selesai" value="Selesai" readonly>');
+      var penawar_terakhir = {!!json_encode($penawar)!!};
+            console.log(penawar_terakhir);
       document.getElementById("demo1").innerHTML = "EXPIRED";
     }
   }, 1000);
 </script>
 
+
 <script>
+  
   // Set the date we're counting down to
   var sis = 27;
 
@@ -255,18 +259,8 @@
   var  u = {!!json_encode($produk_terkait)!!};
   var p = u;
 
-  // console.log(p[0].id);
-
   var length = p.length;
   var panjang =  {!!json_encode($panjang)!!};
-  
-
-    // var array = u.data[i];
-    // var id = array.id;
-    // var y =  array.tanggal_berakhir;
- 
-   
-
    
   
   // var countDownDate = new Date("2020-01-21 15:37:25").getTime();
@@ -293,13 +287,10 @@
         // Output the result in an element with id="demo"
         document.getElementById(id).innerHTML = days + "d " + hours + "h "
         + minutes + "m " + seconds + "s ";
-
-      
-
       
       // If the count down is over, write some text 
           if (distance < 0) {
-            
+
             clearInterval(x);
             document.getElementById(id).innerHTML = "EXPIRED";
           }
@@ -307,12 +298,7 @@
           
     }, 1000);
   
-  
   </script>
-
-
-
-
 
 <script>
 
@@ -324,14 +310,24 @@ $(document).ready(function() {
 					url:"/lelang/produk/tawar",
 					method:"POST",
 					data: data,
-					success:function(data)
+					success:function(response, data)
 					{
-            var penawaranselanjutnya = parseInt(data.penawaran) + parseInt(data.kelipatan);
-            $('#penawaran_coba').replaceWith('<input type="text" id="penawaran_coba" name="penawaran_coba" class="form-control input-number" value="'+ penawaranselanjutnya +'" readonly>');
-            $('#penawaran').replaceWith('<input type="hidden" id="penawaran" name="penawaran" value="'+ penawaranselanjutnya +'">');
-            $('#table_id').load("/lelang/produk/data/"+ data.id_produk);
             
-            
+            if(response.response == 'Berhasil'){
+              var penawaranselanjutnya = parseInt(response.data.penawaran) + parseInt(response.data.kelipatan);
+              $('#penawaran_coba').replaceWith('<input type="text" id="penawaran_coba" name="penawaran_coba" class="form-control input-number" value="'+ penawaranselanjutnya +'" readonly>');
+              $('#penawaran').replaceWith('<input type="hidden" id="penawaran" name="penawaran" value="'+ penawaranselanjutnya +'">');
+              $('#penawaran_terakhir').replaceWith('<span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp '+ response.data.penawaran +'</span>');
+              $('#table_id').load("/lelang/produk/data/"+ response.data.id_produk); 
+            }
+            else{
+              swal(
+                'Gagal',
+                'Penawaran Anda Gagal',
+                'error'
+              );
+            }
+  
 					}
 				});
 
