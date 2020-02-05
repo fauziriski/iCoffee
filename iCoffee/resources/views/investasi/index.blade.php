@@ -31,7 +31,7 @@
               <h3><a href="/invest/produk/{{ $data->id }}">{{ Str::limit($data->nama_produk,30) }}</a></h3>
               <div class="d-flex">
                 <div class="pricing">
-                  <p class="price"><span class="price-sale">Rp. {{ $data->harga }} / Unit</span></p>
+                  <p class="price"><span class="price-sale">@money($data->harga) / Unit</span></p>
                 </div>
               </div>
               <div class="bottom-area d-flex px-3">
