@@ -258,6 +258,7 @@ class HomeController extends Controller
                 $tanggal[] = $transaksipembeli[$i]->created_at;
             }
         }
+        $cek_data = array();
 
         $hitung_invoice = count($invoice);
         for ($i=0; $i < $hitung_invoice; $i++) { 

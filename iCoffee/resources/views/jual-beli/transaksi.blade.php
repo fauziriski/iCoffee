@@ -64,7 +64,7 @@
                             <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ $total_bayar[$i] }}</strong></p>
                         </div>
                         <div class="col">
-                            <a href="/jual-beli/invoice/{{ $transaksipenjual[$i]->invoice }}"><span class="oi oi-eye"></span>&nbsp; Detail Pesanan </a>
+                            <a href="/jual-beli/invoice_penjual/{{ $transaksipenjual[$i]->invoice }}"><span class="oi oi-eye"></span>&nbsp; Detail Pesanan </a>
                         </div>
                     </div>
                     <hr>

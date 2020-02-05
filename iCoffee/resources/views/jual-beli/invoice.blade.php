@@ -77,6 +77,33 @@
 							<div class="alert alert-success" role="alert">
 								Selesai
 							</div>
+						@elseif( $order[$i]->status == 7)
+							<div class="alert alert-info" role="alert">
+								komplain
+							</div>
+						@elseif( $order[$i]->status == 8)
+							<div class="alert alert-info" role="alert">
+								Pembayaran Sedang di Proses
+							</div>
+						@elseif( $order[$i]->status == 9)
+							<div class="alert alert-danger" role="alert">
+								Pembelian dibatalkan
+							</div>
+						
+						@elseif( $order[$i]->status == 10)
+							<div class="alert alert-info" role="alert">
+								Komplain dibatalkan
+							</div>
+
+						@elseif( $order[$i]->status == 11)
+							<div class="alert alert-info" role="alert">
+								Komplain diterima
+							</div>
+
+						@elseif( $order[$i]->status == 0)
+							<div class="alert alert-danger" role="alert">
+								Penjual Menolak Pesanan
+							</div>
 							
 						@endif
     					
@@ -124,11 +151,24 @@
     								<td class="no-line"></td>
     								<td class="no-line"></td>
     								<td class="no-line text-center"><strong>Biaya Pengiriman</strong></td>
-    								<td class="no-line text-right">Rp {{ $kurir[$i][0]}}</td>
-    							</tr>
+    								<td class="no-line text-right">Rp {{ $kurir[$i][0] }}</td>
+								</tr>
+								
 
     						</tbody>
-    					</table>
+						</table>
+						
+						@if ( $order[$i]->status == 5)
+							<form action="/jual-beli/pesanan/selesai" method="post">
+								@csrf
+								<input type="hidden" name="id" required value="{{ $order[$i]->id }}">
+								<input type="hidden" name="invoice" required value="{{ $order[0]->invoice }}">
+								<input type="hidden" name="jumlah_seluruh" required value="{{ $order[$i]->total_bayar+$kurir[$i][0] }}">
+								<p class="float-right"><input type="submit" class="btn btn-secondary  py-3 px-5" name="submit" value="Komplain">
+									<input type="submit" class="btn btn-primary py-3 px-5" name="submit" value="Diterima">
+							</p>
+							</form>
+						@endif
     				</div>
     			</div>
     		</div>

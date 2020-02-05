@@ -16,6 +16,8 @@ use App\Delivery_category;
 use App\Order;
 use App\Orderdetail;
 use App\Account;
+use App\Joint_account;
+use App\Complaint;
 use DB;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 
@@ -372,6 +374,16 @@ class KeranjangjbController extends Controller
 
     public function invoice($invoice)
     {
+        // blm bayar 1
+        // sudah dibbayar 2
+        // proses penjual 3
+        // penjual menerima 4 menolak 0
+        // dikriim 5
+        // terkirim 6
+        // komplin 7
+        // konfirmasi diproses 8
+        // batalkan pesanan pembeli 9
+        // komplain dterima 10
         $id_pembeli = Auth::user()->id;
         $order = Order::where('invoice', $invoice)->get();
         $orderdetail = Orderdetail::where('invoice', $invoice)->get();
@@ -431,6 +443,175 @@ class KeranjangjbController extends Controller
 
 
         return view('jual-beli.invoice', compact('order','hitung', 'kurir', 'jumlah_seluruh' , 'hitungdataorder' , 'orderdetaildata', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'hitung', 'rekening'));
+    }
+
+
+    public function invoice_penjual($invoice)
+    {
+        $id_penjual = Auth::user()->id;
+        $order = Order::where('invoice', $invoice)->where('id_penjual', $id_penjual)->first();
+        $orderdetails = Orderdetail::where('invoice', $invoice)->where('id_order', $order->id)->get();
+        $alamat_penjual = Orderdetail::where('invoice', $invoice)->where('id_order', $order->id)->first();
+        $kurir = explode(': ', $order->shipping);
+        $jumlah_seluruh = $kurir[0]+$order->total_bayar;
+        $bank_information = Account::where('bank_name', $order->payment)->first();
+
+        return view('jual-beli.invoice_penjual', compact('alamat_penjual', 'orderdetails', 'order','bank_information','jumlah_seluruh','kurir'));
+    }
+
+    public function pesananditerima(Request $request)
+    {
+        // blm bayar 1
+        // sudah dibbayar 2
+        // proses penjual 3
+        // penjual menerima 4 menolak 0
+        // dikriim 5
+        // terkirim 6
+        // komplin 7
+        // konfirmasi diproses 8
+        // batalkan pesanan pembeli 9
+        // komplain dterima 10
+        if ($request->submit == 'Terima') 
+        {
+            $order = Order::where('id', $request->id)->first();
+
+            $order->update([
+                'status' => 4
+            ]);
+
+            return redirect('/jual-beli/invoice_penjual/'. $request->invoice);
+           
+        }
+        elseif ($request->submit == 'Tolak') 
+        {
+            $order = Order::where('id', $request->id)->first();
+
+            $order->update([
+                'status' => 0
+            ]);
+
+            $rekber = Joint_account::where('user_id', $order->id_pelanggan)->first();
+            
+            $rekber->update([
+
+                'saldo' => $request->jumlah_seluruh
+
+            ]);
+
+            return redirect('/jual-beli/invoice_penjual/'. $request->invoice);    
+        }
+    }
+
+    public function inputresi(Request $request)
+    {
+        $this->validate($request,[
+
+            'input_resi' => 'required'
+        ]);
+
+
+        $order = Order::where('id', $request->id)->first();
+        $order->update([
+                'status' => 5
+            ]);
+
+        $delivers = Delivery::where('id_order', $request->id)->first();
+        $delivers->update([
+            'invoice' => $request->input_resi
+        ]);
+
+
+        return redirect('/jual-beli/invoice_penjual/'. $request->invoice);
+
+    }
+
+    public function pesananselesai(Request $request)
+    {
+        // blm bayar 1
+        // sudah dibbayar 2
+        // proses penjual 3
+        // penjual menerima 4 menolak 0
+        // dikriim 5
+        // terkirim 6
+        // komplin 7
+        // konfirmasi diproses 8
+        // batalkan pesanan pembeli 9
+        // komplain dterima 10
+        // komplain ditolak 11
+
+        if ($request->submit == 'Diterima') 
+        {
+            $order = Order::where('id', $request->id)->first();
+
+            $order->update([
+                'status' => 6
+            ]);
+
+            $rekber = Joint_account::where('user_id', $order->id_penjual)->first();
+            
+            $rekber->update([
+
+                'saldo' => $request->jumlah_seluruh
+
+            ]);
+
+            return redirect('/jual-beli/invoice/'. $request->invoice);
+           
+        }
+        elseif ($request->submit == 'Komplain') 
+        {
+            $order = Order::where('id', $request->id)->first();
+
+            return redirect('/jual-beli/pesanan/'. $request->id .'/komplain/'. $request->invoice);    
+        }
+
+    }
+
+    public function komplain($id, $invoice)
+    {
+        
+        return view('jual-beli.komplain', compact('id', 'invoice'));
+    }
+
+    public function komplaindiproses(Request $request)
+    {
+        $this->validate($request,[
+
+            'email' => 'required',
+            'keterangan' => 'required',
+            'foto_bukti' => 'required|image|max:2048'
+
+        ]);
+
+        $folderPath = public_path("Uploads\Komplain\JualBeli\{$request->invoice}");
+        $response = mkdir($folderPath);
+        
+        $image = $request->foto_bukti;
+        $name=$image->getClientOriginalName();
+        $image_resize = Images::make($image->getRealPath());
+        $image_resize->save($folderPath .'/'. $name);
+
+        $order = Order::where('id', $request->id_order)->first();
+
+
+        $komplain = Complaint::create([
+            'id_pelanggan' => $order->id_pelanggan,
+            'id_order' => $request->id_order,
+            'id_penjual' => $order->id_penjual,
+            'invoice' => $request->invoice,
+            'keterangan' => $request->keterangan,
+            'email' => $request->email,
+            'gambar' => $name,
+            'status' => 1
+
+        ]);
+
+        $order->update([
+            'status' => 7
+        ]);
+
+        return redirect('/jual-beli/invoice/'. $request->invoice);
+
     }
 
     

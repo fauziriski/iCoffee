@@ -21,4 +21,14 @@ class Address extends Model
     public function city(){
     	return $this->belongsTo('App\City', 'kota_kabupaten');
     }
+
+    public function orders()
+    {
+    	return $this->hasMany('App\Jbcart');
+    }
+
+    public function orderdetails()
+    {
+    	return $this->hasMany('App\Jbcart');
+    }
 }
