@@ -17,15 +17,17 @@
 				<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm mb-3"><i class="fa fa-plus-square"></i> Tambah Kategori</button>
 			</div>
 
-			<table id="kategori_table" class="table table-striped table-bordered" style="width:100%">
-				<thead>
-					<tr>
-						<th>Nama Kategori</th>
-						<th>Update</th>
-						<th>Aksi</th>
-					</tr>
-				</thead>
-			</table>
+			<div class="table-responsive">
+				<table id="kategori_table" class="table table-striped table-bordered" style="width:100%">
+					<thead>
+						<tr>
+							<th>Nama Kategori</th>
+							<th>Update</th>
+							<th>Aksi</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
 		</div>
 	</div>
 

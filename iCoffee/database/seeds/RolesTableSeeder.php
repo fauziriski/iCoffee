@@ -19,6 +19,11 @@ class RolesTableSeeder extends Seeder
         ]);
 
         Role::create([
+            'name' => 'adminkeuangan'
+
+        ]);
+
+        Role::create([
             'name' => 'admin'
 
         ]);
@@ -27,5 +32,6 @@ class RolesTableSeeder extends Seeder
             'name' => 'user'
 
         ]);
+
     }
 }

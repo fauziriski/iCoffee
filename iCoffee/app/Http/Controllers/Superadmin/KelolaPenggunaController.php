@@ -18,7 +18,7 @@ class KelolaPenggunaController extends Controller
 		if(request()->ajax())
 		{	
 			
-			$pelanggan = Model_has_role::with('user')->whereRoleId(3)->get()->pluck('user');
+			$pelanggan = Model_has_role::with('user')->whereRoleId(4)->get()->pluck('user');
 
 			 return datatables()->of($pelanggan)
 			->addColumn('action', function($data){

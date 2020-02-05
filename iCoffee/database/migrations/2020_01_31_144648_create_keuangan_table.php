@@ -80,7 +80,6 @@ class CreateKeuanganTable extends Migration
             ->onDelete('cascade');
         });
 
-        
 
 
     }

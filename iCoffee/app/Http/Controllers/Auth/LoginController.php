@@ -48,6 +48,8 @@ class LoginController extends Controller
         return redirect()->route('admin.dashboard');
     }elseif ($user->hasRole('superadmin')) {
         return redirect()->route('superadmin.dashboard');
+    }elseif ($user->hasRole('adminkeuangan')) {
+        return redirect()->route('adminkeuangan.dashboard');
     }
 }
 

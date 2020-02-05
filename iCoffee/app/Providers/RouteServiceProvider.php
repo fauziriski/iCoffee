@@ -44,9 +44,10 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapSuperAdminRoutes();
 
+        $this->mapAdminKeuanganRoutes();
+
         $this->mapAdminRoutes();
         
-
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
@@ -70,6 +71,22 @@ class RouteServiceProvider extends ServiceProvider
         ->name('superadmin.')
         ->namespace($this->namespace . '\Superadmin')
         ->group(base_path('routes/superadmin.php'));
+    }
+    /**
+     * Define the "Admin" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+
+    protected function mapAdminKeuanganRoutes()
+    {
+        Route::middleware('web','auth','role:adminkeuangan')
+        ->prefix('akses-adminkeuangan')
+        ->name('adminkeuangan.')
+        ->namespace($this->namespace. '\Adminkeuangan')
+        ->group(base_path('routes/adminkeuangan.php'));
     }
 
     /**
