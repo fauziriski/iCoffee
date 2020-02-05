@@ -65,7 +65,7 @@
                     <i class="oi oi-transfer"></i> Penawaran Terakhir
                   </div>
                   <div class="col">
-                    <span class="mr-4" style="color: #bbb;">Rp {{ $proses->penawaran }}</span>
+                    <span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp {{ $proses->penawaran }}</span>
                   </div>
               
                 </p>
@@ -251,7 +251,7 @@
 
 
 <script>
-  /*
+  
   // Set the date we're counting down to
   var sis = 27;
 
@@ -298,7 +298,6 @@
           
     }, 1000);
   
-  */
   </script>
 
 <script>
@@ -311,14 +310,24 @@ $(document).ready(function() {
 					url:"/lelang/produk/tawar",
 					method:"POST",
 					data: data,
-					success:function(data)
+					success:function(response, data)
 					{
-            var penawaranselanjutnya = parseInt(data.penawaran) + parseInt(data.kelipatan);
-            $('#penawaran_coba').replaceWith('<input type="text" id="penawaran_coba" name="penawaran_coba" class="form-control input-number" value="'+ penawaranselanjutnya +'" readonly>');
-            $('#penawaran').replaceWith('<input type="hidden" id="penawaran" name="penawaran" value="'+ penawaranselanjutnya +'">');
-            $('#table_id').load("/lelang/produk/data/"+ data.id_produk);
             
-            
+            if(response.response == 'Berhasil'){
+              var penawaranselanjutnya = parseInt(response.data.penawaran) + parseInt(response.data.kelipatan);
+              $('#penawaran_coba').replaceWith('<input type="text" id="penawaran_coba" name="penawaran_coba" class="form-control input-number" value="'+ penawaranselanjutnya +'" readonly>');
+              $('#penawaran').replaceWith('<input type="hidden" id="penawaran" name="penawaran" value="'+ penawaranselanjutnya +'">');
+              $('#penawaran_terakhir').replaceWith('<span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp '+ response.data.penawaran +'</span>');
+              $('#table_id').load("/lelang/produk/data/"+ response.data.id_produk); 
+            }
+            else{
+              swal(
+                'Gagal',
+                'Penawaran Anda Gagal',
+                'error'
+              );
+            }
+  
 					}
 				});
 

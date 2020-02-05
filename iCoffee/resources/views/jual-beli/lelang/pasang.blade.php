@@ -13,7 +13,7 @@
 
           <div class="form-group">
             <label for="nama">Nama Produk</label>
-            <input type="text" class="form-control" name="nama_produk">
+            <input type="text" class="form-control" name="nama_produk" required>
             <span class="text-danger">{{$errors->first('nama_produk')}}</span>
           </div>
 
@@ -25,7 +25,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">Rp</div>
                   </div>
-                  <input type="number" class="form-control" placeholder="Dalam Rupiah" name="harga_awal">
+                  <input type="number" class="form-control" placeholder="Dalam Rupiah" name="harga_awal" required>
                   <span class="text-danger">{{$errors->first('name')}}</span>
                 </div>
               </div>
@@ -38,7 +38,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">Rp</div>
                   </div>
-                  <input type="number" class="form-control" placeholder="Dalam Rupiah" name="kelipatan">
+                  <input type="number" class="form-control" placeholder="Dalam Rupiah" name="kelipatan" required>
                   <span class="text-danger">{{$errors->first('kelipatan')}}</span>
                 </div>
               </div>
@@ -50,7 +50,7 @@
               <div class="form-group">
                 <label for="country">Jangka Waktu</label>
                 <div class="select-wrap">
-                  <select name="lama_lelang" id="" class="form-control">
+                  <select name="lama_lelang" id="" class="form-control" required>
                     <option value="3">3 Hari</option>
                     <option value="4">4 Hari</option>
                     <option value="5">5 Hari</option>
@@ -65,7 +65,7 @@
               <div class="form-group">
                 <label for="country">Kategori</label>
                 <div class="select-wrap">
-                  <select name="id_kategori" id="" class="form-control">
+                  <select name="id_kategori" id="" class="form-control" required>
                     <option value="1">Robusta</option>
                     <option value="2">Arabika</option>
                     <option value="3">Honey</option>
@@ -82,7 +82,7 @@
               <div class="form-group">
                 <label for="stok">Stok</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="" placeholder="Satuan" name="stok">
+                  <input type="number" class="form-control" id="" placeholder="Satuan" name="stok" required>
                   <span class="text-danger">{{$errors->first('stok')}}</span>
                   <div class="input-group-prepend">
                     <div class="input-group-text">Kg</div>
@@ -94,7 +94,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>
-                <textarea class="form-control" rows="5" type="text" name="deskripsi"></textarea>
+                <textarea class="form-control" rows="5" type="text" name="deskripsi" required></textarea>
                 <span class="text-danger">{{$errors->first('stok')}}</span>
               </div>
             </div>
@@ -106,7 +106,7 @@
 
                 @for ($i = 0; $i < 5; $i++)
 
-                  <input type="file" name="image[]" class="form-control-file" >
+                  <input type="file" name="image[]" class="form-control-file" required>
                 @endfor
 
               </div>

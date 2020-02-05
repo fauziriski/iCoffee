@@ -56,8 +56,10 @@
 
           <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown">
 
-
-
+            <a class="dropdown-item" href="#">
+              <i class="ion-ios-card mr-3"></i>Rp {{ Auth::user()->joint_accounts->saldo }}
+             </a>
+            
             <a class="dropdown-item" href="/profil/edit">
               <i class="ion-ios-person mr-3"></i>Profil
              </a>

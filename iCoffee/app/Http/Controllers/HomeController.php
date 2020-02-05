@@ -227,14 +227,24 @@ class HomeController extends Controller
         // blm bayar 1
         // sudah dibbayar 2
         // proses penjual 3
-        // penjual menerima 4 dibatalkan 0
+        // penjual menerima 4 menolak 0
         // dikriim 5
         // terkirim 6
         // komplin 7
         // konfirmasi diproses 8
+        // batalkan pesanan pembeli 9
         $id_pelanggan = Auth::user()->id;
         $transaksipembeli = Order::where('id_pelanggan', $id_pelanggan)->get();
-        $transaksipenjual = Order::where('id_pelanggan', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->get();
+        $transaksipenjual = Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->get();
+
+        $jumlah_transaksi_penjual = count($transaksipenjual);
+        $kurir_data = array();
+        $total_bayar = array();
+        for ($i=0; $i < $jumlah_transaksi_penjual ; $i++) { 
+            $kurir_penjual = explode(': ',  $transaksipenjual[$i]->shipping);
+            $kurir_data[] =  $kurir_penjual[0];
+            $total_bayar[] =  $transaksipenjual[$i]->total_bayar+$kurir_penjual[0];
+        }
 
         $jumlah_transaksi_beli = count($transaksipembeli);
 
@@ -266,7 +276,7 @@ class HomeController extends Controller
 
         }
 
-        return view('jual-beli.transaksi', compact('invoice','tanggal', 'hitung_invoice', 'cek_data'));
+        return view('jual-beli.transaksi', compact('invoice','tanggal', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
     }
 
     public function pembayaran()
@@ -287,7 +297,7 @@ class HomeController extends Controller
         }
         $jumlah = count($data_invoice);
 
-        return view('jual-beli.confirm_payment', compact('data_invoice', 'jumlah', 'data_tanggal'));
+        return view('jual-beli.confirm_payment', compact('data_invoice', 'jumlah', 'data_tanggal','transaksipenjual'));
     } 
 
     public function konfirmasipembayaran(Request $request)

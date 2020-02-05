@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
     	return $this->hasMany('App\Shop_product');
     }
+
+    public function joint_accounts()
+    {
+    	return $this->hasOne('App\Joint_account');
+    }
 }
