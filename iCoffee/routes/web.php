@@ -70,10 +70,15 @@ Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store')->midd
 // Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth');
 Route::get('/jadi-investor','InvestorController@formInvestor')->middleware('auth');
 Route::post('/jadi-investor','InvestorController@store');
-Route::post('/invest/checkout', 'ProdukInvestasiController@checkout')->middleware('auth');
-Route::post('/invest/checkout/berhasil', 'ProdukInvestasiController@pay')->middleware('auth');
-Route::get('/invest/profile','InvestorController@profile')->middleware('auth');
-Route::get('/invest/konfirmasi','InvestorController@confirm')->middleware('auth');
+
+Route::group(['prefix' => 'invest','middleware' => 'auth'], function(){
+	Route::get('/profil','InvestorController@profile');
+	Route::post('/checkout', 'ProdukInvestasiController@checkout');
+	Route::post('/checkout/berhasil', 'ProdukInvestasiController@pay');
+	Route::get('/konfirmasi','InvestorController@confirm');
+	Route::post('/konfirmasi/store','InvestorController@confirmStore');
+	Route::get('/pembiayaan','InvestorController@orderHistory');
+});
 
 
 Auth::routes();
