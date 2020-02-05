@@ -26,9 +26,10 @@ class AdministrasiController extends Controller
 			
 			return datatables()->of(Adm_jurnal::latest()->get())
 			->addColumn('action', function($data){
-				$button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> Ubah</button>';
-				$button .= '&nbsp;&nbsp;';
-				$button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
+				$button = 
+				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
+				'<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> Ubah</button>'.'&nbsp;&nbsp;'.
+				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
 				return $button;
 			})
 
@@ -147,7 +148,7 @@ class AdministrasiController extends Controller
 	public function update(Request $request)
 	{
 
-		$bukti_name = $request->hidden_bukti;
+		$new_name = $request->bukti;
 		$bukti = $request->file('bukti');
 		if($bukti != '')
 		{
@@ -167,8 +168,17 @@ class AdministrasiController extends Controller
 				return response()->json(['errors' => $error->errors()->all()]);
 			}
 
-			$bukti_name = rand() . '.' . $bukti->getClientOriginalExtension();
-			$bukti->move(public_path('foto_produk'), $bukti_name);
+			$timestamps = date('YmdHis');
+			$id = Adm_jurnal::pluck('id')->toArray();
+			$jml_id = count($id);
+			$kode = "AKK-A".$jml_id;
+
+			$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
+
+			$bukti->move(public_path('Uploads/Adm_bukti'), $new_name);
+
+			$total_jumlah = $request->jumlah2;
+
 		}
 		else
 		{
@@ -192,43 +202,57 @@ class AdministrasiController extends Controller
 		}
 
 		$form_data = array(
-			'id_kat_jurnal' =>'2',
 			'nama_tran' => $request->nama_tran,
 			'catatan' => $request->catatan,
 			'kode' => $kode,
 			'total_jumlah' => $total_jumlah,
 			'tujuan_tran' => $request->tujuan_tran,	
-			'image' =>  $bukti_name
+			'bukti' =>  $new_name
 		);
 
-		Adm_akun::update([
-			'id_adm_jurnal' => $id->id,
+		$form_data1 = array(
 			'nama_akun' => $request->akun1,
 			'posisi' => $request->posisi1,
 			'jumlah' => $request->jumlah1
-		]);
+		);
 
-		Adm_akun::update([
-			'id_adm_jurnal' => $id->id,
+		$form_data2 = array(
 			'nama_akun' => $request->akun2,
 			'posisi' => $request->posisi2,
 			'jumlah' => $request->jumlah2
-		]);
+		);
 		
 
 		if(!(empty($request->akun3))){
-			Adm_akun::update([
-				'id_adm_jurnal' => $id->id,
+			$form_data3 = array(
 				'nama_akun' => $request->akun3,
 				'posisi' => $request->posisi3,
 				'jumlah' => $request->jumlah3
-			]);
+			);
+			Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data3);
 		}
 
+		Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data1);
+		Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data2);
 
 		Adm_jurnal::whereId($request->hidden_id)->update($form_data);
 
 		return response()->json(['success' => 'Data berhasil di ubah.']);
+	}
+
+
+	public function detailAdministrasi($id)
+	{
+		if(request()->ajax())
+		{	
+			$akun = Adm_akun::where('id_adm_jurnal',$id)->get();
+
+			$data = Adm_jurnal::findOrFail($id);
+			return response()->json([
+				'data' => $data,
+				'akun' => $akun
+			]);
+		}
 	}
 
 

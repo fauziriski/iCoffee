@@ -12,4 +12,9 @@ class Adm_akun extends Model
 
 	public $timestamps = true;
 
+	public function akun()
+	{
+		return $this->hasOne('App\Adm_jurnal', 'id', 'id_adm_jurnal');
+	}
+
 }

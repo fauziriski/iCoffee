@@ -19,6 +19,9 @@ Route::get('/format-akun', 'FormatAkunController@dataPelanggan')->name('format-a
 
 Route::get('/administrasi', 'AdministrasiController@dataAdministrasi')->name('administrasi');
 Route::get('/lihat-administrasi/{id}', 'AdministrasiController@lihatAdministrasi')->name('lihat-administrasi');
+Route::get('/detail-administrasi/{id}', 'AdministrasiController@detailAdministrasi')->name('detail-administrasi');
 Route::post('/tambah-administrasi', 'AdministrasiController@tambah')->name('tambah-administrasi');
 Route::get('/hapus-administrasi/{id}', 'AdministrasiController@hapus')->name('hapus-administrasi');
-Route::get('/update-administrasi', 'AdministrasiController@update')->name('update-administrasi');
+Route::post('/update-administrasi', 'AdministrasiController@update')->name('update-administrasi');
+
+Route::get('/arus-kas', 'ArusKasController@lihat')->name('arus-kas');
