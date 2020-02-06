@@ -87,7 +87,7 @@
 							</p>
 						</div> -->
 
-					  <p class="price"><span>Rp {{ $products->harga }} / Kg</span></p>
+					  <p class="price"><span>Rp {{ number_format($products->harga) }} / Kg</span></p>
 
             <div class="row">
               <p class="text-left">
@@ -260,7 +260,7 @@
     	</div>
     </section>
 
-
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     
 
   <script>

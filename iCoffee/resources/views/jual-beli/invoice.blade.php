@@ -134,9 +134,9 @@
     							@for ($j = 0; $j < $hitungdataorder[$i]; $j++)
     							<tr>
 									<td>{{ $orderdetaildata[$i][$j]->nama_produk }}</td>
-									<td class="text-center">Rp {{  $orderdetaildata[$i][$j]->harga  }}</td>
+									<td class="text-center">Rp {{  number_format($orderdetaildata[$i][$j]->harga)  }}</td>
     								<td class="text-center">{{  $orderdetaildata[$i][$j]->jumlah  }}</td>
-    								<td class="text-right">Rp {{  $orderdetaildata[$i][$j]->total  }}</td>
+    								<td class="text-right">Rp {{  number_format($orderdetaildata[$i][$j]->total)  }}</td>
 								</tr>
 								
 								@endfor
@@ -145,13 +145,13 @@
     								<td class="thick-line"></td>
     								<td class="thick-line"></td>
     								<td class="thick-line text-center"><strong>Subtotal</strong></td>
-									<td class="thick-line text-right">Rp {{ $order[$i]->total_bayar}}</td>
+									<td class="thick-line text-right">Rp {{ number_format($order[$i]->total_bayar) }}</td>
     							</tr>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
     								<td class="no-line text-center"><strong>Biaya Pengiriman</strong></td>
-    								<td class="no-line text-right">Rp {{ $kurir[$i][0] }}</td>
+    								<td class="no-line text-right">Rp {{ number_format($kurir[$i][0]) }}</td>
 								</tr>
 								
 
@@ -182,7 +182,7 @@
     	<div class="col-md-12">
     		<div class="panel panel-default">
 				<div class="panel-heading">
-    				<h3 class="card-header"><strong>Total</strong><strong class="float-right">{{ $jumlah_seluruh}}</strong></h3>
+    				<h3 class="card-header"><strong>Total</strong><strong class="float-right">Rp {{ number_format($jumlah_seluruh) }}</strong></h3>
     			</div>
     		</div>
     	</div>

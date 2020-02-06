@@ -40,7 +40,7 @@
     						<h3><a href="/jual-beli/produk/{{ $data->id }}">{{ $data->nama_produk }}</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
-		    						<p class="price"><span class="price-sale">Rp. {{ $data->harga }} / Kg</span></p>
+		    						<p class="price"><span class="price-sale">Rp. {{ number_format($data->harga) }} / Kg</span></p>
 		    					</div>
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
