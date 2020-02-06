@@ -13,11 +13,11 @@ class TambahTabelTran extends Migration
      */
     public function up()
     {
-        Schema::create('adm_tranksaksi', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nama_tran');
-            $table->timestamps();
-        });
+        // Schema::create('adm_tranksaksi', function (Blueprint $table) {
+        //     $table->bigIncrements('id');
+        //     $table->string('nama_tran');
+        //     $table->timestamps();
+        // });
     }
 
     /**

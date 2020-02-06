@@ -289,8 +289,8 @@
 					var z = parseInt(sum)+parseInt(y);
 					var a = z.toLocaleString("id-ID");
 
-					document.getElementById("demo").innerHTML = "Rp. " +c;
-					document.getElementById("total").innerHTML = "Rp. " +a;
+					document.getElementById("demo").innerHTML = "Rp " +c;
+					document.getElementById("total").innerHTML = "Rp " +a;
 				});
 			
 

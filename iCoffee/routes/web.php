@@ -67,6 +67,8 @@ Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
 Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaran');
 Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
 Route::get('/lelang/keranjang', 'KeranjanglelangController@keranjang');
+Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
+Route::post('/lelang/checkout-barang', 'KeranjanglelangController@checkoutbarang');
 
 
 // investasi
@@ -75,9 +77,9 @@ Route::get('/investasi', 'ProdukInvestasiController@index');
 Route::get('/invest/produk/{id}','ProdukInvestasiController@detail');
 Route::get('/jadi-mitra', 'KelompokTani@index');
 // Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi')->middleware('auth');
-Route::post('/daftar-kelompok/store', 'KelompokTani@store')->middleware('auth');
-Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store')->middleware('auth');
-Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store')->middleware('auth');
+Route::post('/daftar-kelompok/store', 'KelompokTani@store');
+Route::post('/daftar-koperasi/store', 'MitraKoperasiController@store');
+Route::post('/daftar-perorangan/store', 'MitraPeroranganController@store');
 // Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth');
 Route::get('/jadi-investor','InvestorController@formInvestor')->middleware('auth');
 Route::post('/jadi-investor','InvestorController@store');
@@ -103,5 +105,6 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi')->name('investasi.mitra.produk')->middleware('auth:mitra');
 	Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth:mitra');
 	Route::post('/pasang-investasi','ProdukInvestasiController@store')->middleware('auth:mitra');
+	Route::get('/produk/{kode_produk}','MitraController@produkDetail')->middleware('auth:mitra');
 	Route::get('/logout','Mitra\LoginController@logout');
 });

@@ -13,14 +13,14 @@ class HapusSalahForeign extends Migration
      */
     public function up()
     {
-     //  Schema::drop('adm_jurnal');
+      Schema::drop('adm_jurnal');
 
-     //  Schema::table('adm_akun', function (Blueprint $table) {
-     //     $table->dropForeign(['id_adm_jurnal']);
+      Schema::table('adm_akun', function (Blueprint $table) {
+         $table->dropForeign(['id_adm_jurnal']);
 
 
-     //     Schema::drop('adm_akun');
-     // });
+         Schema::drop('adm_akun');
+     });
     }
 
     /**

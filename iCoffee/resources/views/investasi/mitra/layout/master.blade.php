@@ -94,6 +94,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <!-- Core plugin JavaScript-->
 <script src="{{asset('investasi/mitra/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+<script src="{{asset('investasi/mitra/vendor/chart.js/Chart.min.js')}}"></script>
+{{-- <script src="{{asset('investasi/mitra/js/demo/chart-area-demo.js')}}"></script>   --}}
 
 <!-- Custom scripts for all pages-->
 <script src="{{asset('investasi/mitra/js/sb-admin-2.min.js') }}"></script>
