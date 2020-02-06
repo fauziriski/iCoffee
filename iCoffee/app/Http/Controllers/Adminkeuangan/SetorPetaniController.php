@@ -17,17 +17,17 @@ use Validator;
 
 
 
-class AdministrasiController extends Controller
+class SetorPetaniController extends Controller
 {
-	public function dataAdministrasi(){
+	public function dataSetorPetani(){
 
 		if(request()->ajax())
 		{	
 			
-			$id = '2';
-			$AKKA = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+			$id = '4';
+			$AKKI = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 
-			return datatables()->of($AKKA)
+			return datatables()->of($AKKI)
 			->addColumn('action', function($data){
 				$button = 
 				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
@@ -54,7 +54,7 @@ class AdministrasiController extends Controller
 
 		$dua = Adm_sub2_akun::All();
 
-		return view('admin.admin-keuangan.administrasi',compact('tran','kategori','satu','dua'));
+		return view('admin.admin-keuangan.setor-petani',compact('tran','kategori','satu','dua'));
 	}
 
 	public function tambah(Request $request)
@@ -82,16 +82,16 @@ class AdministrasiController extends Controller
 		$timestamps = date('YmdHis');
 		$id = Adm_jurnal::pluck('id')->toArray();
 		$jml_id = count($id)+1;
-		$kode = "AKK-A".$jml_id;
+		$kode = "AKK-I".$jml_id;
 
 		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 
-		$bukti->move(public_path('Uploads/Adm_bukti/AKKA'), $new_name);
+		$bukti->move(public_path('Uploads/Adm_bukti/AKKI'), $new_name);
 
 		$total_jumlah = $request->jumlah2;
 
 		$id = Adm_jurnal::create([
-			'id_kat_jurnal' =>'2',
+			'id_kat_jurnal' =>'4',
 			'nama_tran' => $request->nama_tran,
 			'bukti' =>  $new_name,
 			'catatan' => $request->catatan,
@@ -128,7 +128,7 @@ class AdministrasiController extends Controller
 	}
 
 
-	public function lihatAdministrasi($id)
+	public function lihatPetani($id)
 	{
 		if(request()->ajax())
 		{
@@ -173,12 +173,12 @@ class AdministrasiController extends Controller
 
 			$timestamps = date('YmdHis');
 			$id = Adm_jurnal::pluck('id')->toArray();
-			$jml_id = count($id)+1;
-			$kode = "AKK-A".$jml_id;
+			$jml_id = count($id);
+			$kode = "AKK-I".$jml_id;
 
 			$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 
-			$bukti->move(public_path('Uploads/Adm_bukti/AKKA'), $new_name);
+			$bukti->move(public_path('Uploads/Adm_bukti/AKKI'), $new_name);
 
 			$total_jumlah = $request->jumlah2;
 
@@ -244,7 +244,7 @@ class AdministrasiController extends Controller
 	}
 
 
-	public function detailAdministrasi($id)
+	public function detailPetani($id)
 	{
 		if(request()->ajax())
 		{	

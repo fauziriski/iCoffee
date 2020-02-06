@@ -19,7 +19,13 @@ use Validator;
 class ArusKasController extends Controller
 {
 	public function lihat(){
-		$kategori = Adm_kat_jurnal::All();
-		return view('admin.admin-keuangan.arus-kas',compact('kategori'));
+		$id = '2';
+		$AKKA = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+		$dana_masuk = Adm_jurnal::where('id_kat_jurnal',$id)->get('total_jumlah');
+		$total = 0;
+		for($i=0;$i<count($dana_masuk);$i++){
+			$total += $dana_masuk[$i]->total_jumlah;
+		}
+		return view('admin.admin-keuangan.arus-kas',compact('AKKA','total'));
 	}
 }

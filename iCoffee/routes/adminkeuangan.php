@@ -24,4 +24,19 @@ Route::post('/tambah-administrasi', 'AdministrasiController@tambah')->name('tamb
 Route::get('/hapus-administrasi/{id}', 'AdministrasiController@hapus')->name('hapus-administrasi');
 Route::post('/update-administrasi', 'AdministrasiController@update')->name('update-administrasi');
 
+
+Route::get('/setor-petani', 'SetorPetaniController@dataSetorPetani')->name('setor-petani');
+Route::get('/lihat-petani/{id}', 'SetorPetaniController@lihatpetani')->name('lihat-petani');
+Route::get('/detail-petani/{id}', 'SetorPetaniController@detailpetani')->name('detail-petani');
+Route::post('/tambah-petani', 'SetorPetaniController@tambah')->name('tambah-petani');
+Route::get('/hapus-petani/{id}', 'SetorPetaniController@hapus')->name('hapus-petani');
+Route::post('/update-petani', 'SetorPetaniController@update')->name('update-petani');
+
+Route::get('/keluar-bagi-hasil', 'KeluarBagiHasilController@dataBagiHasil')->name('keluar-bagi-hasil');
+Route::get('/lihat-keluar-bagi-hasil/{id}', 'KeluarBagiHasilController@lihat')->name('lihat-keluar-bagi-hasil');
+Route::get('/detail-keluar-bagi-hasil/{id}', 'KeluarBagiHasilController@detail')->name('detail-keluar-bagi-hasil');
+Route::post('/tambah-keluar-bagi-hasil', 'KeluarBagiHasilController@tambah')->name('tambah-keluar-bagi-hasil');
+Route::get('/hapus-keluar-bagi-hasil/{id}', 'KeluarBagiHasilController@hapus')->name('hapus-keluar-bagi-hasil');
+Route::post('/update-keluar-bagi-hasil', 'KeluarBagiHasilController@update')->name('update-keluar-bagi-hasil');
+
 Route::get('/arus-kas', 'ArusKasController@lihat')->name('arus-kas');

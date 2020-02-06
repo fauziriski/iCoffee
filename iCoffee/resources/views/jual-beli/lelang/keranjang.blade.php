@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 
-	<form action="/jual-beli/lelang/checkout-barang" method="POST" oninput="total.value=parseInt(harga.value)*parseInt(quantity.value)">
+	<form action="/lelang/checkout-barang" method="POST" oninput="total.value=parseInt(harga.value)*parseInt(quantity.value)">
 		@csrf
     <section class="ftco-section ftco-cart">
 			<div class="container">
@@ -28,7 +28,7 @@
 									
 								
 						      <tr class="text-center">
-						        <td class="product-remove"><input type="radio" name="id[]" value="{{$data->id}}"></td>
+						        <td class="product-remove"><input type="radio" name="id" value="{{$data->id}}" required></td>
 						        
 						        <td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Lelang/{'.$data->auction_product->kode_lelang.'}/'.$data->auction_product->gambar) }});"></div></td>
 
@@ -38,7 +38,7 @@
 						        </td>
 						        
 						        <td class="price">Rp {{ number_format($data->auction_product->harga_awal) }}</td>
-						        <input type="hidden" id="harga" name="harga[]" value="{{ $data->auction_product->harga_awal }}" readonly>
+						        <input type="hidden" id="harga" name="harga" value="{{ $data->auction_product->harga_awal }}" readonly>
 								
 								
 
@@ -47,18 +47,8 @@
 										<input type="hidden" id="id_qty" value="{{ $data->id }}">
 
 										<div class="input-group mb-3">
-											<span class="input-group-btn mr-2">
-												<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
-												<i class="ion-ios-remove"></i>
-												</button>
-											</span>
 								
-											<input type="text" id="{{ $data->id }}" name="quantity[]" class="form-control input-number" required value="{{ $data->auction_product->stok }}" min="1" max="100">
-											<span class="input-group-btn ml-2">
-												<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-												<i class="ion-ios-add"></i>
-											</button>
-											</span>
+											<input type="text" id="{{ $data->id }}" name="quantity" class="form-control input-number" required value="{{ $data->auction_product->stok }} Kg" min="1" max="100" readonly>
 										</div>
 									</form>
 					          </td>
