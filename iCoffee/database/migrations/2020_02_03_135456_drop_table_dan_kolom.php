@@ -13,20 +13,20 @@ class DropTableDanKolom extends Migration
      */
     public function up()
     {
-        // Schema::table('adm_jurnal', function (Blueprint $table) {
-        //     $table->dropColumn('id_kat_jurnal');
-        // });
+        Schema::table('adm_jurnal', function (Blueprint $table) {
+            $table->dropColumn('id_kat_jurnal');
+        });
 
-        // Schema::table('adm_jurnal', function (Blueprint $table) {
-        //     $table->dropColumn('id_tranksaksi');
-        // });
+        Schema::table('adm_jurnal', function (Blueprint $table) {
+            $table->dropColumn('id_tranksaksi');
+        });
 
-        // Schema::table('adm_jurnal', function (Blueprint $table) {
-        //     $table->string('tujuan_tran');
-        // });
+        Schema::table('adm_jurnal', function (Blueprint $table) {
+            $table->string('tujuan_tran');
+        });
 
-        // Schema::drop('adm_kat_jurnal');
-        // Schema::drop('adm_tranksaksi');
+        Schema::drop('adm_kat_jurnal');
+        Schema::drop('adm_tranksaksi');
     }
 
     /**

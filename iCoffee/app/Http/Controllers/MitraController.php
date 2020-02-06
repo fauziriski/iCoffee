@@ -49,4 +49,10 @@ class MitraController extends Controller
         }
         return view('investasi.mitra.index')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('path',$path);
     }
+
+    public function produkDetail($kode_produk)
+    {
+        $produk = Invest_product::where('kode_produk',$kode_produk)->first();
+        return view('investasi.mitra.detail')->with('produk',$produk);
+    }
 }
