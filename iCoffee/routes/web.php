@@ -67,6 +67,8 @@ Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
 Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaran');
 Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
 Route::get('/lelang/keranjang', 'KeranjanglelangController@keranjang');
+Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
+Route::post('/lelang/checkout-barang', 'KeranjanglelangController@checkoutbarang');
 
 
 // investasi
