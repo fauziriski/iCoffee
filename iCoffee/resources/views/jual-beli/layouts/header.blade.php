@@ -57,7 +57,7 @@
           <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown">
 
             <a class="dropdown-item" href="#">
-              <i class="ion-ios-card mr-3"></i>Rp {{ Auth::user()->joint_accounts->saldo }}
+              <i class="ion-ios-card mr-3"></i>Rp {{ number_format(Auth::user()->joint_accounts->saldo) }}
              </a>
 
              <a class="dropdown-item" href="#">
@@ -70,6 +70,10 @@
 
             <a class="dropdown-item" href="/jual-beli/keranjang">
               <i class="ion-ios-cart mr-3"></i>Keranjang
+             </a>
+
+             <a class="dropdown-item" href="/lelang/keranjang">
+              <i class="icon icon-timer mr-2"></i>&nbsp;Lelang
              </a>
 
            <a class="dropdown-item" href="{{ route('logout') }}"

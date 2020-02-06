@@ -13,9 +13,15 @@ class Auction_product extends Model
 
     public $timestamps = true;
 
- public function Auction_process()
+    public function Auction_process()
     {
-        return $this->belongsTo('App\Auction_process', 'id_produk');
+        return $this->hasMany('App\Auction_process');
     }
+
+    public function Auction_winner()
+    {
+        return $this->hasMany('App\Auction_winner');
+    }
+
   
 }

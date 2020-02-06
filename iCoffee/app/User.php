@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
     	return $this->hasOne('App\Joint_account');
     }
+
+    public function pemenang_lelang()
+    {
+    	return $this->hasMany('App\Auction_winner');
+    }
+
+    public function pelelang()
+    {
+    	return $this->hasMany('App\Auction_winner');
+    }
 }

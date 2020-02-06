@@ -12,8 +12,8 @@ class Auction_process extends Model
 
     public $timestamps = true;
 
-       public function auction_product()
+    public function auction_product()
     {
-    	return $this->hasOne('App\Auction_product', 'id', 'id_produk');
+    	return $this->belongsTo('App\Auction_product', 'id_produk');
     }
 }

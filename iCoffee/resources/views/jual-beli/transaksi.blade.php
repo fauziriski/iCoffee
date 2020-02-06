@@ -34,7 +34,7 @@
                         <p>Invoice : <strong style="color:#ee4d2c">{{ $invoice[$i] }}</strong></p>
                     </div>
                     <div class="col">
-                        <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ $cek_data[$i] }}</strong></p>
+                        <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($cek_data[$i]) }}</strong></p>
                     </div>
                     <div class="col">
                         <a href="/jual-beli/invoice/{{ $invoice[$i] }}"><span class="oi oi-eye"></span>&nbsp; Detail Pesanan </a>
@@ -61,7 +61,7 @@
                             <p>Invoice : <strong style="color:#ee4d2c">{{ $transaksipenjual[$i]->invoice }}</strong></p>
                         </div>
                         <div class="col">
-                            <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ $total_bayar[$i] }}</strong></p>
+                            <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($total_bayar[$i]) }}</strong></p>
                         </div>
                         <div class="col">
                             <a href="/jual-beli/invoice_penjual/{{ $transaksipenjual[$i]->invoice }}"><span class="oi oi-eye"></span>&nbsp; Detail Pesanan </a>

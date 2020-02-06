@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 
-	<form action="/jual-beli/checkout-barang" method="POST" oninput="total.value=parseInt(harga.value)*parseInt(quantity.value)">
+	<form action="/jual-beli/lelang/checkout-barang" method="POST" oninput="total.value=parseInt(harga.value)*parseInt(quantity.value)">
 		@csrf
     <section class="ftco-section ftco-cart">
 			<div class="container">
@@ -17,9 +17,9 @@
 						        <th>&nbsp;</th>
 						        <th>&nbsp;</th>
 						        <th>Nama Produk</th>
-						        <th>Harga</th>
+						        <th>Harga Awal</th>
 						        <th>Jumlah</th>
-								<th>Total</th>
+								<th>Tawaran Anda</th>
 								<th>&nbsp;</th>
 						      </tr>
 						    </thead>
@@ -28,17 +28,17 @@
 									
 								
 						      <tr class="text-center">
-						        <td class="product-remove"><input type="checkbox" name="id[]" value="{{$data->id}}"></td>
+						        <td class="product-remove"><input type="radio" name="id[]" value="{{$data->id}}"></td>
 						        
-						        <td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Produk/{'.$data->kode_produk.'}/'.$data->image) }});"></div></td>
+						        <td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Lelang/{'.$data->auction_product->kode_lelang.'}/'.$data->auction_product->gambar) }});"></div></td>
 
 						        <td class="product-name">
-									<h3>{{ $data->nama_produk }}</h3>
-									<p>{{ $data->shop_product->user->name }}</p>
+									<h3>{{ $data->auction_product->nama_produk }}</h3>
+									<p>{{ $data->pelelang->name }}</p>
 						        </td>
 						        
-						        <td class="price">Rp {{ number_format($data->harga) }}</td>
-						        <input type="hidden" id="harga" name="harga[]" value="{{ $data->harga }}" readonly>
+						        <td class="price">Rp {{ number_format($data->auction_product->harga_awal) }}</td>
+						        <input type="hidden" id="harga" name="harga[]" value="{{ $data->auction_product->harga_awal }}" readonly>
 								
 								
 
@@ -53,7 +53,7 @@
 												</button>
 											</span>
 								
-											<input type="text" id="{{ $data->id }}" name="quantity[]" class="form-control input-number" required value="{{ $data->jumlah }}" min="1" max="100">
+											<input type="text" id="{{ $data->id }}" name="quantity[]" class="form-control input-number" required value="{{ $data->auction_product->stok }}" min="1" max="100">
 											<span class="input-group-btn ml-2">
 												<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
 												<i class="ion-ios-add"></i>
@@ -63,7 +63,7 @@
 									</form>
 					          </td>
 						        
-								<td class="total"><output name="total" for="harga jumlah">Rp {{ number_format($data->total) }}</output></td>
+								<td class="total"><output name="total" for="harga jumlah">Rp {{ number_format($data->jumlah_penawaran) }}</output></td>
 								<td class="product-remove"><a href="/jual-beli/keranjang/hapus/{{ $data->id }}"><span class="oi oi-trash"></span></a></td>
 							  </tr><!-- END TR-->
 							  

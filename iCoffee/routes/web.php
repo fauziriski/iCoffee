@@ -66,6 +66,7 @@ Route::get('/lelang/produk/data/{id}', 'ProdukLelangController@datalelang');
 Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
 Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaran');
 Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
+Route::get('/lelang/keranjang', 'KeranjanglelangController@keranjang');
 
 
 // investasi
