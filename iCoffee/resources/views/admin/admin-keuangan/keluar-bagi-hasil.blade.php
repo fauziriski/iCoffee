@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin Keuangan | Pengeluaran Administrasi')
+@section('title', 'Admin Keuangan | Pencairan Bagi Hasil')
 
 @section('content')
 
@@ -69,7 +69,7 @@
 
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Pengeluaran Administrasi</h1>
+			<h1 class="h3 mb-0 text-gray-800">Pencairan Dana Investasi</h1>
 		</div>
 		<div class="panel-body">
 			<div align="right">
@@ -146,13 +146,13 @@
 
 															@foreach($satu as $sub1)
 															@if($kat->id==$sub1->adm_kat_akun->id)
-															<option value="{{ $sub1->nama_sub }}">{{$sub1->id}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
+															<option value="{{ $sub1->nama_sub }}">{{$sub1->no_akun}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
 															@endif
 
 															@foreach($dua as $sub2)
 															@if($sub1->id==$sub2->adm_sub1_akun->id && $kat->id==$sub2->adm_kat_akun->id)
 															
-															<option value="{{ $sub2->nama_sub }}">{{$sub2->id}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
+															<option value="{{ $sub2->nama_sub }}">{{$sub2->no_akun}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
 															@endif
 
 															@endforeach
@@ -205,6 +205,7 @@
 
 												</div>
 											</tr>
+											
 											<tr>
 												<div class="form-group">
 													<th width="25%" style="text-align: center;">Bukti  </th>	
@@ -337,7 +338,7 @@
 
 									</div>
 								</tr>
-
+							
 								<tr>
 									<div class="form-group">
 										<th width="25%" style="text-align: center;">Bukti  </th>	
@@ -414,7 +415,7 @@
 							processing: true,
 							serverSide: true,
 							ajax:{
-								url: "{{ route('adminkeuangan.administrasi') }}",
+								url: "{{ route('adminkeuangan.keluar-bagi-hasil') }}",
 								dataType:"json",
 							},
 							columns:[
@@ -444,7 +445,7 @@
 							var id = $(this).attr('id');
 							$('#form_result').html('');
 							$.ajax({
-								url:"lihat-administrasi/"+id,
+								url:"lihat-keluar-bagi-hasil/"+id,
 								dataType:"json",
 								success:function(html){
 									$('#nama_tran').val(html.data.nama_tran);
@@ -478,7 +479,7 @@
 							if($('#action').val() == 'Tambah')
 							{
 								$.ajax({
-									url:"{{ route('adminkeuangan.tambah-administrasi') }}",
+									url:"{{ route('adminkeuangan.tambah-keluar-bagi-hasil') }}",
 									method:"POST",
 									data: new FormData(this),
 									contentType: false,
@@ -511,7 +512,7 @@
 							if($('#action').val() == "Edit")
 							{
 								$.ajax({
-									url:"{{ route('adminkeuangan.update-administrasi') }}",
+									url:"{{ route('adminkeuangan.update-keluar-bagi-hasil') }}",
 									method:"POST",
 									data: new FormData(this),
 									contentType: false,
@@ -551,7 +552,7 @@
 
 						$('#ok_button').click(function(){
 							$.ajax({
-								url:"hapus-administrasi/"+id,
+								url:"hapus-keluar-bagi-hasil/"+id,
 								success:function(data)
 								{
 									setTimeout(function(){
@@ -567,7 +568,7 @@
 						$(document).on('click', '.lihat', function(){
 							var id = $(this).attr('id');
 							$.ajax({
-								url:"detail-administrasi/"+id,
+								url:"detail-keluar-bagi-hasil/"+id,
 								dataType:"json",
 								success:function(html){
 									$('#modalLihat').modal('show');
@@ -578,7 +579,7 @@
 									$('#tujuan_tran2').val(html.data.tujuan_tran);
 									$('#catatan2').val(html.data.catatan);
 
-									var img = "/Uploads/Adm_bukti/AKKA/" + html.data.bukti  +"";
+									var img = "/Uploads/Adm_bukti/AKKI/" + html.data.bukti  +"";
 									$('#bukti2').attr("src",img);
 
 									var data = html.akun;

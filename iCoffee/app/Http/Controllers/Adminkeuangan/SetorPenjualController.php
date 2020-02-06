@@ -18,17 +18,17 @@ use Validator;
 
 
 
-class SetorPetaniController extends Controller
+class SetorPenjualController extends Controller
 {
-	public function dataSetorPetani(){
+	public function dataSetorPenjual(){
 
 		if(request()->ajax())
 		{	
 			
-			$id = '4';
-			$AKKI = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+			$id = '6';
+			$AKKJB = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 
-			return datatables()->of($AKKI)
+			return datatables()->of($AKKJB)
 			->addColumn('action', function($data){
 				$button = 
 				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
@@ -55,7 +55,7 @@ class SetorPetaniController extends Controller
 
 		$dua = Adm_sub2_akun::All();
 
-		return view('admin.admin-keuangan.setor-petani',compact('tran','kategori','satu','dua'));
+		return view('admin.admin-keuangan.setor-penjual',compact('tran','kategori','satu','dua'));
 	}
 
 	public function tambah(Request $request)
@@ -81,19 +81,19 @@ class SetorPetaniController extends Controller
 
 		$bukti = $request->file('bukti');
 		$timestamps = date('YmdHis');
-		$id = "4";
+		$id = "6";
 		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 		$jml_id = count($id)+1;
-		$kode = "AKK-I".$jml_id;
+		$kode = "AKK-JB".$jml_id;
 
 		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 
-		$bukti->move(public_path('Uploads/Adm_bukti/AKKI'), $new_name);
+		$bukti->move(public_path('Uploads/Adm_bukti/AKKJB'), $new_name);
 
 		$total_jumlah = $request->jumlah2;
 
 		$id = Adm_jurnal::create([
-			'id_kat_jurnal' =>'4',
+			'id_kat_jurnal' =>'6',
 			'nama_tran' => $request->nama_tran,
 			'bukti' =>  $new_name,
 			'catatan' => $request->catatan,
@@ -130,13 +130,13 @@ class SetorPetaniController extends Controller
 
 		if($data == '0'){
 			$id = Adm_arus_kas::create([
-				'kode' => 'AKK-I',
+				'kode' => 'AKK-JB',
 				'nama_akun' => $nama_akun,
 				'total' => $total
 			]);
 		}else{
 			$form = array(	
-				'kode' => 'AKK-I',
+				'kode' => 'AKK-JB',
 				'nama_akun' => $nama_akun,
 				'total' => $total
 			);
@@ -147,7 +147,7 @@ class SetorPetaniController extends Controller
 	}
 
 
-	public function lihatPetani($id)
+	public function lihatPenjual($id)
 	{
 		if(request()->ajax())
 		{
@@ -191,10 +191,10 @@ class SetorPetaniController extends Controller
 			}
 
 			$timestamps = date('YmdHis');
-			$id = "4";
+			$id = "6";
 			$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 			$jml_id = count($id)+1;
-			$kode = "AKK-I".$jml_id;
+			$kode = "AKK-JB".$jml_id;
 
 			$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 
@@ -255,7 +255,7 @@ class SetorPetaniController extends Controller
 	}
 
 
-	public function detailPetani($id)
+	public function detailPenjual($id)
 	{
 		if(request()->ajax())
 		{	
