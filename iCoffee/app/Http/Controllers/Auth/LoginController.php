@@ -39,41 +39,41 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+      $this->middleware('guest')->except('logout');
     }
 
     protected function authenticated(Request $request, $user)
     {
-        $cek_rekber = Joint_account::where('user_id', $user->id)->first();
+      $cek_rekber = Joint_account::where('user_id', $user->id)->first();
 
-        if( empty($cek_rekber) )
-        {
-            $rekber = Joint_account::create([
-                'user_id' => $user->id,
-                'saldo' => 0
-            ]);
-        }
+      if( empty($cek_rekber) )
+      {
+        $rekber = Joint_account::create([
+          'user_id' => $user->id,
+          'saldo' => 0
+        ]);
+      }
 
       Alert::success('Berhasil Masuk');
 
       if($user->hasRole('admin')){
         return redirect()->route('admin.dashboard');
-    }elseif ($user->hasRole('superadmin')) {
+      }elseif ($user->hasRole('superadmin')) {
         return redirect()->route('superadmin.dashboard');
-    }elseif ($user->hasRole('adminkeuangan')) {
+      }elseif ($user->hasRole('adminkeuangan')) {
         return redirect()->route('adminkeuangan.dashboard');
-    }
+      }
 
 
       if($user->hasRole('admin'))
       {
-          return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.dashboard');
 
       }elseif ($user->hasRole('superadmin')) 
       {
-          return redirect()->route('superadmin.dashboard');
+        return redirect()->route('superadmin.dashboard');
       }
 
-}
+    }
 
-}
+  }
