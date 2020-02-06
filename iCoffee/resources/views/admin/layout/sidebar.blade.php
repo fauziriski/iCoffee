@@ -167,8 +167,8 @@
       <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Investasi :</h6>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Setoran Ke Petani</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Bagi Hasil</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/setor-petani')}}">Setoran Ke Petani</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/keluar-bagi-hasil')}}">Bagi Hasil</a>
           <h6 class="collapse-header">Jual-Beli :</h6>
           <a class="collapse-item" href="{{url('jenis-produk')}}">Setoran Ke Penjual</a>
           <h6 class="collapse-header">Lelang :</h6>

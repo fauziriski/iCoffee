@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin Keuangan | Pengeluaran Administrasi')
+@section('title', 'Admin Keuangan | Setoran kePetani')
 
 @section('content')
 
@@ -69,7 +69,7 @@
 
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Pengeluaran Administrasi</h1>
+			<h1 class="h3 mb-0 text-gray-800">Pengeluaran Progress Petani</h1>
 		</div>
 		<div class="panel-body">
 			<div align="right">
@@ -448,7 +448,7 @@
 							processing: true,
 							serverSide: true,
 							ajax:{
-								url: "{{ route('adminkeuangan.administrasi') }}",
+								url: "{{ route('adminkeuangan.setor-petani') }}",
 								dataType:"json",
 							},
 							columns:[
@@ -478,7 +478,7 @@
 							var id = $(this).attr('id');
 							$('#form_result').html('');
 							$.ajax({
-								url:"lihat-administrasi/"+id,
+								url:"lihat-petani/"+id,
 								dataType:"json",
 								success:function(html){
 									$('#nama_tran').val(html.data.nama_tran);
@@ -512,7 +512,7 @@
 							if($('#action').val() == 'Tambah')
 							{
 								$.ajax({
-									url:"{{ route('adminkeuangan.tambah-administrasi') }}",
+									url:"{{ route('adminkeuangan.tambah-petani') }}",
 									method:"POST",
 									data: new FormData(this),
 									contentType: false,
@@ -545,7 +545,7 @@
 							if($('#action').val() == "Edit")
 							{
 								$.ajax({
-									url:"{{ route('adminkeuangan.update-administrasi') }}",
+									url:"{{ route('adminkeuangan.update-petani') }}",
 									method:"POST",
 									data: new FormData(this),
 									contentType: false,
@@ -601,7 +601,7 @@
 						$(document).on('click', '.lihat', function(){
 							var id = $(this).attr('id');
 							$.ajax({
-								url:"detail-administrasi/"+id,
+								url:"detail-petani/"+id,
 								dataType:"json",
 								success:function(html){
 									$('#modalLihat').modal('show');
@@ -612,7 +612,7 @@
 									$('#tujuan_tran2').val(html.data.tujuan_tran);
 									$('#catatan2').val(html.data.catatan);
 
-									var img = "/Uploads/Adm_bukti/AKKA/" + html.data.bukti  +"";
+									var img = "/Uploads/Adm_bukti/AKKI/" + html.data.bukti  +"";
 									$('#bukti2').attr("src",img);
 
 									var data = html.akun;
