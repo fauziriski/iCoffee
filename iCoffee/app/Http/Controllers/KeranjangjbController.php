@@ -549,10 +549,12 @@ class KeranjangjbController extends Controller
             ]);
 
             $rekber = Joint_account::where('user_id', $order->id_penjual)->first();
+
+            $saldosum = $rekber->saldo+$request->jumlah_seluruh;
             
             $rekber->update([
 
-                'saldo' => $request->jumlah_seluruh
+                'saldo' => $saldosum
 
             ]);
 

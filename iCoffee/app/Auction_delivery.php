@@ -11,4 +11,9 @@ class Auction_delivery extends Model
     ];
 
     public $timestamps = true;
+
+    public function auction_order()
+    {
+        return $this->belongsTo('App\Auction_Order', 'id_order');
+    }
 }
