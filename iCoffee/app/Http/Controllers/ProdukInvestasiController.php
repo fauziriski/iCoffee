@@ -23,7 +23,7 @@ class ProdukInvestasiController extends Controller
 
 			return datatables()->of(Invest_product::where('id_mitra', Auth::user()->id_mitra)->latest()->get())
 			->addColumn('action', function($data){
-				$button = '<a href="produk/'.$data->id.'" type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</a>';
+				$button = '<a href="produk/'.$data->kode_produk.'" type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</a>';
 				return $button;
             })
             ->addColumn('proses', function($data){
@@ -40,7 +40,7 @@ class ProdukInvestasiController extends Controller
 
                 }
 				return $proses;
-			})
+            })
 			
 			->rawColumns(['action','proses'])
 			->make(true);

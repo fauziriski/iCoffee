@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Adm_jurnal;
 use App\Adm_tranksaksi;
 use App\Adm_kat_akun;
+use App\Adm_arus_kas;
 use App\Adm_akun;
 use App\Adm_sub1_akun;
 use App\Adm_sub2_akun;
@@ -16,7 +17,6 @@ use Carbon;
 use Validator;
 
 
-
 class KeluarBagiHasilController extends Controller
 {
 	public function dataBagiHasil(){
@@ -24,7 +24,7 @@ class KeluarBagiHasilController extends Controller
 		if(request()->ajax())
 		{	
 			
-			$id = '4';
+			$id = "9";
 			$AKKI = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 
 			return datatables()->of($AKKI)
@@ -80,9 +80,10 @@ class KeluarBagiHasilController extends Controller
 
 		$bukti = $request->file('bukti');
 		$timestamps = date('YmdHis');
-		$id = Adm_jurnal::pluck('id')->toArray();
+		$id = "9";
+		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 		$jml_id = count($id)+1;
-		$kode = "AKK-I".$jml_id;
+		$kode = "AKK-IB".$jml_id;
 
 		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 
@@ -91,7 +92,7 @@ class KeluarBagiHasilController extends Controller
 		$total_jumlah = $request->jumlah2;
 
 		$id = Adm_jurnal::create([
-			'id_kat_jurnal' =>'4',
+			'id_kat_jurnal' =>'9',
 			'nama_tran' => $request->nama_tran,
 			'bukti' =>  $new_name,
 			'catatan' => $request->catatan,
@@ -115,13 +116,30 @@ class KeluarBagiHasilController extends Controller
 		]);
 		
 
-		if(!(empty($request->akun3))){
-			Adm_akun::create([
-				'id_adm_jurnal' => $id->id,
-				'nama_akun' => $request->akun3,
-				'posisi' => $request->posisi3,
-				'jumlah' => $request->jumlah3
+		$nama_akun = $request->akun1;
+		
+		$jumlah = Adm_akun::where('nama_akun',$nama_akun)->select('jumlah')->get();
+		$total = 0;
+		for($i=0;$i<count($jumlah);$i++){
+			$total += $jumlah[$i]->jumlah;
+		}
+
+		$data1 = Adm_arus_kas::where('nama_akun',$nama_akun)->select('nama_akun')->get();
+		$data = count($data1);
+
+		if($data == '0'){
+			$id = Adm_arus_kas::create([
+				'kode' => 'AKK-I',
+				'nama_akun' => $nama_akun,
+				'total' => $total
 			]);
+		}else{
+			$form = array(	
+				'kode' => 'AKK-I',
+				'nama_akun' => $nama_akun,
+				'total' => $total
+			);
+			Adm_arus_kas::where('nama_akun',$nama_akun)->update($form);
 		}
 
 		return response()->json(['success' => 'Data berhasil ditambah.']);
@@ -172,9 +190,10 @@ class KeluarBagiHasilController extends Controller
 			}
 
 			$timestamps = date('YmdHis');
-			$id = Adm_jurnal::pluck('id')->toArray();
-			$jml_id = count($id);
-			$kode = "AKK-I".$jml_id;
+			$id = "9";
+			$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+			$jml_id = count($id)+1;
+			$kode = "AKK-IB".$jml_id;
 
 			$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 

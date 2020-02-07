@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Adm_jurnal;
 use App\Adm_tranksaksi;
 use App\Adm_kat_akun;
+use App\Adm_arus_kas;
 use App\Adm_akun;
 use App\Adm_sub1_akun;
 use App\Adm_sub2_akun;
@@ -80,7 +81,8 @@ class AdministrasiController extends Controller
 
 		$bukti = $request->file('bukti');
 		$timestamps = date('YmdHis');
-		$id = Adm_jurnal::pluck('id')->toArray();
+		$id = "2";
+		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 		$jml_id = count($id)+1;
 		$kode = "AKK-A".$jml_id;
 
@@ -97,7 +99,7 @@ class AdministrasiController extends Controller
 			'catatan' => $request->catatan,
 			'kode' => $kode,
 			'total_jumlah' => $total_jumlah,
-			'tujuan_tran' => $request->tujuan_tran		
+			'tujuan_tran' => $request->tujuan_tran,		
 		]);
 
 		Adm_akun::create([
@@ -113,17 +115,34 @@ class AdministrasiController extends Controller
 			'posisi' => $request->posisi2,
 			'jumlah' => $request->jumlah2
 		]);
-		
 
-		if(!(empty($request->akun3))){
-			Adm_akun::create([
-				'id_adm_jurnal' => $id->id,
-				'nama_akun' => $request->akun3,
-				'posisi' => $request->posisi3,
-				'jumlah' => $request->jumlah3
-			]);
+		$nama_akun = $request->akun1;
+		
+		$jumlah = Adm_akun::where('nama_akun',$nama_akun)->select('jumlah')->get();
+		$total = 0;
+		for($i=0;$i<count($jumlah);$i++){
+			$total += $jumlah[$i]->jumlah;
 		}
 
+		$data1 = Adm_arus_kas::where('nama_akun',$nama_akun)->select('nama_akun')->get();
+		$data = count($data1);
+
+		if($data == '0'){
+			$id = Adm_arus_kas::create([
+				'kode' => 'AKK-A',
+				'nama_akun' => $nama_akun,
+				'total' => $total
+			]);
+		}else{
+			$form = array(	
+				'kode' => 'AKK-A',
+				'nama_akun' => $nama_akun,
+				'total' => $total
+			);
+			Adm_arus_kas::where('nama_akun',$nama_akun)->update($form);
+		}
+
+	
 		return response()->json(['success' => 'Data berhasil ditambah.']);
 	}
 
@@ -172,7 +191,8 @@ class AdministrasiController extends Controller
 			}
 
 			$timestamps = date('YmdHis');
-			$id = Adm_jurnal::pluck('id')->toArray();
+			$id = "2";
+			$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 			$jml_id = count($id)+1;
 			$kode = "AKK-A".$jml_id;
 
@@ -225,15 +245,6 @@ class AdministrasiController extends Controller
 			'jumlah' => $request->jumlah2
 		);
 		
-
-		if(!(empty($request->akun3))){
-			$form_data3 = array(
-				'nama_akun' => $request->akun3,
-				'posisi' => $request->posisi3,
-				'jumlah' => $request->jumlah3
-			);
-			Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data3);
-		}
 
 		Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data1);
 		Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data2);

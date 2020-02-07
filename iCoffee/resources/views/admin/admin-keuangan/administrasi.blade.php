@@ -137,7 +137,7 @@
 											
 											<tr>
 												<div class="form-group">
-													<th rowspan="4"></th>
+													<th rowspan="2"></th>
 													<th colspan="2">
 														<select class="form-control" name="akun1" id="akun1" style="width: 100%">
 															<option></option>
@@ -146,13 +146,13 @@
 
 															@foreach($satu as $sub1)
 															@if($kat->id==$sub1->adm_kat_akun->id)
-															<option value="{{ $sub1->nama_sub }}">{{$sub1->no_akun}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
+															<option value="{{ $sub1->nama_sub }}">{{$sub1->id}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
 															@endif
 
 															@foreach($dua as $sub2)
 															@if($sub1->id==$sub2->adm_sub1_akun->id && $kat->id==$sub2->adm_kat_akun->id)
 															
-															<option value="{{ $sub2->nama_sub }}">{{$sub2->no_akun}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
+															<option value="{{ $sub2->nama_sub }}">{{$sub2->id}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
 															@endif
 
 															@endforeach
@@ -205,25 +205,6 @@
 
 												</div>
 											</tr>
-											<tr>
-												<th colspan="4">Biaya Lain-lain :</th>
-											</tr>
-											<tr>
-												<div class="form-group">	
-													<th colspan="2">
-														<input type="text" name="akun3" id="akun3" class="form-control" />
-													</th>
-													<th>
-														<select class="form-control" name="posisi3" id="posisi3" style="width: 100%">	
-															<option value="Kredit">Kredit</option>
-															<option value="Debit">Debit</option>
-														</select>
-													</th>
-													<th><input type="number" name="jumlah3" id="jumlah3" class="form-control" /></th>
-
-												</div>
-											</tr>
-
 											<tr>
 												<div class="form-group">
 													<th width="25%" style="text-align: center;">Bukti  </th>	
@@ -333,7 +314,7 @@
 
 								<tr>
 									<div class="form-group">
-										<th rowspan="4"></th>
+										<th rowspan="2"></th>
 										<th colspan="2">
 											<input type="text" name="akun11" id="akun11" class="form-control" />
 										</th>
@@ -353,21 +334,6 @@
 											<input type="text" name="posisi22" id="posisi22" class="form-control" />
 										</th>
 										<th><input type="text" name="jumlah22" id="jumlah22" class="form-control" /></th>
-
-									</div>
-								</tr>
-								<tr>
-									<th colspan="4">Biaya Lain-lain :</th>
-								</tr>
-								<tr>
-									<div class="form-group">	
-										<th colspan="2">
-											<input type="text" name="akun33" id="akun33" class="form-control" />
-										</th>
-										<th>
-											<input type="text" name="posisi33" id="posisi33" class="form-control" />
-										</th>
-										<th><input type="text" name="jumlah33" id="jumlah33" class="form-control" /></th>
 
 									</div>
 								</tr>

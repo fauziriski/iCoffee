@@ -14,7 +14,7 @@ class DeteleForeginkeyFromDeliveries extends Migration
     public function up()
     {
         Schema::table('deliveries', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_kategori_kurir');
+            // $table->unsignedBigInteger('id_kategori_kurir');
 
             $table->foreign('id_kategori_kurir')
                 ->references('id')

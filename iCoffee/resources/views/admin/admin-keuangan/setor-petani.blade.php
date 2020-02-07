@@ -137,7 +137,7 @@
 											
 											<tr>
 												<div class="form-group">
-													<th rowspan="4"></th>
+													<th rowspan="2"></th>
 													<th colspan="2">
 														<select class="form-control" name="akun1" id="akun1" style="width: 100%">
 															<option></option>
@@ -202,24 +202,6 @@
 														</select>
 													</th>
 													<th><input type="number" name="jumlah2" id="jumlah2" class="form-control" /></th>
-
-												</div>
-											</tr>
-											<tr>
-												<th colspan="4">Biaya Lain-lain :</th>
-											</tr>
-											<tr>
-												<div class="form-group">	
-													<th colspan="2">
-														<input type="text" name="akun3" id="akun3" class="form-control" />
-													</th>
-													<th>
-														<select class="form-control" name="posisi3" id="posisi3" style="width: 100%">	
-															<option value="Kredit">Kredit</option>
-															<option value="Debit">Debit</option>
-														</select>
-													</th>
-													<th><input type="number" name="jumlah3" id="jumlah3" class="form-control" /></th>
 
 												</div>
 											</tr>
@@ -333,7 +315,7 @@
 
 								<tr>
 									<div class="form-group">
-										<th rowspan="4"></th>
+										<th rowspan="2"></th>
 										<th colspan="2">
 											<input type="text" name="akun11" id="akun11" class="form-control" />
 										</th>
@@ -353,21 +335,6 @@
 											<input type="text" name="posisi22" id="posisi22" class="form-control" />
 										</th>
 										<th><input type="text" name="jumlah22" id="jumlah22" class="form-control" /></th>
-
-									</div>
-								</tr>
-								<tr>
-									<th colspan="4">Biaya Lain-lain :</th>
-								</tr>
-								<tr>
-									<div class="form-group">	
-										<th colspan="2">
-											<input type="text" name="akun33" id="akun33" class="form-control" />
-										</th>
-										<th>
-											<input type="text" name="posisi33" id="posisi33" class="form-control" />
-										</th>
-										<th><input type="text" name="jumlah33" id="jumlah33" class="form-control" /></th>
 
 									</div>
 								</tr>
@@ -585,7 +552,7 @@
 
 						$('#ok_button').click(function(){
 							$.ajax({
-								url:"hapus-administrasi/"+id,
+								url:"hapus-petani/"+id,
 								success:function(data)
 								{
 									setTimeout(function(){
