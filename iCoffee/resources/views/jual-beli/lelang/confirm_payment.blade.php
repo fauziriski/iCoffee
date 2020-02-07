@@ -75,9 +75,13 @@
                   <div class="input-group">
                     <select name="invoice" id="" class="form-control" required>
                         <option selected disabled="disabled" value="" >Invoice</option>
-                        @for ($i = 0; $i < $jumlah; $i++)
-                        <option class="form-control" value="{{ $data_invoice[$i] }}">#{{ $data_invoice[$i] }}/{{ $data_tanggal[$i] }} </option>     
-                        @endfor
+                        @foreach ($transaksipenjual as $data)
+
+                          <option class="form-control" value="{{ $data->invoice }}">#{{ $data->invoice }}/{{ $data_tanggal }} </option>     
+                            
+                        @endforeach
+                        
+  
                         
                     </select>
                     <span class="text-danger">{{$errors->first('invoice')}}</span>

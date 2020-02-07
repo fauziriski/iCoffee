@@ -16,6 +16,7 @@ use App\Image;
 use App\Province;
 use App\City;
 use App\Confirm_payment;
+use App\Auction_Order;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 
@@ -299,6 +300,19 @@ class HomeController extends Controller
         $jumlah = count($data_invoice);
 
         return view('jual-beli.confirm_payment', compact('data_invoice', 'jumlah', 'data_tanggal','transaksipenjual'));
+    }
+
+    public function pembayaranlelang()
+    {
+        $id_pelanggan = Auth::user()->id;
+        $transaksipenjual = Auction_Order::where('id_pembeli', $id_pelanggan)->where('status',1)->get();
+        $data_tanggal = array();
+        foreach ($transaksipenjual as $data) {
+            $data_tanggal = date('Y-m-d', strtotime($data->created_at));   
+        }
+
+
+        return view('jual-beli.lelang.confirm_payment', compact('data_tanggal','transaksipenjual'));
     } 
 
     public function konfirmasipembayaran(Request $request)
@@ -346,7 +360,7 @@ class HomeController extends Controller
             'foto_bukti' => 'required|image|max:2048'
         ]);
 
-        $folderPath = public_path("Uploads\Konfirmasi_Pembayaran\{$request->invoice}");
+        $folderPath = public_path("Uploads\Konfirmasi_Pembayaran\Lelang\{$request->invoice}");
         $response = mkdir($folderPath);
         
         $image = $request->foto_bukti;
@@ -360,7 +374,7 @@ class HomeController extends Controller
             'no_rekening_pengirim' => $request->no_rekening_pengirim,
             'nama_bank_pengirim' => $request->nama_bank_pengirim,
             'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
-            'jasa' => '1',
+            'jasa' => '2',
             'no_telp' => $request->no_telp,
             'jumlah_transfer' => $request->jumlah_transfer,
             'invoice' => $request->invoice,
@@ -368,13 +382,13 @@ class HomeController extends Controller
             'status' => '1'
         ]);
 
-        $order = Order::where('invoice', $request->invoice)->update([
+        $order = Auction_Order::where('invoice', $request->invoice)->update([
             'status' => '8'
         ]);
 
         Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
 
-        return redirect('/jual-beli');
+        return redirect('/lelang');
     }
 
 

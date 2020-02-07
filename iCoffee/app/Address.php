@@ -24,11 +24,19 @@ class Address extends Model
 
     public function orders()
     {
-    	return $this->hasMany('App\Jbcart');
+    	return $this->hasMany('App\Order');
     }
 
     public function orderdetails()
     {
-    	return $this->hasMany('App\Jbcart');
+    	return $this->hasMany('App\Orderdetail');
+    }
+
+    public function auction_orders_penjual(){
+        return $this->hasMany('App\Auction_Order');
+    }
+
+    public function auction_orders_pembeli(){
+        return $this->hasMany('App\Auction_Order');
     }
 }

@@ -384,6 +384,7 @@ class KeranjangjbController extends Controller
         // konfirmasi diproses 8
         // batalkan pesanan pembeli 9
         // komplain dterima 10
+        // komplain ditolak 11
         $id_pembeli = Auth::user()->id;
         $order = Order::where('invoice', $invoice)->get();
         $orderdetail = Orderdetail::where('invoice', $invoice)->get();
@@ -548,10 +549,12 @@ class KeranjangjbController extends Controller
             ]);
 
             $rekber = Joint_account::where('user_id', $order->id_penjual)->first();
+
+            $saldosum = $rekber->saldo+$request->jumlah_seluruh;
             
             $rekber->update([
 
-                'saldo' => $request->jumlah_seluruh
+                'saldo' => $saldosum
 
             ]);
 

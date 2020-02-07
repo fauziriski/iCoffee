@@ -64,11 +64,22 @@ Route::get('/lelang', 'ProdukController@lelang');
 Route::get('/lelang/produk/{id}', 'ProdukLelangController@detaillelang');
 Route::get('/lelang/produk/data/{id}', 'ProdukLelangController@datalelang');
 Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
-Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaran');
+Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaranlelang');
 Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
 Route::get('/lelang/keranjang', 'KeranjanglelangController@keranjang');
 Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
 Route::post('/lelang/checkout-barang', 'KeranjanglelangController@checkoutbarang');
+Route::post('/lelang/pesanbarang', 'KeranjanglelangController@pesanbarang');
+Route::get('/lelang/transaksi', 'KeranjanglelangController@transaksi');
+Route::get('/lelang/invoice/{invoice}', 'KeranjanglelangController@invoice');
+Route::get('/lelang/invoice_penjual/{invoice}', 'KeranjanglelangController@invoice_penjual');
+
+Route::post('/lelang/pesanan/terima', 'KeranjanglelangController@pesananditerima');
+Route::post('/lelang/pesanan/inputresi', 'KeranjanglelangController@inputresi');
+Route::post('/lelang/pesanan/selesai', 'KeranjanglelangController@pesananselesai');
+Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'KeranjanglelangController@komplain');
+Route::post('/lelang/pesanan/komplain', 'KeranjanglelangController@komplaindiproses');
+
 
 
 // investasi
