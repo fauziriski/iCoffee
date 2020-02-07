@@ -8,7 +8,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col ftco-animate">
-			<form action="/jual-beli/pesanbarang" method="post">
+			<form action="/lelang/pesanbarang" method="post">
 				@csrf
           	<h3 class="mb-4 billing-heading">Checkout</h3>
 
@@ -22,7 +22,8 @@
 											<p class="col-lg-12">{{ $alamat_pembeli->address }} - {{ $alamat_pembeli->province->nama }}, {{ $alamat_pembeli->city->nama }}, {{ $alamat_pembeli->kecamatan }},  {{ $alamat_pembeli->kode_pos }}</p>
 										</div>
 
-											<input type="hidden" name="id_alamat" value="{{ $alamat_pembeli->id }}">
+											<input type="hidden" name="id_alamat_penjual" value="{{ $alamat_penjual->id }}">
+											<input type="hidden" name="id_alamat_pembeli" value="{{ $alamat_pembeli->id }}">
 											<input type="hidden" name="nama_alamat" value="{{ $alamat_pembeli->nama }}">
 
 										<div class="col">
@@ -72,7 +73,7 @@
 										  <input type="hidden" name="jumlah" value="{{$checkout->auction_product->stok }}">
 										  <input type="hidden" name="nama_produk" value="{{$checkout->auction_product->nama_produk }}">
 										  <input type="hidden" name="kode_lelang" value="{{ $checkout->auction_product->kode_lelang }}">
-										  <input type="hidden" name="gambar" value="{{ $checkout->auction_product->image }}">
+										  <input type="hidden" name="gambar" value="{{ $checkout->auction_product->gambar }}">
 										  <input type="hidden" name="jumlah_penawaran" value="{{ $checkout->jumlah_penawaran }}">
 					
 				
