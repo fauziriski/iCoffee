@@ -313,32 +313,21 @@
 									</div>
 								</tr>
 
+								@for ($i = 0; $i < 2; $i++)
 								<tr>
 									<div class="form-group">
-										<th rowspan="2"></th>
+										<th></th>
 										<th colspan="2">
-											<input type="text" name="akun11" id="akun11" class="form-control" />
+											<input type="text" name="akun11" id="akun11{{$i}}" class="form-control" />
 										</th>
 										<th>
-											<input type="text" name="posisi11" id="posisi11" class="form-control" />
+											<input type="text" name="posisi11" id="posisi11{{$i}}" class="form-control" />
 										</th>
-										<th><input type="text" name="jumlah11" id="jumlah11" class="form-control" /></th>
+										<th><input type="text" name="jumlah11" id="jumlah11{{$i}}" class="form-control" /></th>
 									</div>
 								</tr>
-
-								<tr>
-									<div class="form-group">	
-										<th colspan="2">
-											<input type="text" name="akun22" id="akun22" class="form-control" />
-										</th>
-										<th>
-											<input type="text" name="posisi22" id="posisi22" class="form-control" />
-										</th>
-										<th><input type="text" name="jumlah22" id="jumlah22" class="form-control" /></th>
-
-									</div>
-								</tr>
-							
+								@endfor
+								
 								<tr>
 									<div class="form-group">
 										<th width="25%" style="text-align: center;">Bukti  </th>	
@@ -590,8 +579,12 @@
 										var posisi_akun = data[i].posisi;
 										var jumlah = data[i].jumlah;
 
-										console.log(nama_akun);
+										$('#akun11'+i).val(nama_akun);
+										$('#posisi11'+i).val(posisi_akun);
+										$('#jumlah11'+i).val(jumlah);
+
 									}
+
 
 								}
 							})
