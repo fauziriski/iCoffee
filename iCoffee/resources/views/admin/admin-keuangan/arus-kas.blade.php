@@ -13,31 +13,24 @@
 			<div class="container">
 				<div class="card-body mt-3">
 					<div class="table-responsive">
-						<table cellpadding="10" class="table" border="0" style="width:100%">
-
+						<table cellpadding="5" border="0" style="width: 100%;">
 							<tr cellpadding="1">
 								<th colspan="3" style="text-align: center;">
-									PT. ICOFFEE
+									<h5>PT. ICOFFEE</h5>
 								</th>
 							</tr>
 							<tr>
 								<th colspan="3" style="text-align: center;">
-									<strong>Laporan Arus Kas</strong>
+									<h5><strong>Laporan Arus Kas</strong></h5>
 								</th>
 							</tr>
 							<tr>
 								<th colspan="3" style="text-align: center;">
-									Periode 02 February 2020 s.d 29 February 2020
+									<h5>Periode 02 February 2020 s.d 29 February 2020</h5>
 								</th>
 							</tr>
-
-							<tr rowspan="2">
-								<td colspan="3"></td>
-							</tr>
-							<tr rowspan="2">
-								<td colspan="3"></td>
-							</tr>
-
+						</table>
+						<table cellpadding="10" class="table mt-5" border="0" style="width:100%">
 							<tr>
 								<td><strong>A. </strong></td>
 								<td><strong>ARUS KAS DARI AKTIVITAS OPERASIONAL</strong></td>

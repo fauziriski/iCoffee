@@ -56,6 +56,11 @@ Route::get('/data-investor/{id}', 'ValidasiInvestorController@idInvestor')->name
 Route::post('/tolak-investor/update', 'ValidasiInvestorController@tolakInvestor')->name('tolak-investor.update');
 Route::post('/validasi-investor/update', 'ValidasiInvestorController@validasiInvestor')->name('validasi-investor.update');
 
+Route::get('/validasi-pembeli', 'VerifikasiPembeliController@dataOrder')->name('validasi-pembeli');
+Route::get('/lihat-validasi-pembeli/{id}', 'VerifikasiPembeliController@lihatOrder')->name('lihat-validasi-pembeli');
+Route::post('/tolak-pembeli/update', 'VerifikasiPembeliController@tolakOrder')->name('tolak-pembeli.update');
+Route::post('/validasi-pembeli/update', 'VerifikasiPembeliController@validasiOrder')->name('validasi-pembeli.update');
+
 
 
 Route::get('/proses-lelang', 'ProsesLelangController@prosesLelang')->name('proses-lelang');
