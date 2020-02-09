@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Investor;
+use App\User;
 use DB;
 use DataTables;
 
@@ -56,8 +57,14 @@ class ValidasiInvestorController extends Controller
 	{
 		if(request()->ajax())
 		{
-			$data = Mitra_perorangan::findOrFail($id);
-			return response()->json(['data' => $data]);
+			$data = Investor::findOrFail($id);
+			$id_pengguna = $data->id_pengguna;
+			$data2 = User::where('id',$id_pengguna)->first();
+			
+			return response()->json([
+				'data' => $data,
+				'data2' => $data2
+			]);
 		}
 	}
 
@@ -68,7 +75,18 @@ class ValidasiInvestorController extends Controller
 			'status' => $request->status,
 		);
 
-		Mitra_perorangan::whereId($request->hidden_id)->update($form_data);
+		Investor::whereId($request->hidden_id)->update($form_data);
+		return response()->json(['success' => 'Berhasil Ditolak']);
+	}
+
+		public function validasiInvestor(Request $request)
+	{
+
+		$form_data = array(
+			'status' => $request->status,
+		);
+
+		Investor::whereId($request->hidden_id)->update($form_data);
 		return response()->json(['success' => 'Berhasil Ditolak']);
 	}
 

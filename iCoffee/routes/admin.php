@@ -61,6 +61,16 @@ Route::get('/lihat-validasi-pembeli/{id}', 'VerifikasiPembeliController@lihatOrd
 Route::post('/tolak-pembeli/update', 'VerifikasiPembeliController@tolakOrder')->name('tolak-pembeli.update');
 Route::post('/validasi-pembeli/update', 'VerifikasiPembeliController@validasiOrder')->name('validasi-pembeli.update');
 
+Route::get('/validasi-pembeli-lelang', 'VerifikasiPembayaranLelangController@dataOrderLelang')->name('validasi-pembeli-lelang');
+Route::get('/lihat-validasi-lelang/{id}', 'VerifikasiPembayaranLelangController@lihatOrderLelang')->name('lihat-validasi-lelang');
+Route::post('/tolak-lelang/update', 'VerifikasiPembayaranLelangController@tolakOrderLelang')->name('tolak-lelang.update');
+Route::post('/validasi-lelang/update', 'VerifikasiPembayaranLelangController@validasiOrderLelang')->name('validasi-lelang.update');
+
+Route::get('/validasi-top-up', 'VerifikasiPembayaranLelangController@dataTopUp')->name('validasi-top-up');
+Route::get('/lihat-top-up/{id}', 'VerifikasiPembayaranLelangController@lihatTopUp')->name('lihat-top-up');
+Route::post('/tolak-top-up/update', 'VerifikasiPembayaranLelangController@tolakTopUp')->name('tolak-top-up.update');
+Route::post('/validasi-top-up/update', 'VerifikasiPembayaranLelangController@validasiTopUp')->name('validasi-top-up.update');
+
 
 
 Route::get('/proses-lelang', 'ProsesLelangController@prosesLelang')->name('proses-lelang');
