@@ -30,6 +30,7 @@ route::get('/profil/top_up', 'HomeController@top_up');
 route::post('/profil/top_up/proses', 'HomeController@top_up_diproses');
 route::get('/profil/konfirmasi/top_up', 'HomeController@konfirmasi_top_up');
 route::post('/profil/konfirmasi/top_up/berhasil', 'HomeController@konfirmasipembayarantopup');
+route::get('/profil/produk','HomeController@produksaya');
 
 
 

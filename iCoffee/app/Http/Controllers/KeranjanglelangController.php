@@ -154,7 +154,7 @@ class KeranjanglelangController extends Controller
         $order = Auction_Order::where('invoice', $invoice)->where('id_pembeli', $id_pembeli)->first();
         $kurir = explode(': ', $order->shipping);
         $bank_information = Account::where('bank_name', $order->payment)->first();
-
+        
         $cek_resi = Auction_delivery::where('id_order', $order->id)->first();
 
         if($order->status == 5 || 6 || 7 || 10 || 11)

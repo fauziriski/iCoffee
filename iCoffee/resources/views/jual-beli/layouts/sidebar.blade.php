@@ -19,7 +19,7 @@
             <div class="list-group list-group-flush">
               <a href="{{url('/pasang-jualbeli')}}" class="list-group-item"><span class="icon icon-tags"></span>&nbsp;&nbsp; Pasang Produk</a>
               <a href="{{url('/jual-beli/transaksi')}}" class="list-group-item"><span class="oi oi-loop"></span>&nbsp;&nbsp; Transaksi</a>
-              <a href="{{url('tranksaksi-jual')}}" class="list-group-item"><span><i class="fas fa-th-large" aria-hidden="true"></i></span>&nbsp;&nbsp; Produk Anda</a>
+              <a href="{{url('/profil/produk')}}" class="list-group-item"><span><i class="fas fa-th-large" aria-hidden="true"></i></span>&nbsp;&nbsp; Produk Anda</a>
               <a href="{{url('/jual-beli/konfirmasi')}}" class="list-group-item"><span><i class="fas fa-handshake" aria-hidden="true"></i></span>&nbsp; Konfirmasi Pembayaran </a>
             </div> 
           </div>
