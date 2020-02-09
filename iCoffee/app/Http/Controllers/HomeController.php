@@ -464,6 +464,15 @@ class HomeController extends Controller
         return redirect('/lelang');
     }
 
+    public function produksaya()
+    {
+        $user_id = Auth::user()->id;
+
+        $produk = Shop_product::where('id_pelanggan', $user_id)->get();
+
+        return view('jual-beli.produk', compact('produk'));
+    }
+
 
 
 
