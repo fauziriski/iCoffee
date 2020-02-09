@@ -17,6 +17,7 @@ use App\Province;
 use App\City;
 use App\Confirm_payment;
 use App\Auction_Order;
+use App\Top_up;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 
@@ -375,6 +376,78 @@ class HomeController extends Controller
             'nama_bank_pengirim' => $request->nama_bank_pengirim,
             'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
             'jasa' => '2',
+            'no_telp' => $request->no_telp,
+            'jumlah_transfer' => $request->jumlah_transfer,
+            'invoice' => $request->invoice,
+            'foto_bukti' => $name,
+            'status' => '1'
+        ]);
+
+        $order = Auction_Order::where('invoice', $request->invoice)->update([
+            'status' => '8'
+        ]);
+
+        Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
+
+        return redirect('/lelang');
+    }
+
+    public function top_up()
+    {
+        return view('jual-beli.lelang.top_up');
+    }
+
+    public function top_up_diproses(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $timestamps = date('YmdHis');
+        $oldMarker = $timestamps.$user_id;
+
+        $top_up = Top_up::create([
+            'user_id' => $user_id, 
+            'email'=> $request->email, 
+            'invoice'=> $oldMarker, 
+            'jumlah'=> $request->jumlah, 
+            'status' => 1
+        ]);
+        Alert::info('Berhasil','Segera Konfirmasi Pembayaran Anda')->showConfirmButton('Ok', '#3085d6');
+
+        return redirect('/lelang');
+    }
+
+    public function konfirmasi_top_up()
+    {
+        $id_pelanggan = Auth::user()->id;
+        $transaksipenjual = Top_up::where('user_id', $id_pelanggan)->where('status',1)->get();
+        $data_tanggal = array();
+        foreach ($transaksipenjual as $data) {
+            $data_tanggal = date('Y-m-d', strtotime($data->created_at));   
+        }
+        return view('jual-beli.lelang.confirm_payment_top_up', compact('data_tanggal','transaksipenjual'));
+    }
+
+    public function konfirmasipembayarantopup(Request $request)
+    {
+        $id_pelanggan = Auth::user()->id;
+        $this->validate($request,[
+            'foto_bukti' => 'required|image|max:2048'
+        ]);
+
+        $folderPath = public_path("Uploads\Konfirmasi_Pembayaran\Top_up\{$request->invoice}");
+        $response = mkdir($folderPath);
+        
+        $image = $request->foto_bukti;
+        $name=$image->getClientOriginalName();
+        $image_resize = Images::make($image->getRealPath());
+        $image_resize->save($folderPath .'/'. $name);
+
+        $confirm_pesanan = Confirm_payment::create([
+            'id_pelanggan' => $id_pelanggan,
+            'email' => $request->email,
+            'no_rekening_pengirim' => $request->no_rekening_pengirim,
+            'nama_bank_pengirim' => $request->nama_bank_pengirim,
+            'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
+            'jasa' => '3',
             'no_telp' => $request->no_telp,
             'jumlah_transfer' => $request->jumlah_transfer,
             'invoice' => $request->invoice,

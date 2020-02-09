@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Intervention\Image\ImageManagerStatic as Images;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
 use App\User;
@@ -33,7 +34,14 @@ class KeranjangjbController extends Controller
 
         $id_customer = Auth::user()->id;
         $keranjang = JbCart::where('id_pelanggan', $id_customer)->orderBy('created_at','desc')->get();
-        $carttotal = $keranjang->count();
+        $carttotal = count($keranjang);
+
+        if ($carttotal == 0) {
+            Alert::info('Kosong','Keranjang Anda Kosong')->showConfirmButton('Ok', '#3085d6');
+
+            return redirect('/jual-beli');
+            
+        }
 
         $subtotal = $keranjang->sum('total');
         
@@ -73,10 +81,14 @@ class KeranjangjbController extends Controller
 
     public function checkoutbarang(Request $request)
     {
+        
+        
         $this->validate($request,[
 
             'id' => 'required'
         ]);
+
+        
 
         $id_customer = Auth::user()->id;
         $alamat = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
@@ -84,6 +96,16 @@ class KeranjangjbController extends Controller
         $id = $request->id;
 
         $checkout = JbCart::whereIn('id', $request->id)->get();
+
+        foreach ($checkout as $data) {
+
+            if($data->jumlah <= 0)
+            {
+                Alert::error('Gagal','Jumlah Tidak Boleh Kurang Dari Satu')->showConfirmButton('Ok', '#3085d6');
+                return redirect('/jual-beli/keranjang');
+            }
+        
+        }
 
        
         
@@ -253,13 +275,33 @@ class KeranjangjbController extends Controller
 
     }
 
-    public function updatekeranjang(Request $request)
+    public function updatekeranjang($data, $tombol)
     {
-        $cart = JbCart::where('id', $request->id)->first();
-        $cart->update([
-            'jumlah' => $request->quantity
+        $cart = JbCart::where('id', $data)->first();
 
-        ]);
+        if($tombol == 'plus')
+        {
+            $jumlah = $cart->jumlah+1;
+            $total = $jumlah*$cart->harga;
+            $cart->update([
+                'jumlah' => $jumlah,
+                'total' => $total
+            ]);
+
+        }
+        elseif($tombol == 'minus')
+        {
+            $jumlah = $cart->jumlah-1;
+            $total = $jumlah*$cart->harga;
+            $cart->update([
+                'jumlah' => $jumlah,
+                'total' => $total
+            ]);
+
+        }
+        
+
+        return response()->json(['jumlah' => $jumlah, 'total' => $total]);
 
     }
 

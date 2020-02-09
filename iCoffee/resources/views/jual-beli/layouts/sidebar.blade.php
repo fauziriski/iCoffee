@@ -31,6 +31,7 @@
               <a href="{{url('/pasang-lelang')}}" class="list-group-item"><span class="icon icon-timer"></span>&nbsp;&nbsp; Pasang Lelang</a>
               <a href="{{url('/lelang/transaksi')}}" class="list-group-item"><span class="oi oi-list"></span>&nbsp;&nbsp; Riwayat Lelang</a>
               <a href="{{url('/jual-beli/konfirmasi/lelang')}}" class="list-group-item"><span><i class="fas fa-handshake" aria-hidden="true"></i></span>&nbsp; Konfirmasi Pembayaran </a>
+              <a href="{{url('/profil/konfirmasi/top_up')}}" class="list-group-item"><span><i class="fas fa-handshake" aria-hidden="true"></i></span>&nbsp; Konfirmasi Top Up </a>
             </div>
           </div>
         </article> 

@@ -26,6 +26,13 @@ route::post('/profil/edit_profil', 'HomeController@edit_profil');
 route::get('/profil/cekalamat/{id}', 'HomeController@cekalamat');
 route::post('/profil/alamat/edit', 'HomeController@editalamat');
 route::get('profil/carikota/{id}', 'HomeController@carikota');
+route::get('/profil/top_up', 'HomeController@top_up');
+route::post('/profil/top_up/proses', 'HomeController@top_up_diproses');
+route::get('/profil/konfirmasi/top_up', 'HomeController@konfirmasi_top_up');
+route::post('/profil/konfirmasi/top_up/berhasil', 'HomeController@konfirmasipembayarantopup');
+
+
+
 
 // jual beli
 Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
@@ -36,7 +43,7 @@ Route::get('/jual-beli/keranjang','KeranjangjbController@keranjang');
 Route::post('/jual-beli/keranjang/tambah-produk','KeranjangjbController@tambahkeranjang');
 Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
 Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
-Route::post('/jual-beli/update-keranjang', 'KeranjangjbController@updatekeranjang')->name('jual-beli.editdata');
+Route::get('/jual-beli/update-keranjang/{id}/{plus}', 'KeranjangjbController@updatekeranjang');
 Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
