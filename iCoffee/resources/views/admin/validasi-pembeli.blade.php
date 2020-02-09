@@ -217,9 +217,7 @@
 												<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
 													<img src="" id="bukti2" width="100px" height="100px"/>
 												</a>
-
 												<div>   
-
 													<div>   
 														<div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
 															<div class="modal-dialog modal-sm">
@@ -319,23 +317,8 @@
 								document.getElementById("jumlah_transfer").innerHTML = html.data.jumlah_transfer;
 								document.getElementById("nama_bank_pengirim").innerHTML = html.data.nama_bank_pengirim;
 
-								var img = "/Uploads/Adm_bukti/AKKA/" + html.data.bukti  +"";
+								var img = "/Uploads/Konfirmasi_Pembayaran/JualBeli/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
 								$('#bukti2').attr("src",img);
-
-								var data = html.akun;
-								var banyak = data.length;
-
-								for(var i = 0; i<banyak; i++){
-									var nama_akun = data[i].nama_akun;
-									var posisi_akun = data[i].posisi;
-									var jumlah = data[i].jumlah;
-
-									$('#akun11'+i).val(nama_akun);
-									$('#posisi11'+i).val(posisi_akun);
-									$('#jumlah11'+i).val(jumlah);
-
-								}
-
 							}
 						})
 					});
