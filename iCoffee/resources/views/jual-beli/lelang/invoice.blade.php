@@ -45,12 +45,19 @@
 
 					</address>
 					
-					@if ($order->status == 5 || 6 || 7 || 10 || 11)
+					@if (!($order->status == 1 || 2 || 8 || 3))
 						<address>
 							<strong>No Resi :</strong><br>
 						{{$kurir[1]}} {{ $cek_resi->invoice }}<br>
 
 						</address>
+					@else
+					<address>
+						<strong>No Resi :</strong><br>
+							
+
+					</address>
+
 					
 					@endif
     			</div>
