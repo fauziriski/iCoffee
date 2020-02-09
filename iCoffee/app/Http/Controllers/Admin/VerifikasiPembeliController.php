@@ -13,6 +13,8 @@ use App\Adm_arus_kas;
 use App\Adm_akun;
 use App\Adm_sub1_akun;
 use App\Adm_sub2_akun;
+use App\Orderdetail;
+use Carbon;
 
 
 class  VerifikasiPembeliController extends Controller
@@ -21,8 +23,10 @@ class  VerifikasiPembeliController extends Controller
 	{
 		if(request()->ajax())
 		{	
+			$jasa = "1";
+			$konfirmasi = Confirm_payment::where('jasa',$jasa);
 
-			return datatables()->of(Confirm_payment::latest()->get())
+			return datatables()->of($konfirmasi)
 			->addColumn('action', function($data){
 				
 				if ($data->status == "8") {
@@ -126,30 +130,37 @@ class  VerifikasiPembeliController extends Controller
 	public function validasiOrder(Request $request)
 	{
 
+		// $id_pelanggan = $request->id_pelanggan2;
+		// Orderdetail::where('id_pelanggan',$id_pelanggan)->()
+
 		$catatan = "pembelian kopi robusta 20kg di petani";
 		$tujuan_tran = "Bank iCoffee BNI";
-		$nama_akun = "Pembelian Produk";
+		$nama_akun = "Pembelian Produk Jual-Beli";
 
 		$id = "5";
 		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 		$jml_id = count($id)+1;
 		$kode = "AKM-JB".$jml_id;
 
+		$bukti = $request->foto_bukti2;
+		$timestamps = date('YmdHis');
+		$new_name = $kode.$timestamps. '.' . $bukti;
+
 		$id = Adm_jurnal::create([
 			'id_kat_jurnal' => '5',
 			'kode' => $kode,
 			'catatan' => $catatan,
 			'tujuan_tran' => $tujuan_tran,
-			'nama_tran' => $request->nama_pemilik_pengirim,
-			'bukti' =>  $request->foto_bukti,
-			'total_jumlah' => $request->jumlah_transfer	
+			'bukti' =>  $new_name,
+			'nama_tran' => $request->nama_pemilik_pengirim2,
+			'total_jumlah' => $request->jumlah_transfer2	
 		]);
 
 		Adm_akun::create([
 			'id_adm_jurnal' => $id->id,
 			'nama_akun' => $nama_akun,
 			'posisi' => 'Debit',
-			'jumlah' => $request->jumlah_transfer
+			'jumlah' => $request->jumlah_transfer2
 		]);
 
 

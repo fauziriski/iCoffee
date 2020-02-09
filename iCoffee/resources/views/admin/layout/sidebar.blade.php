@@ -260,7 +260,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Kelola Jual-Beli :</h6>
-            <a class="collapse-item" href="{{ url('akses-admin/validasi-pembeli')}}">Validasi Pembeli</a>
+            <a class="collapse-item" href="{{ url('akses-admin/validasi-pembeli')}}">Validasi Pembayaran</a>
             <a class="collapse-item" href="{{url('akses-admin/jenis-produk')}}">Jenis Produk</a>
             <a class="collapse-item" href="{{url('akses-admin/kategori-produk')}}">Kategori Produk</a>
           </div>
@@ -284,6 +284,8 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Kelola Lelang :</h6>
+            <a class="collapse-item" href="{{ url('akses-admin/validasi-pembeli-lelang')}}">Validasi Pembayaran</a>
+            <a class="collapse-item" href="{{ url('akses-admin/validasi-top-up')}}">Validasi Top-Up</a>
             <a class="collapse-item" href="{{ url('akses-admin/validasi-produk-lelang')}}">Validasi Produk</a>
             <a class="collapse-item" href="{{url('akses-admin/proses-lelang')}}">Proses Lelang</a>
           </div>

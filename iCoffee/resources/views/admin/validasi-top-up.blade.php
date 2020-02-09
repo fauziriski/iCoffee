@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin | Validasi Pembeli')
+@section('title', 'Admin | Validasi Pembelian Top-Up')
 
 @section('content')
 
@@ -57,7 +57,7 @@
 
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Validasi Pembeli</h1>
+			<h5 class="h3 mb-0 text-gray-800">Validasi Pembayaran Top Up</h5>
 			<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>  Download Excel</a>
 		</div>
 
@@ -133,7 +133,6 @@
 					<input type="hidden" name="nama_pemilik_pengirim2" id="nama_pemilik_pengirim2" />
 					<input type="hidden" name="foto_bukti2" id="foto_bukti2" />
 					<input type="hidden" name="jumlah_transfer2" id="jumlah_transfer2" />
-					<input type="hidden" name="id_pelanggan2" id="id_pelanggan2" />
 					<div class="text2">
 						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
 						<div class="mt-5"></div>
@@ -278,7 +277,7 @@
 						processing: true,
 						serverSide: true,
 
-						ajax: '{{ route('admin.validasi-pembeli') }}',
+						ajax: '{{ route('admin.validasi-top-up') }}',
 
 						columns:[
 
@@ -292,8 +291,7 @@
 						{data: 'action', name: 'action',orderable: false},
 						{data: 'email', name:'email', visible: false},
 						{data: 'no_telp', name:'no_telp', visible: false},
-						{data: 'foto_bukti', name:'foto_bukti', visible: false},
-						{data: 'id_pelanggan', name:'id_pelanggan', visible: false}
+						{data: 'foto_bukti', name:'foto_bukti', visible: false}
 
 
 
@@ -303,7 +301,7 @@
 					$(document).on('click', '.lihat', function(){
 						var id = $(this).attr('id');
 						$.ajax({
-							url:"lihat-validasi-pembeli/"+id,
+							url:"lihat-top-up/"+id,
 							dataType:"json",
 							success:function(html){
 								$('#modalLihat').modal('show');
@@ -316,7 +314,7 @@
 								document.getElementById("jumlah_transfer").innerHTML = html.data.jumlah_transfer;
 								document.getElementById("nama_bank_pengirim").innerHTML = html.data.nama_bank_pengirim;
 
-								var img = "/Uploads/Konfirmasi_Pembayaran/JualBeli/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
+								var img = "/Uploads/Konfirmasi_Pembayaran/Lelang/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
 								$('#bukti2').attr("src",img);
 							}
 						})
@@ -328,7 +326,7 @@
 						var id = $(this).attr('id');
 						$('#form_konfirmasi').html('');
 						$.ajax({
-							url:"lihat-validasi-pembeli/"+id,
+							url:"lihat-top-up/"+id,
 							dataType:"json",
 							success:function(html){
 								$('#hidden_id2').val(html.data.id);
@@ -347,14 +345,13 @@
 						var id = $(this).attr('id');
 						$('#form_konfirmasi').html('');
 						$.ajax({
-							url:"lihat-validasi-pembeli/"+id,
+							url:"lihat-top-up/"+id,
 							dataType:"json",
 							success:function(html){
 								$('#hidden_id2').val(html.data.id);
 								$('#nama_pemilik_pengirim2').val(html.data.nama_pemilik_pengirim);
 								$('#foto_bukti2').val(html.data.foto_bukti);
 								$('#jumlah_transfer2').val(html.data.jumlah_transfer);
-								('#id_pelanggan2').val(html.data.id_pelanggan);
 								$('.modal-title2').text("Konfirmasi");
 								$('#action_button2').val("validasi");
 								$('#status2').val("3");
@@ -369,7 +366,7 @@
 						var id = $(this).attr('id');
 						$('#form_pesan').html('');
 						$.ajax({
-							url:"lihat-validasi-pembeli/"+id,
+							url:"lihat-top-up/"+id,
 							dataType:"json",
 							success:function(html){
 								$('#hidden_id3').val(html.data.id);
@@ -386,7 +383,7 @@
 						if($('#action2').val() == 'Tolak')
 						{
 							$.ajax({
-								url:"{{ route('admin.tolak-pembeli.update') }}",
+								url:"{{ route('admin.tolak-top-up.update') }}",
 								method:"POST",
 								data: new FormData(this),
 								contentType: false,
@@ -408,7 +405,7 @@
 						if($('#action2').val() == "Validasi")
 						{
 							$.ajax({
-								url:"{{ route('admin.validasi-pembeli.update') }}",
+								url:"{{ route('admin.validasi-top-up.update') }}",
 								method:"POST",
 								data: new FormData(this),
 								contentType: false,
