@@ -99,6 +99,17 @@ class  VerifikasiPembeliController extends Controller
 			// batalkan pesanan pembeli 9
 			// komplain dterima 1
 			
+			->addColumn('jumlah_transfer', function($data){
+				$rp = "Rp. ";
+				$jumlah_transfer = $rp. number_format($data->jumlah_transfer); 
+				return $jumlah_transfer;
+			})
+
+			->addColumn('created_at', function($data){
+				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				return $waktu;
+			})
+
 			->rawColumns(['action','status'])
 			->make(true);
 		}

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Mitra_koperasi;
 use DB;
 use DataTables;
+use Carbon;
 
 class MitraKoperasiController extends Controller
 {
@@ -18,7 +19,7 @@ class MitraKoperasiController extends Controller
 			return datatables()->of(Mitra_koperasi::latest()->get())
 			->addColumn('action', function($data){
 				$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
+				'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
 				$button .= '&nbsp;&nbsp;';
 				if ($data->status == "belum divalidasi") {
 					$button .= 
@@ -27,6 +28,17 @@ class MitraKoperasiController extends Controller
 
 				}
 				return $button;
+			})
+
+			->addColumn('jumlah_petani', function($data){
+				$petani = " petani";
+				$jumlah_petani = $data->jumlah_petani.$petani;
+				return $jumlah_petani;
+			})
+
+			->addColumn('created_at', function($data){
+				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				return $waktu;
 			})
 			
 			->rawColumns(['action'])

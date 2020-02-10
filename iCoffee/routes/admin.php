@@ -75,6 +75,7 @@ Route::post('/validasi-top-up/update', 'VerifikasiPembayaranLelangController@val
 
 Route::get('/proses-lelang', 'ProsesLelangController@prosesLelang')->name('proses-lelang');
 Route::get('/data-proses-lelang/{id}', 'ProsesLelangController@dataLelang');
+Route::get('/lihat-pemenang/{id}', 'ProsesLelangController@dataPemenang')->name('lihat-pemenang');
 
 
 

@@ -306,14 +306,21 @@
 							url:"lihat-validasi-pembeli/"+id,
 							dataType:"json",
 							success:function(html){
+
+								var rp = html.data.jumlah_transfer;
+
+								var	reverse = rp.toString().split('').reverse().join(''),
+								ribuan 	= reverse.match(/\d{1,3}/g);
+								ribuan	= ribuan.join('.').split('').reverse().join('');
+
 								$('#modalLihat').modal('show');
-								$('.modal-title').text("Detai Pembayaran");
+								$('.modal-title').text("Detail Pembayaran");
 								document.getElementById("invoice").innerHTML = html.data.invoice;
 								document.getElementById("nama_pemilik_pengirim").innerHTML = html.data.nama_pemilik_pengirim;
 								document.getElementById("email").innerHTML = html.data.email;
 								document.getElementById("no_telp").innerHTML = html.data.no_telp;
 								document.getElementById("no_rekening_pengirim").innerHTML = html.data.no_rekening_pengirim;
-								document.getElementById("jumlah_transfer").innerHTML = html.data.jumlah_transfer;
+								document.getElementById("jumlah_transfer").innerHTML = "Rp. "+ribuan;
 								document.getElementById("nama_bank_pengirim").innerHTML = html.data.nama_bank_pengirim;
 
 								var img = "/Uploads/Konfirmasi_Pembayaran/JualBeli/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
@@ -354,7 +361,6 @@
 								$('#nama_pemilik_pengirim2').val(html.data.nama_pemilik_pengirim);
 								$('#foto_bukti2').val(html.data.foto_bukti);
 								$('#jumlah_transfer2').val(html.data.jumlah_transfer);
-								('#id_pelanggan2').val(html.data.id_pelanggan);
 								$('.modal-title2').text("Konfirmasi");
 								$('#action_button2').val("validasi");
 								$('#status2').val("3");

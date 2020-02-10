@@ -99,164 +99,217 @@
 </div>
 
 <div id="modalLihat" class="modal fade" role="dialog">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-md">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Detail</h5>
+				<h5 class="modal-title">Detail Pencatatan</h5>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				<span id="form_lihat"></span>
+				
 				<div class="form-group">
 					<div class="form-group">
-						<label class="control-label col-md-4" >Foto : </label>
-						<div class="col-md-12">
-							
-							<div id="image">
-								<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
-									@for ($i = 0; $i < 5; $i++)
-									<img src="" id="{{$i}}" width="100px" height="100px"/>
-									@endfor
-								</a>
 
-								<div>   
-
-									<div>   
-										<div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
-											<div class="modal-dialog modal-sm">
-												<div class="modal-content">
-													<img class="modal-img" />
-												</div>
-											</div>
-										</div>
-									</div>
+						<div class="table-responsive">
+							<table cellpadding="10" border="0">
+								<tr>
 									<div class="form-group">
-										<label class="control-label col-md-4 mt-3" >Deskripsi : </label>
-										<div class="col-md-12">
-											<textarea type="text" id="detail_produk1" name="detail_produk" class="form-control" disabled></textarea>
-										</div>
+										<th width="13%" style="text-align: right;">Kode Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="kode_produk"></a></th>
+									</div>	
+								</tr>
+								<tr>
+									<div class="form-group">
+										<th width="13%" style="text-align: right;">Nama Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="nama_produk"></a></th>
+										
 									</div>
-									<br />
-									<div align="right">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+								</tr>
+								<tr>
+									<div class="form-group">
+										<th width="13%" style="text-align: right;">Harga Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="harga"></a></th>
+										
+									</div>
+								</tr>
+								<tr>
+									<div class="form-group">
+										<th width="13%" style="text-align: right;">Stok Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="stok"></a></th>
+										
+									</div>
+								</tr>
+								<tr>
+									<div class="form-group">
+										<th width="13%" style="text-align: right;">Detail Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="detail_produk"></a></th>
+										
+									</div>
+								</tr>
+
+								<tr>
+									<div class="form-group">
+										<th width="13%" style="text-align: right;">Foto Produk&nbsp;&nbsp;&nbsp;:</th>
+										
+										<th width="25%">
+											
+											<div id="image">
+												<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
+													@for ($i = 0; $i < 4; $i++)
+													<img src="" id="foto{{$i}}" width="100px" height="100px" style="margin-bottom: 5px;" />
+													@endfor
+												</a>
+
+												<div>   
+													<div>   
+														<div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
+															<div class="modal-dialog modal-sm">
+																<div class="modal-content">
+																	<img class="modal-img" />
+																</div>
+															</div>
+														</div>
+													</div>
+												</th>											
+											</tr>
+
+										</table>
 									</div>
 								</div>
 							</div>
+
+							<br />
+							<div align="right">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+							</div>
 						</div>
 					</div>
+				</div>
+			</div>
 
-					@endsection
-					@section('js')
-
-
-					<script>
-						$(document).ready(function(){
-							$('#table_id').DataTable({
-								dom: 'Bfrtip',
-								buttons: [
-								'copy', 'csv', 'excel', 'pdf', 'print'
-								],
-
-								oLanguage: {
-									"sProcessing":   "Sedang memproses ...",
-									"sLengthMenu":   "Tampilkan _MENU_ entri",
-									"sZeroRecords":  "Tidak ditemukan data yang sesuai",
-									"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-									"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
-									"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
-									"sInfoPostFix":  "",
-									"sSearch":       "Cari:",
-									"sUrl":          "",
-									"oPaginate": {
-										"sFirst":    "Pertama",
-										"sPrevious": "Sebelumnya",
-										"sNext":     "Selanjutnya",
-										"sLast":     "Terakhir"
-									}
-								},
+			@endsection
+			@section('js')
 
 
-								processing: true,
-								serverSide: true,
+			<script>
+				$(document).ready(function(){
+					$('#table_id').DataTable({
+						dom: 'Bfrtip',
+						buttons: [
+						'copy', 'csv', 'excel', 'pdf', 'print'
+						],
 
-								ajax: '{{ route('admin.jenis-produk') }}',
-
-								columns:[
-
-								{data: 'kode_produk', name:'kode_produk'},
-								{data: 'nama_produk', name:'nama_produk'},
-								{data: 'harga', name:'harga'},
-								{data: 'stok', name:'stok'},
-								{data: 'created_at', name:'created_at'},
-								{data: 'action', name: 'action',orderable: false},
-								{data: 'detail_produk', name:'detail_produk', visible: false},
-								{data: 'gambar', name:'gambar', visible: false}
-
-								]
-							});
-
-
-							$(document).on('click', '.lihat', function(){
-								var id = $(this).attr('id');
-								$('#form_lihat').html('');
-								$.ajax({
-									url:"lihat-produk/"+id,
-									dataType:"json",
-									success:function(html){
-										$('#detail_produk1').val(html.data.detail_produk);
+						oLanguage: {
+							"sProcessing":   "Sedang memproses ...",
+							"sLengthMenu":   "Tampilkan _MENU_ entri",
+							"sZeroRecords":  "Tidak ditemukan data yang sesuai",
+							"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+							"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+							"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+							"sInfoPostFix":  "",
+							"sSearch":       "Cari:",
+							"sUrl":          "",
+							"oPaginate": {
+								"sFirst":    "Pertama",
+								"sPrevious": "Sebelumnya",
+								"sNext":     "Selanjutnya",
+								"sLast":     "Terakhir"
+							}
+						},
 
 
-										var lihat = html.data_gambar;
-										var panjang = lihat.length;
+						processing: true,
+						serverSide: true,
 
-										for(var i = 0; i<panjang; i++){
-											var nama_gambar = lihat[i].nama_gambar;
-											var kode_produk = lihat[i].kode_produk;
-											var img = "/Uploads/Produk/{" + kode_produk  +"}/"+nama_gambar +"";
-											$("#"+i).attr("src",img);
+						ajax: '{{ route('admin.jenis-produk') }}',
 
-										}
+						columns:[
 
-										$('#modalLihat').modal('show');
+						{data: 'kode_produk', name:'kode_produk'},
+						{data: 'nama_produk', name:'nama_produk'},
+						{data: 'harga', name:'harga'},
+						{data: 'stok', name:'stok'},
+						{data: 'created_at', name:'created_at'},
+						{data: 'action', name: 'action',orderable: false},
+						{data: 'detail_produk', name:'detail_produk', visible: false},
+						{data: 'gambar', name:'gambar', visible: false}
 
-									}
-								})
-							});
+						]
+					});
 
+					$(document).on('click', '.lihat', function(){
+						var id = $(this).attr('id');
+						$.ajax({
+							url:"lihat-produk/"+id,
+							dataType:"json",
+							success:function(html){
+								var kg = html.data.stok+" kg";
+								var rp = html.data.harga;
 
+								var	reverse = rp.toString().split('').reverse().join(''),
+								ribuan 	= reverse.match(/\d{1,3}/g);
+								ribuan	= ribuan.join('.').split('').reverse().join('');
+								
 
-							var id_produk;
-							$(document).on('click', '.delete', function(){
-								id_produk = $(this).attr('id');
-								$('#confirmModal').modal('show');
-							});
+								$('#modalLihat').modal('show');
+								$('.modal-title').text("Detail Produk");
+								document.getElementById("nama_produk").innerHTML = html.data.nama_produk;
+								document.getElementById("harga").innerHTML = "Rp. "+ribuan;
+								document.getElementById("stok").innerHTML = kg;
+								document.getElementById("detail_produk").innerHTML = html.data.detail_produk;
+								document.getElementById("kode_produk").innerHTML = html.data.kode_produk;
 
-							$('#ok_button').click(function(){
-								$.ajax({
-									url:"hapus-produk/"+id_produk,
-									success:function(data)
-									{
-										setTimeout(function(){
-											$('#confirmModal').modal('hide');
-											$('#table_id').DataTable().ajax.reload();
-										}, 500);
-									}
-								})
-							});
+								var lihat = html.data_gambar;
+								var panjang = lihat.length;
 
-						});
+								for(var i = 0; i<panjang; i++){
+									var nama_gambar = lihat[i].nama_gambar;
+									var kode_produk = lihat[i].kode_produk;
+									var img = "/Uploads/Produk/{" + kode_produk  + "}/" + nama_gambar +"";
+									$("#foto"+i).attr("src",img);
 
-					</script>
+								}
 
-					<script>
-
-						$(function(){
-							$("#image img").on("click",function(){
-								var src = $(this).attr("src");
-								$(".modal-img").prop("src",src);
-							})
+							}
 						})
+					});
 
-					</script>
 
-					@stop
+
+
+
+					var id_produk;
+					$(document).on('click', '.delete', function(){
+						id_produk = $(this).attr('id');
+						$('#confirmModal').modal('show');
+					});
+
+					$('#ok_button').click(function(){
+						$.ajax({
+							url:"hapus-produk/"+id_produk,
+							success:function(data)
+							{
+								setTimeout(function(){
+									$('#confirmModal').modal('hide');
+									$('#table_id').DataTable().ajax.reload();
+								}, 500);
+							}
+						})
+					});
+
+				});
+
+			</script>
+
+			<script>
+
+				$(function(){
+					$("#image img").on("click",function(){
+						var src = $(this).attr("src");
+						$(".modal-img").prop("src",src);
+					})
+				})
+
+			</script>
+
+			@stop

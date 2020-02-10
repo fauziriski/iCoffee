@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use App\Shop_product;
 use App\Image;
+use Carbon;
 
 class JualBeliController extends Controller
 {
@@ -21,6 +22,23 @@ class JualBeliController extends Controller
 				$button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
 				return $button;
 			})
+			
+			->addColumn('created_at', function($data){
+				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				return $waktu;
+			})
+
+			->addColumn('stok', function($data){
+				$stok =  $data->stok." Kg"; 
+				return $stok;
+			})
+
+			->addColumn('harga', function($data){
+				$rp = "Rp. ";
+				$harga = $rp. number_format($data->harga); 
+				return $harga;
+			})
+
 			->rawColumns(['action'])
 			->make(true);
 		}
@@ -28,17 +46,6 @@ class JualBeliController extends Controller
 		return view('admin.jenis-produk');
 	}
 
-	// public function lihatProduk($id)
-	// {
-	// 	if(request()->ajax())
-	// 	{
-	// 		$data = Shop_product::findOrFail($id);
-	// 		return response()->json(['data' => $data]);
-
-
-	// 	}
-	// }
-	
 
 	public function lihatProduk($id)
 	{
