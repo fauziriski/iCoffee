@@ -56,10 +56,26 @@ Route::get('/data-investor/{id}', 'ValidasiInvestorController@idInvestor')->name
 Route::post('/tolak-investor/update', 'ValidasiInvestorController@tolakInvestor')->name('tolak-investor.update');
 Route::post('/validasi-investor/update', 'ValidasiInvestorController@validasiInvestor')->name('validasi-investor.update');
 
+Route::get('/validasi-pembeli', 'VerifikasiPembeliController@dataOrder')->name('validasi-pembeli');
+Route::get('/lihat-validasi-pembeli/{id}', 'VerifikasiPembeliController@lihatOrder')->name('lihat-validasi-pembeli');
+Route::post('/tolak-pembeli/update', 'VerifikasiPembeliController@tolakOrder')->name('tolak-pembeli.update');
+Route::post('/validasi-pembeli/update', 'VerifikasiPembeliController@validasiOrder')->name('validasi-pembeli.update');
+
+Route::get('/validasi-pembeli-lelang', 'VerifikasiPembayaranLelangController@dataOrderLelang')->name('validasi-pembeli-lelang');
+Route::get('/lihat-validasi-lelang/{id}', 'VerifikasiPembayaranLelangController@lihatOrderLelang')->name('lihat-validasi-lelang');
+Route::post('/tolak-lelang/update', 'VerifikasiPembayaranLelangController@tolakOrderLelang')->name('tolak-lelang.update');
+Route::post('/validasi-lelang/update', 'VerifikasiPembayaranLelangController@validasiOrderLelang')->name('validasi-lelang.update');
+
+Route::get('/validasi-top-up', 'VerifikasiPembayaranLelangController@dataTopUp')->name('validasi-top-up');
+Route::get('/lihat-top-up/{id}', 'VerifikasiPembayaranLelangController@lihatTopUp')->name('lihat-top-up');
+Route::post('/tolak-top-up/update', 'VerifikasiPembayaranLelangController@tolakTopUp')->name('tolak-top-up.update');
+Route::post('/validasi-top-up/update', 'VerifikasiPembayaranLelangController@validasiTopUp')->name('validasi-top-up.update');
+
 
 
 Route::get('/proses-lelang', 'ProsesLelangController@prosesLelang')->name('proses-lelang');
 Route::get('/data-proses-lelang/{id}', 'ProsesLelangController@dataLelang');
+Route::get('/lihat-pemenang/{id}', 'ProsesLelangController@dataPemenang')->name('lihat-pemenang');
 
 
 

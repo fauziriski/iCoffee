@@ -19,7 +19,7 @@
             <div class="list-group list-group-flush">
               <a href="{{url('/pasang-jualbeli')}}" class="list-group-item"><span class="icon icon-tags"></span>&nbsp;&nbsp; Pasang Produk</a>
               <a href="{{url('/jual-beli/transaksi')}}" class="list-group-item"><span class="oi oi-loop"></span>&nbsp;&nbsp; Transaksi</a>
-              <a href="{{url('tranksaksi-jual')}}" class="list-group-item"><span><i class="fas fa-th-large" aria-hidden="true"></i></span>&nbsp;&nbsp; Produk Anda</a>
+              <a href="{{url('/profil/produk')}}" class="list-group-item"><span><i class="fas fa-th-large" aria-hidden="true"></i></span>&nbsp;&nbsp; Produk Anda</a>
               <a href="{{url('/jual-beli/konfirmasi')}}" class="list-group-item"><span><i class="fas fa-handshake" aria-hidden="true"></i></span>&nbsp; Konfirmasi Pembayaran </a>
             </div> 
           </div>
@@ -29,8 +29,9 @@
           <div class="filter-content">
             <div class="list-group list-group-flush">
               <a href="{{url('/pasang-lelang')}}" class="list-group-item"><span class="icon icon-timer"></span>&nbsp;&nbsp; Pasang Lelang</a>
-              <a href="{{url('riwayat-lelang')}}" class="list-group-item"><span class="oi oi-list"></span>&nbsp;&nbsp; Riwayat Lelang</a>
+              <a href="{{url('/lelang/transaksi')}}" class="list-group-item"><span class="oi oi-list"></span>&nbsp;&nbsp; Riwayat Lelang</a>
               <a href="{{url('/jual-beli/konfirmasi/lelang')}}" class="list-group-item"><span><i class="fas fa-handshake" aria-hidden="true"></i></span>&nbsp; Konfirmasi Pembayaran </a>
+              <a href="{{url('/profil/konfirmasi/top_up')}}" class="list-group-item"><span><i class="" aria-hidden="true"><iconify-icon data-icon="ion-server-sharp"></iconify-icon></i></span>&nbsp; Konfirmasi Top Up </a>
             </div>
           </div>
         </article> 

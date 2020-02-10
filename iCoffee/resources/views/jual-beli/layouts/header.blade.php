@@ -60,7 +60,7 @@
               <i class="ion-ios-card mr-3"></i>Rp {{ number_format(Auth::user()->joint_accounts->saldo) }}
              </a>
 
-             <a class="dropdown-item" href="#">
+             <a class="dropdown-item" href="/profil/top_up">
               <i class="mr-2"><iconify-icon data-icon="ion-server-sharp"></iconify-icon></i> Top Up Saldo
              </a>
             

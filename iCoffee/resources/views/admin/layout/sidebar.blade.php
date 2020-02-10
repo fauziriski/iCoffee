@@ -102,8 +102,6 @@
             <a class="collapse-item" href="{{url('jenis-produk')}}">Pembelian Aset</a>
             <a class="collapse-item" href="{{url('jenis-produk')}}">Lain-lain</a>
             <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Laporan :</h6>
-            <a class="collapse-item" href="{{url('laporan-penjualan')}}">Laporan Pengeluaran</a>
           </div>
         </div>
       </li>
@@ -262,12 +260,9 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Kelola Jual-Beli :</h6>
-            <a class="collapse-item" href="{{ url('akses-admin/validasi-pembeli')}}">Validasi Pembeli</a>
+            <a class="collapse-item" href="{{ url('akses-admin/validasi-pembeli')}}">Validasi Pembayaran</a>
             <a class="collapse-item" href="{{url('akses-admin/jenis-produk')}}">Jenis Produk</a>
             <a class="collapse-item" href="{{url('akses-admin/kategori-produk')}}">Kategori Produk</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Laporan :</h6>
-            <a class="collapse-item" href="{{url('akses-admin/laporan-penjualan')}}">Laporan Penjualan</a>
           </div>
         </div>
       </li>
@@ -289,11 +284,10 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Kelola Lelang :</h6>
+            <a class="collapse-item" href="{{ url('akses-admin/validasi-pembeli-lelang')}}">Validasi Pembayaran</a>
+            <a class="collapse-item" href="{{ url('akses-admin/validasi-top-up')}}">Validasi Top-Up</a>
             <a class="collapse-item" href="{{ url('akses-admin/validasi-produk-lelang')}}">Validasi Produk</a>
             <a class="collapse-item" href="{{url('akses-admin/proses-lelang')}}">Proses Lelang</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Laporan :</h6>
-            <a class="collapse-item" href="{{url('laporan-lelang')}}">Laporan Lelang</a>
           </div>
         </div>
       </li>
@@ -324,10 +318,6 @@
             <a class="collapse-item" href="{{url('pencairan-investasi')}}">Pencairan Investasi</a>
             <h6 class="collapse-header">Kelola Investor :</h6>
             <a class="collapse-item" href="{{url('akses-admin/validasi-investor')}}">Validasi Investor</a>
-
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Laporan :</h6>
-            <a class="collapse-item" href="{{url('laporan-investasi')}}">Laporan Investasi</a>
           </div>
         </div>
       </li>

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Kelompok_tani;
 use DB;
 use DataTables;
-
+use Carbon;
 
 class MitraKelompokController extends Controller
 {
@@ -28,6 +28,17 @@ class MitraKelompokController extends Controller
 
 				}
 				return $button;
+			})
+
+			->addColumn('jumlah_petani', function($data){
+				$petani = " petani";
+				$jumlah_petani = $data->jumlah_petani.$petani;
+				return $jumlah_petani;
+			})
+
+			->addColumn('created_at', function($data){
+				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				return $waktu;
 			})
 			
 			->rawColumns(['action'])

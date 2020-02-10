@@ -29,13 +29,18 @@ class ProsesLelangController extends Controller
 			})
 
 
-			// ->addColumn('waktu', function($data){
-			// 	$waktu = '<p id="'.$data->id.'" name="'.$data->id.'"></p>';
+			->addColumn('stok', function($data){
+				$stok =  $data->stok." Kg"; 
+				return $stok;
+			})
 
-			// 	return $waktu;
-			// })
-			
-			->rawColumns(['action'])
+			->addColumn('harga_awal', function($data){
+				$rp = "Rp. ";
+				$harga_awal = $rp. number_format($data->harga_awal); 
+				return $harga_awal;
+			})
+
+			->rawColumns(['action','stok','harga_awal'])
 			->make(true);
 		}
 
@@ -57,23 +62,35 @@ class ProsesLelangController extends Controller
 
 			return datatables()->of($data_proses)
 
-			
+			->addColumn('penawaran', function($data){
+				$rp = "Rp. ";
+				$penawaran = $rp. number_format($data->penawaran); 
+				return $penawaran;
+			})
 			->make(true);
-
 		}
-			// $data = Auction_product::find($id);
-			// $data_gambar = Auction_image::where('id_produk', $data->id)->get();
 
-			// $data_proses = Auction_process::where('id_produk', $data->id)->get();
-// $data = Auction_product::find($id);
-// 			$data_proses = Auction_process::where('id_produk', $data->id)->get();
-// 			return response()->json([
-// 				'data_proses' => $data_proses,
-// 			]);
-		
-		// $data = Auction_product::find($id);
-		// $data_proses = Auction_process::where('id_produk', $data->id)->get();
-		// return view('admin.proses-lelang', compact('data_proses'));
+	}
+
+	public function dataPemenang($id)
+	{
+		if(request()->ajax()){
+
+			$data = Auction_process::find($id);
+			$penawaran = Auction_process::max('penawaran');
+			$pemenang = Auction_process::where('penawaran',$penawaran)->first();
+			$produk = Auction_product::where('id',$pemenang->id_produk)->first();
+			$data_gambar = Auction_image::where('id_produk', $data->id)->get();
+
+			return response()->json([
+				'data' => $data,
+				'pemenang' => $pemenang,
+				'produk' => $produk,
+				'data_gambar' => $data_gambar,
+
+			]);
+		}
+
 	}
 
 }

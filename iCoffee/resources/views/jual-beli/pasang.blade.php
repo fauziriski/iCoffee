@@ -67,19 +67,18 @@
               </div>
             </div>
 
-            <div class="col-md-12">
-              <div class="form-group">
-
-                @for ($i = 0; $i < 5; $i++)
-
-                  <input type="file" name="image[]" class="form-control-file" >
-                @endfor
-
+            @for ($i = 0; $i < 5; $i++)
+            <div class="col-md-7">
+            <div class="form-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" name="image[]" id="inputGroupFile02"/>
+                <label class="custom-file-label" for="inputGroupFile02">Upload Foto Produk</label>
+              </div>
             </div>
           </div>
-
+            @endfor
             <div class="col-md-12 mt-3">
-                <button type="submit" class="btn btn-primary float-right py-3 px-4">Pasang Produk</button>
+              <button type="submit" class="btn btn-primary float-right py-3 px-4">Pasang Produk</button>
             </div>
 
 
@@ -92,4 +91,12 @@
 </div><!-- tutup side -->
 </div>
 </section>
+@endsection
+@section('js')
+<script>
+  $('#inputGroupFile02').on('change',function(){
+            var fileName = $(this).val();
+            $(this).next('.custom-file-label').html(fileName);
+          });
+</script>
 @endsection

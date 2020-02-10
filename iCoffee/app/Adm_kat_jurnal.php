@@ -8,6 +8,8 @@ class Adm_kat_jurnal extends Model
 {
 	protected $table = 'adm_kat_jurnal';
 
+	protected $primarykey='id';
+
 	protected $fillable = ['nama_kat','kode_kat'];
 
 	public $timestamps = true;

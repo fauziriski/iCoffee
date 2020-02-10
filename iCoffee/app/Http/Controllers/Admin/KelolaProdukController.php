@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use App\Category;
 use Validator;
+use Carbon;
 
 
 class KelolaProdukController extends Controller
@@ -23,7 +24,13 @@ class KelolaProdukController extends Controller
                 $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
                 return $button;
             })
-            ->rawColumns(['action'])
+
+            ->addColumn('updated_at', function($data){
+                $waktu =  Carbon::parse($data->updated_at)->toDayDateTimeString(); 
+                return $waktu;
+            })
+
+            ->rawColumns(['action','updated_at'])
             ->make(true);
         }
 
@@ -32,14 +39,14 @@ class KelolaProdukController extends Controller
 
     public function store(Request $request)
     {
-     $rules = array(
+       $rules = array(
         'kategori' =>  'required',
     );
 
-     $error = Validator::make($request->all(), $rules);
+       $error = Validator::make($request->all(), $rules);
 
-     if($error->fails())
-     {
+       if($error->fails())
+       {
         return response()->json(['errors' => $error->errors()->all()]);
     }
 

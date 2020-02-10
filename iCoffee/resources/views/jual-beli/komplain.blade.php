@@ -5,7 +5,7 @@
 <div class="col-md-9">
  <div class="card">
    <article class="card-group-item">
-    <header class="card-header"><h6 class="title">Tambah Alamat</h6></header>
+    <header class="card-header"><h6 class="title">Komplain Barang</h6></header>
     <form action="/jual-beli/pesanan/komplain" method="post"  enctype="multipart/form-data">
       @csrf
       <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">

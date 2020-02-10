@@ -43,7 +43,23 @@
     					<strong>Metode Pembayaran :</strong><br>
     					{{ $bank_information->bank_name }} {{ $bank_information->no_rekening }}<br>
 
-    				</address>
+					</address>
+					
+					@if (!($order->status == 1 || 2 || 8 || 3))
+						<address>
+							<strong>No Resi :</strong><br>
+						{{$kurir[1]}} {{ $cek_resi->invoice }}<br>
+
+						</address>
+					@else
+					<address>
+						<strong>No Resi :</strong><br>
+							
+
+					</address>
+
+					
+					@endif
     			</div>
     			<div class="col-md-3 col-6">
     				<address>
@@ -168,7 +184,7 @@
                 </div>
                 <div class="panel-body mt-3 float-right">
 					@if ( $order->status == 5)
-						<form action="/jual-beli/pesanan/terima" method="post">
+						<form action="/lelang/pesanan/selesai" method="post">
 							@csrf
 							<input type="hidden" name="id" required value="{{ $order->id }}">
                             <input type="hidden" name="invoice" required value="{{ $order->invoice }}">

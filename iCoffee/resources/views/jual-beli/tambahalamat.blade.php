@@ -21,7 +21,7 @@
               <div class="form-group">
                 <label for="handphoe">No Handphone</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="" placeholder="08123456789" name="no_hp" required>
+                  <input type="number" class="form-control" id="" placeholder="" name="no_hp" required>
                   <span class="text-danger">{{$errors->first('stok')}}</span>
                 </div>
               </div>
@@ -55,7 +55,7 @@
                 <div class="form-group">
                   <label for="stok">Kecamatan</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="" placeholder="Tanjung Pinang" name="kecamatan" required>
+                    <input type="text" class="form-control" id="" placeholder="" name="kecamatan" required>
                     <span class="text-danger">{{$errors->first('kecamatan')}}</span>
                   </div>
                 </div>
@@ -65,7 +65,7 @@
                 <div class="form-group">
                   <label for="stok">Kode Pos</label>
                   <div class="input-group">
-                    <input type="number" class="form-control" id="" placeholder="35198" name="kode_pos" required>
+                    <input type="number" class="form-control" id="" placeholder="" name="kode_pos" required>
                     <span class="text-danger">{{$errors->first('kode_pos')}}</span>
                   </div>
                 </div>
@@ -74,7 +74,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="deskripsi">Alamat</label>
-                  <textarea class="form-control" rows="5" type="text" name="alamat" placeholder="Jl. Pagar Alam (Gang PU) No.44" required></textarea>
+                  <textarea class="form-control" rows="5" type="text" name="alamat" placeholder="" required></textarea>
                   <span class="text-danger">{{$errors->first('alamat')}}</span>
                 </div>
               </div>

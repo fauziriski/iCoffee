@@ -37,8 +37,8 @@
 									<p>{{ $data->shop_product->user->name }}</p>
 						        </td>
 						        
-						        <td class="price">Rp {{ number_format($data->harga) }}</td>
-						        <input type="hidden" id="harga" name="harga[]" value="{{ $data->harga }}" readonly>
+						        <td class="price">Rp {{ number_format($data->harga,0,",",".") }}</td>
+						        <input type="hidden" id="harga{{ $data->id }}" name="harga[]" value="{{ $data->harga }}" readonly>
 								
 								
 
@@ -48,14 +48,14 @@
 
 										<div class="input-group mb-3">
 											<span class="input-group-btn mr-2">
-												<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
+												<button type="button" class="quantity-left-minus btn"  value="{{ $data->id }}"  data-type="minus" data-field="">
 												<i class="ion-ios-remove"></i>
 												</button>
 											</span>
 								
-											<input type="text" id="{{ $data->id }}" name="quantity[]" class="form-control input-number" required value="{{ $data->jumlah }}" min="1" max="100">
+											<input type="text" id="qty{{ $data->id }}" name="quantity[]" class="qty form-control input-number" required value="{{ $data->jumlah }}" min="1" max="100">
 											<span class="input-group-btn ml-2">
-												<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+												<button type="button" class="quantity-right-plus btn" value="{{ $data->id }}" data-type="plus" data-field="">
 												<i class="ion-ios-add"></i>
 											</button>
 											</span>
@@ -63,7 +63,7 @@
 									</form>
 					          </td>
 						        
-								<td class="total"><output name="total" for="harga jumlah">Rp {{ number_format($data->total) }}</output></td>
+								<td class="total"><output name="total" id="total{{ $data->id }}" for="harga jumlah">Rp {{ number_format($data->total,0,",",".") }}</output></td>
 								<td class="product-remove"><a href="/jual-beli/keranjang/hapus/{{ $data->id }}"><span class="oi oi-trash"></span></a></td>
 							  </tr><!-- END TR-->
 							  
@@ -117,7 +117,7 @@
     				<div class="cart-total mb-3">
     					<p class="d-flex total-price">
     						<span>Sub Total ({{ $carttotal }}) Produk</span>
-							<span>Rp {{ number_format($subtotal) }}</span>
+							<span id="sub_total">Rp {{ number_format($subtotal,0,",",".") }}</span>
     					</p>
     				</div>
 					{{-- <p><a href="/jual-beli/checkout" class="btn btn-primary py-2 px-5">Checkout</a></p> --}}
@@ -135,53 +135,59 @@
 @endsection
 @section('js')
 	
-@foreach ($keranjang as $data)
 	
 
 <script>
 	$(document).ready(function(){
-  
+	var  u = {!!json_encode($subtotal)!!};
+	
 	var quantitiy=0;
 	   $('.quantity-right-plus').click(function(e){
-		
-		// Stop acting like a button
-		e.preventDefault();
-		// Get the field name
-		var quantity = parseInt($('#{!!json_encode($data->id)!!}').val());
-		
-		// If is not undefined
-		  
-		  $('#{!!json_encode($data->id)!!}').val(quantity + 1);
-  
-		  var data = $('.form-user').serialize();
+		var y = $(this).val();
+		var z = $('#qty'+y).val();
+		var x = $('#total'+y).val();
+		var w = $('#harga'+y).val();
+		var v = parseInt(w)+parseInt(u);
   
 		  $.ajax({
-			  type: 'POST',
-			  url: "/jual-beli/update-keranjang",
-			  data: data
-			  // success: function() {
-			  //   $('.tampildata').load("tampil.php");
-			  // }
+			  type: 'GET',
+			  url: "/jual-beli/update-keranjang/"+y+"/plus",
+			  data: "id=y&type=jumlah",
+			  success: function(data) {
+			    $('#qty'+y).replaceWith('<input type="text" id="qty'+ y +'" name="quantity[]" class="qty form-control input-number" required value="'+ data.jumlah +'" min="1" max="100">');
+				$('#total'+y).replaceWith('<output name="total" id="total'+ y +'" for="harga jumlah">Rp '+ data.total.toLocaleString("id-ID") +'</output>');
+				$('#sub_total').replaceWith('<span id="sub_total">Rp '+ v.toLocaleString("id-ID") +' </span>');
+				u = v;
+			  }
 		  });
 		
 	  });
   
 	   $('.quantity-left-minus').click(function(e){
-		// Stop acting like a button
-		e.preventDefault();
-		// Get the field name
-		var quantity = parseInt($('#quantity').val());
 		
-		// If is not undefined
+
+		var y = $(this).val();
+		var z = $('#qty'+y).val();
+		var w = $('#harga'+y).val();
+		var v = parseInt(u)-parseInt(w);
 		
-		  // Increment
-		  if(quantity>0){
-		  $('#quantity').val(quantity - 1);
-		  }
+  
+		  $.ajax({
+			  type: 'GET',
+			  url: "/jual-beli/update-keranjang/"+y+"/minus",
+			  data: "id=y&type=jumlah",
+			  success: function(data, tombol) {
+	 
+				$('#qty'+y).replaceWith('<input type="text" id="qty'+ y +'" name="quantity" class="qty form-control input-number" required value="'+ data.jumlah +'" min="1" max="100">');
+				$('#total'+y).replaceWith('<output name="total" id="total'+ y +'" for="harga jumlah">Rp '+ data.total.toLocaleString("id-ID") +'</output>');
+				$('#sub_total').replaceWith('<span id="sub_total">Rp '+ v.toLocaleString("id-ID") +' </span>');
+				u = v;
+			  }
+		  });
+		
 	  });
 	  
 	});
   </script>
-@endforeach
 
   @stop

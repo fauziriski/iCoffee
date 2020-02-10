@@ -11,6 +11,7 @@ use App\Auction_product;
 use App\Auction_process;
 use App\Auction_winner;
 use App\Auction_image;
+use App\Joint_account;
 
 class ProdukLelangController extends Controller
 {
@@ -219,6 +220,18 @@ class ProdukLelangController extends Controller
     public function tawar(Request $request)
     {
         $id_pelanggan = Auth::user()->id;
+
+        $produk = Auction_product::where('id', $request->id_produk)->first();
+        $cek_saldo = Joint_account::where('user_id', $id_pelanggan)->first();
+
+        $lima_persen = 5/100*$produk->harga_awal;
+
+        if($cek_saldo->saldo < $lima_persen)
+        {
+            return response()->json(['response' => 'Saldo', 'data' => $request]);
+        }
+
+
 
         if($request->id_pelelang == $id_pelanggan){
 

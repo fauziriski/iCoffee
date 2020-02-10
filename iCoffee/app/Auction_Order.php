@@ -14,10 +14,16 @@ class Auction_Order extends Model
     ];
 
     public $timestamps = true;
+    protected $primaryKey = 'id';
 
     public function auction_products()
     {
         return $this->belongsTo('App\Auction_product', 'id_produk');
+    }
+
+    public function auction_delivery()
+    {
+        return $this->hasOne('App\Auction_delivery');
     }
 
     public function addresses_penjual()

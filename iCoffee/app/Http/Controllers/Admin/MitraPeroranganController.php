@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Mitra_perorangan;
 use DB;
 use DataTables;
+use Carbon;
 
 
 class MitraPeroranganController extends Controller
@@ -30,6 +31,17 @@ class MitraPeroranganController extends Controller
 				return $button;
 			})
 			
+			->addColumn('jumlah_petani', function($data){
+				$petani = " petani";
+				$jumlah_petani = $data->jumlah_petani.$petani;
+				return $jumlah_petani;
+			})
+
+			->addColumn('created_at', function($data){
+				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				return $waktu;
+			})
+
 			->rawColumns(['action'])
 			->make(true);
 		}
