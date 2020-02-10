@@ -53,6 +53,14 @@ class MitraController extends Controller
     public function produkDetail($kode_produk)
     {
         $produk = Invest_product::where('kode_produk',$kode_produk)->first();
-        return view('investasi.mitra.detail')->with('produk',$produk);
+        $dana = invest_order::where('status',2)->where('id_produk',$produk->id)->get(['total','qty']);
+        $total = 0;
+        $qty = 0;
+        for($i=0;$i<count($dana);$i++){
+            $total += $dana[$i]->total;
+            $qty += $dana[$i]->qty;
+        }
+        $investor = invest_order::where('id_produk',$produk->id)->where('status',2)->distinct()->count('id_investor');
+        return view('investasi.mitra.detail')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('qty',$qty);
     }
 }
