@@ -8,6 +8,7 @@ use App\Investor;
 use App\User;
 use DB;
 use DataTables;
+use Carbon;
 
 class ValidasiInvestorController extends Controller
 {
@@ -45,6 +46,11 @@ class ValidasiInvestorController extends Controller
 
 				return $status;
 			})
+
+			->addColumn('created_at', function($data){
+				$created_at =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				return $created_at;
+			})
 			
 			->rawColumns(['action','status'])
 			->make(true);
@@ -79,7 +85,7 @@ class ValidasiInvestorController extends Controller
 		return response()->json(['success' => 'Berhasil Ditolak']);
 	}
 
-		public function validasiInvestor(Request $request)
+	public function validasiInvestor(Request $request)
 	{
 
 		$form_data = array(

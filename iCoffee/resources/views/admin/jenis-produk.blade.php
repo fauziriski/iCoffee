@@ -99,7 +99,7 @@
 </div>
 
 <div id="modalLihat" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-md">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Detail Pencatatan</h5>
@@ -114,34 +114,34 @@
 							<table cellpadding="10" border="0">
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Terpasang Pada&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="created_at"></a></th>
+										<th width="13%" style="text-align: right;">Kode Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="kode_produk"></a></th>
 									</div>	
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Nama Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="13%" style="text-align: right;">Nama Produk&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="nama_produk"></a></th>
 										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Harga Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="13%" style="text-align: right;">Harga Produk&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="harga"></a></th>
 										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Stok Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="13%" style="text-align: right;">Stok Produk&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="stok"></a></th>
 										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Detail Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="13%" style="text-align: right;">Detail Produk&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="detail_produk"></a></th>
 										
 									</div>
@@ -149,14 +149,14 @@
 
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Foto Produk&nbsp;&nbsp;&nbsp;:</th>
+										<th width="13%" style="text-align: right;">Foto Produk&nbsp;&nbsp;&nbsp;:</th>
 										
 										<th width="25%">
 											
 											<div id="image">
 												<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
 													@for ($i = 0; $i < 4; $i++)
-													<img src="" id="foto{{$i}}" width="100px" height="100px"/>
+													<img src="" id="foto{{$i}}" width="100px" height="100px" style="margin-bottom: 5px;" />
 													@endfor
 												</a>
 
@@ -170,7 +170,7 @@
 															</div>
 														</div>
 													</div>
-												</th>												
+												</th>											
 											</tr>
 
 										</table>
@@ -252,12 +252,12 @@
 								
 
 								$('#modalLihat').modal('show');
-								$('.modal-title').text("Detai Produk");
+								$('.modal-title').text("Detail Produk");
 								document.getElementById("nama_produk").innerHTML = html.data.nama_produk;
 								document.getElementById("harga").innerHTML = "Rp. "+ribuan;
 								document.getElementById("stok").innerHTML = kg;
 								document.getElementById("detail_produk").innerHTML = html.data.detail_produk;
-								document.getElementById("created_at").innerHTML = html.data.created_at;
+								document.getElementById("kode_produk").innerHTML = html.data.kode_produk;
 
 								var lihat = html.data_gambar;
 								var panjang = lihat.length;

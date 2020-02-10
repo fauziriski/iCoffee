@@ -314,7 +314,7 @@
 								ribuan	= ribuan.join('.').split('').reverse().join('');
 
 								$('#modalLihat').modal('show');
-								$('.modal-title').text("Detai Pembayaran");
+								$('.modal-title').text("Detail Pembayaran");
 								document.getElementById("invoice").innerHTML = html.data.invoice;
 								document.getElementById("nama_pemilik_pengirim").innerHTML = html.data.nama_pemilik_pengirim;
 								document.getElementById("email").innerHTML = html.data.email;
@@ -361,7 +361,6 @@
 								$('#nama_pemilik_pengirim2').val(html.data.nama_pemilik_pengirim);
 								$('#foto_bukti2').val(html.data.foto_bukti);
 								$('#jumlah_transfer2').val(html.data.jumlah_transfer);
-								('#id_pelanggan2').val(html.data.id_pelanggan);
 								$('.modal-title2').text("Konfirmasi");
 								$('#action_button2').val("validasi");
 								$('#status2').val("3");

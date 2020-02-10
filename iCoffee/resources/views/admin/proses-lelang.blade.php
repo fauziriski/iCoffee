@@ -124,7 +124,7 @@
 
 
 <div id="modalLihat" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-md">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Detail Produk</h5>
@@ -139,47 +139,52 @@
 							<table cellpadding="10" border="0">
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Nama Pemenang&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="13%" style="text-align: right;">Nama Pemenang&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="nama_pemenang"></a></th>
 										
+										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Harga Tawaran&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="13%" style="text-align: right;">Harga Tawaran&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="penawaran2"></a></th>
 										
+										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Nama Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="13%" style="text-align: right;">Nama Produk&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="nama_produk2"></a></th>
 										
-									</div>
-								</tr>
-								<tr>
-									<div class="form-group">
-										<th width="10%" style="text-align: right;">Harga Awal&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="harga_awal2"></a></th>
 										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Berat Produk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="13%" style="text-align: right;">Harga Awal&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="harga_awal2"></a></th>
+										
+										
+									</div>
+								</tr>
+								<tr>
+									<div class="form-group">
+										<th width="13%" style="text-align: right;">Berat Produk&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="stok2"></a></th>
+										
 
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="10%" style="text-align: right;">Foto Produk&nbsp;&nbsp;&nbsp;:</th>				
+										<th width="13%" style="text-align: right;">Foto Produk&nbsp;&nbsp;&nbsp;:</th>				
 										<th width="25%">	
 											<div id="image">
 												<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
 													@for ($i = 0; $i < 4; $i++)
-													<img src="" id="foto{{$i}}" width="100px" height="100px"/>
+													<img src="" id="foto{{$i}}" width="100px" height="100px" style="margin-bottom: 5px;" />
 													@endfor
 												</a>
 												<div>   
@@ -192,7 +197,7 @@
 															</div>
 														</div>
 													</div>
-												</th>												
+												</th>											
 											</tr>
 										</table>
 									</div>

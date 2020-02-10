@@ -312,7 +312,7 @@
 								ribuan	= ribuan.join('.').split('').reverse().join('');
 
 								$('#modalLihat').modal('show');
-								$('.modal-title').text("Detai Pembayaran");
+								$('.modal-title').text("Detail Pembayaran");
 								document.getElementById("invoice").innerHTML = html.data.invoice;
 								document.getElementById("nama_pemilik_pengirim").innerHTML = html.data.nama_pemilik_pengirim;
 								document.getElementById("email").innerHTML = html.data.email;

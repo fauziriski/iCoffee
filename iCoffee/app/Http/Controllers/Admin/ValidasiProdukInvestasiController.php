@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use App\Invest_product;
 use App\Invest_product_image;
+use Carbon;
 
 class ValidasiProdukInvestasiController extends Controller
 {
@@ -51,6 +52,43 @@ class ValidasiProdukInvestasiController extends Controller
 				}
 
 				return $status;
+			})
+
+			->addColumn('stok', function($data){
+				$stok =  $data->stok." Unit"; 
+				return $stok;
+			})
+
+			->addColumn('harga', function($data){
+				$rp = "Rp. ";
+				$unit = " /Unit";
+				$harga = $rp. number_format($data->harga).$unit; 
+				return $harga;
+			})
+
+			->addColumn('periode', function($data){
+				$th = " Tahun";
+				$periode = $data->periode.$th; 
+				return $periode;
+			})
+
+			->addColumn('profit_periode', function($data){
+				$th = " Tahun";
+				$profit_periode = $data->profit_periode.$th; 
+				return $profit_periode;
+			})
+
+			->addColumn('roi', function($data){
+				$ambil = $data->roi;
+				$sen = "%";
+				$roi = $ambil.$sen;
+
+				return $roi;
+			})
+
+			->addColumn('created_at', function($data){
+				$created_at =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				return $created_at;
 			})
 			
 			->rawColumns(['action','status'])

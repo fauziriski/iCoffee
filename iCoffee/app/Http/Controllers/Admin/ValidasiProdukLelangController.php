@@ -9,7 +9,7 @@ use App\Auction_product;
 use App\Auction_image;
 use App\Auction_process;
 use App\User;
-
+use Carbon;
 
 
 class ValidasiProdukLelangController extends Controller
@@ -64,12 +64,14 @@ class ValidasiProdukLelangController extends Controller
 			})
 
 			->addColumn('harga_awal', function($data){
-				$harga_awal =  number_format($data->harga_awal); 
+				$rp = "Rp. ";
+				$harga_awal = $rp. number_format($data->harga_awal); 
 				return $harga_awal;
 			})
 
 			->addColumn('kelipatan', function($data){
-				$kelipatan =  number_format($data->kelipatan); 
+				$rp = "Rp. ";
+				$kelipatan = $rp. number_format($data->kelipatan); 
 				return $kelipatan;
 			})
 
@@ -80,8 +82,13 @@ class ValidasiProdukLelangController extends Controller
 
 				return $lama_lelang;
 			})
+
+			->addColumn('created_at', function($data){
+				$created_at =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				return $created_at;
+			})
 			
-			->rawColumns(['action','status','lama_lelang','stok','harga_awal','kelipatan'])
+			->rawColumns(['action'])
 			->make(true);
 		}
 
