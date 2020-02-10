@@ -63,4 +63,9 @@ class MitraController extends Controller
         $investor = invest_order::where('id_produk',$produk->id)->where('status',2)->distinct()->count('id_investor');
         return view('investasi.mitra.detail')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('qty',$qty);
     }
+
+    public function pengajuanDana()
+    {
+        
+    }
 }

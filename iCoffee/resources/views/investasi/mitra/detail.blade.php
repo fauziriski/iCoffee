@@ -190,7 +190,7 @@
 						</a>
 					  </div>
 					  <div class="card-footer text-center">
-						<a class="m-0 small text-primary card-link" href="#">View More <i
+						<a class="m-0 small text-success card-link" href="#">View More <i
 							class="fas fa-chevron-right"></i></a>
 					  </div>
 					</div>
