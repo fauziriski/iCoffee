@@ -8,6 +8,7 @@ use Illuminate\support\Facades\DB;
 use App\Auction_product;
 use App\Auction_image;
 use App\Auction_process;
+use App\User;
 
 
 
@@ -56,15 +57,31 @@ class ValidasiProdukLelangController extends Controller
 				return $status;
 			})
 
-			->addColumn('lama_hari', function($data){
+
+			->addColumn('stok', function($data){
+				$stok =  $data->stok." Kg"; 
+				return $stok;
+			})
+
+			->addColumn('harga_awal', function($data){
+				$harga_awal =  number_format($data->harga_awal); 
+				return $harga_awal;
+			})
+
+			->addColumn('kelipatan', function($data){
+				$kelipatan =  number_format($data->kelipatan); 
+				return $kelipatan;
+			})
+
+			->addColumn('lama_lelang', function($data){
 				$ambil = $data->lama_lelang;
 				$hari = "hari";
-				$lama_hari = $ambil.$hari;
+				$lama_lelang = $ambil.$hari;
 
-				return $lama_hari;
+				return $lama_lelang;
 			})
 			
-			->rawColumns(['action','status','lama_hari'])
+			->rawColumns(['action','status','lama_lelang','stok','harga_awal','kelipatan'])
 			->make(true);
 		}
 
@@ -76,7 +93,13 @@ class ValidasiProdukLelangController extends Controller
 		if(request()->ajax())
 		{
 			$data = Auction_product::findOrFail($id);
-			return response()->json(['data' => $data]);
+			$data_email = User::where('id',$data->id_pelelang)->first();
+
+			return response()->json([
+				'data' => $data,
+				'data_email' => $data_email,
+			]);
+
 		}
 	}
 

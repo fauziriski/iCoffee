@@ -304,6 +304,13 @@
 							url:"lihat-top-up/"+id,
 							dataType:"json",
 							success:function(html){
+								
+								var rp = html.data.jumlah_transfer;
+
+								var	reverse = rp.toString().split('').reverse().join(''),
+								ribuan 	= reverse.match(/\d{1,3}/g);
+								ribuan	= ribuan.join('.').split('').reverse().join('');
+
 								$('#modalLihat').modal('show');
 								$('.modal-title').text("Detai Pembayaran");
 								document.getElementById("invoice").innerHTML = html.data.invoice;
@@ -311,7 +318,7 @@
 								document.getElementById("email").innerHTML = html.data.email;
 								document.getElementById("no_telp").innerHTML = html.data.no_telp;
 								document.getElementById("no_rekening_pengirim").innerHTML = html.data.no_rekening_pengirim;
-								document.getElementById("jumlah_transfer").innerHTML = html.data.jumlah_transfer;
+								document.getElementById("jumlah_transfer").innerHTML = "Rp. "+ribuan;
 								document.getElementById("nama_bank_pengirim").innerHTML = html.data.nama_bank_pengirim;
 
 								var img = "/Uploads/Konfirmasi_Pembayaran/Lelang/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";

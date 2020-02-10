@@ -43,7 +43,7 @@ class AdministrasiController extends Controller
 			})
 
 			
-			->rawColumns(['action','created_id'])
+			->rawColumns(['action','created_at'])
 			->make(true);
 		}
 

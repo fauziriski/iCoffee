@@ -42,17 +42,19 @@
 					<span id="form_result"></span>
 					<form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
 						@csrf
-						<div class="form-group">
-							<label class="control-label col-md-4" >Nama Kategori : </label>
-							<div class="col-md-12">
-								<input type="text" name="kategori" id="kategori" class="form-control" />
+						<div class="container">
+							<div class="form-group">
+								<label class="control-label col-md-4" >Nama Kategori : </label>
+								<div class="col-md-12">
+									<input type="text" name="kategori" id="kategori" class="form-control" />
+								</div>
 							</div>
-						</div>
-						<br />
-						<div class="form-group" align="center">
-							<input type="hidden" name="action" id="action" />
-							<input type="hidden" name="hidden_id" id="hidden_id" />
-							<input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Tambah" />
+							<br />
+							<div align="right">
+								<input type="hidden" name="action" id="action" />
+								<input type="hidden" name="hidden_id" id="hidden_id" />
+								<input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Tambah" />
+							</div>
 						</div>
 					</form>
 				</div>
