@@ -228,6 +228,21 @@
                   <th>&nbsp;</th>
                   <th>&nbsp;</th>
                   <th>&nbsp;</th>
+               
+                    
+                    @if (!($data->status == 0))
+                  <th colspan="2" class="ml-3">
+
+                    <span class="oi oi-map-marker"></span>&nbsp; Atur Jadi Utama
+                  </th>
+                    @else
+                  <th colspan="2" class="ml-3">
+                    <a href="/profil/utama/alamat{{ $data->id }}"><span class="oi oi-map-marker"></span>&nbsp; Atur Jadi Utama</a>
+
+                  </th>   
+                    @endif
+                
+                  
                 </tr>
 
                 <tr >
