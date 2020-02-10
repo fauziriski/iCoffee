@@ -36,6 +36,8 @@ route::get('/profil/produk','HomeController@produksaya');
 
 
 // jual beli
+route::get('/jual-beli/produk/edit/{id}', 'HomeController@edit_produk');
+route::post('/jual-beli/produk/edit/berhasil', 'HomeController@edit_produk_berhasil');
 Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
 Route::post('/pasang-produk/berhasil', 'HomeController@pasangproduk');
 Route::get('/jual-beli','ProdukController@index');

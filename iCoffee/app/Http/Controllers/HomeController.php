@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Images;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Joint_account;
 use App\User;
 use App\Order;
 use App\Orderdetail;
@@ -14,6 +15,7 @@ use App\Address;
 use App\Shop_product;
 use App\Image;
 use App\Province;
+use App\Category;
 use App\City;
 use App\Confirm_payment;
 use App\Auction_Order;
@@ -47,6 +49,16 @@ class HomeController extends Controller
     {
         $id_pelanggan = Auth::user()->id;
         $nama_pelanggan = User::where('name', $id_pelanggan)->get();
+        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->get();
+
+
+
+        if($cekalamat->isEmpty())
+        {
+            Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/tambahalamat');       
+
+        }
         return view('jual-beli.pasang',compact('id_pelanggan','nama_pelanggan'));
     }
 
@@ -469,8 +481,34 @@ class HomeController extends Controller
         $user_id = Auth::user()->id;
 
         $produk = Shop_product::where('id_pelanggan', $user_id)->get();
+        $category = Category::all();
 
-        return view('jual-beli.produk', compact('produk'));
+        return view('jual-beli.produk', compact('produk', 'category'));
+    }
+
+    public function edit_produk($id)
+    {
+        $produk = Shop_product::where('id', $id)->first();
+        $kategori = $produk->category->kategori;
+
+        return response()->json(array(
+            'produk' => $produk,
+            'kategori' => $kategori));
+    }
+
+    public function edit_produk_berhasil(Request $request)
+    {
+        $produk = Shop_product::where('id', $request->produk_id)->first();
+        $produk->update([
+            'nama_produk' => $request->nama_produk_edit,
+            'id_kategori' => $request->kategori_kopi_edit,
+            'harga' => $request->harga_edit,
+            'stok' => $request->stok_edit, 
+            'detail_produk' => $request->desc_produk_edit
+        ]);
+
+        return response()->json();
+
     }
 
 

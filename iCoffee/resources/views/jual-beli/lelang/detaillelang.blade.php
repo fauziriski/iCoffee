@@ -320,6 +320,13 @@ $(document).ready(function() {
               $('#penawaran_terakhir').replaceWith('<span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp '+ response.data.penawaran +'</span>');
               $('#table_id').load("/lelang/produk/data/"+ response.data.id_produk); 
             }
+            else if(response.response == 'Saldo'){
+              swal(
+                'Gagal',
+                'Saldo Anda Tidak Mencukupi',
+                'error'
+              );
+            }
             else{
               swal(
                 'Gagal',
