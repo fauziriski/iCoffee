@@ -41,7 +41,7 @@
                   <div class="form-group">
                     <label for="harga">Email </label>
                     <div class="input-group">
-                    <input type="text" class="form-control" placeholder="icoffee@gmail.com" name="email" required value="{{ $user->email }}">
+                    <input type="text" class="form-control" placeholder="" name="email" required value="{{ $user->email }}">
                       <span class="text-danger">{{$errors->first('email')}}</span>
                     </div>
                   </div>
@@ -51,7 +51,7 @@
                   <div class="form-group">
                     <label for="handphoe">No Handphone</label>
                     <div class="input-group">
-                      <input type="number" class="form-control" id="" placeholder="08123456789" name="no_hp" required value="{{ $address->no_hp }}">
+                      <input type="number" class="form-control" id="" placeholder="" name="no_hp" required value="{{ $address->no_hp }}">
                       <span class="text-danger">{{$errors->first('stok')}}</span>
                     </div>
                   </div>
@@ -96,7 +96,7 @@
                     <div class="form-group">
                       <label for="stok">Kode Pos</label>
                       <div class="input-group">
-                        <input type="number" class="form-control" id="" placeholder="35198" name="kode_pos" required value="{{ $address->kode_pos}}">
+                        <input type="number" class="form-control" id="" placeholder="" name="kode_pos" required value="{{ $address->kode_pos}}">
                         <span class="text-danger">{{$errors->first('kode_pos')}}</span>
                       </div>
                     </div>
@@ -105,7 +105,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="deskripsi">Alamat</label>
-                      <textarea class="form-control" rows="5" type="text" name="alamat" placeholder="Jl. Pagar Alam (Gang PU) No.44" >{{ $address->address}}</textarea>
+                      <textarea class="form-control" rows="5" type="text" name="alamat" placeholder="" >{{ $address->address}}</textarea>
                       <span class="text-danger">{{$errors->first('alamat')}}</span>
                     </div>
                   </div>
@@ -126,22 +126,22 @@
 
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-        <form action="/profil/tambah" method="post"  enctype="multipart/form-data">
+        <form action="/profil/tambah/cadangan" method="post"  enctype="multipart/form-data">
           @csrf
           <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
             <div class="col-md-12">
     
               <div class="form-group">
-                <label for="nama">Nama</label>
+                <label for="nama_alamat">Nama</label>
                 <input type="text" class="form-control" id="nama_alamat" name="nama_alamat" required>
                 <span class="text-danger">{{$errors->first('nama_alamat')}}</span>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="handphoe">No Handphone</label>
+                    <label for="no_hp_alamat">No Handphone</label>
                     <div class="input-group">
-                      <input type="number" class="form-control" id="no_hp_alamat" placeholder="08123456789" name="no_hp_alamat" required>
+                      <input type="number" class="form-control" id="no_hp_alamat" placeholder="" name="no_hp_alamat" required>
                       <span class="text-danger">{{$errors->first('no_hp_alamat')}}</span>
                     </div>
                   </div>
@@ -149,7 +149,7 @@
     
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="country">Provinsi</label>
+                    <label for="provinsi_alamat">Provinsi</label>
                     <div class="select-wrap">
                       <select name="provinsi_alamat" id="provinsi_alamat" class="form-control" required>
                         @foreach ($provinsi as $info)
@@ -162,7 +162,7 @@
     
                 <div class="col-md-6">
                     <div class="form-group">
-                      <label for="country">Kota/Kabupaten</label>
+                      <label for="kota_kabupaten_alamat">Kota/Kabupaten</label>
                       <div class="select-wrap">
                         <select name="kota_kabupaten_alamat" id="" class="form-control" required>
                             <option class="form-control" value="">Select City</option>
@@ -173,9 +173,9 @@
     
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="stok">Kecamatan</label>
+                      <label for="kecamatan_alamat">Kecamatan</label>
                       <div class="input-group">
-                        <input type="text" class="form-control" id="kecamatan_alamat" placeholder="Tanjung Pinang" name="kecamatan_alamat" required>
+                        <input type="text" class="form-control" id="kecamatan_alamat" placeholder="" name="kecamatan_alamat" required>
                         <span class="text-danger">{{$errors->first('kecamatan_alamat')}}</span>
                       </div>
                     </div>
@@ -183,9 +183,9 @@
     
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="stok">Kode Pos</label>
+                      <label for="kode_pos_alamat">Kode Pos</label>
                       <div class="input-group">
-                        <input type="number" class="form-control" id="kode_pos_alamat" placeholder="35198" name="kode_pos_alamat" required>
+                        <input type="number" class="form-control" id="kode_pos_alamat" placeholder="" name="kode_pos_alamat" required>
                         <span class="text-danger">{{$errors->first('kode_pos_alamat')}}</span>
                       </div>
                     </div>
@@ -193,8 +193,8 @@
     
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label for="deskripsi">Alamat</label>
-                      <textarea class="form-control" rows="5" type="text" id="alamat_alamat" name="alamat_alamat" placeholder="Jl. Pagar Alam (Gang PU) No.44" required></textarea>
+                      <label for="alamat_alamat">Alamat</label>
+                      <textarea class="form-control" rows="5" type="text" id="alamat_alamat" name="alamat_alamat" placeholder="" required></textarea>
                       <span class="text-danger">{{$errors->first('alamat_alamat')}}</span>
                     </div>
                   </div>
@@ -219,6 +219,8 @@
         <div class="col-md-12 ftco-animate">
 
             <table class="table-responsive mt-3 ml-3 mb-3 mr-3">
+
+        
               @foreach ($cekalamat as $data)
                 <tr>
                   <th>Penerima</th>
@@ -250,7 +252,6 @@
                 </th>
                 </tr>
 
-
                 <tr>
                   <th>Alamat</th>
                   <th>&nbsp;</th>
@@ -264,12 +265,31 @@
                   <th>&nbsp;</th>
                   <th>&nbsp;</th>
                   <th>&nbsp;</th>
+
                   
                 </tr>
-            
+
+                <tr>
+                  <th><hr></th>
+                  <th><hr></th>
+                  <th><hr></th>
+                  <th><hr></th>
+                  <th><hr></th>
+                  <th><hr></th>
+                  <th><hr></th>
+                  <th><hr></th>
+                  <th><hr></th>
+                  <th><hr></th>
+                  
+                </tr>
+
               @endforeach
+              <hr>
+
       
             </table>
+
+            <hr>
  
         </div>
 

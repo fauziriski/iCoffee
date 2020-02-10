@@ -162,9 +162,26 @@ class HomeController extends Controller
         $id_alamat = $request->id_alamat;
 
         $user = User::where('id', $id_user)->first();
-        $alamat = Address::where('id', $id_user)->first();
+        $alamat = Address::where('id', $id_alamat)->where('status', 1)->first();
 
-        dd($user);
+        $user_update = $user->update([
+            'name' => $request->nama,
+            'email' => $request->email
+
+        ]);
+
+        $update_alamat = $alamat->update([
+            'provinsi' => $request->provinsi_profil,
+            'kota_kabupaten' => $request->kota_kabupaten_profil,
+            'kecamatan' => $request->kecamatan,
+            'kode_pos' => $request->kode_pos,
+            'no_hp'=> $request->no_hp,
+            'address' => $request->alamat,
+
+        ]);
+        Alert::success('Berhasil');
+
+        return redirect('/profil/edit');
 
     }
 
@@ -467,7 +484,7 @@ class HomeController extends Controller
             'status' => '1'
         ]);
 
-        $order = Auction_Order::where('invoice', $request->invoice)->update([
+        $order = Top_up::where('invoice', $request->invoice)->update([
             'status' => '8'
         ]);
 
@@ -508,6 +525,39 @@ class HomeController extends Controller
         ]);
 
         return response()->json();
+
+    }
+
+    public function tambah_alamat_cadangan(Request $request)
+    {
+        $id_pelanggan = Auth::user()->id;
+
+        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->get();
+
+        $jumlah_alamat = count($cekalamat);
+
+        if ($jumlah_alamat >= 5) {
+            Alert::error('Gagal','Jumlah alamat anda sudah melebihi batas')->showConfirmButton('Ok', '#3085d6');
+
+            return redirect('/profil/edit');
+            
+        }
+
+        $tambah_alamat = Address::create([
+            'id_pelanggan' => $id_pelanggan,
+            'nama' => $request->nama_alamat,
+            'provinsi' => $request->provinsi_alamat,
+            'kota_kabupaten' => $request->kota_kabupaten_alamat,
+            'kecamatan' => $request->kecamatan_alamat,
+            'kode_pos' => $request->kode_pos_alamat,
+            'no_hp'=> $request->no_hp_alamat,
+            'address' => $request->alamat_alamat,
+            'status' => '0'
+
+        ]);
+        Alert::success('Berhasil');
+
+        return redirect('/profil/edit');
 
     }
 
