@@ -102,7 +102,7 @@ class KeranjangjbController extends Controller
 
         $alamat = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
 
-        if($alamat->isEmpty())
+        if(empty($alamat))
         {
             Alert::info('Tentukan Alamat Utama Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
             return redirect('/profil/edit');
