@@ -129,5 +129,6 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth:mitra');
 	Route::post('/pasang-investasi','ProdukInvestasiController@store')->middleware('auth:mitra');
 	Route::get('/produk/{kode_produk}','MitraController@produkDetail')->middleware('auth:mitra');
+	Route::get('/pengajuan-dana', 'MitraController@pengajuanDana')->middleware('auth:mitra');
 	Route::get('/logout','Mitra\LoginController@logout');
 });

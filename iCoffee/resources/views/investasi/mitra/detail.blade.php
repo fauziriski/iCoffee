@@ -26,11 +26,11 @@
 								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Stok</div>
 								<div class="row no-gutters align-items-center">
 									<div class="col-auto">
-										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">163/383</div>
+										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$qty}}/{{$produk->stok}}</div>
 									</div>
 									<div class="col">
 										<div class="progress progress-sm mr-2">
-											<div class="progress-bar-animated bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+											<div class="progress-bar-animated bg-success" role="progressbar" style="width: {{$qty/$produk->stok*100}}%" aria-valuenow="{{$qty}}" aria-valuemin="0" aria-valuemax="{{$produk->stok}}"></div>
 										</div>
 									</div>
 								</div>
@@ -54,7 +54,7 @@
 								<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Investor</div>
 								<div class="row no-gutters align-items-center">
 									<div class="col-auto">
-										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">12</div>
+										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$investor}}</div>
 									</div>
 								</div>
 							</div>
@@ -73,7 +73,7 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Dana Masuk</div>
-								<div class="h6 mb-0 font-weight-bold text-gray-800">Rp. 322,233,099</div>
+								<div class="h6 mb-0 font-weight-bold text-gray-800">@money($total)</div>
 							</div>
 							<div class="col-auto">
 								<i class="fas fa-coins fa-2x text-gray-300"></i>
@@ -99,8 +99,6 @@
 					</div>
 				</div>
 			</div>
-
-			
 		</div>
 
 		
@@ -114,7 +112,7 @@
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
 					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-primary">Produk Detail</h6>
+						<h6 class="m-0 font-weight-bold text-success">Produk Detail</h6>
 					</div>
 					<!-- Card Body -->
 					<div class="card-body">
@@ -173,37 +171,26 @@
 					<div class="card-header py-3 bg-success d-flex flex-row align-items-center justify-content-between">
 					  <h6 class="m-0 font-weight-bold text-light">Riwayat Order</h6>
 					</div>
-					<div>
-					  <div class="customer-message align-items-center">
+					  <div class="customer-message align-items-center ml-3">
 						<a class="font-weight-bold text-success">
 						  <div class="text-truncate message-title">Telah Berhasil membeli 2 Unit Produk Investasi anda!</div>
 						  <div class="small text-gray-500 message-time font-weight-bold">Udin Cilok · 19:32 WIB - 17 Februari 2020 </div>
 						</a>
 					  </div>
-					  <div class="customer-message align-items-center">
-						<a href="#">
-						  <div class="text-truncate message-title">But I must explain to you how all this mistaken idea
-						  </div>
-						  <div class="small text-gray-500 message-time">Nana Haminah · 58m</div>
+					  <div class="customer-message align-items-center ml-3">
+						<a class="font-weight-bold text-success">
+						  <div class="text-truncate message-title">Telah Berhasil membeli 2 Unit Produk Investasi anda!</div>
+						  <div class="small text-gray-500 message-time font-weight-bold">Udin Cilok · 19:32 WIB - 17 Februari 2020 </div>
 						</a>
 					  </div>
-					  <div class="customer-message align-items-center">
-						<a class="font-weight-bold" href="#">
-						  <div class="text-truncate message-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit
-						  </div>
-						  <div class="small text-gray-500 message-time font-weight-bold">Jajang Cincau · 25m</div>
-						</a>
-					  </div>
-					  <div class="customer-message align-items-center">
-						<a class="font-weight-bold" href="#">
-						  <div class="text-truncate message-title">At vero eos et accusamus et iusto odio dignissimos
-							ducimus qui blanditiis
-						  </div>
-						  <div class="small text-gray-500 message-time font-weight-bold">Udin Wayang · 54m</div>
+					  <div class="customer-message align-items-center ml-3">
+						<a class="font-weight-bold text-success">
+						  <div class="text-truncate message-title">Telah Berhasil membeli 2 Unit Produk Investasi anda!</div>
+						  <div class="small text-gray-500 message-time font-weight-bold">Udin Cilok · 19:32 WIB - 17 Februari 2020 </div>
 						</a>
 					  </div>
 					  <div class="card-footer text-center">
-						<a class="m-0 small text-primary card-link" href="#">View More <i
+						<a class="m-0 small text-success card-link" href="#">View More <i
 							class="fas fa-chevron-right"></i></a>
 					  </div>
 					</div>

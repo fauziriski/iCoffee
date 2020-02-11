@@ -42,7 +42,7 @@
               <h6 class="collapse-header">Kelola Produk Investasi :</h6>
               <a class="collapse-item" href="{{ url('mitra/produk-investasi')}}">Produk Investasi</a>
               <a class="collapse-item" href="{{ url('mitra/pasang-investasi')}}">Pasang Produk</a>
-              <a class="collapse-item" href="{{url('mitra/jenis-produk')}}">Progress Investasi</a>
+              <a class="collapse-item" href="{{url('mitra/progress-investasi')}}">Progress Investasi</a>
               <div class="collapse-divider"></div>
               <h6 class="collapse-header">Laporan :</h6>
               <a class="collapse-item" href="{{url('mitra/laporan-penjualan')}}">Laporan Investasi</a>
@@ -68,8 +68,8 @@
           <div id="collapsePagess" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Kelola Keuangan :</h6>
-              <a class="collapse-item" href="{{url('mitra/mitra-koperasi')}}">Data Bank</a>
-              <a class="collapse-item" href="{{url('mitra/kelompok-tani')}}">Rekening Mitra</a>
+              <a class="collapse-item" href="{{url('mitra/mitra-koperasi')}}">Rekening Mitra</a>
+              <a class="collapse-item" href="{{url('mitra/pengajuan-dana')}}">Pengajuan Dana</a>
               <div class="collapse-divider"></div>
               <h6 class="collapse-header">Laporan :</h6>
               <a class="collapse-item" href="{{url('laporan-investasi')}}">Laporan Keuangan</a>

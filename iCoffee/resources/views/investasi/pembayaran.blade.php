@@ -255,7 +255,7 @@
         <p>Total: @money($produk->harga*$qty)</p>
       </div>
       <p class="putih">Silahkan lakukan pembayaran ke rekening iCoffee yang tertera diatas.</p>
-      <a href="/investasi/konfirmasi-pembayaran" type="button">
+      <a class="btn btn-primary" href="invest/konfirmasi" role="button">Konfirmasi Pembayaran</a>
     </div>
   </div>
 @section('footer')
