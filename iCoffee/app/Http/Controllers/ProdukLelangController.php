@@ -214,7 +214,7 @@ class ProdukLelangController extends Controller
 
         if($produk_terkait->isEmpty())
         {
-            $produk_terkait = Auction_product::where('status', 2)->take(4)->get();
+            $produk_terkait = Auction_product::where('status', 2)->where('id','!=', $id)->take(4)->get();
         }
         $panjang = count($produk_terkait);
         $image = Auction_image::where('id_produk', $products->id)->get();

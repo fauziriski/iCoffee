@@ -202,8 +202,8 @@ class KeranjanglelangController extends Controller
     public function transaksi()
     {
         $id_pelanggan = Auth::user()->id;
-        $transaksipembeli = Auction_Order::where('id_pembeli', $id_pelanggan)->get();
-        $transaksipenjual = Auction_Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->get();
+        $transaksipembeli = Auction_Order::where('id_pembeli', $id_pelanggan)->orderBy('created_at','desc')->get();
+        $transaksipenjual = Auction_Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->orderBy('created_at','desc')->get();
 
         return view('jual-beli.lelang.transaksi', compact('transaksipembeli', 'transaksipenjual'));
 
@@ -271,7 +271,7 @@ class KeranjanglelangController extends Controller
                 'status' => 5
             ]);
 
-        return redirect('/jual-beli/invoice_penjual/'. $request->invoice);
+        return redirect('/lelang/invoice_penjual/'. $request->invoice);
 
     }
 

@@ -512,8 +512,13 @@ class KeranjangjbController extends Controller
             }
         }
 
+        for ($i=0; $i < $hitung; $i++) 
+        {
+            $cek_resi[] = Delivery::where('id_order', $order[$i]->id)->first();
+        }        
 
-        return view('jual-beli.invoice', compact('order', 'penilaian', 'hitung', 'kurir', 'jumlah_seluruh' , 'hitungdataorder' , 'orderdetaildata', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'hitung', 'rekening'));
+
+        return view('jual-beli.invoice', compact('order', 'penilaian','cek_resi', 'hitung', 'kurir', 'jumlah_seluruh' , 'hitungdataorder' , 'orderdetaildata', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'hitung', 'rekening'));
     }
 
 

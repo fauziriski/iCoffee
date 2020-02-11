@@ -45,13 +45,15 @@
 
 					</address>
 					
-					@if (!($order->status == 1 || 2 || 8 || 3))
-						<address>
-							<strong>No Resi :</strong><br>
-						{{$kurir[1]}} {{ $cek_resi->invoice }}<br>
+					@if ($order->status == 5 || 6 || 7 || 10 || 11)
+					<address>
+    					<strong>No Resi :</strong><br>
+    				{{$kurir[1]}} {{ $cek_resi->invoice }}<br>
 
-						</address>
+					</address>
+						
 					@else
+						
 					<address>
 						<strong>No Resi :</strong><br>
 							
@@ -70,7 +72,7 @@
 							</div>		  
 						@elseif( $order->status == 2)
 							<div class="alert alert-info" role="alert">
-								Sudah Dibayar
+								Pembayaran Ditolak
 							</div>
 
 						@elseif( $order->status == 3)
@@ -147,9 +149,9 @@
                                 
     							<tr>
 									<td>{{ $order->auction_products->nama_produk }}</td>
-									<td class="text-center">Rp {{  number_format($order->tawaran_awal)  }}</td>
+									<td class="text-center">Rp {{  number_format($order->tawaran_awal,0,",",".")  }}</td>
     								<td class="text-center">{{  $order->jumlah  }}</td>
-    								<td class="text-right">Rp {{  number_format($order->sub_total)  }}</td>
+    								<td class="text-right">Rp {{  number_format($order->sub_total,0,",",".")  }}</td>
 								</tr>
 								
                                 
@@ -157,13 +159,13 @@
     								<td class="thick-line"></td>
     								<td class="thick-line"></td>
     								<td class="thick-line text-center"><strong>Subtotal</strong></td>
-									<td class="thick-line text-right">Rp {{ number_format($order->sub_total) }}</td>
+									<td class="thick-line text-right">Rp {{ number_format($order->sub_total,0,",",".") }}</td>
     							</tr>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
     								<td class="no-line text-center"><strong>Biaya Pengiriman</strong></td>
-    								<td class="no-line text-right">Rp {{ number_format($kurir[0]) }}</td>
+    								<td class="no-line text-right">Rp {{ number_format($kurir[0],0,",",".") }}</td>
     							</tr>
 
     						</tbody>
@@ -180,7 +182,7 @@
     	<div class="col-md-12">
     		<div class="panel panel-default">
 				<div class="panel-heading">
-    				<h3 class="card-header"><strong>Total</strong><strong class="float-right">Rp {{ number_format($order->total_bayar) }}</strong></h3>
+    				<h3 class="card-header"><strong>Total</strong><strong class="float-right">Rp {{ number_format($order->total_bayar,0,",",".") }}</strong></h3>
                 </div>
                 <div class="panel-body mt-3 float-right">
 					@if ( $order->status == 5)

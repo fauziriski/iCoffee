@@ -1,10 +1,4 @@
-@extends('jual-beli.layouts.app')
-@section('title', 'Lelang | Produk')
-@section('header')
-@endsection
-@section('sidebar')
-@endsection
-@section('content')
+
 
 
 <table class="table" id="table_id">
@@ -22,7 +16,7 @@
 
       <td>{{ $data->nama }}</td>
       
-      <td>Rp {{ $data->penawaran }}</td>
+      <td>Rp {{  number_format($data->penawaran,0,",",".") }}</td>
   
 
   </tr><!-- END TR-->
@@ -31,7 +25,3 @@
 
 
 </table>
-
-
-
-@endsection
