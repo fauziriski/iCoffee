@@ -4,20 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Investor;
+use App\Invest_confirm;
+use App\invest_order;
+use App\Invest_product;
+use App\Invest_product_image;
 use App\User;
 use DB;
 use DataTables;
 use Carbon;
 
-class ValidasiInvestorController extends Controller
+class VerifikasiPembiayaanController extends Controller
 {
-	public function dataInvestor()
+	public function dataPembiayaan()
 	{
 		if(request()->ajax())
 		{	
 
-			return datatables()->of(Investor::latest()->get())
+			return datatables()->of(Invest_confirm::latest()->get())
 			->addColumn('action', function($data){
 				
 				if ($data->status == "1") {
@@ -51,48 +54,67 @@ class ValidasiInvestorController extends Controller
 				$created_at =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
 				return $created_at;
 			})
+
+			->addColumn('nominal', function($data){
+				$rp = "Rp. ";
+				$nominal = $rp. number_format($data->nominal); 
+				return $nominal;
+			})
 			
-			->rawColumns(['action','status'])
+			->rawColumns(['action'])
 			->make(true);
 		}
 
-		return view('admin.validasi-investor');
+		return view('admin.validasi-pembiayaan');
 	}
 
-	public function idInvestor($id)
+	public function lihatPembiayaan($id)
 	{
 		if(request()->ajax())
 		{
-			$data = Investor::findOrFail($id);
-			$id_pengguna = $data->id_pengguna;
+			$data = Invest_confirm::findOrFail($id);
+
+			$id_pengguna = $data->id_investor;
 			$data2 = User::where('id',$id_pengguna)->first();
-			
+
+			$id_order = $data->id_order;
+			$order = invest_order::whereId($id_order)->first();
+
+			$id_produk = $order->id_produk;
+			$produk = Invest_product::whereId($id_produk)->first();
+
+			$data_gambar = Invest_product_image::where('id_produk',$id_produk)->get();
+
 			return response()->json([
 				'data' => $data,
 				'data2' => $data2,
+				'order' => $order,
+				'produk' => $produk,
+				'data_gambar' => $data_gambar,
+
 			]);
 		}
 	}
 
-	public function tolakInvestor(Request $request)
+	public function tolakPembiayaan(Request $request)
 	{
 
 		$form_data = array(
 			'status' => $request->status,
 		);
-
-		Investor::whereId($request->hidden_id2)->update($form_data);
+		
+		Invest_confirm::whereId($request->hidden_id2)->update($form_data);
 		return response()->json(['success' => 'Berhasil Ditolak']);
 	}
 
-	public function validasiInvestor(Request $request)
+	public function validasiPembiayaan(Request $request)
 	{
 
 		$form_data = array(
 			'status' => $request->status,
 		);
 
-		Investor::whereId($request->hidden_id2)->update($form_data);
+		Invest_confirm::whereId($request->hidden_id2)->update($form_data);
 		return response()->json(['success' => 'Berhasil Ditolak']);
 	}
 

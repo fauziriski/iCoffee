@@ -77,44 +77,6 @@
 	</div>
 </div>
 
-<div id="modalVerifikasi" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Konfirmasi</h5>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
-			<div class="modal-body">
-				<span id="form_konfirmasi"></span>
-				<form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
-					@csrf
-					<input type="hidden" name="password" id="password2" value="password" />
-					<input type="hidden" name="status" id="status2" value="divalidasi" />
-					<input type="hidden" name="hidden_id" id="hidden_id2" />
-					<input type="hidden" name="action" id="action2" />
-					<input type="hidden" name="id_mitra" id="id_mitra2" />
-					<input type="hidden" name="email" id="email2" />
-					<input type="hidden" name="nama_koperasi" id="nama_koperasi2" />
-					<input type="hidden" name="deskripsi" id="deskripsi2" />
-					<input type="hidden" name="alamat" id="alamat2" />
-					<input type="hidden" name="jumlah_petani" id="jumlah_petani2" />
-					<input type="hidden" name="gambar" id="gambar2" />
-					<input type="hidden" name="no_hp" id="no_hp2" />
-					<input type="hidden" name="kode" id="kode" />
-					<div class="text">
-						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
-						<div class="mt-5"></div>
-					</div>
-					<div align="right">
-						<input type="submit" name="action_button" id="action_button" class="btn btn-primary" value="Validasi" />
-						<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-
 
 
 <div id="modalPesan" class="modal fade" role="dialog">
@@ -151,6 +113,35 @@
 	</div>
 </div>
 
+
+
+<div id="modalVerifikasi" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Konfirmasi</h5>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<span id="form_konfirmasi"></span>
+				<form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
+					@csrf
+					<input type="hidden" name="status" id="status2" value="" />
+					<input type="hidden" name="hidden_id2" id="hidden_id2" />
+					<input type="hidden" name="action" id="action2" />
+					<div class="text2">
+						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
+						<div class="mt-5"></div>
+					</div>
+					<div align="right">
+						<input type="submit" name="action_button" id="action_button2" class="btn btn-primary" value="Validasi" />
+						<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div id="modalLihat" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-md">
@@ -340,15 +331,16 @@
 										dataType:"json",
 										success:function(html){
 											$('#hidden_id2').val(html.data.id);
-											$('.modal-title').text("Konfirmasi");
-											$('#action_button').val("Tolak");
+											$('.modal-title2').text("Konfirmasi");
+											$('#action_button2').val("Tolak");
 											$('#status2').val("0");
-											$('.text').text("Apakah anda yakin ingin tolak?")
-											$('#action').val("Tolak");
+											$('.text2').text("Apakah anda yakin ingin tolak?")
+											$('#action2').val("Tolak");
 											$('#modalVerifikasi').modal('show');
 										}
 									})
 								});
+
 
 								$(document).on('click', '.validasi', function(){
 									var id = $(this).attr('id');
@@ -359,10 +351,10 @@
 										success:function(html){
 											$('#hidden_id2').val(html.data.id);
 											$('.modal-title2').text("Konfirmasi");
-											$('#status2').val("2");				
-											$('.text').text("Apakah anda yakin ingin validasi?")
-											$('#action_button').val("Validasi");
-											$('#action').val("Verifikasi");
+											$('#action_button2').val("validasi");
+											$('#status2').val("2");
+											$('.text2').text("Apakah anda yakin ingin divalidasi?")
+											$('#action2').val("Validasi");
 											$('#modalVerifikasi').modal('show');
 										}
 									})
@@ -374,9 +366,9 @@
 									$.ajax({
 										url:"data-investor/"+id,
 										dataType:"json",
-										success:function(html){
+										success:function(html){			
 											var data2 = data2;
-											
+
 											$('#hidden_id3').val(html.data.id);
 											document.getElementById("email3").innerHTML = html.data2.email;
 											$('#action_button3').val("Kirim Pesan");
@@ -388,7 +380,7 @@
 
 								$('#sample_form').on('submit', function(event){
 									event.preventDefault();
-									if($('#action').val() == 'Tolak')
+									if($('#action2').val() == 'Tolak')
 									{
 										$.ajax({
 											url:"{{ route('admin.tolak-investor.update') }}",
@@ -409,7 +401,8 @@
 										});
 									}
 
-									if($('#action').val() == "Verifikasi")
+
+									if($('#action2').val() == "Validasi")
 									{
 										$.ajax({
 											url:"{{ route('admin.validasi-investor.update') }}",
@@ -430,7 +423,6 @@
 									}
 								});
 							});
-
 						</script>
 						<script>
 

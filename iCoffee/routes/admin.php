@@ -51,11 +51,6 @@ Route::post('/tolak-produk-investasi/update', 'ValidasiProdukInvestasiController
 Route::post('/divalidasi-produk-investasi/update', 'ValidasiProdukInvestasiController@ValidasiProdukInvestasi')->name('divalidasi-produk-investasi');
 Route::post('/proses-produk-investasi/update', 'ValidasiProdukInvestasiController@ProsesProdukInvestasi')->name('proses-produk-investasi');
 
-Route::get('/validasi-investor', 'ValidasiInvestorController@dataInvestor')->name('validasi-investor');
-Route::get('/data-investor/{id}', 'ValidasiInvestorController@idInvestor')->name('data-investor');
-Route::post('/tolak-investor/update', 'ValidasiInvestorController@tolakInvestor')->name('tolak-investor.update');
-Route::post('/validasi-investor/update', 'ValidasiInvestorController@validasiInvestor')->name('validasi-investor.update');
-
 Route::get('/validasi-pembeli', 'VerifikasiPembeliController@dataOrder')->name('validasi-pembeli');
 Route::get('/lihat-validasi-pembeli/{id}', 'VerifikasiPembeliController@lihatOrder')->name('lihat-validasi-pembeli');
 Route::post('/tolak-pembeli/update', 'VerifikasiPembeliController@tolakOrder')->name('tolak-pembeli.update');
@@ -71,6 +66,15 @@ Route::get('/lihat-top-up/{id}', 'VerifikasiPembayaranLelangController@lihatTopU
 Route::post('/tolak-top-up/update', 'VerifikasiPembayaranLelangController@tolakTopUp')->name('tolak-top-up.update');
 Route::post('/validasi-top-up/update', 'VerifikasiPembayaranLelangController@validasiTopUp')->name('validasi-top-up.update');
 
+Route::get('/validasi-pembiayaan', 'VerifikasiPembiayaanController@dataPembiayaan')->name('validasi-pembiayaan');
+Route::get('/lihat-pembiayaan/{id}', 'VerifikasiPembiayaanController@lihatPembiayaan')->name('lihat-pembiayaan');
+Route::post('/tolak-pembiayaan/update', 'VerifikasiPembiayaanController@tolakPembiayaan')->name('tolak-pembiayaan.update');
+Route::post('/validasi-pembiayaan/update', 'VerifikasiPembiayaanController@validasiPembiayaan')->name('validasi-pembiayaan.update');
+
+Route::get('/validasi-investor', 'ValidasiInvestorController@dataInvestor')->name('validasi-investor');
+Route::get('/data-investor/{id}', 'ValidasiInvestorController@idInvestor')->name('data-investor');
+Route::post('/tolak-investor/update', 'ValidasiInvestorController@tolakInvestor')->name('tolak-investor.update');
+Route::post('/validasi-investor/update', 'ValidasiInvestorController@validasiInvestor')->name('validasi-investor.update');
 
 
 Route::get('/proses-lelang', 'ProsesLelangController@prosesLelang')->name('proses-lelang');
