@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Images;
 use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
+use App\Address;
 use App\Auction_product;
 use App\Auction_process;
 use App\Auction_winner;
@@ -33,6 +34,14 @@ class ProdukLelangController extends Controller
     
     public function pasangLelang()
     {
+        $id_pelanggan = Auth::user()->id;
+        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->get();
+        if($cekalamat->isEmpty())
+        {
+            Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/tambahalamat');       
+
+        }
     
         return view('jual-beli.lelang.pasang');
     }

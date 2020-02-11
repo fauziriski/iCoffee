@@ -168,6 +168,10 @@
 									<input type="submit" class="btn btn-primary py-3 px-5" name="submit" value="Diterima">
 							</p>
 							</form>
+
+						@elseif( $order[$i]->status == 6)
+						<h2 class="text-right">Rating : <div class="star-rating float-right"><s><s><s><s><s></s></s></s></s></s></div></h2>
+								
 						@endif
     				</div>
     			</div>
@@ -208,7 +212,53 @@
     border-top: 2px solid;
 }
 
+.star-rating s:hover {
+    color: red;
+}
+.star-rating s,
+.star-rating-rtl s {
+    color: black;
+    font-size: 50px;
+    cursor: default;
+    text-decoration: none;
+    line-height: 30px;
+}
+.star-rating {
+    padding: 2px;
+}
+.star-rating-rtl {
+    background: #555;
+    display: inline-block;
+    border: 2px solid #444;
+}
+.star-rating-rtl s {
+    color: yellow;
+}
+.star-rating s:hover:before{
+    content: "\2605";
+}
+.star-rating s:before {
+    content: "\2606";
+}
+.star-rating-rtl s:hover:after{
+    content: "\2605";
+}
+.star-rating-rtl s:after {
+    content: "\2606";
+}
+
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+<script>
+	$(function() {
+    $("div.star-rating > s, div.star-rating-rtl > s").on("click", function(e) {
+        var numStars = $(e.target).parentsUntil("div").length+1;
+        console.log(numStars);
+    });
+});
+
+</script>
 
 
 @endsection

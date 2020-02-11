@@ -222,6 +222,17 @@
 
         
               @foreach ($cekalamat as $data)
+              <tr>
+                <th><hr></th>
+                <th><hr></th>
+                <th><hr></th>
+                <th><hr></th>
+                <th><hr></th>
+                <th><hr></th>
+                <th><hr></th>
+                <th><hr></th>
+                <th><hr></th>
+              </tr>
                 <tr>
                   <th>Penerima</th>
                   <th>&nbsp;</th>
@@ -239,7 +250,7 @@
                   </th>
                     @else
                   <th colspan="2" class="ml-3">
-                    <a href="/profil/utama/alamat{{ $data->id }}"><span class="oi oi-map-marker"></span>&nbsp; Atur Jadi Utama</a>
+                    <a href="/profil/utama/alamat/{{ $data->id }}"><span class="oi oi-map-marker"></span>&nbsp; Atur Jadi Utama</a>
 
                   </th>   
                     @endif
@@ -255,12 +266,12 @@
                   <th>&nbsp;</th>
                   <th>&nbsp;</th>
                   <th>&nbsp;</th>
-                  <th class="ml-3">
+                  <th class="ml-1 mr-3">
                     
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" name="edit_alamat" value="{{$data->id}}" data-whatever="@mdo">Ubah</button>
                 
                   </th>
-                  <th class="ml-3">
+                  <th class="ml-1 mr-3">
                  
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Hapus</button>
     
@@ -285,6 +296,7 @@
                 </tr>
 
                 <tr>
+      
                   <th><hr></th>
                   <th><hr></th>
                   <th><hr></th>
@@ -292,19 +304,18 @@
                   <th><hr></th>
                   <th><hr></th>
                   <th><hr></th>
-                  <th><hr></th>
-                  <th><hr></th>
-                  <th><hr></th>
+                  <td><hr></td>
+                  <td><hr></td>
+
                   
                 </tr>
 
               @endforeach
-              <hr>
 
       
             </table>
 
-            <hr>
+ 
  
         </div>
 

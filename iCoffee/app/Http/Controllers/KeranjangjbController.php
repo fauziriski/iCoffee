@@ -16,6 +16,7 @@ use App\Delivery;
 use App\Delivery_category;
 use App\Order;
 use App\Orderdetail;
+use App\Rating;
 use App\Account;
 use App\Joint_account;
 use App\Complaint;
@@ -91,7 +92,22 @@ class KeranjangjbController extends Controller
         
 
         $id_customer = Auth::user()->id;
+        $alamat_cadangan = Address::where('id_pelanggan', $id_customer)->get();
+
+        if($alamat_cadangan->isEmpty())
+        {
+            Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/tambahalamat');  
+        }
+
         $alamat = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
+
+        if($alamat->isEmpty())
+        {
+            Alert::info('Tentukan Alamat Utama Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/edit');
+        }
+        
         
         $id = $request->id;
 
@@ -585,6 +601,15 @@ class KeranjangjbController extends Controller
         if ($request->submit == 'Diterima') 
         {
             $order = Order::where('id', $request->id)->first();
+
+            $rating = Rating::create([
+                'id_penjual' => $order->id_penjual,
+                'id_pembeli' => $order->id_pelanggan,
+                'id_order' => $request->id,
+                'invoice' => $order->invoice,
+                'rating' => 0
+
+            ]);
 
             $order->update([
                 'status' => 6

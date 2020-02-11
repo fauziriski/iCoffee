@@ -189,6 +189,14 @@ class HomeController extends Controller
 
     public function tambahalamat()
     {
+        $id_customer = Auth::user()->id;
+        $alamat = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
+
+        if(!(empty($alamat)))
+        {
+            Alert::info('Anda Sudah Mengisi Alamat')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/edit');  
+        }
         $provinsi = Province::all();
         return view('jual-beli.tambahalamat', compact('provinsi'));
     }
@@ -265,8 +273,8 @@ class HomeController extends Controller
         // konfirmasi diproses 8
         // batalkan pesanan pembeli 9
         $id_pelanggan = Auth::user()->id;
-        $transaksipembeli = Order::where('id_pelanggan', $id_pelanggan)->get();
-        $transaksipenjual = Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->get();
+        $transaksipembeli = Order::where('id_pelanggan', $id_pelanggan)->orderBy('created_at','desc')->get();
+        $transaksipenjual = Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->orderBy('created_at','desc')->get();
 
         $jumlah_transaksi_penjual = count($transaksipenjual);
         $kurir_data = array();
@@ -558,6 +566,24 @@ class HomeController extends Controller
         Alert::success('Berhasil');
 
         return redirect('/profil/edit');
+
+    }
+
+    public function alamat_utama($id)
+    {
+        $user_id = Auth::user()->id;
+
+        $alamat = Address::where('id_pelanggan', $user_id)->update([
+            'status' => 0
+        ]);
+
+
+        $alamat_utama = Address::where('id', $id)->first();
+        $alamat_utama->update([
+            'status' => 1
+        ]);
+
+        return redirect('/profil/edit#pills-profile');
 
     }
 
