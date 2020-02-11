@@ -62,7 +62,8 @@ Route::post('/jual-beli/pesanan/inputresi', 'KeranjangjbController@inputresi');
 Route::post('/jual-beli/pesanan/selesai', 'KeranjangjbController@pesananselesai');
 Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'KeranjangjbController@komplain');
 Route::post('/jual-beli/pesanan/komplain', 'KeranjangjbController@komplaindiproses');
-
+Route::post('/jual-beli/rating', 'KeranjangjbController@rating');
+Route::get('/jual-beli/{id}', 'ProdukController@index_category');
 
 Route::get('page/getprovince', 'ApiController@getprovince');
 Route::get('page/getcity', 'ApiController@getcity');

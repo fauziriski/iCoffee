@@ -28,6 +28,13 @@ class ProdukController extends Controller
         return view('jual-beli.index',compact('products'));
     }
 
+    public function index_category($id)
+    {
+        $products = Shop_product::where('id_kategori', $id)->orderBy('created_at','desc')->paginate(12);
+
+        return view('jual-beli.index',compact('products'));
+    }
+
     public function detail($id)
     {
 

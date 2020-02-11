@@ -19,12 +19,17 @@
     		<div class="row justify-content-center">
     			<div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">
-    					<li><a href="#" class="active">Semua</a></li>
-    					<li><a href="#">Kopi Robusta</a></li>
-    					<li><a href="#">Kopi Arabika</a></li>
-    					<li><a href="#">Kopi Luak</a></li>
-						<li><a href="#">Kopi Jawa</a></li>
-						<li><a href="#">Lainnya</a></li>
+						<li><a href="/jual-beli" class="@if(Request::getRequestUri() == '/jual-beli')active
+						@endif">Semua</a></li>
+    					<li><a href="/jual-beli/1" class="@if(Request::getRequestUri() == '/jual-beli/1')active
+							@endif">Kopi Robusta</a></li>
+    					<li><a href="/jual-beli/2" class="@if(Request::getRequestUri() == '/jual-beli/2')active
+							@endif">Kopi Arabika</a></li>
+    					<li><a href="/jual-beli/3" class="@if(Request::getRequestUri() == '/jual-beli/3')active
+							@endif">Kopi Luak</a></li>
+						<li><a href="/jual-beli/4" class="@if(Request::getRequestUri() == '/jual-beli/4')active
+							@endif">Kopi Jawa</a></li>
+						<li><a href="/jual-beli">Lainnya</a></li>
     				</ul>
     			</div>
     		</div>

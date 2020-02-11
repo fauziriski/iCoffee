@@ -170,14 +170,53 @@
 							</form>
 
 						@elseif( $order[$i]->status == 6)
-						<h2 class="text-right">Rating : <div class="star-rating float-right"><s><s><s><s><s></s></s></s></s></s></div></h2>
-								
+							<p class="float-right"><input type="submit" class="btn btn-primary  py-3 px-5" data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating"></p>
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">Rating</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									</div>
+									<div class="modal-body">
+										<div class="container">
+											<form action="" id="rating_form" method="post">
+												@csrf
+												<input type="hidden" name="id_order_rating" id="id_order_rating" required value="{{ $order[$i]->id }}">
+											<div class="row">
+											<div class="col-lg-12">
+												<div class="star-rating text-center">
+												
+												<span class="fa fa-star-o" data-rating="1"></span>
+												<span class="fa fa-star-o" data-rating="2"></span>
+												<span class="fa fa-star-o" data-rating="3"></span>
+												<span class="fa fa-star-o" data-rating="4"></span>
+												<span class="fa fa-star-o" data-rating="5"></span>
+												<input type="hidden" name="whatever1" class="rating-value" value="{{ $penilaian[$i] }}" required>
+												</div>
+											</div>
+											</div>
+										</form>
+										</div>
+									</div>
+									<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<button type="button" id="rating" name="rating" class="btn btn-primary">Save changes</button>
+									</div>
+								</div>
+								</div>
+							</div>
 						@endif
     				</div>
     			</div>
     		</div>
     	</div>
 	</div>
+
+	
 	
 	@endfor
 	
@@ -212,51 +251,63 @@
     border-top: 2px solid;
 }
 
-.star-rating s:hover {
-    color: red;
-}
-.star-rating s,
-.star-rating-rtl s {
-    color: black;
-    font-size: 50px;
-    cursor: default;
-    text-decoration: none;
-    line-height: 30px;
-}
 .star-rating {
-    padding: 2px;
+  line-height:40px;
+  font-size:2.25em;
 }
-.star-rating-rtl {
-    background: #555;
-    display: inline-block;
-    border: 2px solid #444;
-}
-.star-rating-rtl s {
-    color: yellow;
-}
-.star-rating s:hover:before{
-    content: "\2605";
-}
-.star-rating s:before {
-    content: "\2606";
-}
-.star-rating-rtl s:hover:after{
-    content: "\2605";
-}
-.star-rating-rtl s:after {
-    content: "\2606";
-}
+
+.star-rating .fa-star{color: yellow;}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
 <script>
-	$(function() {
-    $("div.star-rating > s, div.star-rating-rtl > s").on("click", function(e) {
-        var numStars = $(e.target).parentsUntil("div").length+1;
-        console.log(numStars);
-    });
-});
+	var $star_rating = $('.star-rating .fa');
+
+	var SetRatingStar = function() {
+		return $star_rating.each(function() {
+			if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+			return $(this).removeClass('fa-star-o').addClass('fa-star');
+			} else {
+			return $(this).removeClass('fa-star').addClass('fa-star-o');
+			}
+		});
+		};
+
+		$star_rating.on('click', function() {
+		$star_rating.siblings('input.rating-value').val($(this).data('rating'));
+		return SetRatingStar();
+		});
+
+		SetRatingStar();
+		$(document).ready(function() {
+
+		});
+</script>
+
+<script>
+	$(document).ready(function(){
+		$('#rating').on('click', function() {
+			var data = $('#rating_form').serialize();
+			console.log(data);
+			$.ajax({
+			url:"/jual-beli/rating",
+			method:"POST",
+			data: data,
+			success:function(data)
+			{
+				swal(
+					'Berhasil',
+					'Data Berhasil di Tambahkan',
+					'success'
+				);
+				location.reload();
+
+			}
+		});
+
+		});
+	});
 
 </script>
 

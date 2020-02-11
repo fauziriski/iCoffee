@@ -500,8 +500,20 @@ class KeranjangjbController extends Controller
 
         $jumlah_seluruh = array_sum($sum);
 
+        $rating = array();
+        for ($i=0; $i < $hitung; $i++) {
+            $rating[] = Rating::where('id_order', $order[$i]->id)->first();
+            if(empty($rating[$i]))
+            {
+                $penilaian[] = 0;
+            }
+            else{
+                $penilaian[] = $rating[$i]->rating;
+            }
+        }
 
-        return view('jual-beli.invoice', compact('order','hitung', 'kurir', 'jumlah_seluruh' , 'hitungdataorder' , 'orderdetaildata', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'hitung', 'rekening'));
+
+        return view('jual-beli.invoice', compact('order', 'penilaian', 'hitung', 'kurir', 'jumlah_seluruh' , 'hitungdataorder' , 'orderdetaildata', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'hitung', 'rekening'));
     }
 
 
@@ -605,7 +617,7 @@ class KeranjangjbController extends Controller
             $rating = Rating::create([
                 'id_penjual' => $order->id_penjual,
                 'id_pembeli' => $order->id_pelanggan,
-                'id_order' => $request->id,
+                'id_order' => $order->id,
                 'invoice' => $order->invoice,
                 'rating' => 0
 
@@ -731,6 +743,16 @@ class KeranjangjbController extends Controller
 
         // return response()->json($array_result);
 
+    }
+
+    public function rating(Request $request)
+    {
+        $rating = Rating::where('id_order', $request->id_order_rating)->first();
+        $rating->update([
+            'rating' => $request->whatever1
+        ]);
+
+        return response()->json();
     }
     
 }
