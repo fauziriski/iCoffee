@@ -502,7 +502,7 @@ class KeranjangjbController extends Controller
 
         $rating = array();
         for ($i=0; $i < $hitung; $i++) {
-            $rating[] = Rating::where('id_order', $order[$i]->id)->first();
+            $rating[] = Rating::where('id_order', $order[$i]->id)->where('jasa', 1)->first();
             if(empty($rating[$i]))
             {
                 $penilaian[] = 0;
@@ -624,7 +624,8 @@ class KeranjangjbController extends Controller
                 'id_pembeli' => $order->id_pelanggan,
                 'id_order' => $order->id,
                 'invoice' => $order->invoice,
-                'rating' => 0
+                'rating' => 0,
+                'jasa' => 1
 
             ]);
 
@@ -752,7 +753,7 @@ class KeranjangjbController extends Controller
 
     public function rating(Request $request)
     {
-        $rating = Rating::where('id_order', $request->id_order_rating)->first();
+        $rating = Rating::where('id_order', $request->id_order_rating)->where('jasa', 1)->first();
         $rating->update([
             'rating' => $request->whatever1
         ]);

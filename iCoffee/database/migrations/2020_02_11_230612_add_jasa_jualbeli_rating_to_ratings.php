@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddJasaToRatings extends Migration
+class AddJasaJualbeliRatingToRatings extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddJasaToRatings extends Migration
     public function up()
     {
         Schema::table('ratings', function (Blueprint $table) {
-            
+            $table->integer('jasa')->after('id_order');
         });
     }
 
@@ -26,7 +26,7 @@ class AddJasaToRatings extends Migration
     public function down()
     {
         Schema::table('ratings', function (Blueprint $table) {
-            //
+            $table->dropColumn('email');
         });
     }
 }

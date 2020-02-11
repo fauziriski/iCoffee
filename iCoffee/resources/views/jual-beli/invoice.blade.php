@@ -153,7 +153,7 @@
     							<tr>
 									<td>{{ $orderdetaildata[$i][$j]->nama_produk }}</td>
 									<td class="text-center">Rp {{  number_format($orderdetaildata[$i][$j]->harga,0,",",".")  }}</td>
-    								<td class="text-center">{{  $orderdetaildata[$i][$j]->jumlah  }}</td>
+    								<td class="text-center">{{  $orderdetaildata[$i][$j]->jumlah  }} Kg</td>
     								<td class="text-right">Rp {{  number_format($orderdetaildata[$i][$j]->total,0,",",".")  }}</td>
 								</tr>
 								

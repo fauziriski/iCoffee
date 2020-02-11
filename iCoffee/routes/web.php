@@ -92,6 +92,7 @@ Route::post('/lelang/pesanan/inputresi', 'KeranjanglelangController@inputresi');
 Route::post('/lelang/pesanan/selesai', 'KeranjanglelangController@pesananselesai');
 Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'KeranjanglelangController@komplain');
 Route::post('/lelang/pesanan/komplain', 'KeranjanglelangController@komplaindiproses');
+Route::post('/lelang/rating', 'KeranjanglelangController@rating');
 
 
 

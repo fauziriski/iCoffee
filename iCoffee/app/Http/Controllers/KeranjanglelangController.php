@@ -22,6 +22,7 @@ use App\Complaint;
 use App\Address;
 use App\Delivery;
 use App\Delivery_category;
+use App\Rating;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class KeranjanglelangController extends Controller
@@ -154,16 +155,26 @@ class KeranjanglelangController extends Controller
         $order = Auction_Order::where('invoice', $invoice)->where('id_pembeli', $id_pembeli)->first();
         $kurir = explode(': ', $order->shipping);
         $bank_information = Account::where('bank_name', $order->payment)->first();
+
+        $rating;
+        $rating = Rating::where('id_order', $order->id)->where('jasa', 2)->first();
+
+        if(empty($rating))
+            {
+                $penilaian = 0;
+            }
+            else{
+                $penilaian = $rating->rating;
+            }
         
         $cek_resi = Auction_delivery::where('id_order', $order->id)->first();
 
         if($order->status == 5 || 6 || 7 || 10 || 11)
         {
-            return view('jual-beli.lelang.invoice', compact('order', 'kurir', 'bank_information','cek_resi'));
+            return view('jual-beli.lelang.invoice', compact('order', 'kurir', 'bank_information','cek_resi', 'penilaian'));
             
         }
-
-        return view('jual-beli.lelang.invoice', compact('order', 'kurir', 'bank_information'));
+        return view('jual-beli.lelang.invoice', compact('order', 'kurir', 'bank_information', 'penilaian'));
     }
 
     public function invoice_penjual($invoice)
@@ -297,6 +308,16 @@ class KeranjanglelangController extends Controller
                 'status' => 6
             ]);
 
+            $rating = Rating::create([
+                'id_penjual' => $order->id_penjual,
+                'id_pembeli' => $order->id_pembeli,
+                'id_order' => $order->id,
+                'invoice' => $order->invoice,
+                'rating' => 0,
+                'jasa' => 2
+
+            ]);
+
             $rekber = Joint_account::where('user_id', $order->id_penjual)->first();
 
             $saldosum = $rekber->saldo+$request->jumlah_seluruh;
@@ -365,6 +386,16 @@ class KeranjanglelangController extends Controller
         ]);
 
         return redirect('/lelang/invoice/'. $request->invoice);
+    }
+
+    public function rating(Request $request)
+    {
+        $rating = Rating::where('id_order', $request->id_lelang_rating)->where('jasa', 2)->first();
+        $rating->update([
+            'rating' => $request->whatever1
+        ]);
+
+        return response()->json();
     }
     
 

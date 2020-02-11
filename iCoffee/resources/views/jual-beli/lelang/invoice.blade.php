@@ -150,7 +150,7 @@
     							<tr>
 									<td>{{ $order->auction_products->nama_produk }}</td>
 									<td class="text-center">Rp {{  number_format($order->tawaran_awal,0,",",".")  }}</td>
-    								<td class="text-center">{{  $order->jumlah  }}</td>
+    								<td class="text-center">{{  $order->jumlah  }} Kg</td>
     								<td class="text-right">Rp {{  number_format($order->sub_total,0,",",".")  }}</td>
 								</tr>
 								
@@ -195,6 +195,46 @@
 								<input type="submit" class="btn btn-primary py-3 px-5" name="submit" value="Diterima">
 						</p>
 						</form>
+					@elseif( $order->status == 6)
+						<p class="float-right"><input type="submit" class="btn btn-primary  py-3 px-5" data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating"></p>
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Rating</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								</div>
+								<div class="modal-body">
+									<div class="container">
+										<form action="" id="rating_form" method="post">
+											@csrf
+											<input type="hidden" name="id_lelang_rating" id="id_order_rating" required value="{{ $order->id }}">
+										<div class="row">
+										<div class="col-lg-12">
+											<div class="star-rating text-center">
+											
+											<span class="fa fa-star-o" data-rating="1"></span>
+											<span class="fa fa-star-o" data-rating="2"></span>
+											<span class="fa fa-star-o" data-rating="3"></span>
+											<span class="fa fa-star-o" data-rating="4"></span>
+											<span class="fa fa-star-o" data-rating="5"></span>
+											<input type="hidden" name="whatever1" class="rating-value" value="{{ $penilaian }}" required>
+											</div>
+										</div>
+										</div>
+									</form>
+									</div>
+								</div>
+								<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" id="rating" name="rating" class="btn btn-primary">Save changes</button>
+								</div>
+							</div>
+							</div>
+						</div>
 					@endif
                 </div>
     		</div>
@@ -221,7 +261,65 @@
     border-top: 2px solid;
 }
 
+.star-rating {
+  line-height:40px;
+  font-size:2.25em;
+}
+
+.star-rating .fa-star{color: yellow;}
+
 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+<script>
+	var $star_rating = $('.star-rating .fa');
+
+	var SetRatingStar = function() {
+		return $star_rating.each(function() {
+			if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+			return $(this).removeClass('fa-star-o').addClass('fa-star');
+			} else {
+			return $(this).removeClass('fa-star').addClass('fa-star-o');
+			}
+		});
+		};
+
+		$star_rating.on('click', function() {
+		$star_rating.siblings('input.rating-value').val($(this).data('rating'));
+		return SetRatingStar();
+		});
+
+		SetRatingStar();
+		$(document).ready(function() {
+
+		});
+</script>
+
+<script>
+	$(document).ready(function(){
+		$('#rating').on('click', function() {
+			var data = $('#rating_form').serialize();
+			$.ajax({
+			url:"/lelang/rating",
+			method:"POST",
+			data: data,
+			success:function(data)
+			{
+				swal(
+					'Berhasil',
+					'Data Berhasil di Tambahkan',
+					'success'
+				);
+				location.reload();
+
+			}
+		});
+
+		});
+	});
+
+</script>
 
 
 @endsection
