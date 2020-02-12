@@ -20,12 +20,13 @@
     		<div class="row justify-content-center">
     			<div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">
-    					<li><a href="#" class="active">Semua</a></li>
-    					<li><a href="#">Kopi Robusta</a></li>
-    					<li><a href="#">Kopi Arabika</a></li>
-    					<li><a href="#">Kopi Luak</a></li>
-						<li><a href="#">Kopi Jawa</a></li>
-						<li><a href="#">Lainnya</a></li>
+    					<li><a href=/lelang class="@if(Request::getRequestUri() == '/lelang')active
+                @endif">Semua</a></li>
+              @foreach ($category as $data)
+    					<li><a href="/lelang/kategori/{{$data->id}}" class="{{ Request::segment(3) == $data->id ? 'active' : null }}">Kopi {{ $data->kategori }}</a></li>
+						@endforeach
+						<li><a href="/jual-beli">Lainnya</a></li>
+						  <li><a href="/lelang">Lainnya</a></li>
     				</ul>
     			</div>
     		</div>

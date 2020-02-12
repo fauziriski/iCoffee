@@ -59,7 +59,18 @@ class HomeController extends Controller
             return redirect('/profil/tambahalamat');       
 
         }
-        return view('jual-beli.pasang',compact('id_pelanggan','nama_pelanggan'));
+
+        $alamat_utama = $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->where('status', 1)->get();
+
+        if(empty($alamat_utama))
+        {
+            Alert::info('Tentukan Alamat Utama')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/edit');       
+
+        }
+
+        $category = Category::all();
+        return view('jual-beli.pasang',compact('category'));
     }
 
 

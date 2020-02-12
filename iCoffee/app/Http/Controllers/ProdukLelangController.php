@@ -13,6 +13,7 @@ use App\Auction_process;
 use App\Auction_winner;
 use App\Auction_image;
 use App\Joint_account;
+use App\Category;
 
 class ProdukLelangController extends Controller
 {
@@ -42,8 +43,18 @@ class ProdukLelangController extends Controller
             return redirect('/profil/tambahalamat');       
 
         }
+        $alamat_utama = $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->where('status', 1)->get();
+
+        if(empty($alamat_utama))
+        {
+            Alert::info('Tentukan Alamat Utama')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/edit');       
+
+        }
+
+        $category = Category::all();
     
-        return view('jual-beli.lelang.pasang');
+        return view('jual-beli.lelang.pasang', compact('category'));
     }
 
     public function pasangLelangberhasil(Request $request)

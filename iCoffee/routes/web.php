@@ -63,7 +63,7 @@ Route::post('/jual-beli/pesanan/selesai', 'KeranjangjbController@pesananselesai'
 Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'KeranjangjbController@komplain');
 Route::post('/jual-beli/pesanan/komplain', 'KeranjangjbController@komplaindiproses');
 Route::post('/jual-beli/rating', 'KeranjangjbController@rating');
-Route::get('/jual-beli/{id}', 'ProdukController@index_category');
+Route::get('/jual-beli/kategori/{id}', 'ProdukController@index_category');
 
 Route::get('page/getprovince', 'ApiController@getprovince');
 Route::get('page/getcity', 'ApiController@getcity');
@@ -74,6 +74,7 @@ Route::get('page/cekshipping', 'ApiController@cekshipping');
 Route::get('/pasang-lelang', 'ProdukLelangController@pasangLelang');
 Route::post('/pasang-lelang/berhasil', 'ProdukLelangController@pasangLelangberhasil');
 Route::get('/lelang', 'ProdukController@lelang');
+Route::get('/lelang/kategori/{id}', 'ProdukController@lelangkategori');
 Route::get('/lelang/produk/{id}', 'ProdukLelangController@detaillelang');
 Route::get('/lelang/produk/data/{id}', 'ProdukLelangController@datalelang');
 Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');

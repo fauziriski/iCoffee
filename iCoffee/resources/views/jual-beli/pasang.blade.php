@@ -24,7 +24,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">Rp</div>
                   </div>
-                  <input type="number" class="form-control" placeholder="Dalam Rupiah" name="harga">
+                  <input type="number" class="form-control" placeholder="" name="harga">
                   <span class="text-danger">{{$errors->first('harga')}}</span>
                 </div>
               </div>
@@ -34,7 +34,7 @@
               <div class="form-group">
                 <label for="stok">Stok</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="" placeholder="Satuan" name="stok">
+                  <input type="number" class="form-control" id="" placeholder="" name="stok">
                   <span class="text-danger">{{$errors->first('stok')}}</span>
                   <div class="input-group-prepend">
                     <div class="input-group-text">Kg</div>
@@ -48,12 +48,9 @@
                 <label for="country">Kategori</label>
                 <div class="select-wrap">
                   <select name="id_kategori" id="" class="form-control">
-                    <option value="1">Robusta</option>
-                    <option value="2">Arabika</option>
-                    <option value="3">Honey</option>
-                    <option value="4">Natural</option>
-                    <option value="5">Flores</option>
-                    <option value="6">Hijau</option>
+                    @foreach ($category as $data)
+                    <option value="{{ $data->id }}">{{ $data->kategori }}</option>         
+                    @endforeach  
                   </select>
                 </div>
               </div>

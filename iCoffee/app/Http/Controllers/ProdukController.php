@@ -12,6 +12,7 @@ use App\Address;
 use App\Auction_product;
 use App\Auction_process;
 use App\Auction_image;
+use App\Category;
 use DB;
 
 
@@ -24,15 +25,17 @@ class ProdukController extends Controller
         // $id_customer = Auth::id();
         
         $products = Shop_product::orderBy('created_at','desc')->paginate(12);
+        $category = Category::all();
     
-        return view('jual-beli.index',compact('products'));
+        return view('jual-beli.index',compact('products', 'category'));
     }
 
     public function index_category($id)
     {
         $products = Shop_product::where('id_kategori', $id)->orderBy('created_at','desc')->paginate(12);
+        $category = Category::all();
 
-        return view('jual-beli.index',compact('products'));
+        return view('jual-beli.index',compact('products', 'category'));
     }
 
     public function detail($id)
@@ -50,7 +53,8 @@ class ProdukController extends Controller
         return view('jual-beli.detailproduk',compact('products','image','produk_terkait', 'alamat'));
     }
 
-    public function lelang() {
+    public function lelang() 
+    {
         // alert()->html('<i>HTML</i> <u>example</u>',"
         //                 You can use <b>bold text</b>,
         //                 <a href='//github.com'>links</a>
@@ -60,12 +64,23 @@ class ProdukController extends Controller
                 // example:
 
 
-
+        $category = Category::all();
         $products = Auction_product::where('status', 2)->orderBy('created_at','desc')->paginate(12);
 
         $panjang = count($products);
 
-        return view('jual-beli.lelang.index', compact('products','panjang'));
+        return view('jual-beli.lelang.index', compact('products','panjang', 'category'));
+    }
+
+    public function lelangkategori($id)
+    {
+        $products = Auction_product::where('status', 2)->where('id_kategori', $id)->orderBy('created_at','desc')->paginate(12);
+
+        $panjang = count($products);
+        $category = Category::all();
+
+        return view('jual-beli.lelang.index', compact('products','panjang','category'));
+
     }
 
 
