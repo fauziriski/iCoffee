@@ -52,7 +52,22 @@ class KeranjangjbController extends Controller
 
     public function tambahkeranjang(Request $request)
     {
+
+        
         $id_customer = Auth::user()->id;
+
+        $cek_keranjang = JbCart::where('id_produk', $request->id_produk)->where('id_pelanggan', $id_customer)->first();
+
+        if (!(empty($cek_keranjang))) {
+            $jumlah = $request->quantity + $cek_keranjang->jumlah;
+            $total = ($request->harga*$request->quantity)+$cek_keranjang->total;
+            $cek_keranjang->update([
+                'jumlah' => $jumlah,
+                'total' => $total
+            ]);
+
+            return redirect('/jual-beli/keranjang');
+        }
 
         $total = $request->harga*$request->quantity;
 

@@ -87,7 +87,7 @@
 							</p>
 						</div> -->
 
-					  <p class="price"><span>Rp {{ number_format($products->harga) }} / Kg</span></p>
+					  <p class="price"><span>Rp {{ number_format($products->harga,0,",",".") }} / Kg</span></p>
 
             <div class="row">
               <p class="text-left">
@@ -192,7 +192,27 @@
                 <br>
                 <h5>{{$products->user->name}}</h5>
               
-                <p>{{ $alamat->city->nama }}</p>
+                <p>{{ $alamat->province->nama }}, {{ $alamat->city->nama }}</p>
+
+                @if (!($rating_toko == 0))
+
+                
+                <div class="star-rating">
+                  {{ $rating_toko }}
+                  <span class="fa fa-star-o" data-rating="1"></span>
+                  <span class="fa fa-star-o" data-rating="2"></span>
+                  <span class="fa fa-star-o" data-rating="3"></span>
+                  <span class="fa fa-star-o" data-rating="4"></span>
+                  <span class="fa fa-star-o" data-rating="5"></span>
+                  ({{ $count }})
+                  <input type="hidden" name="whatever1" class="rating-value" value="{{ $rating_toko }}" required>
+                  </div>
+
+
+                @else
+                <p>Jadilah Yang Pertama Mengulas Toko Ini</p>
+
+                @endif
               </div>
 
             </div>
@@ -235,7 +255,7 @@
                 <h3><a href="/jual-beli/produk/{{ $data->id }}">{{ $data->nama_produk }}</a></h3>
                 <div class="d-flex">
                   <div class="pricing">
-                    <p class="price"><span class="price-sale">Rp {{ $data->harga }} /Kg</span></p>
+                    <p class="price"><span class="price-sale">Rp {{ number_format($data->harga,0,",",".") }} /Kg</span></p>
                   </div>
                 </div>
                 <div class="bottom-area d-flex px-3">
@@ -261,6 +281,17 @@
     </section>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+
+    <style>
+      
+.star-rating {
+  line-height:0px;
+  font-size:1.10em;
+}
+
+.star-rating .fa-star{color: orange;}
+    </style>
     
 
   <script>
@@ -299,6 +330,25 @@
 		    
 		});
   </script>
+
+<script>
+	var $star_rating = $('.star-rating .fa');
+
+	var SetRatingStar = function() {
+		return $star_rating.each(function() {
+			if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {  
+			return $(this).removeClass('fa-star-o').addClass('fa-star');
+			} else {
+			return $(this).removeClass('fa-star').addClass('fa-star-o');
+			}
+		});
+		};
+
+		SetRatingStar();
+		$(document).ready(function() {
+
+		});
+</script>
   
 
 @endsection

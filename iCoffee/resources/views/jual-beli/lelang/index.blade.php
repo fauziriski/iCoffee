@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 
-    <div class="hero-wrap hero-bread" style="background-image: url('images/photo-1550470789-fc6193fd518c.jpg');">
+    <div class="hero-wrap hero-bread" style="background-image: url('Ulu_Belu_Natural_Proses.JPG');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">

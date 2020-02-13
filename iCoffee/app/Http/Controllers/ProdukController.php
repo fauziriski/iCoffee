@@ -13,6 +13,10 @@ use App\Auction_product;
 use App\Auction_process;
 use App\Auction_image;
 use App\Category;
+use App\Rating;
+use App\Order;
+use App\Orderdetail;
+use App\Auction_Order;
 use DB;
 
 
@@ -49,8 +53,32 @@ class ProdukController extends Controller
         }
         $image = Image::where('id_produk', $products->id)->get();
         $alamat =  Address::where('id_pelanggan', $products->id_pelanggan)->where('status', 1)->first();
+
+        $cek_rating_toko = Rating::where('id_penjual', $products->id_pelanggan)->get();
+        $cek_jumlah_data_rating = count($cek_rating_toko);
+
+        $jumlah_data = 0;
+        $sum = 0;
+        $rating_toko = 0;
+        $cek_data = array();
+        for ($i=0; $i < $cek_jumlah_data_rating; $i++)
+        {
+            if(!($cek_rating_toko[$i]->rating == 0))
+            {
+                $cek_data[] = Orderdetail::where('invoice', $cek_rating_toko[$i]->invoice)->get();
+                $jumlah_data += 1;
+                $sum = $cek_rating_toko[$i]->sum('rating');
+                $rating_toko = $sum/$jumlah_data;
+
+            }
+        }
+        $count = 0;
+        foreach ($cek_data as $data) {
+            $count+= count($data);
+        }
+
         
-        return view('jual-beli.detailproduk',compact('products','image','produk_terkait', 'alamat'));
+        return view('jual-beli.detailproduk',compact('products','image','produk_terkait', 'alamat', 'rating_toko', 'jumlah_data','count'));
     }
 
     public function lelang() 
