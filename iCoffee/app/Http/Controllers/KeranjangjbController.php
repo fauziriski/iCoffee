@@ -52,7 +52,22 @@ class KeranjangjbController extends Controller
 
     public function tambahkeranjang(Request $request)
     {
+
+        
         $id_customer = Auth::user()->id;
+
+        $cek_keranjang = JbCart::where('id_produk', $request->id_produk)->where('id_pelanggan', $id_customer)->first();
+
+        if (!(empty($cek_keranjang))) {
+            $jumlah = $request->quantity + $cek_keranjang->jumlah;
+            $total = ($request->harga*$request->quantity)+$cek_keranjang->total;
+            $cek_keranjang->update([
+                'jumlah' => $jumlah,
+                'total' => $total
+            ]);
+
+            return redirect('/jual-beli/keranjang');
+        }
 
         $total = $request->harga*$request->quantity;
 
@@ -502,7 +517,7 @@ class KeranjangjbController extends Controller
 
         $rating = array();
         for ($i=0; $i < $hitung; $i++) {
-            $rating[] = Rating::where('id_order', $order[$i]->id)->first();
+            $rating[] = Rating::where('id_order', $order[$i]->id)->where('jasa', 1)->first();
             if(empty($rating[$i]))
             {
                 $penilaian[] = 0;
@@ -512,8 +527,13 @@ class KeranjangjbController extends Controller
             }
         }
 
+        for ($i=0; $i < $hitung; $i++) 
+        {
+            $cek_resi[] = Delivery::where('id_order', $order[$i]->id)->first();
+        }        
 
-        return view('jual-beli.invoice', compact('order', 'penilaian', 'hitung', 'kurir', 'jumlah_seluruh' , 'hitungdataorder' , 'orderdetaildata', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'hitung', 'rekening'));
+
+        return view('jual-beli.invoice', compact('order', 'penilaian','cek_resi', 'hitung', 'kurir', 'jumlah_seluruh' , 'hitungdataorder' , 'orderdetaildata', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'hitung', 'rekening'));
     }
 
 
@@ -619,7 +639,8 @@ class KeranjangjbController extends Controller
                 'id_pembeli' => $order->id_pelanggan,
                 'id_order' => $order->id,
                 'invoice' => $order->invoice,
-                'rating' => 0
+                'rating' => 0,
+                'jasa' => 1
 
             ]);
 
@@ -747,7 +768,7 @@ class KeranjangjbController extends Controller
 
     public function rating(Request $request)
     {
-        $rating = Rating::where('id_order', $request->id_order_rating)->first();
+        $rating = Rating::where('id_order', $request->id_order_rating)->where('jasa', 1)->first();
         $rating->update([
             'rating' => $request->whatever1
         ]);

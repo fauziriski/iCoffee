@@ -27,7 +27,7 @@
 											<input type="hidden" name="nama_alamat" value="{{ $alamat_pembeli->nama }}">
 
 										<div class="col">
-											<p><a href="checkout.html" class="btn btn-primary py-3 px-4 col-lg-7 align-self-end">Ganti Alamat</a></p>	
+											<p><a href="/profil/edit" class="btn btn-primary py-3 px-4 col-lg-7 align-self-end">Ganti Alamat</a></p>	
 										</div>
 									</div>
 								</div>
@@ -62,9 +62,9 @@
 									        <td class="product-name">
 									        	<h3>{{ $checkout->auction_product->nama_produk }}</h3>
 									        </td>
-									        <td class="price">Rp {{ number_format($checkout->auction_product->harga_awal) }}</td>
+									        <td class="price">Rp {{ number_format($checkout->auction_product->harga_awal,0,",",".") }}</td>
 									        <td class="total">{{ $checkout->auction_product->stok  }} Kg</td>
-									        <td class="total">Rp {{ number_format( $checkout->jumlah_penawaran) }}</td>
+									        <td class="total">Rp {{ number_format( $checkout->jumlah_penawaran,0,",",".") }}</td>
 										  </tr><!-- END TR-->
 										  <input type="hidden" name="id_keranjang" value="{{ $checkout->id  }}">
 										  <input type="hidden" name="id_produk" value="{{ $checkout->id_produk_lelang   }}">
@@ -115,15 +115,15 @@
 													{{-- onchange="myFunction()" --}}
 													<option selected disabled="disabled" value="" >Pilih Kurir</option>
 													@for ($k = 0; $k < count($costjne[0]["costs"]); $k++)
-												  <option value="{{ $costjne[0]["costs"][$k]["cost"][0]["value"] }}: JNE: {{ $costjne[0]["costs"][$k]["service"] }} " >JNE Rp {{ number_format($costjne[0]["costs"][$k]["cost"][0]["value"]) }} ( {{ $costjne[0]["costs"][$k]["service"] }} {{ $costjne[0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
+												  <option value="{{ $costjne[0]["costs"][$k]["cost"][0]["value"] }}: JNE: {{ $costjne[0]["costs"][$k]["service"] }} " >JNE Rp {{ number_format($costjne[0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costjne[0]["costs"][$k]["service"] }} {{ $costjne[0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
 													@endfor
 
 													@for ($k = 0; $k < count($costtiki[0]["costs"]); $k++)
-												  <option value="{{ $costtiki[0]["costs"][$k]["cost"][0]["value"] }}: TIKI: {{ $costtiki[0]["costs"][$k]["service"] }}">TIKI Rp {{ number_format($costtiki[0]["costs"][$k]["cost"][0]["value"]) }} ( {{ $costtiki[0]["costs"][$k]["service"] }} {{ $costtiki[0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
+												  <option value="{{ $costtiki[0]["costs"][$k]["cost"][0]["value"] }}: TIKI: {{ $costtiki[0]["costs"][$k]["service"] }}">TIKI Rp {{ number_format($costtiki[0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costtiki[0]["costs"][$k]["service"] }} {{ $costtiki[0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
 													@endfor
 
 													@for ($k = 0; $k < count($costpos[0]["costs"]); $k++)
-												  <option value="{{ $costpos[0]["costs"][$k]["cost"][0]["value"] }}: POS: {{ $costpos[0]["costs"][$k]["service"] }}">POS Rp {{ number_format($costpos[0]["costs"][$k]["cost"][0]["value"]) }} ( {{ $costpos[0]["costs"][$k]["service"] }} {{ $costpos[0]["costs"][$k]["cost"][0]["etd"] }} )</option>
+												  <option value="{{ $costpos[0]["costs"][$k]["cost"][0]["value"] }}: POS: {{ $costpos[0]["costs"][$k]["service"] }}">POS Rp {{ number_format($costpos[0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costpos[0]["costs"][$k]["service"] }} {{ $costpos[0]["costs"][$k]["cost"][0]["etd"] }} )</option>
 													@endfor
 						                    
 								                  </select>
@@ -137,7 +137,7 @@
 
 										  	<input type="hidden" name="total_bayar" value="{{  $checkout->jumlah_penawaran }}">
 				          					
-				          					<h6 class="text-center">Total Pembayaran Rp. {{ number_format( $checkout->jumlah_penawaran) }}</h6>
+				          					<h6 class="text-center">Total Pembayaran Rp. {{ number_format( $checkout->jumlah_penawaran,0,",",".") }}</h6>
 			            				</div>
 			            			</div>
 			          			</div>
@@ -197,7 +197,7 @@
 			    					<h3>Cart Totals</h3>
 			    					<p class="d-flex">
 			    						<span>Subtotal untuk Produk</span>
-			    						<span>Rp {{ number_format( $checkout->jumlah_penawaran) }}</span>
+			    						<span>Rp {{ number_format( $checkout->jumlah_penawaran,0,",",".") }}</span>
 			    					</p>
 			    					<p class="d-flex">
 			    						<span>Total Ongkos Kirim</span>

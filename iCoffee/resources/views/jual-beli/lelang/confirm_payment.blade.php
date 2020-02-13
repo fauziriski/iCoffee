@@ -1,5 +1,5 @@
 @extends('jual-beli.layouts.app')
-@section('title', 'Tambah Alamat')
+@section('title', 'Konfirmasi Pembayran Lelang')
 @section('content')
 
 <div class="col-md-9">

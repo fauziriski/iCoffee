@@ -37,7 +37,7 @@
 									<p>{{ $data->pelelang->name }}</p>
 						        </td>
 						        
-						        <td class="price">Rp {{ number_format($data->auction_product->harga_awal) }}</td>
+						        <td class="price">Rp {{ number_format($data->auction_product->harga_awal,0,",",".") }}</td>
 						        <input type="hidden" id="harga" name="harga" value="{{ $data->auction_product->harga_awal }}" readonly>
 								
 								
@@ -53,7 +53,7 @@
 									</form>
 					          </td>
 						        
-								<td class="total"><output name="total" for="harga jumlah">Rp {{ number_format($data->jumlah_penawaran) }}</output></td>
+								<td class="total"><output name="total" for="harga jumlah">Rp {{ number_format($data->jumlah_penawaran,0,",",".") }}</output></td>
 								<td class="product-remove"><a href="/jual-beli/keranjang/hapus/{{ $data->id }}"><span class="oi oi-trash"></span></a></td>
 							  </tr><!-- END TR-->
 							  
@@ -107,7 +107,7 @@
     				<div class="cart-total mb-3">
     					<p class="d-flex total-price">
     						<span>Sub Total ({{ $carttotal }}) Produk</span>
-							<span>Rp {{ number_format($subtotal) }}</span>
+							<span>Rp {{ number_format($subtotal,0,",",".") }}</span>
     					</p>
     				</div>
 					{{-- <p><a href="/jual-beli/checkout" class="btn btn-primary py-2 px-5">Checkout</a></p> --}}

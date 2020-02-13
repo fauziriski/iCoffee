@@ -52,7 +52,7 @@
                     <i class="fa fa-money"></i> Harga Awal
                   </div>
                   <div class="col">
-                    <span class="mr-4" style="color: #bbb;">Rp {{ $products->harga_awal}}</span>
+                    <span class="mr-4" style="color: #bbb;">Rp {{ number_format($products->harga_awal,0,",",".")}}</span>
                   </div>
        
                 </p>
@@ -65,7 +65,7 @@
                     <i class="oi oi-transfer"></i> Penawaran Terakhir
                   </div>
                   <div class="col">
-                    <span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp {{ $proses->penawaran }}</span>
+                    <span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp {{ number_format($proses->penawaran,0,",",".") }}</span>
                   </div>
               
                 </p>
@@ -102,7 +102,7 @@
                               <div class="input-group-prepend">
                                   <div class="input-group-text">Rp</div>
                               </div>
-                            <input type="text" id="penawaran_coba" name="penawaran" class="form-control input-number" value="{{ $tawar }}" readonly>
+                            <input type="text" id="penawaran_coba" name="penawaran" class="form-control input-number" value="{{ number_format($tawar,0,",",".") }}" readonly>
                           </div>
 
                       </div>
@@ -160,7 +160,7 @@
 
                     <td>{{ $data->nama }}</td>
                     
-                    <td>Rp {{ $data->penawaran }}</td>
+                    <td>Rp {{ number_format($data->penawaran,0,",",".") }}</td>
                 
             
                 </tr><!-- END TR-->
@@ -314,10 +314,15 @@ $(document).ready(function() {
 					{
             
             if(response.response == 'Berhasil'){
+              swal(
+                'Berhasil',
+                'Penawaran Anda Berhasil Ditambahkan',
+                'success'
+              );
               var penawaranselanjutnya = parseInt(response.data.penawaran) + parseInt(response.data.kelipatan);
-              $('#penawaran_coba').replaceWith('<input type="text" id="penawaran_coba" name="penawaran_coba" class="form-control input-number" value="'+ penawaranselanjutnya +'" readonly>');
+              $('#penawaran_coba').replaceWith('<input type="text" id="penawaran_coba" name="penawaran_coba" class="form-control input-number" value="'+ penawaranselanjutnya.toLocaleString("id-ID") +'" readonly>');
               $('#penawaran').replaceWith('<input type="hidden" id="penawaran" name="penawaran" value="'+ penawaranselanjutnya +'">');
-              $('#penawaran_terakhir').replaceWith('<span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp '+ response.data.penawaran +'</span>');
+              $('#penawaran_terakhir').replaceWith('<span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp '+ response.data.penawaran.toLocaleString("id-ID") +'</span>');
               $('#table_id').load("/lelang/produk/data/"+ response.data.id_produk); 
             }
             else if(response.response == 'Saldo'){

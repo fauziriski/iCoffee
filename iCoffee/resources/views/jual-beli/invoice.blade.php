@@ -44,7 +44,25 @@
     					<strong>Metode Pembayaran :</strong><br>
     					{{ $rekening[$i]->bank_name }} {{ $rekening[$i]->no_rekening }}<br>
 
-    				</address>
+					</address>
+					
+					@if ($order[$i]->status == 5 || 6 || 7 || 10 || 11)
+					<address>
+    					<strong>No Resi :</strong><br>
+    				{{$kurir[$i][1]}} {{ $cek_resi[$i]->invoice }}<br>
+
+					</address>
+						
+					@else
+						
+					<address>
+						<strong>No Resi :</strong><br>
+							
+
+					</address>
+
+					
+					@endif
     			</div>
     			<div class="col-md-3 col-6">
     				<address>
@@ -58,7 +76,7 @@
 							</div>		  
 						@elseif( $order[$i]->status == 2)
 							<div class="alert alert-info" role="alert">
-								Sudah Dibayar
+								Pembayaran Ditolak
 							</div>
 
 						@elseif( $order[$i]->status == 3)
@@ -134,9 +152,9 @@
     							@for ($j = 0; $j < $hitungdataorder[$i]; $j++)
     							<tr>
 									<td>{{ $orderdetaildata[$i][$j]->nama_produk }}</td>
-									<td class="text-center">Rp {{  number_format($orderdetaildata[$i][$j]->harga)  }}</td>
-    								<td class="text-center">{{  $orderdetaildata[$i][$j]->jumlah  }}</td>
-    								<td class="text-right">Rp {{  number_format($orderdetaildata[$i][$j]->total)  }}</td>
+									<td class="text-center">Rp {{  number_format($orderdetaildata[$i][$j]->harga,0,",",".")  }}</td>
+    								<td class="text-center">{{  $orderdetaildata[$i][$j]->jumlah  }} Kg</td>
+    								<td class="text-right">Rp {{  number_format($orderdetaildata[$i][$j]->total,0,",",".")  }}</td>
 								</tr>
 								
 								@endfor
@@ -145,13 +163,13 @@
     								<td class="thick-line"></td>
     								<td class="thick-line"></td>
     								<td class="thick-line text-center"><strong>Subtotal</strong></td>
-									<td class="thick-line text-right">Rp {{ number_format($order[$i]->total_bayar) }}</td>
+									<td class="thick-line text-right">Rp {{ number_format($order[$i]->total_bayar,0,",",".") }}</td>
     							</tr>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
     								<td class="no-line text-center"><strong>Biaya Pengiriman</strong></td>
-    								<td class="no-line text-right">Rp {{ number_format($kurir[$i][0]) }}</td>
+    								<td class="no-line text-right">Rp {{ number_format($kurir[$i][0],0,",",".") }}</td>
 								</tr>
 								
 
@@ -225,7 +243,7 @@
     	<div class="col-md-12">
     		<div class="panel panel-default">
 				<div class="panel-heading">
-    				<h3 class="card-header"><strong>Total</strong><strong class="float-right">Rp {{ number_format($jumlah_seluruh) }}</strong></h3>
+    				<h3 class="card-header"><strong>Total</strong><strong class="float-right">Rp {{ number_format($jumlah_seluruh,0,",",".") }}</strong></h3>
     			</div>
     		</div>
     	</div>
@@ -289,7 +307,6 @@
 	$(document).ready(function(){
 		$('#rating').on('click', function() {
 			var data = $('#rating_form').serialize();
-			console.log(data);
 			$.ajax({
 			url:"/jual-beli/rating",
 			method:"POST",
