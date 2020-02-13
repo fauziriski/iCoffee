@@ -133,6 +133,7 @@
 					<input type="hidden" name="nama_pemilik_pengirim" id="nama_pemilik_pengirim2" />
 					<input type="hidden" name="foto_bukti" id="foto_bukti2" />
 					<input type="hidden" name="jumlah_transfer" id="jumlah_transfer2" />
+					<input type="hidden" name="invoice2" id="invoice2" />
 					<div class="text2">
 						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
 						<div class="mt-5"></div>
@@ -359,6 +360,7 @@
 							dataType:"json",
 							success:function(html){
 								$('#hidden_id2').val(html.data.id);
+								$('#invoice2').val(html.data.invoice);
 								$('.modal-title2').text("Konfirmasi");
 								$('#action_button2').val("validasi");
 								$('#status2').val("3");

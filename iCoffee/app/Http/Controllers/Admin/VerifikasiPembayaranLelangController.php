@@ -13,6 +13,9 @@ use App\Adm_arus_kas;
 use App\Adm_akun;
 use App\Adm_sub1_akun;
 use App\Adm_sub2_akun;
+use App\Top_up;
+use App\Joint_account;
+use App\Auction_Order;
 use Carbon;
 
 
@@ -28,27 +31,14 @@ class  VerifikasiPembayaranLelangController extends Controller
 			return datatables()->of($konfirmasi)
 			->addColumn('action', function($data){
 				
-				if ($data->status == "8") {
+				if ($data->status == "1") {
 					$button = 
 					'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
 					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>'. '&nbsp&nbsp' .
 					'<button type="button" name="validasi" id="'.$data->id.'" class="validasi btn btn-success btn-sm"><i class="fa fa-check"></i> Validasi</button>'. '&nbsp&nbsp' .
 					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm"><i class="fa fa-times"></i> Tolak</button>';
 					
-				}elseif ($data->status == "2") {
-					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
-
-				}elseif ($data->status == "3") {
-					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
-
-				}elseif ($data->status == "1") {
-					$button = 
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
-
-				}
-				else{
+				}else{
 					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
 					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
 
@@ -57,13 +47,14 @@ class  VerifikasiPembayaranLelangController extends Controller
 				return $button;
 			})
 
+
 			->addColumn('status', function($data){
 				if ($data->status == "1") {
-					$status = "belum bayar";
+					$status = "belum divalidasi";
 				}elseif ($data->status == "2") {
 					$status = "ditolak";
 				}elseif ($data->status == "3") {
-					$status = "diproses";
+					$status = "divalidasi";
 				}elseif ($data->status == "4") {
 					$status = "penjual menerima";
 				}elseif ($data->status == "5") {
@@ -140,8 +131,15 @@ class  VerifikasiPembayaranLelangController extends Controller
 	public function validasiOrderLelang(Request $request)
 	{
 
-		$catatan = "pembelian kopi lelang robusta 20kg di petani";
-		$tujuan_tran = "Bank iCoffee BCA";
+		$ambil = Auction_Order::where('invoice',$request->invoice2)->first();
+		$bank = $ambil->payment;
+		$shiping = $ambil->shipping;
+
+		$total_bayar = Auction_Order::where('invoice',$request->invoice2)->select('total_bayar')->sum('total_bayar');
+		$kg = Auction_Order::where('invoice',$request->invoice2)->select('jumlah')->sum('jumlah');
+
+		$catatan = "pembelian kopi lelang sebanyak ".$kg."Kg dengan total harga Rp.".number_format($total_bayar)." dan ongkos kirim sebesar Rp.".$shiping;
+		$tujuan_tran = "Bank ".$bank." iCoffee";
 		$nama_akun = "Pembelian Produk Lelang";
 
 
@@ -201,6 +199,11 @@ class  VerifikasiPembayaranLelangController extends Controller
 			Adm_arus_kas::where('nama_akun',$nama_akun)->update($form);
 		}
 
+		$form_status = array(
+			'status' => '3',
+		);
+
+		Auction_Order::where('invoice',$request->invoice2)->update($form_status);
 		Confirm_payment::whereId($request->hidden_id2)->update($form_data);
 		return response()->json(['success' => 'Berhasil Divalidasi']);
 	}
@@ -217,27 +220,14 @@ class  VerifikasiPembayaranLelangController extends Controller
 			return datatables()->of($konfirmasi)
 			->addColumn('action', function($data){
 				
-				if ($data->status == "8") {
+				if ($data->status == "1") {
 					$button = 
 					'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
 					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>'. '&nbsp&nbsp' .
 					'<button type="button" name="validasi" id="'.$data->id.'" class="validasi btn btn-success btn-sm"><i class="fa fa-check"></i> Validasi</button>'. '&nbsp&nbsp' .
 					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm"><i class="fa fa-times"></i> Tolak</button>';
 					
-				}elseif ($data->status == "2") {
-					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
-
-				}elseif ($data->status == "3") {
-					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
-
-				}elseif ($data->status == "1") {
-					$button = 
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
-
-				}
-				else{
+				}else{
 					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
 					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
 
@@ -246,13 +236,15 @@ class  VerifikasiPembayaranLelangController extends Controller
 				return $button;
 			})
 
+
+
 			->addColumn('status', function($data){
 				if ($data->status == "1") {
-					$status = "belum bayar";
+					$status = "belum divalidasi";
 				}elseif ($data->status == "2") {
 					$status = "ditolak";
 				}elseif ($data->status == "3") {
-					$status = "diproses";
+					$status = "divalidasi";
 				}elseif ($data->status == "4") {
 					$status = "penjual menerima";
 				}elseif ($data->status == "5") {
@@ -300,7 +292,14 @@ class  VerifikasiPembayaranLelangController extends Controller
 		if(request()->ajax())
 		{
 			$data = Confirm_payment::findOrFail($id);
-			return response()->json(['data' => $data]);
+			$invoice = $data->invoice;
+			$ambil = Top_up::where('invoice',$invoice)->first();
+			$jumlah = $ambil->jumlah;
+
+			return response()->json([
+				'data' => $data,
+				'jumlah' => $jumlah
+			]);
 		}
 	}
 
@@ -318,9 +317,16 @@ class  VerifikasiPembayaranLelangController extends Controller
 	public function validasiTopUp(Request $request)
 	{
 
-		$catatan = "pengisian top-up untuk mengikuti lelang sebesar 100000";
+		// $ambil = Top_up::where('invoice',$request->invoice2)->first();
+		// $bank = $ambil->payment;
+
+		$jumlah = Top_up::where('invoice',$request->invoice2)->select('jumlah')->sum('jumlah');
+
+		$catatan = "pembelian saldo awal untuk mengikuti lelang sebesar Rp.".number_format($jumlah);
+		// $tujuan_tran = "Bank ".$bank." iCoffee";
+
 		$tujuan_tran = "Bank iCoffee BCA";
-		$nama_akun = "Pengisian Top Up Lelang";
+		$nama_akun = "Pembelian saldo awal lelang";
 
 
 		$id = "7";
@@ -376,6 +382,27 @@ class  VerifikasiPembayaranLelangController extends Controller
 				'nama_akun' => $nama_akun,
 				'total' => $total
 			);
+
+			$form_status = array(
+				'status' => '3',
+			);
+
+			$ambil = Top_up::where('invoice',$request->invoice2)->first();
+			$user_id = $ambil->user_id;
+			$saldo1 = $ambil->jumlah;
+
+			$ambil2 = Joint_account::where('user_id',$user_id)->first();
+			$saldo2 = $ambil2->saldo;
+
+			$masuk = $saldo2 + $saldo1;
+
+
+			$form_saldo = array(
+				'saldo' => $masuk,
+			);
+
+			Joint_account::where('user_id',$user_id)->update($form_saldo);
+			Top_up::where('invoice',$request->invoice2)->update($form_status);
 			Adm_arus_kas::where('nama_akun',$nama_akun)->update($form);
 		}
 

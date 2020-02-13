@@ -8,6 +8,14 @@
 
 <style>
 
+	@media (min-width: 360px) {
+		.modal-img {
+			width: 100%;
+			height: 100%;
+
+		}
+	}
+
 	@media (min-width: 480px) {
 		.modal-img {
 			width: 100%;
@@ -42,9 +50,9 @@
 
 	@media (min-width: 1200px) {
 		.modal-img {
-			width: 300%;
+			width: 400%;
 			height: 200%;
-			margin-left: -100%;
+			margin-left: -150%;
 		}
 	}
 </style>
@@ -133,6 +141,7 @@
 					<input type="hidden" name="nama_pemilik_pengirim2" id="nama_pemilik_pengirim2" />
 					<input type="hidden" name="foto_bukti2" id="foto_bukti2" />
 					<input type="hidden" name="jumlah_transfer2" id="jumlah_transfer2" />
+					<input type="hidden" name="invoice2" id="invoice2" />
 					<div class="text2">
 						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
 						<div class="mt-5"></div>
@@ -191,6 +200,13 @@
 								</tr>
 								<tr>
 									<div class="form-group">
+										<th width="30%" style="text-align: right;">Nama Bank&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="nama_bank_pengirim"></a></th>
+										
+									</div>	
+								</tr>
+								<tr>
+									<div class="form-group">
 										<th width="30%" style="text-align: right;">No Rekening&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="no_rekening_pengirim"></a></th>
 										
@@ -204,8 +220,8 @@
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="30%" style="text-align: right;">Nama Bank&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="nama_bank_pengirim"></a></th>
+										<th width="30%" style="text-align: right;">Jumlah TopUp&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="top_up"></a></th>
 										
 									</div>	
 								</tr>
@@ -306,10 +322,16 @@
 							success:function(html){
 								
 								var rp = html.data.jumlah_transfer;
+								var jumlah = html.jumlah;
 
 								var	reverse = rp.toString().split('').reverse().join(''),
 								ribuan 	= reverse.match(/\d{1,3}/g);
 								ribuan	= ribuan.join('.').split('').reverse().join('');
+
+								var	reverse2 = jumlah.toString().split('').reverse().join(''),
+								ribuan2 	= reverse2.match(/\d{1,3}/g);
+								ribuan2	= ribuan2.join('.').split('').reverse().join('');
+
 
 								$('#modalLihat').modal('show');
 								$('.modal-title').text("Detail Pembayaran");
@@ -320,8 +342,9 @@
 								document.getElementById("no_rekening_pengirim").innerHTML = html.data.no_rekening_pengirim;
 								document.getElementById("jumlah_transfer").innerHTML = "Rp. "+ribuan;
 								document.getElementById("nama_bank_pengirim").innerHTML = html.data.nama_bank_pengirim;
+								document.getElementById("top_up").innerHTML = "Rp. "+ribuan2;
 
-								var img = "/Uploads/Konfirmasi_Pembayaran/Lelang/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
+								var img = "/Uploads/Konfirmasi_Pembayaran/Top_up/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
 								$('#bukti2').attr("src",img);
 							}
 						})
@@ -359,6 +382,7 @@
 								$('#nama_pemilik_pengirim2').val(html.data.nama_pemilik_pengirim);
 								$('#foto_bukti2').val(html.data.foto_bukti);
 								$('#jumlah_transfer2').val(html.data.jumlah_transfer);
+								$('#invoice2').val(html.data.invoice);
 								$('.modal-title2').text("Konfirmasi");
 								$('#action_button2').val("validasi");
 								$('#status2').val("3");

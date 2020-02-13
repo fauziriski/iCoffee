@@ -8,6 +8,14 @@
 
 <style>
 
+	@media (min-width: 360px) {
+		.modal-img {
+			width: 100%;
+			height: 100%;
+
+		}
+	}
+
 	@media (min-width: 480px) {
 		.modal-img {
 			width: 100%;
@@ -42,9 +50,9 @@
 
 	@media (min-width: 1200px) {
 		.modal-img {
-			width: 300%;
+			width: 400%;
 			height: 200%;
-			margin-left: -100%;
+			margin-left: -150%;
 		}
 	}
 </style>
@@ -66,7 +74,7 @@
 				<thead>
 					<tr>
 						<th>Invoice</th>
-						<th>Nama Pembeli</th>
+						<th>Nama Pengirim</th>
 						<th>Jumlah Transfer</th>
 						<th>No Rek</th>
 						<th>Nama Bank</th>
@@ -133,7 +141,7 @@
 					<input type="hidden" name="nama_pemilik_pengirim2" id="nama_pemilik_pengirim2" />
 					<input type="hidden" name="foto_bukti2" id="foto_bukti2" />
 					<input type="hidden" name="jumlah_transfer2" id="jumlah_transfer2" />
-					<input type="hidden" name="id_pelanggan2" id="id_pelanggan2" />
+					<input type="hidden" name="invoice2" id="invoice2" />
 					<div class="text2">
 						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
 						<div class="mt-5"></div>
@@ -149,89 +157,106 @@
 </div>
 
 <div id="modalLihat" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-md">
+	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Detail Pencatatan</h5>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				
-				<div class="form-group">
-					<div class="form-group">
-
-						<div class="table-responsive">
+				<div class="container">
+					<div class="row">
+						<div class="table-responsive col-md-6">
 							<table cellpadding="10" border="0">
 								<tr>
 									<div class="form-group">
-										<th width="30%" style="text-align: right;">Invoice&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Invoice&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="invoice"></a></th>
-										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="30%" style="text-align: right;">Nama Pembeli&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Nama Pembeli&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="nama_pemilik_pengirim"></a></th>
-										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="30%" style="text-align: right;">Email Pembeli&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Email Pembeli&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="email"></a></th>
-										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="30%" style="text-align: right;">No Telepon&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">No Telepon&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="no_telp"></a></th>
-										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="30%" style="text-align: right;">No Rekening&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">No Rekening&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="no_rekening_pengirim"></a></th>
-										
 									</div>	
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="30%" style="text-align: right;">Jumlah Transfer&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Jumlah Transfer&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="jumlah_transfer"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="30%" style="text-align: right;">Nama Bank&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Nama Bank&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="nama_bank_pengirim"></a></th>
-										
 									</div>	
 								</tr>
-								<tr>
-									<div class="form-group">
-										<th width="30%" style="text-align: right;">Foto Bukti&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%">
-											<div id="image">
-												<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
-													<img src="" id="bukti2" width="100px" height="100px"/>
-												</a>
-												<div>   
+							</table>
+						</div>
+
+
+						<div class="table-responsive col-md-6 mt-3">
+							<div class="row">
+								<table cellpadding="10" border="0">
+									<tr>
+										<div class="form-group">
+											<th width="10%"style="text-align: right;">Total Produk&nbsp;&nbsp;&nbsp;:</th>
+											<th width="25%"><a id="stok"></a></th>
+										</div>
+									</tr>
+									<tr>
+										<div class="form-group">
+											<th width="10%"style="text-align: right;">Total Bayar&nbsp;&nbsp;&nbsp;:</th>		
+											<th width="25%"><a id="total_bayar"></a></th>
+										</div>
+									</tr>
+									<tr>
+										<div class="form-group">	
+											<th width="10%"style="text-align: right;">Tujuan Transfer&nbsp;&nbsp;&nbsp;:</th>		
+											<th width="25%"><a id="pay"></a></th>
+										</div>
+									</tr>
+									<tr>
+										<div class="form-group">
+											<th width="10%" style="text-align: right;">Foto Bukti&nbsp;&nbsp;&nbsp;:</th>	
+											<th width="25%">
+												<div id="image">
+													<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
+														<img src="" id="bukti2" width="100px" height="100px"/>
+													</a>
 													<div>   
-														<div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
-															<div class="modal-dialog modal-sm">
-																<div class="modal-content">
-																	<img class="modal-img" />
+														<div>   
+															<div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
+																<div class="modal-dialog modal-sm">
+																	<div class="modal-content">
+																		<img class="modal-img" />
+																	</div>
 																</div>
 															</div>
 														</div>
-													</div>
-												</th>
-												
-											</tr>
-										</table>
+													</th>
+												</tr>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -293,7 +318,7 @@
 						{data: 'email', name:'email', visible: false},
 						{data: 'no_telp', name:'no_telp', visible: false},
 						{data: 'foto_bukti', name:'foto_bukti', visible: false},
-						{data: 'id_pelanggan', name:'id_pelanggan', visible: false}
+						{data: 'invoice', name:'invoice', visible: false}
 
 
 
@@ -308,10 +333,15 @@
 							success:function(html){
 
 								var rp = html.data.jumlah_transfer;
+								var total_bayar = html.total_bayar;
 
 								var	reverse = rp.toString().split('').reverse().join(''),
 								ribuan 	= reverse.match(/\d{1,3}/g);
 								ribuan	= ribuan.join('.').split('').reverse().join('');
+
+								var	reverse2 = total_bayar.toString().split('').reverse().join(''),
+								total 	= reverse2.match(/\d{1,3}/g);
+								total	= total.join('.').split('').reverse().join('');
 
 								$('#modalLihat').modal('show');
 								$('.modal-title').text("Detail Pembayaran");
@@ -322,9 +352,13 @@
 								document.getElementById("no_rekening_pengirim").innerHTML = html.data.no_rekening_pengirim;
 								document.getElementById("jumlah_transfer").innerHTML = "Rp. "+ribuan;
 								document.getElementById("nama_bank_pengirim").innerHTML = html.data.nama_bank_pengirim;
+								document.getElementById("stok").innerHTML = html.jumlah+" Kg";
+								document.getElementById("total_bayar").innerHTML = "Rp. "+total;
+								document.getElementById("pay").innerHTML = "Bank "+html.pay;
 
 								var img = "/Uploads/Konfirmasi_Pembayaran/JualBeli/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
 								$('#bukti2').attr("src",img);
+
 							}
 						})
 					});
@@ -361,6 +395,7 @@
 								$('#nama_pemilik_pengirim2').val(html.data.nama_pemilik_pengirim);
 								$('#foto_bukti2').val(html.data.foto_bukti);
 								$('#jumlah_transfer2').val(html.data.jumlah_transfer);
+								$('#invoice2').val(html.data.invoice);
 								$('.modal-title2').text("Konfirmasi");
 								$('#action_button2').val("validasi");
 								$('#status2').val("3");
