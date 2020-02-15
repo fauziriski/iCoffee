@@ -18,6 +18,18 @@
           </div>
 
           <div class="form-group">
+            <label for="bank">Bank</label>
+            <div class="select-wrap">
+              <select name="bank" id="" class="form-control" required>
+                <option value="BCA">BCA</option>
+                <option value="BRI">BRI</option>  
+                <option value="BNI">BNI</option>  
+                <option value="Mandiri">Mandiri</option>       
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label for="jumlah">Jumlah</label>
             <input type="number" class="form-control" name="jumlah" min="50000" required>
             <span class="text-danger">{{$errors->first('jumlah')}}</span>

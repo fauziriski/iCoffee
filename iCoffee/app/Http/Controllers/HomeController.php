@@ -327,7 +327,10 @@ class HomeController extends Controller
 
         }
 
-        return view('jual-beli.transaksi', compact('invoice','tanggal', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
+        $transaksi_top_up = Top_up::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->get();
+        $count_transaksi_top_up = count($transaksi_top_up);
+
+        return view('jual-beli.transaksi', compact('invoice','tanggal', 'count_transaksi_top_up','transaksi_top_up', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
     }
 
     public function pembayaran()
@@ -445,6 +448,11 @@ class HomeController extends Controller
         return view('jual-beli.lelang.top_up');
     }
 
+    public function invoice_top_up()
+    {
+        return view('jual-beli.lelang.invoice_top_up');
+    }
+
     public function top_up_diproses(Request $request)
     {
         $user_id = Auth::user()->id;
@@ -455,7 +463,8 @@ class HomeController extends Controller
             'user_id' => $user_id, 
             'email'=> $request->email, 
             'invoice'=> $oldMarker, 
-            'jumlah'=> $request->jumlah, 
+            'jumlah'=> $request->jumlah,
+            'payment' => $request->bank, 
             'status' => 1
         ]);
         Alert::info('Berhasil','Segera Konfirmasi Pembayaran Anda')->showConfirmButton('Ok', '#3085d6');

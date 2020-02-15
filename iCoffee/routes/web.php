@@ -34,6 +34,8 @@ route::get('/profil/produk','HomeController@produksaya');
 route::get('/profil/utama/alamat/{id}','HomeController@alamat_utama');
 route::post('/profil/tambah/cadangan', 'HomeController@tambah_alamat_cadangan');
 
+route::get('/profile/invoice/top_up', 'HomeController@invoice_top_up');
+
 
 
 
