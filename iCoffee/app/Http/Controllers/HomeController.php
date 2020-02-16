@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Images;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Joint_account;
+use App\Account;
 use App\User;
 use App\Order;
 use App\Orderdetail;
@@ -333,10 +334,20 @@ class HomeController extends Controller
         return view('jual-beli.transaksi', compact('invoice','tanggal', 'count_transaksi_top_up','transaksi_top_up', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
     }
 
+    public function invoicetopup_detail($id)
+    {
+        $cek_data = Top_up::where('invoice', $id)->first();
+
+        $cek_bank = Account::where('bank_name', $cek_data->payment)->first();
+
+        return response()->json(['invoice' => $cek_data, 'bank' => $cek_bank]);
+
+    }
+
     public function pembayaran()
     {
         $id_pelanggan = Auth::user()->id;
-        $transaksipenjual = Order::where('id_pelanggan', $id_pelanggan)->where('status',1)->get();
+        $transaksipenjual = Order::where('id_pelanggan', $id_pelanggan)->whereIn('status',[1,2])->get();
 
         $jumlah_invoice = count($transaksipenjual);
 
@@ -357,7 +368,7 @@ class HomeController extends Controller
     public function pembayaranlelang()
     {
         $id_pelanggan = Auth::user()->id;
-        $transaksipenjual = Auction_Order::where('id_pembeli', $id_pelanggan)->where('status',1)->get();
+        $transaksipenjual = Auction_Order::where('id_pembeli', $id_pelanggan)->whereIn('status',[1,2])->get();
         $data_tanggal = array();
         foreach ($transaksipenjual as $data) {
             $data_tanggal = date('Y-m-d', strtotime($data->created_at));   
@@ -475,7 +486,7 @@ class HomeController extends Controller
     public function konfirmasi_top_up()
     {
         $id_pelanggan = Auth::user()->id;
-        $transaksipenjual = Top_up::where('user_id', $id_pelanggan)->where('status',1)->get();
+        $transaksipenjual = Top_up::where('user_id', $id_pelanggan)->whereIn('status',[1,2])->get();
         $data_tanggal = array();
         foreach ($transaksipenjual as $data) {
             $data_tanggal = date('Y-m-d', strtotime($data->created_at));   

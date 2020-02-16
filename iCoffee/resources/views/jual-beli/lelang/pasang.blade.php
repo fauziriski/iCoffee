@@ -97,13 +97,26 @@
             </div>
             <div class="col-md-12">
               <div class="form-group">
-
-                  <input type="file" name="images" class="form-control-file" required>
+                <div class="col-md-7">
+                  <div class="form-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="images" class="form-control-file" required>
+                      <label class="custom-file-label" for="inputGroupFile02">Upload Foto Produk</label>
+                    </div>
+                  </div>
+                </div>
          
 
                 @for ($i = 0; $i < 5; $i++)
-
-                  <input type="file" name="image[]" class="form-control-file" required>
+                <div class="form-group">
+                  <div class="col-md-7">
+                    <div class="form-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="image[]" class="form-control-file" required>
+                        <label class="custom-file-label" for="inputGroupFile02">Upload Foto Produk</label>
+                    </div>
+                  </div>
+                </div>
                 @endfor
 
               </div>

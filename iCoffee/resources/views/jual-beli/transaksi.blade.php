@@ -107,54 +107,47 @@
                                         <h3 class="modal-title text-center mt-1">Invoice</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Checkout berhasil pada tanggal, 07 Desember 2019, 18:13 WIB</p>
+                                        <p class="tanggal" id="tanggal">Checkout berhasil pada tanggal, 07 Desember 2019, 18:13 WIB</p>
+
                                         <div class="form-group">
-                                            <label for="total_pembayaran" class="col-form-label">Nama Produk</label>
-                                            <input type="text" class="form-control" id="total_pembayaran" name="total_pembayaran" readonly>
+                                            <label for="invoice" class="col-form-label">Invoice</label>
+                                            <input type="text" class="form-control" id="invoice" name="invoice" readonly>
+                                          </div>
+
+                                        <div class="form-group">
+                                            <label for="email" class="col-form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email" readonly>
                                           </div>
                     
-                                          <div class="form-group">
-                                            <label for="kategori_kopi_edit" class="col-form-label">Kategori Kopi</label>
-                                              <select name="kategori_kopi_edit" required id="kategori_kopi_edit" class="form-control">
-                                                <option value="" id="select_kategori_kopi_edit"></option>
-                                          
-                                                <option value=""></option>
-                       
-                    
-                                              </select>
-                                          </div>
                     
                                           <div class="form-group">
-                                            <label for="harga_edit" class="col-form-label">Harga</label>
+                                            <label for="harga_edit" class="col-form-label">Jumlah</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                   <div class="input-group-text">Rp</div>
                                                 </div>
-                                                <input type="number" class="form-control" id="harga_edit" name="harga_edit">
+                                                <input type="number" class="form-control" id="harga_edit" name="harga_edit" readonly>
                                             </div>
                                           </div>
                         
                                           <div class="form-group">
-                                            <label for="stok_edit" class="col-form-label">Stok</label>
+                                            <label for="payment" class="col-form-label">Metode Pembayaran</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="stok_edit" name="stok_edit">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Kg</div>
-                                                </div>
+                                                <input type="text" class="form-control" id="payment" name="payment">
                                             </div>
                                           </div>
                     
                                           <div class="form-group">
-                                            <label for="desc_produk_edit" class="col-form-label">Deskripsi</label>
-                                            <div class="input-group">
-                                                <textarea class="form-control" rows="5" type="text" id="desc_produk_edit" name="desc_produk_edit"></textarea>
+                                            <div class="alert alert-warning text-center" id="status" role="alert">
+                                            
                                             </div>
                                           </div>
                         
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" id="ubahalamat">Edit Produk</button>
+                                        <a href="" class="btn btn-primary" style="color: #fff;height: 0px;width: 0px;overflow:hidden;" id="konfirm" >Selesai</a>
+                                        
                                     </div>
                                 </div>
                         
@@ -173,33 +166,51 @@
 </section>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
 
 <script>
     $(document).ready(function() {
 
-        $('a[name="edit_produk"]').on('click', function() {
+        $('a[name="detailinvoice"]').on('click', function() {
             var href = $(this).attr('value');      
             if(href) {
                 $.ajax({
-                    url: '/jual-beli/produk/edit/'+encodeURI(href),
+                    url: '/profil/top_up/detailinvoice/'+encodeURI(href),
                     type: "GET",
                     dataType: "json",
                     success:function(data) {
          
                         $.each(data, function(key, value) {
-                            $('#produk_id').replaceWith('<input type="hidden" id="produk_id" name="produk_id" required value="'+ data.produk.id +'">');
-                            $('#nama_produk_edit').replaceWith('<input type="text" class="form-control" id="nama_produk_edit" name="nama_produk_edit" value="'+ data.produk.nama_produk+'" reuired>');
-                            $('#harga_edit').replaceWith('<input type="number" class="form-control" id="harga_edit" name="harga_edit" value="'+ data.produk.harga+'" reuired>');
-                            $('#select_kategori_kopi_edit').replaceWith('<option value="'+ data.produk.id_kategori +'" selected>'+ data.kategori +'</option>');
-                            $('#stok_edit').replaceWith('<input type="number" class="form-control" id="stok_edit" name="stok_edit" value="'+ data.produk.stok+'" reuired>');
-                            $('#desc_produk_edit').replaceWith('<textarea class="form-control" rows="5" type="text" id="desc_produk_edit" name="desc_produk_edit">'+ data.produk.detail_produk +'</textarea>');
+                            
+                            $('#tanggal').replaceWith('<p class="tanggal" id="tanggal">Checkout berhasil pada tanggal, '+ data.invoice.created_at+' WIB</p>');
+                            $('#invoice').replaceWith('<input type="text" class="form-control" id="invoice" value="'+ data.invoice.invoice +'" name="invoice" readonly>');
+                            $('#email').replaceWith('<input type="email" class="form-control" id="email"  value="'+ data.invoice.email +'" name="email" readonly>');
+                            $('#harga_edit').replaceWith('<input type="number" class="form-control" id="harga_edit" value="'+ data.invoice.jumlah.toLocaleString("id-ID") +'" name="harga_edit" readonly>');
+                            $('#payment').replaceWith('<input type="text" class="form-control" value="'+ '(' + data.invoice.payment + ') '+ data.bank.no_rekening +'" id="payment"  name="payment" readonly>');
+                            if ( data.invoice.status == 1) 
+                            {
+                                $('#status').replaceWith('<div class="alert alert-warning text-center" id="status" role="alert">Menunggu Pembayaran</div>');
+                                $('#konfirm').replaceWith('<a href="/profil/konfirmasi/top_up" class="btn btn-primary" style="color: #fff;" id="konfirm" >Konfirmasi Pembayaran</a>');
+                                
+                            }
+                            else if( data.invoice.status == 2) 
+                            {
+                                $('#status').replaceWith('<div class="alert alert-danger text-center" id="status" role="alert">Konfirmasi Pembayaran Ditolak</div>');
+                                $('#konfirm').replaceWith('<a href="/profil/konfirmasi/top_up" class="btn btn-primary" style="color: #fff;" id="konfirm" >Konfirmasi Pembayaran</a>');
+                            }else if ( data.invoice.status == 3)
+                            {
+                                $('#status').replaceWith('<div class="alert alert-success text-center" id="status" role="alert">Konfirmasi Pembayaran Diterima</div>');
+                                $('#konfirm').replaceWith('<a href="" style="color: #fff;height: 0px;width: 0px;overflow:hidden;" id="konfirm" >Selesai</a>');
+                                
+                            }
+                            
                         });
 
                     }
                 })
             }
             else{
-                $('a[name="edit_produk"]').empty();
+                $('a[name="detailinvoice"]').empty();
             }
         });
     });

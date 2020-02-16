@@ -75,7 +75,7 @@
 								Belum Dibayar
 							</div>		  
 						@elseif( $order[$i]->status == 2)
-							<div class="alert alert-info" role="alert">
+							<div class="alert alert-danger" role="alert">
 								Pembayaran Ditolak
 							</div>
 
