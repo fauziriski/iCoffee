@@ -230,6 +230,12 @@
 										</div>
 									</tr>
 									<tr>
+										<div class="form-group">
+											<th width="10%"style="text-align: right;">+ Ongkir&nbsp;&nbsp;&nbsp;:</th>		
+											<th width="25%"><a id="ongkir"></a></th>
+										</div>
+									</tr>
+									<tr>
 										<div class="form-group">	
 											<th width="10%"style="text-align: right;">Tujuan Transfer&nbsp;&nbsp;&nbsp;:</th>		
 											<th width="25%"><a id="pay"></a></th>
@@ -355,6 +361,7 @@
 								document.getElementById("stok").innerHTML = html.jumlah+" Kg";
 								document.getElementById("total_bayar").innerHTML = "Rp. "+total;
 								document.getElementById("pay").innerHTML = "Bank "+html.pay;
+								document.getElementById("ongkir").innerHTML = html.ongkir;
 
 								var img = "/Uploads/Konfirmasi_Pembayaran/JualBeli/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
 								$('#bukti2').attr("src",img);

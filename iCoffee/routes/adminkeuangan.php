@@ -56,5 +56,13 @@ Route::post('/tambah-pelelang', 'SetorPelelangController@tambah')->name('tambah-
 Route::get('/hapus-pelelang/{id}', 'SetorPelelangController@hapus')->name('hapus-pelelang');
 Route::post('/update-pelelang', 'SetorPelelangController@update')->name('update-pelelang');
 
+//dana masuk jual-beli
+Route::get('/dana-masuk-jualbeli', 'DanaMasukJBController@danaMasuk')->name('dana-masuk-jualbeli');
+Route::get('/lihat-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@lihatDanaMasuk')->name('lihat-dana-masuk-jualbeli');
+Route::get('/detail-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@detailDanaMasuk')->name('detail-dana-masuk-jualbeli');
+Route::post('/tambah-dana-masuk-jualbeli', 'DanaMasukJBController@tambah')->name('tambah-dana-masuk-jualbeli');
+Route::get('/hapus-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@hapus')->name('hapus-dana-masuk-jualbeli');
+Route::post('/update-dana-masuk-jualbeli', 'DanaMasukJBController@update')->name('update-dana-masuk-jualbeli');
+
 //laporan keuangan
 Route::get('/arus-kas', 'ArusKasController@lihat')->name('arus-kas');

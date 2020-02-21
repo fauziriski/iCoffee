@@ -139,7 +139,7 @@
             <a class="collapse-item" href="{{url('jenis-produk')}}">Bagi Hasil</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Jual-Beli :</h6>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Dana Masuk</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-jualbeli')}}">Dana Masuk</a>
             <a class="collapse-item" href="{{url('jenis-produk')}}">Keuntungan</a>
             <h6 class="collapse-header">Lelang :</h6>
             <a class="collapse-item" href="{{url('jenis-produk')}}">Dana Masuk</a>

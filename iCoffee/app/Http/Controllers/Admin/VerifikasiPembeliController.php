@@ -118,11 +118,13 @@ class  VerifikasiPembeliController extends Controller
 			$jumlah = Orderdetail::where('invoice',$invoice)->select('jumlah')->sum('jumlah');
 			$ambil = Order::where('invoice',$invoice)->first();
 			$pay = $ambil->payment;
+			$ongkir = $ambil->shipping;
 			return response()->json([
 				'data' => $data,
 				'jumlah' => $jumlah,
 				'total_bayar' => $total_bayar,
-				'pay' => $pay
+				'pay' => $pay,
+				'ongkir' => $ongkir
 			]);
 
 		}
