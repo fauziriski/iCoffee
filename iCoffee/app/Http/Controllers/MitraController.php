@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Invest_product;
 use App\invest_order;
+use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Str;
+use App\User;
 
 class MitraController extends Controller
 {
@@ -53,19 +55,21 @@ class MitraController extends Controller
     public function produkDetail($kode_produk)
     {
         $produk = Invest_product::where('kode_produk',$kode_produk)->first();
-        $dana = invest_order::where('status',2)->where('id_produk',$produk->id)->get(['total','qty']);
+        $dana = invest_order::where('status',2)->where('id_produk',$produk->id)->get();
         $total = 0;
         $qty = 0;
         for($i=0;$i<count($dana);$i++){
             $total += $dana[$i]->total;
             $qty += $dana[$i]->qty;
+            $nama[] = User::where('id', $dana[$i]->id_investor)->first();
         }
         $investor = invest_order::where('id_produk',$produk->id)->where('status',2)->distinct()->count('id_investor');
-        return view('investasi.mitra.detail')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('qty',$qty);
+
+        return view('investasi.mitra.detail')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('qty',$qty)->with(compact('dana'))->with(compact('nama'));
     }
 
     public function pengajuanDana()
     {
-        
+        return view('investasi.mitra.pengajuan');
     }
 }

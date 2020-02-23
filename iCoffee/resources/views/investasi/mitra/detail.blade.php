@@ -171,24 +171,14 @@
 					<div class="card-header py-3 bg-success d-flex flex-row align-items-center justify-content-between">
 					  <h6 class="m-0 font-weight-bold text-light">Riwayat Order</h6>
 					</div>
-					  <div class="customer-message align-items-center ml-3">
-						<a class="font-weight-bold text-success">
-						  <div class="text-truncate message-title">Telah Berhasil membeli 2 Unit Produk Investasi anda!</div>
-						  <div class="small text-gray-500 message-time font-weight-bold">Udin Cilok · 19:32 WIB - 17 Februari 2020 </div>
-						</a>
-					  </div>
-					  <div class="customer-message align-items-center ml-3">
-						<a class="font-weight-bold text-success">
-						  <div class="text-truncate message-title">Telah Berhasil membeli 2 Unit Produk Investasi anda!</div>
-						  <div class="small text-gray-500 message-time font-weight-bold">Udin Cilok · 19:32 WIB - 17 Februari 2020 </div>
-						</a>
-					  </div>
-					  <div class="customer-message align-items-center ml-3">
-						<a class="font-weight-bold text-success">
-						  <div class="text-truncate message-title">Telah Berhasil membeli 2 Unit Produk Investasi anda!</div>
-						  <div class="small text-gray-500 message-time font-weight-bold">Udin Cilok · 19:32 WIB - 17 Februari 2020 </div>
-						</a>
-					  </div>
+					@for($i= 0; $i <count($dana);$i++)
+						<div class="customer-message align-items-center ml-3 mt-2">
+							<a class="font-weight-bold text-success">
+							<div class="text-truncate message-title">Telah Berhasil membeli {{$dana[$i]->qty}} Unit Produk Investasi anda!</div>
+							<div class="small text-gray-500 message-time font-weight-bold">{{$nama[$i]->name}} · {{$dana[$i]->created_at}} WIB</div>
+							</a>
+						</div>
+					@endfor
 					  <div class="card-footer text-center">
 						<a class="m-0 small text-success card-link" href="#">View More <i
 							class="fas fa-chevron-right"></i></a>

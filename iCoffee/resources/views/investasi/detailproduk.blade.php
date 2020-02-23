@@ -288,8 +288,6 @@
               <div class="col-md-4-sm-4">
                 <img src="#" height="130px" width="170px">
             </div>
-            <div class="col-1">
-            </div>
               <div class="col-md-7-sm-7-ml-2">
                 <h5>{{$item->nama}}</h5>
                 <hr>
