@@ -12,7 +12,12 @@
            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Beli</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Jual</a>
+           <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">Jual 
+            @if ( !empty($count_order['count_order_produk']))
+            <div class="badge badge-pill badge-danger">{{ $count_order['count_order_produk'] }}</div>
+            @endif 
+        </a>  
+
          </li>
          <li class="nav-item">
             <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-topup" role="tab" aria-controls="pills-profile" aria-selected="false">Top Up</a>

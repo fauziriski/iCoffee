@@ -16,5 +16,7 @@ class Order extends Model
     {
     	return $this->belongsTo('App\Address', 'id_alamat');
     }
+
+    
 }
 

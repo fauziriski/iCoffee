@@ -51,7 +51,11 @@
           
           @else
           <li class="nav-item ml-2 dropdown">  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-            &nbsp;&nbsp;&nbsp;Hai, {{ Auth::user()->name }} <span class="caret"></span>
+          &nbsp;&nbsp;&nbsp;Hai, {{ Auth::user()->name }} <span class="caret"></span>
+          @if (!empty($count_order['count_notif']))
+          <span class="badge badge-pill badge-danger py-1 align-middle">{{ $count_order['count_notif'] }}</span>
+          @endif 
+          
           </a>
 
           <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown">
@@ -66,6 +70,9 @@
             
             <a class="dropdown-item" href="/profil/edit">
               <i class="ion-ios-person mr-3"></i>Profil
+              @if (!empty($count_order['count_notif']))
+              &nbsp;<span class="badge badge-pill badge-danger py-1 align-middle">{{ $count_order['count_notif'] }}</span>
+              @endif 
              </a>
 
             <a class="dropdown-item" href="/jual-beli/keranjang">

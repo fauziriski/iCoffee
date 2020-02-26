@@ -52,6 +52,7 @@ class User extends Authenticatable
     {
     	return $this->hasOne('App\Joint_account');
     }
+    
 
     public function pemenang_lelang()
     {
