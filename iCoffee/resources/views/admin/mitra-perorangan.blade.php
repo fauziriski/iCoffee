@@ -94,7 +94,7 @@
 					<input type="hidden" name="password" id="password2" value="password" />
 					<input type="hidden" name="status" id="status2" value="divalidasi" />
 					<input type="hidden" name="hidden_id" id="hidden_id2" />
-					<input type="hidden" name="action" id="action2" />
+					<input type="hidden" name="action" id="action" />
 					<input type="hidden" name="id_mitra" id="id_mitra2" />
 					<input type="hidden" name="email" id="email2" />
 					<input type="hidden" name="nama_koperasi" id="nama_koperasi2" />

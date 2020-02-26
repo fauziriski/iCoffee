@@ -202,10 +202,8 @@
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="45%" style="text-align: right;">Foto Kebun&nbsp;&nbsp;&nbsp;:</th>
-										
-										<th width="25%">
-											
+										<th width="45%" style="text-align: right;">Foto Kebun&nbsp;&nbsp;&nbsp;:</th>				
+										<th width="25%">					
 											<div id="image">
 												<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
 													@for ($i = 0; $i < 4; $i++)

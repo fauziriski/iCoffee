@@ -62,7 +62,7 @@ class MitraPeroranganController extends Controller
 	{
 
 		$form_data = array(
-			'status' => $request->status,
+			'status' => $request->status2,
 		);
 
 		Mitra_perorangan::whereId($request->hidden_id)->update($form_data);

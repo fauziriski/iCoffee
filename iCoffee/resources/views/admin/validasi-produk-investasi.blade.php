@@ -69,8 +69,6 @@
 						<th>Nama Produk</th>
 						<th>Harga</th>
 						<th>Unit</th>
-						<th>Periode Kontrak</th>
-						<th>Periode Hasil</th>
 						<th>ROI/Tahun</th>
 						<th>Terdaftar</th>	
 						<th>Status</th>	
@@ -302,8 +300,6 @@
 						{data: 'nama_produk', name:'nama_produk'},
 						{data: 'harga', name:'harga'},
 						{data: 'stok', name:'stok'},
-						{data: 'periode', name:'periode'},
-						{data: 'profit_periode', name:'profit_periode'},
 						{data: 'roi', name:'roi'},
 						{data: 'created_at', name:'created_at'},
 						{data: 'status', name:'status'},
