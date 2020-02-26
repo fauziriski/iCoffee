@@ -57,7 +57,7 @@
           <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown">
 
             <a class="dropdown-item" href="#">
-              <i class="ion-ios-card mr-3"></i>Rp {{ number_format(Auth::user()->joint_accounts->saldo) }}
+              <i class="fas fa-wallet mr-3"></i>Rp {{ number_format(Auth::user()->joint_accounts->saldo) }}
              </a>
 
              <a class="dropdown-item" href="/profil/top_up">

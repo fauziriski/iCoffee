@@ -144,7 +144,7 @@ class HomeController extends Controller
         $id_pelanggan = Auth::user()->id;
         $nama_pelanggan = Auth::user()->name;
         $user = User::where('id', $id_pelanggan)->first();
-        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->get();
+        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->get();
 
 
 
@@ -616,6 +616,11 @@ class HomeController extends Controller
 
         return redirect('/profil/edit#pills-profile');
 
+    }
+
+    public function tarik_saldo()
+    {
+        return view('jual-beli.cair_saldo');
     }
 
 
