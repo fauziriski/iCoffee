@@ -618,6 +618,11 @@ class HomeController extends Controller
 
     }
 
+    public function tarik_saldo()
+    {
+        return view('jual-beli.cair_saldo');
+    }
+
 
 
 
