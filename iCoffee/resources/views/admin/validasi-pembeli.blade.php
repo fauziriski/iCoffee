@@ -138,10 +138,12 @@
 					<input type="hidden" name="status" id="status2" value="" />
 					<input type="hidden" name="hidden_id2" id="hidden_id2" />
 					<input type="hidden" name="action" id="action2" />
-					<input type="hidden" name="nama_pemilik_pengirim2" id="nama_pemilik_pengirim2" />
 					<input type="hidden" name="foto_bukti2" id="foto_bukti2" />
 					<input type="hidden" name="jumlah_transfer2" id="jumlah_transfer2" />
 					<input type="hidden" name="invoice2" id="invoice2" />
+					<input type="hidden" name="nama_pemilik_pengirim2" id="nama_pemilik_pengirim2" />
+					<input type="hidden" name="nama_bank_pengirim2" id="nama_bank_pengirim2" />
+					<input type="hidden" name="no_rekening_pengirim2" id="no_rekening_pengirim2" />
 					<div class="text2">
 						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
 						<div class="mt-5"></div>
@@ -225,22 +227,28 @@
 									</tr>
 									<tr>
 										<div class="form-group">
-											<th width="10%"style="text-align: right;">Total Bayar&nbsp;&nbsp;&nbsp;:</th>		
+											<th width="10%"style="text-align: right;">Total Biaya Produk&nbsp;&nbsp;&nbsp;:</th>		
 											<th width="25%"><a id="total_bayar"></a></th>
 										</div>
 									</tr>
 									<tr>
 										<div class="form-group">
-											<th width="10%"style="text-align: right;">+ Ongkir&nbsp;&nbsp;&nbsp;:</th>		
-											<th width="25%"><a id="ongkir"></a></th>
+											<th width="10%"style="text-align: right;">Total Biaya Ongkir&nbsp;&nbsp;&nbsp;:</th>		
+											<th width="25%"><a id="total_ongkir"></a></th>
 										</div>
 									</tr>
 									<tr>
 										<div class="form-group">	
-											<th width="10%"style="text-align: right;">Tujuan Transfer&nbsp;&nbsp;&nbsp;:</th>		
-											<th width="25%"><a id="pay"></a></th>
+											<th width="10%"style="text-align: right;">Total harus dibayar&nbsp;&nbsp;&nbsp;:</th>		
+											<th width="25%"><a id="total_dibayar"></a></th>
 										</div>
 									</tr>
+										<tr>
+									<div class="form-group">
+										<th width="10%" style="text-align: right;">Tujuan Transfer&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="pay"></a></th>
+									</div>
+								</tr>
 									<tr>
 										<div class="form-group">
 											<th width="10%" style="text-align: right;">Foto Bukti&nbsp;&nbsp;&nbsp;:</th>	
@@ -340,14 +348,24 @@
 
 								var rp = html.data.jumlah_transfer;
 								var total_bayar = html.total_bayar;
+								var total_ongkir = html.total_ongkir;
+								var dibayar = html.total_dibayar;
 
 								var	reverse = rp.toString().split('').reverse().join(''),
 								ribuan 	= reverse.match(/\d{1,3}/g);
 								ribuan	= ribuan.join('.').split('').reverse().join('');
 
 								var	reverse2 = total_bayar.toString().split('').reverse().join(''),
-								total 	= reverse2.match(/\d{1,3}/g);
-								total	= total.join('.').split('').reverse().join('');
+								totalb 	= reverse2.match(/\d{1,3}/g);
+								totalb	= totalb.join('.').split('').reverse().join('');
+
+								var	reverse3 = total_ongkir.toString().split('').reverse().join(''),
+								totalo 	= reverse3.match(/\d{1,3}/g);
+								totalo	= totalo.join('.').split('').reverse().join('');
+
+								var	reverse4 = dibayar.toString().split('').reverse().join(''),
+								totald 	= reverse4.match(/\d{1,3}/g);
+								totald	= totald.join('.').split('').reverse().join('');
 
 								$('#modalLihat').modal('show');
 								$('.modal-title').text("Detail Pembayaran");
@@ -359,9 +377,10 @@
 								document.getElementById("jumlah_transfer").innerHTML = "Rp. "+ribuan;
 								document.getElementById("nama_bank_pengirim").innerHTML = html.data.nama_bank_pengirim;
 								document.getElementById("stok").innerHTML = html.jumlah+" Kg";
-								document.getElementById("total_bayar").innerHTML = "Rp. "+total;
+								document.getElementById("total_bayar").innerHTML = "Rp. "+totalb;
 								document.getElementById("pay").innerHTML = "Bank "+html.pay;
-								document.getElementById("ongkir").innerHTML = html.ongkir;
+								document.getElementById("total_ongkir").innerHTML = "Rp. "+totalo;
+								document.getElementById("total_dibayar").innerHTML = "Rp. "+totald;
 
 								var img = "/Uploads/Konfirmasi_Pembayaran/JualBeli/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
 								$('#bukti2').attr("src",img);
@@ -399,10 +418,12 @@
 							dataType:"json",
 							success:function(html){
 								$('#hidden_id2').val(html.data.id);
-								$('#nama_pemilik_pengirim2').val(html.data.nama_pemilik_pengirim);
 								$('#foto_bukti2').val(html.data.foto_bukti);
 								$('#jumlah_transfer2').val(html.data.jumlah_transfer);
 								$('#invoice2').val(html.data.invoice);
+								$('#nama_bank_pengirim2').val(html.data.nama_bank_pengirim);
+								$('#nama_pemilik_pengirim2').val(html.data.nama_pemilik_pengirim);
+								$('#no_rekening_pengirim2').val(html.data.no_rekening_pengirim);
 								$('.modal-title2').text("Konfirmasi");
 								$('#action_button2').val("validasi");
 								$('#status2').val("3");
