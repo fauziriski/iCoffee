@@ -3,9 +3,17 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
+use App\Repositories\UserRepository;
 use Carbon\Carbon;
+use App\Order;
+use App\Auction_Order;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Auth\Events\Authenticated;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,5 +44,26 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('money', function ($amount) {
             return "<?php echo 'Rp. ' . number_format($amount, 2); ?>";
         });
+        
+        View::composer('*', function($view)
+        {
+            $count = 0;   
+            if (Auth::check()){
+                $count_order_produk = Order::where('id_penjual',Auth::id())->where('status', 3)->count();
+                $count_order_lelang = Auction_Order::where('id_penjual',Auth::id())->where('status', 3)->count();
+                $count_notif = $count_order_produk+$count_order_lelang;
+                $count = array(
+                    'count_order_produk' => $count_order_produk,
+                    'count_order_lelang' => $count_order_lelang,
+                    'count_notif' => $count_notif,
+                );
+         
+            }
+        View::share('count_order', $count);
+
+        });
+        
+
+       
     }
 }
