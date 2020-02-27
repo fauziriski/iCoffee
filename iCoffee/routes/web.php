@@ -37,6 +37,8 @@ route::post('/profil/tambah/cadangan', 'HomeController@tambah_alamat_cadangan');
 route::get('/profile/invoice/top_up', 'HomeController@invoice_top_up');
 route::get('/profil/top_up/detailinvoice/{id}', 'HomeController@invoicetopup_detail');
 route::get('/profil/tarik_saldo', 'HomeController@tarik_saldo');
+route::post('/profil/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
+
 
 
 
