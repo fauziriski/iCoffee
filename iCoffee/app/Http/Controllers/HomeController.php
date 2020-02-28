@@ -334,7 +334,9 @@ class HomeController extends Controller
         $transaksi_top_up = Top_up::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->get();
         $count_transaksi_top_up = count($transaksi_top_up);
 
-        return view('jual-beli.transaksi', compact('invoice','tanggal', 'count_transaksi_top_up','transaksi_top_up', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
+        $transaksi_penarikan = Balance_withdrawal::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->get();
+
+        return view('jual-beli.transaksi', compact('invoice','tanggal','transaksi_penarikan', 'count_transaksi_top_up','transaksi_top_up', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
     }
 
     public function invoicetopup_detail($id)
@@ -669,7 +671,14 @@ class HomeController extends Controller
      
     }
 
+    public function cek_invoice_dana($invoice)
+    {
 
+        $cek_data = Balance_withdrawal::where('invoice', $invoice)->first();
+
+        return response()->json($cek_data);
+
+    } 
 
 
 

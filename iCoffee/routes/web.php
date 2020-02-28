@@ -38,6 +38,8 @@ route::get('/profile/invoice/top_up', 'HomeController@invoice_top_up');
 route::get('/profil/top_up/detailinvoice/{id}', 'HomeController@invoicetopup_detail');
 route::get('/profil/tarik_saldo', 'HomeController@tarik_saldo');
 route::post('/profil/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
+route::get('/profil/tarikdana/{invoice}', 'HomeController@cek_invoice_dana');
+
 
 
 
