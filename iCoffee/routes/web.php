@@ -33,6 +33,7 @@ route::post('/profil/konfirmasi/top_up/berhasil', 'HomeController@konfirmasipemb
 route::get('/profil/produk','HomeController@produksaya');
 route::get('/profil/utama/alamat/{id}','HomeController@alamat_utama');
 route::post('/profil/tambah/cadangan', 'HomeController@tambah_alamat_cadangan');
+route::get('/profil/alamat/hapus/{id}','HomeController@alamathapus');
 
 route::get('/profile/invoice/top_up', 'HomeController@invoice_top_up');
 route::get('/profil/top_up/detailinvoice/{id}', 'HomeController@invoicetopup_detail');

@@ -215,7 +215,7 @@
 <script>
   setTimeout(function(){
    window.location.reload(1);
-  }, 10000);
+  }, 13000);
 
 </script>
 <script>

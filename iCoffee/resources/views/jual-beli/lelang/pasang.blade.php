@@ -77,9 +77,9 @@
 
             <div class="col-md-4">
               <div class="form-group">
-                <label for="stok">Stok</label>
+                <label for="stok">Jumlah</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="" placeholder="Satuan" name="stok" required>
+                  <input type="number" class="form-control" id="" placeholder="Satuan" name="stok" max="30" required>
                   <span class="text-danger">{{$errors->first('stok')}}</span>
                   <div class="input-group-prepend">
                     <div class="input-group-text">Kg</div>
@@ -95,35 +95,38 @@
                 <span class="text-danger">{{$errors->first('stok')}}</span>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="form-group">
-                <div class="col-md-7">
+        
+           
+                <div class="col-md-8">
                   <div class="form-group">
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="images" class="form-control-file" required>
-                      <label class="custom-file-label" for="inputGroupFile02">Upload Foto Produk</label>
+                      <input type="file" class="custom-file-input" name="images" class="form-control-file"  id="inputfile">
+                      <label class="custom-file-label" for="inputfile">Upload Foto Produk</label>
                     </div>
                   </div>
                 </div>
+        
          
 
-                @for ($i = 0; $i < 5; $i++)
-                <div class="form-group">
-                  <div class="col-md-7">
+              @for ($i = 0; $i < 4; $i++)
+
+                  <div class="col-md-8">
                     <div class="form-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image[]" class="form-control-file" required>
-                        <label class="custom-file-label" for="inputGroupFile02">Upload Foto Produk</label>
+                        <input type="file" class="custom-file-input" name="image[]" id="inputGroupFiles{{ $i }}"class="form-control-file">
+                        <label class="custom-file-label" for="inputGroupFiles{{ $i }}">Upload Foto Produk</label>
                     </div>
                   </div>
                 </div>
+            
+            
                 @endfor
 
               </div>
             </div>
 
             <div class="col-md-12 mt-3">
-              <button type="submit" class="btn btn-primary float-right py-3 px-4">Pasang Lelang</button>
+              <button type="submit" id="tambahlelang" class="btn btn-primary float-right py-3 px-4">Pasang Lelang</button>
             </div>
 
 
@@ -136,4 +139,72 @@
 </div><!-- tutup side -->
 </div>
 </section>
+@endsection
+
+@section('js')
+<script>
+    $('#inputfile').on('change',function(){
+      var fileName = $(this).val();
+
+      $(this).next('.custom-file-label').html(fileName);
+    });
+
+    $('#inputGroupFiles0').on('change',function(){
+      var fileName = $(this).val();
+
+      $(this).next('.custom-file-label').html(fileName);
+    });
+
+    $('#inputGroupFile1').on('change',function(){
+      var fileName = $(this).val();
+
+      $(this).next('.custom-file-label').html(fileName);
+    });
+
+    $('#inputGroupFile2').on('change',function(){
+      var fileName = $(this).val();
+
+      $(this).next('.custom-file-label').html(fileName);
+    });
+
+    $('#inputGroupFile3').on('change',function(){
+      var fileName = $(this).val();
+
+      $(this).next('.custom-file-label').html(fileName);
+    });
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('#tambahlelang').click(function() {
+    var file1 = $('#inputfile').val();
+    var file2 = $('#inputGroupFiles0').val();
+		if(file1 == 0) {
+			swal(
+        'Gagal',
+        'Masukan Foto Produk',
+        'error'
+      );
+      return false;
+    }
+			
+    else if (file2 == 0) {
+        swal(
+        'Gagal',
+        'Masukan Foto Produk Ke 2',
+        'error'
+        );
+        return false;
+              
+    }
+    else{
+      return true;
+    }
+
+		});
+
+
+	  
+	});
+</script>
 @endsection

@@ -62,7 +62,8 @@ class ProdukLelangController extends Controller
       
         $this->validate($request,[
 
-            'images' => 'required',
+            'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         // dd($request);
