@@ -37,6 +37,10 @@ route::post('/profil/tambah/cadangan', 'HomeController@tambah_alamat_cadangan');
 route::get('/profile/invoice/top_up', 'HomeController@invoice_top_up');
 route::get('/profil/top_up/detailinvoice/{id}', 'HomeController@invoicetopup_detail');
 route::get('/profil/tarik_saldo', 'HomeController@tarik_saldo');
+route::post('/profil/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
+route::get('/profil/tarikdana/{invoice}', 'HomeController@cek_invoice_dana');
+
+
 
 
 
@@ -50,6 +54,7 @@ Route::get('/jual-beli','ProdukController@index');
 Route::get('/jual-beli/produk/{id}','ProdukController@detail');
 Route::get('/jual-beli/keranjang','KeranjangjbController@keranjang');
 Route::post('/jual-beli/keranjang/tambah-produk','KeranjangjbController@tambahkeranjang');
+route::get('/jual-beli/keranjang/tambah-produk/{id}','KeranjangjbController@tambahkeranjangindex');
 Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
 Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
 Route::get('/jual-beli/update-keranjang/{id}/{plus}', 'KeranjangjbController@updatekeranjang');

@@ -21,6 +21,9 @@ use App\City;
 use App\Confirm_payment;
 use App\Auction_Order;
 use App\Top_up;
+use App\Balance_withdrawal;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 
@@ -331,7 +334,9 @@ class HomeController extends Controller
         $transaksi_top_up = Top_up::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->get();
         $count_transaksi_top_up = count($transaksi_top_up);
 
-        return view('jual-beli.transaksi', compact('invoice','tanggal', 'count_transaksi_top_up','transaksi_top_up', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
+        $transaksi_penarikan = Balance_withdrawal::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->get();
+
+        return view('jual-beli.transaksi', compact('invoice','tanggal','transaksi_penarikan', 'count_transaksi_top_up','transaksi_top_up', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
     }
 
     public function invoicetopup_detail($id)
@@ -620,10 +625,63 @@ class HomeController extends Controller
 
     public function tarik_saldo()
     {
-        return view('jual-beli.cair_saldo');
+        $id_pelanggan = Auth::user()->id;
+
+        $cek_saldo = Joint_account::where('user_id', $id_pelanggan)->first();
+        return view('jual-beli.cair_saldo', compact('cek_saldo'));
     }
 
+    public function tarik_saldo_konfirmasi(Request $request)
+    {
+        $this->validate($request,[
 
+            'email' => 'required',
+            'bank' => 'required',
+            'no_rek' => 'required',
+            'pemilik' => 'required',
+            'jumlah' => 'required',
+            'password' => 'required',
+
+        ]);
+        $id_pelanggan = Auth::user()->id;
+        $user = User::where('id', $id_pelanggan)->first();
+        $password = Str::camel($user->password);
+
+        $timestamps = date('YmdHis');
+        $id_pelanggan = Auth::user()->id;
+        $oldMarker = 'TRKSALDO'.$timestamps.$id_pelanggan;
+
+        // $decrypted = Crypt::decryptString($password);
+        if ($password_hash = Hash::check($request->password, $password)) {
+           $tariksaldo =  Balance_withdrawal::create([
+                            'user_id' => $id_pelanggan, 
+                            'invoice' => $oldMarker, 
+                            'jumlah' => $request->jumlah, 
+                            'status' => 1,
+                            'email' => $request->email,
+                            'bank' => $request->bank,
+                            'no_rekening'  => $request->no_rek,
+                            'pemilik_rekening' => $request->pemilik
+                        ]);
+
+           Alert::success('Berhasi')->showConfirmButton('Ok', '#3085d6');
+           return redirect('/jual-beli');
+        }
+        else{
+            Alert::error('Password anda salah')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/tarik_saldo');
+        }
+     
+    }
+
+    public function cek_invoice_dana($invoice)
+    {
+
+        $cek_data = Balance_withdrawal::where('invoice', $invoice)->first();
+
+        return response()->json($cek_data);
+
+    } 
 
 
 

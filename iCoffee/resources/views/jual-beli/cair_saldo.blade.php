@@ -44,7 +44,7 @@
 
           <div class="form-group">
             <label for="jumlah">Jumlah</label>
-            <input type="number" class="form-control" name="jumlah" min="10000" required>
+            <input type="number" class="form-control" name="jumlah" min="10000" max="{{ $cek_saldo->saldo }}" required>
             <span class="text-danger">{{$errors->first('jumlah')}}</span>
           </div>
 
