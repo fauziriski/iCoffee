@@ -359,7 +359,7 @@
 
                             if ( data.status == 1) 
                             {
-                                $('#status_dana').replaceWith('<div class="alert alert-info text-center" id="status_dana" role="alert">Dalam Proses</div>');
+                                $('#status_dana').replaceWith('<div class="alert alert-info text-center" id="status_dana" role="alert">Menunggu Konfirmasi Admin</div>');
                                 
                             }
                             else if ( data.status == 2) 
@@ -369,7 +369,12 @@
                             }
                             else if ( data.status == 3) 
                             {
-                                $('#status_dana').replaceWith('<div class="alert alert-success text-center" id="status_dana" role="alert">Dana BErhasil Dicairkan</div>');
+                                $('#status_dana').replaceWith('<div class="alert alert-success text-center" id="status_dana" role="alert">Dana Berhasil Dicairkan</div>');
+                                
+                            }
+                            else if ( data.status == 4) 
+                            {
+                                $('#status_dana').replaceWith('<div class="alert alert-info text-center" id="status_dana" role="alert">Sedang dalam Proses</div>');
                                 
                             }
                         });

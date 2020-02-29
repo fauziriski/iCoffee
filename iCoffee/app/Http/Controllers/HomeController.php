@@ -90,7 +90,7 @@ class HomeController extends Controller
 
         $this->validate($request,[
 
-            'image' => 'required'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $folderPath = public_path("Uploads\Produk\{$oldMarker}");
@@ -147,11 +147,11 @@ class HomeController extends Controller
         $id_pelanggan = Auth::user()->id;
         $nama_pelanggan = Auth::user()->name;
         $user = User::where('id', $id_pelanggan)->first();
-        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->get();
+        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->whereIn('status', ['0','1'])->get();
 
+        $alamat_tersedia = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->get();
 
-
-        if($cekalamat->isEmpty())
+        if($alamat_tersedia->isEmpty())
         {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
             return redirect('/profil/tambahalamat');       
@@ -276,6 +276,32 @@ class HomeController extends Controller
 
     }
 
+    public function alamathapus($id)
+    {
+        $id_pelanggan = Auth::user()->id;
+
+        $alamat = Address::where('id', $id)->first();
+        $update_alamat = $alamat->update([
+            'status' => 2
+        ]);
+
+        $cek_alamat = Address::where('id_pelanggan', $id_pelanggan)->where('status', 1)->first();
+
+        if(empty($cek_alamat))
+        {
+            $cek_alamat_tersedia = Address::where('id_pelanggan', $id_pelanggan)->where('status', 0)->first();
+            if(!(empty($cek_alamat_tersedia)))
+            {
+                $ubah_alamat_utama = $cek_alamat_tersedia->update([
+                    'status' => 1
+                ]);
+                return response()->json();
+            }
+        }
+       
+        return response()->json();
+    }
+
     public function transaksi()
     {
         // blm bayar 1
@@ -387,7 +413,7 @@ class HomeController extends Controller
     {
         $id_pelanggan = Auth::user()->id;
         $this->validate($request,[
-            'foto_bukti' => 'required|image|max:2048'
+            'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $folderPath = public_path("Uploads\Konfirmasi_Pembayaran\JualBeli\{$request->invoice}");
@@ -425,7 +451,7 @@ class HomeController extends Controller
     {
         $id_pelanggan = Auth::user()->id;
         $this->validate($request,[
-            'foto_bukti' => 'required|image|max:2048'
+            'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $folderPath = public_path("Uploads\Konfirmasi_Pembayaran\Lelang\{$request->invoice}");
@@ -503,7 +529,7 @@ class HomeController extends Controller
     {
         $id_pelanggan = Auth::user()->id;
         $this->validate($request,[
-            'foto_bukti' => 'required|image|max:2048'
+            'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $folderPath = public_path("Uploads\Konfirmasi_Pembayaran\Top_up\{$request->invoice}");

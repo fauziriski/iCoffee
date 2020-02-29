@@ -148,7 +148,7 @@
                       </button>
                   </span>
               
-                  <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                  <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="30">
                   <span class="input-group-btn ml-2">
                       <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
                         <i class="ion-ios-add"></i>
@@ -166,7 +166,14 @@
             
               </div>
               {{-- <button type="submit" class="btn btn-primary mt-3 py-3">Masuk</button> --}}
-              <p><input type="submit" class="btn btn-primary py-3 px-5" value="Beli"></p>
+              @if ($products->stok < 1)
+                <input type="hidden" name="ketersedian" value="Kosong">
+                <p><input type="submit" class="btn btn-secondary py-3 px-5" value="Kosong"></p>  
+              @else
+                <input type="hidden" name="ketersedian" value="Tersedia">
+                <p><input type="submit" class="btn btn-primary py-3 px-5" value="Beli"></p>
+              @endif
+              
               {{-- <p><a type="submit" class="btn btn-primary mt-3 py-3"></a>Beli</p> --}}
           </div>
           </form>
@@ -222,16 +229,9 @@
 			
 
       </div>
-     
 
-      
-      
     </section>
-
-   
-
-  
-      
+ 
 
     <section class="ftco-section">
     	<div class="container">
@@ -299,23 +299,29 @@
 
 		var quantitiy=0;
 		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
+        
+        
+          // Stop acting like a button
+          e.preventDefault();
 		        // Get the field name
 		        var quantity = parseInt($('#quantity').val());
-		        
+		        if (quantity < 30) {
 		        // If is not undefined
 		            
 		            $('#quantity').val(quantity + 1);
 
 		          
 		            // Increment
+          
+        }
+		        
+		        
 		        
 		    });
 
 		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
+         
+            // Stop acting like a button
 		        e.preventDefault();
 		        // Get the field name
 		        var quantity = parseInt($('#quantity').val());
@@ -323,9 +329,11 @@
 		        // If is not undefined
 		      
 		            // Increment
-		            if(quantity>0){
+		            if(quantity>1){
 		            $('#quantity').val(quantity - 1);
-		            }
+                }
+
+		        
 		    });
 		    
 		});
