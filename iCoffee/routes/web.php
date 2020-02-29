@@ -103,7 +103,7 @@ Route::post('/lelang/rating', 'KeranjanglelangController@rating');
 
 // investasi
 
-Route::get('/investasi', 'ProdukInvestasiController@index');
+Route::get('/invest', 'ProdukInvestasiController@index');
 Route::get('/invest/produk/{id}','ProdukInvestasiController@detail');
 Route::get('/jadi-mitra', 'KelompokTani@index');
 // Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi')->middleware('auth');
@@ -137,5 +137,6 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::post('/pasang-investasi','ProdukInvestasiController@store')->middleware('auth:mitra');
 	Route::get('/produk/{kode_produk}','MitraController@produkDetail')->middleware('auth:mitra');
 	Route::get('/pengajuan-dana', 'MitraController@pengajuanDana')->middleware('auth:mitra');
+	Route::post('/pengajuan-dana', 'MitraController@pengajuanDanaPost')->middleware('auth:mitra');
 	Route::get('/logout','Mitra\LoginController@logout');
 });

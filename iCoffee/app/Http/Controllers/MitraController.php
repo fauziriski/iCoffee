@@ -72,4 +72,9 @@ class MitraController extends Controller
     {
         return view('investasi.mitra.pengajuan');
     }
+
+    public function pengajuanDanaPost(Request $request)
+    {
+        dd($request);
+    }
 }

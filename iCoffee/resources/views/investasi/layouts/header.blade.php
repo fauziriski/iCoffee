@@ -35,7 +35,7 @@
             <li class="nav-item"><a href="{{url('/')}}" class="nav-link">Beranda</a></li>
             <li class="nav-item"><a href="{{url('jual-beli')}}" class="nav-link">JualBeli</a></li>
             <li class="nav-item"><a href="{{url('lelang')}}" class="nav-link">Lelang</a></li>
-            <li class="nav-item"><a href="{{url('investasi')}}" class="nav-link">Investasi</a></li>
+            <li class="nav-item"><a href="{{url('invest')}}" class="nav-link">Investasi</a></li>
             <div class="dropdown ml-2 mt-1">
               <a type="button" class="btn btn-primary btn-outline-primary my-2 px-3 py-1 my-sm-0" href="{{url('jadi-mitra')}}">
                <i class="fa fa-users"></i>&nbsp; Jadi Mitra Investasi

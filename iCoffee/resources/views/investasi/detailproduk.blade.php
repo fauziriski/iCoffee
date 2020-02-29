@@ -46,7 +46,7 @@
           </div> --}}
           <div class="container">
             <div class="row">
-              <div class="col-lg-6 mb-5 pl-4 md-5 pr-2 ftco-animatee">
+              <div class="col-lg-6 pl-4 md-5 pr-2 ftco-animatee">
           <div class="home-slider owl-carousel">
             
     
@@ -282,21 +282,20 @@
           <br>
           <hr>
           <h4>Mitra Proyek</h4>
-          @foreach ($mitra as $item)
           <div class="container">
             <div class="row">
               <div class="col-md-4-sm-4">
-                <img src="#" height="130px" width="170px">
-            </div>
+                <img src="{{$path}}" height="150px" width="150px" style="border-radius: 40%">
+              </div>
               <div class="col-md-7-sm-7-ml-2">
-                <h5>{{$item->nama}}</h5>
+                <h5>{{$mitra->nama}}</h5>
                 <hr>
                 <p>Operator iCoffee</p>
-                <i class="fa fa-leaf fa-lg"></i> 331 Dikelola <i class="fa fa-user fa-lg"></i> {{$item->jumlah_petani}} Petani <i class="fa fa-map fa-lg"></i> {{$item->alamat}}
+                <i class="fa fa-leaf fa-lg"></i> 331 Dikelola <i class="fa fa-user fa-lg"></i> {{$mitra->jumlah_petani}} Petani <i class="fa fa-map fa-lg"></i> {{$mitra->alamat}}
               </div>
             </div>
-           </div>
-          @endforeach
+          </div>
+
     	</div>
 
 			
