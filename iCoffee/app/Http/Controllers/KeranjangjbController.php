@@ -84,8 +84,43 @@ class KeranjangjbController extends Controller
 
         ]);
 
-        $keranjang = JbCart::where('id_pelanggan', $id_customer)->get();
+  
 
+
+        return redirect('/jual-beli/keranjang');
+    }
+
+    public function tambahkeranjangindex($id)
+    {
+        $id_customer = Auth::user()->id;
+        $produk = Shop_product::where('id', $id)->first();
+        $cek_keranjang = JbCart::where('id_produk', $id)->where('id_pelanggan', $id_customer)->first();
+
+        if (!(empty($cek_keranjang))) {
+            $jumlah = 1 + $cek_keranjang->jumlah;
+            $total = $produk->harga+$cek_keranjang->total;
+            $cek_keranjang->update([
+                'jumlah' => $jumlah,
+                'total' => $total
+            ]);
+
+            return redirect('/jual-beli/keranjang');
+        }
+
+        $keranjang = JbCart::create([
+            'id_pelanggan' => $id_customer,
+            'id_produk' => $id,
+            'nama_produk' => $produk->nama_produk,
+            'jumlah' => 1,
+            'harga' => $produk->harga,
+            'kode_produk' => $produk->kode_produk,
+            'total' =>  $produk->harga,
+            'image' => $produk->gambar,
+            'id_penjual' => $produk->id_pelanggan
+
+        ]);
+
+     
 
         return redirect('/jual-beli/keranjang');
     }

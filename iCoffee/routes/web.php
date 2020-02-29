@@ -54,6 +54,7 @@ Route::get('/jual-beli','ProdukController@index');
 Route::get('/jual-beli/produk/{id}','ProdukController@detail');
 Route::get('/jual-beli/keranjang','KeranjangjbController@keranjang');
 Route::post('/jual-beli/keranjang/tambah-produk','KeranjangjbController@tambahkeranjang');
+route::get('/jual-beli/keranjang/tambah-produk/{id}','KeranjangjbController@tambahkeranjangindex');
 Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
 Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
 Route::get('/jual-beli/update-keranjang/{id}/{plus}', 'KeranjangjbController@updatekeranjang');

@@ -625,7 +625,10 @@ class HomeController extends Controller
 
     public function tarik_saldo()
     {
-        return view('jual-beli.cair_saldo');
+        $id_pelanggan = Auth::user()->id;
+
+        $cek_saldo = Joint_account::where('user_id', $id_pelanggan)->first();
+        return view('jual-beli.cair_saldo', compact('cek_saldo'));
     }
 
     public function tarik_saldo_konfirmasi(Request $request)
