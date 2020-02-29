@@ -145,3 +145,5 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::post('/pengajuan-dana', 'MitraController@pengajuanDanaPost')->middleware('auth:mitra');
 	Route::get('/logout','Mitra\LoginController@logout');
 });
+Route::get('/nyoba','MitraController@test');
+Route::post('/daftar-mitra-nyoba','MitraController@nyoba');

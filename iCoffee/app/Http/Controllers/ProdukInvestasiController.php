@@ -13,6 +13,7 @@ use App\Investor;
 use App\invest_order;
 use Illuminate\Support\Str;
 use App\Account;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukInvestasiController extends Controller
 {
@@ -110,7 +111,7 @@ class ProdukInvestasiController extends Controller
 
             ]);
         }
-
+        Alert::toast('Tambah Produk Investasi Berhasil!', 'success');
         return redirect('/mitra/produk-investasi');
     }
 
@@ -145,14 +146,14 @@ class ProdukInvestasiController extends Controller
 
     public function checkout(Request $request)
     {
-        if(Investor::where('status',1)->where('id_pengguna', Auth::id())->first()){
-            return redirect('/jadi-investor');
-        }
-        else{
+        if(Investor::where('status',2)->where('id_pengguna', Auth::id())->first()){
             $produk = Invest_product::find($request->id_produk);
             $mitra = Mitra::where('id_mitra', $request->id_mitra)->first();
             $qty = $request->quantity;
             return view('investasi.checkout',compact('produk','mitra'))->with('qty',$qty);
+        }
+        else{
+            return redirect('/jadi-investor');
         }
     }
 
@@ -173,7 +174,7 @@ class ProdukInvestasiController extends Controller
             'total' => $total,
             'status' => 1
         ]);
-
+        Alert::toast('Pembelian Berhasil!', 'success');
         return view('investasi.pembayaran',compact('produk','mitra'))->with('qty',$qty)->with('bank', $bank);
     }
 }

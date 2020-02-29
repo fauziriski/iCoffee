@@ -13,7 +13,7 @@ class InvestorController extends Controller
 {
     public function formInvestor()
     {
-        $id = Investor::where('id_pengguna',Auth::id())->get();
+        $id = Investor::where('id_pengguna',Auth::id())->first('status');
         return view('investasi.form-investor', compact('id'));
     }
 
@@ -106,7 +106,7 @@ class InvestorController extends Controller
 
     public function orderHistory()
     {
-        $order = invest_order::where('id_investor',Auth::id())->get();
+        $order = invest_order::where('id_investor',Auth::id())->paginate(3);
         foreach($order as $ord){
             $produk[] = Invest_product::where('id', $ord->id_produk)->get();
         }

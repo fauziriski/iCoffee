@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="{{asset('investasi/css/flaticon.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/icomoon.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/style.css') }}">
+  <link href="{{asset('investasi/mitra/css/sb-admin-2.min.css') }}" rel="stylesheet">
   @yield('css')
 </head>
 

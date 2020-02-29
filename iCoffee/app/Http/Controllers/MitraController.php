@@ -17,10 +17,7 @@ class MitraController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth:mitra');
-    }
+
 
     /**
      * Show the application dashboard.
@@ -76,5 +73,14 @@ class MitraController extends Controller
     public function pengajuanDanaPost(Request $request)
     {
         dd($request);
+    }
+
+    public function nyoba(Request $request)
+    {
+        dd($request->file('gambar'));
+    }
+    public function test()
+    {
+        return view('investasi.nyoba');
     }
 }
