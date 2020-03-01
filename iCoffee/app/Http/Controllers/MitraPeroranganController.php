@@ -17,7 +17,9 @@ class MitraPeroranganController extends Controller
             'email' => 'unique:users,email',
             'no_hp' => 'unique:mitra_perorangan,no_hp'
         ]);
-
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
         $timestamps = date('YmdHis');
         $foldername = $request->email.'-'.$timestamps;
         $folderPath = public_path("Uploads\Mitra_Perorangan\{$foldername}");
@@ -56,12 +58,7 @@ class MitraPeroranganController extends Controller
         $mitra->id_mitra = 'PR'.$id;
         $mitra->save();
 
-        if ($validator->fails()) {
-            Alert::toast('Registrasi Gagal', 'error');
-            return back();
-        }else{
-            Alert::toast('Registrasi Berhasil!', 'success');
-            return redirect('jadi-mitra');
-        }
+        Alert::toast('Registrasi Berhasil!', 'success');
+        return redirect('jadi-mitra');
     }
 }

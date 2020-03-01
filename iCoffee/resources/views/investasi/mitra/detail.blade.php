@@ -121,7 +121,14 @@
                                 <img  class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/{'.$produk->kode_produk.'}/'.$produk->gambar) }}">
                             </div>
                             <div class="col-lg-8 col-sm-12">
-                                <h5>{{$produk->nama_produk}} <span class="badge badge-success">Verified</span></h5>
+								<h5>{{$produk->nama_produk}} 
+									@if ($produk->status == 0)
+										<span class="badge badge-danger">Ditolak</span></h5>
+									@elseif( $produk->status == 1)
+										<span class="badge badge-warning">Belum Divalidasi</span></h5>
+									@elseif( $produk->status == 2)
+										<span class="badge badge-success">Sudah Divalidasi</span></h5>
+									@endif
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-6">
                                         <p>Harga: @money($produk->harga)</p>

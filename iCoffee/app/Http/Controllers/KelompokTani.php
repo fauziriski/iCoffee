@@ -14,8 +14,11 @@ class KelompokTani extends Controller
         $validator = Validator::make($request->all(),[
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'email' => 'unique:users,email',
-            'no_hp' => 'unique:kelompok_tani,no_hp',
+            'no_hp' => 'unique:kelompok_tani,no_hp'
         ]);
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
         $timestamps = date('YmdHis');
         $foldername = $request->email.'-'.$timestamps;
         $folderPath = public_path("Uploads\Kelompok_Tani\{$foldername}");
@@ -45,13 +48,9 @@ class KelompokTani extends Controller
             $kelompok->id_mitra = 'KT'.$id;
             $kelompok->save();
         }
-        if ($validator->fails()) {
-            Alert::toast('Registrasi Gagal', 'error');
-            return back();
-        }else{
-            Alert::toast('Registrasi Berhasil!', 'success');
-            return redirect('jadi-mitra');
-        }
+        
+        Alert::toast('Registrasi Berhasil!', 'success');
+        return redirect('jadi-mitra');
     }
 
     public function index(){

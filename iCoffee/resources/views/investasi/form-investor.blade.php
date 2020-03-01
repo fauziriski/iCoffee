@@ -6,11 +6,7 @@
  <div class="card">
    <article class="card-group-item">
     <header class="card-header"><h6 class="title">Jadi Investor</h6></header>
-    @if ($id->status == '1')
-      <img src="waiting.png">
-    @elseif ($id->status == '2')
-      <img src="verified.png">
-    @else
+    @if ($id == null)
       <form action="/jadi-investor" method="post"  enctype="multipart/form-data">
         @csrf
         <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
@@ -21,7 +17,7 @@
                 <div class="form-group">
                   <label for="harga">No. KTP* </label>
                   <div class="input-group">
-                    <input type="number" min="1"class="form-control" name="no_ktp">
+                    <input type="number" min="1"class="form-control" name="no_ktp" required>
                     <span class="text-danger">{{$errors->first('harga')}}</span>
                   </div>
                 </div>
@@ -41,7 +37,7 @@
               <div class="col-md-6">
                   <div class="form-group">
                       <p>KTP*</p>
-                      <input type="file" name="ktp" accept="image/png, image/jpeg"class="form-control-file" >
+                      <input type="file" name="ktp" accept="image/png, image/jpeg" class="form-control-file" required>
                       <small class="text-muted">(Format JPG/JPEG/PNG, Max 2MB)</small>
                   </div>
               </div>
@@ -54,12 +50,18 @@
               </div>
 
               <div class="col-md-12 mt-3">
-                  <button type="submit" class="btn btn-primary float-right py-3 px-4">Pasang Produk</button>
+                  <button type="submit" class="btn btn-primary float-right py-3 px-4">Jadi Investor</button>
               </div>
             </div>
           </div>
         </div>
       </form>
+    @elseif ($id->status == '2')
+      <img src="verified.png">
+    @elseif( $id->status == '1')
+      <img src="waiting.png">
+    @else
+      ERROR GAN! Panik
     @endif
   </div>
 </div><!-- tutup side -->

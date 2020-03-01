@@ -12,7 +12,7 @@
             <div class="col-md-12">
               <div class="form-group">
                   <label for="nama">Nama Produk</label>
-                  <input type="text" class="form-control" name="nama_produk">
+                  <input type="text" class="form-control" name="nama_produk" required>
                   <span class="text-danger">{{$errors->first('nama_produk')}}</span>
               </div>
 
@@ -24,7 +24,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">Rp</div>
                 </div>
-                <input type="number" class="form-control" placeholder="Dalam Rupiah" min="1" name="harga">
+                <input type="number" class="form-control" placeholder="Dalam Rupiah" min="1" name="harga" required>
                 <span class="text-danger">{{$errors->first('name')}}</span>
             </div>
         </div>
@@ -34,7 +34,7 @@
       <div class="form-group">
         <label for="stok">Unit</label>
         <div class="input-group">
-          <input type="number" class="form-control" placeholder="Satuan" min="1" name="stok">
+          <input type="number" class="form-control" placeholder="Satuan" min="1" name="stok" required>
           <span class="text-danger">{{$errors->first('stok')}}</span>
         </div>
       </div>
@@ -83,7 +83,7 @@
   <div class="form-group">
     <label for="stok">ROI/Tahun</label>
     <div class="input-group">
-      <input type="number" class="form-control" placeholder="15" min="1" name="roi">
+      <input type="number" class="form-control" placeholder="15" min="1" name="roi" required>
       <span class="text-danger">{{$errors->first('stok')}}</span>
       <div class="input-group-prepend">
         <div class="input-group-text">%</div>
@@ -98,7 +98,7 @@
 <div class="col-md-12">
   <div class="form-group">
     <label for="deskripsi">Deskripsi</label>
-    <textarea class="form-control" rows="5" type="text" name="detail_produk"></textarea>
+    <textarea class="form-control" rows="5" type="text" name="detail_produk" required></textarea>
     <span class="text-danger">{{$errors->first('stok')}}</span>
 </div>
 </div>
@@ -106,11 +106,12 @@
   <div class="form-group">
     @for ($i = 0; $i < 5; $i++)
       <input type="file" name="gambar[]" accept="image/*" class="form-control-file" >
+      <small class="text-muted">(Format JPG/JPEG/PNG, Max 2MB)</small>
     @endfor
   </div>
 </div>
 <div class="col-md-12 mt-3">
-    <button type="submit" class="btn btn-primary float-right py-3 px-4">Pasang Investasi</button>
+    <button type="submit" class="btn btn-success float-right py-3 px-4">Tambah Produk</button>
 </div>
 
 
