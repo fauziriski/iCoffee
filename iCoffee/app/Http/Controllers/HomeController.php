@@ -86,29 +86,27 @@ class HomeController extends Controller
         $id_pelanggan = Auth::user()->id;
         $oldMarker = $timestamps.$id_pelanggan;
         
-        $size = count(collect($request)->get('image'));
+        $size = count($request->file());
 
         $this->validate($request,[
 
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $folderPath = public_path("Uploads\Produk\{$oldMarker}");
         $response = mkdir($folderPath);
         $nama = array();
-       
-        
 
-        if($files = $request->file('image')){
-
-            foreach($files as $image){
-                $name=$image->getClientOriginalName();
-                $image_resize = Images::make($image->getRealPath());
-                $image_resize->resize(690, 547);
-                $image_resize->crop(500, 500);
-                $image_resize->save($folderPath .'/'. $name);
-                // $image_resize->move($folderPath,$name);
-                $nama[]=$name;
+            for ($i=0; $i < $size; $i++) { 
+                if($files = $request->file('image'.$i)){
+                    $name=$files->getClientOriginalName();
+                    $image_resize = Images::make($files->getRealPath());
+                    $image_resize->resize(690, 547);
+                    $image_resize->crop(500, 500);
+                    $image_resize->save($folderPath .'/'. $name);
+                    // $image_resize->move($folderPath,$name);
+                    $nama[]=$name;
                 
             }
 
@@ -129,7 +127,7 @@ class HomeController extends Controller
         $id = $order->id;
 
         
-        for ($i=0; $i < $size ; $i++) {
+        for ($i=1; $i < $size ; $i++) {
             Image::create([
                 'id_pelanggan' => $id_pelanggan,
                 'id_produk' => $id,

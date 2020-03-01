@@ -13,7 +13,7 @@
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" class="form-control" name="email" required>
+            <input type="text" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
             <span class="text-danger">{{$errors->first('email')}}</span>
           </div>
 
