@@ -206,7 +206,7 @@ class  VerifikasiPembayaranLelangController extends Controller
 		}
 
 
-		$id = "5";
+		$id = "7";
 		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 		$jml_id = count($id)+1;
 		$kode = "AKM-L".$jml_id;
@@ -218,7 +218,7 @@ class  VerifikasiPembayaranLelangController extends Controller
 		$nama_akun = "Pembelian Produk Lelang";
 
 		$id = Adm_jurnal::create([
-			'id_kat_jurnal' => '5',
+			'id_kat_jurnal' => '7',
 			'kode' => $kode,
 			'catatan' => $catatan,
 			'tujuan_tran' => $tujuan_tran,

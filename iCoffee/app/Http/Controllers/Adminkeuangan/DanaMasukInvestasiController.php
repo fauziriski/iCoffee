@@ -19,17 +19,17 @@ use Validator;
 
 
 
-class DanaMasukJBController extends Controller
+class DanaMasukInvestasiController extends Controller
 {
 	public function danaMasuk(){
 
 		if(request()->ajax())
 		{	
 			
-			$id = '5';
-			$AKMJB = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+			$id = '3';
+			$AKMI = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 
-			return datatables()->of($AKMJB)
+			return datatables()->of($AKMI)
 			->addColumn('action', function($data){
 				$button = 
 				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
@@ -53,7 +53,7 @@ class DanaMasukJBController extends Controller
 			->make(true);
 		}
 
-		return view('admin.admin-keuangan.dana-masuk-jualbeli');
+		return view('admin.admin-keuangan.dana-masuk-investasi');
 	}
 
 	public function hapus($id)
@@ -62,7 +62,7 @@ class DanaMasukJBController extends Controller
 		$data = Adm_jurnal::findOrFail($id);
 		$data->delete();
 
-		return view('admin.admin-keuangan.dana-masuk-jualbeli');
+		return view('admin.admin-keuangan.dana-masuk-investasi');
 
 	}
 

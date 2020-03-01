@@ -208,9 +208,7 @@ class  VerifikasiPembeliController extends Controller
 		$kode = "AKM-JB".$jml_id;
 
 		$bukti = $request->foto_bukti2;
-		$timestamps = date('YmdHis');
-		$new_name = $kode.$timestamps. '.' . $bukti;
-
+		$new = $request->invoice2." ".$bukti;
 		$nama_akun = "Pembelian Produk Jual-Beli";
 
 		$id = Adm_jurnal::create([
@@ -218,7 +216,7 @@ class  VerifikasiPembeliController extends Controller
 			'kode' => $kode,
 			'catatan' => $catatan,
 			'tujuan_tran' => $tujuan_tran,
-			'bukti' =>  $new_name,
+			'bukti' =>  $new,
 			'nama_tran' => $nama_tran,
 			'total_jumlah' => $request->jumlah_transfer2	
 		]);

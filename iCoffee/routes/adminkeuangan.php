@@ -59,11 +59,26 @@ Route::post('/update-pelelang', 'SetorPelelangController@update')->name('update-
 
 //dana masuk jual-beli
 Route::get('/dana-masuk-jualbeli', 'DanaMasukJBController@danaMasuk')->name('dana-masuk-jualbeli');
-Route::get('/lihat-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@lihatDanaMasuk')->name('lihat-dana-masuk-jualbeli');
 Route::get('/detail-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@detailDanaMasuk')->name('detail-dana-masuk-jualbeli');
-Route::post('/tambah-dana-masuk-jualbeli', 'DanaMasukJBController@tambah')->name('tambah-dana-masuk-jualbeli');
 Route::get('/hapus-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@hapus')->name('hapus-dana-masuk-jualbeli');
-Route::post('/update-dana-masuk-jualbeli', 'DanaMasukJBController@update')->name('update-dana-masuk-jualbeli');
+
+//dana masuk Investasi
+Route::get('/dana-masuk-investasi', 'DanaMasukInvestasiController@danaMasuk')->name('dana-masuk-investasi');
+Route::get('/detail-dana-masuk-investasi/{id}', 'DanaMasukInvestasiController@detailDanaMasuk')->name('detail-dana-masuk-investasi');
+Route::get('/hapus-dana-masuk-investasi/{id}', 'DanaMasukInvestasiController@hapus')->name('hapus-dana-masuk-investasi');
+
+//dana masuk lelang
+Route::get('/dana-masuk-lelang', 'DanaMasukLelangController@danaMasuk')->name('dana-masuk-lelang');
+Route::get('/detail-dana-masuk-lelang/{id}', 'DanaMasukLelangController@detailDanaMasuk')->name('detail-dana-masuk-lelang');
+Route::get('/hapus-dana-masuk-lelang/{id}', 'DanaMasukLelangController@hapus')->name('hapus-dana-masuk-lelang');
+
+//setoran kelelang
+Route::get('/dana-masuk-lain', 'DanaMasukLainController@dataDanaMasuk')->name('dana-masuk-lain');
+Route::get('/lihat-dana-masuk-lain/{id}', 'DanaMasukLainController@lihatDanaMasuk')->name('lihat-dana-masuk-lain');
+Route::get('/detail-dana-masuk-lain/{id}', 'DanaMasukLainController@detailDanaMasuk')->name('detail-dana-masuk-lain');
+Route::post('/tambah-dana-masuk-lain', 'DanaMasukLainController@tambah')->name('tambah-dana-masuk-lain');
+Route::get('/hapus-dana-masuk-lain/{id}', 'DanaMasukLainController@hapus')->name('hapus-dana-masuk-lain');
+Route::post('/update-dana-masuk-lain', 'DanaMasukLainController@update')->name('update-dana-masuk-lain');
 
 //penarikan ke pelanggan
 Route::get('/pencairan-dana', 'PencairanDanaController@dataPencairan')->name('pencairan-dana');

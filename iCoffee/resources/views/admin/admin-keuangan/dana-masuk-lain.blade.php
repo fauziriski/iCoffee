@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin Keuangan | Pencairan Penjual')
+@section('title', 'Admin Keuangan | Dana Masuk Lain-Lain')
 
 @section('content')
 
@@ -69,7 +69,7 @@
 
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Pencairan Dana Penjual</h1>
+			<h1 class="h3 mb-0 text-gray-800">Dana Masuk Lain-Lain</h1>
 		</div>
 		<div class="card shadow mb-4">
 			<!-- Card Header - Dropdown -->
@@ -148,13 +148,13 @@
 
 																@foreach($satu as $sub1)
 																@if($kat->id==$sub1->adm_kat_akun->id)
-																<option value="{{ $sub1->nama_sub }}">{{$sub1->no_akun}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
+																<option value="{{ $sub1->nama_sub }}">{{$sub1->id}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
 																@endif
 
 																@foreach($dua as $sub2)
 																@if($sub1->id==$sub2->adm_sub1_akun->id && $kat->id==$sub2->adm_kat_akun->id)
 																
-																<option value="{{ $sub2->nama_sub }}">{{$sub2->no_akun}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
+																<option value="{{ $sub2->nama_sub }}">{{$sub2->id}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
 																@endif
 
 																@endforeach
@@ -207,7 +207,6 @@
 
 													</div>
 												</tr>
-
 												<tr>
 													<div class="form-group">
 														<th width="25%" style="text-align: center;">Bukti  </th>	
@@ -314,7 +313,7 @@
 											<th width="25%">Jumlah (IDR) :</th>
 										</div>
 									</tr>
-
+									
 									@for ($i = 0; $i < 2; $i++)
 									<tr>
 										<div class="form-group">
@@ -329,7 +328,7 @@
 										</div>
 									</tr>
 									@endfor
-
+									
 									<tr>
 										<div class="form-group">
 											<th width="25%" style="text-align: center;">Bukti  </th>	
@@ -406,7 +405,7 @@
 								processing: true,
 								serverSide: true,
 								ajax:{
-									url: "{{ route('adminkeuangan.setor-penjual') }}",
+									url: "{{ route('adminkeuangan.dana-masuk-lain') }}",
 									dataType:"json",
 								},
 								columns:[
@@ -436,7 +435,7 @@
 								var id = $(this).attr('id');
 								$('#form_result').html('');
 								$.ajax({
-									url:"lihat-penjual/"+id,
+									url:"lihat-dana-masuk-lain/"+id,
 									dataType:"json",
 									success:function(html){
 										$('#nama_tran').val(html.data.nama_tran);
@@ -470,7 +469,7 @@
 								if($('#action').val() == 'Tambah')
 								{
 									$.ajax({
-										url:"{{ route('adminkeuangan.tambah-penjual') }}",
+										url:"{{ route('adminkeuangan.tambah-dana-masuk-lain') }}",
 										method:"POST",
 										data: new FormData(this),
 										contentType: false,
@@ -503,7 +502,7 @@
 								if($('#action').val() == "Edit")
 								{
 									$.ajax({
-										url:"{{ route('adminkeuangan.update-penjual') }}",
+										url:"{{ route('adminkeuangan.update-dana-masuk-lain') }}",
 										method:"POST",
 										data: new FormData(this),
 										contentType: false,
@@ -543,7 +542,7 @@
 
 							$('#ok_button').click(function(){
 								$.ajax({
-									url:"hapus-penjual/"+id,
+									url:"hapus-dana-masuk-lain/"+id,
 									success:function(data)
 									{
 										setTimeout(function(){
@@ -559,7 +558,7 @@
 							$(document).on('click', '.lihat', function(){
 								var id = $(this).attr('id');
 								$.ajax({
-									url:"detail-penjual/"+id,
+									url:"detail-dana-masuk-lain/"+id,
 									dataType:"json",
 									success:function(html){
 										$('#modalLihat').modal('show');
@@ -570,7 +569,7 @@
 										$('#tujuan_tran2').val(html.data.tujuan_tran);
 										$('#catatan2').val(html.data.catatan);
 
-										var img = "/Uploads/Adm_bukti/AKKJB/" + html.data.bukti  +"";
+										var img = "/Uploads/Adm_bukti/AKMLA/" + html.data.bukti  +"";
 										$('#bukti2').attr("src",img);
 
 										var data = html.akun;
@@ -586,7 +585,6 @@
 											$('#jumlah11'+i).val(jumlah);
 
 										}
-
 
 									}
 								})

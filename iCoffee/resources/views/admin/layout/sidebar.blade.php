@@ -135,15 +135,14 @@
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Investasi :</h6>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Dana Investasi</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Bagi Hasil</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-investasi')}}">Dana Investasi</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Jual-Beli :</h6>
-            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-jualbeli')}}">Dana Masuk</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Keuntungan</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-jualbeli')}}">Dana Jual-Beli</a>
             <h6 class="collapse-header">Lelang :</h6>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Dana Masuk</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Keuntungan</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lelang')}}">Dana Lelang</a>
+            <h6 class="collapse-header">Lain-Lain :</h6>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lain')}}">Pendapatan Lainnya</a>
           </div>
         </div>
       </li>

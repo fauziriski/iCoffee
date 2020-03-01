@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin Keuangan | Dana Masuk Penjualan')
+@section('title', 'Admin Keuangan | Dana Masuk Investasi')
 
 @section('content')
 
@@ -69,7 +69,7 @@
 		<div class="card shadow mb-4">
 			<!-- Card Header - Dropdown -->
 			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h5>Dana Masuk Penjualan</h5>
+				<h5>Dana Masuk Investasi</h5>
 			</div>
 			<!-- Card Body -->
 			<div class="card-body">
@@ -247,7 +247,7 @@
 							processing: true,
 							serverSide: true,
 							ajax:{
-								url: "{{ route('adminkeuangan.dana-masuk-jualbeli') }}",
+								url: "{{ route('adminkeuangan.dana-masuk-investasi') }}",
 								dataType:"json",
 							},
 							columns:[
@@ -272,7 +272,7 @@
 
 						$('#ok_button').click(function(){
 							$.ajax({
-								url:"hapus-dana-masuk-jualbeli/"+id,
+								url:"hapus-dana-masuk-investasi/"+id,
 								success:function(data)
 								{
 									setTimeout(function(){
@@ -284,10 +284,11 @@
 						});
 
 
+
 						$(document).on('click', '.lihat', function(){
 							var id = $(this).attr('id');
 							$.ajax({
-								url:"detail-dana-masuk-jualbeli/"+id,
+								url:"detail-dana-masuk-investasi/"+id,
 								dataType:"json",
 								success:function(html){
 									$('#modalLihat').modal('show');
@@ -298,10 +299,10 @@
 									$('#tujuan_tran2').val(html.data.tujuan_tran);
 									$('#catatan2').val(html.data.catatan);
 
-									var a = html.invoice;
+									var a = html.foto_bukti;
 									console.log(a);
 
-									var img = "/Uploads/Konfirmasi_Pembayaran/JualBeli/{" + html.invoice + "}/" + html.foto_bukti +"";
+									var img = "/Uploads/Konfirmasi_Pembayaran/investasi/{" + html.invoice + "}/" + html.foto_bukti +"";
 
 									$('#bukti2').attr("src",img);
 

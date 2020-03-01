@@ -71,11 +71,13 @@
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
 			<h1 class="h3 mb-0 text-gray-800">Pengeluaran Progress Petani</h1>
 		</div>
-		<div class="panel-body">
-			<div align="right">
-				<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm mb-3"><i class="fa fa-plus-square"></i> Tambah Pencatatan</button>
+		<div class="card shadow mb-4">
+			<!-- Card Header - Dropdown -->
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fa fa-plus-square"></i> Tambah Pencatatan</button>
 			</div>
-
+			<!-- Card Body -->
+			<div class="card-body">
 			<div class="table-responsive">
 				<table id="id_tabel" class="table table-striped table-bordered" border="0" style="width:100%">
 					<thead>

@@ -18,18 +18,17 @@ use Carbon;
 use Validator;
 
 
-
-class DanaMasukJBController extends Controller
+class DanaMasukLelangController extends Controller
 {
 	public function danaMasuk(){
 
 		if(request()->ajax())
 		{	
 			
-			$id = '5';
-			$AKMJB = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+			$id = '7';
+			$AKML = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 
-			return datatables()->of($AKMJB)
+			return datatables()->of($AKML)
 			->addColumn('action', function($data){
 				$button = 
 				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
@@ -53,7 +52,7 @@ class DanaMasukJBController extends Controller
 			->make(true);
 		}
 
-		return view('admin.admin-keuangan.dana-masuk-jualbeli');
+		return view('admin.admin-keuangan.dana-masuk-lelang');
 	}
 
 	public function hapus($id)
@@ -62,7 +61,7 @@ class DanaMasukJBController extends Controller
 		$data = Adm_jurnal::findOrFail($id);
 		$data->delete();
 
-		return view('admin.admin-keuangan.dana-masuk-jualbeli');
+		return view('admin.admin-keuangan.dana-masuk-lelang');
 
 	}
 
@@ -77,8 +76,8 @@ class DanaMasukJBController extends Controller
 			$data = Adm_jurnal::findOrFail($id);
 			$total_jumlah = $data->total_jumlah;
 
-			$ambil = Confirm_payment::where('jumlah_transfer',$total_jumlah)->select('foto_bukti')->first();
-			$foto_bukti = $ambil->foto_bukti;
+			$ambil = Confirm_payment::where('jumlah_transfer',$total_jumlah)->get();
+			
 			$invoice = $ambil->invoice;
 
 			return response()->json([
