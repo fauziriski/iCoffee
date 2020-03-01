@@ -407,8 +407,9 @@ class  VerifikasiPembayaranLelangController extends Controller
 		// $tujuan_tran = "Bank ".$bank." iCoffee";
 
 		$tujuan_tran = "Bank iCoffee BCA";
-		$nama_akun = "Pembelian saldo awal lelang";
-
+		$nama_tran =  "Pengisian saldo lelang : Rp.".number_format($jumlah);
+		$nama_akun_debit = "Bank ".$request->nama_bank_pengirim2."/".$request->nama_pemilik_pengirim2."-".$request->no_rekening_pengirim2;
+		$nama_akun_kredit = "Pengisian saldo top-up";
 
 		$id = "7";
 		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
@@ -419,23 +420,31 @@ class  VerifikasiPembayaranLelangController extends Controller
 		$timestamps = date('YmdHis');
 		$new_name = $kode.$timestamps. '.' . $bukti;
 
+		$nama_akun = "Pengisian saldo top-up";
+
 		$id = Adm_jurnal::create([
 			'id_kat_jurnal' => '7',
 			'kode' => $kode,
 			'catatan' => $catatan,
 			'tujuan_tran' => $tujuan_tran,
 			'bukti' =>  $new_name,
-			'nama_tran' => $request->nama_pemilik_pengirim2,
+			'nama_tran' => $nama_tran,
 			'total_jumlah' => $request->jumlah_transfer2	
 		]);
 
 		Adm_akun::create([
 			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun,
+			'nama_akun' => $nama_akun_debit,
 			'posisi' => 'Debit',
 			'jumlah' => $request->jumlah_transfer2
 		]);
 
+		Adm_akun::create([
+			'id_adm_jurnal' => $id->id,
+			'nama_akun' => $nama_akun_kredit,
+			'posisi' => 'Kredit',
+			'jumlah' => $request->jumlah_transfer2
+		]);
 
 		$form_data = array(
 			'status' => $request->status,

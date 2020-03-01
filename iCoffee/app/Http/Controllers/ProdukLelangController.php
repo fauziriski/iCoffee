@@ -59,11 +59,10 @@ class ProdukLelangController extends Controller
 
     public function pasangLelangberhasil(Request $request)
     {
-      
         $this->validate($request,[
 
             'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         // dd($request);
@@ -76,7 +75,7 @@ class ProdukLelangController extends Controller
         $nama_pelanggan = Auth::user()->name;
         $oldMarker = $timestamps.$id_pelanggan;
 
-        $size = count(collect($request)->get('image'));
+        $size = count($request->file());
 
         $folderPath = public_path("Uploads\Lelang\{$oldMarker}");
         $response = mkdir($folderPath);
@@ -93,12 +92,11 @@ class ProdukLelangController extends Controller
                 // $image_resize->move($folderPath,$name);          
             
         }
+        for ($i=0; $i < $size-1; $i++) { 
+            if($files = $request->file('image'.$i)){
 
-        if($files = $request->file('image')){
-
-            foreach($files as $image){
-                $names=$image->getClientOriginalName();
-                $image_resize = Images::make($image->getRealPath());
+                $names=$files->getClientOriginalName();
+                $image_resize = Images::make($files->getRealPath());
                 $image_resize->resize(690, 547);
                 $image_resize->crop(500, 500);
                 $image_resize->save($folderPath .'/'. $names);
@@ -116,7 +114,7 @@ class ProdukLelangController extends Controller
             'stok' => $request->stok,
             'harga_awal' => $request->harga_awal,
             'lama_lelang' => $request->lama_lelang,
-            'gambar' => $nama[0],
+            'gambar' => $name,
             'stok' => $request->stok,
             'kode_lelang' => $oldMarker,
             'id_kategori' => $request->id_kategori,
@@ -139,7 +137,7 @@ class ProdukLelangController extends Controller
             'status' => '1'
         ]);
               
-        for ($i=0; $i < $size ; $i++) {
+        for ($i=0; $i < $size-1 ; $i++) {
             $produkdetails = Auction_image::create([
                 'id_pelelang' => $id_pelanggan,
                 'id_produk' => $id,

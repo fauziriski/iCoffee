@@ -10,7 +10,7 @@ use GuzzleHttp\Client;
 use App\User;
 use App\Shop_product;
 use App\Image;
-use App\JbCart;
+use App\Jbcart;
 use App\Address;
 use App\Delivery;
 use App\Delivery_category;
@@ -34,7 +34,7 @@ class KeranjangjbController extends Controller
     {
 
         $id_customer = Auth::user()->id;
-        $keranjang = JbCart::where('id_pelanggan', $id_customer)->orderBy('created_at','desc')->get();
+        $keranjang = Jbcart::where('id_pelanggan', $id_customer)->orderBy('created_at','desc')->get();
         $carttotal = count($keranjang);
 
         if ($carttotal == 0) {
@@ -65,7 +65,7 @@ class KeranjangjbController extends Controller
         }
         
 
-        $cek_keranjang = JbCart::where('id_produk', $request->id_produk)->where('id_pelanggan', $id_customer)->first();
+        $cek_keranjang = Jbcart::where('id_produk', $request->id_produk)->where('id_pelanggan', $id_customer)->first();
 
         if (!(empty($cek_keranjang))) {
             $jumlah = $request->quantity + $cek_keranjang->jumlah;
@@ -80,7 +80,7 @@ class KeranjangjbController extends Controller
 
         $total = $request->harga*$request->quantity;
 
-        $keranjang = JbCart::create([
+        $keranjang = Jbcart::create([
             'id_pelanggan' => $id_customer,
             'id_produk' => $request->id_produk,
             'nama_produk' => $request->nama_produk,
@@ -103,7 +103,7 @@ class KeranjangjbController extends Controller
     {
         $id_customer = Auth::user()->id;
         $produk = Shop_product::where('id', $id)->first();
-        $cek_keranjang = JbCart::where('id_produk', $id)->where('id_pelanggan', $id_customer)->first();
+        $cek_keranjang = Jbcart::where('id_produk', $id)->where('id_pelanggan', $id_customer)->first();
 
         if (!(empty($cek_keranjang))) {
             $jumlah = 1 + $cek_keranjang->jumlah;
@@ -116,7 +116,7 @@ class KeranjangjbController extends Controller
             return redirect('/jual-beli/keranjang');
         }
 
-        $keranjang = JbCart::create([
+        $keranjang = Jbcart::create([
             'id_pelanggan' => $id_customer,
             'id_produk' => $id,
             'nama_produk' => $produk->nama_produk,
@@ -163,7 +163,7 @@ class KeranjangjbController extends Controller
         
         $id = $request->id;
 
-        $checkout = JbCart::whereIn('id', $request->id)->get();
+        $checkout = Jbcart::whereIn('id', $request->id)->get();
 
         foreach ($checkout as $data) {
             if ($data->shop_product->stok <= 0 ) {
@@ -360,7 +360,7 @@ class KeranjangjbController extends Controller
 
     public function updatekeranjang($data, $tombol)
     {
-        $cart = JbCart::where('id', $data)->first();
+        $cart = Jbcart::where('id', $data)->first();
 
         if($tombol == 'plus')
         {
@@ -436,7 +436,7 @@ class KeranjangjbController extends Controller
         }
 
         for ($i=0; $i < $jumlah_keranjang ; $i++) { 
-            $flight = JbCart::where('id', $request->id_keranjang[$i])->first();
+            $flight = Jbcart::where('id', $request->id_keranjang[$i])->first();
             $flight->delete();
         }
 
@@ -792,7 +792,7 @@ class KeranjangjbController extends Controller
 
     public function hapus($id)
     {
-        $flight = JbCart::find($id);
+        $flight = Jbcart::find($id);
 
         $flight->delete();
 

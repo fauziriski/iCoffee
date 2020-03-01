@@ -11,6 +11,7 @@
 |*/
 
 Route::get('/', 'HomeController@index')->name('dashboard');
+Route::get('/beranda', 'HomeController@index')->name('beranda');
 
 Route::get('/kategori-produk', 'KelolaProdukController@index')->name('kategori-produk');
 Route::post('/kategori-produk/store', 'KelolaProdukController@store')->name('kategori-produk.store');
@@ -76,10 +77,14 @@ Route::get('/data-investor/{id}', 'ValidasiInvestorController@idInvestor')->name
 Route::post('/tolak-investor/update', 'ValidasiInvestorController@tolakInvestor')->name('tolak-investor.update');
 Route::post('/validasi-investor/update', 'ValidasiInvestorController@validasiInvestor')->name('validasi-investor.update');
 
-
 Route::get('/proses-lelang', 'ProsesLelangController@prosesLelang')->name('proses-lelang');
 Route::get('/data-proses-lelang/{id}', 'ProsesLelangController@dataLelang');
 Route::get('/lihat-pemenang/{id}', 'ProsesLelangController@dataPemenang')->name('lihat-pemenang');
+
+Route::get('/validasi-pencairan', 'VerifikasiPencairanController@dataPencairan')->name('validasi-pencairan');
+Route::get('/lihat-validasi-pencairan/{id}', 'VerifikasiPencairanController@lihatPencairan')->name('lihat-validasi-pencairan');
+Route::post('/tolak-pencairan/update', 'VerifikasiPencairanController@tolakPencairan')->name('tolak-pencairan.update');
+Route::post('/validasi-pencairan/update', 'VerifikasiPencairanController@validasiPencairan')->name('validasi-pencairan.update');
 
 
 

@@ -68,7 +68,7 @@
             <div class="col-md-8">
             <div class="form-group">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" name="image[]" id="inputGroupFile{{$i}}"/>
+                <input type="file" class="custom-file-input" name="image{{$i}}" id="inputGroupFile{{$i}}"/>
                 <label class="custom-file-label" for="inputGroupFile{{ $i }}">Upload Foto Produk</label>
               </div>
             </div>
