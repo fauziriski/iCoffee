@@ -15,6 +15,7 @@ use App\Adm_sub1_akun;
 use App\Adm_sub2_akun;
 use App\Joint_account;
 use Carbon;
+use Validator;
 
 
 class  PencairanDanaController extends Controller
@@ -24,46 +25,38 @@ class  PencairanDanaController extends Controller
 		if(request()->ajax())
 		{	
 			
-			$status = '4';
-			$diproses = Balance_withdrawal::where('status',$status)->get();
+			$id = '10';
+			$AKKSP = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 
-			return datatables()->of($diproses)
+			return datatables()->of($AKKSP)
 			->addColumn('action', function($data){
-				
-				if ($data->status == "1") {
-					$button = 
-					'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="diproses" id="'.$data->id.'" class="diproses btn btn-secondary btn-sm"><i class="fa fa-clock"></i> Diproses</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm"><i class="fa fa-times"></i> Tolak</button>'; 
-					
-				}else{
-					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
-
-				}
-				
+				$button = 
+				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i></button>'.'&nbsp&nbsp'.
+				'<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>'.'&nbsp;&nbsp;'.
+				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
 				return $button;
-			})
-
-			->addColumn('jumlah', function($data){
-				$rp = "Rp. ";
-				$jumlah = $rp. number_format($data->jumlah); 
-				return $jumlah;
 			})
 
 			->addColumn('created_at', function($data){
 				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
-				return $waktu;
+				return $waktu;       
 			})
-
-			->rawColumns(['action'])
+			
+			->rawColumns(['action','created_at'])
 			->make(true);
 		}
 
-		return view('admin.admin-keuangan.pencairan-dana-pelanggan');
-	}
+	// return view('admin.admin-keuangan.pencairan-dana-pelanggan');
+		$tran = Adm_tranksaksi::All();
 
+		$kategori = Adm_kat_akun::All();
+
+		$satu = Adm_sub1_akun::All();
+
+		$dua = Adm_sub2_akun::All();
+
+		return view('admin.admin-keuangan.pencairan-dana-pelanggan',compact('tran','kategori','satu','dua'));
+	}
 
 	public function lihatPencairan($id)
 	{
@@ -95,89 +88,133 @@ class  PencairanDanaController extends Controller
 		return response()->json(['success' => 'Berhasil Ditolak']);
 	}
 
-	public function validasiPencairan(Request $request)
+	
+	public function dataPenarikan()
 	{
+		$status = '4';
+		$penarikan = Balance_withdrawal::where('status',$status)->get();
 
-		$ambil = Pencairan::where('invoice',$request->invoice2)->first();
-		$bank = $ambil->payment;
+		return datatables()->of($penarikan)
+		->addColumn('action', function($data){
+			$button = 
+			'<button type="button" name="tambah" id="'.$data->id.'" class="tambah btn btn-success btn-sm"><i class="fa fa-check"></i> Validasi</button>';
+			return $button;
+		})
 
-		$total_bayar = Pencairandetail::where('invoice',$request->invoice2)->select('total')->sum('total');
-		$kg = Pencairandetail::where('invoice',$request->invoice2)->select('jumlah')->sum('jumlah');
+		->rawColumns(['action'])
+		->make(true);
+		
 
-		$qty = Pencairan::where('invoice',$request->invoice2)->get();
-		$jml = count($qty);
+		return view('admin.admin-keuangan.pencairan-dana-pelanggan');
+	}
 
-		for($i=0; $i < $jml; $i++){
-			$ongkir[] = $qty[$i]; 
-			$ongkir1 = explode(': ',$ongkir[$i]->shipping);
-			$ongkir2[] =  $ongkir1[0];
-		}	
+	public function lihatPenarikan($id)
+	{
+		if(request()->ajax())
+		{
+			$data = Balance_withdrawal::findOrFail($id);
+			$user_id = $data->user_id;
 
-		$collection = collect($ongkir2);
-		$total_ongkir = $collection->pipe(function ($collection) {
-			return $collection->sum();
-		});
+			$nama_tran = "Penarikan saldo pelanggan";
+			$catatan = "Penarikan saldo pelanggan dengan total saldo Rp.".number_format($data->jumlah).": Bank ".$data->bank."/".$data->pemilik_rekening."-".$data->no_rekening;
 
-		$catatan = "pencairanan kopi sebanyak ".$kg."Kg dengan total harga Rp.".number_format($total_bayar)." dan total ongkos kirim sebesar Rp.".$total_ongkir;
-		$tujuan_tran = "Bank ".$bank." iCoffee";
+			$tujuan_tran = "Bank ".$data->bank."/Atas nama ".$data->pemilik_rekening;
+			$nama_akun_debit = "Bank ".$data->bank."/".$data->pemilik_rekening."-".$data->no_rekening;
+			$jumlah_debit = $data->jumlah;
+			$debit = "Debit";
 
+			return response()->json([
+				'data' => $data,
+				'nama_tran' => $nama_tran,
+				'tujuan_tran' => $tujuan_tran,
+				'catatan' => $catatan,
+				'nama_akun_debit' => $nama_akun_debit,
+				'jumlah_debit' => $jumlah_debit,
+				'debit' => $debit
 
-		$nama_akun_debit = "Bank ".$request->nama_bank_pengirim2."/".$request->nama_pemilik_pengirim2."-".$request->no_rekening_pengirim2;
-		$nama_akun_kredit = "pencairanan Produk Jual-Beli";
-
-		$qty = Pencairandetail::where('invoice',$request->invoice2)->get();
-		$jml = count($qty);
-
-		for($i=0; $i < $jml; $i++){
-			$produk[] = $qty[$i]; 
-			$nama_tran1[] = $produk[$i]->nama_produk;
-			$produks= implode(",", $nama_tran1);
-			$nama_tran = "Beli produk : ".$produks;
+			]);
 
 		}
+	}
+	
+	public function hapusPencairan($id)
+	{
 
+		$data = Adm_jurnal::findOrFail($id);
+		$data->delete();
 
-		$id = "5";
-		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
-		$jml_id = count($id)+1;
-		$kode = "AKM-JB".$jml_id;
+		return view('admin.admin-keuangan.pencairan-dana-pelanggan');
 
-		$bukti = $request->foto_bukti2;
-		$timestamps = date('YmdHis');
-		$new_name = $kode.$timestamps. '.' . $bukti;
+	}
+	
 
-		$nama_akun = "pencairanan Produk Jual-Beli";
+	public function validasiPenarikan(Request $request)
+	{	
 
-		$id = Adm_jurnal::create([
-			'id_kat_jurnal' => '5',
-			'kode' => $kode,
-			'catatan' => $catatan,
-			'tujuan_tran' => $tujuan_tran,
-			'bukti' =>  $new_name,
-			'nama_tran' => $nama_tran,
-			'total_jumlah' => $request->jumlah_transfer2	
-		]);
-
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun_debit,
-			'posisi' => 'Debit',
-			'jumlah' => $request->jumlah_transfer2
-		]);
-
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun_kredit,
-			'posisi' => 'Kredit',
-			'jumlah' => $request->jumlah_transfer2
-		]);
-
-
-		$form_data = array(
-			'status' => $request->status,
+		$rules = array(	
+			'nama_akun2' => 'required',
+			'jumlah2' => 'required',
+			'bukti' =>  'required|image|max:2048'
 		);
 
+		$error = Validator::make($request->all(), $rules);
 
+		if($error->fails())
+		{
+			return response()->json(['errors' => $error->errors()->all()]);
+		}
+
+		$bukti = $request->file('bukti');
+		$timestamps = date('YmdHis');
+		$id = "10";
+		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+		$jml_id = count($id)+1;
+		$kode = "AKK-PS".$jml_id;
+
+		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
+
+		$bukti->move(public_path('Uploads/Adm_bukti/AKKPS'), $new_name);
+
+		$total_jumlah = $request->jumlah2;
+
+		$data = Balance_withdrawal::findOrFail($request->hidden_id);
+		$user_id = $data->user_id;
+
+		$nama_tran = "Penarikan saldo pelanggan";
+		$catatan = "Penarikan saldo pelanggan dengan total saldo Rp.".number_format($data->jumlah).": Bank ".$data->bank."/".$data->pemilik_rekening."-".$data->no_rekening;
+
+		$tujuan_tran = "Bank ".$data->bank."/Atas nama ".$data->pemilik_rekening;
+		$nama_akun1 = "Bank ".$data->bank."/".$data->pemilik_rekening."-".$data->no_rekening;
+		$jumlah1 = $data->jumlah;
+		$posisi1 = "Debit";
+
+		$id = Adm_jurnal::create([
+			'id_kat_jurnal' =>'10',
+			'nama_tran' => $nama_tran,
+			'bukti' =>  $new_name,
+			'catatan' => $catatan,
+			'kode' => $kode,
+			'total_jumlah' => $total_jumlah,
+			'tujuan_tran' => $tujuan_tran		
+		]);
+
+		Adm_akun::create([
+			'id_adm_jurnal' => $id->id,
+			'nama_akun' => $nama_akun1,
+			'posisi' => $posisi1,
+			'jumlah' => $jumlah1
+		]);
+
+		Adm_akun::create([
+			'id_adm_jurnal' => $id->id,
+			'nama_akun' => $request->nama_akun2,
+			'posisi' => $request->posisi2,
+			'jumlah' => $request->jumlah2
+		]);
+		
+
+		$nama_akun = $nama_akun1;
+		
 		$jumlah = Adm_akun::where('nama_akun',$nama_akun)->select('jumlah')->get();
 		$total = 0;
 		for($i=0;$i<count($jumlah);$i++){
@@ -189,47 +226,27 @@ class  PencairanDanaController extends Controller
 
 		if($data == '0'){
 			$id = Adm_arus_kas::create([
-				'kode' => 'AKM-JB',
+				'kode' => 'AKK-PS',
 				'nama_akun' => $nama_akun,
 				'total' => $total
 			]);
 		}else{
 			$form = array(	
-				'kode' => 'AKM-JB',
+				'kode' => 'AKK-PS',
 				'nama_akun' => $nama_akun,
 				'total' => $total
 			);
 			Adm_arus_kas::where('nama_akun',$nama_akun)->update($form);
 		}
 
-		$form_status = array(
+		$form_data = array(
 			'status' => '3',
 		);
 
-		Pencairan::where('invoice',$request->invoice2)->update($form_status);
-		Balance_withdrawal::whereId($request->hidden_id2)->update($form_data);
+		Balance_withdrawal::whereId($request->hidden_id)->update($form_data);
 
-		$qty = Pencairandetail::where('invoice',$request->invoice2)->get();
-		$jml = count($qty);
-
-		for($i=0; $i < $jml; $i++){
-			$produk[] = $qty[$i]; 
-		}
-
-
-		for($i=0; $i < $jml; $i++){
-			$shop_produk;
-			$stok = 0;
-			$shop_produk = Shop_product::where('id',$produk[$i]->id_produk)->where('id_pelanggan', $produk[$i]->id_penjual)->first();
-			$stok = $shop_produk->stok - $produk[$i]->jumlah;
-
-			Shop_product::where('id',$produk[$i]->id_produk)->update([
-				'stok' => $stok
-			]);
-
-		}
-
-		return response()->json(['success' => 'Berhasil Divalidasi']);
+		return response()->json(['success' => 'Data berhasil ditambah.']);
 	}
+
 
 }
