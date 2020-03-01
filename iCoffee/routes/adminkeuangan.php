@@ -12,6 +12,7 @@
 
 
 Route::get('/', 'HomeController@index')->name('dashboard');
+Route::get('/beranda', 'HomeController@index')->name('beranda');
 Route::get('/format-akun', 'FormatAkunController@dataPelanggan')->name('format-akun');
 // Route::get('/data-admin', 'KelolaPenggunaController@dataAdmin')->name('data-admin');
 // Route::get('/hapus-pengguna/{id}', 'KelolaPenggunaController@hapusPengguna')->name('hapus-pengguna');
@@ -63,6 +64,14 @@ Route::get('/detail-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@detailDana
 Route::post('/tambah-dana-masuk-jualbeli', 'DanaMasukJBController@tambah')->name('tambah-dana-masuk-jualbeli');
 Route::get('/hapus-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@hapus')->name('hapus-dana-masuk-jualbeli');
 Route::post('/update-dana-masuk-jualbeli', 'DanaMasukJBController@update')->name('update-dana-masuk-jualbeli');
+
+//penarikan ke pelanggan
+Route::get('/pencairan-dana', 'PencairanDanaController@dataPencairan')->name('pencairan-dana');
+Route::get('/lihat-pencairan-dana/{id}', 'PencairanDanaController@lihatpencairan')->name('lihat-pencairan-dana');
+Route::get('/detail-pencairan-dana/{id}', 'PencairanDanaController@detailpencairan')->name('detail-pencairan-dana');
+Route::post('/tambah-pencairan-dana', 'PencairanDanaController@tambah')->name('tambah-pencairan-dana');
+Route::get('/hapus-pencairan-dana/{id}', 'PencairanDanaController@hapus')->name('hapus-pencairan-dana');
+Route::post('/update-pencairan-dana', 'PencairanDanaController@update')->name('update-pencairan-dana');
 
 //laporan keuangan
 Route::get('/arus-kas', 'ArusKasController@lihat')->name('arus-kas');

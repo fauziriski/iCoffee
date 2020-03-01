@@ -26,11 +26,11 @@
     <hr class="sidebar-divider my-0">
     @can('isSuperadmin')
 
-    <!-- Nav Item - Dashboard -->
+    <!-- Nav Item - Beranda -->
     <li class="nav-item active">
-      <a class="nav-link" href="{{url('admin')}}">
+      <a class="nav-link" href="{{url('akses-superadminadmin/beranda')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+        <span>Beranda</span></a>
       </li>
 
 
@@ -110,11 +110,11 @@
 
       @can('isAdminkeuangan')
 
-      <!-- Nav Item - Dashboard -->
+      <!-- Nav Item - Beranda -->
       <li class="nav-item active">
-        <a class="nav-link" href="{{url('admin')}}">
+        <a class="nav-link" href="{{url('akses-adminkeuangan/beranda')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>Beranda</span></a>
         </li>
 
 
@@ -171,7 +171,8 @@
           <a class="collapse-item" href="{{url('akses-adminkeuangan/setor-penjual')}}">Dana Penjual</a>
           <h6 class="collapse-header">Lelang :</h6>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/setor-lelang')}}">Dana Lelang</a>
-          <h6 class="collapse-header">Administrasi :</h6>
+          <h6 class="collapse-header">Lainnya :</h6>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Dana Pelanggan</a>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Biaya Operasional</a>
         </div>
       </div>
@@ -234,11 +235,11 @@
 
     @can('isAdmin')
 
-    <!-- Nav Item - Dashboard -->
+    <!-- Nav Item - Beranda -->
     <li class="nav-item active">
-      <a class="nav-link" href="{{url('admin')}}">
+      <a class="nav-link" href="{{url('akses-admin/beranda')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+        <span>Beranda</span></a>
       </li>
 
       <!-- Divider -->
@@ -263,6 +264,7 @@
             <a class="collapse-item" href="{{ url('akses-admin/validasi-pembeli')}}">Validasi Pembayaran</a>
             <a class="collapse-item" href="{{url('akses-admin/jenis-produk')}}">Jenis Produk</a>
             <a class="collapse-item" href="{{url('akses-admin/kategori-produk')}}">Kategori Produk</a>
+             <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan')}}">Validasi Pencairan Dana</a>
           </div>
         </div>
       </li>

@@ -66,7 +66,6 @@
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
 			<h5 class="h3 mb-0 text-gray-800">Validasi Pembayaran Top Up</h5>
-			<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>  Download Excel</a>
 		</div>
 
 		<div class="table-responsive">
@@ -142,6 +141,8 @@
 					<input type="hidden" name="foto_bukti2" id="foto_bukti2" />
 					<input type="hidden" name="jumlah_transfer2" id="jumlah_transfer2" />
 					<input type="hidden" name="invoice2" id="invoice2" />
+					<input type="hidden" name="nama_bank_pengirim2" id="nama_bank_pengirim2" />
+					<input type="hidden" name="no_rekening_pengirim2" id="no_rekening_pengirim2" />
 					<div class="text2">
 						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
 						<div class="mt-5"></div>
@@ -382,6 +383,8 @@
 								$('#nama_pemilik_pengirim2').val(html.data.nama_pemilik_pengirim);
 								$('#foto_bukti2').val(html.data.foto_bukti);
 								$('#jumlah_transfer2').val(html.data.jumlah_transfer);
+								$('#nama_bank_pengirim2').val(html.data.nama_bank_pengirim);
+								$('#no_rekening_pengirim2').val(html.data.no_rekening_pengirim);
 								$('#invoice2').val(html.data.invoice);
 								$('.modal-title2').text("Konfirmasi");
 								$('#action_button2').val("validasi");

@@ -33,7 +33,6 @@ class DanaMasukJBController extends Controller
 			->addColumn('action', function($data){
 				$button = 
 				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
-				'<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> Ubah</button>'.'&nbsp;&nbsp;'.
 				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
 				return $button;
 			})
@@ -41,6 +40,12 @@ class DanaMasukJBController extends Controller
 			->addColumn('created_at', function($data){
 				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
 				return $waktu;
+			})
+
+			->addColumn('total_jumlah', function($data){
+				$rp = "Rp. ";
+				$total_jumlah = $rp. number_format($data->total_jumlah); 
+				return $total_jumlah;
 			})
 
 			
@@ -153,8 +158,6 @@ class DanaMasukJBController extends Controller
 		if(request()->ajax())
 		{
 			$data = Adm_jurnal::findOrFail($id);
-
-			dd($total_jumlah);
 			return response()->json([
 				'data' => $data,
 			]);
@@ -270,7 +273,7 @@ class DanaMasukJBController extends Controller
 			$total_jumlah = $data->total_jumlah;
 
 			$ambil = Confirm_payment::where('jumlah_transfer',$total_jumlah)->select('foto_bukti')->first();
-			dd($ambil);
+			dd($ambil->data);
 			$foto_bukti = $ambil->foto_bukti;
 			$invoice = $ambil->invoice;
 
