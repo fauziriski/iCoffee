@@ -40,6 +40,10 @@
               </div>
             </div>
             @endforeach
+            <br>
+            <ul class="pagination justify-content-center">
+              {{$order->links()}}
+            </ul>
         </div>
       </div>
     </div><!-- tutup side -->

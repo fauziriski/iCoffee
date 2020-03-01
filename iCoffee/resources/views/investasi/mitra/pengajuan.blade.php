@@ -9,7 +9,8 @@
 
 <div class="wizard-v1-content mx-auto">
     <div class="wizard-form">
-        <form class="form-register" id="form-register" action="#" method="post">
+        <form class="form-register" id="form-register" action="\mitra/pengajuan-dana" method="post">
+            @csrf
             <div id="form-total">
                 <!-- SECTION 1 -->
                 <h2>
@@ -69,6 +70,8 @@
                         
                     </div>
                 </section>
+                <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
+            </form>
                 <!-- SECTION 2 -->
                 <h2>
                     <span class="step-icon"><i class="fa fa-sun"></i></span>
@@ -174,9 +177,9 @@
                     </div>
                 </section>
                 <h2>
-                    <span class="step-icon"><i class="fa fa-coffee"></i></span>
-                    <span class="step-number">Progress 4</span>
-                    <span class="step-text">Pasca Panen</span>
+                    <span class="step-icon"><i class="fa fa-leaf"></i></span>
+                    <span class="step-number">Progress 3</span>
+                    <span class="step-text">Panen</span>
                 </h2>
                 <section>
                     <div class="inner">
@@ -218,10 +221,8 @@
                     </div>
                 </section>
             </div>
-            <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
-        </form>
-    </div>
-</div><!-- tutup side -->
+        </div>
+    </div><!-- tutup side -->
 </div>
 </section>
 @endsection

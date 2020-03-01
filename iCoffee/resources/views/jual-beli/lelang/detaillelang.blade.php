@@ -211,6 +211,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="http://malsup.github.com/jquery.form.js"></script>
+
+<script>
+  setTimeout(function(){
+   window.location.reload(1);
+  }, 13000);
+
+</script>
 <script>
   // Set the date we're counting down to
   var  u = {!!json_encode($products)!!};
@@ -243,7 +250,6 @@
       clearInterval(x);
       $('#tawar').replaceWith('<input class="btn btn-primary py-3 px-1" id="selesai" value="Selesai" readonly>');
       var penawar_terakhir = {!!json_encode($penawar)!!};
-            console.log(penawar_terakhir);
       document.getElementById("demo1").innerHTML = "EXPIRED";
     }
   }, 1000);

@@ -8,8 +8,8 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
-  
   <link href="{{asset('admin/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="{{asset('investasi/css/open-iconic-bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/animate.css') }}">
   
@@ -28,7 +28,8 @@
   <link rel="stylesheet" href="{{asset('investasi/css/flaticon.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/icomoon.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/style.css') }}">
-  <link rel="stylesheet" href="{{asset('investasi/css/gambar.less')}}">
+  {{-- <link rel="stylesheet/less" type="text/css" href="{{asset('investasi/css/gambar.less')}}" /> --}}
+  <link href="{{asset('investasi/mitra/css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
 @section('header')
 @include('investasi.layouts.header')
@@ -60,9 +61,11 @@
               <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <div class="avatar-upload">
+                    <div class="avatar-upload" align="center">
+                      <br>
                         <div class="avatar-edit">
-                            <input type='file' name="gambar" id="imageUpload" accept="images/*" />
+                            <input type='file' name="gambar" id="imageUpload" accept="images/*" required/>
+                            <small class="text-muted">(Format JPG/JPEG/PNG, Max 2MB)</small>
                             <label for="imageUpload"></label>
                         </div>
                         <div class="avatar-preview">
@@ -73,21 +76,21 @@
                   </div>
                 <div class="form-group">
                     <label for="nama">Nama Koperasi</label>
-                    <input type="text" class="form-control" name="nama_koperasi">
+                    <input type="text" class="form-control" name="nama_koperasi" required>
                     <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="harga">Email</label>
-                      <input type="email" class="form-control" name="email">
+                      <input type="email" class="form-control" name="email" required>
                       <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="harga">No Handphone</label>
-                      <input type="text" class="form-control" name="no_hp">
+                      <input type="text" class="form-control" name="no_hp" required>
                       <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                     </div>
                   </div>
@@ -96,7 +99,7 @@
                       <div class="col-md-9">
                           <div class="form-group">
                             <label for="harga">Alamat</label>
-                            <input type="text" class="form-control" name="alamat">
+                            <input type="text" class="form-control" name="alamat" required>
                             <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                     </div>
                 </div>
@@ -104,7 +107,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="stok">Jumlah Petani</label>
-                        <input type="number" class="form-control" min="1"  name="jumlah_petani">
+                        <input type="number" class="form-control" min="1"  name="jumlah_petani" required>
                         <span class="text-danger">{{$errors->first('stok')}}</span>
                     </div>
                 </div>
@@ -116,26 +119,29 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>
-                <textarea class="form-control" rows="5" type="text" name="deskripsi"></textarea>
+                <textarea class="form-control" rows="5" type="text" name="deskripsi" required></textarea>
                 <span class="text-danger">{{$errors->first('stok')}}</span>
             </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="adart">AD/ART</label><br>
-                <input type="file" name="ad_art" accept="application/pdf"/>
+                <input type="file" name="ad_art" accept="application/pdf" required/>
+                <small class="text-muted">(Format PDF, Max 2MB)</small>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="adart">Akte Koperasi</label><br>
-                <input type="file" name="akte" accept="application/pdf"/>
+                <input type="file" name="akte" accept="application/pdf" required/>
+                <small class="text-muted">(Format PDF, Max 2MB)</small>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="adart">KTP Pengurus</label><br>
-                <input type="file" name="ktp_pengurus" accept="application/pdf"/>
+                <input type="file" name="ktp_pengurus" accept="application/pdf" required/>
+                <small class="text-muted">(Format PDF, Max 2MB)</small>
               </div>
             </div>
             <div class="col-md-12 mt-3">
@@ -157,34 +163,36 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <div class="avatar-upload">
-                        <div class="avatar-edit">
-                            <input type='file' name="gambar" id="imageUpload" accept="images/*" />
-                            <label for="imageUpload"></label>
-                        </div>
-                        <div class="avatar-preview">
-                            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-                            </div>
-                        </div>
-                    </div>
+                      <div class="avatar-edit" align="center">
+                        <br>
+                          <input type='file' name="gambar" id="imageUpload" accept="images/*" required/>
+                          <small class="text-muted">(Format JPG/JPEG/PNG, Max 2MB)</small>
+                          <label for="imageUpload"></label>
+                      </div>
+                      <div class="avatar-preview">
+                          <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+                          </div>
+                      </div>
+                  </div>
                   </div>
     
                 <div class="form-group">
                     <label for="nama">Nama Kelompok</label>
-                    <input type="text" class="form-control" name="nama_kelompok">
+                    <input type="text" class="form-control" name="nama_kelompok" required>
                     <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="harga">Email</label>
-                      <input type="email" class="form-control" name="email">
+                      <input type="email" class="form-control" name="email" required>
                       <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="harga">No Handphone</label>
-                      <input type="text" class="form-control" name="no_hp">
+                      <input type="text" class="form-control" name="no_hp" required>
                       <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                     </div>
                   </div>
@@ -193,7 +201,7 @@
                       <div class="col-md-9">
                           <div class="form-group">
                             <label for="harga">Alamat</label>
-                            <input type="text" class="form-control" name="alamat">
+                            <input type="text" class="form-control" name="alamat" required>
                             <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                     </div>
                 </div>
@@ -201,7 +209,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="stok">Jumlah Petani</label>
-                        <input type="number" class="form-control" min="1" name="jumlah">
+                        <input type="number" class="form-control" min="1" name="jumlah" required>
                         <span class="text-danger">{{$errors->first('stok')}}</span>
                     </div>
                 </div>
@@ -213,7 +221,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>
-                <textarea class="form-control" rows="5" type="text" name="deskripsi"></textarea>
+                <textarea class="form-control" rows="5" type="text" name="deskripsi" required></textarea>
                 <span class="text-danger">{{$errors->first('stok')}}</span>
             </div>
             </div>
@@ -237,8 +245,10 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <div class="avatar-upload">
-                      <div class="avatar-edit">
-                          <input type='file' name="gambar" id="imageUpload" accept="images/*" />
+                      <div class="avatar-edit" align="center">
+                        <br>
+                          <input type='file' name="gambar" id="imageUpload" accept="images/*" required/>
+                          <small class="text-muted">(Format JPG/JPEG/PNG, Max 2MB)</small>
                           <label for="imageUpload"></label>
                       </div>
                       <div class="avatar-preview">
@@ -249,21 +259,21 @@
                 </div>
               <div class="form-group">
                   <label for="nama">Nama</label>
-                  <input type="text" class="form-control" name="nama_perorangan">
+                  <input type="text" class="form-control" name="nama_perorangan" required>
                   <span class="text-danger">{{$errors->first('nama_produk')}}</span>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="harga">Email</label>
-                    <input type="email" class="form-control" name="email">
+                    <input type="email" class="form-control" name="email" required>
                     <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="harga">No Handphone</label>
-                    <input type="text" class="form-control" name="no_hp">
+                    <input type="text" class="form-control" name="no_hp" required>
                     <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                   </div>
                 </div>
@@ -272,7 +282,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                           <label for="harga">Alamat</label>
-                          <input type="text" class="form-control" name="alamat">
+                          <input type="text" class="form-control" name="alamat" required>
                           <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                   </div>
               </div>
@@ -280,7 +290,7 @@
               <div class="col-md-3">
                   <div class="form-group">
                       <label for="stok">Jumlah Petani</label>
-                      <input type="number" class="form-control" min="1" name="jumlah_petani">
+                      <input type="number" class="form-control" min="1" name="jumlah_petani" required>
                       <span class="text-danger">{{$errors->first('stok')}}</span>
                   </div>
               </div>
@@ -292,20 +302,22 @@
           <div class="col-md-12">
             <div class="form-group">
               <label for="deskripsi">Deskripsi</label>
-              <textarea class="form-control" rows="5" type="text" name="deskripsi"></textarea>
+              <textarea class="form-control" rows="5" type="text" name="deskripsi" required></textarea>
               <span class="text-danger">{{$errors->first('stok')}}</span>
           </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="adart">Kartu Keluarga</label><br>
-              <input type="file" name="kartu_keluarga" accept="application/pdf"/>
+              <input type="file" name="kartu_keluarga" accept="application/pdf" required/>
+              <small class="text-muted">(Format PDF, Max 2MB)</small>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="adart">Surat Nikah</label><br>
-              <input type="file" name="surat_nikah" accept="application/pdf"/>
+              <input type="file" name="surat_nikah" accept="application/pdf" required/>
+              <small class="text-muted">(Format PDF, Max 2MB)</small>
             </div>
           </div>
           <div class="col-md-12 mt-3">
@@ -346,8 +358,7 @@
 <script src="{{asset('investasi/js/main.js')}}"></script>
 <script src="{{asset('js/google-map.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.2.0/less.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
 
 
 </body>

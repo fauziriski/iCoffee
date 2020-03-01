@@ -24,7 +24,7 @@
   </div>
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
-      <img src="logo.png" width="10%" height="5%"></a>
+      <img src="logo.png" width="10%" height="5%">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -35,7 +35,7 @@
             <li class="nav-item"><a href="{{url('/')}}" class="nav-link">Beranda</a></li>
             <li class="nav-item"><a href="{{url('jual-beli')}}" class="nav-link">JualBeli</a></li>
             <li class="nav-item"><a href="{{url('lelang')}}" class="nav-link">Lelang</a></li>
-            <li class="nav-item"><a href="{{url('investasi')}}" class="nav-link">Investasi</a></li>
+            <li class="nav-item"><a href="{{url('invest')}}" class="nav-link">Investasi</a></li>
             <div class="dropdown ml-2 mt-1">
               <button type="button" class="btn btn-primary btn-outline-primary my-2 px-3 py-1 my-sm-0" data-toggle="dropdown">
                <i class="fa fa-plus"></i>&nbsp;Pasang Produk

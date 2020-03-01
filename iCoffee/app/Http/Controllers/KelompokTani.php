@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Kelompok_tani;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class KelompokTani extends Controller
 {
 
     public function store(Request $request){
-        $this->validate($request,[
-
+        $validator = Validator::make($request->all(),[
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'email' => 'unique:users,email',
-            'no_hp' => 'unique:kelompok_tani,no_hp'
+            'no_hp' => 'unique:kelompok_tani,no_hp',
         ]);
         $timestamps = date('YmdHis');
         $foldername = $request->email.'-'.$timestamps;
@@ -44,7 +45,13 @@ class KelompokTani extends Controller
             $kelompok->id_mitra = 'KT'.$id;
             $kelompok->save();
         }
-        return redirect('jadi-mitra');
+        if ($validator->fails()) {
+            Alert::toast('Registrasi Gagal', 'error');
+            return back();
+        }else{
+            Alert::toast('Registrasi Berhasil!', 'success');
+            return redirect('jadi-mitra');
+        }
     }
 
     public function index(){

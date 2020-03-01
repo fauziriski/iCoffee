@@ -273,7 +273,7 @@
                   </th>
                   <th class="ml-1 mr-3">
                  
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Hapus</button>
+                    <a href="#" name="hapusalamat" type="button" value="{{$data->id}}" class="btn btn-primary">Hapus</a>
     
                 </th>
                 </tr>
@@ -503,6 +503,35 @@
           $('select[name="kota_kabupaten_edit"]').empty();
             }
          });
+
+    $('a[name="hapusalamat"]').on('click', function() {
+      var id = $(this).attr('value');
+
+      swal({
+              title: "Are you sure!",
+              type: "warning",
+              confirmButtonClass: "btn-danger",
+              confirmButtonText: "Yes!",
+              showCancelButton: true,
+          },
+          function() {
+              $.ajax({
+                  type: "GET",
+                  url: '/profil/alamat/hapus/'+encodeURI(id),
+                  dataType: "json",
+                  success: function (data) {
+                    swal(
+                      'Berhasil',
+                      'Hapus Alamat Berhasil',
+                      'success'
+                    );
+                    location.reload();
+                  }         
+              });
+      });
+      
+
+    });
   });
 </script>
 

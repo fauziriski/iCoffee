@@ -7,9 +7,9 @@ body,html {
   margin:0;
   font-family:lato;
 }
-.container {
-      -ms-flex-pack:center;
-          justify-content:center;
+.kontainer {
+  -ms-flex-pack:center;
+  justify-content:center;
   display:-webkit-box;
   display:-webkit-flex;
   display:-ms-flexbox;
@@ -290,7 +290,7 @@ ul li:hover {
 @endsection
 @section('content')
 <section class="ftco-section">
-	<div class='container'>
+	<div class='kontainer'>
 		<div class='window ftco-animate'>
 		  <div class='order-info'>
 			<div class='order-info-content'>
@@ -299,7 +299,7 @@ ul li:hover {
 					<table class='order-table'>
 						<tbody>
 						<tr>
-							<td><img src="{{ asset('Uploads/Investasi/Produk/{'.$produk->kode_produk.'}/'.$produk->gambar) }}" style="border-radius: 40%" class='full-width'></img>
+              <td><img src="{{ asset('Uploads/Investasi/Produk/{'.$produk->kode_produk.'}/'.$produk->gambar) }}" style="border-radius: 40%" class='full-width'>
 							</td>
 							<td>
 							<br> <span class='thin'>{{$produk->nama_produk}}</span>

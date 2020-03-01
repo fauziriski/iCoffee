@@ -33,6 +33,7 @@ route::post('/profil/konfirmasi/top_up/berhasil', 'HomeController@konfirmasipemb
 route::get('/profil/produk','HomeController@produksaya');
 route::get('/profil/utama/alamat/{id}','HomeController@alamat_utama');
 route::post('/profil/tambah/cadangan', 'HomeController@tambah_alamat_cadangan');
+route::get('/profil/alamat/hapus/{id}','HomeController@alamathapus');
 
 route::get('/profile/invoice/top_up', 'HomeController@invoice_top_up');
 route::get('/profil/top_up/detailinvoice/{id}', 'HomeController@invoicetopup_detail');
@@ -54,6 +55,7 @@ Route::get('/jual-beli','ProdukController@index');
 Route::get('/jual-beli/produk/{id}','ProdukController@detail');
 Route::get('/jual-beli/keranjang','KeranjangjbController@keranjang');
 Route::post('/jual-beli/keranjang/tambah-produk','KeranjangjbController@tambahkeranjang');
+route::get('/jual-beli/keranjang/tambah-produk/{id}','KeranjangjbController@tambahkeranjangindex');
 Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
 Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
 Route::get('/jual-beli/update-keranjang/{id}/{plus}', 'KeranjangjbController@updatekeranjang');
@@ -107,7 +109,7 @@ Route::post('/lelang/rating', 'KeranjanglelangController@rating');
 
 // investasi
 
-Route::get('/investasi', 'ProdukInvestasiController@index');
+Route::get('/invest', 'ProdukInvestasiController@index');
 Route::get('/invest/produk/{id}','ProdukInvestasiController@detail');
 Route::get('/jadi-mitra', 'KelompokTani@index');
 // Route::get('/produk-investasi', 'ProdukInvestasiController@produkInvestasi')->middleware('auth');
@@ -141,5 +143,8 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::post('/pasang-investasi','ProdukInvestasiController@store')->middleware('auth:mitra');
 	Route::get('/produk/{kode_produk}','MitraController@produkDetail')->middleware('auth:mitra');
 	Route::get('/pengajuan-dana', 'MitraController@pengajuanDana')->middleware('auth:mitra');
+	Route::post('/pengajuan-dana', 'MitraController@pengajuanDanaPost')->middleware('auth:mitra');
 	Route::get('/logout','Mitra\LoginController@logout');
 });
+Route::get('/nyoba','MitraController@test');
+Route::post('/daftar-mitra-nyoba','MitraController@nyoba');

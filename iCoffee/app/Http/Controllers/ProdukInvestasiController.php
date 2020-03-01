@@ -11,7 +11,9 @@ use DataTables;
 use App\Mitra;
 use App\Investor;
 use App\invest_order;
+use Illuminate\Support\Str;
 use App\Account;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukInvestasiController extends Controller
 {
@@ -109,7 +111,7 @@ class ProdukInvestasiController extends Controller
 
             ]);
         }
-
+        Alert::toast('Tambah Produk Investasi Berhasil!', 'success');
         return redirect('/mitra/produk-investasi');
     }
 
@@ -124,21 +126,34 @@ class ProdukInvestasiController extends Controller
         $products = Invest_product::find($id);
         $produk_terkait = Invest_product::where('id_kategori', $products->id_kategori)->take(4)->get();
         $image = Invest_product_image::where('id_produk', $products->id)->get();
-        $mitra = Mitra::where('id_mitra', $products->id_mitra)->get();
+        $mitra = Mitra::where('id_mitra', $products->id_mitra)->first();
+        if(Str::contains($mitra->id_mitra, 'KT')){
+            $kode = $mitra->kode;
+            $gambar = $mitra->gambar;
+            $path = "\Uploads/Kelompok_tani/{{$kode}}/{$gambar}";
+        }elseif(Str::contains($mitra->id_mitra, 'KP')){
+            $kode = $mitra->kode;
+            $gambar = $mitra->gambar;
+            $path = "\Uploads/Mitra_Koperasi/{{$kode}}/$gambar";
+        }else{
+            $kode = $mitra->kode;
+            $gambar = $mitra->gambar;
+            $path = "\Uploads/Mitra_Perorangan/{{$kode}}/{$gambar}";
+        }
     
-        return view('investasi.detailproduk',compact('products','image','produk_terkait','mitra'));
+        return view('investasi.detailproduk',compact('products','image','produk_terkait','mitra','path'));
     }
 
     public function checkout(Request $request)
     {
-        if(Investor::where('status',1)->where('id_pengguna', Auth::id())->first()){
-            return redirect('/jadi-investor');
-        }
-        else{
+        if(Investor::where('status',2)->where('id_pengguna', Auth::id())->first()){
             $produk = Invest_product::find($request->id_produk);
             $mitra = Mitra::where('id_mitra', $request->id_mitra)->first();
             $qty = $request->quantity;
             return view('investasi.checkout',compact('produk','mitra'))->with('qty',$qty);
+        }
+        else{
+            return redirect('/jadi-investor');
         }
     }
 
@@ -159,7 +174,7 @@ class ProdukInvestasiController extends Controller
             'total' => $total,
             'status' => 1
         ]);
-
+        Alert::toast('Pembelian Berhasil!', 'success');
         return view('investasi.pembayaran',compact('produk','mitra'))->with('qty',$qty)->with('bank', $bank);
     }
 }

@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mitra_koperasi;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class MitraKoperasiController extends Controller
 {
     public function store(Request $request){
         
-        $this->validate($request,[
-
+        $validator = Validator::make($request->all(),[
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'ad_art'  => 'required|mimes:doc,docx,pdf',
             'akte'  => 'required|mimes:doc,docx,pdf',
@@ -57,6 +58,12 @@ class MitraKoperasiController extends Controller
         $mitra->id_mitra = 'KP'.$id;
         $mitra->save();
 
-        return redirect('jadi-mitra');
+        if ($validator->fails()) {
+            Alert::toast('Registrasi Gagal', 'error');
+            return back();
+        }else{
+            Alert::toast('Registrasi Berhasil!', 'success');
+            return redirect('jadi-mitra');
+        }
     }
 }

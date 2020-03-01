@@ -6,47 +6,9 @@
 
 
     <section class="ftco-section">
-    	{{-- <div class="container">
-    		<div class="row">
-    			<div class="col-lg-6 mb-5 ftco-animate">
-    				<a href="{{ asset('Jualbeli/images/product-1.jpg') }}" class="image-popup"><img src="{{ asset('Jualbeli/images/product-1.jpg') }}" class="img-fluid" alt="Colorlib Template"></a>
-
-        <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="product">
-              <a href="{{ asset('Jualbeli/images/product-2.jpg') }}" class="image-popup"><img class="img-fluid" src="{{ asset('Jualbeli/images/product-2.jpg') }}" alt="Colorlib Template">
-                <div class="overlay"></div>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="product">
-              <a href="{{ asset('Jualbeli/images/product-3.jpg') }}" class="image-popup"><img class="img-fluid" src="{{ asset('Jualbeli/images/product-3.jpg') }}" alt="Colorlib Template">
-                <div class="overlay"></div>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="product">
-              <a href="{{ asset('Jualbeli/images/product-4.jpg') }}" class="image-popup"><img class="img-fluid" src="{{ asset('Jualbeli/images/product-4.jpg') }}" alt="Colorlib Template">
-                <div class="overlay"></div>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="product">
-              <a href="{{ asset('Jualbeli/images/product-5.jpg') }}" class="image-popup"><img class="img-fluid" src="{{ asset('Jualbeli/images/product-5.jpg') }}" alt="Colorlib Template">
-                <div class="overlay"></div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-          </div> --}}
           <div class="container">
             <div class="row">
-              <div class="col-lg-6 mb-5 pl-4 md-5 pr-2 ftco-animatee">
+              <div class="col-lg-6 pl-4 md-5 pr-2 ftco-animatee">
           <div class="home-slider owl-carousel">
             
     
@@ -71,23 +33,6 @@
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
             <h3>{{ $products->nama_produk }}</h3>
             <hr>
-    				<!-- <div class="rating d-flex">
-							<p class="text-left mr-4">
-								<a href="#" class="mr-2">5.0</a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-							</p>
-							<p class="text-left mr-4">
-								<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
-							</p>
-							<p class="text-left">
-								<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
-							</p>
-						</div> -->
-
 					  <p class="price"><h5>@money($products->harga) / Unit</h5></p>
 
             <div class="row">
@@ -282,21 +227,20 @@
           <br>
           <hr>
           <h4>Mitra Proyek</h4>
-          @foreach ($mitra as $item)
           <div class="container">
             <div class="row">
               <div class="col-md-4-sm-4">
-                <img src="#" height="130px" width="170px">
-            </div>
+                <img src="{{$path}}" height="150px" width="150px" style="border-radius: 40%">
+              </div>
               <div class="col-md-7-sm-7-ml-2">
-                <h5>{{$item->nama}}</h5>
+                <h5>{{$mitra->nama}}</h5>
                 <hr>
                 <p>Operator iCoffee</p>
-                <i class="fa fa-leaf fa-lg"></i> 331 Dikelola <i class="fa fa-user fa-lg"></i> {{$item->jumlah_petani}} Petani <i class="fa fa-map fa-lg"></i> {{$item->alamat}}
+                <i class="fa fa-leaf fa-lg"></i> 331 Dikelola <i class="fa fa-user fa-lg"></i> {{$mitra->jumlah_petani}} Petani <i class="fa fa-map fa-lg"></i> {{$mitra->alamat}}
               </div>
             </div>
-           </div>
-          @endforeach
+          </div>
+
     	</div>
 
 			

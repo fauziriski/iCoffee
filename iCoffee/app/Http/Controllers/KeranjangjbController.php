@@ -43,6 +43,7 @@ class KeranjangjbController extends Controller
             return redirect('/jual-beli');
             
         }
+       
 
         $subtotal = $keranjang->sum('total');
         
@@ -53,8 +54,16 @@ class KeranjangjbController extends Controller
     public function tambahkeranjang(Request $request)
     {
 
-        
+        if ($request->ketersedian == "Kosong") {
+            Alert::warning('Stok Sedang Tidak Tersedia')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/jual-beli/produk/'.$request->id_produk);
+        }
         $id_customer = Auth::user()->id;
+        if ($request->id_penjual == $id_customer) {
+            Alert::warning('Penjual Tidak Boleh Membeli Produk Milik Sendiri')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/jual-beli/produk/'.$request->id_produk);
+        }
+        
 
         $cek_keranjang = JbCart::where('id_produk', $request->id_produk)->where('id_pelanggan', $id_customer)->first();
 
@@ -84,8 +93,43 @@ class KeranjangjbController extends Controller
 
         ]);
 
-        $keranjang = JbCart::where('id_pelanggan', $id_customer)->get();
+  
 
+
+        return redirect('/jual-beli/keranjang');
+    }
+
+    public function tambahkeranjangindex($id)
+    {
+        $id_customer = Auth::user()->id;
+        $produk = Shop_product::where('id', $id)->first();
+        $cek_keranjang = JbCart::where('id_produk', $id)->where('id_pelanggan', $id_customer)->first();
+
+        if (!(empty($cek_keranjang))) {
+            $jumlah = 1 + $cek_keranjang->jumlah;
+            $total = $produk->harga+$cek_keranjang->total;
+            $cek_keranjang->update([
+                'jumlah' => $jumlah,
+                'total' => $total
+            ]);
+
+            return redirect('/jual-beli/keranjang');
+        }
+
+        $keranjang = JbCart::create([
+            'id_pelanggan' => $id_customer,
+            'id_produk' => $id,
+            'nama_produk' => $produk->nama_produk,
+            'jumlah' => 1,
+            'harga' => $produk->harga,
+            'kode_produk' => $produk->kode_produk,
+            'total' =>  $produk->harga,
+            'image' => $produk->gambar,
+            'id_penjual' => $produk->id_pelanggan
+
+        ]);
+
+     
 
         return redirect('/jual-beli/keranjang');
     }
@@ -103,7 +147,6 @@ class KeranjangjbController extends Controller
 
             'id' => 'required'
         ]);
-
         
 
         $id_customer = Auth::user()->id;
@@ -116,17 +159,26 @@ class KeranjangjbController extends Controller
         }
 
         $alamat = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
-
-        if(empty($alamat))
-        {
-            Alert::info('Tentukan Alamat Utama Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/edit');
-        }
         
         
         $id = $request->id;
 
         $checkout = JbCart::whereIn('id', $request->id)->get();
+
+        foreach ($checkout as $data) {
+            if ($data->shop_product->stok <= 0 ) {
+                Alert::warning('Gagal','Stok Sedang Tidak Tersedia')->showConfirmButton('Ok', '#3085d6');
+                return redirect('/jual-beli/keranjang');
+            }
+        }
+
+        foreach ($checkout as $data) {
+            if ($data->shop_product->stok <= $data->jumlah ) {
+                Alert::warning('Gagal','Stok Tidak Mencukupi')->showConfirmButton('Ok', '#3085d6');
+                return redirect('/jual-beli/keranjang');
+            }
+        }
+        
 
         foreach ($checkout as $data) {
 
@@ -312,22 +364,41 @@ class KeranjangjbController extends Controller
 
         if($tombol == 'plus')
         {
-            $jumlah = $cart->jumlah+1;
-            $total = $jumlah*$cart->harga;
-            $cart->update([
-                'jumlah' => $jumlah,
-                'total' => $total
-            ]);
+            if ($cart->jumlah >= 30) 
+            {
+                $jumlah = $cart->jumlah;
+                $total = $cart->total;
+            }
+            else
+            {
+                $jumlah = $cart->jumlah+1;
+                $total = $jumlah*$cart->harga;
+                $cart->update([
+                    'jumlah' => $jumlah,
+                    'total' => $total
+                ]);
+
+            }
+            
 
         }
         elseif($tombol == 'minus')
         {
-            $jumlah = $cart->jumlah-1;
-            $total = $jumlah*$cart->harga;
-            $cart->update([
-                'jumlah' => $jumlah,
-                'total' => $total
-            ]);
+            if ($cart->jumlah <= 1) 
+            {
+                $jumlah = $cart->jumlah;
+                $total = $cart->total;
+            }
+            else
+            {
+                $jumlah = $cart->jumlah-1;
+                $total = $jumlah*$cart->harga;
+                $cart->update([
+                    'jumlah' => $jumlah,
+                    'total' => $total
+                ]);
+            }
+            
 
         }
         

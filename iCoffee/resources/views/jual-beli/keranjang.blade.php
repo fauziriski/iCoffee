@@ -28,13 +28,16 @@
 									
 								
 						      <tr class="text-center">
-						        <td class="product-remove"><input type="checkbox" name="id[]" value="{{$data->id}}"></td>
+						        <td class="product-remove"><input type="checkbox" id="id_produk{{$data->id}}" name="id[]" value="{{$data->id}}"></td>
 						        
 						        <td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Produk/{'.$data->kode_produk.'}/'.$data->image) }});"></div></td>
 
 						        <td class="product-name">
 									<h3>{{ $data->nama_produk }}</h3>
 									<p>{{ $data->shop_product->user->name }}</p>
+									@if ( $data->shop_product->stok <= 0)
+										<p style="color:red">(Stok Kosong)</p>
+									@endif
 						        </td>
 						        
 						        <td class="price">Rp {{ number_format($data->harga,0,",",".") }}</td>
@@ -53,7 +56,7 @@
 												</button>
 											</span>
 								
-											<input type="text" id="qty{{ $data->id }}" name="quantity[]" class="qty form-control input-number" required value="{{ $data->jumlah }}" min="1" max="100">
+											<input type="text" id="qty{{ $data->id }}" name="quantity[]" class="qty form-control input-number" readonly required value="{{ $data->jumlah }}" min="1" max="100">
 											<span class="input-group-btn ml-2">
 												<button type="button" class="quantity-right-plus btn" value="{{ $data->id }}" data-type="plus" data-field="">
 												<i class="ion-ios-add"></i>
@@ -121,7 +124,7 @@
     					</p>
     				</div>
 					{{-- <p><a href="/jual-beli/checkout" class="btn btn-primary py-2 px-5">Checkout</a></p> --}}
-					<p><input type="submit" class="btn btn-primary py-2 px-5" value="Checkout"></p>
+					<p><input type="submit" class="btn btn-primary py-2 px-5" id="checkBtn" value="Checkout"></p>
     			</div>
     		</div>
 			</div>
@@ -186,8 +189,26 @@
 		  });
 		
 	  });
+
+    $('#checkBtn').click(function() {
+		checked = $("input[type=checkbox]:checked").length;
+
+		if(!checked) {
+			swal(
+                'Gagal',
+                'Pilih Barang Untuk di Pesan',
+                'error'
+              );
+			return false;
+		}
+
+		});
+
+
 	  
 	});
+
+	
   </script>
 
   @stop
