@@ -14,6 +14,7 @@ use App\invest_order;
 use Illuminate\Support\Str;
 use App\Account;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class ProdukInvestasiController extends Controller
 {
@@ -30,15 +31,15 @@ class ProdukInvestasiController extends Controller
             })
             ->addColumn('proses', function($data){
 				if ($data->status == 1) {
-					$proses = 'Belum Divalidasi';
+					$proses = '<span class="badge badge-warning">Belum Divalidasi</span>';
 
                 }
                 elseif ($data->status == 2) {
-					$proses = 'Sudah Divalidasi';
+					$proses = '<span class="badge badge-success">Sudah Divalidasi</span>';
 
                 }
                 elseif ($data->status == 0) {
-					$proses = 'Ditolak';
+					$proses = '<span class="badge badge-danger">Ditolak</span>';
 
                 }
 				return $proses;
@@ -58,15 +59,17 @@ class ProdukInvestasiController extends Controller
 
     public function store(Request $request)
     {
-        
+        $validator = Validator::make($request->all(),[
+            'gambar' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
+
         $id_mitra = Auth::user()->id_mitra;
         $timestamps = date('YmdHis');
         $code = $timestamps.$id_mitra;
         $size = count(collect($request)->get('gambar'));
-
-        $this->validate($request,[
-            'gambar' => 'required'
-        ]);
 
         $folderPath = public_path("Uploads\Investasi\Produk\{$code}");
         $response = mkdir($folderPath);

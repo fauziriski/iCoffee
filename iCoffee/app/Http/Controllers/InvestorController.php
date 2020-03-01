@@ -8,25 +8,28 @@ use Illuminate\Support\Facades\Auth;
 use App\invest_order;
 use App\Invest_product;
 use App\Invest_confirm;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class InvestorController extends Controller
 {
     public function formInvestor()
     {
         $id = Investor::where('id_pengguna',Auth::id())->first('status');
+
         return view('investasi.form-investor', compact('id'));
     }
 
     public function store(Request $request)
     {
-        $this->validate($request,[
-
+        $validator = Validator::make($request->all(),[
             'ktp' => 'required|image|max:2048',
             'no_ktp' => 'required'
         ]);
-        
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
         $id_pengguna = Auth::id();
-
         $folderPath = public_path("Uploads\Investasi\Investor\{$id_pengguna}");
         mkdir($folderPath);
 
@@ -53,6 +56,7 @@ class InvestorController extends Controller
             'npwp' => $inputan[1],
             'status' => 1
         ]);
+        Alert::toast('Registrasi Investor Berhasil!', 'success');
         return redirect('/jadi-investor');
     }
 
@@ -75,9 +79,12 @@ class InvestorController extends Controller
 
     public function confirmStore(Request $request)
     {
-        $this->validate($request,[
+        $validator = Validator::make($request->all(),[
             'gambar' => 'required|image|'
         ]);
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
 
         if($request->hasfile('gambar')){
             $file = $request->file('gambar');
@@ -96,6 +103,7 @@ class InvestorController extends Controller
             'status' => 1,
             'norek' => $request->norek
         ]);
+        Alert::toast('Konfirmasi Pembayaran Berhasil!', 'success');
         return redirect('/invest/konfirmasi');
     }
 

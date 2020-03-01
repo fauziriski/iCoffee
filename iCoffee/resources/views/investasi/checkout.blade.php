@@ -317,7 +317,6 @@ ul li:hover {
 			
 					</table>
           <div class='line'></div>
-          <h2>Simulasi Keuntungan</h2>
           <br>
           <div class="chart-area">
             <canvas id="myAreaChart"></canvas>
@@ -422,7 +421,7 @@ window.onclick = function(e) {
       "3. Masukkan PIN ATM Anda. <br/>" +
       "4. Pilih 'Menu Lainnya'. <br/>" +
       "5. Pilih 'Transfer'. <br/>" +
-      "6. Pilih Jenis rekening yang akan Anda gunakan (Contoh: 'Dari Rekening Tabungan')." +
+      "6. Pilih Jenis rekening yang akan Anda gunakan (Contoh: 'Dari Rekening Tabungan'). <br/>" +
       "7. Pilih 'Virtual Account Billing'. <br/>" +
       "8. Masukkan nomor Virtual Account Anda (contoh: 8277895360122288). <br/>";
       }
@@ -432,7 +431,7 @@ window.onclick = function(e) {
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
       document.getElementById('current-card').innerHTML = 'Bank Mandiri';
-	    document.getElementById('norek').innerHTML = 'Bank BCA';
+	    document.getElementById('norek').innerHTML = 'Bank Mandiri';
       document.getElementById('bank').value = 4;  
     }
     else if (e.target.innerHTML === 'Bank BNI') {
@@ -441,7 +440,7 @@ window.onclick = function(e) {
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
       document.getElementById('current-card').innerHTML = 'Bank BNI';
-      document.getElementById('norek').innerHTML = 'Bank BCA';
+      document.getElementById('norek').innerHTML = 'Bank BNI';
       document.getElementById('bank').value = 3;
     }
 	else if (e.target.innerHTML === 'Bank BRI') {
@@ -450,7 +449,7 @@ window.onclick = function(e) {
       activeDropdown = null;
       e.target.innerHTML = document.getElementById('current-card').innerHTML;
       document.getElementById('current-card').innerHTML = 'Bank BRI';
-	    document.getElementById('norek').innerHTML = 'Bank BCA';
+	    document.getElementById('norek').innerHTML = 'Bank BRI';
       document.getElementById('bank').value = 2;
     }
   }
