@@ -14,7 +14,7 @@ use App\Auction_process;
 use App\Auction_winner;
 use App\Auction_image;
 use App\Auction_Order;
-use App\Auction_Delivery;
+use App\Auction_delivery;
 use App\Auction_complaint;
 use App\Account;
 use App\Joint_account;
@@ -147,7 +147,7 @@ class KeranjanglelangController extends Controller
 
         $kategori_pengiriman = Delivery_category::where('nama_pengiriman', $kurir[1])->first();
 
-        $auction_delivery = Auction_Delivery::create([
+        $auction_delivery = Auction_delivery::create([
             'id_order' => $order->id, 
             'id_kategori_kurir' => $kategori_pengiriman->id , 
             'nama' => $request->nama_alamat, 
@@ -287,7 +287,7 @@ class KeranjanglelangController extends Controller
             'input_resi' => 'required'
         ]);
 
-        $delivers = Auction_Delivery::where('id_order', $request->id)->first();
+        $delivers = Auction_delivery::where('id_order', $request->id)->first();
         $delivers->update([
             'invoice' => $request->input_resi
         ]);
@@ -304,8 +304,8 @@ class KeranjanglelangController extends Controller
 
     public function pesananselesai(Request $request)
     {
-         // blm bayar 1
-        // sudah dibbayar 2
+        // blm bayar 1
+        // ditolak pembayaran 2
         // proses penjual 3
         // penjual menerima 4 menolak 0
         // dikriim 5
