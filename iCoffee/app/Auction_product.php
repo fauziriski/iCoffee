@@ -25,7 +25,7 @@ class Auction_product extends Model
 
     public function Auction_order()
     {
-        return $this->hasMany('App\Auction_order');
+        return $this->hasMany('App\Auction_Order');
     }
 
   
