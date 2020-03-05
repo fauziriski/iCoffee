@@ -71,6 +71,19 @@
                 </p>
               </div>
 
+              <div class="row">
+                <p class="text-left">
+
+                  <div class="col-5">
+                    <i class="fas fa-weight-hanging"></i> Jumlah Barang Lelang
+                  </div>
+                  <div class="col">
+                    <span class="mr-4" id="jumlah_barang_lelang" style="color: #bbb;">{{ number_format($products->stok,0,",",".") }} Kg</span>
+                  </div>
+              
+                </p>
+              </div>
+
               <div class="row mt-2">
                 <p class="text-left">
                   <div class="col">
@@ -213,9 +226,28 @@
 <script src="http://malsup.github.com/jquery.form.js"></script>
 
 <script>
-  setTimeout(function(){
-   window.location.reload(1);
-  }, 13000);
+  
+  $(document).ready(function() {
+
+
+    $(function(){
+      var hash = window.location.hash;
+      hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+      $('.nav-tabs a').click(function (e) {
+        $(this).tab('show');
+        var scrollmem = $('body').scrollTop();
+        window.location.hash = this.hash;
+        $('html,body').scrollTop(scrollmem);
+      });
+    });
+
+
+      setTimeout(function(){
+      window.location.hash = '#pills-profile';
+      window.location.reload(1);
+      }, 13000);
+  })
 
 </script>
 <script>
@@ -326,10 +358,12 @@ $(document).ready(function() {
                 'success'
               );
               var penawaranselanjutnya = parseInt(response.data.penawaran) + parseInt(response.data.kelipatan);
+              var penawaranterakhir = parseInt(response.data.penawaran);
               $('#penawaran_coba').replaceWith('<input type="text" id="penawaran_coba" name="penawaran_coba" class="form-control input-number" value="'+ penawaranselanjutnya.toLocaleString("id-ID") +'" readonly>');
               $('#penawaran').replaceWith('<input type="hidden" id="penawaran" name="penawaran" value="'+ penawaranselanjutnya +'">');
-              $('#penawaran_terakhir').replaceWith('<span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp '+ response.data.penawaran.toLocaleString("id-ID") +'</span>');
-              $('#table_id').load("/lelang/produk/data/"+ response.data.id_produk); 
+              $('#penawaran_terakhir').replaceWith('<span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp '+ penawaranterakhir.toLocaleString("id-ID") +'</span>');
+              $('#table_id').load("/lelang/produk/data/"+ response.data.id_produk);
+              
             }
             else if(response.response == 'Saldo'){
               swal(
@@ -341,7 +375,7 @@ $(document).ready(function() {
             else{
               swal(
                 'Gagal',
-                'Penawaran Anda Gagal',
+                'Pelelang Tidak Boleh Menawar Produk',
                 'error'
               );
             }

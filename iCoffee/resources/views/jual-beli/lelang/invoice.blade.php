@@ -186,7 +186,7 @@
                 </div>
                 <div class="panel-body mt-3 float-right">
 					@if ( $order->status == 5)
-						<form action="/lelang/pesanan/selesai" method="post">
+						<form action="/lelang/pesanan/selesai" method="post" enctype="multipart/form-data">
 							@csrf
 							<input type="hidden" name="id" required value="{{ $order->id }}">
                             <input type="hidden" name="invoice" required value="{{ $order->invoice }}">
@@ -195,6 +195,11 @@
 								<input type="submit" class="btn btn-primary py-3 px-5" name="submit" value="Diterima">
 						</p>
 						</form>
+					@elseif($order->status == 1)
+						<p><a href="/jual-beli/konfirmasi/lelang" name="hapusalamat" type="button" class="btn btn-primary px-3 py-3">Konfirmasi Pembayaran</a></p>
+					
+					</form>
+
 					@elseif( $order->status == 6)
 						<p class="float-right"><input type="submit" class="btn btn-primary  py-3 px-5" data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating"></p>
 						<!-- Modal -->
@@ -209,7 +214,7 @@
 								</div>
 								<div class="modal-body">
 									<div class="container">
-										<form action="" id="rating_form" method="post">
+										<form action="" id="rating_form" method="post" enctype="multipart/form-data">
 											@csrf
 											<input type="hidden" name="id_lelang_rating" id="id_order_rating" required value="{{ $order->id }}">
 										<div class="row">

@@ -27,8 +27,6 @@
           @csrf
           <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
             <div class="col-md-12">
-              <input type="hidden" name="id_alamat" value="{{ $address->id }}">
-              <input type="hidden" name="id_user" value="{{ $user->id }}">
               <div class="form-group">
                 <label for="nama">Nama</label>
                 <input type="text" class="form-control" name="nama" required value="{{ $user->name }}">
@@ -37,7 +35,7 @@
 
 
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
                     <label for="harga">Email </label>
                     <div class="input-group">
@@ -47,68 +45,35 @@
                   </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
-                    <label for="handphoe">No Handphone</label>
+                    <label for="password_lama">Kata Sandi Lama</label>
                     <div class="input-group">
-                      <input type="number" class="form-control" id="" placeholder="" name="no_hp" required value="{{ $address->no_hp }}">
+                      <input type="password" class="form-control" id="" placeholder="" name="password_lama" required value="">
                       <span class="text-danger">{{$errors->first('stok')}}</span>
                     </div>
                   </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
-                    <label for="country">Provinsi</label>
-                    <div class="select-wrap">
-                      <select name="provinsi_profil" id="" class="form-control">
-                        <option value="{{ $provinsi_user['id'] }}">{{ $provinsi_user['nama'] }}</option>
-                        @foreach ($provinsi as $info)
-                          <option value="{{ $info['id'] }}">{{ $info['nama'] }}</option>
-                        @endforeach
-                      </select>
+                    <label for="password_baru">Kata Sandi Baru</label>
+                    <div class="input-group">
+                      <input type="password" class="form-control" id="" placeholder="" name="password_baru" required value="">
+                      <span class="text-danger">{{$errors->first('stok')}}</span>
                     </div>
                   </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="country">Kota/Kabupaten</label>
-                      <div class="select-wrap">
-                        <select name="kota_kabupaten_profil" id="" class="form-control">
-                          <option value="{{ $kota_user['id'] }}">{{ $kota_user['nama'] }}</option>
-                        </select>
-                      </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="cek_password_baru">Ulangi Kata Sandi</label>
+                    <div class="input-group">
+                      <input type="password" class="form-control" id="" placeholder="" name="cek_password_baru" required value="">
+                      <span class="text-danger">{{$errors->first('stok')}}</span>
                     </div>
                   </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="stok">Kecamatan</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" id="" placeholder="" name="kecamatan" required value="{{ $address->kecamatan }}">
-                        <span class="text-danger">{{$errors->first('kecamatan')}}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="stok">Kode Pos</label>
-                      <div class="input-group">
-                        <input type="number" class="form-control" id="" placeholder="" name="kode_pos" required value="{{ $address->kode_pos}}">
-                        <span class="text-danger">{{$errors->first('kode_pos')}}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="deskripsi">Alamat</label>
-                      <textarea class="form-control" rows="5" type="text" name="alamat" placeholder="" >{{ $address->address}}</textarea>
-                      <span class="text-danger">{{$errors->first('alamat')}}</span>
-                    </div>
-                  </div>
+                </div>
 
                 </div>
               </div>
@@ -141,7 +106,7 @@
                   <div class="form-group">
                     <label for="no_hp_alamat">No Handphone</label>
                     <div class="input-group">
-                      <input type="number" class="form-control" id="no_hp_alamat" placeholder="" name="no_hp_alamat" required>
+                      <input type="tel" class="form-control" id="no_hp_alamat" placeholder="" name="no_hp_alamat" required>
                       <span class="text-danger">{{$errors->first('no_hp_alamat')}}</span>
                     </div>
                   </div>
@@ -340,7 +305,7 @@
 
                   <div class="form-group">
                     <label for="no_hp_edit" class="col-form-label">Telepon</label>
-                    <input type="text" class="form-control" id="no_hp_edit" name="no_hp_edit">
+                    <input type="tel" class="form-control" id="no_hp_edit" name="no_hp_edit">
                   </div>
 
                   <div class="form-group">
@@ -397,6 +362,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
+
+
+    $(function(){
+      var hash = window.location.hash;
+      hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+      $('.nav-tabs a').click(function (e) {
+        $(this).tab('show');
+        var scrollmem = $('body').scrollTop();
+        window.location.hash = this.hash;
+        $('html,body').scrollTop(scrollmem);
+      });
+    });
+    
   $('select[name="provinsi_profil"]').on('change', function() {
       var provinceID = $(this).val();
           if(provinceID) {

@@ -77,11 +77,11 @@ class ProdukLelangController extends Controller
 
         $size = count($request->file());
 
-        $folderPath = public_path("Uploads\Lelang\{$oldMarker}");
+        $folderPath = public_path("Uploads/Lelang/{".$oldMarker."}");
         $response = mkdir($folderPath);
         $nama = array();
 
-
+        
         if($files = $request->file('images')){
 
             $name=$files->getClientOriginalName();

@@ -19,10 +19,10 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label for="handphoe">No Handphone</label>
+                <label for="no_hp">No Handphone</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="" placeholder="" name="no_hp" required>
-                  <span class="text-danger">{{$errors->first('stok')}}</span>
+                  <input type="tel" class="form-control" id="" placeholder="" name="no_hp" required>
+                  <span class="text-danger">{{$errors->first('no_hp')}}</span>
                 </div>
               </div>
             </div>

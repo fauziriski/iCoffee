@@ -94,7 +94,7 @@ class HomeController extends Controller
             'image1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $folderPath = public_path("Uploads\Produk\{$oldMarker}");
+        $folderPath = public_path("Uploads/Produk/{".$oldMarker."}");
         $response = mkdir($folderPath);
         $nama = array();
 
@@ -147,52 +147,50 @@ class HomeController extends Controller
         $user = User::where('id', $id_pelanggan)->first();
         $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->whereIn('status', ['0','1'])->get();
 
-        $alamat_tersedia = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->get();
-
-        if($alamat_tersedia->isEmpty())
+        if($cekalamat->isEmpty())
         {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
             return redirect('/profil/tambahalamat');       
 
         }
-        $address = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->first();
 
-        $provinsi_user = Province::where('id', $address->provinsi)->first();
-        $kota_user = City::where('id', $address->kota_kabupaten)->first();
         $provinsi = Province::all();
-
-
         
         
-        return view('jual-beli.profil', compact('user', 'address', 'provinsi', 'provinsi_user', 'kota_user', 'cekalamat'));
+        return view('jual-beli.profil', compact('user', 'provinsi', 'cekalamat'));
     }
 
 
     public function edit_profil(Request $request)
     {
+        $user_id = Auth::user()->id;
+        $password = Auth::user()->password;
 
-        $id_user = $request->id_user;
-        $id_alamat = $request->id_alamat;
+        if ($request->password_baru != $request->cek_password_baru) {
+            Alert::error('Kata Sandi Baru Tidak Sama')->showConfirmButton('Ok', '#3085d6');
 
-        $user = User::where('id', $id_user)->first();
-        $alamat = Address::where('id', $id_alamat)->where('status', 1)->first();
+            return redirect('/profil/edit');
+        }
 
-        $user_update = $user->update([
-            'name' => $request->nama,
-            'email' => $request->email
+        
 
-        ]);
+        if ($password_hash = Hash::check($request->password_lama, $password)) {
+            $user = User::where('id', $user_id)->first();
+            $request->user()->fill([
+                'password' => Hash::make($request->password_baru)
+            ])->save();
 
-        $update_alamat = $alamat->update([
-            'provinsi' => $request->provinsi_profil,
-            'kota_kabupaten' => $request->kota_kabupaten_profil,
-            'kecamatan' => $request->kecamatan,
-            'kode_pos' => $request->kode_pos,
-            'no_hp'=> $request->no_hp,
-            'address' => $request->alamat,
+            $user_update = $user->update([
+                'name' => $request->nama,
+                'email' => $request->email,
+    
+            ]);
+            Alert::success('Berhasil');
 
-        ]);
-        Alert::success('Berhasil');
+            return redirect('/profil/edit');
+        }
+        
+        Alert::error('Kata Sandi Salah')->showConfirmButton('Ok', '#3085d6');
 
         return redirect('/profil/edit');
 
@@ -480,7 +478,7 @@ class HomeController extends Controller
 
         Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
 
-        return redirect('/lelang');
+        return redirect('/lelang/invoice/'.$request->invoice);
     }
 
     public function top_up()
@@ -643,7 +641,7 @@ class HomeController extends Controller
             'status' => 1
         ]);
 
-        return redirect('/profil/edit#pills-profile');
+        return redirect('/profil/edit#pills-contact');
 
     }
 

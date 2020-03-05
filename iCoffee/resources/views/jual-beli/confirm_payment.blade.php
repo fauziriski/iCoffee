@@ -33,7 +33,7 @@
               <div class="form-group">
                 <label for="no_rekening_pengirim">No Rekening Pengirim</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="" placeholder="" name="no_rekening_pengirim" required>
+                  <input type="tel" class="form-control" id="" placeholder="" name="no_rekening_pengirim" required>
                   <span class="text-danger">{{$errors->first('no_rekening_pengirim')}}</span>
                 </div>
               </div>
@@ -43,7 +43,7 @@
                 <div class="form-group">
                   <label for="no_telp">Nomor Telepon</label>
                   <div class="input-group">
-                    <input type="number" class="form-control" id="" placeholder="" name="no_telp" required>
+                    <input type="tel" class="form-control" id="" placeholder="" name="no_telp" required>
                     <span class="text-danger">{{$errors->first('no_telp')}}</span>
                   </div>
                 </div>
@@ -63,7 +63,7 @@
                 <div class="form-group">
                   <label for="jumlah_transfer">Jumlah Transfer</label>
                   <div class="input-group">
-                    <input type="number" class="form-control" id="" placeholder="" name="jumlah_transfer" required>
+                    <input type="number" class="form-control" id="" name="jumlah_transfer" placeholder="Contoh : 50000" required>
                     <span class="text-danger">{{$errors->first('jumlah_transfer')}}</span>
                   </div>
                 </div>

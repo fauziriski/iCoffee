@@ -56,7 +56,23 @@ class KeranjanglelangController extends Controller
 
             'id' => 'required'
         ]);
+
         $id_customer = Auth::user()->id;
+
+        $cek_alamat_tersedia = Address::where('id_pelanggan', $id_customer)->get();
+
+        if (empty($cek_alamat_tersedia)) {
+            Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/tambahalamat');
+        }
+
+
+        $cek_alamat = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
+
+        if (empty($cek_alamat)) {
+            Alert::info('Tentukan Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/edit#pills-contact');
+        }
 
         $id = $request->id;
 
