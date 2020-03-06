@@ -1,5 +1,5 @@
 @extends('jual-beli.layouts.app')
-@section('title', 'Pasang Produk')
+@section('title', 'Transaksi')
 @section('content')
 
 <div class="col-md-9">
@@ -294,6 +294,18 @@
 
 <script>
     $(document).ready(function() {
+
+        $(function(){
+        var hash = window.location.hash;
+        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+        $('.nav-tabs a').click(function (e) {
+            $(this).tab('show');
+            var scrollmem = $('body').scrollTop();
+            window.location.hash = this.hash;
+            $('html,body').scrollTop(scrollmem);
+        });
+        });
 
         $('a[name="detailinvoice"]').on('click', function() {
             var href = $(this).attr('value');      

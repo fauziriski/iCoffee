@@ -1,4 +1,5 @@
 @extends('jual-beli.layouts.app')
+@section('title', 'Profile | Top Up')
 @section('content')
 
 
@@ -13,7 +14,7 @@
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" class="form-control" name="email" required>
+            <input type="text" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
             <span class="text-danger">{{$errors->first('email')}}</span>
           </div>
 
@@ -31,7 +32,7 @@
 
           <div class="form-group">
             <label for="jumlah">Jumlah</label>
-            <input type="number" class="form-control" name="jumlah" min="50000" required>
+            <input type="number" class="form-control" name="jumlah" min="50000" placeholder="Contoh : 50000" max="1000000" required>
             <span class="text-danger">{{$errors->first('jumlah')}}</span>
           </div>
 

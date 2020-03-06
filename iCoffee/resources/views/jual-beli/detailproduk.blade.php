@@ -163,16 +163,23 @@
                 </div>
 
 
-            
+              
               </div>
               {{-- <button type="submit" class="btn btn-primary mt-3 py-3">Masuk</button> --}}
+              @guest
+              <p><input type="submit" class="btn btn-primary py-3 px-5" value="Beli"></p>
+              @else
               @if ($products->stok < 1)
                 <input type="hidden" name="ketersedian" value="Kosong">
-                <p><input type="submit" class="btn btn-secondary py-3 px-5" value="Kosong"></p>  
+                <p><input type="submit" class="btn btn-secondary py-3 px-5" value="Kosong"></p> 
+              @elseif($products->id_pelanggan == Auth::user()->id) 
+                <input type="hidden" name="Penjual" value="Penjual">
+                <p><input type="hidden" class="btn btn-secondary py-3 px-5" value="Kosong" disabled></p> 
               @else
                 <input type="hidden" name="ketersedian" value="Tersedia">
                 <p><input type="submit" class="btn btn-primary py-3 px-5" value="Beli"></p>
               @endif
+              @endguest
               
               {{-- <p><a type="submit" class="btn btn-primary mt-3 py-3"></a>Beli</p> --}}
           </div>

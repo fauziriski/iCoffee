@@ -507,7 +507,7 @@ class HomeController extends Controller
         ]);
         Alert::info('Berhasil','Segera Konfirmasi Pembayaran Anda')->showConfirmButton('Ok', '#3085d6');
 
-        return redirect('/lelang');
+        return redirect('/jual-beli/transaksi#pills-topup');
     }
 
     public function konfirmasi_top_up()

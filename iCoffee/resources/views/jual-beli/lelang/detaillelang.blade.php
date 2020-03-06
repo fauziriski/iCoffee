@@ -280,7 +280,7 @@
     // If the count down is over, write some text 
     if (distance < 0) {
       clearInterval(x);
-      $('#tawar').replaceWith('<input class="btn btn-primary py-3 px-1" id="selesai" value="Selesai" readonly>');
+      $('#tawar').replaceWith('<input class="btn btn-primary py-3 px-1" id="selesai" value="Selesai" disabled>');
       var penawar_terakhir = {!!json_encode($penawar)!!};
       document.getElementById("demo1").innerHTML = "EXPIRED";
     }
