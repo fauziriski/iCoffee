@@ -196,7 +196,6 @@ class KeranjanglelangController extends Controller
     public function invoice_penjual($invoice)
     {
         // blm bayar 1
-        // sudah dibbayar 2
         // pembayaran ditolak 2
         // proses penjual 3
         // penjual menerima 4 menolak 0
