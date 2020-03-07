@@ -57,6 +57,21 @@ class ProdukController extends Controller
         $cek_rating_toko = Rating::where('id_penjual', $products->id_pelanggan)->get();
         $cek_jumlah_data_rating = count($cek_rating_toko);
 
+
+        $jumlah_terjual = Orderdetail::where('id_produk', $id)->get();
+        $jumlah_data_terjual = $jumlah_terjual->count();
+        $jumlah_terjual_produk = 0;
+        for ($i=0; $i <$jumlah_data_terjual ; $i++) 
+        { 
+            $cek_status_order = Order::where('invoice', $jumlah_terjual[$i]->invoice)->first();
+            if($cek_status_order->status == 3|| 4 || 5 || 6 || 7 || 10 || 11)
+            {
+                $jumlah_terjual_produk += $jumlah_terjual[$i]->jumlah;
+            }
+
+        }
+
+
         $jumlah_data = 0;
         $sum = 0;
         $rating_toko = 0;
@@ -78,7 +93,7 @@ class ProdukController extends Controller
         }
 
         
-        return view('jual-beli.detailproduk',compact('products','image','produk_terkait', 'alamat', 'rating_toko', 'jumlah_data','count'));
+        return view('jual-beli.detailproduk',compact('products','image','produk_terkait', 'alamat', 'jumlah_terjual_produk', 'rating_toko', 'jumlah_data','count'));
     }
 
     public function lelang() 

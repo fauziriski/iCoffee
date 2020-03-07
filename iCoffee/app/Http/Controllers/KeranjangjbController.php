@@ -74,7 +74,7 @@ class KeranjangjbController extends Controller
                 'jumlah' => $jumlah,
                 'total' => $total
             ]);
-
+            Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
             return redirect('/jual-beli/keranjang');
         }
 
@@ -368,6 +368,7 @@ class KeranjangjbController extends Controller
             {
                 $jumlah = $cart->jumlah;
                 $total = $cart->total;
+                
             }
             else
             {

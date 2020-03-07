@@ -95,7 +95,12 @@
                 <a href="#" class="mr-2" style="color: #000;">Stok
                 </div>
                   <div class="col">
-                  <span class="mr-4" style="color: #bbb;">{{ $products->stok }} Kg</span>
+                  @if ( $products->stok == 0 )
+                      <span class="mr-4" style="color: #bbb;">Kosong</span>
+                  @else
+                      <span class="mr-4" style="color: #bbb;">{{ $products->stok }} Kg</span>
+                  @endif
+                  
                 </div>
                 </a>
               </p>
@@ -158,7 +163,12 @@
 
                 <div class="w-100"></div>
                 <div class="col-md-12">
-                  <p style="color: #000;">Terjual 30 Produk</p>
+                @if ($jumlah_terjual_produk > 0)
+                    <p style="color: #000;">Terjual {{$jumlah_terjual_produk}} Produk</p>
+                @else()
+                    <p style="color: #000;">Jadilah Orang Pertama yang Membeli Produk Ini</p>
+                @endif
+                  
               
                 </div>
 
