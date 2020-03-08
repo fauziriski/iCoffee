@@ -6,20 +6,24 @@
 
 <body id="page-top">
 	<!-- Begin Page Content -->
-	<div class="container-fluid">
-
-		<!-- Page Heading -->
-		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Kategori Produk</h1>
-		</div>
-		<div class="panel-body">
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h5>Kategori Produk</h5>
 			<div align="right">
-				<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm mb-3"><i class="fa fa-plus-square"></i> Tambah Kategori</button>
+				<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fa fa-plus-square"></i> Tambah Kategori</button>
 			</div>
-
-			<div class="table-responsive">
-				<table id="kategori_table" class="table table-striped table-bordered" style="width:100%">
-					<thead>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <table
+                    id="kategori_table"
+                    class="table table-striped table-bordered"
+                    style="width:100%">
+                    <thead>
 						<tr>
 							<th>Nama Kategori</th>
 							<th>Update</th>
@@ -27,40 +31,54 @@
 						</tr>
 					</thead>
 				</table>
+				</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="formModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Tambah Kategori</h5>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<span id="form_result"></span>
-					<form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
-						@csrf
-						<div class="container">
-							<div class="form-group">
-								<label class="control-label col-md-4" >Nama Kategori : </label>
-								<div class="col-md-12">
-									<input type="text" name="kategori" id="kategori" class="form-control" />
-								</div>
-							</div>
-							<br />
-							<div align="right">
-								<input type="hidden" name="action" id="action" />
-								<input type="hidden" name="hidden_id" id="hidden_id" />
-								<input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Tambah" />
-							</div>
+<div id="formModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Kategori</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <span id="form_result"></span>
+                <form
+                    method="post"
+                    id="sample_form"
+                    class="form-horizontal"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="container">
+                        <table border="0">
+                            <div class="form-group">
+                                <th width="25%" style="text-align: center;">Nama Kategori
+                                </th>
+                                <th colspan="4"><input type="text" name="kategori" id="kategori" class="form-control"/></th>
+                            </div>
+                        </table>
+                    
+                    <br/>
+                    <div align="right">
+                        <input type="hidden" name="action" id="action"/>
+                        <input type="hidden" name="hidden_id" id="hidden_id"/>
+                        <input
+                            type="submit"
+                            name="action_button"
+                            id="action_button"
+                            class="btn btn-primary"
+                            value="Tambah"/>
 						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
 
 
 	<div id="confirmModal" class="modal fade" role="dialog">
@@ -91,8 +109,42 @@
 		$('#kategori_table').DataTable({
 			dom: 'Bfrtip',
 			buttons: [
-			'copy', 'csv', 'excel', 'pdf', 'print'
-			],
+							{
+								extend: 'pdf',
+								footer: true,
+								exportOptions: {
+										columns: [0,1]
+									}
+							},
+							{
+								extend: 'csv',
+								footer: false,
+								exportOptions: {
+										columns: [0,1]
+									}
+							},
+							{
+								extend: 'excel',
+								footer: false,
+								exportOptions: {
+										columns: [0,1]
+									}
+							},
+							{
+								extend: 'print',
+								footer: false,
+								exportOptions: {
+										columns: [0,1]
+									}
+							},
+							{
+								extend: 'copy',
+								footer: false,
+								exportOptions: {
+										columns: [0,1]
+									}
+							}           
+							],  
 			
 			oLanguage: {
 				"sProcessing":   "Sedang memproses ...",
@@ -144,7 +196,7 @@
 					$('#kategori').val(html.data.kategori);
 					$('#hidden_id').val(html.data.id);
 					$('.modal-title').text("Edit Kategori");
-					$('#action_button').val("Edit");
+					$('#action_button').val("Simpan");
 					$('#action').val("Edit");
 					$('#formModal').modal('show');
 				}

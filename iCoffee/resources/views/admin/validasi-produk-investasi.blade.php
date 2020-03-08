@@ -53,34 +53,40 @@
 
 <body id="page-top">
 	<!-- Begin Page Content -->
-	<div class="container-fluid">
+<div class="container-fluid">
 
-		<!-- Page Heading -->
-		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Validasi Produk Investasi</h1>
-			<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>  Download Excel</a>
-		</div>
-		
-		<div class="table-responsive">
-			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
-				<thead>
-					<tr>
-						<th>Kode Produk</th>
-						<th>Nama Produk</th>
-						<th>Harga</th>
-						<th>Unit</th>
-						<th>ROI/Tahun</th>
-						<th>Terdaftar</th>	
-						<th>Status</th>	
-						<th></th>				
-					</tr>
-				</thead>
-			</table>
-		</div>
-	</div>
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h5>Validasi Produk Investasi</h5>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table
+                    id="table_id"
+                    class="table table-striped table-bordered"
+                    style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Kode Produk</th>
+                            <th>Nama Produk</th>
+                            <th>Harga</th>
+                            <th>Unit</th>
+                            <th>ROI/Tahun</th>
+                            <th>Terdaftar</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-
-
+</div>
 
 <div id="modalPesan" class="modal fade" role="dialog">
 	<div class="modal-dialog">
@@ -267,8 +273,42 @@
 					$('#table_id').DataTable({
 						dom: 'Bfrtip',
 						buttons: [
-						'copy', 'csv', 'excel', 'pdf', 'print'
-						],
+							{
+								extend: 'pdf',
+								footer: true,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'csv',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'excel',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'print',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'copy',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							}           
+							],
 
 						oLanguage: {
 							"sProcessing":   "Sedang memproses ...",

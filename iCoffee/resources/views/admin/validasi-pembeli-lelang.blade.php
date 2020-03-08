@@ -60,31 +60,38 @@
 @stop
 
 <body id="page-top">
-	<!-- Begin Page Content -->
-	<div class="container-fluid">
-
-		<!-- Page Heading -->
-		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Validasi Pembayaran Lelang</h1>
-		</div>
-
-		<div class="table-responsive">
-			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
-				<thead>
-					<tr>
-						<th>Invoice</th>
-						<th>Nama Pengirim</th>
-						<th>Jumlah Transfer</th>
-						<th>No Rek</th>
-						<th>Nama Bank</th>
-						<th>Waktu Pembayaran</th>
-						<th>Status</th>
-						<th></th>					
-					</tr>
-				</thead>
-			</table>
-		</div>
-	</div>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h5>Validasi Pembayaran Lelang</h5>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table
+                        id="table_id"
+                        class="table table-striped table-bordered"
+                        style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Invoice</th>
+                                <th>Nama Pengirim</th>
+                                <th>Jumlah Transfer</th>
+                                <th>No Rek</th>
+                                <th>Nama Bank</th>
+                                <th>Terdaftar</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="modalPesan" class="modal fade" role="dialog">
@@ -211,6 +218,12 @@
 										<th width="25%"><a id="nama_bank_pengirim"></a></th>
 									</div>	
 								</tr>
+								<tr>
+									<div class="form-group">
+										<th width="35%" style="text-align: right;">Status&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="status"></a></th>
+									</div>	
+								</tr>
 							</table>
 						</div>
 
@@ -291,8 +304,42 @@
 					$('#table_id').DataTable({
 						dom: 'Bfrtip',
 						buttons: [
-						'copy', 'csv', 'excel', 'pdf', 'print'
-						],
+							{
+								extend: 'pdf',
+								footer: true,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'csv',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'excel',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'print',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'copy',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							}           
+							],  
 
 						oLanguage: {
 							"sProcessing":   "Sedang memproses ...",
@@ -371,6 +418,7 @@
 								document.getElementById("invoice").innerHTML = html.data.invoice;
 								document.getElementById("nama_pemilik_pengirim").innerHTML = html.data.nama_pemilik_pengirim;
 								document.getElementById("email").innerHTML = html.data.email;
+								document.getElementById("status").innerHTML = html.status;
 								document.getElementById("no_telp").innerHTML = html.data.no_telp;
 								document.getElementById("no_rekening_pengirim").innerHTML = html.data.no_rekening_pengirim;
 								document.getElementById("jumlah_transfer").innerHTML = "Rp. "+ribuan;

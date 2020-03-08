@@ -263,7 +263,7 @@
             <a class="collapse-item" href="{{ url('akses-admin/validasi-pembeli')}}">Validasi Pembayaran</a>
             <a class="collapse-item" href="{{url('akses-admin/jenis-produk')}}">Jenis Produk</a>
             <a class="collapse-item" href="{{url('akses-admin/kategori-produk')}}">Kategori Produk</a>
-             <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan')}}">Validasi Pencairan Dana</a>
+             <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan')}}">Validasi Pencairan</a>
           </div>
         </div>
       </li>

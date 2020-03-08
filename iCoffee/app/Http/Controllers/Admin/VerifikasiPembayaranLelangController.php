@@ -34,14 +34,14 @@ class  VerifikasiPembayaranLelangController extends Controller
 				
 				if ($data->status == "1") {
 					$button = 
-					'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="validasi" id="'.$data->id.'" class="validasi btn btn-success btn-sm"><i class="fa fa-check"></i> Validasi</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm"><i class="fa fa-times"></i> Tolak</button>';
+					'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-primary btn-sm py-0 mb-1"><i class="fa fa-eye"></i> lihat</button>'. '&nbsp' .
+					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm py-0 mb-1"><i class="fa fa-envelope"></i> pesan</button>'. '&nbsp' .
+					'<button type="button" name="validasi" id="'.$data->id.'" class="validasi btn btn-success btn-sm py-0 mb-1"><i class="fa fa-check"></i> validasi</button>'. '&nbsp' .
+					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm py-0 mb-1"><i class="fa fa-times"></i> tolak</button>';
 					
 				}else{
-					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
+					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-primary btn-sm py-0"><i class="fa fa-eye"></i> lihat</button>'. '&nbsp' .
+					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm py-0"><i class="fa fa-envelope"></i> pesan</button>';
 
 				}
 				
@@ -51,31 +51,30 @@ class  VerifikasiPembayaranLelangController extends Controller
 
 			->addColumn('status', function($data){
 				if ($data->status == "1") {
-					$status = "belum divalidasi";
+					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
 				}elseif ($data->status == "2") {
-					$status = "ditolak";
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">validasi ditolak</button>';
 				}elseif ($data->status == "3") {
-					$status = "divalidasi";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">sudah divalidasi</button>';
 				}elseif ($data->status == "4") {
-					$status = "penjual menerima";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">penjual menerima</button>';
 				}elseif ($data->status == "5") {
-					$status = "dikirim";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">dikirim</button>';
 				}elseif ($data->status == "6") {
-					$status = "terkirim";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">terkirim</button>';
 				}elseif ($data->status == "7") {
-					$status = "komplain";
+					$status = '<button type="button" class="btn btn-warning btn-sm py-0 btn-block">komplain</button>';
 				}elseif ($data->status == "8") {
-					$status = "konfirmasi diproses";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">konfirmasi diproses</button>';
 				}elseif ($data->status == "9") {
-					$status = "batalkan pesanan pembeli";
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">batalkan pesanan</button>';
 				}elseif ($data->status == "10") {
-					$status = "komplain diterima";
+					$status = '<button type="button" class="btn btn-primary btn-sm py-0 btn-block">komplain diterima</button>';
 				}elseif ($data->status == "11") {
-					$status = "komplain ditolak";
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">komplain ditolak</button>';
 				}else{
-					$status = "ditolak";
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">ditolak</button>';
 				}
-
 				return $status;
 			})
 
@@ -136,14 +135,42 @@ class  VerifikasiPembayaranLelangController extends Controller
 
 			$total_dibayar = $total_bayar+$total_ongkir;
 
+			if($data->status !== NULL){
+				if ($data->status == "1") {
+					$status = '<button type="button" class="btn btn-info btn-sm py-0">belum divalidasi</button>';
+				}elseif ($data->status == "2") {
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">validasi ditolak</button>';
+				}elseif ($data->status == "3") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">sudah divalidasi</button>';
+				}elseif ($data->status == "4") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">penjual menerima</button>';
+				}elseif ($data->status == "5") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">dikirim</button>';
+				}elseif ($data->status == "6") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">terkirim</button>';
+				}elseif ($data->status == "7") {
+					$status = '<button type="button" class="btn btn-warning btn-sm py-0">komplain</button>';
+				}elseif ($data->status == "8") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">konfirmasi diproses</button>';
+				}elseif ($data->status == "9") {
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">batalkan pesanan</button>';
+				}elseif ($data->status == "10") {
+					$status = '<button type="button" class="btn btn-primary btn-sm py-0">komplain diterima</button>';
+				}elseif ($data->status == "11") {
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">komplain ditolak</button>';
+				}else{
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">ditolak</button>';
+				}
+			}
+
 			return response()->json([
 				'data' => $data,
 				'jumlah' => $jumlah,
 				'total_bayar' => $total_bayar,
 				'pay' => $pay,
 				'total_ongkir' => $total_ongkir,
-				'total_dibayar' => $total_dibayar
-
+				'total_dibayar' => $total_dibayar,
+				'status' => $status,
 			]);
 
 		}
@@ -303,14 +330,14 @@ class  VerifikasiPembayaranLelangController extends Controller
 				
 				if ($data->status == "1") {
 					$button = 
-					'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="validasi" id="'.$data->id.'" class="validasi btn btn-success btn-sm"><i class="fa fa-check"></i> Validasi</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm"><i class="fa fa-times"></i> Tolak</button>';
+					'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0 mb-1"><i class="fa fa-eye"></i> lihat</button>'. '&nbsp' .
+					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm py-0 mb-1"><i class="fa fa-envelope"></i> pesan</button>'. '&nbsp' .
+					'<button type="button" name="validasi" id="'.$data->id.'" class="validasi btn btn-success btn-sm py-0 mb-1"><i class="fa fa-check"></i> validasi</button>'. '&nbsp' .
+					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm py-0 mb-1"><i class="fa fa-times"></i> tolak</button>';
 					
 				}else{
-					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
+					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0"><i class="fa fa-eye"></i> lihat</button>'. '&nbsp' .
+					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm py-0"><i class="fa fa-envelope"></i> pesan</button>';
 
 				}
 				
@@ -321,29 +348,29 @@ class  VerifikasiPembayaranLelangController extends Controller
 
 			->addColumn('status', function($data){
 				if ($data->status == "1") {
-					$status = "belum divalidasi";
+					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
 				}elseif ($data->status == "2") {
-					$status = "ditolak";
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">validasi ditolak</button>';
 				}elseif ($data->status == "3") {
-					$status = "divalidasi";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">sudah divalidasi</button>';
 				}elseif ($data->status == "4") {
-					$status = "penjual menerima";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">penjual menerima</button>';
 				}elseif ($data->status == "5") {
-					$status = "dikirim";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">dikirim</button>';
 				}elseif ($data->status == "6") {
-					$status = "terkirim";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">terkirim</button>';
 				}elseif ($data->status == "7") {
-					$status = "komplain";
+					$status = '<button type="button" class="btn btn-warning btn-sm py-0 btn-block">komplain</button>';
 				}elseif ($data->status == "8") {
-					$status = "konfirmasi diproses";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">konfirmasi diproses</button>';
 				}elseif ($data->status == "9") {
-					$status = "batalkan pesanan pembeli";
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">batalkan pesanan</button>';
 				}elseif ($data->status == "10") {
-					$status = "komplain diterima";
+					$status = '<button type="button" class="btn btn-primary btn-sm py-0 btn-block">komplain diterima</button>';
 				}elseif ($data->status == "11") {
-					$status = "komplain ditolak";
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">komplain ditolak</button>';
 				}else{
-					$status = "ditolak";
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">ditolak</button>';
 				}
 
 				return $status;
@@ -377,10 +404,39 @@ class  VerifikasiPembayaranLelangController extends Controller
 			$ambil = Top_up::where('invoice',$invoice)->first();
 			$jumlah = $ambil->jumlah;
 
+			if($data->status !== NULL){
+				if ($data->status == "1") {
+					$status = '<button type="button" class="btn btn-info btn-sm py-0">belum divalidasi</button>';
+				}elseif ($data->status == "2") {
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">validasi ditolak</button>';
+				}elseif ($data->status == "3") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">sudah divalidasi</button>';
+				}elseif ($data->status == "4") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">penjual menerima</button>';
+				}elseif ($data->status == "5") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">dikirim</button>';
+				}elseif ($data->status == "6") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">terkirim</button>';
+				}elseif ($data->status == "7") {
+					$status = '<button type="button" class="btn btn-warning btn-sm py-0">komplain</button>';
+				}elseif ($data->status == "8") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">konfirmasi diproses</button>';
+				}elseif ($data->status == "9") {
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">batalkan pesanan</button>';
+				}elseif ($data->status == "10") {
+					$status = '<button type="button" class="btn btn-primary btn-sm py-0">komplain diterima</button>';
+				}elseif ($data->status == "11") {
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">komplain ditolak</button>';
+				}else{
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">ditolak</button>';
+				}
+
 			return response()->json([
 				'data' => $data,
-				'jumlah' => $jumlah
+				'jumlah' => $jumlah,
+				'status' => $status,
 			]);
+			}
 		}
 	}
 

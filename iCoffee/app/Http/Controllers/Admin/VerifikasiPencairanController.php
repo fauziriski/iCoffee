@@ -30,13 +30,13 @@ class  VerifikasiPencairanController extends Controller
 				
 				if ($data->status == "1") {
 					$button = 
-					'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="diproses" id="'.$data->id.'" class="diproses btn btn-secondary btn-sm"><i class="fa fa-clock"></i> Diproses</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm"><i class="fa fa-times"></i> Tolak</button>'; 
+					'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-primary btn-sm py-0 mb-1"><i class="fa fa-eye"></i> lihat</button>'. '&nbsp' .
+					'<button type="button" name="diproses" id="'.$data->id.'" class="diproses btn btn-secondary btn-sm py-0 mb-1"><i class="fa fa-clock"></i> diproses</button>'. '&nbsp' .
+					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm py-0 mb-1"><i class="fa fa-times"></i> tolak</button>'; 
 					
 				}else{
-					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';
+					$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-primary btn-sm py-0"><i class="fa fa-eye"></i> lihat</button>'. '&nbsp' .
+					'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm py-0"><i class="fa fa-envelope"></i> pesan</button>';
 
 				}
 				
@@ -45,13 +45,13 @@ class  VerifikasiPencairanController extends Controller
 
 			->addColumn('status', function($data){
 				if ($data->status == "1") {
-					$status = "belum divalidasi";
+					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
 				}elseif ($data->status == "4") {
-					$status = "diproses";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">diproses</button>';
 				}elseif ($data->status == "3") {
-					$status = "divalidasi";
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">sudah divalidasi</button>';
 				}else{
-					$status = "ditolak";
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">ditolak</button>';
 				}
 
 				return $status;
@@ -86,9 +86,22 @@ class  VerifikasiPencairanController extends Controller
 			$ambil = Joint_account::where('user_id',$user_id)->first();
 			$saldo_pengguna = $ambil->saldo;
 
+			if($data->status !== NULL){
+				if ($data->status == "1") {
+					$status = '<button type="button" class="btn btn-info btn-sm py-0">belum divalidasi</button>';
+				}elseif ($data->status == "4") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">diproses</button>';
+				}elseif ($data->status == "3") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0">sudah divalidasi</button>';
+				}else{
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">ditolak</button>';
+				}
+			}
+
 			return response()->json([
 				'data' => $data,
-				'saldo_pengguna' => $saldo_pengguna
+				'saldo_pengguna' => $saldo_pengguna,
+				'status' => $status,
 
 			]);
 

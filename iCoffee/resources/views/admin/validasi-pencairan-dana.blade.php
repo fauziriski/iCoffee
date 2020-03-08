@@ -62,11 +62,14 @@
 <body id="page-top">
 	<!-- Begin Page Content -->
 	<div class="container-fluid">
-
-		<!-- Page Heading -->
-		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Validasi Pencairan Dana</h1>
-		</div>
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h5>Validasi Pencairan Dana</h5>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
 
 		<div class="table-responsive">
 			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
@@ -77,12 +80,14 @@
 						<th>No Rek</th>
 						<th>Nama Bank</th>
 						<th>Jumlah Pencairan</th>
-						<th>Waktu Terdaftar</th>
+						<th>Terdaftar</th>
 						<th>Status</th>
 						<th></th>					
 					</tr>
 				</thead>
 			</table>
+		</div>
+		</div>	
 		</div>
 	</div>
 </div>
@@ -165,6 +170,12 @@
 							<table cellpadding="10" border="0">
 								<tr>
 									<div class="form-group">
+										<th width="35%" style="text-align: right;">Status&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="status"></a></th>
+									</div>
+								</tr>
+								<tr>
+									<div class="form-group">
 										<th width="35%" style="text-align: right;">Terdaftar&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="terdaftar"></a></th>
 									</div>
@@ -201,7 +212,7 @@
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Jumlah Penarikan&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Penarikan&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="jumlah"></a></th>
 									</div>
 								</tr>
@@ -235,8 +246,43 @@
 		$('#table_id').DataTable({
 			dom: 'Bfrtip',
 			buttons: [
-			'copy', 'csv', 'excel', 'pdf', 'print'
-			],
+							{
+								extend: 'pdf',
+								footer: true,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'csv',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'excel',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'print',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							},
+							{
+								extend: 'copy',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5,6]
+									}
+							}           
+							],  
+    
 
 			oLanguage: {
 				"sProcessing":   "Sedang memproses ...",
@@ -305,6 +351,7 @@
 					document.getElementById("email").innerHTML = html.data.email;
 					document.getElementById("no_rekening").innerHTML = html.data.no_rekening;
 					document.getElementById("bank").innerHTML = html.data.bank;
+					document.getElementById("status").innerHTML = html.status;
 					document.getElementById("jumlah").innerHTML = "Rp. "+ribuan;
 					document.getElementById("saldo_pengguna").innerHTML = "Rp. "+saldo;
 

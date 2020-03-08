@@ -19,9 +19,9 @@ class KelolaProdukController extends Controller
         {
             return datatables()->of(Category::latest()->get())
             ->addColumn('action', function($data){
-                $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> Ubah</button>';
+                $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-info btn-sm py-0 mb-1"><i class="fa fa-edit"></i> ubah</button>';
                 $button .= '&nbsp;&nbsp;';
-                $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
+                $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm py-0 mb-1"><i class="fa fa-trash"></i> hapus</button>';
                 return $button;
             })
 
