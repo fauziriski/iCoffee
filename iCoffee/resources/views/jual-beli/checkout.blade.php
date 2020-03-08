@@ -67,9 +67,9 @@
 													<td class="product-name">
 														<h3>{{ $checkout_data[$i][$j]->nama_produk }}</h3>
 													</td>
-													<td class="price">Rp {{ number_format($checkout_data[$i][$j]->harga) }}</td>
+													<td class="price">Rp {{ number_format($checkout_data[$i][$j]->harga,0,",",".") }}</td>
 													<td class="total">{{ $checkout_data[$i][$j]->jumlah }}</td>
-													<td class="total">Rp {{ number_format($checkout_data[$i][$j]->total) }}</td>
+													<td class="total">Rp {{ number_format($checkout_data[$i][$j]->total,0,",",".") }}</td>
 												</tr><!-- END TR-->
 												<input type="hidden" name="id_keranjang[]" value="{{ $checkout_data[$i][$j]->id  }}">
 												<input type="hidden" name="id_produk[{{ $i }}][{{ $j }}]" value="{{ $checkout_data[$i][$j]->id_produk   }}">
@@ -121,15 +121,15 @@
 														{{-- onchange="myFunction()" --}}
 														<option selected disabled="disabled" value="" >Pilih Kurir</option>
 														@for ($k = 0; $k < count($costjne[$i][0]["costs"]); $k++)
-														<option value="{{ $costjne[$i][0]["costs"][$k]["cost"][0]["value"] }}: JNE: {{ $costjne[$i][0]["costs"][$k]["service"] }} " >JNE Rp {{ number_format($costjne[$i][0]["costs"][$k]["cost"][0]["value"]) }} ( {{ $costjne[$i][0]["costs"][$k]["service"] }} {{ $costjne[$i][0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
+														<option value="{{ $costjne[$i][0]["costs"][$k]["cost"][0]["value"] }}: JNE: {{ $costjne[$i][0]["costs"][$k]["service"] }} " >JNE Rp {{ number_format($costjne[$i][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costjne[$i][0]["costs"][$k]["service"] }} {{ $costjne[$i][0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
 														@endfor
 
 														@for ($k = 0; $k < count($costtiki[$i][0]["costs"]); $k++)
-														<option value="{{ $costtiki[$i][0]["costs"][$k]["cost"][0]["value"] }}: TIKI: {{ $costtiki[$i][0]["costs"][$k]["service"] }}">TIKI Rp {{ number_format($costtiki[$i][0]["costs"][$k]["cost"][0]["value"]) }} ( {{ $costtiki[$i][0]["costs"][$k]["service"] }} {{ $costtiki[$i][0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
+														<option value="{{ $costtiki[$i][0]["costs"][$k]["cost"][0]["value"] }}: TIKI: {{ $costtiki[$i][0]["costs"][$k]["service"] }}">TIKI Rp {{ number_format($costtiki[$i][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costtiki[$i][0]["costs"][$k]["service"] }} {{ $costtiki[$i][0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
 														@endfor
 
 														@for ($k = 0; $k < count($costpos[$i][0]["costs"]); $k++)
-														<option value="{{ $costpos[$i][0]["costs"][$k]["cost"][0]["value"] }}: POS: {{ $costpos[$i][0]["costs"][$k]["service"] }}">POS Rp {{ number_format($costpos[$i][0]["costs"][$k]["cost"][0]["value"]) }} ( {{ $costpos[$i][0]["costs"][$k]["service"] }} {{ $costpos[$i][0]["costs"][$k]["cost"][0]["etd"] }} )</option>
+														<option value="{{ $costpos[$i][0]["costs"][$k]["cost"][0]["value"] }}: POS: {{ $costpos[$i][0]["costs"][$k]["service"] }}">POS Rp {{ number_format($costpos[$i][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costpos[$i][0]["costs"][$k]["service"] }} {{ $costpos[$i][0]["costs"][$k]["cost"][0]["etd"] }} )</option>
 														@endfor
 
 													</select>

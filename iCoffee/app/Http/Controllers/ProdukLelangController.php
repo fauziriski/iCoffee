@@ -59,18 +59,89 @@ class ProdukLelangController extends Controller
 
     public function pasangLelangberhasil(Request $request)
     {
+        $size = count($request->file());
+        if ($size == 0) 
+        {
+            Alert::error('Gagal','Masukan Foto Produk Pertama')->showConfirmButton('Ok', '#3085d6');
+            return back();
+            
+        }
+        elseif ($size == 1) 
+        {
+            Alert::error('Gagal','Masukan Foto Produk Kedua')->showConfirmButton('Ok', '#3085d6');
+            return back();
+            
+        }
+
+        //geser nama gambar
+        $image_file = array();
+        for ($i=0; $i < 5 ; $i++) 
+        { 
+            if(!(empty($request->file('image-'.$i))))
+            {
+                $image_file[] = $request->file('image-'.$i);
+            }
+        }
+
+
+        $jumlah_gambar_bener = array();
+        $jumlah_gambar = count($image_file);
+        
+        for ($i=0; $i < $jumlah_gambar ; $i++) 
+        { 
+            $filesize = 0;
+            $filesize = filesize($image_file[$i]);
+            $filesize = round($filesize / 1024, 2);
+
+            if($filesize > 2048 )
+            {
+                Alert::error('Gagal','Ukuran Gambar Tidak Lebih Dari 2 Mb')->showConfirmButton('Ok', '#3085d6');
+                return back();
+            }
+            elseif(!($image_file[$i]->isValid()))
+            {
+                Alert::error('Gagal','Gambar yang Anda Masukan Korupt, Ganti dengan Gambar Lain')->showConfirmButton('Ok', '#3085d6');
+                return back();
+            }
+            
+            elseif($image_file[$i]->getMimeType() == 'image/jpeg' &&  $filesize < 2048)
+            {
+                $jumlah_gambar_bener[] = $image_file[$i]; 
+            }
+            elseif($image_file[$i]->getMimeType() == 'image/png' && $filesize < 2048 )
+            {
+                $jumlah_gambar_bener[] = $image_file[$i];
+
+            }
+            else
+            {
+                Alert::error('Gagal','File yang Anda Masukan Bukan Gambar')->showConfirmButton('Ok', '#3085d6');
+                return back();
+            }
+            
+        }
+
         $this->validate($request,[
 
-            'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image-0' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image-1' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image-2' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image-3' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image-4' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        // dd($request);
-        $lama = $request->lama_lelang;
         
+        $lama = $request->lama_lelang;
+        $split = explode('-', $lama);
+
         $timestamps = date('YmdHis');
         $tanggal_mulai = date('Y-m-d H:i:s');
-        $tanggal_selesai = date("Y-m-d H:i:s", strtotime("+". $lama ."days"));
+
+        if ($split[1] == 'Hari') {
+            $tanggal_selesai = date("Y-m-d H:i:s", strtotime("+". $split[0] ."days"));
+        } elseif($split[1] =='Jam') {
+            $tanggal_selesai = date("Y-m-d H:i:s", strtotime("+". $split[0] ."hours"));
+        }
+
         $id_pelanggan = Auth::user()->id;
         $nama_pelanggan = Auth::user()->name;
         $oldMarker = $timestamps.$id_pelanggan;
@@ -81,19 +152,8 @@ class ProdukLelangController extends Controller
         $response = mkdir($folderPath);
         $nama = array();
 
-        
-        if($files = $request->file('images')){
-
-            $name=$files->getClientOriginalName();
-            $image_resize = Images::make($files->getRealPath());
-            $image_resize->resize(690, 547);
-            $image_resize->crop(500, 500);
-            $image_resize->save($folderPath .'/'. $name);
-                // $image_resize->move($folderPath,$name);          
-            
-        }
-        for ($i=0; $i < $size-1; $i++) { 
-            if($files = $request->file('image'.$i)){
+        for ($i=0; $i < $size; $i++) { 
+            if($files = $image_file[$i]){
 
                 $names=$files->getClientOriginalName();
                 $image_resize = Images::make($files->getRealPath());
@@ -114,7 +174,7 @@ class ProdukLelangController extends Controller
             'stok' => $request->stok,
             'harga_awal' => $request->harga_awal,
             'lama_lelang' => $request->lama_lelang,
-            'gambar' => $name,
+            'gambar' => $nama[0],
             'stok' => $request->stok,
             'kode_lelang' => $oldMarker,
             'id_kategori' => $request->id_kategori,
@@ -137,7 +197,7 @@ class ProdukLelangController extends Controller
             'status' => '1'
         ]);
               
-        for ($i=0; $i < $size-1 ; $i++) {
+        for ($i=1; $i < $size ; $i++) {
             $produkdetails = Auction_image::create([
                 'id_pelelang' => $id_pelanggan,
                 'id_produk' => $id,
@@ -148,7 +208,7 @@ class ProdukLelangController extends Controller
             
             
         }
-        Alert::success('Berhasil');
+        Alert::success('Berhasil','Tunggu Proses Selanjutnya');
         return redirect('/lelang');
         
     }

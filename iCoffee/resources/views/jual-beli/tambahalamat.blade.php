@@ -10,7 +10,7 @@
       @csrf
       <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
         <div class="col-md-12">
-
+          <input type="hidden" name="url" value="{{ $url }}">
           <div class="form-group">
             <label for="nama">Nama</label>
             <input type="text" class="form-control" name="nama" required>
@@ -32,6 +32,7 @@
                 <label for="country">Provinsi</label>
                 <div class="select-wrap">
                   <select name="provinsi" id="" class="form-control" required>
+                    <option selected disabled="disabled" value="" >Pilih Provinsi</option>
                     @foreach ($provinsi as $info)
                     <option value="{{ $info['id'] }}">{{ $info['nama'] }}</option>
                     @endforeach
@@ -45,7 +46,7 @@
                   <label for="country">Kota/Kabupaten</label>
                   <div class="select-wrap">
                     <select name="kota_kabupaten" id="" class="form-control" required>
-                        <option class="form-control" value="">Select City</option>
+                        <option class="form-control" value="">Pilih Kota</option>
                     </select>
                   </div>
                 </div>

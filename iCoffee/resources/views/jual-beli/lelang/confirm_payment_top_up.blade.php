@@ -13,7 +13,7 @@
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" required>
+            <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
             <span class="text-danger">{{$errors->first('email')}}</span>
           </div>
           
@@ -33,7 +33,7 @@
               <div class="form-group">
                 <label for="no_rekening_pengirim">No Rekening Pengirim</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="" placeholder="" name="no_rekening_pengirim" required>
+                  <input type="tel" class="form-control" id="" placeholder="" name="no_rekening_pengirim" required>
                   <span class="text-danger">{{$errors->first('no_rekening_pengirim')}}</span>
                 </div>
               </div>
@@ -43,7 +43,7 @@
                 <div class="form-group">
                   <label for="no_telp">Nomor Telepon</label>
                   <div class="input-group">
-                    <input type="number" class="form-control" id="" placeholder="" name="no_telp" required>
+                    <input type="tel" class="form-control" id="" placeholder="" name="no_telp" required>
                     <span class="text-danger">{{$errors->first('no_telp')}}</span>
                   </div>
                 </div>

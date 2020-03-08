@@ -487,7 +487,7 @@
       var id = $(this).attr('value');
 
       swal({
-              title: "Are you sure!",
+              title: "Apakah Anda Yakin!?",
               type: "warning",
               confirmButtonClass: "btn-danger",
               confirmButtonText: "Yes!",
