@@ -1,5 +1,5 @@
 @extends('jual-beli.layouts.app')
-@section('title', 'Pasang Produk')
+@section('title', 'Transaksi')
 @section('content')
 
 <div class="col-md-9">
@@ -46,7 +46,7 @@
                         <p>Invoice : <strong style="color:#ee4d2c">{{ $invoice[$i] }}</strong></p>
                     </div>
                     <div class="col">
-                        <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($cek_data[$i]) }}</strong></p>
+                        <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($cek_data[$i],0,",",".") }}</strong></p>
                     </div>
                     <div class="col">
                         <a href="/jual-beli/invoice/{{ $invoice[$i] }}"><span class="oi oi-eye"></span>&nbsp; Detail Pesanan </a>
@@ -73,7 +73,7 @@
                             <p>Invoice : <strong style="color:#ee4d2c">{{ $transaksipenjual[$i]->invoice }}</strong></p>
                         </div>
                         <div class="col">
-                            <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($total_bayar[$i]) }}</strong></p>
+                            <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($total_bayar[$i],0,",",".") }}</strong></p>
                         </div>
                         <div class="col">
                             <a href="/jual-beli/invoice_penjual/{{ $transaksipenjual[$i]->invoice }}"><span class="oi oi-eye"></span>&nbsp; Detail Pesanan </a>
@@ -100,7 +100,7 @@
                             <p>Invoice : <strong style="color:#ee4d2c">{{ $data->invoice }}</strong></p>
                         </div>
                         <div class="col">
-                            <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($data->jumlah) }}</strong></p>
+                            <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($data->jumlah,0,",",".") }}</strong></p>
                         </div>
                         <div class="col">
                             <a href="" data-toggle="modal" data-target="#saldoModal" name="detailinvoicesaldo" value="{{ $data->invoice }}" target="_blank" data-whatever="@mdo"><span class="oi oi-eye align-middle"></span>&nbsp; Detail Pesanan </a>
@@ -187,7 +187,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                {{-- <a href="" class="btn btn-primary" style="color: #fff;height: 0px;width: 0px;overflow:hidden;" id="konfirm" >Selesai</a> --}}
+                                <a href="" class="btn btn-primary" style="color: #fff;height: 0px;width: 0px;overflow:hidden;" id="konfirm_dana_cair" >Selesai</a>
                                 
                             </div>
                          </div>
@@ -215,7 +215,7 @@
                             <p>Invoice : <strong style="color:#ee4d2c">{{ $transaksi_top_up[$i]->invoice }}</strong></p>
                         </div>
                         <div class="col">
-                            <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($transaksi_top_up[$i]->jumlah) }}</strong></p>
+                            <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($transaksi_top_up[$i]->jumlah,0,",",".") }}</strong></p>
                         </div>
                         <div class="col">
                             <a href="" data-toggle="modal" data-target="#exampleModal" name="detailinvoice" value="{{ $transaksi_top_up[$i]->invoice }}" target="_blank" data-whatever="@mdo"><span class="oi oi-eye align-middle"></span>&nbsp; Detail Pesanan </a>
@@ -295,6 +295,18 @@
 <script>
     $(document).ready(function() {
 
+        $(function(){
+        var hash = window.location.hash;
+        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+        $('.nav-tabs a').click(function (e) {
+            $(this).tab('show');
+            var scrollmem = $('body').scrollTop();
+            window.location.hash = this.hash;
+            $('html,body').scrollTop(scrollmem);
+        });
+        });
+
         $('a[name="detailinvoice"]').on('click', function() {
             var href = $(this).attr('value');      
             if(href) {
@@ -314,7 +326,7 @@
                             if ( data.invoice.status == 1) 
                             {
                                 $('#status').replaceWith('<div class="alert alert-warning text-center" id="status" role="alert">Menunggu Pembayaran</div>');
-                                $('#konfirm').replaceWith('<a href="/profil/konfirmasi/top_up" class="btn btn-primary" style="color: #fff;" id="konfirm" >Konfirmasi Pembayaran</a>');
+                                $('#konfirm').replaceWith('<a href="/profil/konfirmasi/top_up" type="submit" class="btn btn-primary" id="konfirm" >Konfirmasi Pembayaran</a>');
                                 
                             }
                             else if( data.invoice.status == 2) 
@@ -359,22 +371,32 @@
 
                             if ( data.status == 1) 
                             {
+                                $('#konfirm_dana_cair').replaceWith('<a href="/profil/batal/dana_cair/'+ data.invoice +'" type="submit" class="btn btn-primary" id="konfirm_dana_cair" >Batalkan Penarikan</a>');
                                 $('#status_dana').replaceWith('<div class="alert alert-info text-center" id="status_dana" role="alert">Menunggu Konfirmasi Admin</div>');
                                 
                             }
                             else if ( data.status == 2) 
                             {
+                                $('#konfirm_dana_cair').replaceWith('<a type="hidden" href="#" style="height: 0px;width: 0px;overflow:hidden;display: none;" type="submit" class="btn btn-primary" id="konfirm_dana_cair" >Batalkan Penarikan</a>');
                                 $('#status_dana').replaceWith('<div class="alert alert-danger text-center" id="status_dana" role="alert">Gagal Mencairkan Dana</div>');
                                 
                             }
                             else if ( data.status == 3) 
                             {
+                                $('#konfirm_dana_cair').replaceWith('<a type="hidden" href="#" style="height: 0px;width: 0px;overflow:hidden;display: none;" type="submit" class="btn btn-primary" id="konfirm_dana_cair" >Batalkan Penarikan</a>');
                                 $('#status_dana').replaceWith('<div class="alert alert-success text-center" id="status_dana" role="alert">Dana Berhasil Dicairkan</div>');
                                 
                             }
                             else if ( data.status == 4) 
                             {
+                                $('#konfirm_dana_cair').replaceWith('<a type="hidden" href="#" style="height: 0px;width: 0px;overflow:hidden;display: none;" type="submit" class="btn btn-primary" id="konfirm_dana_cair" >Batalkan Penarikan</a>');
                                 $('#status_dana').replaceWith('<div class="alert alert-info text-center" id="status_dana" role="alert">Sedang dalam Proses</div>');
+                                
+                            }
+                            else if ( data.status == 5) 
+                            {
+                                $('#konfirm_dana_cair').replaceWith('<a type="hidden" href="#" style="height: 0px;width: 0px;overflow:hidden;display: none;" type="submit" class="btn btn-primary" id="konfirm_dana_cair" >Batalkan Penarikan</a>');
+                                $('#status_dana').replaceWith('<div class="alert alert-danger text-center" id="status_dana" role="alert">Penarikan Dibatalkan</div>');
                                 
                             }
                         });

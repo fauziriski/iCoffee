@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 
-	<form action="/lelang/checkout-barang" method="POST" oninput="total.value=parseInt(harga.value)*parseInt(quantity.value)">
+	<form action="/lelang/checkout-barang" method="POST" >
 		@csrf
     <section class="ftco-section ftco-cart">
 			<div class="container">
@@ -53,8 +53,8 @@
 									</form>
 					          </td>
 						        
-								<td class="total"><output name="total" for="harga jumlah">Rp {{ number_format($data->jumlah_penawaran,0,",",".") }}</output></td>
-								<td class="product-remove"><a href="/jual-beli/keranjang/hapus/{{ $data->id }}"><span class="oi oi-trash"></span></a></td>
+								<td class="price" name="total" for="harga jumlah">Rp {{ number_format($data->jumlah_penawaran,0,",",".") }}</td>
+								<td class="product-remove"><a href="#"><span class="oi oi-trash"></span></a></td>
 							  </tr><!-- END TR-->
 							  
 

@@ -57,45 +57,50 @@
 @stop
 
 <body id="page-top">
-	<!-- Begin Page Content -->
-	<div class="container-fluid">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h5>Proses Lelang</h5>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
 
-		<!-- Page Heading -->
-		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Proses Lelang</h1>
-		</div>
-		
-		<div class="table-responsive">
-			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
-				<thead>
-					<tr>
-						<th>Kode Produk</th>
-						<th>Nama Produk</th>
-						<th>Harga Awal (Rp)</th>
-						<th>Jumlah (Kg)</th>
-						<th>Waktu Lelang</th>
-						<th></th>					
-					</tr>
-				</thead>				
-			</table>
-		</div>
-	</div>
+                <div class="table-responsive">
+                    <table
+                        id="table_id"
+                        class="table table-striped table-bordered"
+                        style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Kode Produk</th>
+                                <th>Nama Produk</th>
+                                <th>Harga Awal (Rp)</th>
+                                <th>Jumlah (Kg)</th>
+                                <th>Waktu Lelang</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
 <div id="modalLihatPenawaran" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-mb">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Detail</h5>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
-			<div class="modal-body">
-				
-				<div class="form-group">
-					<div class="form-group">
-
+			<div class="modal-body">			
+				<div class="form-group">			
 						<div class="table-responsive">
 							<table id="penawaran" class="table table-striped table-bordered" style="width:100%">
 								<thead>
@@ -109,10 +114,8 @@
 								</tbody>			
 							</table>
 						</div>
-					</div>
 				</div>
-
-				<br />
+			<br />
 				<div align="right">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
 				</div>
@@ -223,8 +226,42 @@
 					$('#table_id').DataTable({
 						dom: 'Bfrtip',
 						buttons: [
-						'copy', 'csv', 'excel', 'pdf', 'print'
-						],
+							{
+								extend: 'pdf',
+								footer: true,
+								exportOptions: {
+										columns: [0,1,2,3]
+									}
+							},
+							{
+								extend: 'csv',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3]
+									}
+							},
+							{
+								extend: 'excel',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3]
+									}
+							},
+							{
+								extend: 'print',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3]
+									}
+							},
+							{
+								extend: 'copy',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3]
+									}
+							}           
+							],
 
 						oLanguage: {
 							"sProcessing":   "Sedang memproses ...",
@@ -280,11 +317,9 @@
 							url:"lihat-pemenang/"+id,
 							dataType:"json",
 							success:function(html){
-								var pemenang = html.pemenang;
-								var produk = html.produk;
 								var kg = html.produk.stok+" kg";
 								var rp = html.produk.harga_awal;
-								var tawaran = pemenang.penawaran;
+								var tawaran = html.data_pemenang.jumlah_penawaran;
 
 								var	reverse = rp.toString().split('').reverse().join(''),
 								ribuan 	= reverse.match(/\d{1,3}/g);
@@ -295,10 +330,10 @@
 								ribuan2	= ribuan2.join('.').split('').reverse().join('');
 
 								$('#modalLihat').modal('show');
-								$('.modal-title').text("Pemenang Lelang Sementara");
-								document.getElementById("nama_pemenang").innerHTML = pemenang.nama;
+								$('.modal-title').text("Pemenang Lelang");
+								document.getElementById("nama_pemenang").innerHTML = html.data_user.name;
 								document.getElementById("penawaran2").innerHTML = "Rp. "+ribuan2;
-								document.getElementById("nama_produk2").innerHTML = produk.nama_produk;
+								document.getElementById("nama_produk2").innerHTML = html.produk.nama_produk;
 								document.getElementById("harga_awal2").innerHTML = "Rp. "+ribuan;
 								document.getElementById("stok2").innerHTML = kg;
 
@@ -324,7 +359,27 @@
 						$('#penawaran').DataTable({
 							dom: 'Bfrtip',
 							buttons: [
-							'csv', 'excel', 'pdf'
+							{
+								extend: 'pdf',
+								footer: true,
+								exportOptions: {
+										columns: [0,1]
+									}
+							},
+							{
+								extend: 'excel',
+								footer: false,
+								exportOptions: {
+										columns: [0,1]
+									}
+							},
+							{
+								extend: 'print',
+								footer: false,
+								exportOptions: {
+										columns: [0,1]
+									}
+							}        
 							],
 
 							oLanguage: {
@@ -403,10 +458,10 @@
 							if (distance < 0) {
 
 								clearInterval(x);
-								document.getElementById(id).innerHTML = "EXPIRED";
+								document.getElementById(id).innerHTML = "Waktu Habis";
 							}
 						}
-
+  
 					}, 1000);
 				}
 			</script>

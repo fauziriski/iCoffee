@@ -74,7 +74,7 @@ class KeranjangjbController extends Controller
                 'jumlah' => $jumlah,
                 'total' => $total
             ]);
-
+            Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
             return redirect('/jual-beli/keranjang');
         }
 
@@ -92,9 +92,6 @@ class KeranjangjbController extends Controller
             'id_penjual' => $request->id_penjual
 
         ]);
-
-  
-
 
         return redirect('/jual-beli/keranjang');
     }
@@ -141,6 +138,10 @@ class KeranjangjbController extends Controller
 
     public function checkoutbarang(Request $request)
     {
+        $links = session()->has('links') ? session('links') : [];
+        $currentLink = request()->path(); // Getting current URI like 'category/books/'
+        array_unshift($links, $currentLink); // Putting it in the beginning of links array
+        session(['links' => $links]); // Saving links array to the session
         
         
         $this->validate($request,[
@@ -150,7 +151,7 @@ class KeranjangjbController extends Controller
         
 
         $id_customer = Auth::user()->id;
-        $alamat_cadangan = Address::where('id_pelanggan', $id_customer)->get();
+        $alamat_cadangan = Address::where('id_pelanggan', $id_customer)->whereIn('status', [0,1])->get();
 
         if($alamat_cadangan->isEmpty())
         {
@@ -368,6 +369,7 @@ class KeranjangjbController extends Controller
             {
                 $jumlah = $cart->jumlah;
                 $total = $cart->total;
+                
             }
             else
             {
@@ -619,6 +621,16 @@ class KeranjangjbController extends Controller
         $bank_information = Account::where('bank_name', $order->payment)->first();
 
         return view('jual-beli.invoice_penjual', compact('alamat_penjual', 'orderdetails', 'order','bank_information','jumlah_seluruh','kurir'));
+    }
+
+    public function batalkanpesanan($invoice)
+    {
+        $order = Order::where('invoice', $invoice)->update([
+            'status' => 9
+        ]);
+        Alert::success('Berhasil','Pesanan Berhasil Dibatalkan')->showConfirmButton('Ok', '#3085d6');;
+        return redirect('/jual-beli/invoice/'.$invoice);
+        
     }
 
     public function pesananditerima(Request $request)

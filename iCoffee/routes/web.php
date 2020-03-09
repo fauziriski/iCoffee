@@ -25,7 +25,7 @@ route::post('/profil/tambah' , 'HomeController@tambah_alamat');
 route::post('/profil/edit_profil', 'HomeController@edit_profil');
 route::get('/profil/cekalamat/{id}', 'HomeController@cekalamat');
 route::post('/profil/alamat/edit', 'HomeController@editalamat');
-route::get('profil/carikota/{id}', 'HomeController@carikota');
+route::get('/profil/carikota/{id}', 'HomeController@carikota');
 route::get('/profil/top_up', 'HomeController@top_up');
 route::post('/profil/top_up/proses', 'HomeController@top_up_diproses');
 route::get('/profil/konfirmasi/top_up', 'HomeController@konfirmasi_top_up');
@@ -40,6 +40,7 @@ route::get('/profil/top_up/detailinvoice/{id}', 'HomeController@invoicetopup_det
 route::get('/profil/tarik_saldo', 'HomeController@tarik_saldo');
 route::post('/profil/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
 route::get('/profil/tarikdana/{invoice}', 'HomeController@cek_invoice_dana');
+route::get('/profil/batal/dana_cair/{invoice}', 'HomeController@batal_tarik_dana');
 
 
 
@@ -64,6 +65,7 @@ Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 Route::get('/jual-beli/invoice/{invoice}', 'KeranjangjbController@invoice');
 Route::get('/jual-beli/invoice_penjual/{invoice}', 'KeranjangjbController@invoice_penjual');
+Route::get('/jual-beli/batalkanpesanan/{invoice}', 'KeranjangjbController@batalkanpesanan');
 Route::get('/jual-beli/transaksi', 'HomeController@transaksi');
 Route::get('/jual-beli/konfirmasi', 'HomeController@pembayaran');
 Route::post('/jual-beli/konfirmasi/pembayaran', 'HomeController@konfirmasipembayaran');
@@ -74,6 +76,7 @@ Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'KeranjangjbController@
 Route::post('/jual-beli/pesanan/komplain', 'KeranjangjbController@komplaindiproses');
 Route::post('/jual-beli/rating', 'KeranjangjbController@rating');
 Route::get('/jual-beli/kategori/{id}', 'ProdukController@index_category');
+
 
 Route::get('page/getprovince', 'ApiController@getprovince');
 Route::get('page/getcity', 'ApiController@getcity');

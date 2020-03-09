@@ -45,12 +45,27 @@
               <a class="dropdown-item" href="{{url('pasang-lelang')}}">Lelang</a>
             </div>
           </div>
-
+          
           @guest
           <li class="nav-item ml-2"><a href="{{ __('login') }}" class="nav-link"> Masuk</a></li>
           
           @else
-          <li class="nav-item ml-2 dropdown">  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+
+          <li class="nav-item ml-2 dropdown">  <a id="navbarDropdown2" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            &nbsp;&nbsp;&nbsp;<i class="ion-ios-cart mr-3"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown2">
+              <a class="dropdown-item" href="/jual-beli/keranjang">
+                <i class="fas fa-luggage-cart mr-2"></i>JualBeli
+               </a>
+        
+               <a class="dropdown-item" href="/lelang/keranjang">
+                <i class="icon icon-timer mr-2"></i>&nbsp;Lelang
+               </a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
           &nbsp;&nbsp;&nbsp;Hai, {{ Auth::user()->name }} <span class="caret"></span>
           @if (!empty($count_order['count_notif']))
           <span class="badge badge-pill badge-danger py-1 align-middle">{{ $count_order['count_notif'] }}</span>
@@ -75,13 +90,6 @@
               @endif 
              </a>
 
-            <a class="dropdown-item" href="/jual-beli/keranjang">
-              <i class="ion-ios-cart mr-3"></i>Keranjang
-             </a>
-
-             <a class="dropdown-item" href="/lelang/keranjang">
-              <i class="icon icon-timer mr-2"></i>&nbsp;Lelang
-             </a>
 
            <a class="dropdown-item" href="{{ route('logout') }}"
            onclick="event.preventDefault();
@@ -94,8 +102,12 @@
         </form>
       </div>
     </li>
+
+  </li>
+  
     
     @endguest
+    
   </ul>
 </div> 
 </div>

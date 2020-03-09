@@ -41,7 +41,7 @@
                         <p>Invoice : <strong style="color:#ee4d2c">{{  $data->invoice }}</strong></p>
                     </div>
                     <div class="col-md-4 mt-2">
-                        <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($data->total_bayar) }}</strong></p>
+                        <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($data->total_bayar,0,",",".") }}</strong></p>
                     </div>
                     <div class="col text-center mt-2">
                         <a href="/lelang/invoice/{{ $data->invoice }}"><span class="oi oi-eye align-middle"></span>&nbsp; Detail Pesanan </a>

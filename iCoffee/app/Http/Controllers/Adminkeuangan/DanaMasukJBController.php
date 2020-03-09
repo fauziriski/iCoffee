@@ -49,121 +49,12 @@ class DanaMasukJBController extends Controller
 			})
 
 			
-			->rawColumns(['action','created_at'])
+			->rawColumns(['action'])
 			->make(true);
 		}
 
-		$tran = Adm_tranksaksi::All();
-
-		$kategori = Adm_kat_akun::All();
-
-		$satu = Adm_sub1_akun::All();
-
-		$dua = Adm_sub2_akun::All();
-
-		return view('admin.admin-keuangan.dana-masuk-jualbeli',compact('tran','kategori','satu','dua'));
+		return view('admin.admin-keuangan.dana-masuk-jualbeli');
 	}
-
-	public function tambah(Request $request)
-	{	
-
-		$rules = array(	
-			'nama_tran' =>  'required',
-			'tujuan_tran' => 'required',
-			'catatan' =>  'required',
-			'akun1' => 'required',
-			'akun2' => 'required',
-			'jumlah1' => 'required',
-			'jumlah2' => 'required',
-			'bukti' =>  'required|image|max:2048'
-		);
-
-		$error = Validator::make($request->all(), $rules);
-
-		if($error->fails())
-		{
-			return response()->json(['errors' => $error->errors()->all()]);
-		}
-
-		$bukti = $request->file('bukti');
-		$timestamps = date('YmdHis');
-		$id = "2";
-		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
-		$jml_id = count($id)+1;
-		$kode = "AKK-A".$jml_id;
-
-		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
-
-		$bukti->move(public_path('Uploads/Adm_bukti/AKKA'), $new_name);
-
-		$total_jumlah = $request->jumlah2;
-
-		$id = Adm_jurnal::create([
-			'id_kat_jurnal' =>'2',
-			'nama_tran' => $request->nama_tran,
-			'bukti' =>  $new_name,
-			'catatan' => $request->catatan,
-			'kode' => $kode,
-			'total_jumlah' => $total_jumlah,
-			'tujuan_tran' => $request->tujuan_tran,		
-		]);
-
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $request->akun1,
-			'posisi' => $request->posisi1,
-			'jumlah' => $request->jumlah1
-		]);
-
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $request->akun2,
-			'posisi' => $request->posisi2,
-			'jumlah' => $request->jumlah2
-		]);
-
-		$nama_akun = $request->akun1;
-		
-		$jumlah = Adm_akun::where('nama_akun',$nama_akun)->select('jumlah')->get();
-		$total = 0;
-		for($i=0;$i<count($jumlah);$i++){
-			$total += $jumlah[$i]->jumlah;
-		}
-
-		$data1 = Adm_arus_kas::where('nama_akun',$nama_akun)->select('nama_akun')->get();
-		$data = count($data1);
-
-		if($data == '0'){
-			$id = Adm_arus_kas::create([
-				'kode' => 'AKK-A',
-				'nama_akun' => $nama_akun,
-				'total' => $total
-			]);
-		}else{
-			$form = array(	
-				'kode' => 'AKK-A',
-				'nama_akun' => $nama_akun,
-				'total' => $total
-			);
-			Adm_arus_kas::where('nama_akun',$nama_akun)->update($form);
-		}
-
-
-		return response()->json(['success' => 'Data berhasil ditambah.']);
-	}
-
-
-	public function lihatDanaMasuk($id)
-	{
-		if(request()->ajax())
-		{
-			$data = Adm_jurnal::findOrFail($id);
-			return response()->json([
-				'data' => $data,
-			]);
-		}
-	}
-
 
 	public function hapus($id)
 	{
@@ -171,109 +62,22 @@ class DanaMasukJBController extends Controller
 		$data = Adm_jurnal::findOrFail($id);
 		$data->delete();
 
-		return view('admin.super-admin.data-pelanggan');
+		return view('admin.admin-keuangan.dana-masuk-jualbeli');
 
 	}
 
-	public function update(Request $request)
-	{
-
-		$new_name = $request->bukti;
-		$bukti = $request->file('bukti');
-		if($bukti != '')
-		{
-			$rules = array(	
-				'nama_tran' =>  'required',
-				'tujuan_tran' => 'required',
-				'catatan' =>  'required',
-				'akun1' => 'required',
-				'akun2' => 'required',
-				'jumlah1' => 'required',
-				'jumlah2' => 'required',
-				'bukti' =>  'required|image|max:2048'
-			);
-			$error = Validator::make($request->all(), $rules);
-			if($error->fails())
-			{
-				return response()->json(['errors' => $error->errors()->all()]);
-			}
-
-			$timestamps = date('YmdHis');
-			$id = "2";
-			$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
-			$jml_id = count($id)+1;
-			$kode = "AKK-A".$jml_id;
-
-			$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
-
-			$bukti->move(public_path('Uploads/Adm_bukti/AKKA'), $new_name);
-
-			$total_jumlah = $request->jumlah2;
-
-		}
-		else
-		{
-			$rules = array(	
-				'nama_tran' =>  'required',
-				'tujuan_tran' => 'required',
-				'catatan' =>  'required',
-				'akun1' => 'required',
-				'akun2' => 'required',
-				'jumlah1' => 'required',
-				'jumlah2' => 'required',
-				'bukti' =>  'required|image|max:2048'
-			);
-
-			$error = Validator::make($request->all(), $rules);
-
-			if($error->fails())
-			{
-				return response()->json(['errors' => $error->errors()->all()]);
-			}
-		}
-
-		$form_data = array(
-			'nama_tran' => $request->nama_tran,
-			'catatan' => $request->catatan,
-			'kode' => $kode,
-			'total_jumlah' => $total_jumlah,
-			'tujuan_tran' => $request->tujuan_tran,	
-			'bukti' =>  $new_name
-		);
-
-		$form_data1 = array(
-			'nama_akun' => $request->akun1,
-			'posisi' => $request->posisi1,
-			'jumlah' => $request->jumlah1
-		);
-
-		$form_data2 = array(
-			'nama_akun' => $request->akun2,
-			'posisi' => $request->posisi2,
-			'jumlah' => $request->jumlah2
-		);
-		
-
-		Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data1);
-		Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data2);
-
-		Adm_jurnal::whereId($request->hidden_id)->update($form_data);
-
-		return response()->json(['success' => 'Data berhasil di ubah.']);
-	}
-
-
+	
 	public function detailDanaMasuk($id)
 	{
 		if(request()->ajax())
 		{	
+
 			$akun = Adm_akun::where('id_adm_jurnal',$id)->get();
 
 			$data = Adm_jurnal::findOrFail($id);
 			$total_jumlah = $data->total_jumlah;
 
 			$ambil = Confirm_payment::where('jumlah_transfer',$total_jumlah)->select('foto_bukti')->first();
-			dd($ambil->data);
 			$foto_bukti = $ambil->foto_bukti;
 			$invoice = $ambil->invoice;
 

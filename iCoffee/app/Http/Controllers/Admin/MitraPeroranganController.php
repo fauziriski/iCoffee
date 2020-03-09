@@ -19,13 +19,13 @@ class MitraPeroranganController extends Controller
 
 			return datatables()->of(Mitra_perorangan::latest()->get())
 			->addColumn('action', function($data){
-				$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'. '&nbsp&nbsp' .
-				'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm"><i class="fa fa-envelope"></i> Kirim Pesan</button>';;
+				$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-primary btn-sm py-0 mb-1"><i class="fa fa-eye"></i> lihat</button>'. '&nbsp&nbsp' .
+				'<button type="button" name="pesan" id="'.$data->id.'" class="pesan btn btn-warning btn-sm py-0 mb-1"><i class="fa fa-envelope"></i> pesan</button>';;
 				$button .= '&nbsp;&nbsp;';
 				if ($data->status == "belum divalidasi") {
 					$button .= 
-					'<button type="button" name="verifikasi" id="'.$data->id.'" class="verifikasi btn btn-success btn-sm"><i class="fa fa-check"></i> Validasi</button>'. '&nbsp&nbsp' .
-					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm"><i class="fa fa-times"></i> Tolak</button>';
+					'<button type="button" name="verifikasi" id="'.$data->id.'" class="verifikasi btn btn-success btn-sm py-0"><i class="fa fa-check"></i> validasi</button>'. '&nbsp&nbsp' .
+					'<button type="button" name="tolak" id="'.$data->id.'" class="tolak btn btn-danger btn-sm py-0"><i class="fa fa-times"></i> tolak</button>';
 
 				}
 				return $button;
@@ -42,7 +42,19 @@ class MitraPeroranganController extends Controller
 				return $waktu;
 			})
 
-			->rawColumns(['action'])
+			->addColumn('status', function($data){
+				if ($data->status == "belum divalidasi") {
+					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
+				}elseif ($data->status == "divalidasi") {
+					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">sudah divalidasi</button>';
+				}else{
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">validasi ditolak</button>';
+				}
+
+				return $status;
+			})
+
+			->rawColumns(['action','status'])
 			->make(true);
 		}
 

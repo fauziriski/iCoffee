@@ -57,6 +57,7 @@
 						
 					<address>
 						<strong>No Resi :</strong><br>
+						{{$kurir[$i][1]}}<br>
 							
 
 					</address>
@@ -248,6 +249,19 @@
     		</div>
     	</div>
 	</div>
+	@if( $order[0]->status == 1)
+	<div class="row mb-5">
+    	<div class="col-md-12">
+    		<div class="panel panel-default">
+				<div class="panel-heading">
+    				<p class="float-right"><a href="/jual-beli/batalkanpesanan/{{ $order[0]->invoice }}" name="batalkanpeanan" type="button" value="" class="btn btn-secondary py-3 px5">Batalkan Pesanan</a>
+						<a href="/jual-beli/konfirmasi" name="hapusalamat" type="button" value="" class="btn btn-primary py-3 px5">Konfirmasi Pembayaran</a>
+				</p>
+    			</div>
+    		</div>
+    	</div>
+	</div>
+	@endif
 </div>
 
 

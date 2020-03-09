@@ -31,7 +31,7 @@
 
           <div class="form-group">
             <label for="no_rek">No Rekening</label>
-            <input type="number" class="form-control" name="no_rek" min="" required>
+            <input type="tel" class="form-control" name="no_rek" min="" required>
             <span class="text-danger">{{$errors->first('no_rek')}}</span>
           </div>
 

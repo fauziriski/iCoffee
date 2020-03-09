@@ -66,7 +66,7 @@
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
 					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-primary">Pengeluaran Saldo Pelanggan</h6>
+						<h5>Pengeluaran Saldo Pelanggan</h5>
 						<div align="right">
 							<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fa fa-plus-square"></i> Tambah Pencatatan</button>
 						</div>
@@ -95,8 +95,8 @@
 			<div class="col-xl-4 col-lg-5">
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
-					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-primary">Data Penarikan</h6>
+					<div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+						<h5>Data Penarikan</h5>
 
 					</div>
 					<!-- Card Body -->

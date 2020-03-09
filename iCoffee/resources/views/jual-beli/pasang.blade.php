@@ -24,7 +24,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">Rp</div>
                   </div>
-                  <input type="number" class="form-control" placeholder="" name="harga" required>
+                  <input type="number" class="form-control" placeholder="Contoh : 10000" min="1000" name="harga" required>
                   <span class="text-danger">{{$errors->first('harga')}}</span>
                 </div>
               </div>
@@ -34,7 +34,7 @@
               <div class="form-group">
                 <label for="stok">Stok</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="" placeholder="" name="stok" required>
+                  <input type="number" class="form-control" id="" placeholder="Contoh : 10" min="1" name="stok" required>
                   <span class="text-danger">{{$errors->first('stok')}}</span>
                   <div class="input-group-prepend">
                     <div class="input-group-text">Kg</div>
@@ -68,7 +68,7 @@
             <div class="col-md-8">
             <div class="form-group">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" name="image{{$i}}" id="inputGroupFile{{$i}}"/>
+                <input type="file" class="custom-file-input" name="image-{{$i}}" id="inputGroupFile{{$i}}"/>
                 <label class="custom-file-label" for="inputGroupFile{{ $i }}">Upload Foto Produk</label>
               </div>
             </div>
@@ -122,37 +122,5 @@
     });
 </script>
 
-<script>
-  $(document).ready(function(){
-    $('#tambahproduk').click(function() {
-    var file1 = $('#inputGroupFile0').val();
-    var file2 = $('#inputGroupFile1').val();
-		if(file1 == 0) {
-			swal(
-        'Gagal',
-        'Masukan Foto Produk',
-        'error'
-      );
-      return false;
-    }
-			
-    else if (file2 == 0) {
-        swal(
-        'Gagal',
-        'Masukan Foto Produk Ke 2',
-        'error'
-        );
-        return false;
-              
-    }
-    else{
-      return true;
-    }
 
-		});
-
-
-	  
-	});
-</script>
 @endsection

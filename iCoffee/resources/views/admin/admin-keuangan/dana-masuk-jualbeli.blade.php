@@ -66,32 +66,31 @@
 <body id="page-top">
 	<!-- Begin Page Content -->
 	<div class="container-fluid">
-
-		<!-- Page Heading -->
-		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Dana Masuk Penjualan</h1>
-		</div>
-		<div class="panel-body">
-			<div align="right">
-				<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm mb-3"><i class="fa fa-plus-square"></i> Tambah Pencatatan</button>
+		<div class="card shadow mb-4">
+			<!-- Card Header - Dropdown -->
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h5>Dana Masuk Penjualan</h5>
 			</div>
-
-			<div class="table-responsive">
-				<table id="id_tabel" class="table table-striped table-bordered" border="0" style="width:100%">
-					<thead>
-						<tr>
-							<th>Kode</th>
-							<th>Nama Tranksaksi</th>
-							<th>Waktu Tranksaksi</th>
-							<th>Tujuan Tranksaksi</th>
-							<th>Jumlah</th>
-							<th> </th>
-						</tr>
-					</thead>
-				</table>
+			<!-- Card Body -->
+			<div class="card-body">
+				<div class="table-responsive">
+					<table id="id_tabel" class="table table-striped table-bordered" border="0" style="width:100%">
+						<thead>
+							<tr>
+								<th>Kode</th>
+								<th>Nama Tranksaksi</th>
+								<th>Waktu Tranksaksi</th>
+								<th>Tujuan Tranksaksi</th>
+								<th>Jumlah</th>
+								<th> </th>
+							</tr>
+						</thead>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<div id="confirmModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -265,118 +264,6 @@
 
 						});
 
-						$('#create_record').click(function(){
-							$('.modal-title').text("Tambah Pencatatan");
-							$('#action_button').val("Tambah");
-							$('#action').val("Tambah");
-							$('#formModal').modal('show');
-
-						});
-
-
-						$(document).on('click', '.edit', function(){
-							var id = $(this).attr('id');
-							$('#form_result').html('');
-							$.ajax({
-								url:"lihat-dana-masuk-jualbeli/"+id,
-								dataType:"json",
-								success:function(html){
-									$('#nama_tran').val(html.data.nama_tran);
-									$('#tujuan_tran').val(html.data.tujuan_tran);
-									$('#bukti').val(html.data.bukti);
-									$('#catatan').val(html.data.catatan);
-									$('#hidden_id').val(html.data.id);
-									$('.modal-title').text("Edit Pencatatan");
-									$('#action_button').val("Edit");
-									$('#action').val("Edit");
-									$('#formModal').modal('show');
-									$('#form_result').html(html);
-
-									$(".js-example-placeholder-single").select2({
-										dropdownParent: $('#formModal'),
-										placeholder: "Pilih tujuan tranksaksi",
-										allowClear: true
-
-									});		
-
-									$('#formModal').on('hidden.bs.modal', function(e) {
-										$(this).find('#sample_form')[0].reset();
-									});
-
-								}
-							})
-						});
-
-						$('#sample_form').on('submit', function(event){
-							event.preventDefault();
-							if($('#action').val() == 'Tambah')
-							{
-								$.ajax({
-									url:"{{ route('adminkeuangan.tambah-dana-masuk-jualbeli') }}",
-									method:"POST",
-									data: new FormData(this),
-									contentType: false,
-									cache:false,
-									processData: false,
-									dataType:"json",
-									success:function(data)
-									{
-										var html = '';
-										if(data.errors)
-										{
-											html = '<div class="alert alert-danger">';
-											for(var count = 0; count < data.errors.length; count++)
-											{
-												html += '<p>' + data.errors[count] + '</p>';
-											}
-											html += '</div>';
-										}
-										if(data.success)
-										{
-											html = '<div class="alert alert-success">' + data.success + '</div>';
-											$('#sample_form')[0].reset();
-											$('#id_tabel').DataTable().ajax.reload();
-										}
-										$('#form_result').html(html);
-									}
-								})
-							}
-
-							if($('#action').val() == "Edit")
-							{
-								$.ajax({
-									url:"{{ route('adminkeuangan.update-dana-masuk-jualbeli') }}",
-									method:"POST",
-									data: new FormData(this),
-									contentType: false,
-									cache:false,
-									processData: false,
-									dataType:"json",
-									success:function(data)
-									{
-										var html = '';
-										if(data.errors)
-										{
-											html = '<div class="alert alert-danger">';
-											for(var count = 0; count < data.errors.length; count++)
-											{
-												html += '<p>' + data.errors[count] + '</p>';
-											}
-											html += '</div>';
-										}
-										if(data.success)
-										{
-											html = '<div class="alert alert-success">' + data.success + '</div>';
-											$('#sample_form')[0].reset();
-											$('#id_tabel').DataTable().ajax.reload();
-										}
-										$('#form_result').html(html);
-									}
-								});
-							}
-						});
-
-
 						var id;
 						$(document).on('click', '.delete', function(){
 							id = $(this).attr('id');
@@ -397,7 +284,6 @@
 						});
 
 
-
 						$(document).on('click', '.lihat', function(){
 							var id = $(this).attr('id');
 							$.ajax({
@@ -412,7 +298,7 @@
 									$('#tujuan_tran2').val(html.data.tujuan_tran);
 									$('#catatan2').val(html.data.catatan);
 
-									var a = html.foto_bukti;
+									var a = html.invoice;
 									console.log(a);
 
 									var img = "/Uploads/Konfirmasi_Pembayaran/JualBeli/{" + html.invoice + "}/" + html.foto_bukti +"";

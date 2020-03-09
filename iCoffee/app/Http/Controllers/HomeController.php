@@ -25,6 +25,8 @@ use App\Balance_withdrawal;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
+Use Redirect;
+use URL;
 
 
 class HomeController extends Controller
@@ -53,7 +55,7 @@ class HomeController extends Controller
     {
         $id_pelanggan = Auth::user()->id;
         $nama_pelanggan = User::where('name', $id_pelanggan)->get();
-        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->get();
+        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->whereIn('status', [0,1])->get();
 
 
 
@@ -81,25 +83,87 @@ class HomeController extends Controller
     public function pasangproduk(Request $request)
     {
 
+        $size = count($request->file());
+        if ($size == 0) 
+        {
+            Alert::error('Gagal','Masukan Foto Produk Pertama')->showConfirmButton('Ok', '#3085d6');
+            return back();
+            
+        }
+        elseif ($size == 1) 
+        {
+            Alert::error('Gagal','Masukan Foto Produk Kedua')->showConfirmButton('Ok', '#3085d6');
+            return back();
+            
+        }
+
         
         $timestamps = date('YmdHis');
         $id_pelanggan = Auth::user()->id;
         $oldMarker = $timestamps.$id_pelanggan;
         
-        $size = count($request->file());
+        //geser nama gambar
+        $image_file = array();
+        for ($i=0; $i < 5 ; $i++) 
+        { 
+            if(!(empty($request->file('image-'.$i))))
+            {
+                $image_file[] = $request->file('image-'.$i);
+            }
+        }
+      
+        $jumlah_gambar_bener = array();
+        $jumlah_gambar = count($image_file);
+        
+        for ($i=0; $i < $jumlah_gambar ; $i++) 
+        { 
+            $filesize = 0;
+            $filesize = filesize($image_file[$i]);
+            $filesize = round($filesize / 1024, 2);
+
+            if($filesize > 2048 )
+            {
+                Alert::error('Gagal','Ukuran Gambar Tidak Lebih Dari 2 Mb')->showConfirmButton('Ok', '#3085d6');
+                return back();
+            }
+            elseif(!($image_file[$i]->isValid()))
+            {
+                Alert::error('Gagal','Gambar yang Anda Masukan Korupt, Ganti dengan Gambar Lain')->showConfirmButton('Ok', '#3085d6');
+                return back();
+            }
+            
+            elseif($image_file[$i]->getMimeType() == 'image/jpeg' &&  $filesize < 2048)
+            {
+                $jumlah_gambar_bener[] = $image_file[$i]; 
+            }
+            elseif($image_file[$i]->getMimeType() == 'image/png' && $filesize < 2048 )
+            {
+                $jumlah_gambar_bener[] = $image_file[$i];
+
+            }
+            else
+            {
+                Alert::error('Gagal','File yang Anda Masukan Bukan Gambar')->showConfirmButton('Ok', '#3085d6');
+                return back();
+            }
+            
+        }
 
         $this->validate($request,[
 
-            'image0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image-0' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image-1' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image-2' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image-3' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image-4' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $folderPath = public_path("Uploads\Produk\{$oldMarker}");
+        $folderPath = public_path("Uploads/Produk/{".$oldMarker."}");
         $response = mkdir($folderPath);
         $nama = array();
 
             for ($i=0; $i < $size; $i++) { 
-                if($files = $request->file('image'.$i)){
+                if($files = $image_file[$i]){
                     $name=$files->getClientOriginalName();
                     $image_resize = Images::make($files->getRealPath());
                     $image_resize->resize(690, 547);
@@ -147,52 +211,50 @@ class HomeController extends Controller
         $user = User::where('id', $id_pelanggan)->first();
         $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->whereIn('status', ['0','1'])->get();
 
-        $alamat_tersedia = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->get();
-
-        if($alamat_tersedia->isEmpty())
+        if($cekalamat->isEmpty())
         {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
             return redirect('/profil/tambahalamat');       
 
         }
-        $address = Address::where('id_pelanggan', $id_pelanggan)->where('status', '1')->first();
 
-        $provinsi_user = Province::where('id', $address->provinsi)->first();
-        $kota_user = City::where('id', $address->kota_kabupaten)->first();
         $provinsi = Province::all();
-
-
         
         
-        return view('jual-beli.profil', compact('user', 'address', 'provinsi', 'provinsi_user', 'kota_user', 'cekalamat'));
+        return view('jual-beli.profil', compact('user', 'provinsi', 'cekalamat'));
     }
 
 
     public function edit_profil(Request $request)
     {
+        $user_id = Auth::user()->id;
+        $password = Auth::user()->password;
 
-        $id_user = $request->id_user;
-        $id_alamat = $request->id_alamat;
+        if ($request->password_baru != $request->cek_password_baru) {
+            Alert::error('Kata Sandi Baru Tidak Sama')->showConfirmButton('Ok', '#3085d6');
 
-        $user = User::where('id', $id_user)->first();
-        $alamat = Address::where('id', $id_alamat)->where('status', 1)->first();
+            return redirect('/profil/edit');
+        }
 
-        $user_update = $user->update([
-            'name' => $request->nama,
-            'email' => $request->email
+        
 
-        ]);
+        if ($password_hash = Hash::check($request->password_lama, $password)) {
+            $user = User::where('id', $user_id)->first();
+            $request->user()->fill([
+                'password' => Hash::make($request->password_baru)
+            ])->save();
 
-        $update_alamat = $alamat->update([
-            'provinsi' => $request->provinsi_profil,
-            'kota_kabupaten' => $request->kota_kabupaten_profil,
-            'kecamatan' => $request->kecamatan,
-            'kode_pos' => $request->kode_pos,
-            'no_hp'=> $request->no_hp,
-            'address' => $request->alamat,
+            $user_update = $user->update([
+                'name' => $request->nama,
+                'email' => $request->email,
+    
+            ]);
+            Alert::success('Berhasil');
 
-        ]);
-        Alert::success('Berhasil');
+            return redirect('/profil/edit');
+        }
+        
+        Alert::error('Kata Sandi Salah')->showConfirmButton('Ok', '#3085d6');
 
         return redirect('/profil/edit');
 
@@ -202,8 +264,13 @@ class HomeController extends Controller
 
     public function tambahalamat()
     {
+        $links = session()->has('links') ? session('links') : [];
+        $currentLink = request()->path(); // Getting current URI like 'category/books/'
+        array_unshift($links, $currentLink); // Putting it in the beginning of links array
+        session(['links' => $links]); // Saving links array to the session
+       
         $id_customer = Auth::user()->id;
-        $alamat = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
+        $alamat = Address::where('id_pelanggan', $id_customer)->whereIn('status', [0,1])->first();
 
         if(!(empty($alamat)))
         {
@@ -211,6 +278,7 @@ class HomeController extends Controller
             return redirect('/profil/edit');  
         }
         $provinsi = Province::all();
+        
         return view('jual-beli.tambahalamat', compact('provinsi'));
     }
 
@@ -236,8 +304,8 @@ class HomeController extends Controller
 
         ]);
         Alert::success('Berhasil');
-
-        return redirect('/profil/edit');
+        return redirect($request->url);
+        
     }
 
     public function cekalamat($id)
@@ -480,7 +548,7 @@ class HomeController extends Controller
 
         Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
 
-        return redirect('/lelang');
+        return redirect('/lelang/invoice/'.$request->invoice);
     }
 
     public function top_up()
@@ -509,7 +577,7 @@ class HomeController extends Controller
         ]);
         Alert::info('Berhasil','Segera Konfirmasi Pembayaran Anda')->showConfirmButton('Ok', '#3085d6');
 
-        return redirect('/lelang');
+        return redirect('/jual-beli/transaksi#pills-topup');
     }
 
     public function konfirmasi_top_up()
@@ -632,8 +700,7 @@ class HomeController extends Controller
     public function alamat_utama($id)
     {
         $user_id = Auth::user()->id;
-
-        $alamat = Address::where('id_pelanggan', $user_id)->update([
+        $alamat = Address::where('id_pelanggan', $user_id)->whereIn('status', [0,1])->update([
             'status' => 0
         ]);
 
@@ -642,8 +709,14 @@ class HomeController extends Controller
         $alamat_utama->update([
             'status' => 1
         ]);
-
-        return redirect('/profil/edit#pills-profile');
+        
+        if (session('links')[0] == 'jual-beli/checkout-barang') {
+            session()->forget('links');
+            Alert::success('Berhasil','Berhasil Mengganti Alamat Utama')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/jual-beli/keranjang');
+        }
+        session()->forget('links');
+        return redirect('/profil/edit#pills-contact');
 
     }
 
@@ -706,6 +779,18 @@ class HomeController extends Controller
         return response()->json($cek_data);
 
     } 
+
+    public function batal_tarik_dana($invoice)
+    {
+        $cek_data = Balance_withdrawal::where('invoice', $invoice)->first();
+        $cek_data->update([
+            'status' => 5
+        ]);
+
+        Alert::success('Berhasi', 'Pencairan Dana Anda Berhasil Dibatalkan')->showConfirmButton('Ok', '#3085d6');
+        return redirect('/jual-beli/transaksi#pills-topup');
+        
+    }
 
 
 

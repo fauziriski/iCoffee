@@ -25,7 +25,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">Rp</div>
                   </div>
-                  <input type="number" class="form-control" placeholder="" name="harga_awal" required>
+                  <input type="number" class="form-control" placeholder="Contoh : 100000" min="10000" name="harga_awal" required>
                   <span class="text-danger">{{$errors->first('name')}}</span>
                 </div>
               </div>
@@ -38,7 +38,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">Rp</div>
                   </div>
-                  <input type="number" class="form-control" placeholder="" name="kelipatan" required>
+                  <input type="number" class="form-control" placeholder="Contoh : 1000" min="1000" name="kelipatan" required>
                   <span class="text-danger">{{$errors->first('kelipatan')}}</span>
                 </div>
               </div>
@@ -51,11 +51,14 @@
                 <label for="country">Jangka Waktu</label>
                 <div class="select-wrap">
                   <select name="lama_lelang" id="" class="form-control" required>
-                    <option value="3">3 Hari</option>
-                    <option value="4">4 Hari</option>
-                    <option value="5">5 Hari</option>
-                    <option value="6">6 Hari</option>
-                    <option value="7">7 Hari</option>
+                    <option value="1-Jam">1 Jam</option>
+                    <option value="3-Jam">3 Jam</option>
+                    <option value="12-Jam">12 Jam</option>
+                    <option value="3-Hari">3 Hari</option>
+                    <option value="4-Hari">4 Hari</option>
+                    <option value="5-Hari">5 Hari</option>
+                    <option value="6-Hari">6 Hari</option>
+                    <option value="7-Hari">7 Hari</option>
                   </select>
                 </div>
               </div>
@@ -79,7 +82,7 @@
               <div class="form-group">
                 <label for="stok">Jumlah</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="" placeholder="Satuan" name="stok" max="30" required>
+                  <input type="number" class="form-control" id="" placeholder="Satuan" name="stok" min="10" max="30" required>
                   <span class="text-danger">{{$errors->first('stok')}}</span>
                   <div class="input-group-prepend">
                     <div class="input-group-text">Kg</div>
@@ -97,30 +100,19 @@
             </div>
         
            
-                <div class="col-md-8">
-                  <div class="form-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="images" class="form-control-file"  id="inputfile">
-                      <label class="custom-file-label" for="inputfile">Upload Foto Produk</label>
-                    </div>
-                  </div>
-                </div>
-        
-         
-
-              @for ($i = 0; $i < 4; $i++)
-
-                  <div class="col-md-8">
-                    <div class="form-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image{{ $i }}" id="inputGroupFiles{{ $i }}"class="form-control-file">
-                        <label class="custom-file-label" for="inputGroupFiles{{ $i }}">Upload Foto Produk</label>
-                    </div>
-                  </div>
-                </div>
+            @for ($i = 0; $i < 5; $i++)
+            <div class="col-md-8">
+            <div class="form-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" name="image-{{$i}}" id="inputGroupFile{{$i}}"/>
+                <label class="custom-file-label" for="inputGroupFile{{ $i }}">Upload Foto Produk</label>
+              </div>
+            </div>
+          </div>
+            @endfor
             
             
-                @endfor
+
 
               </div>
             </div>
@@ -143,68 +135,35 @@
 
 @section('js')
 <script>
-    $('#inputfile').on('change',function(){
-      var fileName = $(this).val();
+  $('#inputGroupFile0').on('change',function(){
+    var fileName = $(this).val();
 
-      $(this).next('.custom-file-label').html(fileName);
-    });
+    $(this).next('.custom-file-label').html(fileName);
+  });
 
-    $('#inputGroupFiles0').on('change',function(){
-      var fileName = $(this).val();
+  $('#inputGroupFile1').on('change',function(){
+    var fileName = $(this).val();
 
-      $(this).next('.custom-file-label').html(fileName);
-    });
+    $(this).next('.custom-file-label').html(fileName);
+  });
 
-    $('#inputGroupFile1').on('change',function(){
-      var fileName = $(this).val();
+  $('#inputGroupFile2').on('change',function(){
+    var fileName = $(this).val();
 
-      $(this).next('.custom-file-label').html(fileName);
-    });
+    $(this).next('.custom-file-label').html(fileName);
+  });
 
-    $('#inputGroupFile2').on('change',function(){
-      var fileName = $(this).val();
+  $('#inputGroupFile3').on('change',function(){
+    var fileName = $(this).val();
 
-      $(this).next('.custom-file-label').html(fileName);
-    });
+    $(this).next('.custom-file-label').html(fileName);
+  });
 
-    $('#inputGroupFile3').on('change',function(){
-      var fileName = $(this).val();
+  $('#inputGroupFile4').on('change',function(){
+    var fileName = $(this).val();
 
-      $(this).next('.custom-file-label').html(fileName);
-    });
+    $(this).next('.custom-file-label').html(fileName);
+  });
 </script>
 
-<script>
-  $(document).ready(function(){
-    $('#tambahlelang').click(function() {
-    var file1 = $('#inputfile').val();
-    var file2 = $('#inputGroupFiles0').val();
-		if(file1 == 0) {
-			swal(
-        'Gagal',
-        'Masukan Foto Produk',
-        'error'
-      );
-      return false;
-    }
-			
-    else if (file2 == 0) {
-        swal(
-        'Gagal',
-        'Masukan Foto Produk Ke 2',
-        'error'
-        );
-        return false;
-              
-    }
-    else{
-      return true;
-    }
-
-		});
-
-
-	  
-	});
-</script>
 @endsection

@@ -17,9 +17,8 @@ class JualBeliController extends Controller
 		{
 			return datatables()->of(Shop_product::latest()->get())
 			->addColumn('action', function($data){
-				$button = '<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>';
-				$button .= '&nbsp;&nbsp;';
-				$button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
+				$button ='<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-primary btn-sm py-0 mb-1"><i class="fa fa-eye"></i> lihat</button>'. '&nbsp';
+				$button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm py-0 mb-1"><i class="fa fa-trash"></i> hapus</button>';
 				return $button;
 			})
 			

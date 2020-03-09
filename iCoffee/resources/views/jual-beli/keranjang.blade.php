@@ -28,7 +28,12 @@
 									
 								
 						      <tr class="text-center">
-						        <td class="product-remove"><input type="checkbox" id="id_produk{{$data->id}}" name="id[]" value="{{$data->id}}"></td>
+								  @if ($data->shop_product->stok <= 0)
+									<td class="product-remove"><input type="checkbox" name="" id="" disabled></td>
+								  @else
+								  <td class="product-remove"><input type="checkbox" id="id_produk{{$data->id}}" name="id[]" value="{{$data->id}}"></td>
+								  @endif
+						        
 						        
 						        <td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Produk/{'.$data->kode_produk.'}/'.$data->image) }});"></div></td>
 
