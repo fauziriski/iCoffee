@@ -374,7 +374,7 @@ class KeranjanglelangController extends Controller
         ]);
 
     
-        $folderPath = public_path("Uploads\Komplain\Lelang\{$request->invoice}");
+        $folderPath = public_path("Uploads/Komplain/Lelang/{".$request->invoice."}");
         $response = mkdir($folderPath);
         
         $image = $request->foto_bukti;

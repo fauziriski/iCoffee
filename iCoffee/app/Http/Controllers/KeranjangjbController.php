@@ -769,7 +769,7 @@ class KeranjangjbController extends Controller
 
         ]);
 
-        $folderPath = public_path("Uploads\Komplain\JualBeli\{$request->invoice}");
+        $folderPath = public_path("Uploads/Komplain/JualBeli/{".$request->invoice."}");
         $response = mkdir($folderPath);
         
         $image = $request->foto_bukti;
