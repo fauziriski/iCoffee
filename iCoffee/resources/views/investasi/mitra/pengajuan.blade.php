@@ -9,234 +9,297 @@
 
 <div class="wizard-v1-content mx-auto">
     <div class="wizard-form">
-        <form class="form-register" id="form-register" action="\mitra/pengajuan-dana" method="post">
-            @csrf
-            <div id="form-total">
-                <!-- SECTION 1 -->
-                <h2>
-                    <span class="step-icon"><i class="fa fa-seedling"></i></span>
-                    <span class="step-number">Progress 1</span>
-                    <span class="step-text">Pemupukan</span>
-                </h2>
-                <section>
-                    <div class="inner">
-                        <table id="invoiceitems" class=" table order-list">
-                            <thead>
-                                <tr>
-                                    <td>Nama Produk</td>
-                                    <td>Harga</td>
-                                    <td>Qty</td>
-                                    <td>Jumlah</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="product">
-                                    <td width="50%">
-                                        <input type="text" name="item[1][paper]" class="regular-text form-control" />
-                                    </td>
-                                    <td width="15%">
-                                        <input type="text" name="item[1][price]" class="price form-control" />
-                                    </td>
-                                    <td width="10%">
-                                        <input type="text" name="item[1][quantity]" class="quantity form-control" />
-                                    </td>
-                                    <td width="15%">
-                                        Rp. <span class="subtotal"></span>
-                                    </td>
-                                    <td width="5%">
-                                        <a class="deleteRow"></a>
-                                    </td>
-                                </tr>
+        <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fa fa-seedling"></i> &nbsp;Pemupukan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fa fa-leaf"></i> &nbsp;Penyiangan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fa fa-coffee"></i> &nbsp;Panen</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-pasca-tab" data-toggle="pill" href="#pills-pasca" role="tab" aria-controls="pills-pasca" aria-selected="false"><i class="fa fa-sun"></i> &nbsp;Pasca Panen</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <br>
+                <form class="form-register" id="form-register" action="\mitra/pengajuan-dana" method="post">
+                    @csrf
+                    <div id="form-total">
+                        <!-- SECTION 1 -->
+                        <div class="content clearfix">
+                        <section>
+                            <div class="inner">
+                                <table id="invoiceitems" class=" table order-list">
+                                    <thead>
+                                        <tr>
+                                            <td>Nama Produk</td>
+                                            <td>Harga</td>
+                                            <td>Qty</td>
+                                            <td>Jumlah</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="product">
+                                            <td width="50%">
+                                                <input type="text" name="item[1][produk]" class="regular-text form-control" />
+                                            </td>
+                                            <td width="15%">
+                                                <input type="text" name="item[1][price]" class="price form-control" />
+                                            </td>
+                                            <td width="10%">
+                                                <input type="text" name="item[1][quantity]" class="quantity form-control" />
+                                            </td>
+                                            <td width="15%">
+                                                Rp. <span class="subtotal"></span>
+                                            </td>
+                                            <td width="5%">
+                                                <a class="deleteRow"></a>
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total:</td>
+                                            <td>
+                                                Rp. <span class="grandtotal"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" style="text-align: left;">
+                                                <input type="button" class="btn btn-lg btn-block " id="buttonadd" value="Tambah Produk" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                                 
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Total:</td>
-                                    <td>
-                                        Rp. <span class="grandtotal"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" style="text-align: left;">
-                                        <input type="button" class="btn btn-lg btn-block " id="buttonadd" value="Tambah Produk" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                </tr>
-                            </tfoot>
-                        </table>
-                        
-                    </div>
-                </section>
-                <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
-            </form>
-                <!-- SECTION 2 -->
-                <h2>
-                    <span class="step-icon"><i class="fa fa-sun"></i></span>
-                    <span class="step-number">Progress 2</span>
-                    <span class="step-text">Penyiangan</span>
-                </h2>
-                <section>
-                    <div class="inner">
-                        <div class="form-row">
-                            <div class="form-holder form-holder-2">
-                                <label for="card-type">Card Type</label>
-                                <select name="card-type" id="card-type" class="form-control">
-                                    <option value="" disabled selected>Select Credit Card Type</option>
-                                    <option value="Business Credit Cards">Business Credit Cards</option>
-                                    <option value="Limited Purpose Cards">Limited Purpose Cards</option>
-                                    <option value="Prepaid Cards">Prepaid Cards</option>
-                                    <option value="Charge Cards">Charge Cards</option>
-                                    <option value="Student Credit Cards">Student Credit Cards</option>
-                                </select>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-holder form-holder-3">
-                                <label for="card-number">Card Number</label>
-                                <input type="text" name="card-number" class="card-number" id="card-number" placeholder="ex: 489050625008xxxx">
+                        </section>
+                        <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
+                </form>
+
+        
+        </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <br>
+                <img src="\pengajuan-belum.png" width="100%" height="100%" style="border-radius: 10px;">
+                {{-- <form class="form-register" id="form-register" action="\mitra/pengajuan-dana" method="post">
+                    @csrf
+                    <div id="form-total">
+                        <!-- SECTION 1 -->
+                        <div class="content clearfix">
+                        <section>
+                            <div class="inner">
+                                <table id="invoiceitems" class=" table order-list">
+                                    <thead>
+                                        <tr>
+                                            <td>Nama Produk</td>
+                                            <td>Harga</td>
+                                            <td>Qty</td>
+                                            <td>Jumlah</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="product">
+                                            <td width="50%">
+                                                <input type="text" name="item[1][produk]" class="regular-text form-control" />
+                                            </td>
+                                            <td width="15%">
+                                                <input type="text" name="item[1][price]" class="price form-control" />
+                                            </td>
+                                            <td width="10%">
+                                                <input type="text" name="item[1][quantity]" class="quantity form-control" />
+                                            </td>
+                                            <td width="15%">
+                                                Rp. <span class="subtotal"></span>
+                                            </td>
+                                            <td width="5%">
+                                                <a class="deleteRow"></a>
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total:</td>
+                                            <td>
+                                                Rp. <span class="grandtotal"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" style="text-align: left;">
+                                                <input type="button" class="btn btn-lg btn-block " id="buttonadd" value="Tambah Produk" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                
                             </div>
-                            <div class="form-holder">
-                                <label for="cvc">CVC</label>
-                                <input type="text" name="cvc" class="cvc" id="cvc" placeholder="xxx">
-                            </div>
-                        </div>
-                        <div class="form-row form-row-2">
-                            <div class="form-holder">
-                                <label for="month">Expiry Month</label>
-                                <select name="month" id="month" class="form-control">
-                                    <option value="" disabled selected>Expiry Month</option>
-                                    <option value="January">January</option>
-                                    <option value="February">February</option>
-                                    <option value="March">March</option>
-                                    <option value="February">February</option>
-                                    <option value="April">April</option>
-                                    <option value="May">May</option>
-                                </select>
-                            </div>
-                            <div class="form-holder">
-                                <label for="year">Expiry Year</label>
-                                <select name="year" id="year" class="form-control">
-                                    <option value="" disabled selected>Expiry Year</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2013">2013</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- SECTION 3 -->
-                <h2>
-                    <span class="step-icon"><i class="fa fa-leaf"></i></span>
-                    <span class="step-number">Progress 3</span>
-                    <span class="step-text">Panen</span>
-                </h2>
-                <section>
-                    <div class="inner">
-                        <h3>Comfirm Details</h3>
-                        <div class="form-row table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    <tr class="space-row">
-                                        <th>Username:</th>
-                                        <td id="username-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>Email Address:</th>
-                                        <td id="email-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>Card Type:</th>
-                                        <td id="card-type-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>Card Number:</th>
-                                        <td id="card-number-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>CVC:</th>
-                                        <td id="cvc-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>Expiry Month:</th>
-                                        <td id="month-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>Expiry Year:</th>
-                                        <td id="year-val"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-                <h2>
-                    <span class="step-icon"><i class="fa fa-leaf"></i></span>
-                    <span class="step-number">Progress 3</span>
-                    <span class="step-text">Panen</span>
-                </h2>
-                <section>
-                    <div class="inner">
-                        <h3>Comfirm Details</h3>
-                        <div class="form-row table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    <tr class="space-row">
-                                        <th>Username:</th>
-                                        <td id="username-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>Email Address:</th>
-                                        <td id="email-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>Card Type:</th>
-                                        <td id="card-type-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>Card Number:</th>
-                                        <td id="card-number-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>CVC:</th>
-                                        <td id="cvc-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>Expiry Month:</th>
-                                        <td id="month-val"></td>
-                                    </tr>
-                                    <tr class="space-row">
-                                        <th>Expiry Year:</th>
-                                        <td id="year-val"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
+                        </section>
+                        <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
+                </form> --}}
             </div>
         </div>
-    </div><!-- tutup side -->
+            </div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <br>
+                <img src="\pengajuan-belum.png" width="100%" height="100%" style="border-radius: 10px;">
+                {{-- <form class="form-register" id="form-register" action="\mitra/pengajuan-dana" method="post">
+                    @csrf
+                    <div id="form-total">
+                        <!-- SECTION 1 -->
+                        <div class="content clearfix">
+                        <section>
+                            <div class="inner">
+                                <table id="invoiceitems" class=" table order-list">
+                                    <thead>
+                                        <tr>
+                                            <td>Nama Produk</td>
+                                            <td>Harga</td>
+                                            <td>Qty</td>
+                                            <td>Jumlah</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="product">
+                                            <td width="50%">
+                                                <input type="text" name="item[1][produk]" class="regular-text form-control" />
+                                            </td>
+                                            <td width="15%">
+                                                <input type="text" name="item[1][price]" class="price form-control" />
+                                            </td>
+                                            <td width="10%">
+                                                <input type="text" name="item[1][quantity]" class="quantity form-control" />
+                                            </td>
+                                            <td width="15%">
+                                                Rp. <span class="subtotal"></span>
+                                            </td>
+                                            <td width="5%">
+                                                <a class="deleteRow"></a>
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total:</td>
+                                            <td>
+                                                Rp. <span class="grandtotal"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" style="text-align: left;">
+                                                <input type="button" class="btn btn-lg btn-block " id="buttonadd" value="Tambah Produk" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                
+                            </div>
+                        </section>
+                        <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
+                </form> --}}
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-pasca" role="tabpanel" aria-labelledby="pills-pasca-tab">
+            <br>
+            <img src="\pengajuan-belum.png" width="100%" height="100%" style="border-radius: 10px;">
+            {{-- <form class="form-register" id="form-register" action="\mitra/pengajuan-dana" method="post">
+                @csrf
+                <div id="form-total">
+                    <!-- SECTION 1 -->
+                    <div class="content clearfix">
+                    <section>
+                        <div class="inner">
+                            <table id="invoiceitems" class=" table order-list">
+                                <thead>
+                                    <tr>
+                                        <td>Nama Produk</td>
+                                        <td>Harga</td>
+                                        <td>Qty</td>
+                                        <td>Jumlah</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="product">
+                                        <td width="50%">
+                                            <input type="text" name="item[1][produk]" class="regular-text form-control" />
+                                        </td>
+                                        <td width="15%">
+                                            <input type="text" name="item[1][price]" class="price form-control" />
+                                        </td>
+                                        <td width="10%">
+                                            <input type="text" name="item[1][quantity]" class="quantity form-control" />
+                                        </td>
+                                        <td width="15%">
+                                            Rp. <span class="subtotal"></span>
+                                        </td>
+                                        <td width="5%">
+                                            <a class="deleteRow"></a>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Total:</td>
+                                        <td>
+                                            Rp. <span class="grandtotal"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" style="text-align: left;">
+                                            <input type="button" class="btn btn-lg btn-block " id="buttonadd" value="Tambah Produk" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            
+                        </div>
+                    </section>
+                    <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
+            </form> --}}
+        
+        </div>
+    </div>
+</div>
+</div>
+</div><!-- tutup side -->
 </div>
 </section>
 @endsection
 @section('js')
-    <script src="{{asset('investasi/mitra/js/jquery.steps.js')}}"></script>
-    <script src="{{asset('investasi/mitra/js/demo/main.js')}}"></script>
+    {{-- <script src="{{asset('investasi/mitra/js/jquery.steps.js')}}"></script> --}}
+    {{-- <script src="{{asset('investasi/mitra/js/demo/main.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> --}}
     <script>
         $(document).ready(function () {
           $counter = 1;
           $('#buttonadd').click(function () {
               $counter++;
-              $('#invoiceitems > tbody:last').append('<tr><td><input type="text" name="item[' + $counter + '][paper]" class="regular-text form-control" /></td>\
+              $('#invoiceitems > tbody:last').append('<tr><td><input type="text" name="item[' + $counter + '][produk]" class="regular-text form-control" /></td>\
               <td><input type="text" name="item[' + $counter + '][price]" class="price form-control" /></td>\
               <td><input type="text" name="item[' + $counter + '][quantity]" class="quantity form-control"/></td>\
               <td>Rp. <span class="subtotal"></span> </td>\
