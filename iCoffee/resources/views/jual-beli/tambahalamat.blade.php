@@ -10,7 +10,7 @@
       @csrf
       <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
         <div class="col-md-12">
-          <input type="hidden" name="url" value="{{ $url }}">
+      
           <div class="form-group">
             <label for="nama">Nama</label>
             <input type="text" class="form-control" name="nama" required>
