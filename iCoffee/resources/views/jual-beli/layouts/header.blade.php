@@ -33,7 +33,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
             <li class="nav-item"><a href="{{url('/')}}" class="nav-link">Beranda</a></li>
-            <li class="nav-item"><a href="{{url('jual-beli')}}" class="nav-link">JualBeli</a></li>
+            <li class="nav-item"><a href="{{url('jual-beli')}}" class="nav-link">Coba</a></li>
             <li class="nav-item"><a href="{{url('lelang')}}" class="nav-link">Lelang</a></li>
             <li class="nav-item"><a href="{{url('invest')}}" class="nav-link">Investasi</a></li>
             <div class="dropdown ml-2 mt-1">
