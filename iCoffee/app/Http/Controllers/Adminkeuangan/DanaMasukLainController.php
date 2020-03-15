@@ -31,9 +31,9 @@ class DanaMasukLainController extends Controller
 			return datatables()->of($AKMLA)
 			->addColumn('action', function($data){
 				$button = 
-				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
-				'<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> Ubah</button>'.'&nbsp;&nbsp;'.
-				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
+				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0 mb-1"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
+				'<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm py-0"mb-1><i class="fa fa-edit"></i> Ubah</button>'.'&nbsp;&nbsp;'.
+				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm py-0"><i class="fa fa-trash"></i> Hapus</button>';
 				return $button;
 			})
 
@@ -146,17 +146,6 @@ class DanaMasukLainController extends Controller
 		return response()->json(['success' => 'Data berhasil ditambah.']);
 	}
 
-
-	public function lihatDanaMasuk($id)
-	{
-		if(request()->ajax())
-		{
-			$data = Adm_jurnal::findOrFail($id);
-			return response()->json(['data' => $data]);
-		}
-	}
-
-
 	public function hapus($id)
 	{
 
@@ -170,86 +159,89 @@ class DanaMasukLainController extends Controller
 	public function update(Request $request)
 	{
 
-		$new_name = $request->bukti;
-		$bukti = $request->file('bukti');
-		if($bukti != '')
-		{
-			$rules = array(	
-				'nama_tran' =>  'required',
-				'tujuan_tran' => 'required',
-				'catatan' =>  'required',
-				'akun1' => 'required',
-				'akun2' => 'required',
-				'jumlah1' => 'required',
-				'jumlah2' => 'required',
-				'bukti' =>  'required|image|max:2048'
-			);
-			$error = Validator::make($request->all(), $rules);
-			if($error->fails())
-			{
-				return response()->json(['errors' => $error->errors()->all()]);
-			}
+		$a =  $request->all();
+		dd($a);
+		// $new_name = $request->bukti;
+		// $bukti = $request->file('bukti');
+		// if($bukti != '')
+		// {
+		// 	$rules = array(	
+		// 		'nama_tran' =>  'required',
+		// 		'tujuan_tran' => 'required',
+		// 		'catatan' =>  'required',
+		// 		'akun1' => 'required',
+		// 		'akun2' => 'required',
+		// 		'jumlah1' => 'required',
+		// 		'jumlah2' => 'required',
+		// 		'bukti' =>  'required|image|max:2048'
+		// 	);
+		// 	$error = Validator::make($request->all(), $rules);
+		// 	if($error->fails())
+		// 	{
+		// 		return response()->json(['errors' => $error->errors()->all()]);
+		// 	}
 
-			$timestamps = date('YmdHis');
-			$id = "11";
-			$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
-			$jml_id = count($id)+1;
-			$kode = "AKM-LA".$jml_id;
+		// 	$timestamps = date('YmdHis');
+		// 	$id = "11";
+		// 	$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+		// 	$jml_id = count($id)+1;
+		// 	$kode = "AKM-LA".$jml_id;
 
-			$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
+		// 	$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 
-			$bukti->move(public_path('Uploads/Adm_bukti/AKKA'), $new_name);
+		// 	$bukti->move(public_path('Uploads/Adm_bukti/AKMLA'), $new_name);
 
-			$total_jumlah = $request->jumlah2;
+		// 	$total_jumlah = $request->jumlah2;
 
-		}
-		else
-		{
-			$rules = array(	
-				'nama_tran' =>  'required',
-				'tujuan_tran' => 'required',
-				'catatan' =>  'required',
-				'akun1' => 'required',
-				'akun2' => 'required',
-				'jumlah1' => 'required',
-				'jumlah2' => 'required',
-				'bukti' =>  'required|image|max:2048'
-			);
+		// }
+		// else
+		// {
+		// 	$rules = array(	
+		// 		'nama_tran' =>  'required',
+		// 		'tujuan_tran' => 'required',
+		// 		'catatan' =>  'required',
+		// 		'akun1' => 'required',
+		// 		'akun2' => 'required',
+		// 		'jumlah1' => 'required',
+		// 		'jumlah2' => 'required',
+		// 		'bukti' =>  'required|image|max:2048'
+		// 	);
 
-			$error = Validator::make($request->all(), $rules);
+		// 	$error = Validator::make($request->all(), $rules);
 
-			if($error->fails())
-			{
-				return response()->json(['errors' => $error->errors()->all()]);
-			}
-		}
+		// 	if($error->fails())
+		// 	{
+		// 		return response()->json(['errors' => $error->errors()->all()]);
+		// 	}
+		// }
 
-		$form_data = array(
-			'nama_tran' => $request->nama_tran,
-			'catatan' => $request->catatan,
-			'kode' => $kode,
-			'total_jumlah' => $total_jumlah,
-			'tujuan_tran' => $request->tujuan_tran,	
-			'bukti' =>  $new_name
-		);
+		
+		// $form_data = array(
+		// 	'nama_tran' => $request->nama_tran22,
+		// 	'catatan' => $request->catatan22,
+		// 	'kode' => $kode22,
+		// 	'total_jumlah' => $total_jumlah,
+		// 	'tujuan_tran' => $request->tujuan_tran22,	
+		// 	'bukti' =>  $new_name
+		// );
 
-		$form_data1 = array(
-			'nama_akun' => $request->akun1,
-			'posisi' => $request->posisi1,
-			'jumlah' => $request->jumlah1
-		);
+		// $form_data1 = array(
+		// 	'nama_akun' => $request->akun1,
+		// 	'posisi' => $request->posisi1,
+		// 	'jumlah' => $request->jumlah1
+		// );
 
-		$form_data2 = array(
-			'nama_akun' => $request->akun2,
-			'posisi' => $request->posisi2,
-			'jumlah' => $request->jumlah2
-		);
+		// $form_data2 = array(
+		// 	'nama_akun' => $request->akun2,
+		// 	'posisi' => $request->posisi2,
+		// 	'jumlah' => $request->jumlah2
+		// );
 		
 
-		Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data1);
-		Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data2);
+		// Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data1);
+		// Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data2);
 
-		Adm_jurnal::whereId($request->hidden_id)->update($form_data);
+		// Adm_jurnal::whereId($request->hidden_id)->update($form_data);
 
 		return response()->json(['success' => 'Data berhasil di ubah.']);
 	}
