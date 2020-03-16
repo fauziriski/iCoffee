@@ -357,10 +357,6 @@
 								document.getElementById("total_dibayar").innerHTML = "Rp. "+ribuan;
 								document.getElementById("tujuan").innerHTML = html.nama_bank+" iCoffee";
 								
-
-								var a  = html.data.gambar;
-								
-								console.log(a);
 								var img = "/Uploads/Investasi/Konfirmasi/" + html.data.gambar;
 								$('#bukti2').attr("src",img);
 

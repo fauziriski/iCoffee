@@ -151,6 +151,7 @@ class VerifikasiPembiayaanController extends Controller
 		$bank_pengirim = $ambil->bank;
 		$nama_pengirim = $ambil->nama;
 		$no_rekening_pengirim = $ambil->norek;
+		$new_name = $ambil->gambar;
 
 		$order = Invest_order::where('id',$id_order)->first();
 		$id_bank = $order->id_bank;
@@ -176,10 +177,6 @@ class VerifikasiPembiayaanController extends Controller
 		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 		$jml_id = count($id)+1;
 		$kode = "AKM-I".$jml_id;
-
-		$bukti = $request->foto_bukti2;
-		$timestamps = date('YmdHis');
-		$new_name = $kode.$timestamps. '.' . $bukti;
 
 		$nama_akun = "Pembelian produk investasi";
 

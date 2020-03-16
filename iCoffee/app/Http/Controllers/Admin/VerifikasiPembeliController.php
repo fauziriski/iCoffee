@@ -212,7 +212,7 @@ class  VerifikasiPembeliController extends Controller
 			return $collection->sum();
 		});
 
-		$catatan = "pembelian kopi sebanyak ".$kg."Kg dengan total harga Rp.".number_format($total_bayar)." dan total ongkos kirim sebesar Rp.".$total_ongkir;
+		$catatan = "pembelian kopi sebanyak ".$kg."Kg dengan total harga Rp. ".number_format($total_bayar)." dan total ongkos kirim sebesar Rp. ".number_format($total_ongkir);
 		$tujuan_tran = "Bank ".$bank." iCoffee";
 
 
