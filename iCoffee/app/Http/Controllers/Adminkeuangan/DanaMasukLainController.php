@@ -159,89 +159,60 @@ class DanaMasukLainController extends Controller
 	public function update(Request $request)
 	{
 
-		$a =  $request->all();
-		dd($a);
-		// $new_name = $request->bukti;
-		// $bukti = $request->file('bukti');
-		// if($bukti != '')
-		// {
-		// 	$rules = array(	
-		// 		'nama_tran' =>  'required',
-		// 		'tujuan_tran' => 'required',
-		// 		'catatan' =>  'required',
-		// 		'akun1' => 'required',
-		// 		'akun2' => 'required',
-		// 		'jumlah1' => 'required',
-		// 		'jumlah2' => 'required',
-		// 		'bukti' =>  'required|image|max:2048'
-		// 	);
-		// 	$error = Validator::make($request->all(), $rules);
-		// 	if($error->fails())
-		// 	{
-		// 		return response()->json(['errors' => $error->errors()->all()]);
-		// 	}
+		$id =  $request->hidden_id22;
+		$data = Adm_jurnal::findOrFail($id);
+		$data->delete();
+		
+		$image_name = $request->bukti22;
+		$foto_baru = $request->file('foto_baru22');
+		if($foto_baru != '')
+		{	
+			$kode = $request->kode22;
+			$timestamps = date('YmdHis');
+			$image_name = $kode.$timestamps. '.' . $foto_baru->getClientOriginalExtension();
+			$foto_baru->move(public_path('Uploads/Adm_bukti/AKMLA'), $image_name);
+		}
+		else
+		{
+			// $rules = array(	
+			// 	'nama_tran' =>  'required',
+			// 	'tujuan_tran' => 'required',
+			// 	'catatan' =>  'required',
+		
+			// );
 
-		// 	$timestamps = date('YmdHis');
-		// 	$id = "11";
-		// 	$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
-		// 	$jml_id = count($id)+1;
-		// 	$kode = "AKM-LA".$jml_id;
+			// $error = Validator::make($request->all(), $rules);
 
-		// 	$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
-
-		// 	$bukti->move(public_path('Uploads/Adm_bukti/AKMLA'), $new_name);
-
-		// 	$total_jumlah = $request->jumlah2;
-
-		// }
-		// else
-		// {
-		// 	$rules = array(	
-		// 		'nama_tran' =>  'required',
-		// 		'tujuan_tran' => 'required',
-		// 		'catatan' =>  'required',
-		// 		'akun1' => 'required',
-		// 		'akun2' => 'required',
-		// 		'jumlah1' => 'required',
-		// 		'jumlah2' => 'required',
-		// 		'bukti' =>  'required|image|max:2048'
-		// 	);
-
-		// 	$error = Validator::make($request->all(), $rules);
-
-		// 	if($error->fails())
-		// 	{
-		// 		return response()->json(['errors' => $error->errors()->all()]);
-		// 	}
-		// }
+			// if($error->fails())
+			// {
+			// 	return response()->json(['errors' => $error->errors()->all()]);
+			// }
+		}
 
 		
-		// $form_data = array(
-		// 	'nama_tran' => $request->nama_tran22,
-		// 	'catatan' => $request->catatan22,
-		// 	'kode' => $kode22,
-		// 	'total_jumlah' => $total_jumlah,
-		// 	'tujuan_tran' => $request->tujuan_tran22,	
-		// 	'bukti' =>  $new_name
-		// );
-
-		// $form_data1 = array(
-		// 	'nama_akun' => $request->akun1,
-		// 	'posisi' => $request->posisi1,
-		// 	'jumlah' => $request->jumlah1
-		// );
-
-		// $form_data2 = array(
-		// 	'nama_akun' => $request->akun2,
-		// 	'posisi' => $request->posisi2,
-		// 	'jumlah' => $request->jumlah2
-		// );
+		$id = Adm_jurnal::create([
+			'id_kat_jurnal' =>'11',
+			'nama_tran' => $request->nama_tran22,
+			'bukti' =>  $image_name,
+			'catatan' => $request->catatan22,
+			'kode' => $request->kode22,
+			'total_jumlah' => "1",
+			'tujuan_tran' => $request->tujuan_tran22		
+		]);
 		
+		$akun = $request->get('akun22');
+		$posisi = $request->get('posisi22');
+		$jumlah = $request->get('jumlah22');
 
-		// Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data1);
-		// Adm_akun::where('id_adm_jurnal',$request->hidden_id)->update($form_data2);
-
-		// Adm_jurnal::whereId($request->hidden_id)->update($form_data);
+		for ($i = 0; $i < count($akun); $i++) {
+			Adm_akun::create([
+				'id_adm_jurnal' => $id->id,
+				'nama_akun' => $akun[$i],
+				'posisi' => $posisi[$i],
+				'jumlah' => $jumlah[$i]
+			]);
+			
+		}
 
 		return response()->json(['success' => 'Data berhasil di ubah.']);
 	}

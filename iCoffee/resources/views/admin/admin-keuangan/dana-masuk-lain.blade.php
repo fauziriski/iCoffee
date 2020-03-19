@@ -129,7 +129,7 @@
 													<div class="form-group">
 														<th width="25%" style="text-align: center;">Tujuan Tranksaksi  </th>	
 														<th colspan="4"><select class="js-example-placeholder-single js-states form-control" name="tujuan_tran" id="tujuan_tran" style="width: 100%">
-															<option>Pilih Tujuan : </option>
+															<option value="" selected>---- Pilih Tujuan -----</option>
 															@foreach($tran as $key)
 															<option value="{{$key->nama_tran}}">{{$key->nama_tran}}</option>
 															@endforeach
@@ -149,20 +149,20 @@
 													<div class="form-group">
 														<th rowspan="2"></th>
 														<th colspan="2">
-															<select class="form-control" name="akun1" id="akun1" style="width: 100%">
-																<option>Pilih Akun : </option>
+														<select class="form-control" name="akun1" id="akun1" style="width: 100%">
+																<option value="" selected>----- Pilih Akun -----</option>
 																@foreach($kategori as $kat)
 																<optgroup label="{{$kat->no_akun}}.&nbsp;&nbsp;{{$kat->nama_kat}}">{{$kat->nama_kat}}</optgroup>
 
 																@foreach($satu as $sub1)
 																@if($kat->id==$sub1->adm_kat_akun->id)
-																<option value="{{ $sub1->nama_sub }}">{{$sub1->id}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
+																<option value="{{ $sub1->nama_sub }}">{{$sub1->no_akun}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
 																@endif
 
 																@foreach($dua as $sub2)
 																@if($sub1->id==$sub2->adm_sub1_akun->id && $kat->id==$sub2->adm_kat_akun->id)
 																
-																<option value="{{ $sub2->nama_sub }}">{{$sub2->id}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
+																<option value="{{ $sub2->nama_sub }}">{{$sub2->no_akun}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
 																@endif
 
 																@endforeach
@@ -185,7 +185,7 @@
 													<div class="form-group">	
 														<th colspan="2">
 															<select class="form-control" name="akun2" id="akun2" style="width: 100%">
-																<option>Pilih Akun : </option>
+																<option value="" selected>----- Pilih Akun -----</option>
 																@foreach($kategori as $kat)
 																<optgroup label="{{$kat->no_akun}}.&nbsp;&nbsp;{{$kat->nama_kat}}">{{$kat->nama_kat}}</optgroup>
 
@@ -421,10 +421,12 @@
 						<span id="form_result22"></span>
 						<form method="post" id="sample_form22" class="form-horizontal" enctype="multipart/form-data">
 							@csrf
+							<input type="hidden" name="kode22" id="kode22" value="kode22" />
+							<input type="hidden" name="total_jumlah22" id="total_jumlah22" value="total_jumlah22" />
 							<div class="container">
 								<div class="col-md-12">
 									<div class="row">
-										<div class="table-responsive">	
+										<div class="table-responsive col-md-12 col-sm-12">
 											<table cellpadding="10" border="1">
 												<tr>
 													<div class="form-group">
@@ -436,7 +438,7 @@
 													<div class="form-group">
 														<th width="25%" style="text-align: center;">Tujuan Tranksaksi  </th>	
 														<th colspan="4"><select class="js-example-placeholder-single js-states form-control" name="tujuan_tran22" id="tujuan_tran22" style="width: 100%">
-															<option>Pilih Tujuan : </option>
+															<option value="" selected>----- Pilih Tujuan -----</option>
 															@foreach($tran as $key)
 															<option value="{{$key->nama_tran}}">{{$key->nama_tran}}</option>
 															@endforeach
@@ -457,24 +459,24 @@
 														<th></th>
 														<th colspan="2">
 															<select class="form-control" name="akun22[]" id="akun22{{$i}}" value="" style="width: 100%">
-																<option></option>
+															<option value="" selected>----- Pilih Akun -----</option>
 																@foreach($kategori as $kat)
 																<optgroup label="{{$kat->no_akun}}.&nbsp;&nbsp;{{$kat->nama_kat}}">{{$kat->nama_kat}}</optgroup>
 
 																@foreach($satu as $sub1)
 																@if($kat->id==$sub1->adm_kat_akun->id)
-																<option value="{{ $sub1->nama_sub }}">{{$sub1->id}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
+																<option value="{{ $sub1->nama_sub }}">{{$sub1->no_akun}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
 																@endif
 
 																@foreach($dua as $sub2)
 																@if($sub1->id==$sub2->adm_sub1_akun->id && $kat->id==$sub2->adm_kat_akun->id)
 																
-																<option value="{{ $sub2->nama_sub }}">{{$sub2->id}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
+																<option value="{{ $sub2->nama_sub }}">{{$sub2->no_akun}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
 																@endif
 
 																@endforeach
 																@endforeach
-																@endforeach							
+																@endforeach								
 															</select>
 														</th>
 														<th>
@@ -493,11 +495,17 @@
 													<div class="form-group">
 														<th width="25%" style="text-align: center;">Bukti  </th>	
 														<th colspan="4">
-															<div class="form-group">
-																<div class="custom-file">
-																	<input type="file" class="custom-file-input" name="bukti22" id="inputGroupFile02"/>
-																	<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+															
+															<div class="row">
+															<div class="col-md-2 col-sm-12">
+															<span id="store_image"></span>
+															</div>
+															<div class="col-md-8 mt-4 col-sm-12">
+															<div class="custom-file">
+																	<input type="file" class="custom-file-input" name="foto_baru22" id="inputGroupFile03"/>
+																	<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
 																</div>
+															</div>
 															</div>
 														</th>
 													</div>
@@ -511,15 +519,15 @@
 													</div>
 												</tr>
 											</table>
-											
-										</div>
 									</div>
 								</div>
 								<br />
 								<div align="right">
+									
 									<input type="hidden" name="action" id="action" value="" />
 									<input type="hidden" name="hidden_id22" id="hidden_id22" />
-									<input type="submit" name="action_button" id="action_button" class="btn btn-primary" value="Edit" />
+									<input type="submit" name="action_button" id="action_button" class="btn btn-primary" value="Simpan" />
+								</div>
 								</div>
 							</div>
 						</form>
@@ -619,6 +627,8 @@
 								$('#action').val("Tambah");
 								$('#formModal').modal('show');
 
+						
+
 							});
 
 
@@ -631,14 +641,19 @@
 									success:function(html){
 										$('#nama_tran22').val(html.data.nama_tran);
 										$('#tujuan_tran22').val(html.data.tujuan_tran);
-										$('#bukti22').val(html.data.bukti);
 										$('#catatan22').val(html.data.catatan);
 										$('#hidden_id22').val(html.data.id);
+										$('#bukti22').val(html.data.bukti);
+										$('#kode22').val(html.data.kode);
+										$('#total_jumlah22').val(html.data.total_jumlah);
 										$('.modal-title').text("Edit Pencatatan");
 										$('#action_button').val("Simpan");
-										$('#action').val("Edit");
+										$('#action').val("Simpan");
 										$('#ModalEdit').modal('show');
 										$('#form_result22').html(html);
+
+										$('#store_image').html("<img src={{ URL::to('/') }}/Uploads/Adm_bukti/AKMLA/" + html.data.bukti + " width='100px' height='100px'/>");
+    									$('#store_image').append("<input type='hidden' name='bukti22' value='"+html.data.bukti+"' />");
 
 										var data = html.akun;
 										var banyak = data.length;
@@ -700,7 +715,7 @@
 
 								$('#sample_form22').on('submit', function(event){
 								event.preventDefault();
-								if($('#action').val() == "Edit")
+								if($('#action').val() == "Simpan")
 								{
 									$.ajax({
 										url:"{{ route('adminkeuangan.update-dana-masuk-lain') }}",
@@ -724,7 +739,7 @@
 											}
 											if(data.success)
 											{
-												html = '<div class="alert alert-success">' + data.success + '</div>';
+												html = '<div class="alert alert-info">' + data.success + '</div>';
 												$('#sample_form22')[0].reset();
 												$('#id_tabel').DataTable().ajax.reload();
 											}
@@ -800,6 +815,20 @@
 					</script>
 				
 					<script>
+					
+						$('#inputGroupFile02').on('change',function(){
+							var fileName = $(this).val();
+							$(this).next('.custom-file-label').html(fileName);
+						});
+
+						$('#inputGroupFile03').on('change',function(){
+							var fileName = $(this).val();
+							$(this).next('.custom-file-label').html(fileName);
+						});
+
+					</script>
+
+					<script>
 
 						$(function(){
 							$("#image img").on("click",function(){
@@ -808,6 +837,6 @@
 							})
 						})
 
-
+					</srcipt>	
 						@stop
 
