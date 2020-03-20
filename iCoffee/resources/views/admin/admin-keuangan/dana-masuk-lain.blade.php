@@ -232,7 +232,7 @@
 													<div class="form-group">
 														<th style="text-align: center;">Catatan </th>
 														<th colspan="4">
-															<textarea rows="2" cols="90" name="catatan" id="catatan" class="form-control"></textarea>
+															<textarea name="catatan" class="form-control" id="ckeditor"></textarea>
 														</th>
 													</div>
 												</tr>
@@ -254,26 +254,6 @@
 				</div>
 			</div>
 		</div>
-
-
-		<div id="confirmModal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4>Konfirmasi</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<h5 align="center" style="margin:0;">Apakah anda yakin ingin menghapus?</h5>
-					</div>
-					<div class="modal-footer">
-						<button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<div id="modalLihat" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -514,7 +494,7 @@
 													<div class="form-group">
 														<th style="text-align: center;">Catatan </th>
 														<th colspan="4">
-															<textarea rows="2" cols="90" name="catatan22" id="catatan22" class="form-control"></textarea>
+															<textarea rows="2" cols="90" name="catatan22" id="ckeditor2" class="form-control"></textarea>
 														</th>
 													</div>
 												</tr>
@@ -539,8 +519,7 @@
 
 				@endsection
 				@section('js')
-
-
+		
 					<script>
 						$(document).ready(function(){
 
@@ -626,9 +605,6 @@
 								$('#action_button').val("Tambah");
 								$('#action').val("Tambah");
 								$('#formModal').modal('show');
-
-						
-
 							});
 
 
@@ -689,25 +665,29 @@
 										cache:false,
 										processData: false,
 										dataType:"json",
-										success:function(data)
-										{
-											var html = '';
-											if(data.errors)
-											{
-												html = '<div class="alert alert-danger">';
-												for(var count = 0; count < data.errors.length; count++)
+										success: function (data)
+										 {
+												var html = '';
+												if(data.errors)
 												{
-													html += '<p>' + data.errors[count] + '</p>';
+														html = '<div class="alert alert-danger">';
+													for(var count = 0; count < data.errors.length; count++)
+													{
+														html += '<p>' + data.errors[count] + '</p>';
+													}
+													html += '</div>';
 												}
-												html += '</div>';
-											}
-											if(data.success)
-											{
-												html = '<div class="alert alert-success">' + data.success + '</div>';
-												$('#sample_form')[0].reset();
-												$('#id_tabel').DataTable().ajax.reload();
-											}
-											$('#form_result').html(html);
+												if(data.success)
+												{
+													swal('Berhasil', 'Data berhasil ditambahkan', 'success');
+													$('#formModal').modal('hide');
+													$('#id_tabel').DataTable().ajax.reload();
+													$('#formModal').on('hidden.bs.modal', function(e) {
+													$(this).find('#sample_form')[0].reset();
+													CKupdate();
+													});	
+												}
+												$('#form_result').html(html);
 										}
 									})
 								}
@@ -739,36 +719,16 @@
 											}
 											if(data.success)
 											{
-												html = '<div class="alert alert-info">' + data.success + '</div>';
-												$('#sample_form22')[0].reset();
-												$('#id_tabel').DataTable().ajax.reload();
+												$('#formModal').modal('hide');
+										
+										$('#id_tabel').DataTable().ajax.reload();
+								
 											}
-											$('#form_result22').html(html);
+									
 										}
 									});
 								}
 							});
-
-
-							var id;
-							$(document).on('click', '.delete', function(){
-								id = $(this).attr('id');
-								$('#confirmModal').modal('show');
-							});
-
-							$('#ok_button').click(function(){
-								$.ajax({
-									url:"hapus-dana-masuk-lain/"+id,
-									success:function(data)
-									{
-										setTimeout(function(){
-											$('#confirmModal').modal('hide');
-											$('#id_tabel').DataTable().ajax.reload();
-										}, 500);
-									}
-								})
-							});
-
 
 
 							$(document).on('click', '.lihat', function(){
@@ -783,7 +743,10 @@
 										document.getElementById("nama_tran2").innerHTML = html.data.nama_tran;
 										document.getElementById("created_at2").innerHTML = html.data.created_at;
 										document.getElementById("tujuan_tran2").innerHTML = html.data.tujuan_tran;
-										document.getElementById("catatan2").innerHTML = html.data.catatan;
+										document.getElementById("ckeditor2").innerHTML = html.data.catatan;
+										
+										
+										
 
 										var img = "/Uploads/Adm_bukti/AKMLA/" + html.data.bukti  +"";
 										$('#bukti2').attr("src",img);
@@ -812,6 +775,29 @@
 
 						});
 
+					</script>
+
+					<script>
+						$(document).on('click', '.delete', function () {
+							var id = $(this).attr('id');
+							swal({
+								title: "Apakah anda yakin ingin menghapus ?",
+								type: "warning",
+								confirmButtonClass: "btn-danger",
+								confirmButtonText: "Ya",
+								showCancelButton: true
+							}, function () {
+								$.ajax({
+									type: "GET",
+									url:"hapus-dana-masuk-lain/"+id,
+									dataType: "json",
+									success: function (data) {
+										swal('Berhasil', 'Data berhasil dihapus', 'success');
+										$('#id_tabel').DataTable().ajax.reload();
+									}
+								});
+							});
+						});
 					</script>
 				
 					<script>
