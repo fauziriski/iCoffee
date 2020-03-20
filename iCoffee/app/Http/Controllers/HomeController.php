@@ -598,7 +598,7 @@ class HomeController extends Controller
             'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Top_up/{".$request->invoice."}");
+        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/{".$request->invoice."}");
         $response = mkdir($folderPath);
         
         $image = $request->foto_bukti;

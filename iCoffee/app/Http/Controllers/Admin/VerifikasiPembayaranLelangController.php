@@ -239,8 +239,7 @@ class  VerifikasiPembayaranLelangController extends Controller
 		$kode = "AKM-L".$jml_id;
 
 		$bukti = $request->foto_bukti2;
-		$timestamps = date('YmdHis');
-		$new_name = $kode.$timestamps. '.' . $bukti;
+		$new_name = $request->invoice2." ".$bukti;
 
 		$nama_akun = "Pembelian Produk Lelang";
 
@@ -473,9 +472,8 @@ class  VerifikasiPembayaranLelangController extends Controller
 		$kode = "AKM-L".$jml_id;
 
 		$bukti = $request->foto_bukti2;
-		$timestamps = date('YmdHis');
-		$new_name = $kode.$timestamps. '.' . $bukti;
-
+		$new_name = $request->invoice2." ".$bukti;
+		
 		$nama_akun = "Pengisian saldo top-up";
 
 		$id = Adm_jurnal::create([

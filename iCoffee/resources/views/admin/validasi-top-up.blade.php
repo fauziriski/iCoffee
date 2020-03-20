@@ -391,7 +391,7 @@
 								document.getElementById("nama_bank_pengirim").innerHTML = html.data.nama_bank_pengirim;
 								document.getElementById("top_up").innerHTML = "Rp. "+ribuan2;
 
-								var img = "/Uploads/Konfirmasi_Pembayaran/Top_up/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
+								var img = "/Uploads/Konfirmasi_Pembayaran/Lelang/{" + html.data.invoice + "}/" + html.data.foto_bukti +"";
 								$('#bukti2').attr("src",img);
 							}
 						})

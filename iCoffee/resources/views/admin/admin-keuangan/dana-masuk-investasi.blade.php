@@ -5,8 +5,15 @@
 @section('content')
 
 @section('css')
-
 <style>
+
+	@media (min-width: 360px) {
+		.modal-img {
+			width: 100%;
+			height: 100%;
+
+		}
+	}
 
 	@media (min-width: 480px) {
 		.modal-img {
@@ -42,9 +49,9 @@
 
 	@media (min-width: 1200px) {
 		.modal-img {
-			width: 300%;
+			width: 400%;
 			height: 200%;
-			margin-left: -100%;
+			margin-left: -150%;
 		}
 	}
 
@@ -112,108 +119,138 @@
 </div>
 
 <div id="modalLihat" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Detail Pencatatan</h5>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
-			<div class="modal-body">				
-				<div class="form-group">
-					<div class="form-group">
-						<div class="table-responsive">
-							<table cellpadding="10" border="0">
-								<tr>
-									<div class="form-group">
-										<th width="25%" style="text-align: center;">Kode  </th>	
-										<th colspan="4"><input type="text" name="kode2" id="kode2" class="form-control" /></th>
-									</div>
-								</tr>
-								<tr>
-									<div class="form-group">
-										<th width="25%" style="text-align: center;">Nama Tranksaksi  </th>	
-										<th colspan="4"><input type="text" name="nama_tran2" id="nama_tran2" class="form-control" /></th>
-									</div>
-								</tr>
-								<tr>
-									<div class="form-group">
-										<th width="25%" style="text-align: center;">Waktu Tranksaksi  </th>	
-										<th colspan="4"><input type="text" name="created_at2" id="created_at2" class="form-control" /></th>
-									</div>
-								</tr>
-								<tr>
-									<div class="form-group">
-										<th width="25%" style="text-align: center;">Tujuan Tranksaksi  </th>	
-										<th colspan="4"><input type="text" name="tujuan_tran2" id="tujuan_tran2" class="form-control" /></th>
-									</div>	
-								</tr>
-								<tr>
-									<div class="form-group">
-										<th width="25%" style="text-align: center;">Daftar Akun  </th>
-										<th width="35%" colspan="2">Akun :</th>
-										<th width="25%">Posisi :</th>
-										<th width="25%">Jumlah (IDR) :</th>
-									</div>
-								</tr>
-								
-								@for ($i = 0; $i < 1
-								; $i++)
-								<tr>
-									<div class="form-group">
-										<th></th>
-										<th colspan="2">
-											<input type="text" name="akun11" id="akun11{{$i}}" class="form-control" />
-										</th>
-										<th>
-											<input type="text" name="posisi11" id="posisi11{{$i}}" class="form-control" />
-										</th>
-										<th><input type="text" name="jumlah11" id="jumlah11{{$i}}" class="form-control" /></th>
-									</div>
-								</tr>
-								@endfor
-								
-								<tr>
-									<div class="form-group">
-										<th width="25%" style="text-align: center;">Bukti  </th>	
-										<th colspan="4">
-											<div id="image">
-												<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
-													<img src="" id="bukti2" width="100px" height="100px"/>
-												</a>
-
-												<div>   
-													<div>   
-														<div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
-															<div class="modal-dialog modal-sm">
-																<div class="modal-content">
-																	<img class="modal-img" />
-																</div>
-															</div>
-														</div>
-													</div>
-												</tr>
-												<tr>
-													<div class="form-group">
-														<th style="text-align: center;">Catatan </th>
-														<th colspan="4">
-															<textarea rows="2" cols="90" name="catatan2" id="catatan2" class="form-control"></textarea>
-														</th>
-													</div>
-												</tr>
-
-											</table>
-										</div>
-									</div>
-								</div>
-
-								<br />
-								<div align="right">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-								</div>
-							</div>
-						</div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail Pencatatan</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="table-responsive col-md-12 col-sm-12">
+                            <table cellpadding="10" border="0">
+                                <tr>
+                                    <div class="form-group">
+                                        <th width="35%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+                                        <th colspan="4">
+                                            <a id="kode2"></a>
+                                        </th>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div class="form-group">
+                                        <th width="35%" style="text-align: right;">Nama Tranksaksi&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+                                        <th colspan="4">
+                                            <a id="nama_tran2"></a>
+                                        </th>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div class="form-group">
+                                        <th style="text-align: right;">Catatan&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+                                        <th colspan="4">
+                                            <a id="catatan2"></a>
+                                        </th>
+                                    </th>
+                                </div>
+                            </tr>
+                        </table>
+                    </div>
 					</div>
-				</div>
+
+                    <div class="table-responsive col-md-12 col-sm-12 mt-3">
+                        <div class="row">
+                            <table cellpadding="10" border="0">
+                                <tr>
+                                    <div class="form-group">
+                                        <th width="35%" style="text-align: right;">Waktu Tranksaksi&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+                                        <th colspan="4">
+                                            <a id="created_at2"></a>
+                                        </th>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div class="form-group">
+                                        <th width="35%" style="text-align: right;">Tujuan Tranksaksi&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+                                        <th colspan="4">
+                                            <a id="tujuan_tran2"></a>
+                                        </th>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div class="form-group">
+                                        <th width="35%" style="text-align: right;">Foto Bukti&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+                                        <th colspan="4">
+                                            <div id="image">
+                                                <a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
+                                                    <img src="" id="bukti2" width="100px" height="100px"/>
+                                                </a>
+                                                <div>
+                                                    <div>
+                                                        <div
+                                                            class="modal fade "
+                                                            id="imagemodal"
+                                                            tabindex="-1"
+                                                            role="dialog"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-sm">
+                                                                <div class="modal-content">
+                                                                    <img class="modal-img"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+						<div class="table-responsive">
+						<div class="container">
+                        <div class="row">
+                            
+                            <div class="col-md-12 col-sm-12">
+                                <table cellpadding="10" border="1">
+                                    <tr style="background-color: #4e73df; color: white;">
+                                        <div class="form-group">
+                                            <th width="40%">Akun&nbsp;&nbsp;:</th>
+                                            <th width="15%">Posisi&nbsp;&nbsp;:</th>
+                                            <th width="20%">Jumlah&nbsp;&nbsp;:</th>
+                                        </div>
+                                    </tr>
+                                    @for ($i = 0; $i < 2; $i++)
+                                    <tr>
+                                        <div class="form-group">
+                                            <th>
+                                                <a id="akun11{{$i}}"></a>
+                                            </th>
+                                            <th>
+                                                <a id="posisi11{{$i}}"></a>
+                                            </th>
+                                            <th>
+                                                <a id="jumlah11{{$i}}"></a>
+                                            </th>
+                                        </div>
+                                    </tr>
+                                    @endfor
+                                </table>
+								</div>
+                            </div>
+                       
+						
+
+                        <div align="right" class="mt-5 mb-3">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                        </div>
+						</div>
+                    </div>
+					</div>
+                </div>
+            </div>
+        </div>
 				@endsection
 				@section('js')
 
@@ -224,8 +261,42 @@
 						$('#id_tabel').DataTable({
 							dom: 'Bfrtip',
 							buttons: [
-							'copy', 'csv', 'excel', 'pdf', 'print'
-							],
+							{
+								extend: 'pdf',
+								footer: true,
+								exportOptions: {
+										columns: [0,1,2,3,4]
+									}
+							},
+							{
+								extend: 'csv',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4]
+									}
+							},
+							{
+								extend: 'excel',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4]
+									}
+							},
+							{
+								extend: 'print',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4]
+									}
+							},
+							{
+								extend: 'copy',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4]
+									}
+							}           
+							],  
 
 							oLanguage: {
 								"sProcessing":   "Sedang memproses ...",
@@ -293,17 +364,13 @@
 								success:function(html){
 									$('#modalLihat').modal('show');
 									$('.modal-title').text("Detai Pencatatan");
-									$('#kode2').val(html.data.kode);
-									$('#nama_tran2').val(html.data.nama_tran);
-									$('#created_at2').val(html.data.created_at);
-									$('#tujuan_tran2').val(html.data.tujuan_tran);
-									$('#catatan2').val(html.data.catatan);
+									document.getElementById("kode2").innerHTML = html.data.kode;
+									document.getElementById("nama_tran2").innerHTML = html.data.nama_tran;
+									document.getElementById("created_at2").innerHTML = html.data.created_at;
+									document.getElementById("tujuan_tran2").innerHTML = html.data.tujuan_tran;
+									document.getElementById("catatan2").innerHTML = html.data.catatan;
 
-									var a = html.foto_bukti;
-									console.log(a);
-
-									var img = "/Uploads/Konfirmasi_Pembayaran/investasi/{" + html.invoice + "}/" + html.foto_bukti +"";
-
+									var img = "/Uploads/Investasi/Konfirmasi/" + html.data.bukti;
 									$('#bukti2').attr("src",img);
 
 									var data = html.akun;
@@ -314,9 +381,13 @@
 										var posisi_akun = data[i].posisi;
 										var jumlah = data[i].jumlah;
 
-										$('#akun11'+i).val(nama_akun);
-										$('#posisi11'+i).val(posisi_akun);
-										$('#jumlah11'+i).val(jumlah);
+										var	reverse = jumlah.toString().split('').reverse().join(''),
+										ribuan 	= reverse.match(/\d{1,3}/g);
+										ribuan	= ribuan.join('.').split('').reverse().join('');
+
+										document.getElementById("akun11"+i).innerHTML = nama_akun;
+										document.getElementById("posisi11"+i).innerHTML = posisi_akun;
+										document.getElementById("jumlah11"+i).innerHTML = "Rp. "+ribuan;
 
 									}
 
