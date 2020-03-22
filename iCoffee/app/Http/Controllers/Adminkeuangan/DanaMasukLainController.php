@@ -186,13 +186,20 @@ class DanaMasukLainController extends Controller
 			}
 		}
 		
+
+		$total = $request->get('jumlah22');
+		for ($i = 0; $i < count($total); $i++) {
+			$total_jumlah = $total[1];
+
+		}
+		
 		$id = Adm_jurnal::create([
 			'id_kat_jurnal' =>'11',
 			'nama_tran' => $request->nama_tran22,
 			'bukti' =>  $image_name,
 			'catatan' => $request->catatan22,
 			'kode' => $request->kode22,
-			'total_jumlah' => "1",
+			'total_jumlah' => $total_jumlah,
 			'tujuan_tran' => $request->tujuan_tran22		
 		]);
 		

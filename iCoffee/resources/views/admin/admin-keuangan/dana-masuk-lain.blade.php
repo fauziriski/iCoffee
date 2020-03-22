@@ -403,6 +403,8 @@
 							@csrf
 							<input type="hidden" name="kode22" id="kode22" value="kode22" />
 							<input type="hidden" name="total_jumlah22" id="total_jumlah22" value="total_jumlah22" />
+							<input type="hidden" name="waktu22" id="waktu22" value="waktu22" />
+							
 							<div class="container">
 								<div class="col-md-12">
 									<div class="row">
@@ -494,7 +496,7 @@
 													<div class="form-group">
 														<th style="text-align: center;">Catatan </th>
 														<th colspan="4">
-															<textarea rows="2" cols="90" name="catatan22" id="ckeditor2" class="form-control"></textarea>
+															<textarea rows="2" cols="90" name="catatan22" id="catatan22" value="" class="form-control" ></textarea>
 														</th>
 													</div>
 												</tr>
@@ -617,7 +619,6 @@
 									success:function(html){
 										$('#nama_tran22').val(html.data.nama_tran);
 										$('#tujuan_tran22').val(html.data.tujuan_tran);
-										$('#catatan22').val(html.data.catatan);
 										$('#hidden_id22').val(html.data.id);
 										$('#bukti22').val(html.data.bukti);
 										$('#kode22').val(html.data.kode);
@@ -627,10 +628,12 @@
 										$('#action').val("Simpan");
 										$('#ModalEdit').modal('show');
 										$('#form_result22').html(html);
+										$('#catatan22').val(html.data.catatan);
+										$('#waktu22').val(html.data.created_at);
 
 										$('#store_image').html("<img src={{ URL::to('/') }}/Uploads/Adm_bukti/AKMLA/" + html.data.bukti + " width='100px' height='100px'/>");
     									$('#store_image').append("<input type='hidden' name='bukti22' value='"+html.data.bukti+"' />");
-
+										
 										var data = html.akun;
 										var banyak = data.length;
 
@@ -677,17 +680,16 @@
 													}
 													html += '</div>';
 												}
+												$('#form_result').html(html);
 												if(data.success)
 												{
-													swal('Berhasil', 'Data berhasil ditambahkan', 'success');
 													$('#formModal').modal('hide');
-													$('#id_tabel').DataTable().ajax.reload();
+													location.reload();
+													swal('Berhasil', 'Data berhasil ditambahkan', 'success');
 													$('#formModal').on('hidden.bs.modal', function(e) {
 													$(this).find('#sample_form')[0].reset();
-													CKupdate();
 													});	
-												}
-												$('#form_result').html(html);
+												}			
 										}
 									})
 								}
@@ -705,26 +707,29 @@
 										cache:false,
 										processData: false,
 										dataType:"json",
-										success:function(data)
-										{
-											var html = '';
-											if(data.errors)
-											{
-												html = '<div class="alert alert-danger">';
-												for(var count = 0; count < data.errors.length; count++)
+										success: function (data)
+										 {
+												var html = '';
+												if(data.errors)
 												{
-													html += '<p>' + data.errors[count] + '</p>';
+														html = '<div class="alert alert-danger">';
+													for(var count = 0; count < data.errors.length; count++)
+													{
+														html += '<p>' + data.errors[count] + '</p>';
+													}
+													html += '</div>';
 												}
-												html += '</div>';
-											}
-											if(data.success)
-											{
-												$('#formModal').modal('hide');
-										
-										$('#id_tabel').DataTable().ajax.reload();
-								
-											}
-									
+												if(data.success)
+												{
+													$('#formModal').modal('hide');
+													location.reload();
+													$('#formModal').on('hidden.bs.modal', function(e) {
+													$(this).find('#sample_form')[0].reset();
+													
+													});	
+													swal('Berhasil', 'Data berhasil diubah', 'success');
+												}
+												$('#form_result22').html(html);
 										}
 									});
 								}
@@ -743,11 +748,8 @@
 										document.getElementById("nama_tran2").innerHTML = html.data.nama_tran;
 										document.getElementById("created_at2").innerHTML = html.data.created_at;
 										document.getElementById("tujuan_tran2").innerHTML = html.data.tujuan_tran;
-										document.getElementById("ckeditor2").innerHTML = html.data.catatan;
+										document.getElementById("catatan2").innerHTML = html.data.catatan;
 										
-										
-										
-
 										var img = "/Uploads/Adm_bukti/AKMLA/" + html.data.bukti  +"";
 										$('#bukti2').attr("src",img);
 

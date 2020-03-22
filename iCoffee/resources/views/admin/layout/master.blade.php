@@ -105,20 +105,9 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{asset('admin/assets/js/sb-admin-2.min.js') }}"></script>
-<script src="{{asset('admin/assets/js/medium-lightbox.js') }}"></script>
 
-<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('ckeditor');
-	CKEDITOR.replace('ckeditor2');
 
-    function CKupdate() {
-        for (instance in CKEDITOR.instances) {
-            CKEDITOR.instances[instance].updateElement();
-            CKEDITOR.instances[instance].setData('');
-        }
-    }
-</script>
+
 <!------ Include the above in your HEAD tag ---------->
 
 <script type="text/javascript" src="{{asset('DataTables/datatables.min.js') }}"></script>
