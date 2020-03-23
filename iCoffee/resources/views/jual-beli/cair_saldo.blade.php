@@ -56,7 +56,7 @@
 
 
             <div class="col-md-12 mt-3">
-              <button type="submit" class="btn btn-primary float-right py-3 px-4">Tarik</button>
+              <button type="submit" class="btn btn-primary float-right py-3 px-4">Tarik Saldo</button>
             </div>
 
 

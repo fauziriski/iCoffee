@@ -15,3 +15,4 @@ class Adm_jurnal extends Model
 	public $timestamps = true;
 
 }
+	

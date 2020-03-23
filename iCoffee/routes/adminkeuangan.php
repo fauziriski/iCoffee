@@ -74,7 +74,7 @@ Route::get('/hapus-dana-masuk-lelang/{id}', 'DanaMasukLelangController@hapus')->
 
 //setoran kelelang
 Route::get('/dana-masuk-lain', 'DanaMasukLainController@dataDanaMasuk')->name('dana-masuk-lain');
-Route::get('/lihat-dana-masuk-lain/{id}', 'DanaMasukLainController@lihatDanaMasuk')->name('lihat-dana-masuk-lain');
+Route::get('/lihat-dana-masuk-lain/{id}', 'DanaMasukLainController@detailDanaMasuk')->name('lihat-dana-masuk-lain');
 Route::get('/detail-dana-masuk-lain/{id}', 'DanaMasukLainController@detailDanaMasuk')->name('detail-dana-masuk-lain');
 Route::post('/tambah-dana-masuk-lain', 'DanaMasukLainController@tambah')->name('tambah-dana-masuk-lain');
 Route::get('/hapus-dana-masuk-lain/{id}', 'DanaMasukLainController@hapus')->name('hapus-dana-masuk-lain');

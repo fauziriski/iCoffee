@@ -68,16 +68,11 @@ class MitraController extends Controller
         return view('investasi.mitra.detail')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('qty',$qty)->with(compact('dana'))->with(compact('nama'));
     }
 
-    public function pengajuanDana()
-    {
-        return view('investasi.mitra.pengajuan');
-    }
 
-    public function pengajuanDanaPost(Request $request)
+    public function rekeningMitra()
     {
-        dd($request);
+        return view('investasi.mitra.rekening');
     }
-
     public function nyoba(Request $request)
     {
         dd($request->file('gambar'));
