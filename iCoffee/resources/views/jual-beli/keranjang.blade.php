@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 
-	<form action="/jual-beli/checkout-barang" method="POST" oninput="total.value=parseInt(harga.value)*parseInt(quantity.value)">
+	<form action="/jual-beli/checkout-barang" method="POST">
 		@csrf
     <section class="ftco-section ftco-cart">
 			<div class="container">
@@ -61,7 +61,7 @@
 												</button>
 											</span>
 								
-											<input type="text" id="qty{{ $data->id }}" name="quantity[]" class="qty form-control input-number" readonly required value="{{ $data->jumlah }}" min="1" max="100">
+											<input type="text" id="qty-{{ $data->id }}" name="quantity[]" class="qty form-control input-number" required value="{{ $data->jumlah }}" min="1" max="100">
 											<span class="input-group-btn ml-2">
 												<button type="button" class="quantity-right-plus btn" value="{{ $data->id }}" data-type="plus" data-field="">
 												<i class="ion-ios-add"></i>
@@ -152,7 +152,7 @@
 	var quantitiy=0;
 	   $('.quantity-right-plus').click(function(e){
 		var y = $(this).val();
-		var z = $('#qty'+y).val();
+		var z = $('#qty-'+y).val();
 		var x = $('#total'+y).val();
 		var w = $('#harga'+y).val();
 		var v = parseInt(w)+parseInt(u);
@@ -162,7 +162,7 @@
 			  url: "/jual-beli/update-keranjang/"+y+"/plus",
 			  data: "id=y&type=jumlah",
 			  success: function(data) {
-			    $('#qty'+y).replaceWith('<input type="text" id="qty'+ y +'" name="quantity[]" class="qty form-control input-number" required value="'+ data.jumlah +'" min="1" max="100">');
+			    $('#qty-'+y).replaceWith('<input type="text" id="qty-'+ y +'" name="quantity[]" class="qty form-control input-number" required value="'+ data.jumlah +'" min="1" max="100">');
 				$('#total'+y).replaceWith('<output name="total" id="total'+ y +'" for="harga jumlah">Rp '+ data.total.toLocaleString("id-ID") +'</output>');
 				$('#sub_total').replaceWith('<span id="sub_total">Rp '+ v.toLocaleString("id-ID") +' </span>');
 				u = v;
@@ -175,7 +175,7 @@
 		
 
 		var y = $(this).val();
-		var z = $('#qty'+y).val();
+		var z = $('#qty-'+y).val();
 		var w = $('#harga'+y).val();
 		var v = parseInt(u)-parseInt(w);
 		
@@ -186,7 +186,7 @@
 			  data: "id=y&type=jumlah",
 			  success: function(data, tombol) {
 	 
-				$('#qty'+y).replaceWith('<input type="text" id="qty'+ y +'" name="quantity" class="qty form-control input-number" required value="'+ data.jumlah +'" min="1" max="100">');
+				$('#qty-'+y).replaceWith('<input type="text" id="qty-'+ y +'" name="quantity" class="qty form-control input-number" required value="'+ data.jumlah +'" min="1" max="100">');
 				$('#total'+y).replaceWith('<output name="total" id="total'+ y +'" for="harga jumlah">Rp '+ data.total.toLocaleString("id-ID") +'</output>');
 				$('#sub_total').replaceWith('<span id="sub_total">Rp '+ v.toLocaleString("id-ID") +' </span>');
 				u = v;
@@ -208,6 +208,59 @@
 		}
 
 		});
+
+	$('.qty').change(function(e){
+
+		var y = $(this).val();
+		var id = this.id;
+		var split_id = id.split("-");
+		var id_produk = split_id[1];
+		
+
+		$.ajax({
+			  type: 'GET',
+			  url: "/jual-beli/update-cart/"+id_produk+"/"+y,
+			  success: function(data) {
+				  
+				if (data.status == 'lebih30') 
+				{
+					swal(
+						'Gagal',
+						'Jumlah Tidak Boleh Lebih Dari 30',
+						'error'
+						);
+					location.reload();
+				}
+				else if(data.status == 'kurang1')
+				{
+					swal(
+						'Gagal',
+						'Jumlah Tidak Boleh Kurang Dari 1',
+						'error'
+					);
+					location.reload();
+					
+				} 
+				else
+				{
+					swal(
+						'Berhasil',
+						'Produk Berhasil Diedit',
+						'success'
+					);
+					location.reload();
+				
+				}
+					
+				}
+
+
+				
+		  });
+		
+		
+		
+	  });
 
 
 	  

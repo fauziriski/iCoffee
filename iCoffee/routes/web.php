@@ -60,6 +60,7 @@ route::get('/jual-beli/keranjang/tambah-produk/{id}','KeranjangjbController@tamb
 Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
 Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
 Route::get('/jual-beli/update-keranjang/{id}/{plus}', 'KeranjangjbController@updatekeranjang');
+Route::get('/jual-beli/update-cart/{id}/{jumlah}', 'KeranjangjbController@updatecartberubah');
 Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
 Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
