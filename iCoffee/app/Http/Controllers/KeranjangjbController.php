@@ -92,7 +92,7 @@ class KeranjangjbController extends Controller
             'id_penjual' => $request->id_penjual
 
         ]);
-
+        Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
         return redirect('/jual-beli/keranjang');
     }
 
@@ -126,7 +126,7 @@ class KeranjangjbController extends Controller
 
         ]);
 
-     
+        Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
 
         return redirect('/jual-beli/keranjang');
     }
@@ -406,6 +406,36 @@ class KeranjangjbController extends Controller
         
 
         return response()->json(['jumlah' => $jumlah, 'total' => $total]);
+
+    }
+
+    public function updatecartberubah($id, $jumlah)
+    {
+        $cart = Jbcart::where('id', $id)->first();
+
+        if ($jumlah > 30) 
+        {
+            $jumlah_seluruh = $cart->jumlah;
+            $total = $cart->total;
+            return response()->json(['jumlah' => $jumlah_seluruh, 'total' => $total, 'status' => 'lebih30']);
+        }
+        elseif ($jumlah < 1) {
+            $jumlah_seluruh = $cart->jumlah;
+            $total = $cart->total;
+            return response()->json(['jumlah' => $jumlah_seluruh, 'total' => $total, 'status' => 'kurang1']);
+        }
+        else
+        {
+            $jumlah_seluruh = $jumlah;
+            $total = $jumlah_seluruh*$cart->harga;
+            $cart->update([
+                'jumlah' => $jumlah_seluruh,
+                'total' => $total
+            ]);
+
+        }
+
+        return response()->json(['jumlah' => $jumlah_seluruh, 'total' => $total, 'status' => 'berhasil']);
 
     }
 

@@ -100,7 +100,7 @@
                             <p>Invoice : <strong style="color:#ee4d2c">{{ $data->invoice }}</strong></p>
                         </div>
                         <div class="col">
-                            <p>Pembayaran : <strong style="color:#ee4d2c">Rp {{ number_format($data->jumlah,0,",",".") }}</strong></p>
+                            <p>Penarikan : <strong style="color:#ee4d2c">Rp {{ number_format($data->jumlah,0,",",".") }}</strong></p>
                         </div>
                         <div class="col">
                             <a href="" data-toggle="modal" data-target="#saldoModal" name="detailinvoicesaldo" value="{{ $data->invoice }}" target="_blank" data-whatever="@mdo"><span class="oi oi-eye align-middle"></span>&nbsp; Detail Pesanan </a>

@@ -304,7 +304,7 @@ class HomeController extends Controller
 
         ]);
         Alert::success('Berhasil');
-        return redirect($request->url);
+        return redirect('//profil/edit');
         
     }
 

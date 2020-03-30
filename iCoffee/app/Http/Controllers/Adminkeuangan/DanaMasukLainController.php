@@ -33,7 +33,7 @@ class DanaMasukLainController extends Controller
 				$button = 
 				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0 mb-1"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
 				'<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm py-0"mb-1><i class="fa fa-edit"></i> Ubah</button>'.'&nbsp;&nbsp;'.
-				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm py-0"><i class="fa fa-trash"></i> Hapus</button>';
+				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm py-0 delete"><i class="fa fa-trash"></i> Hapus</button>';
 				return $button;
 			})
 
@@ -152,16 +152,12 @@ class DanaMasukLainController extends Controller
 		$data = Adm_jurnal::findOrFail($id);
 		$data->delete();
 
-		return view('admin.super-admin.data-pelanggan');
+		return response()->json();
 
 	}
 
 	public function update(Request $request)
 	{
-
-		$id =  $request->hidden_id22;
-		$data = Adm_jurnal::findOrFail($id);
-		$data->delete();
 		
 		$image_name = $request->bukti22;
 		$foto_baru = $request->file('foto_baru22');
@@ -174,21 +170,28 @@ class DanaMasukLainController extends Controller
 		}
 		else
 		{
-			// $rules = array(	
-			// 	'nama_tran' =>  'required',
-			// 	'tujuan_tran' => 'required',
-			// 	'catatan' =>  'required',
+			$rules = array(	
+				'nama_tran22' =>  'required',
+				'catatan22' =>  'required',
+				'akun22.*' =>  'required_unless:type_of_content,is_information',
+				'jumlah22.*' =>  'required_unless:type_of_content,is_information'
 		
-			// );
+			);
 
-			// $error = Validator::make($request->all(), $rules);
+			$error = Validator::make($request->all(), $rules);
 
-			// if($error->fails())
-			// {
-			// 	return response()->json(['errors' => $error->errors()->all()]);
-			// }
+			if($error->fails())
+			{
+				return response()->json(['errors' => $error->errors()->all()]);
+			}
 		}
+		
 
+		$total = $request->get('jumlah22');
+		for ($i = 0; $i < count($total); $i++) {
+			$total_jumlah = $total[1];
+
+		}
 		
 		$id = Adm_jurnal::create([
 			'id_kat_jurnal' =>'11',
@@ -196,7 +199,7 @@ class DanaMasukLainController extends Controller
 			'bukti' =>  $image_name,
 			'catatan' => $request->catatan22,
 			'kode' => $request->kode22,
-			'total_jumlah' => "1",
+			'total_jumlah' => $total_jumlah,
 			'tujuan_tran' => $request->tujuan_tran22		
 		]);
 		
@@ -213,6 +216,10 @@ class DanaMasukLainController extends Controller
 			]);
 			
 		}
+
+		$id =  $request->hidden_id22;
+		$data = Adm_jurnal::findOrFail($id);
+		$data->delete();
 
 		return response()->json(['success' => 'Data berhasil di ubah.']);
 	}
