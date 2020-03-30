@@ -146,12 +146,14 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::post('/pasang-investasi','ProdukInvestasiController@store')->middleware('auth:mitra');
 	Route::get('/produk/{kode_produk}','MitraController@produkDetail')->middleware('auth:mitra');
 	Route::get('/pengajuan-dana', 'PengajuanDanaController@produkPengajuanDana')->middleware('auth:mitra');
-	Route::get('/rekening-mitra','MitraController@rekeningMitra');
+	Route::get('/rekening-mitra','MitraController@rekeningMitra')->name('investasi.mitra.rekening');
 	Route::get('/pengajuan-dana/{kode_produk}', 'PengajuanDanaController@pengajuanDana');
 	Route::post('/pengajuan-dana-1', 'PengajuanDanaController@pengajuanDana1');
 	Route::post('/pengajuan-dana-2', 'PengajuanDanaController@pengajuanDana2');
 	Route::post('/pengajuan-dana-3', 'PengajuanDanaController@pengajuanDana3');
 	Route::post('/pengajuan-dana-4', 'PengajuanDanaController@pengajuanDana4');
+	Route::post('/tambah-bank','MitraController@tambahBank');
+	Route::post('/tarik-saldo','MitraController@tarikSaldo');
 	Route::get('/logout','Mitra\LoginController@logout');
 });
 Route::get('/nyoba','MitraController@test');

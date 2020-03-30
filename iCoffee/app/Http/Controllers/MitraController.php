@@ -9,6 +9,11 @@ use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Str;
 use App\User;
+use App\Mitra;
+use App\Mitra_bank;
+use App\Mitra_withdraw;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class MitraController extends Controller
 {
@@ -71,8 +76,40 @@ class MitraController extends Controller
 
     public function rekeningMitra()
     {
-        return view('investasi.mitra.rekening');
+        $saldo = Mitra::where('id_mitra',Auth::user()->id_mitra)->first('saldo');
+        $rekening = Mitra_bank::where('id_mitra', Auth::user()->id_mitra)->get();
+        $withdraws = Mitra_withdraw::where('id_mitra', Auth::user()->id_mitra)->get();
+        for ($i=0; $i < count($withdraws); $i++) {
+            $bank_withdraws[$i] = Mitra_bank::where('id_mitra',Auth::user()->id_mitra)->where('id',$withdraws[$i]->id_bank)->get();
+        }
+        return view('investasi.mitra.rekening',compact('rekening','withdraws','bank_withdraws'))->with('saldo',$saldo->saldo);
+    
     }
+    public function tambahBank(Request $request)
+    {
+        Mitra_bank::create([
+            'id_mitra' => Auth::user()->id_mitra,
+            'bank_name' => $request->bank_name,
+            'name' => $request->name,
+            'norek' => $request->norek
+        ]);
+        Alert::toast('Tambah Rekening Bank Berhasil!', 'success');
+        return redirect('/mitra/rekening-mitra');
+    }
+
+    public function tarikSaldo(Request $request)
+    {
+        Mitra::where('id_mitra',Auth::user()->id_mitra)->decrement('saldo',$request->jumlah);
+        Mitra_withdraw::create([
+            'id_mitra' => Auth::user()->id_mitra,
+            'id_bank' => $request->id_bank,
+            'jumlah' => $request->jumlah,
+            'status' => 1
+        ]);
+        Alert::toast('Permintaan Tarik Saldo Berhasil!', 'success');
+        return redirect('/mitra/rekening-mitra');
+    }
+
     public function nyoba(Request $request)
     {
         dd($request->file('gambar'));

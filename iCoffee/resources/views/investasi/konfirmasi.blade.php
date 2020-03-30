@@ -28,7 +28,7 @@
                   <div class="form-group">
                     <label for="country">Riwayat Pembelian</label>
                     <div class="select-wrap">
-                      <select name="id_order" class="form-control">
+                      <select name="id_order" required class="form-control">
                         <option selected disabled="disabled" value="">Pilih Riwayat Pembelian</option>
                         @foreach ($order as $item)
                           <option value="{{$item->id}}">(#INV00{{$item->id}}) {{$produk[$loop->index][0]->nama_produk}}</option>
