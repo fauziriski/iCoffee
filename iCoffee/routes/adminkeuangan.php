@@ -19,7 +19,6 @@ Route::get('/format-akun', 'FormatAkunController@dataPelanggan')->name('format-a
 
 //admministrasi
 Route::get('/administrasi', 'AdministrasiController@dataAdministrasi')->name('administrasi');
-Route::get('/lihat-administrasi/{id}', 'AdministrasiController@lihatAdministrasi')->name('lihat-administrasi');
 Route::get('/detail-administrasi/{id}', 'AdministrasiController@detailAdministrasi')->name('detail-administrasi');
 Route::post('/tambah-administrasi', 'AdministrasiController@tambah')->name('tambah-administrasi');
 Route::get('/hapus-administrasi/{id}', 'AdministrasiController@hapus')->name('hapus-administrasi');
@@ -27,19 +26,11 @@ Route::post('/update-administrasi', 'AdministrasiController@update')->name('upda
 
 //setoran progress petani
 Route::get('/setor-petani', 'SetorPetaniController@dataSetorPetani')->name('setor-petani');
-Route::get('/lihat-petani/{id}', 'SetorPetaniController@lihatpetani')->name('lihat-petani');
-Route::get('/detail-petani/{id}', 'SetorPetaniController@detailpetani')->name('detail-petani');
+Route::get('/detail-petani/{id}', 'SetorPetaniController@detailPetani')->name('detail-petani');
 Route::post('/tambah-petani', 'SetorPetaniController@tambah')->name('tambah-petani');
 Route::get('/hapus-petani/{id}', 'SetorPetaniController@hapus')->name('hapus-petani');
 Route::post('/update-petani', 'SetorPetaniController@update')->name('update-petani');
 
-//pengeluaran bagi hasil
-Route::get('/keluar-bagi-hasil', 'KeluarBagiHasilController@dataBagiHasil')->name('keluar-bagi-hasil');
-Route::get('/lihat-keluar-bagi-hasil/{id}', 'KeluarBagiHasilController@lihat')->name('lihat-keluar-bagi-hasil');
-Route::get('/detail-keluar-bagi-hasil/{id}', 'KeluarBagiHasilController@detail')->name('detail-keluar-bagi-hasil');
-Route::post('/tambah-keluar-bagi-hasil', 'KeluarBagiHasilController@tambah')->name('tambah-keluar-bagi-hasil');
-Route::get('/hapus-keluar-bagi-hasil/{id}', 'KeluarBagiHasilController@hapus')->name('hapus-keluar-bagi-hasil');
-Route::post('/update-keluar-bagi-hasil', 'KeluarBagiHasilController@update')->name('update-keluar-bagi-hasil');
 
 //setoran kepenjual
 Route::get('/setor-penjual', 'SetorPenjualController@dataSetorpenjual')->name('setor-penjual');
@@ -72,7 +63,7 @@ Route::get('/dana-masuk-lelang', 'DanaMasukLelangController@danaMasuk')->name('d
 Route::get('/detail-dana-masuk-lelang/{id}', 'DanaMasukLelangController@detailDanaMasuk')->name('detail-dana-masuk-lelang');
 Route::get('/hapus-dana-masuk-lelang/{id}', 'DanaMasukLelangController@hapus')->name('hapus-dana-masuk-lelang');
 
-//setoran kelelang
+//dana masuk lain-lain
 Route::get('/dana-masuk-lain', 'DanaMasukLainController@dataDanaMasuk')->name('dana-masuk-lain');
 Route::get('/lihat-dana-masuk-lain/{id}', 'DanaMasukLainController@detailDanaMasuk')->name('lihat-dana-masuk-lain');
 Route::get('/detail-dana-masuk-lain/{id}', 'DanaMasukLainController@detailDanaMasuk')->name('detail-dana-masuk-lain');
@@ -80,7 +71,7 @@ Route::post('/tambah-dana-masuk-lain', 'DanaMasukLainController@tambah')->name('
 Route::get('/hapus-dana-masuk-lain/{id}', 'DanaMasukLainController@hapus')->name('hapus-dana-masuk-lain');
 Route::post('/update-dana-masuk-lain', 'DanaMasukLainController@update')->name('update-dana-masuk-lain');
 
-//penarikan ke pelanggan
+//dana keluar lain-lain
 Route::get('/pencairan-dana', 'PencairanDanaController@dataPencairan')->name('pencairan-dana');
 Route::get('/lihat-pencairan-dana/{id}', 'PencairanDanaController@lihatpencairan')->name('lihat-pencairan-dana');
 Route::get('/detail-pencairan-dana/{id}', 'PencairanDanaController@detailpencairan')->name('detail-pencairan-dana');
@@ -92,8 +83,17 @@ Route::get('/penarikan-dana', 'PencairanDanaController@dataPenarikan')->name('pe
 Route::get('/lihat-penarikan-dana/{id}', 'PencairanDanaController@lihatPenarikan')->name('lihat-penarikan-dana');
 Route::post('/tambah-penarikan-dana', 'PencairanDanaController@validasiPenarikan')->name('tambah-penarikan-dana');
 
+//pengeluaran bagi hasil
+Route::get('/keluar-bagi-hasil', 'KeluarBagiHasilController@dataBagiHasil')->name('keluar-bagi-hasil');
+Route::get('/detail-keluar-bagi-hasil/{id}', 'KeluarBagiHasilController@detailBagiHasil')->name('detail-keluar-bagi-hasil');
+Route::post('/tambah-keluar-bagi-hasil', 'KeluarBagiHasilController@tambah')->name('tambah-keluar-bagi-hasil');
+Route::get('/hapus-keluar-bagi-hasil/{id}', 'KeluarBagiHasilController@hapus')->name('hapus-keluar-bagi-hasil');
+Route::post('/update-keluar-bagi-hasil', 'KeluarBagiHasilController@update')->name('update-keluar-bagi-hasil');
+
 
 //laporan keuangan
 Route::get('/arus-kas', 'ArusKasController@lihat')->name('arus-kas');
+Route::post('/update-aruskas', 'ArusKasController@update')->name('update-aruskas');
+// Route::get('/laporan-arus-kas', 'ArusKasController@update')->name('laporan-arus-kas');
 
 // 

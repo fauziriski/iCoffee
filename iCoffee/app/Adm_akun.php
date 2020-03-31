@@ -8,9 +8,7 @@ class Adm_akun extends Model
 {
 	protected $table = 'adm_akun';
 
-	protected $fillable = ['id_adm_jurnal','nama_akun','posisi','kurs','jumlah'];
-
-	public $timestamps = true;
+	protected $fillable = ['id_adm_jurnal','nama_akun','posisi','kurs','jumlah','created_at','updated_at'];
 
 	public function akun()
 	{

@@ -165,13 +165,9 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Investasi :</h6>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/setor-petani')}}">Setoran Ke Petani</a>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/keluar-bagi-hasil')}}">Pencairan Dana</a>
-          <h6 class="collapse-header">Jual-Beli :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/setor-penjual')}}">Dana Penjual</a>
-          <h6 class="collapse-header">Lelang :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/setor-lelang')}}">Dana Lelang</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/keluar-bagi-hasil')}}">Bagi Hasil</a>
           <h6 class="collapse-header">Lainnya :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Dana Pelanggan</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Pencairan Dana</a>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Biaya Operasional</a>
         </div>
       </div>

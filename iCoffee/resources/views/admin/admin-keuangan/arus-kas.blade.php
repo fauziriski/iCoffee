@@ -5,12 +5,26 @@
 @section('content')
 
 <body id="page-top">
-	<!-- Begin Page Content -->
 	<div class="container-fluid">
-		<div class="card">
 
-			<div class="card-header float-center"><h5>Laporan Arus Kas</h5></div>
-			<div class="container">
+		<div class="card shadow mb-4">
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h5>Laporan Arus Kas</h5>
+				<div class="dropdown no-arrow">			
+					<button class="btn btn-success btn-sm" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fas fa-filter"></i> Pencarian Tanggal</button>		
+					<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"  style="width: 200%;">
+						<div class="container">
+							<p class="mt-2"><strong>Tanggal Awal</strong></p>
+							<input type="text" name="from_date" id="from_date" class="form-control" placeholder="MM/DD/YYYY" />
+							<p class="mt-2"><strong>Tanggal Ahkir</strong></p>
+							<input type="text" name="to_date" id="to_date" class="form-control" placeholder="MM/DD/YYYY" />
+							<input type="submit" name="filter" id="filter" class="btn btn-primary mt-3" value="Tampilkan" />
+						</div>
+					</div>
+				</div>
+			</div>
+
 				<div class="card-body mt-3">
 					<div class="table-responsive">
 						<table cellpadding="5" border="0" style="width: 100%;">
@@ -227,6 +241,43 @@
 	</div>
 
 	@endsection
+	@section('js')
 
+	<script>
+		$(document).ready(function(){  
+           $.datepicker.setDefaults({  
+                dateFormat: 'yy-mm-dd'   
+           });  
+           $(function(){  
+                $("#from_date").datepicker();  
+                $("#to_date").datepicker();  
+           }); 
 
+		$('#filter').click(function () {
+			var from_date = $('#from_date').val();
+			var to_date = $('#to_date').val();
+			if (from_date != '' && to_date != '') {
+				$.ajax({
+					url: "{{ route('adminkeuangan.update-aruskas') }}",
+					method: "POST",
+					data: {
+						from_date: from_date,
+						to_date: to_date,
+						"_token": "{{ csrf_token() }}"
+					},
+					success: function (data, html) {
+						if (data.error) {
+							swal('Tidak ada', 'Tanggal inputan tidak ada', 'error');
+						}
+					}
+				});
+			} else {
+				swal('Gagal', 'Silahkan pilih tanggal', 'error');
+			}
+		});
+	});  
+
+	</script>
+
+	@stop
 
