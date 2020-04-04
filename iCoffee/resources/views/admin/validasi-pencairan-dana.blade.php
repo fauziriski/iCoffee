@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin | Validasi Pencairan Dana')
+@section('title', 'Admin | Validasi Pencairan Dana Pelanggan')
 
 @section('content')
 
@@ -66,7 +66,7 @@
         <!-- Card Header - Dropdown -->
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h5>Validasi Pencairan Dana</h5>
+            <h5>Validasi Pencairan Dana Pelanggan</h5>
         </div>
         <!-- Card Body -->
         <div class="card-body">
@@ -143,7 +143,7 @@
 					<input type="hidden" name="hidden_id2" id="hidden_id2" />
 					<input type="hidden" name="action" id="action2" />
 					<div class="text2">
-						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin validasi?</h5>
+						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin diproses?</h5>
 						<div class="mt-5"></div>
 					</div>
 					<div align="right">
@@ -389,10 +389,10 @@
 				success:function(html){
 					$('#hidden_id2').val(html.data.id);
 					$('.modal-title2').text("Konfirmasi");
-					$('#action_button2').val("validasi");
+					$('#action_button2').val("diproses");
 					$('#status2').val("4");
-					$('.text2').text("Apakah anda yakin ingin divalidasi?")
-					$('#action2').val("Validasi");
+					$('.text2').text("Apakah anda yakin ingin diproses?")
+					$('#action2').val("diproses");
 					$('#modalVerifikasi').modal('show');
 				}
 			})
@@ -438,7 +438,7 @@
 			}
 
 
-			if($('#action2').val() == "Validasi")
+			if($('#action2').val() == "diproses")
 			{
 				$.ajax({
 					url:"{{ route('admin.validasi-pencairan.update') }}",

@@ -86,11 +86,9 @@ class AdministrasiController extends Controller
 
 		$bukti = $request->file('bukti');
 		$timestamps = date('YmdHis');
-		$id = "2";
-		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
-		$jml_id = count($id)+1;
-		$kode = "AKK-A".$jml_id;
-
+		$ido = Adm_jurnal::select('id')->latest()->first();
+		$jml_id = $ido->id+1;
+		$kode = "AKKA".$jml_id;
 		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 
 		$bukti->move(public_path('Uploads/Adm_bukti/AKKA'), $new_name);
