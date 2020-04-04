@@ -644,13 +644,14 @@ class KeranjangjbController extends Controller
     {
         $id_penjual = Auth::user()->id;
         $order = Order::where('invoice', $invoice)->where('id_penjual', $id_penjual)->first();
+        $cek_resi = Delivery::where('id_order', $order->id)->first();
         $orderdetails = Orderdetail::where('invoice', $invoice)->where('id_order', $order->id)->get();
         $alamat_penjual = Orderdetail::where('invoice', $invoice)->where('id_order', $order->id)->first();
         $kurir = explode(': ', $order->shipping);
         $jumlah_seluruh = $kurir[0]+$order->total_bayar;
         $bank_information = Account::where('bank_name', $order->payment)->first();
 
-        return view('jual-beli.invoice_penjual', compact('alamat_penjual', 'orderdetails', 'order','bank_information','jumlah_seluruh','kurir'));
+        return view('jual-beli.invoice_penjual', compact('alamat_penjual', 'orderdetails', 'order','bank_information','jumlah_seluruh','kurir','cek_resi'));
     }
 
     public function batalkanpesanan($invoice)

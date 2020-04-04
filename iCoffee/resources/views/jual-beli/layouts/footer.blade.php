@@ -11,7 +11,7 @@
       </div>
       <div class="row mb-5">
         <div class="col-md">
-          <div class="ftco-footer-widget mb-4 ml-4">
+          <div class="ftco-footer-widget mb-4">
             <h2 class="ftco-heading-2"><img src="{{asset('logo.png') }}" width="35%" height="8%"></h2>
             <h2>Hubungi</h2>
             <div class="block-23 mb-3">

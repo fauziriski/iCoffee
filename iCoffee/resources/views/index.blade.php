@@ -145,12 +145,12 @@
     		<div class="row">
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
+    					<a href="/jual-beli" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
     						<span class="status">30%</span>
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Kopi Aceh</a></h3>
+    						<h3><a href="/jual-beli">Kopi Aceh</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span class="mr-2 price-dc">Rp 100.000</span><span class="price-sale">Rp 80.000</span></p>
@@ -158,7 +158,7 @@
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="/jual-beli" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							</a>
@@ -169,11 +169,11 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
+    					<a href="/jual-beli" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Green Beans</a></h3>
+    						<h3><a href="/jual-beli">Green Beans</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span>Rp 90.000</span></p>
@@ -181,7 +181,7 @@
 	    					</div>
     						<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="/jual-beli" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							</a>
@@ -192,11 +192,11 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
+    					<a href="/jual-beli" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
 	    					<div class="overlay"></div>
 	    				</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Kopi Gayo</a></h3>
+    						<h3><a href="/jual-beli">Kopi Gayo</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span>Rp 85.000</span></p>
@@ -204,7 +204,7 @@
 	    					</div>
     						<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="/jual-beli" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							</a>
@@ -215,11 +215,11 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
+    					<a href="/jual-beli" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Biji Kopi Ulu Belu</a></h3>
+    						<h3><a href="/jual-beli">Biji Kopi Ulu Belu</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span>Rp 150.000</span></p>
@@ -227,7 +227,7 @@
 	    					</div>
     						<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="/jual-beli" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							</a>
@@ -239,12 +239,12 @@
 
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-5.jpg" alt="Colorlib Template">
+    					<a href="/jual-beli" class="img-prod"><img class="img-fluid" src="images/product-5.jpg" alt="Colorlib Template">
     						<span class="status">30%</span>
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Kopi Robusta</a></h3>
+    						<h3><a href="/jual-beli">Kopi Robusta</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span class="mr-2 price-dc">$Rp 90.000</span><span class="price-sale">Rp 75.000</span></p>
@@ -252,7 +252,7 @@
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="/jual-beli" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							</a>
@@ -263,11 +263,11 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-6.jpg" alt="Colorlib Template">
+    					<a href="/jual-beli" class="img-prod"><img class="img-fluid" src="images/product-6.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Arabica Lampung</a></h3>
+    						<h3><a href="/jual-beli">Arabica Lampung</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span>Rp 88.000</span></p>
@@ -275,7 +275,7 @@
 	    					</div>
     						<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="/jual-beli" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							</a>
@@ -286,11 +286,11 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-7.jpg" alt="Colorlib Template">
+    					<a href="/jual-beli" class="img-prod"><img class="img-fluid" src="images/product-7.jpg" alt="Colorlib Template">
 	    					<div class="overlay"></div>
 	    				</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Biji Kopi Liberica</a></h3>
+    						<h3><a href="/jual-beli">Biji Kopi Liberica</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span>Rp 120.000</span></p>
@@ -298,7 +298,7 @@
 	    					</div>
     						<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="/jual-beli" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							</a>
@@ -309,11 +309,11 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-8.jpg" alt="Colorlib Template">
+    					<a href="/jual-beli" class="img-prod"><img class="img-fluid" src="images/product-8.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Kopi Excelsa</a></h3>
+    						<h3><a href="/jual-beli">Kopi Excelsa</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span>Rp 99.000</span></p>
@@ -321,7 +321,7 @@
 	    					</div>
     						<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="/jual-beli" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							</a>
@@ -343,7 +343,7 @@
           			<span class="subheading">Harga Terbaik Untuk Anda</span>
             		<h2 class="mb-4">Lelang hari ini</h2>
             		<p>Biji Kopi langka yang dirawat seperti anak sendiri.</p>
-            		<h3><a href="#">Biji Kopi Papua</a></h3>
+            		<h3><a href="/lelang">Biji Kopi Papua</a></h3>
             		<p>Dimulai dari...</p>
             		<span class="price">Rp 500.000</span>
             		<div id="timer" class="d-flex mt-5">
