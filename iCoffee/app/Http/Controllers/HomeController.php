@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Intervention\Image\ImageManagerStatic as Images;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Joint_account;
@@ -380,8 +381,8 @@ class HomeController extends Controller
         // konfirmasi diproses 8
         // batalkan pesanan pembeli 9
         $id_pelanggan = Auth::user()->id;
-        $transaksipembeli = Order::where('id_pelanggan', $id_pelanggan)->orderBy('created_at','desc')->get();
-        $transaksipenjual = Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->orderBy('created_at','desc')->get();
+        $transaksipembeli = Order::where('id_pelanggan', $id_pelanggan)->orderBy('created_at','desc')->paginate(5);
+        $transaksipenjual = Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->orderBy('created_at','desc')->paginate(5);
 
         $jumlah_transaksi_penjual = count($transaksipenjual);
         $kurir_data = array();
@@ -423,12 +424,12 @@ class HomeController extends Controller
 
         }
 
-        $transaksi_top_up = Top_up::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->get();
+        $transaksi_top_up = Top_up::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->paginate(5);
         $count_transaksi_top_up = count($transaksi_top_up);
 
-        $transaksi_penarikan = Balance_withdrawal::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->get();
+        $transaksi_penarikan = Balance_withdrawal::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->paginate(5);
 
-        return view('jual-beli.transaksi', compact('invoice','tanggal','transaksi_penarikan', 'count_transaksi_top_up','transaksi_top_up', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
+        return view('jual-beli.transaksi', compact('invoice','transaksipembeli','tanggal','transaksi_penarikan', 'count_transaksi_top_up','transaksi_top_up', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
     }
 
     public function invoicetopup_detail($id)
