@@ -179,7 +179,9 @@ class VerifikasiPembiayaanController extends Controller
 		$kode = "AKM-I".$jml_id;
 
 		$nama_akun = "Pembelian produk investasi";
-
+		$data_produk = Invest_product::where('id',$id_produk)->first();
+		$stok = $data_produk->stok;
+		$kurang_stok = $stok - $qty;
 		$id = Adm_jurnal::create([
 			'id_kat_jurnal' => '3',
 			'kode' => $kode,
@@ -211,39 +213,15 @@ class VerifikasiPembiayaanController extends Controller
 		$form_data2 = array(
 			'status' => $request->status,
 		);
+
+		$form_data3 = array(
+			'stok' => $kurang_stok,
+		);
 		
-
-		$jumlah = Adm_akun::where('nama_akun',$nama_akun)->select('jumlah')->get();
-		$total = 0;
-		for($i=0;$i<count($jumlah);$i++){
-			$total += $jumlah[$i]->jumlah;
-		}
-
-		$data1 = Adm_arus_kas::where('nama_akun',$nama_akun)->select('nama_akun')->get();
-		$data = count($data1);
-
-		if($data == '0'){
-			$id = Adm_arus_kas::create([
-				'kode' => 'AKM-I',
-				'nama_akun' => $nama_akun,
-				'total' => $total
-			]);
-		}else{
-			$form = array(	
-				'kode' => 'AKM-I',
-				'nama_akun' => $nama_akun,
-				'total' => $total
-			);
-
-			$form_status = array(
-				'status' => '3',
-			);
-
-			Adm_arus_kas::where('nama_akun',$nama_akun)->update($form);
-		}
 
 		Invest_confirm::whereId($request->hidden_id2)->update($form_data);
 		Invest_order::where('id',$id_order)->update($form_data2);
+		Invest_product::where('id',$id_produk)->update($form_data3);
 		return response()->json(['success' => 'Berhasil Divalidasi']);
 	}
 

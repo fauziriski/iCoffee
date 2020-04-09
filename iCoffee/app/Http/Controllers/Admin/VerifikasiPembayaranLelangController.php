@@ -9,7 +9,6 @@ use App\Confirm_payment;
 use App\Adm_jurnal;
 use App\Adm_tranksaksi;
 use App\Adm_kat_akun;
-use App\Adm_arus_kas;
 use App\Adm_akun;
 use App\Adm_sub1_akun;
 use App\Adm_sub2_akun;
@@ -236,7 +235,7 @@ class  VerifikasiPembayaranLelangController extends Controller
 		$id = "7";
 		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 		$jml_id = count($id)+1;
-		$kode = "AKM-L".$jml_id;
+		$kode = "AKMLE".$jml_id;
 
 		$bukti = $request->foto_bukti2;
 		$new_name = $request->invoice2." ".$bukti;
@@ -271,31 +270,6 @@ class  VerifikasiPembayaranLelangController extends Controller
 		$form_data = array(
 			'status' => $request->status,
 		);
-
-
-		$jumlah = Adm_akun::where('nama_akun',$nama_akun)->select('jumlah')->get();
-		$total = 0;
-		for($i=0;$i<count($jumlah);$i++){
-			$total += $jumlah[$i]->jumlah;
-		}
-
-		$data1 = Adm_arus_kas::where('nama_akun',$nama_akun)->select('nama_akun')->get();
-		$data = count($data1);
-
-		if($data == '0'){
-			$id = Adm_arus_kas::create([
-				'kode' => 'AKM-L',
-				'nama_akun' => $nama_akun,
-				'total' => $total
-			]);
-		}else{
-			$form = array(	
-				'kode' => 'AKM-L',
-				'nama_akun' => $nama_akun,
-				'total' => $total
-			);
-			Adm_arus_kas::where('nama_akun',$nama_akun)->update($form);
-		}
 
 		$form_status = array(
 			'status' => '3',
@@ -469,7 +443,7 @@ class  VerifikasiPembayaranLelangController extends Controller
 		$id = "7";
 		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 		$jml_id = count($id)+1;
-		$kode = "AKM-L".$jml_id;
+		$kode = "AKMLE".$jml_id;
 
 		$bukti = $request->foto_bukti2;
 		$new_name = $request->invoice2." ".$bukti;
@@ -504,32 +478,10 @@ class  VerifikasiPembayaranLelangController extends Controller
 			'status' => $request->status,
 		);
 		
-
-		$jumlah = Adm_akun::where('nama_akun',$nama_akun)->select('jumlah')->get();
-		$total = 0;
-		for($i=0;$i<count($jumlah);$i++){
-			$total += $jumlah[$i]->jumlah;
-		}
-
-		$data1 = Adm_arus_kas::where('nama_akun',$nama_akun)->select('nama_akun')->get();
-		$data = count($data1);
-
-		if($data == '0'){
-			$id = Adm_arus_kas::create([
-				'kode' => 'AKM-L',
-				'nama_akun' => $nama_akun,
-				'total' => $total
-			]);
-		}else{
-			$form = array(	
-				'kode' => 'AKM-L',
-				'nama_akun' => $nama_akun,
-				'total' => $total
-			);
-
 			$form_status = array(
 				'status' => '3',
 			);
+
 
 			$ambil = Top_up::where('invoice',$request->invoice2)->first();
 			$user_id = $ambil->user_id;
@@ -547,8 +499,7 @@ class  VerifikasiPembayaranLelangController extends Controller
 
 			Joint_account::where('user_id',$user_id)->update($form_saldo);
 			Top_up::where('invoice',$request->invoice2)->update($form_status);
-			Adm_arus_kas::where('nama_akun',$nama_akun)->update($form);
-		}
+
 
 		Confirm_payment::whereId($request->hidden_id2)->update($form_data);
 		return response()->json(['success' => 'Berhasil Divalidasi']);

@@ -9,7 +9,6 @@ use App\Balance_withdrawal;
 use App\Adm_jurnal;
 use App\Adm_tranksaksi;
 use App\Adm_kat_akun;
-use App\Adm_arus_kas;
 use App\Adm_akun;
 use App\Adm_sub1_akun;
 use App\Adm_sub2_akun;
@@ -25,21 +24,27 @@ class  PencairanDanaController extends Controller
 		if(request()->ajax())
 		{	
 			
-			$id = '10';
-			$AKKSP = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+			$id = '8';
+			$AKKJULE = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 
-			return datatables()->of($AKKSP)
+			return datatables()->of($AKKJULE)
 			->addColumn('action', function($data){
 				$button = 
-				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i></button>'.'&nbsp&nbsp'.
-				'<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>'.'&nbsp;&nbsp;'.
-				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0 mb-1"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
+				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm py-0"><i class="fa fa-trash"></i> Hapus</button>';
 				return $button;
 			})
 
 			->addColumn('created_at', function($data){
-				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
-				return $waktu;       
+				$waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i'); 
+				return $waktu;
+			})
+
+			
+			->addColumn('total_jumlah', function($data){
+				$rp = "Rp. ";
+				$total_jumlah = $rp. number_format($data->total_jumlah); 
+				return $total_jumlah;
 			})
 			
 			->rawColumns(['action','created_at'])
@@ -58,37 +63,7 @@ class  PencairanDanaController extends Controller
 		return view('admin.admin-keuangan.pencairan-dana-pelanggan',compact('tran','kategori','satu','dua'));
 	}
 
-	public function lihatPencairan($id)
-	{
-		if(request()->ajax())
-		{
-			$data = Balance_withdrawal::findOrFail($id);
-			$user_id = $data->user_id;
 
-			$ambil = Joint_account::where('user_id',$user_id)->first();
-			$saldo_pengguna = $ambil->saldo;
-
-			return response()->json([
-				'data' => $data,
-				'saldo_pengguna' => $saldo_pengguna
-
-			]);
-
-		}
-	}
-
-	public function tolakPencairan(Request $request)
-	{
-
-		$form_data = array(
-			'status' => $request->status,
-		);
-
-		Balance_withdrawal::whereId($request->hidden_id2)->update($form_data);
-		return response()->json(['success' => 'Berhasil Ditolak']);
-	}
-
-	
 	public function dataPenarikan()
 	{
 		$status = '4';
@@ -97,8 +72,14 @@ class  PencairanDanaController extends Controller
 		return datatables()->of($penarikan)
 		->addColumn('action', function($data){
 			$button = 
-			'<button type="button" name="tambah" id="'.$data->id.'" class="tambah btn btn-success btn-sm"><i class="fa fa-check"></i> Validasi</button>';
+			'<button type="button" name="lihatPenarikan" id="'.$data->id.'" class="lihatPenarikan btn btn-success btn-sm py-0"><i class="fa fa-check"></i> Validasi</button>';
 			return $button;
+		})
+
+		->addColumn('jumlah', function($data){
+			$rp = "Rp. ";
+			$jumlah = $rp. number_format($data->jumlah); 
+			return $jumlah;
 		})
 
 		->rawColumns(['action'])
@@ -122,7 +103,7 @@ class  PencairanDanaController extends Controller
 			$nama_akun_debit = "Bank ".$data->bank."/".$data->pemilik_rekening."-".$data->no_rekening;
 			$jumlah_debit = $data->jumlah;
 			$debit = "Debit";
-
+			
 			return response()->json([
 				'data' => $data,
 				'nama_tran' => $nama_tran,
@@ -136,21 +117,11 @@ class  PencairanDanaController extends Controller
 
 		}
 	}
-	
-	public function hapusPencairan($id)
-	{
 
-		$data = Adm_jurnal::findOrFail($id);
-		$data->delete();
-
-		return view('admin.admin-keuangan.pencairan-dana-pelanggan');
-
-	}
-	
 
 	public function validasiPenarikan(Request $request)
 	{	
-
+	
 		$rules = array(	
 			'nama_akun2' => 'required',
 			'jumlah2' => 'required',
@@ -166,14 +137,14 @@ class  PencairanDanaController extends Controller
 
 		$bukti = $request->file('bukti');
 		$timestamps = date('YmdHis');
-		$id = "10";
+		$id = "8";
 		$ido = Adm_jurnal::select('id')->latest()->first();
 		$jml_id = $ido->id+1;
-		$kode = "AKKLA".$jml_id;
+		$kode = "AKKJULE".$jml_id;
 
 		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 
-		$bukti->move(public_path('Uploads/Adm_bukti/AKKPS'), $new_name);
+		$bukti->move(public_path('Uploads/Adm_bukti/AKKJULE'), $new_name);
 
 		$total_jumlah = $request->jumlah2;
 
@@ -188,8 +159,12 @@ class  PencairanDanaController extends Controller
 		$jumlah1 = $data->jumlah;
 		$posisi1 = "Debit";
 
+		$data_saldo = Joint_account::where('user_id',$user_id)->first();
+		$saldo_awal = $data_saldo->saldo;
+		$sisa_saldo = $saldo_awal - $jumlah1;
+
 		$id = Adm_jurnal::create([
-			'id_kat_jurnal' =>'10',
+			'id_kat_jurnal' =>'8',
 			'nama_tran' => $nama_tran,
 			'bukti' =>  $new_name,
 			'catatan' => $catatan,
@@ -213,39 +188,108 @@ class  PencairanDanaController extends Controller
 		]);
 		
 
-		$nama_akun = $nama_akun1;
-		
-		$jumlah = Adm_akun::where('nama_akun',$nama_akun)->select('jumlah')->get();
-		$total = 0;
-		for($i=0;$i<count($jumlah);$i++){
-			$total += $jumlah[$i]->jumlah;
-		}
-
-		$data1 = Adm_arus_kas::where('nama_akun',$nama_akun)->select('nama_akun')->get();
-		$data = count($data1);
-
-		if($data == '0'){
-			$id = Adm_arus_kas::create([
-				'kode' => 'AKK-PS',
-				'nama_akun' => $nama_akun,
-				'total' => $total
-			]);
-		}else{
-			$form = array(	
-				'kode' => 'AKK-PS',
-				'nama_akun' => $nama_akun,
-				'total' => $total
-			);
-			Adm_arus_kas::where('nama_akun',$nama_akun)->update($form);
-		}
-
 		$form_data = array(
 			'status' => '3',
 		);
 
+		$form_data2 = array(
+			'saldo' => $sisa_saldo,
+		);
+
 		Balance_withdrawal::whereId($request->hidden_id)->update($form_data);
+		Joint_account::where('user_id',$user_id)->update($form_data2);
 
 		return response()->json(['success' => 'Data berhasil ditambah.']);
+	}
+
+	public function tambah(Request $request)
+	{	
+
+		$rules = array(	
+			'nama_tran' =>  'required',
+			'tujuan_tran' => 'required',
+			'catatan' =>  'required',
+			'akun1' => 'required',
+			'akun2' => 'required',
+			'jumlah1' => 'required',
+			'jumlah2' => 'required',
+			'bukti' =>  'required|image|max:2048'
+		);
+
+		$error = Validator::make($request->all(), $rules);
+
+		if($error->fails())
+		{
+			return response()->json(['errors' => $error->errors()->all()]);
+		}
+
+		$bukti = $request->file('bukti');
+		$timestamps = date('YmdHis');
+		$id = "8";
+		$ido = Adm_jurnal::select('id')->latest()->first();
+		$jml_id = $ido->id+1;
+		$kode = "AKKJULE".$jml_id;
+
+		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
+
+		$bukti->move(public_path('Uploads/Adm_bukti/AKKJULE'), $new_name);
+
+		$total_jumlah = $request->jumlah2;
+
+		$id = Adm_jurnal::create([
+			'id_kat_jurnal' =>'8',
+			'nama_tran' => $request->nama_tran,
+			'bukti' =>  $new_name,
+			'catatan' => $request->catatan,
+			'kode' => $kode,
+			'total_jumlah' => $total_jumlah,
+			'tujuan_tran' => $request->tujuan_tran,
+			'created_at' => Carbon::now(),
+			'updated_at' => Carbon::now()
+
+				
+		]);
+
+		Adm_akun::create([
+			'id_adm_jurnal' => $id->id,
+			'nama_akun' => $request->akun1,
+			'posisi' => $request->posisi1,
+			'jumlah' => $request->jumlah1,
+		]);
+
+		Adm_akun::create([
+			'id_adm_jurnal' => $id->id,
+			'nama_akun' => $request->akun2,
+			'posisi' => $request->posisi2,
+			'jumlah' => $request->jumlah2
+		]);
+	
+		return response()->json(['success' => 'Data berhasil ditambah.']);
+	}
+
+	public function hapus($id)
+	{
+
+		$data = Adm_jurnal::findOrFail($id);
+		$data->delete();
+
+		return response()->json();
+
+	}
+
+
+	public function detailpencairan($id)
+	{
+		if(request()->ajax())
+		{	
+			$akun = Adm_akun::where('id_adm_jurnal',$id)->get();
+
+			$data = Adm_jurnal::findOrFail($id);
+			return response()->json([
+				'data' => $data,
+				'akun' => $akun
+			]);
+		}
 	}
 
 

@@ -31,15 +31,6 @@ Route::post('/tambah-petani', 'SetorPetaniController@tambah')->name('tambah-peta
 Route::get('/hapus-petani/{id}', 'SetorPetaniController@hapus')->name('hapus-petani');
 Route::post('/update-petani', 'SetorPetaniController@update')->name('update-petani');
 
-
-//setoran kepenjual
-Route::get('/setor-penjual', 'SetorPenjualController@dataSetorpenjual')->name('setor-penjual');
-Route::get('/lihat-penjual/{id}', 'SetorPenjualController@lihatpenjual')->name('lihat-penjual');
-Route::get('/detail-penjual/{id}', 'SetorPenjualController@detailpenjual')->name('detail-penjual');
-Route::post('/tambah-penjual', 'SetorPenjualController@tambah')->name('tambah-penjual');
-Route::get('/hapus-penjual/{id}', 'SetorPenjualController@hapus')->name('hapus-penjual');
-Route::post('/update-penjual', 'SetorPenjualController@update')->name('update-penjual');
-
 //setoran kelelang
 Route::get('/setor-lelang', 'SetorPelelangController@dataSetorpelelang')->name('setor-lelang');
 Route::get('/lihat-pelelang/{id}', 'SetorPelelangController@lihatpelelang')->name('lihat-pelelang');
@@ -71,13 +62,12 @@ Route::post('/tambah-dana-masuk-lain', 'DanaMasukLainController@tambah')->name('
 Route::get('/hapus-dana-masuk-lain/{id}', 'DanaMasukLainController@hapus')->name('hapus-dana-masuk-lain');
 Route::post('/update-dana-masuk-lain', 'DanaMasukLainController@update')->name('update-dana-masuk-lain');
 
-//dana keluar lain-lain
+//dana keluar jualbelii/lelang
 Route::get('/pencairan-dana', 'PencairanDanaController@dataPencairan')->name('pencairan-dana');
-Route::get('/lihat-pencairan-dana/{id}', 'PencairanDanaController@lihatpencairan')->name('lihat-pencairan-dana');
 Route::get('/detail-pencairan-dana/{id}', 'PencairanDanaController@detailpencairan')->name('detail-pencairan-dana');
 Route::post('/tambah-pencairan-dana', 'PencairanDanaController@tambah')->name('tambah-pencairan-dana');
-Route::get('/hapus-pencairan-dana/{id}', 'PencairanDanaController@hapusPencairan')->name('hapus-pencairan-dana');
-Route::post('/update-pencairan-dana', 'PencairanDanaController@update')->name('update-pencairan-dana');
+Route::get('/hapus-pencairan-dana/{id}', 'PencairanDanaController@hapus')->name('hapus-pencairan-dana');
+
 
 Route::get('/penarikan-dana', 'PencairanDanaController@dataPenarikan')->name('penarikan-dana');
 Route::get('/lihat-penarikan-dana/{id}', 'PencairanDanaController@lihatPenarikan')->name('lihat-penarikan-dana');

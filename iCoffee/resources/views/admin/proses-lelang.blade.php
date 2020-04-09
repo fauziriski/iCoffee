@@ -317,6 +317,9 @@
 							url:"lihat-pemenang/"+id,
 							dataType:"json",
 							success:function(html){
+								if (html.kosong){
+									swal('Tidak ada', 'Pemenang belum order', 'error');
+								}
 								var kg = html.produk.stok+" kg";
 								var rp = html.produk.harga_awal;
 								var tawaran = html.data_pemenang.jumlah_penawaran;
@@ -346,8 +349,8 @@
 									var img = "/Uploads/Lelang/{" + kode_produk  + "}/" + nama_gambar +"";
 									$("#foto"+i).attr("src",img);
 
+								
 								}
-
 							}
 						})
 					});

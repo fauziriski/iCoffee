@@ -66,7 +66,7 @@
         <!-- Card Header - Dropdown -->
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h5>Validasi Pencairan Saldo Pelanggan</h5>
+            <h5>Validasi Pencairan Progres Petani</h5>
         </div>
         <!-- Card Body -->
         <div class="card-body">
@@ -306,7 +306,7 @@
 			processing: true,
 			serverSide: true,
 
-			ajax: '{{ route('admin.validasi-pencairan') }}',
+			ajax: '{{ route('admin.validasi-pencairan-petani') }}',
 
 			columns:[
 
@@ -328,7 +328,7 @@
 		$(document).on('click', '.lihat', function(){
 			var id = $(this).attr('id');
 			$.ajax({
-				url:"lihat-validasi-pencairan/"+id,
+				url:"lihat-validasi-pencairan-petani/"+id,
 				dataType:"json",
 				success:function(html){
 
@@ -365,7 +365,7 @@
 			var id = $(this).attr('id');
 			$('#form_konfirmasi').html('');
 			$.ajax({
-				url:"lihat-validasi-pencairan/"+id,
+				url:"lihat-validasi-pencairan-petani/"+id,
 				dataType:"json",
 				success:function(html){
 					$('#hidden_id2').val(html.data.id);
@@ -384,7 +384,7 @@
 			var id = $(this).attr('id');
 			$('#form_konfirmasi').html('');
 			$.ajax({
-				url:"lihat-validasi-pencairan/"+id,
+				url:"lihat-validasi-pencairan-petani/"+id,
 				dataType:"json",
 				success:function(html){
 					$('#hidden_id2').val(html.data.id);
@@ -402,7 +402,7 @@
 			var id = $(this).attr('id');
 			$('#form_pesan').html('');
 			$.ajax({
-				url:"lihat-validasi-pencairan/"+id,
+				url:"lihat-validasi-pencairan-petani/"+id,
 				dataType:"json",
 				success:function(html){
 					$('#hidden_id3').val(html.data.id);
@@ -419,7 +419,7 @@
 			if($('#action2').val() == 'Tolak')
 			{
 				$.ajax({
-					url:"{{ route('admin.tolak-pencairan.update') }}",
+					url:"{{ route('admin.tolak-pencairan-petani.update') }}",
 					method:"POST",
 					data: new FormData(this),
 					contentType: false,
@@ -441,7 +441,7 @@
 			if($('#action2').val() == "diproses")
 			{
 				$.ajax({
-					url:"{{ route('admin.validasi-pencairan.update') }}",
+					url:"{{ route('admin.validasi-pencairan-petani.update') }}",
 					method:"POST",
 					data: new FormData(this),
 					contentType: false,
