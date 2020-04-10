@@ -59,7 +59,7 @@ class VerifikasiPembiayaanController extends Controller
 			})
 
 			->addColumn('created_at', function($data){
-				$created_at =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				$created_at =  Carbon::parse($data->created_at)->format('l, d F Y H:i');  
 				return $created_at;
 			})
 

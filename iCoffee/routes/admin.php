@@ -106,6 +106,12 @@ Route::get('/lihat-validasi-pencairan-petani/{id}', 'VerifikasiProgresController
 Route::post('/tolak-pencairan-petani/update', 'VerifikasiProgresController@tolakPencairanPetani')->name('tolak-pencairan-petani.update');
 Route::post('/validasi-pencairan-petani/update', 'VerifikasiProgresController@validasiPencairanPetani')->name('validasi-pencairan-petani.update');
 
+//pencairan dana bagi-hasil
+Route::get('/validasi-bagi-hasil', 'VerifikasiBagiHasilController@dataBagiHasil')->name('validasi-bagi-hasil');
+Route::get('/lihat-validasi-bagi-hasil/{id}', 'VerifikasiBagiHasilController@lihatBagiHasil')->name('lihat-validasi-bagi-hasil');
+Route::post('/tolak-bagi-hasil/update', 'VerifikasiBagiHasilController@tolakBagiHasil')->name('tolak-bagi-hasil.update');
+Route::post('/validasi-bagi-hasil/update', 'VerifikasiBagiHasilController@validasiBagiHasil')->name('validasi-bagi-hasil.update');
+
 
 
 

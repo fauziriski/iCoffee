@@ -66,7 +66,7 @@
         <!-- Card Header - Dropdown -->
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h5>Validasi Pencairan Progres Petani</h5>
+            <h5>Validasi Pencairan Bagi Hasil</h5>
         </div>
         <!-- Card Body -->
         <div class="card-body">
@@ -75,14 +75,14 @@
 			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
 				<thead>
 					<tr>
-						<th>Kode</th>
-						<th>Nama Produk</th>
-						<th>Jumlah/Qty</th>
-						<th>Total Harga</th>
-						<th>Progres</th>
+						<th>Invoice</th>
+						<th>Nama Rekening</th>
+						<th>No Rek</th>
+						<th>Nama Bank</th>
+						<th>Jumlah Pencairan</th>
 						<th>Terdaftar</th>
-						<th>Status</th>		
-						<th></th>	
+						<th>Status</th>
+						<th></th>					
 					</tr>
 				</thead>
 			</table>
@@ -182,41 +182,46 @@
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="kode_produk"></a></th>
+										<th width="35%" style="text-align: right;">Invoice&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="invoice"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Progres&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="progres"></a></th>
+										<th width="35%" style="text-align: right;">Nama Penarik&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="pemilik_rekening"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Nama Produk&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="nama_produk"></a></th>
+										<th width="35%" style="text-align: right;">Email Pengguna&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="email"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Jumlah/Qty&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Nama Bank&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="bank"></a></th>
+									</div>
+								</tr>
+								<tr>
+									<div class="form-group">
+										<th width="35%" style="text-align: right;">No Rekening&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="no_rekening"></a></th>
+									</div>
+								</tr>
+								<tr>
+									<div class="form-group">
+										<th width="35%" style="text-align: right;">Penarikan&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="jumlah"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Harga/Qty&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="harga"></a></th>
+										<th width="35%" style="text-align: right;">Saldo Tercatat&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="saldo_pengguna"></a></th>
 									</div>
 								</tr>
-								<tr>
-									<div class="form-group">
-										<th width="35%" style="text-align: right;">Total&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="total"></a></th>
-									</div>
-								</tr>
-								
 							</table>
 						</div>
 
@@ -245,28 +250,28 @@
 								extend: 'pdf',
 								footer: true,
 								exportOptions: {
-										columns: [0,1,2,3,4,5,6,7]
+										columns: [0,1,2,3,4,5,6]
 									}
 							},
 							{
 								extend: 'csv',
 								footer: false,
 								exportOptions: {
-										columns: [0,1,2,3,4,5,6,7]
+										columns: [0,1,2,3,4,5,6]
 									}
 							},
 							{
 								extend: 'excel',
 								footer: false,
 								exportOptions: {
-										columns: [0,1,2,3,4,5,6,7]
+										columns: [0,1,2,3,4,5,6]
 									}
 							},
 							{
 								extend: 'print',
 								footer: false,
 								exportOptions: {
-										columns: [0,1,2,3,4,5,6,7]
+										columns: [0,1,2,3,4,5,6]
 									}
 							},
 							{
@@ -301,54 +306,55 @@
 			processing: true,
 			serverSide: true,
 
-			ajax: '{{ route('admin.validasi-pencairan-petani') }}',
+			ajax: '{{ route('admin.validasi-bagi-hasil') }}',
 
 			columns:[
 
-			{data: 'kode_produk', name:'kode_produk'},
-			{data: 'produk', name:'produk'},	
+			{data: 'invoice', name:'invoice'},
+			{data: 'pemilik_rekening', name:'pemilik_rekening'},	
 			{data: 'jumlah', name:'jumlah'},
-			{data: 'total', name:'total'},
-			{data: 'progress', name:'progress'},
+			{data: 'bank', name:'bank'},
+			{data: 'no_rekening', name:'no_rekening'},
 			{data: 'created_at', name:'created_at'},
 			{data: 'status', name:'status'},
-			{data: 'action', name: 'action',orderable: false}
-							
+			{data: 'action', name: 'action',orderable: false},
+			{data: 'email', name:'email', visible: false}
+
+
+
 			]
 		});
 
 		$(document).on('click', '.lihat', function(){
 			var id = $(this).attr('id');
 			$.ajax({
-				url:"lihat-validasi-pencairan-petani/"+id,
+				url:"lihat-validasi-bagi-hasil/"+id,
 				dataType:"json",
 				success:function(html){
 
-					var rp = html.data.harga;
-					var rp2 = html.data.total;
-					var progress = "progres ke-"+html.data.progress;
+					var rp = html.data.jumlah;
+					var saldoo = html.saldo_pengguna;
 
 					var	reverse = rp.toString().split('').reverse().join(''),
 					ribuan 	= reverse.match(/\d{1,3}/g);
 					ribuan	= ribuan.join('.').split('').reverse().join('');
 
-					var	reverse = rp2.toString().split('').reverse().join(''),
-					ribuan2 	= reverse.match(/\d{1,3}/g);
-					ribuan2	= ribuan2.join('.').split('').reverse().join('');
-
+					var	reverse2 = saldoo.toString().split('').reverse().join(''),
+					saldo 	= reverse2.match(/\d{1,3}/g);
+					saldo	= saldo.join('.').split('').reverse().join('');
 
 					$('#modalLihat').modal('show');
-					$('.modal-title').text("Detail Pencairan");
-					document.getElementById("kode_produk").innerHTML = html.data.kode_produk;
+					$('.modal-title').text("Detail Penarikan");
 					document.getElementById("terdaftar").innerHTML = html.data.created_at;
-					document.getElementById("nama_produk").innerHTML = html.data.produk;
-					document.getElementById("jumlah").innerHTML = html.data.jumlah;
-					document.getElementById("progres").innerHTML = progress;
+					document.getElementById("invoice").innerHTML = html.data.invoice;
+					document.getElementById("pemilik_rekening").innerHTML = html.data.pemilik_rekening;
+					document.getElementById("email").innerHTML = html.data.email;
+					document.getElementById("no_rekening").innerHTML = html.data.no_rekening;
+					document.getElementById("bank").innerHTML = html.data.bank;
 					document.getElementById("status").innerHTML = html.status;
-					document.getElementById("harga").innerHTML = "Rp. "+ribuan;
-					document.getElementById("total").innerHTML = "Rp. "+ribuan2;
+					document.getElementById("jumlah").innerHTML = "Rp. "+ribuan;
+					document.getElementById("saldo_pengguna").innerHTML = "Rp. "+saldo;
 
-					
 				}
 			})
 		});
@@ -359,13 +365,13 @@
 			var id = $(this).attr('id');
 			$('#form_konfirmasi').html('');
 			$.ajax({
-				url:"lihat-validasi-pencairan-petani/"+id,
+				url:"lihat-validasi-bagi-hasil/"+id,
 				dataType:"json",
 				success:function(html){
 					$('#hidden_id2').val(html.data.id);
 					$('.modal-title2').text("Konfirmasi");
 					$('#action_button2').val("Tolak");
-					$('#status2').val("0");
+					$('#status2').val("2");
 					$('.text2').text("Apakah anda yakin ingin tolak?")
 					$('#action2').val("Tolak");
 					$('#modalVerifikasi').modal('show');
@@ -378,7 +384,7 @@
 			var id = $(this).attr('id');
 			$('#form_konfirmasi').html('');
 			$.ajax({
-				url:"lihat-validasi-pencairan-petani/"+id,
+				url:"lihat-validasi-bagi-hasil/"+id,
 				dataType:"json",
 				success:function(html){
 					$('#hidden_id2').val(html.data.id);
@@ -396,7 +402,7 @@
 			var id = $(this).attr('id');
 			$('#form_pesan').html('');
 			$.ajax({
-				url:"lihat-validasi-pencairan-petani/"+id,
+				url:"lihat-validasi-bagi-hasil/"+id,
 				dataType:"json",
 				success:function(html){
 					$('#hidden_id3').val(html.data.id);
@@ -413,7 +419,7 @@
 			if($('#action2').val() == 'Tolak')
 			{
 				$.ajax({
-					url:"{{ route('admin.tolak-pencairan-petani.update') }}",
+					url:"{{ route('admin.tolak-bagi-hasil.update') }}",
 					method:"POST",
 					data: new FormData(this),
 					contentType: false,
@@ -435,7 +441,7 @@
 			if($('#action2').val() == "diproses")
 			{
 				$.ajax({
-					url:"{{ route('admin.validasi-pencairan-petani.update') }}",
+					url:"{{ route('admin.validasi-bagi-hasil.update') }}",
 					method:"POST",
 					data: new FormData(this),
 					contentType: false,

@@ -26,7 +26,7 @@ class KelolaProdukController extends Controller
             })
 
             ->addColumn('updated_at', function($data){
-                $waktu =  Carbon::parse($data->updated_at)->toDayDateTimeString(); 
+                $waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i');  
                 return $waktu;
             })
 

@@ -44,8 +44,11 @@ class  VerifikasiProgresController extends Controller
 					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
 				}elseif ($data->status == "2") {
 					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">sudah divalidasi</button>';
-				}else{
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">ditolak</button>';
+				}elseif ($data->status == "4") {
+					$status = '<button type="button" class="btn btn-secondary btn-sm py-0">sedang diproses</button>';
+				}
+				else{
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">validasi ditolak</button>';
 				}
 
 				return $status;
@@ -53,12 +56,17 @@ class  VerifikasiProgresController extends Controller
 
 			->addColumn('total', function($data){
 				$rp = "Rp. ";
-				$jumlah = $rp. number_format($data->jumlah); 
-				return $jumlah;
+				$total = $rp. number_format($data->total); 
+				return $total;
+			})
+
+			->addColumn('progress', function($data){
+				$harga = "progres ke-".$data->progress;
+				return $harga;
 			})
 
 			->addColumn('created_at', function($data){
-				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				$waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i'); 
 				return $waktu;
 			})
 
@@ -77,25 +85,21 @@ class  VerifikasiProgresController extends Controller
 			$data = Pengajuan_dana::findOrFail($id);
 			$user_id = $data->user_id;
 
-			$ambil = Joint_account::where('user_id',$user_id)->first();
-			$saldo_pengguna = $ambil->saldo;
-
 			if($data->status !== NULL){
 				if ($data->status == "1") {
 					$status = '<button type="button" class="btn btn-info btn-sm py-0">belum divalidasi</button>';
 				}elseif ($data->status == "4") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0">diproses</button>';
+					$status = '<button type="button" class="btn btn-secondary btn-sm py-0">sedang diproses</button>';
 				}elseif ($data->status == "3") {
 					$status = '<button type="button" class="btn btn-success btn-sm py-0">sudah divalidasi</button>';
 				}else{
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0">ditolak</button>';
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">validasi ditolak</button>';
 				}
 			}
 
 			return response()->json([
 				'data' => $data,
-				'saldo_pengguna' => $saldo_pengguna,
-				'status' => $status,
+				'status' => $status
 
 			]);
 

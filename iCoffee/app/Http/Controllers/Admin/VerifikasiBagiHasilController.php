@@ -17,9 +17,9 @@ use App\Joint_account;
 use Carbon;
 
 
-class  VerifikasiPencairanController extends Controller
+class  VerifikasiBagiHasilController extends Controller
 {
-	public function dataPencairan()
+	public function dataBagiHasil()
 	{
 		if(request()->ajax())
 		{	
@@ -64,7 +64,7 @@ class  VerifikasiPencairanController extends Controller
 			})
 
 			->addColumn('created_at', function($data){
-				$waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i');  
+				$waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i'); 
 				return $waktu;
 			})
 
@@ -72,11 +72,11 @@ class  VerifikasiPencairanController extends Controller
 			->make(true);
 		}
 
-		return view('admin.validasi-pencairan-dana');
+		return view('admin.validasi-bagi-hasil');
 	}
 
 
-	public function lihatPencairan($id)
+	public function lihatBagiHasil($id)
 	{
 		if(request()->ajax())
 		{
@@ -108,7 +108,7 @@ class  VerifikasiPencairanController extends Controller
 		}
 	}
 
-	public function tolakPencairan(Request $request)
+	public function tolakBagiHasil(Request $request)
 	{
 
 		$form_data = array(
@@ -119,7 +119,7 @@ class  VerifikasiPencairanController extends Controller
 		return response()->json(['success' => 'Berhasil Ditolak']);
 	}
 
-	public function validasiPencairan(Request $request)
+	public function validasiBagiHasil(Request $request)
 	{
 
 		$form_data = array(
