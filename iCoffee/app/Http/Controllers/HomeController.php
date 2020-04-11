@@ -304,8 +304,17 @@ class HomeController extends Controller
             'status' => '1'
 
         ]);
+        
+
+        
+        if (session('links')[0] == 'jual-beli/checkout-barang') {
+            session()->forget('links');
+            Alert::success('Berhasil','Berhasil Menambahkan Alamat')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/jual-beli/keranjang');
+        }
+        session()->forget('links');
         Alert::success('Berhasil');
-        return redirect('//profil/edit');
+        return redirect('/profil/edit#pills-contact');
         
     }
 

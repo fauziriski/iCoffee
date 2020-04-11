@@ -50,6 +50,15 @@
     				{{$kurir[1]}} {{ $cek_resi->invoice }}<br>
 
 					</address>
+
+					@else
+						
+					<address>
+						<strong>No Resi :</strong><br>
+						{{$kurir[1]}}<br>
+							
+
+					</address>
 					
 					@endif
     			</div>

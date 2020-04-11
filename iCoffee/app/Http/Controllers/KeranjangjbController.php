@@ -175,7 +175,7 @@ class KeranjangjbController extends Controller
 
         foreach ($checkout as $data) {
             if ($data->shop_product->stok <= $data->jumlah ) {
-                Alert::warning('Gagal','Stok Tidak Mencukupi')->showConfirmButton('Ok', '#3085d6');
+                Alert::warning('Gagal','Stok Produk Tidak Mencukupi')->showConfirmButton('Ok', '#3085d6');
                 return redirect('/jual-beli/keranjang');
             }
         }
