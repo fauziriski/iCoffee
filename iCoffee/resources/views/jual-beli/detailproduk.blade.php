@@ -91,8 +91,8 @@
 
             <div class="row">
               <p class="text-left">
-                <div class="col-2">
-                <a href="#" class="mr-2" style="color: #000;">Stok
+                <div class="col-4">
+                <i class="fas fa-boxes"></i>&nbsp;<a href="#" class="mr-2" style="color: #000;">Stok
                 </div>
                   <div class="col">
                   @if ( $products->stok == 0 )
@@ -108,8 +108,8 @@
 
             <div class="row">
               <p class="text-left">
-                <div class="col-2">
-                  <a href="#" class="mr-4" style="color: #000;">Kategori
+                <div class="col-4">
+                  <i class="fas fa-tags"></i>&nbsp;<a href="#" class="mr-4" style="color: #000;">Kategori
                 </div>
                 <div class="col">
                   <span class="mr-4 ml-2" style="color: #bbb;">{{$products->category->kategori}}</span>
@@ -184,7 +184,7 @@
                 <p><input type="submit" class="btn btn-secondary py-3 px-5" disabled value="Kosong"></p> 
               @elseif($products->id_pelanggan == Auth::user()->id) 
                 <input type="hidden" name="Penjual" value="Penjual">
-                <p><input type="hidden" class="btn btn-secondary py-3 px-5" value="Kosong" disabled></p> 
+                <p><input type="hidden" class="btn btn-secondary py-3 px-5" value="Penjual" disabled></p> 
               @else
                 <input type="hidden" name="ketersedian" value="Tersedia">
                 <p><input type="submit" class="btn btn-primary py-3 px-5" value="Beli"></p>
