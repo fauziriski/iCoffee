@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin | Pencairan Saldo Pelanggan')
+@section('title', 'Admin | Pencairan Progres Investasi')
 
 @section('content')
 
@@ -82,7 +82,7 @@
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
 					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h5>Pencairan Saldo Pelanggan</h5>
+						<h5>Pencairan Progres Petani</h5>
 						<div align="right">
 							<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fa fa-plus-square"></i> Tambah Pencatatan</button>
 						</div>
@@ -121,8 +121,8 @@
 							<table id="id_tabel2" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th>Invoice</th>
-										<th>Jumlah</th>
+										<th>Kode</th>
+										<th>Total</th>
 										<th></th>
 									</tr>
 								</thead>
@@ -520,7 +520,7 @@
 														<div class="form-group">
 															<th style="text-align: center;">Catatan </th>
 															<th colspan="4">
-																<textarea name="catatan" class="form-control" id="catatan1"></textarea>
+                                                            <textarea name="catatan" class="form-control" id="catatan1"></textarea>
 																</th>
 															</div>
 														</tr>
@@ -570,17 +570,17 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('adminkeuangan.penarikan-dana') }}",
+                url: "{{ route('adminkeuangan.penarikan-dana-progres') }}",
                 dataType: "json"
             },
             columns: [
 
                 {
-                    data: 'invoice',
-                    name: 'invoice'
+                    data: 'kode_produk',
+                    name: 'kode_produk'
                 }, {
-                    data: 'jumlah',
-                    name: 'jumlah'
+                    data: 'total',
+                    name: 'total'
                 }, {
                     data: 'action',
                     name: 'action',
@@ -595,7 +595,7 @@
 			var id = $(this).attr('id');
 			$('#form_result').html('');
 			$.ajax({
-				url:"lihat-penarikan-dana/"+id,
+				url:"lihat-penarikan-dana-progres/"+id,
 				dataType:"json",
 				success:function(html){
 					$('#hidden_id33').val(html.data.id);
@@ -625,7 +625,7 @@
 			if($('#action').val() == 'Validasi')
 			{
 				$.ajax({
-					url:"{{ route('adminkeuangan.tambah-penarikan-dana') }}",
+					url:"{{ route('adminkeuangan.tambah-penarikan-dana-progres') }}",
 					method:"POST",
 					data: new FormData(this),
 					contentType: false,
@@ -668,7 +668,7 @@
 				}, function () {
 					$.ajax({
 						type: "GET",
-						url: "hapus-pencairan-dana/" + id,
+						url: "hapus-pencairan-dana-progres/" + id,
 						dataType: "json",
 						success: function (data) {
 							swal('Berhasil', 'Data berhasil dihapus', 'success');
@@ -741,7 +741,7 @@
 				processing: true,
 				serverSide: true,
 				ajax:{
-					url: "{{ route('adminkeuangan.pencairan-dana') }}",
+					url: "{{ route('adminkeuangan.pencairan-dana-progres') }}",
 					dataType:"json",
 				},
 				columns:[
@@ -770,7 +770,7 @@
 					event.preventDefault();
 					if ($('#action').val() == 'Tambah') {
 						$.ajax({
-							url: "{{ route('adminkeuangan.tambah-pencairan-dana') }}",
+							url: "{{ route('adminkeuangan.tambah-pencairan-dana-progres') }}",
 							method: "POST",
 							data: new FormData(this),
 							contentType: false,
@@ -804,7 +804,7 @@
 							$(document).on('click', '.lihat', function(){
 								var id = $(this).attr('id');
 								$.ajax({
-									url:"detail-pencairan-dana/"+id,
+									url:"detail-pencairan-dana-progres/"+id,
 									dataType:"json",
 									success:function(html){
 										$('#modalLihat').modal('show');
@@ -815,7 +815,7 @@
 										document.getElementById("tujuan_tran2").innerHTML = html.data.tujuan_tran;
 										document.getElementById("catatan2").innerHTML = html.data.catatan;
 										
-										var img = "/Uploads/Adm_bukti/AKKJULE/" + html.data.bukti  +"";
+										var img = "/Uploads/Adm_bukti/AKKIPR/" + html.data.bukti  +"";
 										$('#bukti2').attr("src",img);
 
 										var data = html.akun;

@@ -176,7 +176,7 @@ class VerifikasiPembiayaanController extends Controller
 		$id = "3";
 		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 		$jml_id = count($id)+1;
-		$kode = "AKM-I".$jml_id;
+		$kode = "AKMIV".$jml_id;
 
 		$nama_akun = "Pembelian produk investasi";
 		$data_produk = Invest_product::where('id',$id_produk)->first();

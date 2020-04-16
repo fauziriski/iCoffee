@@ -161,8 +161,8 @@
       <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Investasi :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/keluar-bagi-hasil')}}">Bagi Hasil</a>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-progress')}}">Dana Progress</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-bagi-hasil')}}">Bagi Hasil</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana-progres')}}">Dana Progres</a>
           <h6 class="collapse-header">Lain-Lain :</h6>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Pencairan Dana</a>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Biaya Operasional</a>
@@ -186,13 +186,11 @@
       </a>
       <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Kelola Pengeluaran:</h6>
+          <h6 class="collapse-header">Kelola Keuangan:</h6>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/arus-kas')}}">Arus Kas</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Buku Besar</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Jurnal</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Laba/Rugi</a>
+          <!-- <a class="collapse-item" href="{{url('jenis-produk')}}">Laba/Rugi</a>
           <a class="collapse-item" href="{{url('jenis-produk')}}">Neraca Saldo</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Posisi Keuangan/Saldo</a>
+          <a class="collapse-item" href="{{url('jenis-produk')}}">Posisi Keuangan/Saldo</a> -->
           <div class="collapse-divider"></div>
         </div>
       </div>

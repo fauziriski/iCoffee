@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin | Pencairan Saldo Pelanggan')
+@section('title', 'Admin | Pencairan Bagi Hasil')
 
 @section('content')
 
@@ -82,7 +82,7 @@
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
 					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h5>Pencairan Saldo Pelanggan</h5>
+						<h5>Pencairan Bagi Hasil</h5>
 						<div align="right">
 							<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fa fa-plus-square"></i> Tambah Pencatatan</button>
 						</div>
@@ -570,7 +570,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('adminkeuangan.penarikan-dana') }}",
+                url: "{{ route('adminkeuangan.penarikan-bagi-hasil') }}",
                 dataType: "json"
             },
             columns: [
@@ -595,7 +595,7 @@
 			var id = $(this).attr('id');
 			$('#form_result').html('');
 			$.ajax({
-				url:"lihat-penarikan-dana/"+id,
+				url:"lihat-penarikan-bagi-hasil/"+id,
 				dataType:"json",
 				success:function(html){
 					$('#hidden_id33').val(html.data.id);
@@ -625,7 +625,7 @@
 			if($('#action').val() == 'Validasi')
 			{
 				$.ajax({
-					url:"{{ route('adminkeuangan.tambah-penarikan-dana') }}",
+					url:"{{ route('adminkeuangan.tambah-penarikan-bagi-hasil') }}",
 					method:"POST",
 					data: new FormData(this),
 					contentType: false,
@@ -668,7 +668,7 @@
 				}, function () {
 					$.ajax({
 						type: "GET",
-						url: "hapus-pencairan-dana/" + id,
+						url: "hapus-pencairan-bagi-hasil/" + id,
 						dataType: "json",
 						success: function (data) {
 							swal('Berhasil', 'Data berhasil dihapus', 'success');
@@ -741,7 +741,7 @@
 				processing: true,
 				serverSide: true,
 				ajax:{
-					url: "{{ route('adminkeuangan.pencairan-dana') }}",
+					url: "{{ route('adminkeuangan.pencairan-bagi-hasil') }}",
 					dataType:"json",
 				},
 				columns:[
@@ -770,7 +770,7 @@
 					event.preventDefault();
 					if ($('#action').val() == 'Tambah') {
 						$.ajax({
-							url: "{{ route('adminkeuangan.tambah-pencairan-dana') }}",
+							url: "{{ route('adminkeuangan.tambah-pencairan-bagi-hasil') }}",
 							method: "POST",
 							data: new FormData(this),
 							contentType: false,
@@ -804,7 +804,7 @@
 							$(document).on('click', '.lihat', function(){
 								var id = $(this).attr('id');
 								$.ajax({
-									url:"detail-pencairan-dana/"+id,
+									url:"detail-pencairan-bagi-hasil/"+id,
 									dataType:"json",
 									success:function(html){
 										$('#modalLihat').modal('show');

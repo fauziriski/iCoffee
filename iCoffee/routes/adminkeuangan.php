@@ -67,18 +67,27 @@ Route::get('/pencairan-dana', 'PencairanDanaController@dataPencairan')->name('pe
 Route::get('/detail-pencairan-dana/{id}', 'PencairanDanaController@detailpencairan')->name('detail-pencairan-dana');
 Route::post('/tambah-pencairan-dana', 'PencairanDanaController@tambah')->name('tambah-pencairan-dana');
 Route::get('/hapus-pencairan-dana/{id}', 'PencairanDanaController@hapus')->name('hapus-pencairan-dana');
-
-
 Route::get('/penarikan-dana', 'PencairanDanaController@dataPenarikan')->name('penarikan-dana');
 Route::get('/lihat-penarikan-dana/{id}', 'PencairanDanaController@lihatPenarikan')->name('lihat-penarikan-dana');
 Route::post('/tambah-penarikan-dana', 'PencairanDanaController@validasiPenarikan')->name('tambah-penarikan-dana');
 
-//pengeluaran bagi hasil
-Route::get('/keluar-bagi-hasil', 'KeluarBagiHasilController@dataBagiHasil')->name('keluar-bagi-hasil');
-Route::get('/detail-keluar-bagi-hasil/{id}', 'KeluarBagiHasilController@detailBagiHasil')->name('detail-keluar-bagi-hasil');
-Route::post('/tambah-keluar-bagi-hasil', 'KeluarBagiHasilController@tambah')->name('tambah-keluar-bagi-hasil');
-Route::get('/hapus-keluar-bagi-hasil/{id}', 'KeluarBagiHasilController@hapus')->name('hapus-keluar-bagi-hasil');
-Route::post('/update-keluar-bagi-hasil', 'KeluarBagiHasilController@update')->name('update-keluar-bagi-hasil');
+//dana keluar investasi/progres
+Route::get('/pencairan-dana-progres', 'PencairanDanaProgresController@dataPencairan')->name('pencairan-dana-progres');
+Route::get('/detail-pencairan-dana-progres/{id}', 'PencairanDanaProgresController@detailpencairan')->name('detail-pencairan-dana-progres');
+Route::post('/tambah-pencairan-dana-progres', 'PencairanDanaProgresController@tambah')->name('tambah-pencairan-dana-progres');
+Route::get('/hapus-pencairan-dana-progres/{id}', 'PencairanDanaProgresController@hapus')->name('hapus-pencairan-dana-progres');
+Route::get('/penarikan-dana-progres', 'PencairanDanaProgresController@dataPenarikan')->name('penarikan-dana-progres');
+Route::get('/lihat-penarikan-dana-progres/{id}', 'PencairanDanaProgresController@lihatPenarikan')->name('lihat-penarikan-dana-progres');
+Route::post('/tambah-penarikan-dana-progres', 'PencairanDanaProgresController@validasiPenarikan')->name('tambah-penarikan-dana-progres');
+
+//dana keluar investasi/bagi-hasil
+Route::get('/pencairan-bagi-hasil', 'PencairanBagiHasilController@dataPencairan')->name('pencairan-bagi-hasil');
+Route::get('/detail-pencairan-bagi-hasil/{id}', 'PencairanBagiHasilController@detailpencairan')->name('detail-pencairan-bagi-hasil');
+Route::post('/tambah-pencairan-bagi-hasil', 'PencairanBagiHasilController@tambah')->name('tambah-pencairan-bagi-hasil');
+Route::get('/hapus-pencairan-bagi-hasil/{id}', 'PencairanBagiHasilController@hapus')->name('hapus-pencairan-bagi-hasil');
+Route::get('/penarikan-bagi-hasil', 'PencairanBagiHasilController@dataPenarikan')->name('penarikan-bagi-hasil');
+Route::get('/lihat-penarikan-bagi-hasil/{id}', 'PencairanBagiHasilController@lihatPenarikan')->name('lihat-penarikan-bagi-hasil');
+Route::post('/tambah-penarikan-bagi-hasil', 'PencairanBagiHasilController@validasiPenarikan')->name('tambah-penarikan-bagi-hasil');
 
 
 //laporan keuangan

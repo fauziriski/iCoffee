@@ -17,7 +17,7 @@ use Carbon;
 use Validator;
 
 
-class  PencairanDanaController extends Controller
+class  PencairanBagiHasilController extends Controller
 {
 	public function dataPencairan()
 	{
@@ -25,9 +25,9 @@ class  PencairanDanaController extends Controller
 		{	
 			
 			$id = '8';
-			$AKKJULE = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+			$AKKIBA = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 
-			return datatables()->of($AKKJULE)
+			return datatables()->of($AKKIBA)
 			->addColumn('action', function($data){
 				$button = 
 				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0 mb-1"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
@@ -60,7 +60,7 @@ class  PencairanDanaController extends Controller
 
 		$dua = Adm_sub2_akun::All();
 
-		return view('admin.admin-keuangan.pencairan-dana-pelanggan',compact('tran','kategori','satu','dua'));
+		return view('admin.admin-keuangan.pencairan-bagi-hasil',compact('tran','kategori','satu','dua'));
 	}
 
 
@@ -86,7 +86,7 @@ class  PencairanDanaController extends Controller
 		->make(true);
 		
 
-		return view('admin.admin-keuangan.pencairan-dana-pelanggan');
+		return view('admin.admin-keuangan.pencairan-bagi-hasil');
 	}
 
 	public function lihatPenarikan($id)
@@ -140,11 +140,11 @@ class  PencairanDanaController extends Controller
 		$id = "8";
 		$ido = Adm_jurnal::select('id')->latest()->first();
 		$jml_id = $ido->id+1;
-		$kode = "AKKJULE".$jml_id;
+		$kode = "AKKIBA".$jml_id;
 
 		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 
-		$bukti->move(public_path('Uploads/Adm_bukti/AKKJULE'), $new_name);
+		$bukti->move(public_path('Uploads/Adm_bukti/AKKIBA'), $new_name);
 
 		$total_jumlah = $request->jumlah2;
 
@@ -227,11 +227,11 @@ class  PencairanDanaController extends Controller
 		$id = "8";
 		$ido = Adm_jurnal::select('id')->latest()->first();
 		$jml_id = $ido->id+1;
-		$kode = "AKKJULE".$jml_id;
+		$kode = "AKKIBA".$jml_id;
 
 		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
 
-		$bukti->move(public_path('Uploads/Adm_bukti/AKKJULE'), $new_name);
+		$bukti->move(public_path('Uploads/Adm_bukti/AKKIBA'), $new_name);
 
 		$total_jumlah = $request->jumlah2;
 
