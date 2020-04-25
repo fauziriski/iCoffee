@@ -385,7 +385,7 @@
 								for(var i = 0; i<panjang; i++){
 									var nama_gambar = lihat[i].nama;
 									var kode_produk = lihat[i].kode_produk;
-									var img = "/Uploads/Investasi/Produk/{" + kode_produk  + "}/" + nama_gambar +"";
+									var img = "/Uploads/Investasi/Produk/" + kode_produk  + "/" + nama_gambar +"";
 									$("#gambar"+i).attr("src",img);
 
 								}

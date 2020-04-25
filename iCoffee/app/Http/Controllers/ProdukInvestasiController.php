@@ -70,7 +70,7 @@ class ProdukInvestasiController extends Controller
         $code = $timestamps.$id_mitra;
         $size = count(collect($request)->get('gambar'));
 
-        $folderPath = public_path("Uploads\Investasi\Produk\{$code}");
+        $folderPath = public_path("Uploads/Investasi/Produk/{$code}");
         $response = mkdir($folderPath);
         $nama = array();
         

@@ -370,13 +370,13 @@
 								document.getElementById("alamat").innerHTML = html.data.alamat;
 								document.getElementById("deskripsi").innerHTML = html.data.deskripsi;
 
-								var img = "/Uploads/Mitra_Perorangan/{" + html.data.kode + "}/" + html.data.gambar +"";
+								var img = "/Uploads/Mitra_Perorangan/" + html.data.kode + "/" + html.data.gambar +"";
 								$('#foto_mitra').attr("src",img);
 
-								var kk = "/Uploads/Mitra_Perorangan/{" + html.data.kode  +"}/"+ html.data.kartu_keluarga +"";
+								var kk = "/Uploads/Mitra_Perorangan/" + html.data.kode  +"/"+ html.data.kartu_keluarga +"";
 								$('#kartu_keluarga').attr("href",kk);
 
-								var sn = "/Uploads/Mitra_Perorangan/{" + html.data.kode  +"}/"+ html.data.surat_nikah +"";
+								var sn = "/Uploads/Mitra_Perorangan/" + html.data.kode  +"/"+ html.data.surat_nikah +"";
 								$('#surat_nikah').attr("href",sn);
 
 							}

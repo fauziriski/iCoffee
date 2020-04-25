@@ -379,16 +379,16 @@
 								document.getElementById("alamat").innerHTML = html.data.alamat;
 								document.getElementById("deskripsi").innerHTML = html.data.deskripsi;
 
-								var img = "/Uploads/Mitra_Koperasi/{" + html.data.kode + "}/" + html.data.gambar +"";
+								var img = "/Uploads/Mitra_Koperasi/" + html.data.kode + "/" + html.data.gambar +"";
 								$('#foto_mitra').attr("src",img);
 
-								var ktp = "/Uploads/Mitra_Koperasi/{" + html.data.kode  +"}/"+ html.data.ktp_pengurus +"";
+								var ktp = "/Uploads/Mitra_Koperasi/" + html.data.kode  +"/"+ html.data.ktp_pengurus +"";
 								$('#ktp_pengurus').attr("href",ktp);
 
-								var adrt = "/Uploads/Mitra_Koperasi/{" + html.data.kode  +"}/"+ html.data.ad_art +"";
+								var adrt = "/Uploads/Mitra_Koperasi/" + html.data.kode  +"/"+ html.data.ad_art +"";
 								$('#ad_art').attr("href",adrt);
 
-								var akt = "/Uploads/Mitra_Koperasi/{" + html.data.kode  +"}/"+ html.data.akte +"";
+								var akt = "/Uploads/Mitra_Koperasi/" + html.data.kode  +"/"+ html.data.akte +"";
 								$('#akte').attr("href",akt);
 
 							}

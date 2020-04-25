@@ -44,15 +44,15 @@ class MitraController extends Controller
         if(Str::contains(Auth::user()->id_mitra, 'KT')){
             $kode = Auth::user()->kode;
             $gambar = Auth::user()->gambar;
-            $path = "Uploads\Kelompok_tani\{$kode}\{$gambar}";
+            $path = "Uploads/Kelompok_tani/{$kode}/{$gambar}";
         }elseif(Str::contains(Auth::user()->id_mitra, 'KP')){
             $kode = Auth::user()->kode;
             $gambar = Auth::user()->gambar;
-            $path = "Uploads\Mitra_Koperasi\{$kode}\{$gambar}";
+            $path = "Uploads/Mitra_Koperasi/{$kode}/{$gambar}";
         }else{
             $kode = Auth::user()->kode;
             $gambar = Auth::user()->gambar;
-            $path = "Uploads\Mitra_Perorangan\{$kode}\{$gambar}";
+            $path = "Uploads/Mitra_Perorangan/{$kode}/{$gambar}";
         }
         return view('investasi.mitra.index')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('path',$path);
     }

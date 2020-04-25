@@ -21,7 +21,7 @@ class KelompokTani extends Controller
         }
         $timestamps = date('YmdHis');
         $foldername = $request->email.'-'.$timestamps;
-        $folderPath = public_path("Uploads\Kelompok_Tani\{$foldername}");
+        $folderPath = public_path("Uploads/Kelompok_Tani/{$foldername}");
         $response = mkdir($folderPath);
 
         if($request->hasfile('gambar')){

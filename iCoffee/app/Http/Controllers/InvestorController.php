@@ -30,7 +30,7 @@ class InvestorController extends Controller
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         }
         $id_pengguna = Auth::id();
-        $folderPath = public_path("Uploads\Investasi\Investor\{$id_pengguna}");
+        $folderPath = public_path("Uploads/Investasi/Investor/{$id_pengguna}");
         mkdir($folderPath);
 
         $inputan = array('ktp', 'npwp');

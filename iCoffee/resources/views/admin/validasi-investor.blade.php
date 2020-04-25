@@ -361,10 +361,10 @@
 											document.getElementById("no_npwp").innerHTML = html.data.no_npwp;
 											document.getElementById("created_at").innerHTML = html.data.created_at;
 
-											var img = "/Uploads/Investasi/Investor/{" + html.data.id_pengguna + "}/" + html.data.ktp +"";
+											var img = "/Uploads/Investasi/Investor/" + html.data.id_pengguna + "/" + html.data.ktp +"";
 											$('#ktp').attr("src",img);
 
-											var img = "/Uploads/Investasi/Investor/{" + html.data.id_pengguna + "}/" + html.data.npwp +"";
+											var img = "/Uploads/Investasi/Investor/" + html.data.id_pengguna + "/" + html.data.npwp +"";
 											$('#npwp').attr("src",img);
 										}
 									})

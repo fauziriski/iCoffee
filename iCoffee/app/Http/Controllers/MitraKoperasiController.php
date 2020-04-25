@@ -25,7 +25,7 @@ class MitraKoperasiController extends Controller
             
         $timestamps = date('YmdHis');
         $foldername = $request->email.'-'.$timestamps;
-        $folderPath = public_path("Uploads\Mitra_Koperasi\{$foldername}");
+        $folderPath = public_path("Uploads/Mitra_Koperasi/{$foldername}");
         $response = mkdir($folderPath);
         $filenames = array();
 
