@@ -23,16 +23,6 @@
                 </div>
             </div>
         </div>
-        <div class="avatar-upload">
-            <div class="avatar-edit">
-                <input type='file' id="imageUpload2" name="gambar" accept=".png, .jpg, .jpeg" />
-                <label for="imageUpload"></label>
-            </div>
-            <div class="avatar-preview">
-                <div id="imagePreview2" style="background-image: url(https://cdn2.iconfinder.com/data/icons/user-icon-2-1/100/user_5-15-512.png);">
-                </div>
-            </div>
-        </div>
         <button type="submit">Daftar Koperasi</button>
         </form>
     </div>
@@ -50,22 +40,6 @@
         }
     }
     $("#imageUpload").change(function() {
-        readURL(this);
-    });
-    </script>
-    <script>
-        function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#imagePreview2').css('background-image', 'url('+e.target.result +')');
-                $('#imagePreview2').hide();
-                $('#imagePreview2').fadeIn(650);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $("#imageUpload2").change(function() {
         readURL(this);
     });
     </script>

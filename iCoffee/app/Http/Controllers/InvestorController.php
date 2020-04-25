@@ -73,7 +73,6 @@ class InvestorController extends Controller
         }
         
         // $produk = Invest_produk::where('id',$)
-
         return view('investasi.konfirmasi',compact('order','produk'));
     }
 

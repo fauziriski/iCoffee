@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{asset('investasi/css/icomoon.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/style.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/gambar.less')}}">
+  <link href="{{asset('investasi/css/sb-admin-2.min.css') }}" rel="stylesheet">
   <style>
     @import url("https://fonts.googleapis.com/css?family=Work+Sans");
     body {
