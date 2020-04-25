@@ -8,17 +8,17 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 mb-5 pl-4 md-5 pr-2 ftco-animatee">
+            <div class="col-lg-6 mb-5 md-5 ftco-animatee">
                 <div class="home-slider owl-carousel">
                   
           
                   <div class="slider-item">
-                    <img class="img-fluid" src="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$products->gambar) }}" alt="Colorlib Template">
+                    <img class="img-fluid rounded" src="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$products->gambar) }}" alt="Colorlib Template">
                   </div>
       
                   @foreach($image as $data)
                   <div class="slider-item">
-                    <img class="img-fluid" src="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$data->nama_gambar) }}" alt="Colorlib Template">
+                    <img class="img-fluid rounded" src="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$data->nama_gambar) }}" alt="Colorlib Template">
                   </div>
                   @endforeach
                 </div>
@@ -204,7 +204,7 @@
         @foreach ($produk_terkait as $data)
         <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="product">
-                <a href="/lelang/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid" src="{{ url('/Uploads/Lelang/{'.$data->kode_lelang.'}/'.$data->gambar) }}" alt="Colorlib Template">
+                <a href="/lelang/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid rounded" src="{{ url('/Uploads/Lelang/{'.$data->kode_lelang.'}/'.$data->gambar) }}" alt="Colorlib Template">
                     <div class="overlay"></div>
                 </a>
                 <div class="text py-3 pb-4 px-3 text-center">

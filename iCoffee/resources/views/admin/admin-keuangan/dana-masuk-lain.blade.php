@@ -7,7 +7,6 @@
 @section('css')
 
 <style>
-
 	@media (min-width: 360px) {
 		.modal-img {
 			width: 100%;
@@ -56,6 +55,7 @@
 		}
 	}
 
+
 	.select2-selection__rendered {
 		line-height: 32px !important;
 	}
@@ -66,6 +66,10 @@
 
 	table{border-collapse:collapse}
 	th{border:1px solid blue}
+
+	input.form-control {
+		width: auto;
+	}
 
 </style>
 
@@ -94,7 +98,7 @@
 								<th>Nama Tranksaksi</th>
 								<th>Waktu Tranksaksi</th>
 								<th>Tujuan Tranksaksi</th>
-								<th>Jumlah</th>
+								<th>Jumlah Tranksaksi</th>
 								<th> </th>
 							</tr>
 						</thead>
@@ -122,13 +126,13 @@
 												<tr>
 													<div class="form-group">
 														<th width="25%" style="text-align: center;">Nama Tranksaksi  </th>	
-														<th colspan="4"><input type="text" name="nama_tran" id="nama_tran" class="form-control" /></th>
+														<th colspan="4"><input type="text" name="nama_tran" id="nama_tran" class="form-control" style="width: 100%" /></th>
 													</div>
 												</tr>
 												<tr>
 													<div class="form-group">
 														<th width="25%" style="text-align: center;">Tujuan Tranksaksi  </th>	
-														<th colspan="4"><select class="js-example-placeholder-single js-states form-control" name="tujuan_tran" id="tujuan_tran" style="width: 100%">
+														<th colspan="4"><select class="form-control" name="tujuan_tran" id="tujuan_tran" style="width: 100%">
 															<option value="" selected>---- Pilih Tujuan -----</option>
 															@foreach($tran as $key)
 															<option value="{{$key->nama_tran}}">{{$key->nama_tran}}</option>
@@ -413,7 +417,7 @@
 												<tr>
 													<div class="form-group">
 														<th width="25%" style="text-align: center;">Nama Tranksaksi  </th>	
-														<th colspan="4"><input type="text" name="nama_tran22" id="nama_tran22" class="form-control" /></th>
+														<th colspan="4"><input type="text" name="nama_tran22" id="nama_tran22" class="form-control" style="width: 100%" /></th>
 													</div>
 												</tr>
 												<tr>
@@ -521,7 +525,7 @@
 
 				@endsection
 				@section('js')
-		
+				
 					<script>
 						$(document).ready(function(){
 
@@ -682,10 +686,10 @@
 												}
 												$('#form_result').html(html);
 												if(data.success)
-												{
+												{	
 													$('#formModal').modal('hide');
-													location.reload();
 													swal('Berhasil', 'Data berhasil ditambahkan', 'success');
+													$('#id_tabel').DataTable().ajax.reload();
 													$('#formModal').on('hidden.bs.modal', function(e) {
 													$(this).find('#sample_form')[0].reset();
 													});	
@@ -719,17 +723,17 @@
 													}
 													html += '</div>';
 												}
+												$('#form_result22').html(html);
 												if(data.success)
 												{
-													$('#formModal').modal('hide');
-													location.reload();
-													$('#formModal').on('hidden.bs.modal', function(e) {
-													$(this).find('#sample_form')[0].reset();
-													
-													});	
+													$('#ModalEdit').modal('hide');
 													swal('Berhasil', 'Data berhasil diubah', 'success');
+													$('#id_tabel').DataTable().ajax.reload();
+													$('#ModalEdit').on('hidden.bs.modal', function(e) {
+													$(this).find('#sample_form22')[0].reset();			
+													});				
 												}
-												$('#form_result22').html(html);
+											
 										}
 									});
 								}

@@ -38,7 +38,7 @@ class DanaMasukInvestasiController extends Controller
 			})
 
 			->addColumn('created_at', function($data){
-				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				$waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i'); 
 				return $waktu;
 			})
 

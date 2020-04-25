@@ -48,8 +48,8 @@ class ValidasiInvestorController extends Controller
 			})
 
 			->addColumn('created_at', function($data){
-				$created_at =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
-				return $created_at;
+				$waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i'); 
+				return $waktu;
 			})
 			
 			->rawColumns(['action','status'])

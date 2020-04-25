@@ -46,17 +46,17 @@
           </div> --}}
           <div class="container">
             <div class="row">
-              <div class="col-lg-6 mb-5 pl-4 md-5 pr-2 ftco-animatee">
+              <div class="col-lg-6 mb-5 md-5 ftco-animatee">
                 <div class="home-slider owl-carousel">
                   
           
                   <div class="slider-item">
-                    <img class="img-fluid" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" alt="Colorlib Template">
+                    <img class="img-fluid rounded" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" alt="Colorlib Template">
                   </div>
 
                   @foreach($image as $data)
                   <div class="slider-item">
-                    <img class="img-fluid" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$data->nama_gambar) }}" alt="Colorlib Template">
+                    <img class="img-fluid rounded" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$data->nama_gambar) }}" alt="Colorlib Template">
                   </div>
                   @endforeach
                 </div>
@@ -91,14 +91,14 @@
 
             <div class="row">
               <p class="text-left">
-                <div class="col-2">
-                <a href="#" class="mr-2" style="color: #000;">Stok
+                <div class="col-4">
+                <i class="fas fa-boxes"></i>&nbsp;<a href="#" class="mr-2" style="color: #000;">Stok
                 </div>
                   <div class="col">
                   @if ( $products->stok == 0 )
                       <span class="mr-4" style="color: #bbb;">Kosong</span>
                   @else
-                      <span class="mr-4" style="color: #bbb;">{{ $products->stok }} Kg</span>
+                      <span class="mr-4 ml-2" style="color: #bbb;">{{ $products->stok }} Kg</span>
                   @endif
                   
                 </div>
@@ -108,11 +108,11 @@
 
             <div class="row">
               <p class="text-left">
-                <div class="col-2">
-                  <a href="#" class="mr-4" style="color: #000;">Kategori
+                <div class="col-4">
+                  <i class="fas fa-tags"></i>&nbsp;<a href="#" class="mr-4" style="color: #000;">Kategori
                 </div>
                 <div class="col">
-                  <span class="mr-4" style="color: #bbb;">{{$products->category->kategori}}</span>
+                  <span class="mr-4 ml-2" style="color: #bbb;">{{$products->category->kategori}}</span>
                 </div>
                 </a>
               </p>
@@ -181,10 +181,10 @@
               @else
               @if ($products->stok < 1)
                 <input type="hidden" name="ketersedian" value="Kosong">
-                <p><input type="submit" class="btn btn-secondary py-3 px-5" value="Kosong"></p> 
+                <p><input type="submit" class="btn btn-secondary py-3 px-5" disabled value="Kosong"></p> 
               @elseif($products->id_pelanggan == Auth::user()->id) 
                 <input type="hidden" name="Penjual" value="Penjual">
-                <p><input type="hidden" class="btn btn-secondary py-3 px-5" value="Kosong" disabled></p> 
+                <p><input type="hidden" class="btn btn-secondary py-3 px-5" value="Penjual" disabled></p> 
               @else
                 <input type="hidden" name="ketersedian" value="Tersedia">
                 <p><input type="submit" class="btn btn-primary py-3 px-5" value="Beli"></p>
@@ -207,39 +207,40 @@
 
         <div class="row ">
           <div class="container">
-            <div class="row">
-              <div class="col-2">
-                <img src="{{ asset('market-icons.png')}}" height="100%" width="100%">
-              </div>
-         
-              <div class="col-6">
-                <br>
-                <h5>{{$products->user->name}}</h5>
-              
-                <p>{{ $alamat->province->nama }}, {{ $alamat->city->nama }}</p>
 
-                @if (!($rating_toko == 0))
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="{{ asset('2557.jpg')}}" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{$products->user->name}}</h5>
+                    <p class="card-text">{{ $alamat->province->nama }}, {{ $alamat->city->nama }}</p>
+                    @if (!($rating_toko == 0))
 
                 
-                <div class="star-rating">
-                  {{ $rating_toko }}
-                  <span class="fa fa-star-o" data-rating="1"></span>
-                  <span class="fa fa-star-o" data-rating="2"></span>
-                  <span class="fa fa-star-o" data-rating="3"></span>
-                  <span class="fa fa-star-o" data-rating="4"></span>
-                  <span class="fa fa-star-o" data-rating="5"></span>
-                  ({{ $count }})
-                  <input type="hidden" name="whatever1" class="rating-value" value="{{ $rating_toko }}" required>
+                    <div class="star-rating">
+                      {{ $rating_toko }}
+                      <span class="fa fa-star-o" data-rating="1"></span>
+                      <span class="fa fa-star-o" data-rating="2"></span>
+                      <span class="fa fa-star-o" data-rating="3"></span>
+                      <span class="fa fa-star-o" data-rating="4"></span>
+                      <span class="fa fa-star-o" data-rating="5"></span>
+                      ({{ $count }})
+                      <input type="hidden" name="whatever1" class="rating-value" value="{{ $rating_toko }}" required>
+                      </div>
+    
+    
+                    @else
+                    <p>Jadilah Yang Pertama Mengulas Toko Ini</p>
+    
+                    @endif
                   </div>
-
-
-                @else
-                <p>Jadilah Yang Pertama Mengulas Toko Ini</p>
-
-                @endif
+                </div>
               </div>
-
             </div>
+
           </div>
         </div>
     

@@ -279,9 +279,43 @@
 				$(document).ready(function(){
 					$('#table_id').DataTable({
 						dom: 'Bfrtip',
-						buttons: [
-						'copy', 'csv', 'excel', 'pdf', 'print'
-						],
+								buttons: [
+							{
+								extend: 'pdf',
+								footer: true,
+								exportOptions: {
+										columns: [0,1,2,3,4,5]
+									}
+							},
+							{
+								extend: 'csv',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5]
+									}
+							},
+							{
+								extend: 'excel',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5]
+									}
+							},
+							{
+								extend: 'print',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5]
+									}
+							},
+							{
+								extend: 'copy',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4]
+									}
+							}           
+							],  
 
 						oLanguage: {
 							"sProcessing":   "Sedang memproses ...",

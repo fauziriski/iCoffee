@@ -10,9 +10,8 @@ class Adm_jurnal extends Model
 
 	protected $primarykey='id';
 
-	protected $fillable = ['nama_tran','bukti','catatan','kode','tujuan_tran','id_kat_jurnal','total_jumlah'];
+	protected $fillable = ['nama_tran','bukti','catatan','kode','tujuan_tran','id_kat_jurnal','total_jumlah','created_at','updated_at'];
 
-	public $timestamps = true;
 
 }
 	

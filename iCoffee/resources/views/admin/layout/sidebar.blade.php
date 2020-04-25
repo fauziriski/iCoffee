@@ -134,12 +134,9 @@
         </a>
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Investasi :</h6>
             <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-investasi')}}">Dana Investasi</a>
             <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Jual-Beli :</h6>
             <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-jualbeli')}}">Dana Jual-Beli</a>
-            <h6 class="collapse-header">Lelang :</h6>
             <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lelang')}}">Dana Lelang</a>
             <h6 class="collapse-header">Lain-Lain :</h6>
             <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lain')}}">Pendapatan Lainnya</a>
@@ -163,15 +160,11 @@
       </a>
       <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Investasi :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/setor-petani')}}">Setoran Ke Petani</a>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/keluar-bagi-hasil')}}">Pencairan Dana</a>
-          <h6 class="collapse-header">Jual-Beli :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/setor-penjual')}}">Dana Penjual</a>
-          <h6 class="collapse-header">Lelang :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/setor-lelang')}}">Dana Lelang</a>
-          <h6 class="collapse-header">Lainnya :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Dana Pelanggan</a>
+        <h6 class="collapse-header">Investasi :</h6>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-bagi-hasil')}}">Bagi Hasil</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana-progres')}}">Dana Progres</a>
+          <h6 class="collapse-header">Lain-Lain :</h6>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Pencairan Dana</a>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Biaya Operasional</a>
         </div>
       </div>
@@ -193,13 +186,11 @@
       </a>
       <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Kelola Pengeluaran:</h6>
+          <h6 class="collapse-header">Kelola Keuangan:</h6>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/arus-kas')}}">Arus Kas</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Buku Besar</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Jurnal</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Laba/Rugi</a>
+          <!-- <a class="collapse-item" href="{{url('jenis-produk')}}">Laba/Rugi</a>
           <a class="collapse-item" href="{{url('jenis-produk')}}">Neraca Saldo</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Posisi Keuangan/Saldo</a>
+          <a class="collapse-item" href="{{url('jenis-produk')}}">Posisi Keuangan/Saldo</a> -->
           <div class="collapse-divider"></div>
         </div>
       </div>
@@ -264,6 +255,7 @@
             <a class="collapse-item" href="{{url('akses-admin/jenis-produk')}}">Jenis Produk</a>
             <a class="collapse-item" href="{{url('akses-admin/kategori-produk')}}">Kategori Produk</a>
              <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan')}}">Validasi Pencairan</a>
+             <a class="collapse-item" href="{{url('akses-admin/validasi-komplain')}}">Validasi Komplain</a>
           </div>
         </div>
       </li>
@@ -289,6 +281,7 @@
             <a class="collapse-item" href="{{ url('akses-admin/validasi-top-up')}}">Validasi Top-Up</a>
             <a class="collapse-item" href="{{ url('akses-admin/validasi-produk-lelang')}}">Validasi Produk</a>
             <a class="collapse-item" href="{{url('akses-admin/proses-lelang')}}">Proses Lelang</a>
+            <a class="collapse-item" href="{{url('akses-admin/validasi-komplain-lelang')}}">Validasi Komplain</a>
           </div>
         </div>
       </li>
@@ -314,9 +307,9 @@
             <a class="collapse-item" href="{{url('akses-admin/kelompok-tani')}}">Mitra Kelompok Tani</a>
             <a class="collapse-item" href="{{url('akses-admin/mitra-perorangan')}}">Mitra Perorangan</a>
             <h6 class="collapse-header">Kelola Investasi :</h6>
-            <a class="collapse-item" href="{{url('akses-admin/validasi-produk-investasi')}}">Validasi Produk Investasi</a>
-            <a class="collapse-item" href="{{url('progres-investasi')}}">Progres Investasi</a>
-            <a class="collapse-item" href="{{url('pencairan-investasi')}}">Pencairan Investasi</a>
+            <a class="collapse-item" href="{{url('akses-admin/validasi-produk-investasi')}}">Validasi Produk</a>
+            <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan-petani')}}">Validasi Progres</a>
+            <a class="collapse-item" href="{{url('akses-admin/validasi-bagi-hasil')}}">Validasi Bagi Hasil</a>
             <h6 class="collapse-header">Kelola Investor :</h6>
             <a class="collapse-item" href="{{url('akses-admin/validasi-investor')}}">Validasi Investor</a>
             <a class="collapse-item" href="{{url('akses-admin/validasi-pembiayaan')}}">Validasi Pembiayaan</a>
