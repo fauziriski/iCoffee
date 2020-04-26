@@ -95,4 +95,7 @@ Route::get('/arus-kas', 'ArusKasController@lihat')->name('arus-kas');
 Route::post('/update-aruskas', 'ArusKasController@update')->name('update-aruskas');
 // Route::get('/laporan-arus-kas', 'ArusKasController@update')->name('laporan-arus-kas');
 
-// 
+Route::resource('/jurnal', 'JurnalController');
+Route::resource('/neraca', 'NeracaController');
+
+

@@ -188,9 +188,8 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Kelola Keuangan:</h6>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/arus-kas')}}">Arus Kas</a>
-          <!-- <a class="collapse-item" href="{{url('jenis-produk')}}">Laba/Rugi</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Neraca Saldo</a>
-          <a class="collapse-item" href="{{url('jenis-produk')}}">Posisi Keuangan/Saldo</a> -->
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/jurnal')}}">Jurnal</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/neraca')}}">Neraca</a>
           <div class="collapse-divider"></div>
         </div>
       </div>

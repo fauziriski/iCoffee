@@ -105,8 +105,7 @@ class AdministrasiController extends Controller
 			'tujuan_tran' => $request->tujuan_tran,
 			'created_at' => Carbon::now(),
 			'updated_at' => Carbon::now()
-
-				
+			
 		]);
 
 		Adm_akun::create([

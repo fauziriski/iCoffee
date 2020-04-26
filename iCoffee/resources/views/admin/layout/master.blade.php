@@ -114,6 +114,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <script type="text/javascript" src="{{asset('DataTables/datatables.min.js') }}"></script>
+ 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -128,6 +129,7 @@
 <!-- data picker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+
 <script>
 	$(function(){
 		$("#image img").on("click",function(){
@@ -136,6 +138,7 @@
 		})
 	})
 </script>
+
 
 @yield('js')
 

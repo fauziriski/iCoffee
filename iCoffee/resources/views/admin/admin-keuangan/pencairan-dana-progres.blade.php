@@ -122,7 +122,7 @@
 								<thead>
 									<tr>
 										<th>Kode</th>
-										<th>Total</th>
+										<th>Biaya</th>
 										<th></th>
 									</tr>
 								</thead>
