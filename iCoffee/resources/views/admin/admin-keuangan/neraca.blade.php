@@ -100,13 +100,21 @@
 					<table id="order_table" class="table table-striped table-bordered" border="0" style="width:100%">
 						<thead>
 							<tr>
-								<th>Kode</th>
-								<th>Nama Tranksaksi</th>
-								<th>Waktu Tranksaksi</th>
-								<th>Tujuan Tranksaksi</th>
-								<th>JumlahTranksaksi</th>
+								<th>Nama Akun</th>
+								<th>Waktu</th>
+								<th>Posisi</th>
+								<th>Jumlah</th>
 							</tr>
 						</thead>
+						<tfoot>
+            <tr>
+                <th</th>
+                <th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+            </tr>
+        </tfoot>
 					</table>
 				</div>
 			</div>
@@ -266,6 +274,31 @@
 					function load_data(from_date = '', to_date = '')
 					{
 					$('#order_table').DataTable({
+						"footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // converting to interger to find total
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // computing column Total of the complete result 
+            var jumlahTotal = api
+                .column( 3 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+          
+					
+            // Update footer by showing the total with the reference of the column index 
+	    $( api.column( 2 ).footer() ).html('Total');
+            $( api.column( 3 ).footer() ).html(jumlahTotal);
+
+        },
 						"paging":   false,
 								dom: 'Bfrtip',
 								buttons: [
@@ -313,11 +346,11 @@
 							},
 							columns: [
 
-								{data: 'kode', name: 'kode'},
-								{data: 'nama_tran', name:'nama_tran'},
+								{data: 'nama_akun', name:'nama_akun'},
 								{data: 'created_at', name:'created_at'},
-								{data: 'tujuan_tran', name:'tujuan_tran'},
-								{data: 'total_jumlah', name:'total_jumlah'},
+								{data: 'posisi', name:'posisi'},
+								{data: 'jumlah', name:'jumlah'}
+
 							]
 							});
 							}
@@ -345,5 +378,6 @@
 
 							});
 	</script>
+
 	@stop
 

@@ -25,14 +25,14 @@ class NeracaController extends Controller
      {
       if(!empty($request->from_date))
       {
-       $data = DB::table('adm_jurnal')
+       $data = DB::table('adm_akun')
          ->whereBetween('created_at', array($request->from_date, $request->to_date))
          ->get();
          
       }
       else
       {
-       $data = DB::table('adm_jurnal')
+       $data = DB::table('adm_akun')
          ->get();
       }
       
@@ -43,16 +43,11 @@ class NeracaController extends Controller
 				return $waktu;
 			})
 
-			->addColumn('total_jumlah', function($data){
-				$rp = "Rp. ";
-				$total_jumlah = $rp. number_format($data->total_jumlah); 
-				return $total_jumlah;
-            })
-           
+			
 			->make(true);
       
      }
-     return view('admin.admin-keuangan.jurnal');
+     return view('admin.admin-keuangan.neraca');
     }
 }
 
