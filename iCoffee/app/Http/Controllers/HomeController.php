@@ -193,7 +193,8 @@ class HomeController extends Controller
             'gambar' => $nama[0],
             'harga' => $harga,
             'stok' => $stok,
-            'kode_produk' => $oldMarker
+            'kode_produk' => $oldMarker,
+            'status' => '1'
 
         ]);
 

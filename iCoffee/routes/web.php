@@ -79,15 +79,21 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	Route::get('/jual-beli/invoice_penjual/{invoice}', 'InvoiceController@index');
 	Route::post('/jual-beli/pesanan/terima', 'InvoiceController@ordersAccepted');
 	Route::post('/jual-beli/pesanan/inputresi', 'InvoiceController@updateResi');
+
+	//product
+	Route::get('/pasang-jualbeli', 'ProdukController@create');
+	Route::post('/pasang-produk/berhasil', 'ProdukController@store');
+	route::get('/jual-beli/produk/edit/{id}', 'ProdukController@edit');
+	route::post('/jual-beli/produk/edit/berhasil', 'ProdukController@update');
 	
 });
 
 
 // jual beli
-route::get('/jual-beli/produk/edit/{id}', 'HomeController@edit_produk');
-route::post('/jual-beli/produk/edit/berhasil', 'HomeController@edit_produk_berhasil');
-Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
-Route::post('/pasang-produk/berhasil', 'HomeController@pasangproduk');
+
+
+
+
 
 Route::get('/jual-beli/province/data', 'KeranjangjbController@province');
 Route::get('/jual-beli/url/', 'KeranjangjbController@file_get_content_curl');
