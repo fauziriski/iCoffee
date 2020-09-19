@@ -183,13 +183,20 @@
 								<input type="hidden" name="id" required value="{{ $order[$i]->id }}">
 								<input type="hidden" name="invoice" required value="{{ $order[0]->invoice }}">
 								<input type="hidden" name="jumlah_seluruh" required value="{{ $order[$i]->total_bayar+$kurir[$i][0] }}">
-								<p class="float-right"><input type="submit" class="btn btn-secondary  py-3 px-5" name="submit" value="Komplain">
-									<input type="submit" class="btn btn-primary py-3 px-5" name="submit" value="Diterima">
-							</p>
+								<div class="text-center col-md-4 offset-md-8 col-12">
+									<p class="row justify-content-center">
+										<input type="submit" style="border-radius: 10px; margin: auto; padding: 16px;" class="btn btn-secondary col-md-6 col-6 mr-1" name="submit" value="Komplain">
+										<input type="submit" style="border-radius: 10px; margin: auto; padding: 16px;" class="btn btn-primary col-md-5 col-5" name="submit" value="Diterima">
+									</p>
+								</div>
 							</form>
 
 						@elseif( $order[$i]->status == 6)
-							<p class="float-right"><input type="submit" class="btn btn-primary  py-3 px-5" data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating"></p>
+						  <div class="text-center col-md-2 offset-md-10 col-12">
+							<p class="row justify-content-center">
+								<input type="submit" style="border-radius: 10px;" class="btn btn-primary py-3 px-5" data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating">
+							</p>
+						  </div>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered" role="document">
@@ -208,7 +215,6 @@
 											<div class="row">
 											<div class="col-lg-12">
 												<div class="star-rating text-center">
-												
 												<span class="fa fa-star-o" data-rating="1"></span>
 												<span class="fa fa-star-o" data-rating="2"></span>
 												<span class="fa fa-star-o" data-rating="3"></span>
@@ -222,8 +228,8 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-									<button type="button" id="rating" name="rating" class="btn btn-primary">Save changes</button>
+									<button type="button" style="border-radius: 10px;" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<button type="button" style="border-radius: 10px;" id="rating_submit" name="rating" class="btn btn-primary">Save changes</button>
 									</div>
 								</div>
 								</div>
@@ -252,13 +258,11 @@
 	@if( $order[0]->status == 1)
 	<div class="row mb-5">
     	<div class="col-md-12">
-    		<div class="panel panel-default">
-				<div class="panel-heading">
-    				<p class="float-right"><a href="/jual-beli/batalkanpesanan/{{ $order[0]->invoice }}" name="batalkanpeanan" type="button" value="" class="btn btn-secondary py-3 px5">Batalkan Pesanan</a>
-						<a href="/jual-beli/konfirmasi" name="hapusalamat" type="button" value="" class="btn btn-primary py-3 px5">Konfirmasi Pembayaran</a>
-				</p>
-    			</div>
-    		</div>
+			<p class="float-right row">
+				<a href="/jual-beli/invoice/batal/{{ $order[0]->invoice }}" style="border-radius: 10px; margin: auto; padding: 19px;" name="batalkanpeanan" type="button" value="" class="btn btn-secondary mr-2 ml-3 col-md-6 col-6 align-middle">Batalkan Pesanan</a>
+				<a href="/jual-beli/konfirmasi" name="konfirmasi_pembayatan" type="button" value="" style="border-radius: 10px" class="btn btn-primary col-md-5 col-5">Konfirmasi Pembayaran</a>
+			</p>
+
     	</div>
 	</div>
 	@endif
@@ -319,21 +323,17 @@
 
 <script>
 	$(document).ready(function(){
-		$('#rating').on('click', function() {
+		$('#rating_submit').on('click', function() {
 			var data = $('#rating_form').serialize();
+			console.log('data');
 			$.ajax({
 			url:"/jual-beli/rating",
 			method:"POST",
 			data: data,
-			success:function(data)
-			{
-				swal(
-					'Berhasil',
-					'Data Berhasil di Tambahkan',
-					'success'
-				);
-				location.reload();
-
+			success:function(data){
+				successMessage('Berhasil Memberikan Ratting')
+			},error: function(XMLHttpRequest, textStatus, errorThrown) {
+				errorMessage('Gagal Memberikan Ratting');
 			}
 		});
 

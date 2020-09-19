@@ -32,14 +32,14 @@
     		</div>
     		<div class="row">
     			@foreach($products as $data)
-    			<div class="col-md-6 col-lg-3 ftco-animate">
+    			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 ftco-animate">
                     <div class="product">
                         <a href="/lelang/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid rounded" src="{{ url('/Uploads/Lelang/{'.$data->kode_lelang.'}/'.$data->gambar) }}" alt="Colorlib Template">
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="/lelang/produk/{{ $data->id }}">{{ $data->nama_produk }}</a></h3>
-                             <p class="demo" id="{{ $data->id }}" name="{{ $data->id }}"  style="color:#ee4d2c;"></p>     
+                            <h3><a href="/lelang/produk/{{ $data->id }}" class="font-weight-bold">{{ $data->nama_produk }}</a></h3>
+                             <p class="font-weight-bold" class="demo" id="{{ $data->id }}" name="{{ $data->id }}"  style="color:#ee4d2c;"></p>     
                         </div>
                     </div>
             </div>

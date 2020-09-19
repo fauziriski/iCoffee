@@ -232,6 +232,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Carbon' => 'Carbon\Carbon',
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Helper' => App\Helper\Helper::class
 
     ],
 

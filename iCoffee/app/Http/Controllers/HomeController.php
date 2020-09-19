@@ -97,7 +97,8 @@ class HomeController extends Controller
             return back();
             
         }
-
+        $harga = $this->removeDot($request->harga);
+        $stok = $this->removeDot($request->stok);
         
         $timestamps = date('YmdHis');
         $id_pelanggan = Auth::user()->id;
@@ -168,7 +169,7 @@ class HomeController extends Controller
                     $name=$files->getClientOriginalName();
                     $image_resize = Images::make($files->getRealPath());
                     $image_resize->resize(690, 547);
-                    $image_resize->crop(500, 500);
+                    $image_resize->crop(570, 512);
                     $image_resize->save($folderPath .'/'. $name);
                     // $image_resize->move($folderPath,$name);
                     $nama[]=$name;
@@ -176,15 +177,22 @@ class HomeController extends Controller
             }
 
         }
+
+        //Change content to html                
+        $content = $request->detail_produk;
+        $dom = new \DomDocument();
+        $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        
+        $content = $dom->saveHTML();
     
         $order = Shop_product::create([
             'id_pelanggan' => $id_pelanggan,
             'id_kategori' => $request->id_kategori,
             'nama_produk' => $request->nama_produk,
-            'detail_produk' => $request->detail_produk,
+            'detail_produk' => $content,
             'gambar' => $nama[0],
-            'harga' => $request->harga,
-            'stok' => $request->stok,
+            'harga' => $harga,
+            'stok' => $stok,
             'kode_produk' => $oldMarker
 
         ]);
@@ -454,7 +462,7 @@ class HomeController extends Controller
     public function pembayaran()
     {
         $id_pelanggan = Auth::user()->id;
-        $transaksipenjual = Order::where('id_pelanggan', $id_pelanggan)->whereIn('status',[1,2])->get();
+        $transaksipenjual = Order::where('id_pelanggan', $id_pelanggan)->whereIn('status',[1,2])->orderBy('created_at','desc')->get();
 
         $jumlah_invoice = count($transaksipenjual);
 
@@ -475,7 +483,7 @@ class HomeController extends Controller
     public function pembayaranlelang()
     {
         $id_pelanggan = Auth::user()->id;
-        $transaksipenjual = Auction_Order::where('id_pembeli', $id_pelanggan)->whereIn('status',[1,2])->get();
+        $transaksipenjual = Auction_Order::where('id_pembeli', $id_pelanggan)->whereIn('status',[1,2])->orderBy('created_at','desc')->get();
         $data_tanggal = array();
         foreach ($transaksipenjual as $data) {
             $data_tanggal = date('Y-m-d', strtotime($data->created_at));   
@@ -489,6 +497,13 @@ class HomeController extends Controller
     {
         $id_pelanggan = Auth::user()->id;
         $this->validate($request,[
+            'email' => 'required',
+            'nama_bank_pengirim' => 'required',
+            'no_rekening_pengirim' => 'required',
+            'no_telp' => 'required',
+            'nama_pemilik_pengirim' => 'required',
+            'jumlah_transfer' => 'required',
+            'invoice' => 'required',
             'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -500,6 +515,8 @@ class HomeController extends Controller
         $image_resize = Images::make($image->getRealPath());
         $image_resize->save($folderPath .'/'. $name);
 
+        $jumlah_transfer = $this->removeDot($request->jumlah_transfer);
+
         $confirm_pesanan = Confirm_payment::create([
             'id_pelanggan' => $id_pelanggan,
             'email' => $request->email,
@@ -508,19 +525,29 @@ class HomeController extends Controller
             'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
             'jasa' => '1',
             'no_telp' => $request->no_telp,
-            'jumlah_transfer' => $request->jumlah_transfer,
+            'jumlah_transfer' => $jumlah_transfer,
             'invoice' => $request->invoice,
             'foto_bukti' => $name,
             'status' => '1'
         ]);
 
-        $order = Order::where('invoice', $request->invoice)->update([
-            'status' => '8'
-        ]);
+        if ($confirm_pesanan) {
+            $order = Order::where('invoice', $request->invoice)->update([
+                'status' => '8'
+            ]);
+    
+            Alert::success('Berhasil', 'Konfirmasi berhasil')->showConfirmButton('Ok', '#3085d6');
+    
+            return redirect('/jual-beli/invoice/'. $request->invoice);
+        }
+        else {
+            Alert::error('Gagal', 'Konfirmasi gagal')->showConfirmButton('Ok', '#3085d6');
+    
+            return redirect('/jual-beli/konfirmasi');
+        }
 
-        Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
-
-        return redirect('/jual-beli');
+        
+        
     }
 
     public function konfirmasipembayaranlelang(Request $request)
@@ -799,6 +826,18 @@ class HomeController extends Controller
 
         Alert::success('Berhasi', 'Pencairan Dana Anda Berhasil Dibatalkan')->showConfirmButton('Ok', '#3085d6');
         return redirect('/jual-beli/transaksi#pills-topup');
+        
+    }
+
+    public function removeDot($value)
+    {
+        $trueValue = str_replace('.', '', $value);
+        if ($trueValue) {
+            return $trueValue;
+        }
+        else {
+            return $value;
+        }
         
     }
 
