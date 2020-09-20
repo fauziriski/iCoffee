@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Joint_account;
 use Socialite;
 use App\User;
-use App\Joint_account;
 use Auth;
 
 class LoginController extends Controller
