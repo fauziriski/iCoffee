@@ -93,14 +93,14 @@ class LoginController extends Controller
         Alert::success('Berhasil Masuk !');
         return redirect('/home');
       } else {
-        $user = User::firstOrCreate([
+        $users = User::firstOrCreate([
           'name'=>$userSocial->getName(),
           'email'=>$userSocial->getEmail(),
           'provider_id'=>$userSocial->getId(),
           'password'=>Hash::make($userSocial->getId()),
         ]);
         $rekber = Joint_account::create([
-          'user_id' => $user->id,
+          'user_id' => $users->id,
           'saldo' => 0
       ]);
         Alert::success('Berhasil Masuk !');
