@@ -34,9 +34,9 @@
         </div>
         <button type="submit" class="btn btn-primary mt-3 py-3">Masuk</button>
         <div class="text-center mt-3">atau</div>
-        <a href="#" class="btn loginBtn--facebook mt-3 col-md-12 text-white py-3"><i class="fab fa-facebook-f fa-fw"></i> Login with Facebook</a>
+        <a href="{{ url('login/facebook') }}" class="btn loginBtn--facebook mt-3 col-md-12 text-white py-3"><i class="fab fa-facebook-f fa-fw"></i> Login with Facebook</a>
         <br>
-        <a href="#" class="btn loginBtn--google mt-2 col-md-12 text-white py-3"><i class="fab fa-google fa-fw"></i> Login with google</a>
+        <a href="{{ url('login/google') }}" class="btn loginBtn--google mt-2 col-md-12 text-white py-3"><i class="fab fa-google fa-fw"></i> Login with google</a>
       </form>
     </div>
   </div>

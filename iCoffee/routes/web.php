@@ -17,6 +17,13 @@ Route::get('/', function () {
 	return view('index');
 });
 
+//login sosmed
+Auth::routes();
+Route::get('/login/{social}','Auth\LoginController@socialLogin')
+        ->where('social','twitter|facebook|linkedin|google|github');
+Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')
+        ->where('social','twitter|facebook|linkedin|google|github');
+
 //profil
 route::get('/profil/tambahalamat', 'HomeController@tambahalamat');
 route::post('/profil/tambah' , 'HomeController@tambah_alamat');
@@ -159,3 +166,4 @@ Route::group(['prefix' => 'mitra'], function(){
 });
 Route::get('/nyoba','MitraController@test');
 Route::post('/daftar-mitra-nyoba','MitraController@nyoba');
+
