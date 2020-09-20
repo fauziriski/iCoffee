@@ -97,6 +97,7 @@ class LoginController extends Controller
           'name'=>$user->getName(),
           'email'=>$user->getEmail(),
           'provider_id'=>$user->getId(),
+          'password'=>$user->getId(),
         ]);
 
         Auth::Login($user,true);
