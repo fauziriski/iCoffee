@@ -34,13 +34,13 @@ return [
     'facebook' => [
         'client_id'     => '2358125997657846',
         'client_secret' => '7987e797cf85adea42010d7609bd2acb',
-        'redirect'      => 'https://127.0.0.1:8000/login/facebook/callback'
+        'redirect'      => 'https://icoffee.asia/login/facebook/callback'
     ],
 
     'google' => [
         'client_id'     => env('GOOGLE_ID'),
         'client_secret' => env('GOOGLE_SECRET'),
-        'redirect'      => 'https://127.0.0.1:8000/login/google/callback'
+        'redirect'      => 'https://icoffee.asia/login/google/callback'
     ],
 
 ];
