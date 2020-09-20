@@ -86,24 +86,23 @@ class LoginController extends Controller
     }
 
     public function handleProviderCallback($social){
-      $user = Socialite::driver($social)->user();
-      // $user = User::where(['email' => $userSocial->getEmail()])->first();
-      // if ($user) {
-      //   Auth::login($user);
-      //   return redirect('/home');
-      // } else {
-      //   return view('auth.register', ['name' => $userSocial->getName(),'email'=> $userSocial->getEmail()]);
-      // }
-        $user = User::firstOrCreate([
-          'name'=>$user->getName(),
-          'email'=>$user->getEmail(),
-          'provider_id'=>$user->getId(),
-          'password'=>Hash::make($user->getId()),
-        ]);
-
-        Auth::Login($user,true);
+      $userSocial = Socialite::driver($social)->user();
+      $user = User::where(['email' => $userSocial->getEmail()])->first();
+      if ($user) {
+        Auth::login($user);
         Alert::success('Berhasil Masuk !');
         return redirect('/home');
+      } else {
+        $user = User::firstOrCreate([
+          'name'=>$userSocial->getName(),
+          'email'=>$userSocial->getEmail(),
+          'provider_id'=>$userSocial->getId(),
+          'password'=>Hash::make($userSocial->getId()),
+        ]);
+        Alert::success('Berhasil Masuk !');
+        return redirect('/home');
+      }
+
 
     }
 
