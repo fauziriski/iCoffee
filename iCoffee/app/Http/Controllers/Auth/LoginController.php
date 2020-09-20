@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Joint_account;
 use Socialite;
 use App\User;
+use App\Joint_account;
 use Auth;
 
 class LoginController extends Controller
@@ -99,6 +100,10 @@ class LoginController extends Controller
           'provider_id'=>$userSocial->getId(),
           'password'=>Hash::make($userSocial->getId()),
         ]);
+        $rekber = Joint_account::create([
+          'user_id' => $user->id,
+          'saldo' => 0
+      ]);
         Alert::success('Berhasil Masuk !');
         return redirect('/home');
       }
