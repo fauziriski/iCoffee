@@ -51,39 +51,75 @@ route::get('/profil/batal/dana_cair/{invoice}', 'HomeController@batal_tarik_dana
 
 
 
+Route::namespace('JualBeli\Pembelian')->group(function () {
+	//Home
+	Route::get('/jual-beli','HomeController@index');
+	Route::get('/jual-beli/kategori/{id}', 'HomeController@category');
+	Route::get('/jual-beli/produk/{id}','HomeController@detail');
 
+	//Cart
+	Route::get('/jual-beli/keranjang','CartController@index');
+	Route::post('/jual-beli/keranjang/tambah-produk','CartController@store');
+	route::get('/jual-beli/keranjang/tambah-produk/{id}','CartController@storeById');
+	Route::get('/jual-beli/keranjang/hapus/{id}', 'CartController@destroy');
+	Route::get('/jual-beli/update-keranjang/{id}/{index}', 'CartController@update');
+	Route::get('/jual-beli/update-cart/{id}/{jumlah}', 'CartController@updateByValue');
+
+	//Checout
+	// Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
+	Route::post('/jual-beli/checkout', 'CheckoutController@index');
+
+	//Invoice
+	Route::get('/jual-beli/invoice/{invoice}', 'InvoiceController@index');
+	Route::get('/jual-beli/invoice/batal/{invoice}', 'InvoiceController@cancelOrder');
+	Route::post('/jual-beli/pesanan/selesai', 'InvoiceController@acceptedProduct');
+	Route::post('/jual-beli/rating', 'InvoiceController@rating');
+
+	//Complaint
+	Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'ComplaintController@index');
+	Route::post('/jual-beli/pesanan/komplain', 'ComplaintController@update');
+
+});
+
+Route::namespace('JualBeli\Penjualan')->group(function () {
+	//Invoice
+	Route::get('/jual-beli/invoice_penjual/{invoice}', 'InvoiceController@index');
+	Route::post('/jual-beli/pesanan/terima', 'InvoiceController@ordersAccepted');
+	Route::post('/jual-beli/pesanan/inputresi', 'InvoiceController@updateResi');
+
+	//product
+	Route::get('/pasang-jualbeli', 'ProdukController@create');
+	Route::post('/pasang-produk/berhasil', 'ProdukController@store');
+	route::get('/jual-beli/produk/edit/{id}', 'ProdukController@edit');
+	route::post('/jual-beli/produk/edit/berhasil', 'ProdukController@update');
+	
+});
 
 
 // jual beli
-route::get('/jual-beli/produk/edit/{id}', 'HomeController@edit_produk');
-route::post('/jual-beli/produk/edit/berhasil', 'HomeController@edit_produk_berhasil');
-Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
-Route::post('/pasang-produk/berhasil', 'HomeController@pasangproduk');
-Route::get('/jual-beli','ProdukController@index');
-Route::get('/jual-beli/produk/{id}','ProdukController@detail');
-Route::get('/jual-beli/keranjang','KeranjangjbController@keranjang');
-Route::post('/jual-beli/keranjang/tambah-produk','KeranjangjbController@tambahkeranjang');
-route::get('/jual-beli/keranjang/tambah-produk/{id}','KeranjangjbController@tambahkeranjangindex');
-Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
-Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
-Route::get('/jual-beli/update-keranjang/{id}/{plus}', 'KeranjangjbController@updatekeranjang');
-Route::get('/jual-beli/update-cart/{id}/{jumlah}', 'KeranjangjbController@updatecartberubah');
-Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
+
+
+
+
+
+Route::get('/jual-beli/province/data', 'KeranjangjbController@province');
+Route::get('/jual-beli/url/', 'KeranjangjbController@file_get_content_curl');
+
+
 Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
-Route::get('/jual-beli/invoice/{invoice}', 'KeranjangjbController@invoice');
-Route::get('/jual-beli/invoice_penjual/{invoice}', 'KeranjangjbController@invoice_penjual');
-Route::get('/jual-beli/batalkanpesanan/{invoice}', 'KeranjangjbController@batalkanpesanan');
+
+
+
 Route::get('/jual-beli/transaksi', 'HomeController@transaksi');
 Route::get('/jual-beli/konfirmasi', 'HomeController@pembayaran');
 Route::post('/jual-beli/konfirmasi/pembayaran', 'HomeController@konfirmasipembayaran');
-Route::post('/jual-beli/pesanan/terima', 'KeranjangjbController@pesananditerima');
-Route::post('/jual-beli/pesanan/inputresi', 'KeranjangjbController@inputresi');
-Route::post('/jual-beli/pesanan/selesai', 'KeranjangjbController@pesananselesai');
-Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'KeranjangjbController@komplain');
-Route::post('/jual-beli/pesanan/komplain', 'KeranjangjbController@komplaindiproses');
-Route::post('/jual-beli/rating', 'KeranjangjbController@rating');
-Route::get('/jual-beli/kategori/{id}', 'ProdukController@index_category');
+
+
+
+
+
+
 
 
 Route::get('page/getprovince', 'ApiController@getprovince');

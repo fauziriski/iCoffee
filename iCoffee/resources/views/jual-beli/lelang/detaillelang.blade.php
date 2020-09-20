@@ -8,7 +8,7 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 mb-5 md-5 ftco-animatee">
+            {{-- <div class="col-lg-6 mb-5 md-5 ftco-animatee">
                 <div class="home-slider owl-carousel">
                   
           
@@ -22,11 +22,35 @@
                   </div>
                   @endforeach
                 </div>
+            </div> --}}
+            
+
+            <div class="col-lg-6 mb-1 ftco-animate">
+              <div class="row">
+                <div class="col-md-12 text-center border-bottom">
+                  {{-- <img class="img-fluid rounded" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" alt="Colorlib Template"> --}}
+                  <a style="" href="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$products->gambar) }}" class="image-popup"><img class="img-fluid rounded" src="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$products->gambar) }}" class="img-fluid" alt="Colorlib Template">
+                  </a>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <div class="row">
+                      @foreach($image as $data)
+                      <div class="col-lg-3 col-md-6 col-sm-3 col-3 ftco-animate">
+                        <div class="product">
+                          <a href="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$data->nama_gambar) }}" class="image-popup"><img class="img-fluid rounded border" src="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$data->nama_gambar) }}" alt="Colorlib Template">
+                            <div class="overlay"></div>
+                          </a>
+                        </div>
+                      </div>
+                      @endforeach
+                    </div>
+                </div>
+              </div>
             </div>
 
 
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
-              <h3>{{ $products->nama_produk}}</h3>
+              <h3 class="font-weight-bold">{{ $products->nama_produk}}</h3>
                 <!-- <div class="rating d-flex">
                         <p class="text-left mr-4">
                             <a href="#" class="mr-2">5.0</a>
@@ -52,7 +76,7 @@
                     <i class="fa fa-money"></i> Harga Awal
                   </div>
                   <div class="col">
-                    <span class="mr-4" style="color: #bbb;">Rp {{ number_format($products->harga_awal,0,",",".")}}</span>
+                    <span class="mr-4" style="color: #000;">Rp {{ number_format($products->harga_awal,0,",",".")}}</span>
                   </div>
        
                 </p>
@@ -65,7 +89,7 @@
                     <i class="oi oi-transfer"></i> Penawaran Terakhir
                   </div>
                   <div class="col">
-                    <span class="mr-4" id="penawaran_terakhir" style="color: #bbb;">Rp {{ number_format($proses->penawaran,0,",",".") }}</span>
+                    <span class="mr-4" id="penawaran_terakhir"style="color: #000;">Rp {{ number_format($proses->penawaran,0,",",".") }}</span>
                   </div>
               
                 </p>
@@ -78,7 +102,7 @@
                     <i class="fas fa-weight-hanging"></i> Jumlah Barang Lelang
                   </div>
                   <div class="col">
-                    <span class="mr-4" id="jumlah_barang_lelang" style="color: #bbb;">{{ number_format($products->stok,0,",",".") }} Kg</span>
+                    <span class="mr-4" id="jumlah_barang_lelang"style="color: #000;">{{ number_format($products->stok,0,",",".") }} Kg</span>
                   </div>
               
                 </p>
@@ -92,35 +116,37 @@
                 </p>
               </div>
                         
-                  <div class="row">
-                      <div class="col-md-6">
-                          <div class="form-group d-flex">
-                              <!-- <div class="select-wrap"> -->
-                              <!-- <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
-                              <!-- <select name="" id="" class="form-control">
-                                  <option value="">Small</option>
-                                <option value="">Medium</option>
-                                <option value="">Large</option>
-                                <option value="">Extra Large</option>
-                              </select> -->
-                            <!-- </div> -->
-                          </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group d-flex">
+                          <!-- <div class="select-wrap"> -->
+                          <!-- <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
+                          <!-- <select name="" id="" class="form-control">
+                              <option value="">Small</option>
+                            <option value="">Medium</option>
+                            <option value="">Large</option>
+                            <option value="">Extra Large</option>
+                          </select> -->
+                        <!-- </div> -->
                       </div>
-                      <div class="w-100"></div>
-                      <div class="col-md-12">
-                        <p style="color: #000;">Harga Tawar</p>
-                      </div>
-                      <div class="input-group col-md-6 d-flex mb-3">
-                          <div class="input-group">
-                              <div class="input-group-prepend">
-                                  <div class="input-group-text">Rp</div>
-                              </div>
-                            <input type="text" id="penawaran_coba" name="penawaran" class="form-control input-number" value="{{ number_format($tawar,0,",",".") }}" readonly>
+                  </div>
+                  <div class="w-100"></div>
+                  <div class="col-md-12">
+                    <p style="color: #000;">Harga Tawar</p>
+                  </div>
+                  <div class="input-group col-md-6 d-flex mb-3">
+                      <div class="input-group">
+                          <div class="input-group-prepend">
+                              <div class="input-group-text">Rp</div>
                           </div>
+                        <input type="text" id="penawaran_coba" name="penawaran" class="form-control input-number" value="{{ number_format($tawar,0,",",".") }}" readonly>
+                      </div>
 
-                      </div>
-              
-                      </div>
+                  </div>
+          
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-12 text-center">
                   <form  method="post" id="sample_form" >
                     @csrf
                     <input type="hidden" name="id_produk" value="{{$products->id}}">
@@ -129,8 +155,12 @@
                     <input type="hidden" name="nama" value="{{ Auth::user()->name }}">
                     <input type="hidden" name="penawaran" id="penawaran"  value="{{ $tawar }}">
                     <input type="hidden" name="kelipatan" value="{{ $products->kelipatan }}">
-                    <p><input class="btn btn-primary py-3 px-1" id="tawar" value="Tawar" readonly></p>
+                    <p>
+                      <input style="border-radius: 10px; padding: 17px 40%" class="btn btn-primary py-3 px-1" id="tawar" value="Tawar" readonly>
+                    </p>
                   </form>
+                  </div>
+                </div>
             </div>
     </div>
       
@@ -142,13 +172,12 @@
           <li class="nav-item">
             <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Penawaran</a>
           </li>
-          
         </ul>
         <br>
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <div class="row">
-              <div class="col mb-5 ftco-animate">
+              <div class="col mb-5 border-top ftco-animate">
                   <p>{{ $products->desc_produk }}</p>
               </div>
             </div>
@@ -157,7 +186,7 @@
           
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
           <div class="col-md-12 ftco-animate">
-            <div class="cart-list">
+            <div class="cart-list overflow-auto">
               <table class="table" id="table_id">
       
                   <tr class="text-center">
@@ -280,7 +309,7 @@
     // If the count down is over, write some text 
     if (distance < 0) {
       clearInterval(x);
-      $('#tawar').replaceWith('<input class="btn btn-primary py-3 px-1" id="selesai" value="Selesai" disabled>');
+      $('#tawar').replaceWith('<input style="border-radius: 10px; padding: 17px 40%" class="btn btn-primary py-3 px-1" id="selesai" value="Selesai" disabled>');
       var penawar_terakhir = {!!json_encode($penawar)!!};
       document.getElementById("demo1").innerHTML = "EXPIRED";
     }

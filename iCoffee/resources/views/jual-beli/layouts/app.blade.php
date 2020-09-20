@@ -29,8 +29,15 @@
   <link rel="stylesheet" href="{{asset('Jualbeli/css/icomoon.css') }}">
   <link rel="stylesheet" href="{{asset('Jualbeli/css/style.css') }}">
   <link rel="stylesheet" href="{{asset('Jualbeli/css/images.css') }}">
+  <link rel="stylesheet" href="{{asset('JualBeli/plugins/customPlugin/title.css')}}"/>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    .btn-primary {
+      border-radius: 10px;
+    }
+  </style>
 
 </head>
 
@@ -71,6 +78,7 @@
 {{-- <script src="{{asset('Jualbeli/js/google-map.js') }}"></script> --}}
 <script src="{{asset('Jualbeli/js/main.js') }}"></script>
 <script src="{{asset('Jualbeli/js/images.js') }}"></script>
+<script src="{{asset('JualBeli/plugins/customPlugin/alert.js')}}"></script>
 
 @yield('js')
 </body>

@@ -1,5 +1,5 @@
 @extends('jual-beli.layouts.app')
-@section('title', 'Tambah Alamat')
+@section('title', 'Komplain Produk')
 @section('content')
 
 <div class="col-md-9">
@@ -13,7 +13,7 @@
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" required>
+            <input type="email" class="form-control" value="{{ auth()->user()->email }}" name="email" required>
             <span class="text-danger">{{$errors->first('email')}}</span>
           </div>
           <div class="row">
@@ -41,10 +41,10 @@
 
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="foto_bukti">Foto Bukti Pembayaran</label>
+                  <label for="foto_bukti">Foto Permasalahan</label>
                   <div class="input-group">
-                    <input type="file" name="foto_bukti" class="form-control" required>
-                    <span class="text-danger">{{$errors->first('foto_bukti')}}</span>
+                    <input type="file" name="foto_bukti" class="form-control col-md-12" required>
+                    <span class="text-danger col-md-12">{{$errors->first('foto_bukti')}}</span>
                   </div>
                 </div>
               </div>
@@ -53,8 +53,8 @@
             </div>
           </div>
 
-            <div class="col-md-12 mt-3">
-                <button type="submit" class="btn btn-primary float-right py-3 px-4">Komplain</button>
+            <div class="col-md-2 offset-md-10 text-center mt-3">
+                <button type="submit" style="border-radius: 10px; padding: 15px;" class="btn btn-primary">Komplain</button>
             </div>
 
 

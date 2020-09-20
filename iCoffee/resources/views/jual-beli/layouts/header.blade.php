@@ -47,7 +47,7 @@
           </div>
           
           @guest
-          <li class="nav-item ml-2"><a href="{{ __('login') }}" class="nav-link"> Masuk</a></li>
+          <li class="nav-item ml-2"><a href="{{ __('/login') }}" class="nav-link"> Masuk</a></li>
           
           @else
 

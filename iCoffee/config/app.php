@@ -234,6 +234,8 @@ return [
         'Carbon' => 'Carbon\Carbon',
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Helper' => App\Helper\Helper::class,
+
 
     ],
 

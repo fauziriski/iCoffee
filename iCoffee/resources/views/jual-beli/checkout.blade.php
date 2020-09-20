@@ -17,7 +17,7 @@
 							<h3 class="billing-heading mb-4">Alamat Pengiriman</h3>
 							<div class="form-group">
 								<div class="row align-items-end">
-									<div class="col-xl-6 ftco-animate">
+									<div class="col-md-9 col-12 ftco-animate">
 										<p class="col-lg-12">{{ $alamat->nama }}</p>
 										<p class="col-lg-12">{{ $alamat->address }} - {{ $alamat->province->nama }}, {{ $alamat->city->nama }}, {{ $alamat->kecamatan }},  {{ $alamat->kode_pos }}</p>
 									</div>
@@ -25,8 +25,8 @@
 									<input type="hidden" name="id_alamat" value="{{ $alamat->id }}">
 									<input type="hidden" name="nama_alamat" value="{{ $alamat->nama }}">
 
-									<div class="col">
-										<p><a href="/profil/edit#pills-contact" class="btn btn-primary py-3 px-4 col-lg-7 align-self-end">Ganti Alamat</a></p>	
+									<div class="col-md-3 col-12">
+										<p><a href="/profil/edit#pills-contact" style="border-radius: 10px" class="btn btn-primary py-3 px-4 align-self-end">Ganti Alamat</a></p>	
 									</div>
 								</div>
 							</div>
@@ -38,7 +38,7 @@
 
 					@for ($i = 0; $i < $jumlah_penjual; $i++)
 					<div class="col-md-12">
-						<h3>{{ $penjual[$i]->name }}</h3>
+						<h3>Toko {{ $penjual[$i]->name }}</h3>
 						<input type="hidden" name="id_toko[{{ $i }}]" value="{{ $penjual[$i]->id }}">
 
 						<div class="cart-detail p-3 p-md-4">
@@ -63,7 +63,9 @@
 
 
 												<tr class="text-center">
-													<td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Produk/{'.$checkout_data[$i][$j]->kode_produk.'}/'.$checkout_data[$i][$j]->image) }});"></div></td>
+													<td class="image-prod">
+														<img src="{{ asset('Uploads/Produk/{'.$checkout_data[$i][$j]->kode_produk.'}/'.$checkout_data[$i][$j]->image) }}" alt="Responsive image" class="img rounded">
+													</td>
 													<td class="product-name">
 														<h3>{{ $checkout_data[$i][$j]->nama_produk }}</h3>
 													</td>
@@ -120,16 +122,22 @@
 													<select name="kurir[{{ $i }}]" id="kurir{{ $penjual[$i]->id }}" class="kurir form-control"  required>
 														{{-- onchange="myFunction()" --}}
 														<option selected disabled="disabled" value="" >Pilih Kurir</option>
-														@for ($k = 0; $k < count($costjne[$i][0]["costs"]); $k++)
-														<option value="{{ $costjne[$i][0]["costs"][$k]["cost"][0]["value"] }}: JNE: {{ $costjne[$i][0]["costs"][$k]["service"] }} " >JNE Rp {{ number_format($costjne[$i][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costjne[$i][0]["costs"][$k]["service"] }} {{ $costjne[$i][0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
+														@for ($k = 0; $k < count($costjne[$i]["rajaongkir"]["results"][0]["costs"]); $k++)
+														<option value="{{ $costjne[$i]["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"] }}: JNE: {{ $costjne[$i]["rajaongkir"]["results"][0]["costs"][$k]["service"] }} " >
+															JNE Rp {{ number_format($costjne[$i]["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costjne[$i]["rajaongkir"]["results"][0]["costs"][$k]["service"] }} {{ $costjne[$i]["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["etd"] }} Hari )
+														</option>
 														@endfor
 
-														@for ($k = 0; $k < count($costtiki[$i][0]["costs"]); $k++)
-														<option value="{{ $costtiki[$i][0]["costs"][$k]["cost"][0]["value"] }}: TIKI: {{ $costtiki[$i][0]["costs"][$k]["service"] }}">TIKI Rp {{ number_format($costtiki[$i][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costtiki[$i][0]["costs"][$k]["service"] }} {{ $costtiki[$i][0]["costs"][$k]["cost"][0]["etd"] }} Hari )</option>
+														@for ($k = 0; $k < count($costtiki[$i]["rajaongkir"]["results"][0]["costs"]); $k++)
+														<option value="{{ $costtiki[$i]["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"] }}: TIKI: {{ $costtiki[$i]["rajaongkir"]["results"][0]["costs"][$k]["service"] }}">
+															TIKI Rp {{ number_format($costtiki[$i]["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costtiki[$i]["rajaongkir"]["results"][0]["costs"][$k]["service"] }} {{ $costtiki[$i]["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["etd"] }} Hari )
+														</option>
 														@endfor
 
-														@for ($k = 0; $k < count($costpos[$i][0]["costs"]); $k++)
-														<option value="{{ $costpos[$i][0]["costs"][$k]["cost"][0]["value"] }}: POS: {{ $costpos[$i][0]["costs"][$k]["service"] }}">POS Rp {{ number_format($costpos[$i][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costpos[$i][0]["costs"][$k]["service"] }} {{ $costpos[$i][0]["costs"][$k]["cost"][0]["etd"] }} )</option>
+														@for ($k = 0; $k < count($costpos[$i]["rajaongkir"]["results"][0]["costs"]); $k++)
+														<option value="{{ $costpos[$i]["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"] }}: POS: {{ $costpos[$i]["rajaongkir"]["results"][0]["costs"][$k]["service"] }}">
+															POS Rp {{ number_format($costpos[$i]["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costpos[$i]["rajaongkir"]["results"][0]["costs"][$k]["service"] }} {{ $costpos[$i]["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["etd"] }} )
+														</option>
 														@endfor
 
 													</select>
@@ -143,7 +151,7 @@
 
 												<input type="hidden" name="total_bayar[]" value="{{ $jumlah[$i] }}">
 
-												<h6 class="text-center">Total Pembayaran Rp. {{ number_format($jumlah[$i]) }}</h6>
+												<h6 class="text-center mt-1">Total Pembayaran Rp. {{ number_format($jumlah[$i]) }}</h6>
 											</div>
 										</div>
 									</div>
@@ -218,9 +226,9 @@
 
 								</div>
 								<div class="row">
-									<div class="col-md-8 offset-md-7 mb-5">
+									<div class="col-md-4 col text-center col-12 offset-md-8 mb-5">
 										{{-- <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Buat Pesanan</a></p> --}}
-										<p><input type="submit" class="btn btn-primary py-3 px-4" value="Buat Pesanan"></p>
+										<p><input type="submit"  style="border-radius: 10px" class="btn btn-primary py-3 px-4" value="Buat Pesanan"></p>
 									</div>
 								</div>
 							</div>

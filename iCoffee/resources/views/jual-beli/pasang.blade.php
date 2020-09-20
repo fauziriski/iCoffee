@@ -24,7 +24,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">Rp</div>
                   </div>
-                  <input type="number" class="form-control" placeholder="Contoh : 10000" min="1000" name="harga" required>
+                  <input type="text" id="harga" class="form-control" placeholder="Min : 1000" min="1000" name="harga" required>
                   <span class="text-danger">{{$errors->first('harga')}}</span>
                 </div>
               </div>
@@ -34,7 +34,7 @@
               <div class="form-group">
                 <label for="stok">Stok</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="" placeholder="Contoh : 10" min="1" name="stok" required>
+                  <input type="text" class="form-control" id="stok" placeholder="Contoh : 10" min="1" name="stok" required>
                   <span class="text-danger">{{$errors->first('stok')}}</span>
                   <div class="input-group-prepend">
                     <div class="input-group-text">Kg</div>
@@ -59,7 +59,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>
-                <textarea class="form-control" rows="5" type="text" name="detail_produk" required></textarea>
+                <textarea id="summernote" class="form-control" rows="5" type="text" name="detail_produk" required></textarea>
                 <span class="text-danger">{{$errors->first('detail_produk')}}</span>
               </div>
             </div>
@@ -88,6 +88,7 @@
 </div><!-- tutup side -->
 </div>
 </section>
+<link rel="stylesheet" href="{{asset('Jualbeli/plugins/summernote/summernote-lite.css')}}">
 @endsection
 @section('js')
 <script>
@@ -120,6 +121,44 @@
 
       $(this).next('.custom-file-label').html(fileName);
     });
+</script>
+<script src="{{asset('Jualbeli/plugins/summernote/summernote-lite.js')}}"></script>
+<script>
+
+  $('#summernote').summernote({
+        placeholder: 'Tuliskan Deskripsi Produk Disini ...',
+        tabsize: 2,
+        height: 200,
+        disableDragAndDrop: true,
+        toolbar: [
+        //   ['style', ['style']],
+          // ['font', ['bold', 'underline', 'clear']],
+          // ['color', ['color']],
+          // ['para', ['ul', 'ol', 'paragraph']],
+        //   ['table', ['table']],
+          // ['insert', ['link', 'picture', 'video']],
+        //   ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+       
+    });
+
+</script>
+<script src="{{asset('JualBeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
+<script type="text/javascript">
+		
+  var harga = document.getElementById('harga');
+  harga.addEventListener('keyup', function(e){
+    // tambahkan 'Rp.' pada saat form di ketik
+    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    harga.value = formatRupiah(this.value, 'Rp. ');
+  });
+
+  var stok = document.getElementById('stok');
+  stok.addEventListener('keyup', function(e){
+    stok.value = formatRupiah(this.value, 'Rp. ');
+  });
+
+  
 </script>
 
 

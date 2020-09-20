@@ -111,7 +111,9 @@
     					</p>
     				</div>
 					{{-- <p><a href="/jual-beli/checkout" class="btn btn-primary py-2 px-5">Checkout</a></p> --}}
-					<p><input type="submit" class="btn btn-primary py-2 px-5" value="Checkout"></p>
+					<p class="text-right">
+						<input type="submit" class="btn btn-primary py-2 px-5" value="Checkout">
+					</p>
     			</div>
     		</div>
 			</div>

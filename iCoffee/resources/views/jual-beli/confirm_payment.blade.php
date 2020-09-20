@@ -63,7 +63,7 @@
                 <div class="form-group">
                   <label for="jumlah_transfer">Jumlah Transfer</label>
                   <div class="input-group">
-                    <input type="number" class="form-control" id="" name="jumlah_transfer" placeholder="Contoh : 50000" required>
+                    <input type="text" class="form-control" id="jumlah_transfer" name="jumlah_transfer" required>
                     <span class="text-danger">{{$errors->first('jumlah_transfer')}}</span>
                   </div>
                 </div>
@@ -117,4 +117,19 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+@endsection
+
+@section('js')
+<script src="{{asset('JualBeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
+<script type="text/javascript">
+		
+  var harga = document.getElementById('jumlah_transfer');
+  harga.addEventListener('keyup', function(e){
+    // tambahkan 'Rp.' pada saat form di ketik
+    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    harga.value = formatRupiah(this.value, 'Rp. ');
+  });
+
+  
+</script>
 @endsection

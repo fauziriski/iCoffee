@@ -24,6 +24,7 @@ use App\Delivery;
 use App\Delivery_category;
 use App\Rating;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
+use App\Helper\Helper;
 
 class KeranjanglelangController extends Controller
 {
@@ -84,27 +85,55 @@ class KeranjanglelangController extends Controller
         
         $alamat_pembeli = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
         $alamat_penjual = Address::where('id_pelanggan', $checkout->id_pelelang)->where('status', 1)->first();
+
+        $array = array(
+            "origin" => $alamat_penjual->kota_kabupaten,
+            "destination" => $alamat_pembeli->kota_kabupaten,
+            "weight" => $berat_kg,
+            "courier" => "jne",
+        );
+
+        $costjne = Helper::instance()->cekOngkir($array);
+
+        $array = array(
+            "origin" => $alamat_penjual->kota_kabupaten,
+            "destination" => $alamat_pembeli->kota_kabupaten,
+            "weight" => $berat_kg,
+            "courier" => "tiki",
+        );
+
+        $costtiki = Helper::instance()->cekOngkir($array);
+
+        $array = array(
+            "origin" => $alamat_penjual->kota_kabupaten,
+            "destination" => $alamat_pembeli->kota_kabupaten,
+            "weight" => $berat_kg,
+            "courier" => "pos",
+        );
+
+        $costpos = Helper::instance()->cekOngkir($array);
+
         
-        $costjne = RajaOngkir::ongkosKirim([
-            'origin'        => $alamat_penjual->kota_kabupaten,     // ID kota/kabupaten asal
-            'destination'   => $alamat_pembeli->kota_kabupaten,      // ID kota/kabupaten tujuan
-            'weight'        => $berat_kg,    // berat barang dalam gram
-            'courier'       => 'jne'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
-        ])->get();
+        // $costjne = RajaOngkir::ongkosKirim([
+        //     'origin'        => $alamat_penjual->kota_kabupaten,     // ID kota/kabupaten asal
+        //     'destination'   => $alamat_pembeli->kota_kabupaten,      // ID kota/kabupaten tujuan
+        //     'weight'        => $berat_kg,    // berat barang dalam gram
+        //     'courier'       => 'jne'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+        // ])->get();
 
-        $costtiki = RajaOngkir::ongkosKirim([
-            'origin'        => $alamat_penjual->kota_kabupaten,     // ID kota/kabupaten asal
-            'destination'   => $alamat_pembeli->kota_kabupaten,      // ID kota/kabupaten tujuan
-            'weight'        => $berat_kg,    // berat barang dalam gram
-            'courier'       => 'tiki'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
-        ])->get();
+        // $costtiki = RajaOngkir::ongkosKirim([
+        //     'origin'        => $alamat_penjual->kota_kabupaten,     // ID kota/kabupaten asal
+        //     'destination'   => $alamat_pembeli->kota_kabupaten,      // ID kota/kabupaten tujuan
+        //     'weight'        => $berat_kg,    // berat barang dalam gram
+        //     'courier'       => 'tiki'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+        // ])->get();
 
-        $costpos = RajaOngkir::ongkosKirim([
-            'origin'        => $alamat_penjual->kota_kabupaten,     // ID kota/kabupaten asal
-            'destination'   => $alamat_pembeli->kota_kabupaten,      // ID kota/kabupaten tujuan
-            'weight'        => $berat_kg,    // berat barang dalam gram
-            'courier'       => 'pos'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
-        ])->get();
+        // $costpos = RajaOngkir::ongkosKirim([
+        //     'origin'        => $alamat_penjual->kota_kabupaten,     // ID kota/kabupaten asal
+        //     'destination'   => $alamat_pembeli->kota_kabupaten,      // ID kota/kabupaten tujuan
+        //     'weight'        => $berat_kg,    // berat barang dalam gram
+        //     'courier'       => 'pos'    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+        // ])->get();
 
 
         return view('jual-beli.lelang.checkout', compact('checkout','alamat_pembeli', 'alamat_penjual', 'costjne', 'costtiki', 'costpos'));
