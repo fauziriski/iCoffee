@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Hash;
 use App\Joint_account;
 use Socialite;
 use App\User;
@@ -97,7 +98,7 @@ class LoginController extends Controller
           'name'=>$user->getName(),
           'email'=>$user->getEmail(),
           'provider_id'=>$user->getId(),
-          'password'=>$user->getId(),
+          'password'=>Hash::make($user->getId()),
         ]);
 
         Auth::Login($user,true);
