@@ -102,6 +102,7 @@ class LoginController extends Controller
         ]);
 
         Auth::Login($user,true);
+        Alert::success('Berhasil Masuk !');
         return redirect('/home');
 
     }
