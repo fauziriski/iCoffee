@@ -85,14 +85,23 @@ class LoginController extends Controller
     }
 
     public function handleProviderCallback($social){
-      $userSocial = Socialite::driver($social)->user();
-      $user = User::where(['email' => $userSocial->getEmail()])->first();
-      if ($user) {
-        Auth::login($user);
-        return redirect()->route('/');
-      } else {
-        return view('auth.register', ['name' => $userSocial->getName(),'email'=> $userSocial->getEmail()]);
-      }
+      $user = Socialite::driver($social)->user();
+      // $user = User::where(['email' => $userSocial->getEmail()])->first();
+      // if ($user) {
+      //   Auth::login($user);
+      //   return redirect('/home');
+      // } else {
+      //   return view('auth.register', ['name' => $userSocial->getName(),'email'=> $userSocial->getEmail()]);
+      // }
+        $user = User::firstOrCreate([
+          'name'=>$user->getName(),
+          'email'=>$user->getEmail(),
+          'provider_id'=>$user->getId(),
+        ]);
+
+        Auth::Login($user,true);
+        return redirect('/home');
+
     }
 
   }

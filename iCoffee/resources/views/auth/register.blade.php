@@ -35,7 +35,7 @@
                     <label for="formGroupExampleInput" class="bmd-label-floating">Email</label>
 
                     @if(!empty($email))
-                    <input type="email" class="form-control" name="email" value="{{ $email )}}"/>
+                    <input type="email" class="form-control" name="email" value="{{ $email }}"/>
                     <span class="text-danger">{{$errors->first('email')}}</span>
                     @else
                     <input type="email" class="form-control" name="email" value="{{old('email')}}"/>
