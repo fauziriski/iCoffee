@@ -22,13 +22,25 @@
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <div class="form-group col-sm-12 mt-4">
                     <label for="formGroupExampleInput" class="bmd-label-floating">Nama</label>
-                    <input type="text" class="form-control" name="name" value="{{old('name')}}"/>
+
+                    @if(!empty($name))
+                    <input type="text" class="form-control" name="name" value="{{ $name }}"/>
                     <span class="text-danger">{{$errors->first('name')}}</span>
+                    @else
+                    <input type="text" class="form-control" name="name" value="{{old('name')}}"/>
+                    @endif
+
                 </div>
                 <div class="form-group col-sm-12 mt-4">
                     <label for="formGroupExampleInput" class="bmd-label-floating">Email</label>
-                    <input type="email" class="form-control" name="email" value="{{old('email')}}"/>
+
+                    @if(!empty($email))
+                    <input type="email" class="form-control" name="email" value="{{ $email }}"/>
                     <span class="text-danger">{{$errors->first('email')}}</span>
+                    @else
+                    <input type="email" class="form-control" name="email" value="{{old('email')}}"/>
+                    @endif
+
                 </div>
                 <div class="form-group bmd-form-group col-sm-12"> <!-- manually specified --> 
                     <label for="formGroupExampleInput2" class="bmd-label-floating">Password</label>
@@ -42,9 +54,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary mt-3 py-3">Daftar</button>
                 <div class="text-center mt-3">atau</div>
-                <a href="#" class="btn loginBtn--facebook mt-3 col-md-12 text-white py-3"><i class="fab fa-facebook-f fa-fw"></i> Login with Facebook</a>
-                <br>
-                <a href="#" class="btn loginBtn--google mt-2 col-md-12 text-white py-3"><i class="fab fa-google fa-fw"></i> Login with google</a>
+                <a href="{{ url('login/facebook') }}" class="btn loginBtn--facebook mt-3 col-md-12 text-white py-3"><i class="fab fa-facebook-f fa-fw"></i> Daftar dengan Facebook</a>
+               <br>
+                 <a href="{{ url('login/google') }}" class="btn loginBtn--google mt-2 col-md-12 text-white py-3"><i class="fab fa-google fa-fw"></i> Daftar dengan google</a>
             </form>
         </div>
     </div>

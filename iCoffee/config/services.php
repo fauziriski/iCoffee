@@ -30,4 +30,17 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /* Social Media */
+    'facebook' => [
+        'client_id'     => '2358125997657846',
+        'client_secret' => '7987e797cf85adea42010d7609bd2acb',
+        'redirect'      => 'https://icoffee.asia/login/facebook/callback'
+    ],
+
+    'google' => [
+        'client_id'     => env('GOOGLE_ID'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect'      => 'https://icoffee.asia/login/google/callback'
+    ],
+
 ];

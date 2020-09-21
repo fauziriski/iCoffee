@@ -164,6 +164,7 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -232,7 +233,9 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Carbon' => 'Carbon\Carbon',
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        'Helper' => App\Helper\Helper::class
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Helper' => App\Helper\Helper::class,
+
 
     ],
 
