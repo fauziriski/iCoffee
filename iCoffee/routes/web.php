@@ -58,9 +58,10 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	Route::get('/jual-beli/update-keranjang/{id}/{index}', 'CartController@update');
 	Route::get('/jual-beli/update-cart/{id}/{jumlah}', 'CartController@updateByValue');
 
-	//Checout
+	//Checkout
 	// Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
 	Route::post('/jual-beli/checkout', 'CheckoutController@index');
+	Route::post('/jual-beli/pesanbarang', 'CheckoutController@store');
 
 	//Invoice
 	Route::get('/jual-beli/invoice/{invoice}', 'InvoiceController@index');
@@ -71,6 +72,10 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	//Complaint
 	Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'ComplaintController@index');
 	Route::post('/jual-beli/pesanan/komplain', 'ComplaintController@update');
+
+	//Confirm Payment
+	Route::get('/jual-beli/konfirmasi', 'ConfirmPaymentController@index');
+	Route::post('/jual-beli/konfirmasi/pembayaran', 'ConfirmPaymentController@store');
 
 });
 
@@ -91,10 +96,6 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 
 // jual beli
 
-
-
-
-
 Route::get('/jual-beli/province/data', 'KeranjangjbController@province');
 Route::get('/jual-beli/url/', 'KeranjangjbController@file_get_content_curl');
 
@@ -103,16 +104,7 @@ Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 
 
-
 Route::get('/jual-beli/transaksi', 'HomeController@transaksi');
-Route::get('/jual-beli/konfirmasi', 'HomeController@pembayaran');
-Route::post('/jual-beli/konfirmasi/pembayaran', 'HomeController@konfirmasipembayaran');
-
-
-
-
-
-
 
 
 Route::get('page/getprovince', 'ApiController@getprovince');

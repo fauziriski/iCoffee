@@ -53,7 +53,6 @@ class ProdukController extends Controller
     
     public function store(Request $request)
     {
-
         $size = count($request->file());
         if ($size == 0) 
         {
@@ -93,47 +92,30 @@ class ProdukController extends Controller
             $filesize = filesize($image_file[$i]);
             $filesize = round($filesize / 1024, 2);
 
-            if($filesize > 2048 )
-            {
+            if($filesize > 2048 ){
                 Alert::error('Gagal','Ukuran Gambar Tidak Lebih Dari 2 Mb')->showConfirmButton('Ok', '#3085d6');
                 return back();
-            }
-            elseif(!($image_file[$i]->isValid()))
-            {
+
+            }elseif(!($image_file[$i]->isValid())){
                 Alert::error('Gagal','Gambar yang Anda Masukan Korupt, Ganti dengan Gambar Lain')->showConfirmButton('Ok', '#3085d6');
                 return back();
-            }
-            
-            elseif($image_file[$i]->getMimeType() == 'image/jpeg' &&  $filesize < 2048)
-            {
+
+            }elseif($image_file[$i]->getMimeType() == 'image/jpeg' &&  $filesize < 2048){
                 $jumlah_gambar_bener[] = $image_file[$i]; 
-            }
-            elseif($image_file[$i]->getMimeType() == 'image/png' && $filesize < 2048 )
-            {
+
+            }elseif($image_file[$i]->getMimeType() == 'image/png' && $filesize < 2048 ){
                 $jumlah_gambar_bener[] = $image_file[$i];
 
-            }
-            else
-            {
+            }else{
                 Alert::error('Gagal','File yang Anda Masukan Bukan Gambar')->showConfirmButton('Ok', '#3085d6');
                 return back();
             }
-            
         }
 
-        $this->validate($request,[
-
-            'image-0' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image-1' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image-2' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image-3' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image-4' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
 
         $folderPath = public_path("Uploads/Produk/{".$oldMarker."}");
         $response = mkdir($folderPath);
         $nama = array();
-
             for ($i=0; $i < $size; $i++) { 
                 if($files = $image_file[$i]){
                     $name=$files->getClientOriginalName();
@@ -206,7 +188,6 @@ class ProdukController extends Controller
         ]);
 
         return response()->json();
-
     }
 
     public function removeDot($value)

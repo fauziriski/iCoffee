@@ -7,10 +7,14 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
+use App\Delivery;
+use App\Delivery_category;
 use App\Shop_product;
 use App\Address;
 use App\Jbcart;
 use App\User;
+use App\Order;
+use App\Orderdetail;
 use App\Helper\Helper;
 
 class CheckoutController extends Controller
@@ -211,6 +215,115 @@ class CheckoutController extends Controller
         return view('jual-beli.checkout', compact('getProductData','jumlah_penjual','jumlah_seluruh','alamat','jumlah','penjual','costpos','checkout_data','costtiki','costjne','jumlah_data_checkout'));
 
 
+    }
+
+    public function store(Request $request)
+    {
+
+        $id_customer = Auth::user()->id;
+        $hitung = count(collect($request)->get('id_toko'));
+        $jumlah_keranjang = count(collect($request)->get('id_keranjang'));
+
+        for ($i=0; $i < $hitung ; $i++)
+        {
+            $id_produks[] = $request->id_produk[$i];
+        }    
+
+        for ($i=0; $i < $hitung ; $i++) { 
+            $split[] = explode(': ', $request->kurir[$i]);
+        }
+
+        for ($i=0; $i < $hitung ; $i++) { 
+            $kategori_pengiriman[] = Delivery_category::where('nama_pengiriman', $split[$i][1])->first();
+        }
+        // $alamat = Address::where('id', $request->id_alamat)->where('status', 1)->first();
+        // dd($request);
+        $timestamps = date('YmdHis');
+        $invoice = $timestamps.$id_customer;
+
+        for ($i=0; $i < $hitung ; $i++) { 
+            $totalbayar[] = $request->total_bayar[$i]+$split[$i][0];
+        }
+
+        for ($i=0; $i < $jumlah_keranjang ; $i++) { 
+            $flight = Jbcart::where('id', $request->id_keranjang[$i])->first();
+            $flight->delete();
+        }
+
+
+        for ($i=0; $i < $hitung ; $i++) { 
+
+            $order[] = Order::create([
+                        'id_pelanggan' => $id_customer,
+                        'id_alamat' => $request->id_alamat,
+                        'nama' => $request->nama_alamat,
+                        'invoice' => $invoice,
+                        'status' => '1',
+                        'payment' => $request->bank,
+                        'shipping' => $request->kurir[$i],
+                        'pesan' => $request->pesan[$i],
+                        'total_bayar' =>$request->total_bayar[$i],
+                        'id_penjual' => $request->id_toko[$i]
+    
+            ]);      
+
+        }
+
+        for ($i=0; $i < $hitung ; $i++) { 
+            $id[] = $order[$i]->id;
+        }
+
+        for ($i=0; $i < $hitung ; $i++) { 
+            $id[] = $order[$i]->id;
+        }
+
+        for ($i=0; $i < $hitung ; $i++) { 
+            for ($j=0; $j < count($request->id_penjual[$i]) ; $j++) { 
+                $alamat_penjual[$i][] = Address::where('id_pelanggan', $request->id_penjual[$i][$j])->where('status', 1)->first();
+            }
+        }
+
+        for ($i=0; $i < $hitung ; $i++) { 
+            for ($j=0; $j < count($request->id_penjual[$i]) ; $j++) { 
+
+                $orderdetail[$i][] = Orderdetail::create([
+                                'id_pelanggan' => $id_customer,
+                                'id_penjual' => $request->id_penjual[$i][$j],
+                                'id_order' => $id[$i],
+                                'id_produk' => $request->id_produk[$i][$j],
+                                'nama_produk' =>$request->nama_produk[$i][$j],
+                                'invoice' => $invoice,
+                                'jumlah' => $request->jumlah[$i][$j],
+                                'harga' => $request->harga[$i][$j],
+                                'total' => $request->total[$i][$j],
+                                'kode_produk' =>  $request->total[$i][$j],
+                                'gambar' => $request->gambar[$i][$j],
+                                'id_alamat_penjual' => $alamat_penjual[$i][$j]->id
+        
+                    
+                ]);
+                $ids[$i][] = $orderdetail[$i][$j]->id;
+            }
+
+        }
+
+
+        for ($i=0; $i < $hitung ; $i++) {
+
+            Delivery::create([
+                'ongkos_kirim' => $split[$i][0],
+                'id_order' => $id[$i],
+                'nama' => $request->kurir[$i],
+                'invoice' =>  '',
+                'id_kategori_kurir' => $kategori_pengiriman[$i]->id
+      
+            ]);
+
+        }
+        
+        return redirect('/jual-beli/invoice/'.$invoice);
+        
+        
     }
 
     public function checkFeeShip()
