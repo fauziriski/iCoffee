@@ -387,68 +387,6 @@ class HomeController extends Controller
         return response()->json();
     }
 
-    public function transaksi()
-    {
-        // blm bayar 1
-        // sudah dibbayar 2
-        // proses penjual 3
-        // penjual menerima 4 menolak 0
-        // dikriim 5
-        // terkirim 6
-        // komplin 7
-        // konfirmasi diproses 8
-        // batalkan pesanan pembeli 9
-        $id_pelanggan = Auth::user()->id;
-        $transaksipembeli = Order::where('id_pelanggan', $id_pelanggan)->orderBy('created_at','desc')->paginate(5);
-        $transaksipenjual = Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->orderBy('created_at','desc')->paginate(5);
-
-        $jumlah_transaksi_penjual = count($transaksipenjual);
-        $kurir_data = array();
-        $total_bayar = array();
-        for ($i=0; $i < $jumlah_transaksi_penjual ; $i++) { 
-            $kurir_penjual = explode(': ',  $transaksipenjual[$i]->shipping);
-            $kurir_data[] =  $kurir_penjual[0];
-            $total_bayar[] =  $transaksipenjual[$i]->total_bayar+$kurir_penjual[0];
-        }
-
-        $jumlah_transaksi_beli = count($transaksipembeli);
-
-        $invoice = array();
-        $tanggal = array();
-        
-
-        for ($i=0; $i < $jumlah_transaksi_beli; $i++) { 
-            if(!(in_array($transaksipembeli[$i]->invoice, $invoice))){
-                $invoice[] = $transaksipembeli[$i]->invoice;
-                $tanggal[] = $transaksipembeli[$i]->created_at;
-            }
-        }
-        $cek_data = array();
-
-        $hitung_invoice = count($invoice);
-        for ($i=0; $i < $hitung_invoice; $i++) { 
-            $total_pembayaran = 0;
-            $total_ongkos_kirim = 0;
-            $jumlah_seluruh = 0;
-            $ongkir = 0;
-            $jumlah_invoice = Order::where('invoice', $invoice[$i])->get();
-            $hitung_jumlah_invoice = count($jumlah_invoice);
-            for ($j=0; $j < $hitung_jumlah_invoice ; $j++) { 
-                $kurir = explode(': ', $jumlah_invoice[$j]->shipping);
-                $ongkir += $kurir[0];
-                $jumlah_seluruh +=  $jumlah_invoice[$j]->total_bayar;                
-            }
-            $cek_data[] =  $jumlah_seluruh+$ongkir;
-
-        }
-
-        $transaksi_top_up = Top_up::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->paginate(5);
-        $count_transaksi_top_up = count($transaksi_top_up);
-
-        $transaksi_penarikan = Balance_withdrawal::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->paginate(5);
-
-        return view('jual-beli.transaksi', compact('invoice','transaksipembeli','tanggal','transaksi_penarikan', 'count_transaksi_top_up','transaksi_top_up', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
-    }
 
     public function invoicetopup_detail($id)
     {
@@ -460,7 +398,26 @@ class HomeController extends Controller
 
     }
 
-    
+    public function pembayaran()
+    {
+        $id_pelanggan = Auth::user()->id;
+        $transaksipenjual = Order::where('id_pelanggan', $id_pelanggan)->whereIn('status',[1,2])->orderBy('created_at','desc')->get();
+
+        $jumlah_invoice = count($transaksipenjual);
+
+        $data_invoice = array();
+        $data_tanggal = array();
+        for ($i=0; $i < $jumlah_invoice ; $i++) { 
+            if(!(in_array($transaksipenjual[$i]->invoice, $data_invoice))){
+                $data_invoice[] = $transaksipenjual[$i]->invoice;
+                $data_tanggal[] = date('Y-m-d', strtotime($transaksipenjual[$i]->created_at));
+
+            }
+        }
+        $jumlah = count($data_invoice);
+
+        return view('jual-beli.confirm_payment', compact('data_invoice', 'jumlah', 'data_tanggal','transaksipenjual'));
+    }
 
     public function pembayaranlelang()
     {
@@ -475,7 +432,62 @@ class HomeController extends Controller
         return view('jual-beli.lelang.confirm_payment', compact('data_tanggal','transaksipenjual'));
     } 
 
+    public function konfirmasipembayaran(Request $request)
+    {
+        $id_pelanggan = Auth::user()->id;
+        $this->validate($request,[
+            'email' => 'required',
+            'nama_bank_pengirim' => 'required',
+            'no_rekening_pengirim' => 'required',
+            'no_telp' => 'required',
+            'nama_pemilik_pengirim' => 'required',
+            'jumlah_transfer' => 'required',
+            'invoice' => 'required',
+            'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
 
+        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/JualBeli/{".$request->invoice."}");
+        $response = mkdir($folderPath);
+        
+        $image = $request->foto_bukti;
+        $name=$image->getClientOriginalName();
+        $image_resize = Images::make($image->getRealPath());
+        $image_resize->save($folderPath .'/'. $name);
+
+        $jumlah_transfer = $this->removeDot($request->jumlah_transfer);
+
+        $confirm_pesanan = Confirm_payment::create([
+            'id_pelanggan' => $id_pelanggan,
+            'email' => $request->email,
+            'no_rekening_pengirim' => $request->no_rekening_pengirim,
+            'nama_bank_pengirim' => $request->nama_bank_pengirim,
+            'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
+            'jasa' => '1',
+            'no_telp' => $request->no_telp,
+            'jumlah_transfer' => $jumlah_transfer,
+            'invoice' => $request->invoice,
+            'foto_bukti' => $name,
+            'status' => '1'
+        ]);
+
+        if ($confirm_pesanan) {
+            $order = Order::where('invoice', $request->invoice)->update([
+                'status' => '8'
+            ]);
+    
+            Alert::success('Berhasil', 'Konfirmasi berhasil')->showConfirmButton('Ok', '#3085d6');
+    
+            return redirect('/jual-beli/invoice/'. $request->invoice);
+        }
+        else {
+            Alert::error('Gagal', 'Konfirmasi gagal')->showConfirmButton('Ok', '#3085d6');
+    
+            return redirect('/jual-beli/konfirmasi');
+        }
+
+        
+        
+    }
 
     public function konfirmasipembayaranlelang(Request $request)
     {
@@ -603,30 +615,9 @@ class HomeController extends Controller
         return view('jual-beli.produk', compact('produk', 'category'));
     }
 
-    public function edit_produk($id)
-    {
-        $produk = Shop_product::where('id', $id)->first();
-        $kategori = $produk->category->kategori;
+    
 
-        return response()->json(array(
-            'produk' => $produk,
-            'kategori' => $kategori));
-    }
-
-    public function edit_produk_berhasil(Request $request)
-    {
-        $produk = Shop_product::where('id', $request->produk_id)->first();
-        $produk->update([
-            'nama_produk' => $request->nama_produk_edit,
-            'id_kategori' => $request->kategori_kopi_edit,
-            'harga' => $request->harga_edit,
-            'stok' => $request->stok_edit, 
-            'detail_produk' => $request->desc_produk_edit
-        ]);
-
-        return response()->json();
-
-    }
+    
 
     public function tambah_alamat_cadangan(Request $request)
     {

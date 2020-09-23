@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Confirm_payment;
+use App\Helper\Helper;
 use App\Order;
 use App\User;
 
@@ -57,14 +58,11 @@ class ConfirmPaymentController extends Controller
         ]);
 
         $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/JualBeli/{".$request->invoice."}");
-        $response = mkdir($folderPath);
-        
         $image = $request->foto_bukti;
         $name=$image->getClientOriginalName();
-        $image_resize = Images::make($image->getRealPath());
-        $image_resize->save($folderPath .'/'. $name);
 
-        $jumlah_transfer = $this->removeDot($request->jumlah_transfer);
+
+        $jumlah_transfer = Helper::instance()->removeDot($request->jumlah_transfer);;
 
         $confirm_pesanan = Confirm_payment::create([
             'id_pelanggan' => $id_pelanggan,
@@ -81,6 +79,9 @@ class ConfirmPaymentController extends Controller
         ]);
 
         if ($confirm_pesanan) {
+            $response = mkdir($folderPath);
+            $image_resize = Images::make($image->getRealPath());
+            $image_resize->save($folderPath .'/'. $name);
             $order = Order::where('invoice', $request->invoice)->update([
                 'status' => '8'
             ]);

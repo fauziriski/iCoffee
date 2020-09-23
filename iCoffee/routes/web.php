@@ -84,6 +84,9 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	Route::get('/jual-beli/konfirmasi', 'ConfirmPaymentController@index');
 	Route::post('/jual-beli/konfirmasi/pembayaran', 'ConfirmPaymentController@store');
 
+	//Transaction
+	Route::get('/jual-beli/transaksi', 'TransactionController@index');
+
 });
 
 Route::namespace('JualBeli\Penjualan')->group(function () {
@@ -95,8 +98,8 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	//product
 	Route::get('/pasang-jualbeli', 'ProdukController@create');
 	Route::post('/pasang-produk/berhasil', 'ProdukController@store');
-	route::get('/jual-beli/produk/edit/{id}', 'ProdukController@edit');
-	route::post('/jual-beli/produk/edit/berhasil', 'ProdukController@update');
+	Route::get('/jual-beli/produk/edit/{id}', 'ProdukController@edit');
+	Route::post('/jual-beli/produk/edit/berhasil', 'ProdukController@update');
 	
 });
 
@@ -107,11 +110,11 @@ Route::get('/jual-beli/province/data', 'KeranjangjbController@province');
 Route::get('/jual-beli/url/', 'KeranjangjbController@file_get_content_curl');
 
 
-Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
+// Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 
 
-Route::get('/jual-beli/transaksi', 'HomeController@transaksi');
+
 
 
 Route::get('page/getprovince', 'ApiController@getprovince');
