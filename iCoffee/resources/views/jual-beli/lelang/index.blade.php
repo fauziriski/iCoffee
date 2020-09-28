@@ -25,7 +25,6 @@
               @foreach ($category as $data)
     					<li><a href="/lelang/kategori/{{$data->id}}" class="{{ Request::segment(3) == $data->id ? 'active' : null }}">Kopi {{ $data->kategori }}</a></li>
 						@endforeach
-						<li><a href="/jual-beli">Lainnya</a></li>
 						  <li><a href="/lelang">Lainnya</a></li>
     				</ul>
     			</div>

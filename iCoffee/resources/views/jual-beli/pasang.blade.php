@@ -60,7 +60,7 @@
               <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>
                 <textarea id="summernote" class="form-control" rows="5" type="text" name="detail_produk" required></textarea>
-                <span class="text-danger">{{$errors->first('detail_produk')}}</span>
+                <span class="text-danger">{{$errors->first('summernote')}}</span>
               </div>
             </div>
 
