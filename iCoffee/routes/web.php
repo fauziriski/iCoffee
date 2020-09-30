@@ -134,6 +134,10 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	//Cart
 	Route::get('/lelang/keranjang', 'CartController@index');
 
+	//Checkout
+	Route::post('/lelang/checkout-barang', 'CheckoutController@index');
+	Route::post('/lelang/pesanbarang', 'CheckoutController@store');
+
 
 });
 
@@ -155,8 +159,8 @@ Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaranlelang');
 Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
 
 Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
-Route::post('/lelang/checkout-barang', 'KeranjanglelangController@checkoutbarang');
-Route::post('/lelang/pesanbarang', 'KeranjanglelangController@pesanbarang');
+
+
 Route::get('/lelang/transaksi', 'KeranjanglelangController@transaksi');
 Route::get('/lelang/invoice/{invoice}', 'KeranjanglelangController@invoice');
 Route::get('/lelang/invoice_penjual/{invoice}', 'KeranjanglelangController@invoice_penjual');
