@@ -68,6 +68,7 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	//Checkout
 	// Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
 	Route::post('/jual-beli/checkout', 'CheckoutController@index');
+	Route::get('/jual-beli/checkout', 'CheckoutController@checkId');
 	Route::post('/jual-beli/pesanbarang', 'CheckoutController@store');
 
 	//Invoice
@@ -136,6 +137,7 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 
 	//Checkout
 	Route::post('/lelang/checkout-barang', 'CheckoutController@index');
+	Route::get('/lelang/checkout-barang', 'CheckoutController@checkId');
 	Route::post('/lelang/pesanbarang', 'CheckoutController@store');
 
 

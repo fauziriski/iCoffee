@@ -191,21 +191,21 @@
 <script>
 
   $('#summernote').summernote({
-        placeholder: 'Tuliskan Deskripsi Produk Disini ...',
-        tabsize: 2,
-        height: 200,
-        disableDragAndDrop: true,
-        toolbar: [
-        //   ['style', ['style']],
-          // ['font', ['bold', 'underline', 'clear']],
-          // ['color', ['color']],
-          // ['para', ['ul', 'ol', 'paragraph']],
-        //   ['table', ['table']],
-          // ['insert', ['link', 'picture', 'video']],
-        //   ['view', ['fullscreen', 'codeview', 'help']]
-        ]
+      placeholder: 'Tuliskan Deskripsi Produk Disini ...',
+      tabsize: 2,
+      height: 200,
+      tabDisable: true,
+      disableDragAndDrop: true,
+      focus: true,
+      disableResizeEditor: true,
+      toolbar: false
+  });
+    
+  $('#summernote').summernote('fontName', 'Poppins');
+  $('#summernote').summernote('fontSize', 18);
+  $('.note-statusbar').hide(); 
+    
        
-    });
 
 </script>
 

@@ -13,9 +13,7 @@ use App\Helper\Helper;
 use App\Auction_Order;
 use Carbon\Carbon;
 use App\Address;
-use DB;
-
-
+use App\Account;
 
 class CheckoutController extends Controller
 {
@@ -30,6 +28,13 @@ class CheckoutController extends Controller
 
             'id' => 'required'
         ]);
+
+        session(['cart_auctionId' => $request->id]);
+        return $this->bootIndex($request->id);
+    }
+
+    protected function bootindex($id)
+    {
 
         $id_customer = Auth::user()->id;
 
@@ -46,8 +51,6 @@ class CheckoutController extends Controller
             Alert::info('Tentukan Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
             return redirect('/profil/edit#pills-contact');
         }
-
-        $id = $request->id;
 
         $checkout = Auction_winner::where('id', $id)->first();
 
@@ -97,17 +100,11 @@ class CheckoutController extends Controller
             'kurir' => 'required',
             'bank' => 'required'
         ]);
-        
-        $name = $request->input('id_keranjang');
-        
 
-        if (!($request->bank == 'BCA' || $request->bank == 'Mandiri' || $request->bank == 'BRI' || $request->bank == 'BNI')) {
-            Alert::error('Gagal', 'Bank yang anda masukan tidak ada')->showConfirmButton('Ok', '#3085d6');
-            return back()->withInput(['id' =>  $request->id_keranjang]);
-            // return redirect()->withInput(array('id' => $request->id_keranjang));
+        if(!(Account::where('bank_name', $request->bank)->first())) {
+            Alert::error('Gagal', 'Bank tidak ditemukan')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/lelang/checkout-barang');
         }
-
-        dd($request);
 
         $id_pelanggan = Auth::user()->id;
         $timestamps = date('YmdHis');
@@ -153,6 +150,15 @@ class CheckoutController extends Controller
 
         return redirect('/lelang/invoice/'.$oldMarker);
         
+    }
+
+    public function checkId()
+    {
+        if(session()->has('cart_auctionId')) {
+            return $this->bootIndex(session()->get('cart_auctionId'));
+        }
+        
+        return redirect('/lelang/keranjang');
     }
 
 }

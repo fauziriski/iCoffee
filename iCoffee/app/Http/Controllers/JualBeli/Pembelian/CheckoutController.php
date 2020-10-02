@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers\JualBeli\Pembelian;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use GuzzleHttp\Client;
-use App\Delivery;
+use Illuminate\Http\Request;
 use App\Delivery_category;
+use GuzzleHttp\Client;
+use App\Helper\Helper;
 use App\Shop_product;
+use App\Orderdetail;
+use App\Delivery;
+use App\Account;
 use App\Address;
 use App\Jbcart;
-use App\User;
 use App\Order;
-use App\Orderdetail;
-use App\Helper\Helper;
+use Validator;
+use App\User;
+
 
 class CheckoutController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -31,6 +35,14 @@ class CheckoutController extends Controller
             'id' => 'required'
         ]);
 
+        session(['cart_id' => $request->id]);
+
+        return $this->bootIndex($request->id);
+    }
+
+    protected function bootIndex($id)
+    {
+        
         $id_customer = Auth::user()->id;
 
         // make link session
@@ -39,13 +51,10 @@ class CheckoutController extends Controller
         array_unshift($links, $currentLink); // Putting it in the beginning of links array
         session(['links' => $links]); // Saving links array to the session
         
-        
-        
         $alamat_cadangan = Address::where('id_pelanggan', $id_customer)->whereIn('status', [0,1])->get();
 
         //check address
-        if($alamat_cadangan->isEmpty())
-        {
+        if($alamat_cadangan->isEmpty()) {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
             return redirect('/profil/tambahalamat');  
         }
@@ -58,7 +67,7 @@ class CheckoutController extends Controller
             return redirect('/profil/edit#pills-contact'); 
         }
 
-        $getProductData = Jbcart::whereIn('id', $request->id)->get();
+        $getProductData = Jbcart::whereIn('id', $id)->get();
 
         foreach ($getProductData as $data) 
         {
@@ -219,6 +228,16 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request,[
+
+            'kurir' => 'required',
+            'bank' => 'required'
+        ]);
+
+        if(!(Account::where('bank_name', $request->bank)->first())) {
+            Alert::error('Gagal', 'Bank tidak ditemukan')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/jual-beli/checkout');
+        }
 
         $id_customer = Auth::user()->id;
         $hitung = count(collect($request)->get('id_toko'));
@@ -274,10 +293,6 @@ class CheckoutController extends Controller
         }
 
         for ($i=0; $i < $hitung ; $i++) { 
-            $id[] = $order[$i]->id;
-        }
-
-        for ($i=0; $i < $hitung ; $i++) { 
             for ($j=0; $j < count($request->id_penjual[$i]) ; $j++) { 
                 $alamat_penjual[$i][] = Address::where('id_pelanggan', $request->id_penjual[$i][$j])->where('status', 1)->first();
             }
@@ -307,7 +322,7 @@ class CheckoutController extends Controller
 
         }
 
-
+        session()->forget('cart_id');
         for ($i=0; $i < $hitung ; $i++) {
 
             Delivery::create([
@@ -324,6 +339,15 @@ class CheckoutController extends Controller
         return redirect('/jual-beli/invoice/'.$invoice);
         
         
+    }
+
+    public function checkId()
+    {
+        if(session()->has('cart_id')) {
+
+            return $this->bootIndex(session()->get('cart_id'));
+        }
+        return redirect('/jual-beli/keranjang');
     }
 
     public function checkFeeShip()

@@ -65,7 +65,7 @@
             </div>
 
             @for ($i = 0; $i < 5; $i++)
-            <div class="col-md-8">
+            <div class="col-md-12">
             <div class="form-group">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" name="image-{{$i}}" id="inputGroupFile{{$i}}"/>
@@ -123,24 +123,26 @@
     });
 </script>
 <script src="{{asset('Jualbeli/plugins/summernote/summernote-lite.js')}}"></script>
+
+
 <script>
+ 
 
   $('#summernote').summernote({
         placeholder: 'Tuliskan Deskripsi Produk Disini ...',
         tabsize: 2,
         height: 200,
+        tabDisable: true,
         disableDragAndDrop: true,
-        toolbar: [
-        //   ['style', ['style']],
-          // ['font', ['bold', 'underline', 'clear']],
-          // ['color', ['color']],
-          // ['para', ['ul', 'ol', 'paragraph']],
-        //   ['table', ['table']],
-          // ['insert', ['link', 'picture', 'video']],
-        //   ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-       
+        focus: true,
+        disableResizeEditor: true,
+        toolbar: false
     });
+    
+    $('#summernote').summernote('fontName', 'Poppins');
+    $('#summernote').summernote('fontSize', 18);
+    $('.note-statusbar').hide(); 
+    
 
 </script>
 <script src="{{asset('JualBeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
