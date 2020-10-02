@@ -13,9 +13,11 @@
 
 
 
-Route::get('/', function () {
-	return view('index');
-});
+// Route::get('/', function () {
+// 	return view('index');
+// });
+
+route::get('/', 'IndexController@index');
 
 //login sosmed
 Auth::routes();

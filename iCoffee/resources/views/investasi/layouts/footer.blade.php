@@ -17,8 +17,8 @@
             <div class="block-23 mb-3">
               <ul>
                 <li><span class="icon icon-map-marker"><a href="#"></span><span class="text">Jl. Pagar Alam (Gang PU) No.44 Kedaton Bandar Lampung 35145</span></a></li>
-                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+62 811 7861 595</span></a></li>
-                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">contact@icoffee.com</span></a></li>
+                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+62 895 1650 1662</span></a></li>
+                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">icoffeeofficial@gmail.com</span></a></li>
               </ul>
               
             </div>
@@ -28,9 +28,10 @@
               <div class="col-md">
                 <div class="ftco-footer-widget">
                   <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
-                    <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                    <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                    <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                  <li class="ftco-animate"><a href="https://www.facebook.com/Icoffeeasia-10556699465030" target="_blank"><span class="icon-facebook"></span></a></li>
+                    <li class="ftco-animate"><a href="https://twitter.com/Icoffee_asia" target="_blank"><span class="icon-twitter"></span></a></li>
+                    <li class="ftco-animate"><a href="https://www.instagram.com/icoffee.asia/" target="_blank"><span class="icon-instagram"></span></a></li>
+                    <li class="ftco-animate"><a href="https://www.linkedin.com/company/icoffee-asia" target="_blank"><span class="icon-linkedin"></span></a></li>
                   </ul>
                 </div>
               </div>

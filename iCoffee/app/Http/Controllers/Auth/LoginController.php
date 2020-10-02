@@ -34,7 +34,7 @@ class LoginController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
     
-    protected $redirectTo = '/';
+    protected $redirectTo = '/jual-beli';
 
     /**
      * Create a new controller instance.
@@ -91,7 +91,7 @@ class LoginController extends Controller
       if ($user) {
         Auth::login($user);
         Alert::success('Berhasil Masuk !');
-        return redirect('/home');
+        return redirect('/jual-beli');
       } else {
         $users = User::firstOrCreate([
           'name'=>$userSocial->getName(),
@@ -104,7 +104,7 @@ class LoginController extends Controller
           'saldo' => 0
       ]);
         Alert::success('Berhasil Masuk !');
-        return redirect('/home');
+        return redirect('/jual-beli');
       }
 
     }

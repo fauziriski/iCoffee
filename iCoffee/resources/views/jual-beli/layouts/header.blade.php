@@ -7,11 +7,11 @@
           <div class="row d-flex">
             <div class="col-md pr-4 d-flex topper align-items-center">
               <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-              <span class="text">+6281 1786 1595</span>
+              <span class="text">+62 895 1650 1662</span>
             </div>
             <div class="col-md pr-4 d-flex topper align-items-center">
               <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-              <span class="text">contact@icoffee.com</span>
+              <span class="text">icoffeeofficial@gmail.com</span>
             </div>
             <div class="col-md pr-4 d-flex topper align-items-center">
               <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="oi oi-globe"></span></div>
