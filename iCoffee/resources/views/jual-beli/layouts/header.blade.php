@@ -40,7 +40,7 @@
               <button type="button" class="btn btn-primary btn-outline-primary my-2 px-3 py-1 my-sm-0" data-toggle="dropdown">
                <i class="fa fa-plus"></i>&nbsp;Pasang Produk
              </button>
-             <div class="dropdown-menu">
+             <div class="dropdown-menu mt-0">
               <a class="dropdown-item" href="{{url('pasang-jualbeli')}}">Penjualan</a>
               <a class="dropdown-item" href="{{url('pasang-lelang')}}">Lelang</a>
             </div>
@@ -54,7 +54,7 @@
           <li class="nav-item ml-2 dropdown">  <a id="navbarDropdown2" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
             &nbsp;&nbsp;&nbsp;<i class="ion-ios-cart mr-3"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown2">
+            <div class="dropdown-menu dropdown-menu-right px-1 mt-0" aria-labelledby="navbarDropdown2">
               <a class="dropdown-item" href="/jual-beli/keranjang">
                 <i class="fas fa-luggage-cart mr-2"></i>JualBeli
                </a>

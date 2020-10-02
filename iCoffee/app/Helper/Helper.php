@@ -71,6 +71,18 @@ class Helper
 
     }
 
+    public function removeDot($value)
+    {
+        $trueValue = str_replace('.', '', $value);
+        if ($trueValue) {
+            return $trueValue;
+        }
+        else {
+            return $value;
+        }
+        
+    }
+
     public static function instance()
     {
         return new Helper();

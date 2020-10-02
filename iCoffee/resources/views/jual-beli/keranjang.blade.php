@@ -80,39 +80,7 @@
 								<td class="total"><output name="total" id="total{{ $data->id }}" for="harga jumlah">Rp {{ number_format($data->total,0,",",".") }}</output></td>
 								<td class="product-remove"><a name="delete_product" value={{$data->id}} ><span class="oi oi-trash"></span></a></td>
 							  </tr><!-- END TR-->
-							  
-
-						      {{-- <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3>Bell Pepper</h3>
-
-						        </td>
-						        
-						        <td class="price">Rp 200.000</td>
-						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-										<span class="input-group-btn mr-2">
-											<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
-											<i class="ion-ios-remove"></i>
-											</button>
-									</span>
 							
-										<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1">
-										<span class="input-group-btn ml-2">
-											<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-											<i class="ion-ios-add"></i>
-										</button>
-										</span>
-									</div>
-					          </td>
-						        
-						        <td class="total">Rp 200.000</td>
-						      </tr><!-- END TR--> --}}
 							
 							  @endforeach
 							</tbody>
@@ -130,7 +98,7 @@
     				</div>
 					{{-- <p><a href="/jual-beli/checkout" class="btn btn-primary py-2 px-5">Checkout</a></p> --}}
 					<div class="text-right">
-						<p><input type="submit" style="border-radius: 10px" class="btn btn-primary py-2 px-5" id="checkBtn" value="Checkout"></p>
+						<p><input type="submit" class="btn btn-primary py-2 px-5" id="checkBtn" value="Checkout"></p>
 					</div>
     			</div>
     		</div>
@@ -191,7 +159,7 @@
 				url: "/jual-beli/update-keranjang/"+y+"/minus",
 				data: "id=y&type=jumlah",
 				success: function(data, tombol) {
-					$('#qty-'+y).replaceWith('<input type="text" id="qty-'+ y +'" name="quantity" class="qty form-control input-number" required value="'+ data.jumlah +'" min="1" max="100">');
+					$('#qty-'+y).replaceWith('<input type="text" id="qty-'+ y +'" name="quantity[]" class="qty form-control input-number" required value="'+ data.jumlah +'" min="1" max="100">');
 					$('#total'+y).replaceWith('<output name="total" id="total'+ y +'" for="harga jumlah">Rp '+ data.total.toLocaleString("id-ID") +'</output>');
 					$('#sub_total').replaceWith('<span id="sub_total">Rp '+ v.toLocaleString("id-ID") +' </span>');
 					u = v;

@@ -67,9 +67,11 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	Route::get('/jual-beli/update-keranjang/{id}/{index}', 'CartController@update');
 	Route::get('/jual-beli/update-cart/{id}/{jumlah}', 'CartController@updateByValue');
 
-	//Checout
+	//Checkout
 	// Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
 	Route::post('/jual-beli/checkout', 'CheckoutController@index');
+	Route::get('/jual-beli/checkout', 'CheckoutController@checkId');
+	Route::post('/jual-beli/pesanbarang', 'CheckoutController@store');
 
 	//Invoice
 	Route::get('/jual-beli/invoice/{invoice}', 'InvoiceController@index');
@@ -80,6 +82,13 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	//Complaint
 	Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'ComplaintController@index');
 	Route::post('/jual-beli/pesanan/komplain', 'ComplaintController@update');
+
+	//Confirm Payment
+	Route::get('/jual-beli/konfirmasi', 'ConfirmPaymentController@index');
+	Route::post('/jual-beli/konfirmasi/pembayaran', 'ConfirmPaymentController@store');
+
+	//Transaction
+	Route::get('/jual-beli/transaksi', 'TransactionController@index');
 
 });
 
@@ -92,33 +101,20 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	//product
 	Route::get('/pasang-jualbeli', 'ProdukController@create');
 	Route::post('/pasang-produk/berhasil', 'ProdukController@store');
-	route::get('/jual-beli/produk/edit/{id}', 'ProdukController@edit');
-	route::post('/jual-beli/produk/edit/berhasil', 'ProdukController@update');
+	Route::get('/jual-beli/produk/edit/{id}', 'ProdukController@edit');
+	Route::post('/jual-beli/produk/edit/berhasil', 'ProdukController@update');
 	
 });
 
 
 // jual beli
 
-
-
-
-
 Route::get('/jual-beli/province/data', 'KeranjangjbController@province');
 Route::get('/jual-beli/url/', 'KeranjangjbController@file_get_content_curl');
 
 
-Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
+// Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
-
-
-
-Route::get('/jual-beli/transaksi', 'HomeController@transaksi');
-Route::get('/jual-beli/konfirmasi', 'HomeController@pembayaran');
-Route::post('/jual-beli/konfirmasi/pembayaran', 'HomeController@konfirmasipembayaran');
-
-
-
 
 
 
@@ -128,21 +124,47 @@ Route::get('page/getprovince', 'ApiController@getprovince');
 Route::get('page/getcity', 'ApiController@getcity');
 Route::get('page/cekshipping', 'ApiController@cekshipping');
 
+//Lelang
+
+Route::namespace('Lelang\Pembelian')->group(function () {
+
+	//home
+	Route::get('/lelang', 'HomeController@index');
+	Route::get('/lelang/produk/{id}', 'HomeController@show')->middleware('auth');
+	Route::get('/lelang/kategori/{id}', 'HomeController@indexById');
+	Route::get('/lelang/produk/data/{id}', 'HomeController@getDataAuction');
+
+	//Cart
+	Route::get('/lelang/keranjang', 'CartController@index');
+
+	//Checkout
+	Route::post('/lelang/checkout-barang', 'CheckoutController@index');
+	Route::get('/lelang/checkout-barang', 'CheckoutController@checkId');
+	Route::post('/lelang/pesanbarang', 'CheckoutController@store');
+
+
+});
+
+Route::namespace('Lelang\Penjualan')->group(function () {
+
+	//product
+	Route::get('/pasang-lelang', 'ProductController@create');
+	Route::post('/pasang-lelang/berhasil', 'ProductController@store');
+
+});
+
 
 //lelang
-Route::get('/pasang-lelang', 'ProdukLelangController@pasangLelang');
-Route::post('/pasang-lelang/berhasil', 'ProdukLelangController@pasangLelangberhasil');
-Route::get('/lelang', 'ProdukController@lelang');
-Route::get('/lelang/kategori/{id}', 'ProdukController@lelangkategori');
-Route::get('/lelang/produk/{id}', 'ProdukLelangController@detaillelang');
-Route::get('/lelang/produk/data/{id}', 'ProdukLelangController@datalelang');
+
+
+
 Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
 Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaranlelang');
 Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
-Route::get('/lelang/keranjang', 'KeranjanglelangController@keranjang');
+
 Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
-Route::post('/lelang/checkout-barang', 'KeranjanglelangController@checkoutbarang');
-Route::post('/lelang/pesanbarang', 'KeranjanglelangController@pesanbarang');
+
+
 Route::get('/lelang/transaksi', 'KeranjanglelangController@transaksi');
 Route::get('/lelang/invoice/{invoice}', 'KeranjanglelangController@invoice');
 Route::get('/lelang/invoice_penjual/{invoice}', 'KeranjanglelangController@invoice_penjual');
