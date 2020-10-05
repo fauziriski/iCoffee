@@ -9,7 +9,7 @@
 
 <div class="container ftco-animate">
     <div class="text-center">
-        <img src="logo.png" width="20%" height="20%" style="margin-top: 5%;">
+        <img src="{{ asset('landing_page/images/LOGO.png') }}" style="margin-top: 5%;">
     <h6 class="mb-4" style="margin-top: 1%">Belum punya akun? Daftar <a href ="{{url('register')}}">disini.</a></h6>
   </div>
   <div class="col-md-7 d-flex mb-5 mt-5 mx-auto">
