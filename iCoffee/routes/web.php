@@ -203,7 +203,7 @@ Route::group(['prefix' => 'invest','middleware' => 'auth'], function(){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'mitra'], function(){
 	Route::get('/','MitraController@index')->name('mitra.home');

@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="{{asset('investasi/css/style.css') }}">
   <link href="{{asset('investasi/css/sb-admin-2.min.css') }}" rel="stylesheet">
   <link rel="shortcut icon" href="{{asset('landing_page/images/favicon.png') }}">
+  <meta name="google-site-verification" content="yr0b1EXiV-YTqxP_WX3A3LGbEtl805Xnq-hrlgDxj78" />
   
   @yield('css')
 </head>
