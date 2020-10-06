@@ -83,6 +83,17 @@ class Helper
         
     }
 
+    public function doUpload($file,$detailBuktiId){
+        $name = 'confirm_top_up' .$detailBuktiId .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('public/uploads/'.$this->folderName, $name);        
+        if($path){
+            return $name;
+        }
+        else{
+            return false;
+        }
+    }
+
     public static function instance()
     {
         return new Helper();

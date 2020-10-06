@@ -214,7 +214,7 @@ class HomeController extends Controller
         return redirect('/jual-beli');
     }
 
-    public function profil()
+    public function profile()
     {
         $id_pelanggan = Auth::user()->id;
         $nama_pelanggan = Auth::user()->name;
@@ -231,28 +231,42 @@ class HomeController extends Controller
         $provinsi = Province::all();
         
         
-        return view('jual-beli.profil', compact('user', 'provinsi', 'cekalamat'));
+        return view('jual-beli.profile', compact('user', 'provinsi', 'cekalamat'));
+    }
+
+    public function alamat()
+    {
+        $id_pelanggan = Auth::user()->id;
+        $user = User::where('id', $id_pelanggan)->first();
+        $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->whereIn('status', ['0','1'])->get();
+
+        if($cekalamat->isEmpty())
+        {
+            Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profil/tambahalamat');       
+
+        }
+
+        $provinsi = Province::all();
+        
+        
+        return view('jual-beli.address', compact('user', 'provinsi', 'cekalamat'));
     }
 
 
-    public function edit_profil(Request $request)
+    public function edit_profile(Request $request)
     {
+        $validatedData = $request->validate([
+            'email' => 'required|email|string|max:255',
+            'nama' => 'required|string|max:255',
+            'password' => 'required|min:8',
+        ]);
+
         $user_id = Auth::user()->id;
         $password = Auth::user()->password;
 
-        if ($request->password_baru != $request->cek_password_baru) {
-            Alert::error('Kata Sandi Baru Tidak Sama')->showConfirmButton('Ok', '#3085d6');
-
-            return redirect('/profil/edit');
-        }
-
-        
-
-        if ($password_hash = Hash::check($request->password_lama, $password)) {
+        if ($password_hash = Hash::check($request->password, $password)) {
             $user = User::where('id', $user_id)->first();
-            $request->user()->fill([
-                'password' => Hash::make($request->password_baru)
-            ])->save();
 
             $user_update = $user->update([
                 'name' => $request->nama,
@@ -261,12 +275,51 @@ class HomeController extends Controller
             ]);
             Alert::success('Berhasil');
 
-            return redirect('/profil/edit');
+            return redirect('/profile/edit');
         }
         
-        Alert::error('Kata Sandi Salah')->showConfirmButton('Ok', '#3085d6');
+        Alert::error('Gagal','Kata sandi salah')->showConfirmButton('Ok', '#3085d6');
 
-        return redirect('/profil/edit');
+        return redirect('/profile/edit');
+
+    }
+
+    public function update_password(Request $request)
+    {
+        $validatedData = $request->validate([
+            'password_lama' => 'required|min:8',
+            'password_baru' => 'required|min:8',
+            'cek_password_baru' => 'required|min:8',
+        ]);
+
+        $user_id = Auth::user()->id;
+        $password = Auth::user()->password;
+
+        if ($request->password_baru != $request->cek_password_baru) {
+            Alert::error('Gagal','Kata sandi baru tidak sama')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profile/edit#pills-edit-password');
+        }
+
+        if ($password_hash = Hash::check($request->password_lama, $password)) {
+            $user = User::where('id', $user_id)->first();
+            $update = $request->user()->fill([
+                        'password' => Hash::make($request->password_baru)
+                    ])->save();
+
+            if ($update) {
+                Alert::success('Berhasil','Kata sandi berhasil diubah')->showConfirmButton('Ok', '#3085d6');
+
+                return redirect('/profile/edit#pills-edit-password');
+            }
+
+            Alert::error('Gagal','Tidak dapat mengubah kata sandi')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profile/edit#pills-edit-password');
+            
+        }
+
+        Alert::error('Gagal','Kata sandi salah')->showConfirmButton('Ok', '#3085d6');
+        return redirect('/profile/edit#pills-edit-password');
+
 
     }
 
@@ -343,6 +396,17 @@ class HomeController extends Controller
 
     public function editalamat(Request $request)
     {
+        $validateData = $this->validate($request, [
+            'id_alamat_edit' => 'required|exists:addresses,id',
+            'nama_edit' => 'required|string|max:255',
+            'no_hp_edit' => 'required|max:13|min:11',
+            'provinsi_edit' => 'required',
+            'kota_kabupaten_edit' => 'required',
+            'kecamatan_edit' => 'required',
+            'kode_pos_edit' => 'max:6|min:5',
+            'alamat_edit' => 'required|string|max:255'
+        ]);
+
         $id_pelanggan = Auth::user()->id;
         $alamat = Address::where('id', $request->id_alamat_edit)->first();
 
@@ -382,6 +446,7 @@ class HomeController extends Controller
                 ]);
                 return response()->json();
             }
+            return response()->json();
         }
        
         return response()->json();
@@ -564,21 +629,28 @@ class HomeController extends Controller
         foreach ($transaksipenjual as $data) {
             $data_tanggal = date('Y-m-d', strtotime($data->created_at));   
         }
-        return view('jual-beli.lelang.confirm_payment_top_up', compact('data_tanggal','transaksipenjual'));
+        return view('jual-beli.topup.confirm_topup', compact('data_tanggal','transaksipenjual'));
     }
 
     public function konfirmasipembayarantopup(Request $request)
     {
+        
         $id_pelanggan = Auth::user()->id;
         $this->validate($request,[
+            'email' => 'required|exists:users,email',
+            'nama_bank_pengirim' => 'required',
+            'no_rekening_pengirim' => 'required',
+            'no_telp' => 'required|max:13|min:11',
+            'nama_pemilik_pengirim' => 'required|max:224',
+            'jumlah_transfer' => 'required',
+            'invoice' => 'required|exists:top_up,invoice',
             'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-
-        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/{".$request->invoice."}");
-        $response = mkdir($folderPath);
         
         $image = $request->foto_bukti;
-        $name=$image->getClientOriginalName();
+        $name = 'confirm_top_up_' .$request->invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $image->getClientOriginalExtension();
+        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/".$request->invoice);
+        $response = mkdir($folderPath);
         $image_resize = Images::make($image->getRealPath());
         $image_resize->save($folderPath .'/'. $name);
 
@@ -596,13 +668,19 @@ class HomeController extends Controller
             'status' => '1'
         ]);
 
-        $order = Top_up::where('invoice', $request->invoice)->update([
-            'status' => '8'
-        ]);
+        if ($confirm_pesanan) {
+            $order = Top_up::where('invoice', $request->invoice)->update([
+                'status' => '8'
+            ]);
+            Alert::success('Berhasil','Konfirmasi top up berhasil silahkan tunggu info selanjutnya')->showConfirmButton('Ok', '#3085d6');
+    
+            return redirect('/profile/top_up/history#pills-topup-masuk');
+        }
 
-        Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
+        Alert::error('Gagal','Konfirmasi top up gagal')->showConfirmButton('Ok', '#3085d6');
+        return back();
 
-        return redirect('/lelang');
+        
     }
 
     public function produksaya()
@@ -621,6 +699,17 @@ class HomeController extends Controller
 
     public function tambah_alamat_cadangan(Request $request)
     {
+
+        $validateData = $this->validate($request, [
+            'nama_alamat' => 'required|string|max:255',
+            'no_hp_alamat' => 'required|max:13|min:11',
+            'provinsi_alamat' => 'required',
+            'kota_kabupaten_alamat' => 'required',
+            'kecamatan_alamat' => 'required',
+            'kode_pos_alamat' => 'max:6|min:5',
+            'alamat_alamat' => 'required|string|max:255'
+        ]);
+
         $id_pelanggan = Auth::user()->id;
 
         $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->get();
@@ -630,7 +719,7 @@ class HomeController extends Controller
         if ($jumlah_alamat >= 5) {
             Alert::error('Gagal','Jumlah alamat anda sudah melebihi batas')->showConfirmButton('Ok', '#3085d6');
 
-            return redirect('/profil/edit');
+            return redirect('/profile/edit');
             
         }
 
@@ -646,9 +735,17 @@ class HomeController extends Controller
             'status' => '0'
 
         ]);
-        Alert::success('Berhasil');
 
-        return redirect('/profil/edit');
+        if ($tambah_alamat) {
+            Alert::success('Berhasil', 'Alamat berhasil ditambahkan')->showConfirmButton('Ok', '#3085d6');
+
+            return redirect('/profile/alamat#pills-daftar-alamat');
+        } else {
+            Alert::error('Gagal', 'Alamat gagal ditambahkan')->showConfirmButton('Ok', '#3085d6');
+
+            return redirect('/profile/alamat');
+        }
+        
 
     }
 
@@ -665,13 +762,13 @@ class HomeController extends Controller
             'status' => 1
         ]);
         
-        if (session('links')[0] == 'jual-beli/checkout-barang') {
-            session()->forget('links');
-            Alert::success('Berhasil','Berhasil Mengganti Alamat Utama')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/jual-beli/keranjang');
-        }
-        session()->forget('links');
-        return redirect('/profil/edit#pills-contact');
+        // if (session('links')[0] == 'jual-beli/checkout-barang') {
+        //     session()->forget('links');
+        //     Alert::success('Berhasil','Berhasil Mengganti Alamat Utama')->showConfirmButton('Ok', '#3085d6');
+        //     return redirect('/jual-beli/keranjang');
+        // }
+        // session()->forget('links');
+        return redirect('/profile/alamat#pills-daftar-alamat');
 
     }
 
@@ -680,15 +777,15 @@ class HomeController extends Controller
         $id_pelanggan = Auth::user()->id;
 
         $cek_saldo = Joint_account::where('user_id', $id_pelanggan)->first();
-        return view('jual-beli.cair_saldo', compact('cek_saldo'));
+        return view('jual-beli.topup.pencairan_saldo', compact('cek_saldo'));
     }
 
     public function tarik_saldo_konfirmasi(Request $request)
     {
         $this->validate($request,[
 
-            'email' => 'required',
-            'bank' => 'required',
+            'email' => 'required|exists:users,email',
+            'bank' => 'required|exists:accounts,bank_name',
             'no_rek' => 'required',
             'pemilik' => 'required',
             'jumlah' => 'required',
@@ -715,13 +812,17 @@ class HomeController extends Controller
                             'no_rekening'  => $request->no_rek,
                             'pemilik_rekening' => $request->pemilik
                         ]);
-
-           Alert::success('Berhasi')->showConfirmButton('Ok', '#3085d6');
-           return redirect('/jual-beli');
+            
+            if ($tariksaldo) {
+                Alert::success('Berhasi', 'Berhasil melakukan penarikan, tunggu infor selanjutnya')->showConfirmButton('Ok', '#3085d6');
+                return redirect('/profile/top_up/history#pills-topup-keluar');
+            }
+                Alert::error('Gagal', 'Gagal melakukan petarikan')->showConfirmButton('Ok', '#3085d6');
+                return redirect('/profile/tarik_saldo');
         }
         else{
-            Alert::error('Password anda salah')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tarik_saldo');
+            Alert::error('Gagal', 'Password anda salah')->showConfirmButton('Ok', '#3085d6');
+            return redirect('/profile/tarik_saldo');
         }
      
     }

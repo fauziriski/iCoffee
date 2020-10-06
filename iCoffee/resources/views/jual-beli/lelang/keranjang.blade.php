@@ -28,7 +28,7 @@
 								<tr class="text-center">
 									<td class="product-remove"><input type="radio" name="id" value="{{$data->id}}" required></td>
 									<td class="image-prod">
-										<img class="img" src="{{asset('Uploads/Lelang/{'.$data->auction_product->kode_lelang.'}/'.$data->auction_product->gambar)}}" alt="">
+										<img class="img" src="{{asset('Uploads/Lelang/'.$data->auction_product->kode_lelang.'/'.$data->auction_product->gambar)}}" alt="">
 									</td>
 									<td class="product-name">
 										<h3>{{ $data->auction_product->nama_produk }}</h3>

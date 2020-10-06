@@ -23,6 +23,14 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        $user_id = Auth::user()->id;
+        $myProduct = Auction_product::where('id_pelelang', $user_id)->orderBy('created_at','desc')->paginate(12);
+        return view('jual-beli.lelang.myProduct', compact('myProduct'));
+
+    }
+
     public function create()
     {
         $id_pelanggan = Auth::user()->id;
@@ -124,31 +132,38 @@ class ProductController extends Controller
 
         $id_pelanggan = Auth::user()->id;
         $nama_pelanggan = Auth::user()->name;
-        $oldMarker = $timestamps.$id_pelanggan;
+        $invoice = $timestamps.$id_pelanggan;
 
         $size = count($request->file());
 
-        $folderPath = public_path("Uploads/Lelang/{".$oldMarker."}");
+        $folderPath = public_path("Uploads/Lelang/".$invoice);
         $response = mkdir($folderPath);
         $nama = array();
 
         //Change content to html                
         $content = $request->deskripsi;
-        $dom = new \DomDocument();
-        $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        // $dom = new \DomDocument();
+        // $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         
-        $content = $dom->saveHTML();
+        // $content = $dom->saveHTML();
 
         for ($i=0; $i < $size; $i++) { 
             if($files = $image_file[$i]) {
 
-                $names=$files->getClientOriginalName();
+                // $names=$files->getClientOriginalName();
+                // $image_resize = Images::make($files->getRealPath());
+                // $image_resize->resize(690, 547);
+                // $image_resize->crop(500, 500);
+                // $image_resize->save($folderPath .'/'. $names);
+                // // $image_resize->move($folderPath,$name);
+                // $nama[]=$names;
+                $name = 'product_auction_' .$invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $files->getClientOriginalExtension();
+                // $name = $files->getClientOriginalName();
                 $image_resize = Images::make($files->getRealPath());
                 $image_resize->resize(690, 547);
-                $image_resize->crop(500, 500);
-                $image_resize->save($folderPath .'/'. $names);
-                // $image_resize->move($folderPath,$name);
-                $nama[]=$names;
+                $image_resize->crop(570, 512);
+                $image_resize->save($folderPath .'/'. $name);
+                $nama[]=$name;
                 
             }
         }
@@ -164,7 +179,7 @@ class ProductController extends Controller
                 'lama_lelang' => $request->lama_lelang,
                 'gambar' => $nama[0],
                 'stok' => $stok,
-                'kode_lelang' => $oldMarker,
+                'kode_lelang' => $invoice,
                 'id_kategori' => $request->id_kategori,
                 'tanggal_mulai' => $tanggal_mulai,
                 'tanggal_berakhir' => $tanggal_selesai,
@@ -190,7 +205,7 @@ class ProductController extends Controller
                             'id_pelelang' => $id_pelanggan,
                             'id_produk' => $produk->id,
                             'nama_gambar' => $nama[$i],
-                            'kode_produk' => $oldMarker
+                            'kode_produk' => $invoice
                         ]);
                     }
 

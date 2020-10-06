@@ -34,14 +34,15 @@
                 @foreach($products as $data)
     			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 ftco-animate">
     				<div class="product">
-    					<a href="/jual-beli/produk/{{ $data->id }}" class="img-prod rounded"><img class="img-fluid" src="{{ url('/Uploads/Produk/{'.$data->kode_produk.'}/'.$data->gambar) }}" alt="Colorlib Template">
+						<a href="/jual-beli/produk/{{ $data->id }}" class="img-prod rounded">
+							<img class="img-fluid" src="{{ url('/Uploads/Produk/'.$data->kode_produk.'/'.$data->gambar) }}" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
     						<h3><a href="/jual-beli/produk/{{ $data->id }}" class="font-weight-bold demo-1">{{ $data->nama_produk }}</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
-		    						<p class="price"><span class="price-sale font-weight-bold">Rp. {{ number_format($data->harga) }} / Kg</span></p>
+		    						<p class="price"><span class="price-sale font-weight-bold">Rp. {{ number_format($data->harga,0,",",".") }} / Kg</span></p>
 		    					</div>
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">

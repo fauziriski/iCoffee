@@ -38,6 +38,15 @@
     .btn-primary {
       border-radius: 10px;
     }
+    .form-control {
+      border-radius: 10px;
+    }
+    .input-group {
+      border-radius: 10px;
+    }
+    .input-group .input-group-prepend {
+      border-radius: 10px;
+    }
   </style>
 
 </head>
@@ -49,7 +58,7 @@
 @guest
 @else
 @section('sidebar')
-@include('jual-beli.layouts.sidebar')
+@include('jual-beli.layouts.sidebar2')
 @show
 @endguest
 

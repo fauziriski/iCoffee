@@ -7,7 +7,7 @@
  <div class="card">
    <article class="card-group-item">
     <header class="card-header"><h6 class="title">Top Up Saldo</h6></header>
-    <form action="/profil/top_up/proses" method="post"  enctype="multipart/form-data">
+    <form action="/profile/top_up/proses" method="post"  enctype="multipart/form-data">
       @csrf
       <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
         <div class="col-md-12">

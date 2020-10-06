@@ -39,6 +39,10 @@ class ConfirmPaymentController extends Controller
         }
         $jumlah = count($data_invoice);
 
+        // foreach ($data_invoice as $key => $value) {
+        //     echo $value .'/'.$data_tanggal[$key]. '<br>';
+        // }
+        // dd($data_invoice);
         return view('jual-beli.confirm_payment', compact('data_invoice', 'jumlah', 'data_tanggal','transaksipenjual'));
 
     }

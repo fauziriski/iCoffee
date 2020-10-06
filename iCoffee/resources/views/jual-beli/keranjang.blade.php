@@ -38,7 +38,7 @@
 						        
 						        
 						        <td class="image-prod">
-									<img src="{{ asset('Uploads/Produk/{'.$data->kode_produk.'}/'.$data->image) }}" alt="Responsive image" class="img rounded">
+									<img src="{{ asset('Uploads/Produk/'.$data->kode_produk.'/'.$data->image) }}" alt="Responsive image" class="img rounded">
 								</td>
 
 						        <td class="product-name">

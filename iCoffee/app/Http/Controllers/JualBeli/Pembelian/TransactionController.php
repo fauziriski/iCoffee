@@ -18,6 +18,11 @@ use App\User;
 
 class TransactionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
     public function index()
     {
@@ -79,6 +84,57 @@ class TransactionController extends Controller
 
         $transaksi_penarikan = Balance_withdrawal::where('user_id', $id_pelanggan)->orderBy('updated_at','desc')->paginate(5);
 
-        return view('jual-beli.transaksi', compact('invoice','transaksipembeli','tanggal','transaksi_penarikan', 'count_transaksi_top_up','transaksi_top_up', 'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
+        return view('jual-beli.transaksi', compact(
+            'invoice',
+            'transaksipembeli',
+            'tanggal',
+            'transaksi_penarikan', 
+            'count_transaksi_top_up',
+            'transaksi_top_up', 
+            'hitung_invoice', 'cek_data','kurir_data', 'jumlah_transaksi_penjual','total_bayar','transaksipenjual'));
+    }
+
+    public function indexBuy()
+    {
+        $id_pelanggan = Auth::user()->id;
+        $transaksipembeli = Order::where('id_pelanggan', $id_pelanggan)->orderBy('created_at','desc')->paginate(5);
+
+        $jumlah_transaksi_beli = count($transaksipembeli);
+        
+        $invoice = array();
+        $tanggal = array();
+
+        for ($i=0; $i < $jumlah_transaksi_beli; $i++) { 
+            if(!(in_array($transaksipembeli[$i]->invoice, $invoice))){
+                $invoice[] = $transaksipembeli[$i]->invoice;
+                $tanggal[] = $transaksipembeli[$i]->created_at;
+            }
+        }
+        
+        $cek_data = array();
+
+        $hitung_invoice = count($invoice);
+        for ($i=0; $i < $hitung_invoice; $i++) { 
+            $total_pembayaran = 0;
+            $total_ongkos_kirim = 0;
+            $jumlah_seluruh = 0;
+            $ongkir = 0;
+            $total_berat;
+            $jumlah_invoice = Order::where('invoice', $invoice[$i])->get();
+            $cek_payement = Order::where('invoice', $invoice[$i])->first();
+            $hitung_jumlah_invoice = count($jumlah_invoice);
+            for ($j=0; $j < $hitung_jumlah_invoice ; $j++) { 
+                $kurir = explode(': ', $jumlah_invoice[$j]->shipping);
+                $ongkir += $kurir[0];
+                $jumlah_seluruh +=  $jumlah_invoice[$j]->total_bayar;
+
+            }
+            $payment_method[] = $cek_payement->payment;
+            $sum_cost[] = $jumlah_seluruh;
+            $cek_data[] =  $jumlah_seluruh+$ongkir;
+
+        }
+
+        return view('jual-beli.buyHistory', compact('invoice','tanggal', 'cek_data', 'payment_method', 'sum_cost'));
     }
 }

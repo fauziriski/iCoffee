@@ -17,5 +17,10 @@ class Category extends Model
     {
     	return $this->hasMany('App\Shop_product');
     }
+
+    public function aution_products()
+    {
+    	return $this->hasMany('App\Auction_product');
+    }
     
 }

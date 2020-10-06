@@ -56,7 +56,10 @@
 												
 											
 												<tr class="text-center">
-												<td class="image-prod"><div class="img" style="background-image: url({{ asset('Uploads/Lelang/{'.$checkout->auction_product->kode_lelang.'}/'.$checkout->auction_product->gambar) }});"></div></td>
+												<td class="image-prod">
+													<div class="img" style="background-image: url({{ asset('Uploads/Lelang/'.$checkout->auction_product->kode_lelang.'/'.$checkout->auction_product->gambar) }});">
+													</div>
+												</td>
 												<td class="product-name">
 													<h3>{{ $checkout->auction_product->nama_produk }}</h3>
 												</td>

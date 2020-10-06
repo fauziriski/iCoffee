@@ -51,7 +51,8 @@
                 <div class="row">
                   <div class="col-md-12 text-center border-bottom">
                     {{-- <img class="img-fluid rounded" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" alt="Colorlib Template"> --}}
-                    <a style="" href="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" class="image-popup"><img class="img-fluid rounded" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" class="img-fluid" alt="Colorlib Template">
+                    <a style="" href="{{ asset('Uploads/Produk/'.$products->kode_produk.'/'.$products->gambar) }}" class="image-popup">
+                      <img class="img-fluid rounded" src="{{ asset('Uploads/Produk/'.$products->kode_produk.'/'.$products->gambar) }}" class="img-fluid" alt="Colorlib Template">
                     </a>
                   </div>
                   <div class="col-md-12 mt-2">
@@ -59,7 +60,8 @@
                         @foreach($image as $data)
                         <div class="col-lg-3 col-md-6 col-sm-3 col-3 ftco-animate">
                           <div class="product">
-                            <a href="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$data->nama_gambar) }}" class="image-popup"><img class="img-fluid rounded border" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$data->nama_gambar) }}" alt="Colorlib Template">
+                            <a href="{{ asset('Uploads/Produk/'.$products->kode_produk.'/'.$data->nama_gambar) }}" class="image-popup">
+                              <img class="img-fluid rounded border" src="{{ asset('Uploads/Produk/'.$products->kode_produk.'/'.$data->nama_gambar) }}" alt="Colorlib Template">
                               <div class="overlay"></div>
                             </a>
                           </div>
@@ -97,7 +99,7 @@
 					  <p class="price font-weight-bold"><span style="color:red">Rp {{ number_format($products->harga,0,",",".") }} / Kg</span></p>
 
             <div class="row">
-                <div class="col-4">
+                <div class="col-5 col-md-3">
                   <i class="fas fa-boxes"></i>&nbsp;<a style="font-size: 16px" class="ml-0" style="color: #000;">Stok
                 </div>
                 <div class="col-auto">
@@ -112,7 +114,7 @@
             </div>
 
             <div class="row">
-                <div class="col-4">
+                <div class="col-5 col-md-3">
                   <i class="fas fa-tags"></i>&nbsp;<a style="font-size: 16px" class="ml-0" style="color: #000;">Kategori
                 </div>
                 <div class="col-auto">

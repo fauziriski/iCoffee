@@ -29,25 +29,40 @@ Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallba
 //profil
 route::get('/profil/tambahalamat', 'HomeController@tambahalamat');
 route::post('/profil/tambah' , 'HomeController@tambah_alamat');
-route::get('/profil/edit', 'HomeController@profil');
+route::get('/profile/edit', 'HomeController@profile');
 route::post('/profil/tambah' , 'HomeController@tambah_alamat');
-route::post('/profil/edit_profil', 'HomeController@edit_profil');
-route::get('/profil/cekalamat/{id}', 'HomeController@cekalamat');
-route::post('/profil/alamat/edit', 'HomeController@editalamat');
-route::get('/profil/carikota/{id}', 'HomeController@carikota');
-route::get('/profil/top_up', 'HomeController@top_up');
-route::post('/profil/top_up/proses', 'HomeController@top_up_diproses');
-route::get('/profil/konfirmasi/top_up', 'HomeController@konfirmasi_top_up');
-route::post('/profil/konfirmasi/top_up/berhasil', 'HomeController@konfirmasipembayarantopup');
+
+route::post('/profile/edit_profile', 'HomeController@edit_profile');
+route::post('/profile/edit_password', 'HomeController@update_password');
+
+//address
+Route::get('/profile/alamat', 'HomeController@alamat');
+route::post('/profile/tambah/cadangan', 'HomeController@tambah_alamat_cadangan');
+route::get('/profile/cekalamat/{id}', 'HomeController@cekalamat');
+route::get('/profile/carikota/{id}', 'HomeController@carikota');
+route::post('/profile/alamat/edit', 'HomeController@editalamat');
+route::get('/profile/alamat/hapus/{id}','HomeController@alamathapus');
+route::get('/profile/utama/alamat/{id}','HomeController@alamat_utama');
+
+
+route::post('/profile/top_up/proses', 'HomeController@top_up_diproses');
+
+route::post('/profile/konfirmasi/top_up/berhasil', 'HomeController@konfirmasipembayarantopup');
 route::get('/profil/produk','HomeController@produksaya');
-route::get('/profil/utama/alamat/{id}','HomeController@alamat_utama');
-route::post('/profil/tambah/cadangan', 'HomeController@tambah_alamat_cadangan');
-route::get('/profil/alamat/hapus/{id}','HomeController@alamathapus');
+
+
+
+route::get('/profile/top_up/history', 'Profile\TopUpController@index');
+
+route::get('/profile/top_up', 'HomeController@top_up');
+route::get('/profile/konfirmasi/top_up', 'HomeController@konfirmasi_top_up');
 
 route::get('/profile/invoice/top_up', 'HomeController@invoice_top_up');
-route::get('/profil/top_up/detailinvoice/{id}', 'HomeController@invoicetopup_detail');
-route::get('/profil/tarik_saldo', 'HomeController@tarik_saldo');
-route::post('/profil/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
+route::get('/profile/top_up/detailinvoice/{id}', 'HomeController@invoicetopup_detail');
+route::get('/profile/tarik_saldo', 'HomeController@tarik_saldo');
+route::post('/profile/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
+
+
 route::get('/profil/tarikdana/{invoice}', 'HomeController@cek_invoice_dana');
 route::get('/profil/batal/dana_cair/{invoice}', 'HomeController@batal_tarik_dana');
 
@@ -89,6 +104,7 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 
 	//Transaction
 	Route::get('/jual-beli/transaksi', 'TransactionController@index');
+	Route::get('/jual-beli/transaksi/pembelian', 'TransactionController@indexBuy');
 
 });
 
@@ -99,10 +115,14 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	Route::post('/jual-beli/pesanan/inputresi', 'InvoiceController@updateResi');
 
 	//product
+	Route::get('/jual-beli/produk-saya','ProdukController@index');
 	Route::get('/pasang-jualbeli', 'ProdukController@create');
 	Route::post('/pasang-produk/berhasil', 'ProdukController@store');
 	Route::get('/jual-beli/produk/edit/{id}', 'ProdukController@edit');
 	Route::post('/jual-beli/produk/edit/berhasil', 'ProdukController@update');
+
+	//transaction
+	Route::get('/jual-beli/transaksi/penjualan', 'TransactionController@indexSell');
 	
 });
 
@@ -117,7 +137,9 @@ Route::get('/jual-beli/url/', 'KeranjangjbController@file_get_content_curl');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 
 
-
+Route::get('/ceks', function(){
+	return view('jual-beli.cek');
+});
 
 
 Route::get('page/getprovince', 'ApiController@getprovince');
@@ -142,6 +164,10 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	Route::get('/lelang/checkout-barang', 'CheckoutController@checkId');
 	Route::post('/lelang/pesanbarang', 'CheckoutController@store');
 
+	//Transaction
+	Route::get('/lelang/transaksi/pembelian', 'TransactionController@index');
+
+
 
 });
 
@@ -150,8 +176,15 @@ Route::namespace('Lelang\Penjualan')->group(function () {
 	//product
 	Route::get('/pasang-lelang', 'ProductController@create');
 	Route::post('/pasang-lelang/berhasil', 'ProductController@store');
+	Route::get('/lelang/produk-saya','ProductController@index');
+
+
+	//Transaction
+	Route::get('/lelang/transaksi/penjualan', 'TransactionController@index');
+
 
 });
+
 
 
 //lelang

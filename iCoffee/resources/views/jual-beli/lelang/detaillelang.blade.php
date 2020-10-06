@@ -13,7 +13,8 @@
           <div class="row">
             <div class="col-md-12 text-center border-bottom">
               {{-- <img class="img-fluid rounded" src="{{ asset('Uploads/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" alt="Colorlib Template"> --}}
-              <a style="" href="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$products->gambar) }}" class="image-popup"><img class="img-fluid rounded" src="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$products->gambar) }}" class="img-fluid" alt="Colorlib Template">
+              <a style="" href="{{ asset('Uploads/Lelang/'.$products->kode_lelang.'/'.$products->gambar) }}" class="image-popup">
+                <img class="img-fluid rounded" src="{{ asset('Uploads/Lelang/'.$products->kode_lelang.'/'.$products->gambar) }}" class="img-fluid" alt="Colorlib Template">
               </a>
             </div>
             <div class="col-md-12 mt-2">
@@ -21,7 +22,8 @@
                   @foreach($image as $data)
                   <div class="col-lg-3 col-md-6 col-sm-3 col-3 ftco-animate">
                     <div class="product">
-                      <a  href="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$data->nama_gambar) }}" class="image-popup"><img class="img-fluid rounded border" src="{{ asset('Uploads/Lelang/{'.$products->kode_lelang.'}/'.$data->nama_gambar) }}" alt="Colorlib Template">
+                      <a  href="{{ asset('Uploads/Lelang/'.$products->kode_lelang.'/'.$data->nama_gambar) }}" class="image-popup">
+                        <img class="img-fluid rounded border" src="{{ asset('Uploads/Lelang/'.$products->kode_lelang.'/'.$data->nama_gambar) }}" alt="Colorlib Template">
                         <div class="overlay"></div>
                       </a>
                     </div>

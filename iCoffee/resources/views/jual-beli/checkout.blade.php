@@ -64,7 +64,7 @@
 
 												<tr class="text-center">
 													<td class="image-prod">
-														<img src="{{ asset('Uploads/Produk/{'.$checkout_data[$i][$j]->kode_produk.'}/'.$checkout_data[$i][$j]->image) }}" alt="Responsive image" class="img rounded">
+														<img src="{{ asset('Uploads/Produk/'.$checkout_data[$i][$j]->kode_produk.'/'.$checkout_data[$i][$j]->image) }}" alt="Responsive image" class="img rounded">
 													</td>
 													<td class="product-name">
 														<h3>{{ $checkout_data[$i][$j]->nama_produk }}</h3>

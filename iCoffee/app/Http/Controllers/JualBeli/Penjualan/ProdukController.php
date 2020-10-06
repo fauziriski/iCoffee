@@ -23,16 +23,23 @@ class ProdukController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        $user_id = Auth::user()->id;
+
+        $produk = Shop_product::where('id_pelanggan', $user_id)->get();
+        $category = Category::all();
+
+        return view('jual-beli.myProduct', compact('produk', 'category'));
+    }
+
     public function create()
     {
         $id_pelanggan = Auth::user()->id;
         $nama_pelanggan = User::where('name', $id_pelanggan)->get();
         $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->whereIn('status', [0,1])->get();
 
-
-
-        if($cekalamat->isEmpty())
-        {
+        if($cekalamat->isEmpty()) {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
             return redirect('/profil/tambahalamat');       
 
@@ -40,28 +47,29 @@ class ProdukController extends Controller
 
         $alamat_utama = $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->where('status', 1)->get();
 
-        if(empty($alamat_utama))
-        {
+        if(empty($alamat_utama)) {
             Alert::info('Tentukan Alamat Utama')->showConfirmButton('Ok', '#3085d6');
             return redirect('/profil/edit');       
 
         }
 
+        for ($i=0; $i <5 ; $i++) { 
+            $j[] = $i;
+        }
+
         $category = Category::all();
-        return view('jual-beli.pasang',compact('category'));
+        return view('jual-beli.pasang',compact('category', 'j'));
     }
     
     public function store(Request $request)
     {
         $size = count($request->file());
-        if ($size == 0) 
-        {
+        if ($size == 0) {
             Alert::error('Gagal','Masukan Foto Produk Pertama')->showConfirmButton('Ok', '#3085d6');
             return back();
             
         }
-        elseif ($size == 1) 
-        {
+        elseif ($size == 1) {
             Alert::error('Gagal','Masukan Foto Produk Kedua')->showConfirmButton('Ok', '#3085d6');
             return back();
             
@@ -71,14 +79,13 @@ class ProdukController extends Controller
         
         $timestamps = date('YmdHis');
         $id_pelanggan = Auth::user()->id;
-        $oldMarker = $timestamps.$id_pelanggan;
+        $invoice = $timestamps.$id_pelanggan;
         
         //geser nama gambar
         $image_file = array();
         for ($i=0; $i < 5 ; $i++) 
         { 
-            if(!(empty($request->file('image-'.$i))))
-            {
+            if(!(empty($request->file('image-'.$i)))) {
                 $image_file[] = $request->file('image-'.$i);
             }
         }
@@ -113,30 +120,32 @@ class ProdukController extends Controller
         }
 
 
-        $folderPath = public_path("Uploads/Produk/{".$oldMarker."}");
+        $folderPath = public_path("Uploads/Produk/".$invoice);
         $response = mkdir($folderPath);
         $nama = array();
-            for ($i=0; $i < $size; $i++) { 
-                if($files = $image_file[$i]){
-                    $name=$files->getClientOriginalName();
-                    $image_resize = Images::make($files->getRealPath());
-                    $image_resize->resize(690, 547);
-                    $image_resize->crop(570, 512);
-                    $image_resize->save($folderPath .'/'. $name);
-                    // $image_resize->move($folderPath,$name);
-                    $nama[]=$name;
-                
+        for ($i=0; $i < $size; $i++) { 
+            if($files = $image_file[$i]){
+                $name = 'product_marketplace_' .$invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $files->getClientOriginalExtension();
+                // $name = $files->getClientOriginalName();
+                $image_resize = Images::make($files->getRealPath());
+                $image_resize->resize(690, 547);
+                $image_resize->crop(570, 512);
+                $image_resize->save($folderPath .'/'. $name);
+                // $image_resize->move($folderPath,$name);
+                $nama[]=$name;
             }
 
         }
 
         //Change content to html                
         $content = $request->detail_produk;
-        $dom = new \DomDocument();
-        $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        
-        $content = $dom->saveHTML();
-    
+        // dd($content);
+        // $dom = new \DOMDocument();
+        // libxml_use_internal_errors(true);
+        // $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        // dd($dom);
+        // $content = $dom->saveHTML();
+
         $order = Shop_product::create([
             'id_pelanggan' => $id_pelanggan,
             'id_kategori' => $request->id_kategori,
@@ -145,7 +154,7 @@ class ProdukController extends Controller
             'gambar' => $nama[0],
             'harga' => $harga,
             'stok' => $stok,
-            'kode_produk' => $oldMarker,
+            'kode_produk' => $invoice,
             'status' => '1'
 
         ]);
@@ -158,7 +167,7 @@ class ProdukController extends Controller
                 'id_pelanggan' => $id_pelanggan,
                 'id_produk' => $id,
                 'nama_gambar' => $nama[$i],
-                'kode_produk' => $oldMarker
+                'kode_produk' => $invoice
 
             ]);
         }
@@ -169,11 +178,18 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $produk = Shop_product::where('id', $id)->first();
-        $kategori = $produk->category->kategori;
 
-        return response()->json(array(
-            'produk' => $produk,
-            'kategori' => $kategori));
+        if (!$produk) {
+            Alert::error('Gagal','Produk tidak ditemukan')->showConfirmButton('Ok', '#3085d6');
+           return back();
+        }
+
+        $kategori = $produk->category->kategori;
+        $category = Category::all();
+        for ($i=0; $i <5 ; $i++) { 
+            $j[] = $i;
+        }
+        return view('jual-beli.editProduct', compact('produk', 'kategori','category', 'j'));
     }
 
     public function update(Request $request)

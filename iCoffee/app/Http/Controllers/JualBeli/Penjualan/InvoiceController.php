@@ -27,6 +27,7 @@ class InvoiceController extends Controller
         $cek_resi = Delivery::where('id_order', $order->id)->first();
         $orderdetails = Orderdetail::where('invoice', $invoice)->where('id_order', $order->id)->get();
         $alamat_penjual = Orderdetail::where('invoice', $invoice)->where('id_order', $order->id)->first();
+        dd($order);
         $kurir = explode(': ', $order->shipping);
         $jumlah_seluruh = $kurir[0]+$order->total_bayar;
         $bank_information = Account::where('bank_name', $order->payment)->first();
