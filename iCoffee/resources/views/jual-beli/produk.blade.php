@@ -28,7 +28,7 @@
                     
                 </div>
                 <div class="col text-left mt-2">
-                    <a href="/jual-beli/produk/{{ $data->id }}"><span class="oi oi-eye align-middle"></span>&nbsp; Lihat Produk </a>
+                    <a href="/jual-beli/produk/{{ $data->slug }}"><span class="oi oi-eye align-middle"></span>&nbsp; Lihat Produk </a>
                     <br>
                     <a href="" data-toggle="modal" data-target="#exampleModal" name="edit_produk" value="{{$data->id}}" target="_blank" data-whatever="@mdo"><span class="oi oi-pencil align-middle"></span>&nbsp; Edit Produk </a>
                 </div>
