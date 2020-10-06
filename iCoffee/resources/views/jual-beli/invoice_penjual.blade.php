@@ -43,7 +43,26 @@
     					<strong>Metode Pembayaran :</strong><br>
     					{{ $bank_information->bank_name }} {{ $bank_information->no_rekening }}<br>
 
-    				</address>
+					</address>
+					
+					@if ($order->status == 5 || 6 || 7 || 10 || 11)
+					<address>
+    					<strong>No Resi :</strong><br>
+    				{{$kurir[1]}} {{ $cek_resi->invoice }}<br>
+
+					</address>
+						
+					@else
+						
+					<address>
+						<strong>No Resi :</strong><br>
+						{{$kurir[1]}}<br>
+							
+
+					</address>
+
+					
+					@endif
     			</div>
     			<div class="col-md-3 col-6">
     				<address>
@@ -155,16 +174,20 @@
 				<div class="panel-heading">
     				<h3 class="card-header"><strong>Total</strong><strong class="float-right">Rp {{ number_format($jumlah_seluruh) }}</strong></h3>
                 </div>
-                <div class="panel-body mt-3 float-right">
+                <div class="panel-body mt-3">
 					@if ( $order->status == 3)
 						<form action="/jual-beli/pesanan/terima" method="post">
 							@csrf
 							<input type="hidden" name="id" required value="{{ $order->id }}">
 							<input type="hidden" name="invoice" required value="{{ $order->invoice }}">
 							<input type="hidden" name="jumlah_seluruh" required value="{{  $jumlah_seluruh }}">
-							<p><input type="submit" class="btn btn-secondary  py-3 px-5" name="submit" value="Tolak">
-								<input type="submit" class="btn btn-primary py-3 px-5" name="submit" value="Terima">
-						</p>
+							<div class="col-md-4 float-right">
+							<p class="row">
+								<input type="submit" style="border-radius: 10px; margin: auto; padding: 16px;" class="btn btn-secondary col-md-5 col-5" name="submit" value="Tolak">
+								<input type="submit" style="border-radius: 10px; margin: auto; padding: 16px;" class="btn btn-primary col-md-5 col-5" name="submit" value="Terima">
+							</p>
+						</div>
+							
 						</form>
 					@endif
 
@@ -175,17 +198,21 @@
 							<input type="hidden" name="invoice" required value="{{ $order->invoice }}">
 						
 								<div class="row">
-									<div class="col-md-2">
-										<label for="input_resi">Masukan Resi</label>
+									<div class="col-md-6"></div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-2 mr-2 mt-2">
+												<label for="input_resi">Masukan Resi</label>
+											</div>
+											<div class="col-md-6 mr-2 mt-2">
+												<input type="text" class="form-control"  name="input_resi" required>
+												<span class="text-danger">{{$errors->first('input_resi')}}</span>
+											</div>
+											<div class="col-md-2 mt-2 text-center">
+												<input type="submit" style="border-radius: 10px; margin: auto; padding: 14px;" class="btn btn-primary px-5" name="submit" value="Input">
+											</div>
+										</div>
 									</div>
-										<div class="col-md-6">
-											<input type="text" class="form-control"  name="input_resi" required>
-									<span class="text-danger">{{$errors->first('input_resi')}}</span>
-										</div>
-										<div class="col-md-4 text-center">
-											<input type="submit" class="btn btn-primary px-5" name="submit" value="Input">
-										</div>
-
 								</div>	
 
 							

@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Shop_product extends Model
 {
 
-    protected $fillable = [
-        'id_pelanggan','id_kategori','nama_produk','detail_produk','stok','harga','gambar','kode_produk'
+    protected $fillable = 
+    [
+        'id_pelanggan','id_kategori','nama_produk','detail_produk','stok','harga','gambar','kode_produk', 'status', 'slug'
     ];
 
     public $timestamps = true;

@@ -32,13 +32,13 @@ class DanaMasukInvestasiController extends Controller
 			return datatables()->of($AKMI)
 			->addColumn('action', function($data){
 				$button = 
-				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
-				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
+				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
+				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm py-0"><i class="fa fa-trash"></i> Hapus</button>';
 				return $button;
 			})
 
 			->addColumn('created_at', function($data){
-				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				$waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i'); 
 				return $waktu;
 			})
 
@@ -77,15 +77,13 @@ class DanaMasukInvestasiController extends Controller
 			$data = Adm_jurnal::findOrFail($id);
 			$total_jumlah = $data->total_jumlah;
 
-			$ambil = Confirm_payment::where('jumlah_transfer',$total_jumlah)->select('foto_bukti')->first();
-			$foto_bukti = $ambil->foto_bukti;
-			$invoice = $ambil->invoice;
+			// $ambil = Confirm_payment::where('jumlah_transfer',$total_jumlah)->select('foto_bukti')->first();
+			
+			// $invoice = $ambil->invoice;
 
 			return response()->json([
 				'data' => $data,
-				'akun' => $akun,
-				'foto_bukti' => $foto_bukti,
-				'invoice' => $invoice
+				'akun' => $akun
 			]);
 		}
 	}

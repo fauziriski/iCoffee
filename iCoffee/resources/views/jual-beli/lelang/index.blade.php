@@ -8,7 +8,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Lelang</span></p>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Beranda</a></span></p>
             <h1 class="mb-0 bread">Lelang</h1>
           </div>
         </div>
@@ -25,21 +25,21 @@
               @foreach ($category as $data)
     					<li><a href="/lelang/kategori/{{$data->id}}" class="{{ Request::segment(3) == $data->id ? 'active' : null }}">Kopi {{ $data->kategori }}</a></li>
 						@endforeach
-						<li><a href="/jual-beli">Lainnya</a></li>
 						  <li><a href="/lelang">Lainnya</a></li>
     				</ul>
     			</div>
     		</div>
     		<div class="row">
     			@foreach($products as $data)
-    			<div class="col-md-6 col-lg-3 ftco-animate">
+    			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 ftco-animate">
                     <div class="product">
-                        <a href="/lelang/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid" src="{{ url('/Uploads/Lelang/{'.$data->kode_lelang.'}/'.$data->gambar) }}" alt="Colorlib Template">
+                        <a href="/lelang/produk/{{ $data->id }}" class="img-prod">
+                          <img class="img-fluid rounded" src="{{ url('/Uploads/Lelang/'.$data->kode_lelang.'/'.$data->gambar) }}" alt="Colorlib Template">
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="/lelang/produk/{{ $data->id }}">{{ $data->nama_produk }}</a></h3>
-                             <p class="demo" id="{{ $data->id }}" name="{{ $data->id }}"  style="color:#ee4d2c;"></p>     
+                            <h3><a href="/lelang/produk/{{ $data->id }}" class="font-weight-bold">{{ $data->nama_produk }}</a></h3>
+                             <p class="font-weight-bold" class="demo" id="{{ $data->id }}" name="{{ $data->id }}"  style="color:#ee4d2c;"></p>     
                         </div>
                     </div>
             </div>

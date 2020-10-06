@@ -75,16 +75,9 @@ class ValidasiProdukLelangController extends Controller
 				return $kelipatan;
 			})
 
-			->addColumn('lama_lelang', function($data){
-				$ambil = $data->lama_lelang;
-				$hari = "hari";
-				$lama_lelang = $ambil.$hari;
-
-				return $lama_lelang;
-			})
 
 			->addColumn('created_at', function($data){
-				$created_at =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				$created_at =  Carbon::parse($data->created_at)->format('l, d F Y H:i'); 
 				return $created_at;
 			})
 			
@@ -149,12 +142,21 @@ class ValidasiProdukLelangController extends Controller
 		return response()->json(['success' => 'Berhasil Ditolak']);
 	}
 
+	
 	public function ValidasiProdukLelang(Request $request)
 	{
 		$lama = $request->lama_lelang;
-		$tanggal_mulai = date('Y-m-d H:i:s');
-		$tanggal_selesai = date("Y-m-d H:i:s", strtotime("+". $lama ."days"));
+        $split = explode('-', $lama);
 
+        $timestamps = date('YmdHis');
+        $tanggal_mulai = date('Y-m-d H:i:s');
+
+        if ($split[1] == 'Hari') {
+            $tanggal_selesai = date("Y-m-d H:i:s", strtotime("+". $split[0] ."days"));
+        } elseif($split[1] =='Jam') {
+            $tanggal_selesai = date("Y-m-d H:i:s", strtotime("+". $split[0] ."hours"));
+		}
+		
 		$form_data = array(
 			'status' => $request->status,
 			'tanggal_mulai' => $tanggal_mulai,

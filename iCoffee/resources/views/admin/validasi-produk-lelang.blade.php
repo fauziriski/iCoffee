@@ -76,7 +76,7 @@
                                 <th>Harga Awal</th>
                                 <th>Kelipatan</th>
                                 <th>Jumlah (Kg)</th>
-                                <th>Lama Lelang</th>
+                                <th>Waktu Lelang</th>
                                 <th>Terdaftar</th>
                                 <th>Status</th>
                                 <th></th>

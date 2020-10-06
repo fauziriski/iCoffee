@@ -68,4 +68,38 @@ class ArusKasController extends Controller
 			'ambil9','total9',
 		));
 	}
+
+	public function update(Request $request)
+	{
+		$from_date = $request->from_date;
+		$to_date = $request->to_date;
+		$cek_tanggal = Adm_jurnal::whereBetween('created_at',[$from_date, $to_date])->get();
+
+		//Arus Kas Keluar Administrasi
+		if(empty($cek_tanggal) || !isset($cek_tanggal[0])) {
+			return response()->json(['error' => "Tanggal tidak ada"]);
+		}else{
+			$AKKA = Adm_jurnal::whereBetween('created_at',[$from_date, $to_date])->where('id_kat_jurnal','2')->get();
+			foreach($AKKA as $data){
+				$jml[]= $data->total_jumlah;
+				$id_jurnal[]= $data->id;
+				$total_jumlah = array_sum($jml);
+			}
+
+			$akun = Adm_akun::whereIn('id_adm_jurnal',$id_jurnal)
+				->where('posisi','Kredit')
+				->select('nama_akun', DB::raw('SUM(jumlah) as total_jumlah'))
+                ->groupBy('nama_akun')
+				->get()
+				->toArray();		
+
+			return view('admin.admin-keuangan.laporan-arus-kas',compact(
+				'akun','total_jumlah'
+			));
+			
+		}
+
+		
+
+	}
 }

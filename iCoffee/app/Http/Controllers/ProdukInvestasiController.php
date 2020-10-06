@@ -23,7 +23,6 @@ class ProdukInvestasiController extends Controller
     {
         if(request()->ajax())
 		{	
-
 			return datatables()->of(Invest_product::where('id_mitra', Auth::user()->id_mitra)->latest()->get())
 			->addColumn('action', function($data){
 				$button = '<a href="produk/'.$data->kode_produk.'" type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</a>';
@@ -71,7 +70,7 @@ class ProdukInvestasiController extends Controller
         $code = $timestamps.$id_mitra;
         $size = count(collect($request)->get('gambar'));
 
-        $folderPath = public_path("Uploads\Investasi\Produk\{$code}");
+        $folderPath = public_path("Uploads/Investasi/Produk/{$code}");
         $response = mkdir($folderPath);
         $nama = array();
         

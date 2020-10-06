@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Hash;
 use App\Joint_account;
+use Socialite;
+use App\User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -30,7 +34,7 @@ class LoginController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
     
-    protected $redirectTo = '/';
+    protected $redirectTo = '/jual-beli';
 
     /**
      * Create a new controller instance.
@@ -72,6 +76,35 @@ class LoginController extends Controller
       }elseif ($user->hasRole('superadmin')) 
       {
         return redirect()->route('superadmin.dashboard');
+      }
+
+    }
+
+    //login sosmed
+    public function socialLogin($social) {
+      return Socialite::driver($social)->redirect();
+    }
+
+    public function handleProviderCallback($social){
+      $userSocial = Socialite::driver($social)->user();
+      $user = User::where(['email' => $userSocial->getEmail()])->first();
+      if ($user) {
+        Auth::login($user);
+        Alert::success('Berhasil Masuk !');
+        return redirect('/jual-beli');
+      } else {
+        $users = User::firstOrCreate([
+          'name'=>$userSocial->getName(),
+          'email'=>$userSocial->getEmail(),
+          'provider_id'=>$userSocial->getId(),
+          'password'=>Hash::make($userSocial->getId()),
+        ]);
+        $rekber = Joint_account::create([
+          'user_id' => $users->id,
+          'saldo' => 0
+      ]);
+        Alert::success('Berhasil Masuk !');
+        return redirect('/jual-beli');
       }
 
     }

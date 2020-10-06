@@ -86,6 +86,32 @@ Route::get('/lihat-validasi-pencairan/{id}', 'VerifikasiPencairanController@liha
 Route::post('/tolak-pencairan/update', 'VerifikasiPencairanController@tolakPencairan')->name('tolak-pencairan.update');
 Route::post('/validasi-pencairan/update', 'VerifikasiPencairanController@validasiPencairan')->name('validasi-pencairan.update');
 
+//komplain
+Route::get('/validasi-komplain', 'ValidasiKomplainController@Komplain')->name('validasi-komplain');
+Route::get('/lihat-komplain/{id}', 'ValidasiKomplainController@lihatKomplain')->name('lihat-komplain');
+Route::get('/komplain/{id}', 'ValidasiKomplainController@dataKomplain')->name('komplain');
+Route::post('/tolak-komplain/update', 'ValidasiKomplainController@TolakKomplain')->name('tolak-komplain');
+Route::post('/proses-komplain/update', 'ValidasiKomplainController@ProsesKomplain')->name('proses-komplain');
+
+Route::get('/validasi-komplain-lelang', 'ValidasiKomplainLelangController@KomplainLelang')->name('validasi-komplain-lelang');
+Route::get('/lihat-komplain-lelang/{id}', 'ValidasiKomplainLelangController@lihatKomplainLelang')->name('lihat-komplain-lelang');
+Route::get('/komplain-lelang/{id}', 'ValidasiKomplainLelangController@dataKomplainLelang')->name('komplain-lelang');
+Route::post('/tolak-komplain-lelang/update', 'ValidasiKomplainLelangController@TolakKomplainLelang')->name('tolak-komplain-lelang');
+Route::post('/divalidasi-komplain-lelang/update', 'ValidasiKomplainLelangController@ValidasiKomplainLelang')->name('divalidasi-komplain-lelang');
+Route::post('/proses-komplain-lelang/update', 'ValidasiKomplainLelangController@ProsesKomplainLelang')->name('proses-komplain-lelang');
+
+//pencairan dana progress petani
+Route::get('/validasi-pencairan-petani', 'VerifikasiProgresController@dataPencairanPetani')->name('validasi-pencairan-petani');
+Route::get('/lihat-validasi-pencairan-petani/{id}', 'VerifikasiProgresController@lihatPencairanPetani')->name('lihat-validasi-pencairan-petani');
+Route::post('/tolak-pencairan-petani/update', 'VerifikasiProgresController@tolakPencairanPetani')->name('tolak-pencairan-petani.update');
+Route::post('/validasi-pencairan-petani/update', 'VerifikasiProgresController@validasiPencairanPetani')->name('validasi-pencairan-petani.update');
+
+//pencairan dana bagi-hasil
+Route::get('/validasi-bagi-hasil', 'VerifikasiBagiHasilController@dataBagiHasil')->name('validasi-bagi-hasil');
+Route::get('/lihat-validasi-bagi-hasil/{id}', 'VerifikasiBagiHasilController@lihatBagiHasil')->name('lihat-validasi-bagi-hasil');
+Route::post('/tolak-bagi-hasil/update', 'VerifikasiBagiHasilController@tolakBagiHasil')->name('tolak-bagi-hasil.update');
+Route::post('/validasi-bagi-hasil/update', 'VerifikasiBagiHasilController@validasiBagiHasil')->name('validasi-bagi-hasil.update');
+
 
 
 

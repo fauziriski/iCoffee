@@ -13,90 +13,191 @@
 
 
 
-Route::get('/', function () {
-	return view('index');
-});
+// Route::get('/', function () {
+// 	return view('index');
+// });
+
+route::get('/', 'IndexController@index');
+
+//login sosmed
+Auth::routes();
+Route::get('/login/{social}','Auth\LoginController@socialLogin')
+        ->where('social','twitter|facebook|linkedin|google|github');
+Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')
+        ->where('social','twitter|facebook|linkedin|google|github');
 
 //profil
 route::get('/profil/tambahalamat', 'HomeController@tambahalamat');
 route::post('/profil/tambah' , 'HomeController@tambah_alamat');
-route::get('/profil/edit', 'HomeController@profil');
+route::get('/profile/edit', 'HomeController@profile');
 route::post('/profil/tambah' , 'HomeController@tambah_alamat');
-route::post('/profil/edit_profil', 'HomeController@edit_profil');
-route::get('/profil/cekalamat/{id}', 'HomeController@cekalamat');
-route::post('/profil/alamat/edit', 'HomeController@editalamat');
-route::get('/profil/carikota/{id}', 'HomeController@carikota');
-route::get('/profil/top_up', 'HomeController@top_up');
-route::post('/profil/top_up/proses', 'HomeController@top_up_diproses');
-route::get('/profil/konfirmasi/top_up', 'HomeController@konfirmasi_top_up');
-route::post('/profil/konfirmasi/top_up/berhasil', 'HomeController@konfirmasipembayarantopup');
+
+route::post('/profile/edit_profile', 'HomeController@edit_profile');
+route::post('/profile/edit_password', 'HomeController@update_password');
+
+//address
+Route::get('/profile/alamat', 'HomeController@alamat');
+route::post('/profile/tambah/cadangan', 'HomeController@tambah_alamat_cadangan');
+route::get('/profile/cekalamat/{id}', 'HomeController@cekalamat');
+route::get('/profile/carikota/{id}', 'HomeController@carikota');
+route::post('/profile/alamat/edit', 'HomeController@editalamat');
+route::get('/profile/alamat/hapus/{id}','HomeController@alamathapus');
+route::get('/profile/utama/alamat/{id}','HomeController@alamat_utama');
+
+
+route::post('/profile/top_up/proses', 'HomeController@top_up_diproses');
+
+route::post('/profile/konfirmasi/top_up/berhasil', 'HomeController@konfirmasipembayarantopup');
 route::get('/profil/produk','HomeController@produksaya');
-route::get('/profil/utama/alamat/{id}','HomeController@alamat_utama');
-route::post('/profil/tambah/cadangan', 'HomeController@tambah_alamat_cadangan');
-route::get('/profil/alamat/hapus/{id}','HomeController@alamathapus');
+
+
+
+route::get('/profile/top_up/history', 'Profile\TopUpController@index');
+
+route::get('/profile/top_up', 'HomeController@top_up');
+route::get('/profile/konfirmasi/top_up', 'HomeController@konfirmasi_top_up');
 
 route::get('/profile/invoice/top_up', 'HomeController@invoice_top_up');
-route::get('/profil/top_up/detailinvoice/{id}', 'HomeController@invoicetopup_detail');
-route::get('/profil/tarik_saldo', 'HomeController@tarik_saldo');
-route::post('/profil/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
+route::get('/profile/top_up/detailinvoice/{id}', 'HomeController@invoicetopup_detail');
+route::get('/profile/tarik_saldo', 'HomeController@tarik_saldo');
+route::post('/profile/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
+
+
 route::get('/profil/tarikdana/{invoice}', 'HomeController@cek_invoice_dana');
 route::get('/profil/batal/dana_cair/{invoice}', 'HomeController@batal_tarik_dana');
 
 
 
+Route::namespace('JualBeli\Pembelian')->group(function () {
+	//Home
+	Route::get('/jual-beli','HomeController@index');
+	Route::get('/jual-beli/kategori/{slug}', 'HomeController@category');
+	Route::get('/jual-beli/produk/{slug}','HomeController@detail');
 
+	//Cart
+	Route::get('/jual-beli/keranjang','CartController@index');
+	Route::post('/jual-beli/keranjang/tambah-produk','CartController@store');
+	route::get('/jual-beli/keranjang/tambah-produk/{slug}','CartController@storeById');
+	Route::get('/jual-beli/keranjang/hapus/{id}', 'CartController@destroy');
+	Route::get('/jual-beli/update-keranjang/{id}/{index}', 'CartController@update');
+	Route::get('/jual-beli/update-cart/{id}/{jumlah}', 'CartController@updateByValue');
+
+	//Checkout
+	// Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
+	Route::post('/jual-beli/checkout', 'CheckoutController@index');
+	Route::get('/jual-beli/checkout', 'CheckoutController@checkId');
+	Route::post('/jual-beli/pesanbarang', 'CheckoutController@store');
+
+	//Invoice
+	Route::get('/jual-beli/invoice/{invoice}', 'InvoiceController@index');
+	Route::get('/jual-beli/invoice/batal/{invoice}', 'InvoiceController@cancelOrder');
+	Route::post('/jual-beli/pesanan/selesai', 'InvoiceController@acceptedProduct');
+	Route::post('/jual-beli/rating', 'InvoiceController@rating');
+
+	//Complaint
+	Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'ComplaintController@index');
+	Route::post('/jual-beli/pesanan/komplain', 'ComplaintController@update');
+
+	//Confirm Payment
+	Route::get('/jual-beli/konfirmasi', 'ConfirmPaymentController@index');
+	Route::post('/jual-beli/konfirmasi/pembayaran', 'ConfirmPaymentController@store');
+
+	//Transaction
+	Route::get('/jual-beli/transaksi', 'TransactionController@index');
+	Route::get('/jual-beli/transaksi/pembelian', 'TransactionController@indexBuy');
+
+});
+
+Route::namespace('JualBeli\Penjualan')->group(function () {
+	//Invoice
+	Route::get('/jual-beli/invoice_penjual/{invoice}', 'InvoiceController@index');
+	Route::post('/jual-beli/pesanan/terima', 'InvoiceController@ordersAccepted');
+	Route::post('/jual-beli/pesanan/inputresi', 'InvoiceController@updateResi');
+
+	//product
+	Route::get('/jual-beli/produk-saya','ProdukController@index');
+	Route::get('/pasang-jualbeli', 'ProdukController@create');
+	Route::post('/pasang-produk/berhasil', 'ProdukController@store');
+	Route::get('/jual-beli/produk/edit/{id}', 'ProdukController@edit');
+	Route::post('/jual-beli/produk/edit/berhasil', 'ProdukController@update');
+
+	//transaction
+	Route::get('/jual-beli/transaksi/penjualan', 'TransactionController@indexSell');
+	
+});
 
 
 // jual beli
-route::get('/jual-beli/produk/edit/{id}', 'HomeController@edit_produk');
-route::post('/jual-beli/produk/edit/berhasil', 'HomeController@edit_produk_berhasil');
-Route::get('/pasang-jualbeli', 'HomeController@pasangjualbeli');
-Route::post('/pasang-produk/berhasil', 'HomeController@pasangproduk');
-Route::get('/jual-beli','ProdukController@index');
-Route::get('/jual-beli/produk/{id}','ProdukController@detail');
-Route::get('/jual-beli/keranjang','KeranjangjbController@keranjang');
-Route::post('/jual-beli/keranjang/tambah-produk','KeranjangjbController@tambahkeranjang');
-route::get('/jual-beli/keranjang/tambah-produk/{id}','KeranjangjbController@tambahkeranjangindex');
-Route::get('/jual-beli/checkout', 'KeranjangjbController@checkout');
-Route::post('/jual-beli/checkout-barang', 'KeranjangjbController@checkoutbarang');
-Route::get('/jual-beli/update-keranjang/{id}/{plus}', 'KeranjangjbController@updatekeranjang');
-Route::get('/jual-beli/keranjang/hapus/{id}', 'KeranjangjbController@hapus');
-Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
+
+Route::get('/jual-beli/province/data', 'KeranjangjbController@province');
+Route::get('/jual-beli/url/', 'KeranjangjbController@file_get_content_curl');
+
+
+// Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
-Route::get('/jual-beli/invoice/{invoice}', 'KeranjangjbController@invoice');
-Route::get('/jual-beli/invoice_penjual/{invoice}', 'KeranjangjbController@invoice_penjual');
-Route::get('/jual-beli/batalkanpesanan/{invoice}', 'KeranjangjbController@batalkanpesanan');
-Route::get('/jual-beli/transaksi', 'HomeController@transaksi');
-Route::get('/jual-beli/konfirmasi', 'HomeController@pembayaran');
-Route::post('/jual-beli/konfirmasi/pembayaran', 'HomeController@konfirmasipembayaran');
-Route::post('/jual-beli/pesanan/terima', 'KeranjangjbController@pesananditerima');
-Route::post('/jual-beli/pesanan/inputresi', 'KeranjangjbController@inputresi');
-Route::post('/jual-beli/pesanan/selesai', 'KeranjangjbController@pesananselesai');
-Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'KeranjangjbController@komplain');
-Route::post('/jual-beli/pesanan/komplain', 'KeranjangjbController@komplaindiproses');
-Route::post('/jual-beli/rating', 'KeranjangjbController@rating');
-Route::get('/jual-beli/kategori/{id}', 'ProdukController@index_category');
+
+
+Route::get('/ceks', function(){
+	return view('jual-beli.cek');
+});
 
 
 Route::get('page/getprovince', 'ApiController@getprovince');
 Route::get('page/getcity', 'ApiController@getcity');
 Route::get('page/cekshipping', 'ApiController@cekshipping');
 
+//Lelang
+
+Route::namespace('Lelang\Pembelian')->group(function () {
+
+	//home
+	Route::get('/lelang', 'HomeController@index');
+	Route::get('/lelang/produk/{id}', 'HomeController@show')->middleware('auth');
+	Route::get('/lelang/kategori/{id}', 'HomeController@indexById');
+	Route::get('/lelang/produk/data/{id}', 'HomeController@getDataAuction');
+
+	//Cart
+	Route::get('/lelang/keranjang', 'CartController@index');
+
+	//Checkout
+	Route::post('/lelang/checkout-barang', 'CheckoutController@index');
+	Route::get('/lelang/checkout-barang', 'CheckoutController@checkId');
+	Route::post('/lelang/pesanbarang', 'CheckoutController@store');
+
+	//Transaction
+	Route::get('/lelang/transaksi/pembelian', 'TransactionController@index');
+
+
+
+});
+
+Route::namespace('Lelang\Penjualan')->group(function () {
+
+	//product
+	Route::get('/pasang-lelang', 'ProductController@create');
+	Route::post('/pasang-lelang/berhasil', 'ProductController@store');
+	Route::get('/lelang/produk-saya','ProductController@index');
+
+
+	//Transaction
+	Route::get('/lelang/transaksi/penjualan', 'TransactionController@index');
+
+
+});
+
+
 
 //lelang
-Route::get('/pasang-lelang', 'ProdukLelangController@pasangLelang');
-Route::post('/pasang-lelang/berhasil', 'ProdukLelangController@pasangLelangberhasil');
-Route::get('/lelang', 'ProdukController@lelang');
-Route::get('/lelang/kategori/{id}', 'ProdukController@lelangkategori');
-Route::get('/lelang/produk/{id}', 'ProdukLelangController@detaillelang');
-Route::get('/lelang/produk/data/{id}', 'ProdukLelangController@datalelang');
+
+
+
 Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
 Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaranlelang');
 Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
-Route::get('/lelang/keranjang', 'KeranjanglelangController@keranjang');
+
 Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
-Route::post('/lelang/checkout-barang', 'KeranjanglelangController@checkoutbarang');
-Route::post('/lelang/pesanbarang', 'KeranjanglelangController@pesanbarang');
+
+
 Route::get('/lelang/transaksi', 'KeranjanglelangController@transaksi');
 Route::get('/lelang/invoice/{invoice}', 'KeranjanglelangController@invoice');
 Route::get('/lelang/invoice_penjual/{invoice}', 'KeranjanglelangController@invoice_penjual');
@@ -135,7 +236,7 @@ Route::group(['prefix' => 'invest','middleware' => 'auth'], function(){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'mitra'], function(){
 	Route::get('/','MitraController@index')->name('mitra.home');
@@ -145,9 +246,17 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::get('/pasang-investasi', 'ProdukInvestasiController@pasangInvestasi')->middleware('auth:mitra');
 	Route::post('/pasang-investasi','ProdukInvestasiController@store')->middleware('auth:mitra');
 	Route::get('/produk/{kode_produk}','MitraController@produkDetail')->middleware('auth:mitra');
-	Route::get('/pengajuan-dana', 'MitraController@pengajuanDana')->middleware('auth:mitra');
-	Route::post('/pengajuan-dana', 'MitraController@pengajuanDanaPost')->middleware('auth:mitra');
+	Route::get('/pengajuan-dana', 'PengajuanDanaController@produkPengajuanDana')->middleware('auth:mitra');
+	Route::get('/rekening-mitra','MitraController@rekeningMitra')->name('investasi.mitra.rekening');
+	Route::get('/pengajuan-dana/{kode_produk}', 'PengajuanDanaController@pengajuanDana');
+	Route::post('/pengajuan-dana-1', 'PengajuanDanaController@pengajuanDana1');
+	Route::post('/pengajuan-dana-2', 'PengajuanDanaController@pengajuanDana2');
+	Route::post('/pengajuan-dana-3', 'PengajuanDanaController@pengajuanDana3');
+	Route::post('/pengajuan-dana-4', 'PengajuanDanaController@pengajuanDana4');
+	Route::post('/tambah-bank','MitraController@tambahBank');
+	Route::post('/tarik-saldo','MitraController@tarikSaldo');
 	Route::get('/logout','Mitra\LoginController@logout');
 });
 Route::get('/nyoba','MitraController@test');
 Route::post('/daftar-mitra-nyoba','MitraController@nyoba');
+

@@ -279,9 +279,43 @@
 				$(document).ready(function(){
 					$('#table_id').DataTable({
 						dom: 'Bfrtip',
-						buttons: [
-						'copy', 'csv', 'excel', 'pdf', 'print'
-						],
+								buttons: [
+							{
+								extend: 'pdf',
+								footer: true,
+								exportOptions: {
+										columns: [0,1,2,3,4,5]
+									}
+							},
+							{
+								extend: 'csv',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5]
+									}
+							},
+							{
+								extend: 'excel',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5]
+									}
+							},
+							{
+								extend: 'print',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4,5]
+									}
+							},
+							{
+								extend: 'copy',
+								footer: false,
+								exportOptions: {
+										columns: [0,1,2,3,4]
+									}
+							}           
+							],  
 
 						oLanguage: {
 							"sProcessing":   "Sedang memproses ...",
@@ -357,10 +391,6 @@
 								document.getElementById("total_dibayar").innerHTML = "Rp. "+ribuan;
 								document.getElementById("tujuan").innerHTML = html.nama_bank+" iCoffee";
 								
-
-								var a  = html.data.gambar;
-								
-								console.log(a);
 								var img = "/Uploads/Investasi/Konfirmasi/" + html.data.gambar;
 								$('#bukti2').attr("src",img);
 

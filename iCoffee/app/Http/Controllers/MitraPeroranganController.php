@@ -22,7 +22,7 @@ class MitraPeroranganController extends Controller
         }
         $timestamps = date('YmdHis');
         $foldername = $request->email.'-'.$timestamps;
-        $folderPath = public_path("Uploads\Mitra_Perorangan\{$foldername}");
+        $folderPath = public_path("Uploads/Mitra_Perorangan/{$foldername}");
         $response = mkdir($folderPath);
         $filenames = array();
         

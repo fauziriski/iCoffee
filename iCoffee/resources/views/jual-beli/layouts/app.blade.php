@@ -29,8 +29,26 @@
   <link rel="stylesheet" href="{{asset('Jualbeli/css/icomoon.css') }}">
   <link rel="stylesheet" href="{{asset('Jualbeli/css/style.css') }}">
   <link rel="stylesheet" href="{{asset('Jualbeli/css/images.css') }}">
+  <link rel="stylesheet" href="{{asset('JualBeli/plugins/customPlugin/title.css')}}"/>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="{{asset('landing_page/images/favicon.png') }}">
+  <meta name="google-site-verification" content="yr0b1EXiV-YTqxP_WX3A3LGbEtl805Xnq-hrlgDxj78" />
+  
+  <style>
+    .btn-primary {
+      border-radius: 10px;
+    }
+    .form-control {
+      border-radius: 10px;
+    }
+    .input-group {
+      border-radius: 10px;
+    }
+    .input-group .input-group-prepend {
+      border-radius: 10px;
+    }
+  </style>
 
 </head>
 
@@ -41,7 +59,7 @@
 @guest
 @else
 @section('sidebar')
-@include('jual-beli.layouts.sidebar')
+@include('jual-beli.layouts.sidebar2')
 @show
 @endguest
 
@@ -67,10 +85,11 @@
 <script src="{{asset('Jualbeli/js/jquery.animateNumber.min.js') }}"></script>
 <script src="{{asset('Jualbeli/js/bootstrap-datepicker.js') }}"></script>
 <script src="{{asset('Jualbeli/js/scrollax.min.js') }}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="{{asset('Jualbeli/js/google-map.js') }}"></script>
+{{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> --}}
+{{-- <script src="{{asset('Jualbeli/js/google-map.js') }}"></script> --}}
 <script src="{{asset('Jualbeli/js/main.js') }}"></script>
 <script src="{{asset('Jualbeli/js/images.js') }}"></script>
+<script src="{{asset('JualBeli/plugins/customPlugin/alert.js')}}"></script>
 
 @yield('js')
 </body>

@@ -33,7 +33,7 @@ class RegisterController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
 
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/jual-beli';
 
     /**
      * Create a new controller instance.
@@ -74,6 +74,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'provider_id' => 'icoffee',
         ]);
 
         $rekber = Joint_account::create([

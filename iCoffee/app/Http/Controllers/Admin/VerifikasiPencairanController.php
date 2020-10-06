@@ -47,11 +47,11 @@ class  VerifikasiPencairanController extends Controller
 				if ($data->status == "1") {
 					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
 				}elseif ($data->status == "4") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">diproses</button>';
+					$status = '<button type="button" class="btn btn-secondary btn-sm py-0 btn-block">sedang diproses</button>';
 				}elseif ($data->status == "3") {
 					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">sudah divalidasi</button>';
 				}else{
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">ditolak</button>';
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">validasi ditolak</button>';
 				}
 
 				return $status;
@@ -64,7 +64,7 @@ class  VerifikasiPencairanController extends Controller
 			})
 
 			->addColumn('created_at', function($data){
-				$waktu =  Carbon::parse($data->created_at)->toDayDateTimeString(); 
+				$waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i');  
 				return $waktu;
 			})
 
@@ -90,11 +90,11 @@ class  VerifikasiPencairanController extends Controller
 				if ($data->status == "1") {
 					$status = '<button type="button" class="btn btn-info btn-sm py-0">belum divalidasi</button>';
 				}elseif ($data->status == "4") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0">diproses</button>';
+					$status = '<button type="button" class="btn btn-secondary btn-sm py-0">sedang diproses</button>';
 				}elseif ($data->status == "3") {
 					$status = '<button type="button" class="btn btn-success btn-sm py-0">sudah divalidasi</button>';
 				}else{
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0">ditolak</button>';
+					$status = '<button type="button" class="btn btn-danger btn-sm py-0">validasi ditolak</button>';
 				}
 			}
 

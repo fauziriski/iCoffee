@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{asset('investasi/css/icomoon.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/style.css') }}">
   <link rel="stylesheet" href="{{asset('investasi/css/gambar.less')}}">
+  <link href="{{asset('investasi/css/sb-admin-2.min.css') }}" rel="stylesheet">
   <style>
     @import url("https://fonts.googleapis.com/css?family=Work+Sans");
     body {
@@ -46,7 +47,7 @@
     padding-right: 20px;
     box-shadow: 2px 10px 40px #1cc98a;
     z-index: 99;
-    max-height: 150px;
+    height: 170px;
     }
 
     .logo-card {
@@ -115,7 +116,7 @@
     background: #1cc98a;
     border-radius: 20px;
     padding: 5%;
-    padding-top: 130px;
+    padding-top: 120px;
     max-width: 600px;
     display: block;
     margin: auto;
@@ -220,24 +221,28 @@
         <p>{{$bank->no_rekening}}</p>
         <label>Atas Nama:</label>
         <p>iCoffee</p>
+         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirm') }}">Konfirmasi</a>
       @elseif($bank->id == 2)
         <label>Nomor Rekening:</label>
         <img src="\bri.png" class="logo-card">
         <p>{{$bank->no_rekening}}</p>
         <label>Atas Nama:</label>
         <p>iCoffee</p>
+         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirm') }}">Konfirmasi</a>
       @elseif($bank->id == 3)
         <label>Nomor Rekening:</label>
         <img src="\bni.png" class="logo-card">
         <p>{{$bank->no_rekening}}</p>
         <label>Atas Nama:</label>
         <p>iCoffee</p>
+         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirm') }}">Konfirmasi</a>
       @elseif($bank->id == 4)
         <label>Nomor Rekening:</label>
         <img src="\mandiri.svg" class="logo-card">
         <p>{{$bank->no_rekening}}</p>
         <label>Atas Nama:</label>
         <p>iCoffee</p>
+         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirm') }}">Konfirmasi</a>
       @endif
       
     </div>
@@ -255,9 +260,10 @@
         <p>Total: @money($produk->harga*$qty)</p>
       </div>
       <p class="putih">Silahkan lakukan pembayaran ke rekening iCoffee yang tertera diatas.</p>
-      <a class="btn btn-primary" href="invest/konfirmasi" role="button">Konfirmasi Pembayaran</a>
     </div>
   </div>
+
+
 @section('footer')
 @include('investasi.layouts.footer')
 @show

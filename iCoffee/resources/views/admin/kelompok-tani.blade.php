@@ -355,7 +355,7 @@
 								document.getElementById("alamat").innerHTML = html.data.alamat;
 								document.getElementById("deskripsi").innerHTML = html.data.deskripsi;
 
-								var img = "/Uploads/Kelompok_tani/{" + html.data.kode + "}/" + html.data.gambar +"";
+								var img = "/Uploads/Kelompok_Tani/" + html.data.kode + "/" + html.data.gambar +"";
 								$('#foto_mitra').attr("src",img);
 
 							}

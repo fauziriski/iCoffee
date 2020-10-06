@@ -56,6 +56,7 @@
 						
 					<address>
 						<strong>No Resi :</strong><br>
+						{{$kurir[1]}}<br>
 							
 
 					</address>

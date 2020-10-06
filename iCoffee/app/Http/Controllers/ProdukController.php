@@ -115,16 +115,7 @@ class ProdukController extends Controller
         return view('jual-beli.lelang.index', compact('products','panjang', 'category'));
     }
 
-    public function lelangkategori($id)
-    {
-        $products = Auction_product::where('status', 2)->where('id_kategori', $id)->orderBy('created_at','desc')->paginate(12);
-
-        $panjang = count($products);
-        $category = Category::all();
-
-        return view('jual-beli.lelang.index', compact('products','panjang','category'));
-
-    }
+   
 
 
    

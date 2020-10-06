@@ -67,48 +67,76 @@
         </div>
         {{-- Saldo --}}
         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-          <div class="row justify-content-md-center">
-            <div class="col-md-auto">
-              <div class="form-group">
-                <center>Saldo</center>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">Rp</div>
-                  </div>
-                  <input type="number" class="form-control" readonly  min="1" name="nominal">
-                  <span class="text-danger">{{$errors->first('name')}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="country">Daftar Rekening</label>
-            <div class="select-wrap">
-              <select name="id_order" class="form-control">
-                <option selected disabled="disabled" value="">Pilih Rekening</option>
-                {{-- @foreach ($order as $item)
-                  <option value="{{$item->id}}">(#INV00{{$item->id}}) {{$produk[$loop->index][0]->nama_produk}}</option>
-                @endforeach  --}}
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="harga">Total Nominal</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Rp</div>
-              </div>
-              <input type="number" class="form-control" placeholder="Dalam Rupiah" min="1" name="nominal">
-              <span class="text-danger">{{$errors->first('name')}}</span>
-            </div>
-          </div>
           <div class="row">
-            <div class="col-md-4 mt-3" style="margin-left: 70%;">
-              <button type="submit" class="btn btn-primary py-3 px-4">Tarik Saldo</button>
+            <div align="center" class="col-lg-4 mt-5 mb-4">
+              <h3>Rp. 00,0</h3>
+              <small class="text-muted">Saldo Tersedia</small>
+            </div>
+            <div class="col-lg-8 col-sm-12">
+              <label for="country">Rekening Bank</label>
+              <button type="button" class="btn btn-sm btn-success float-right " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus-circle fa-sm"></i> Tambah Rekening</button>
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Tambah Rekening Bank</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          </div>
+                          <div class="modal-body">
+                          <form method="post" action="\mitra/tambah-bank">
+                          @csrf
+                              <div class="form-group">
+                                  <label for="recipient-name" class="col-form-label" required>Bank</label>
+                                  <input type="text" class="form-control" name="bank_name">
+                              </div>
+                              <div class="form-group">
+                                  <label for="message-text" class="col-form-label" required>Atas Nama</label>
+                                  <input type="text" class="form-control" name="name">
+                              </div>
+                              <div class="form-group">
+                                  <label for="message-text" class="col-form-label" required>Nomor Rekening</label>
+                                  <input type="text" class="form-control" name="norek">
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                              <button type="submit" class="btn btn-success">Simpan</button>
+                          </div>
+                          </form>
+                      </div>
+                      </div>
+                  </div>
+              <form method="post" action="\mitra/tarik-saldo">
+              @csrf
+                  <div class="form-group">
+                      <div class="select-wrap">
+                      <select name="id_bank" class="form-control" required>
+                          <option selected disabled="disabled" value="">Pilih Rekening Bank</option>
+                          {{-- @foreach ($rekening as $item)
+                              <option value="{{$item->id}}">{{$item->bank_name}} - {{$item->name}} - {{$item->norek}}</option>
+                          @endforeach  --}}
+                      </select>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="harga">Jumlah</label>
+                      <div class="input-group">
+                      <div class="input-group-prepend">
+                          <div class="input-group-text">Rp</div>
+                          </div>
+                          <input type="number" class="form-control" placeholder="Dalam Rupiah" min="0"  name="jumlah" required>
+                          <span class="text-danger">{{$errors->first('name')}}</span>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-success float-right py-2">Tarik Saldo</button>
+                  </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-    </div>
 </section>
 @endsection

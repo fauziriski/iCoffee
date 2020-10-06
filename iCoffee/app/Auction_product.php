@@ -28,5 +28,10 @@ class Auction_product extends Model
         return $this->hasMany('App\Auction_Order');
     }
 
+    public function category()
+    {
+    	return $this->belongsTo('App\Category', 'id_kategori');
+    }
+
   
 }
