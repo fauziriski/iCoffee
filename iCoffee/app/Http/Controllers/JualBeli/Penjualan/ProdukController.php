@@ -155,7 +155,8 @@ class ProdukController extends Controller
             'harga' => $harga,
             'stok' => $stok,
             'kode_produk' => $invoice,
-            'status' => '1'
+            'status' => '1',
+            'slug' => $slug
 
         ]);
 

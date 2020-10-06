@@ -71,13 +71,13 @@ route::get('/profil/batal/dana_cair/{invoice}', 'HomeController@batal_tarik_dana
 Route::namespace('JualBeli\Pembelian')->group(function () {
 	//Home
 	Route::get('/jual-beli','HomeController@index');
-	Route::get('/jual-beli/kategori/{id}', 'HomeController@category');
-	Route::get('/jual-beli/produk/{id}','HomeController@detail');
+	Route::get('/jual-beli/kategori/{slug}', 'HomeController@category');
+	Route::get('/jual-beli/produk/{slug}','HomeController@detail');
 
 	//Cart
 	Route::get('/jual-beli/keranjang','CartController@index');
 	Route::post('/jual-beli/keranjang/tambah-produk','CartController@store');
-	route::get('/jual-beli/keranjang/tambah-produk/{id}','CartController@storeById');
+	route::get('/jual-beli/keranjang/tambah-produk/{slug}','CartController@storeById');
 	Route::get('/jual-beli/keranjang/hapus/{id}', 'CartController@destroy');
 	Route::get('/jual-beli/update-keranjang/{id}/{index}', 'CartController@update');
 	Route::get('/jual-beli/update-cart/{id}/{jumlah}', 'CartController@updateByValue');
@@ -236,7 +236,7 @@ Route::group(['prefix' => 'invest','middleware' => 'auth'], function(){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'mitra'], function(){
 	Route::get('/','MitraController@index')->name('mitra.home');

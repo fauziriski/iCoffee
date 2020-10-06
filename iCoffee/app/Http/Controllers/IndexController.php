@@ -20,13 +20,24 @@ class IndexController extends Controller
     $produk_jb = count(Shop_product::All());
     $produk_lelang = count(Auction_product::where('status',"2")->get());
     $produk_invest = count(Invest_product::where('status',"2")->get());
-    $produk_lelang = count(Auction_product::where('status',"2")->get());
 
-    $tranksaksi = Confirm_payment::where('status',"3")->sum('jumlah_transfer');
+
+    $n = Confirm_payment::where('status',"3")->sum('jumlah_transfer');
     $mitra = count(Mitra::All());
     $produk = $produk_jb+$produk_lelang+$produk_invest;
     $pengguna = count(User::All()); 
-       
-    return view('/index')->with('pengguna',$pengguna)->with('produk',$produk)->with('tranksaksi',$tranksaksi)->with('mitra',$mitra);
+
+    if ($n < 1000000) {
+        // Anything less than a million
+        $n_format = number_format($n);
+    } else if ($n < 1000000000) {
+        // Anything less than a billion
+        $n_format = number_format($n / 1000000, 3);
+    } else {
+        // At least a billion
+        $n_format = number_format($n / 1000000000, 3);
+    }
+ 
+    return view('/index')->with('pengguna',$pengguna)->with('produk',$produk)->with('n_format',$n_format)->with('mitra',$mitra);
     }
 }

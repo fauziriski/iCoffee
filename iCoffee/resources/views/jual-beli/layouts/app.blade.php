@@ -33,6 +33,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="shortcut icon" href="{{asset('landing_page/images/favicon.png') }}">
+  <meta name="google-site-verification" content="yr0b1EXiV-YTqxP_WX3A3LGbEtl805Xnq-hrlgDxj78" />
   
   <style>
     .btn-primary {

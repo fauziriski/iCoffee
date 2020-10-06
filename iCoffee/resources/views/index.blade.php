@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{asset('landing_page/slick/slick-theme.css') }}">
     <link rel="stylesheet" href="{{asset('landing_page/magnific-popup/magnific-popup.css') }}">
     <link rel="shortcut icon" href="{{asset('landing_page/images/favicon.png') }}">
+    <meta name="google-site-verification" content="yr0b1EXiV-YTqxP_WX3A3LGbEtl805Xnq-hrlgDxj78" />
     
     </head>
     
@@ -308,7 +309,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item decoration-bottom">
-                            <strong>{{number_format($tranksaksi)}}</strong>
+                            <strong>{{$n_format}}</strong>
                             <span>Tranksaksi</span>
                         </div>
                     </div>

@@ -229,12 +229,13 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Carbon' => 'Carbon\Carbon',
+        'Helper' => App\Helper\Helper::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Helper' => App\Helper\Helper::class,
+      
 
 
     ],

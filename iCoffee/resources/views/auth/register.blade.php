@@ -11,7 +11,7 @@
 
 <div class="container ftco-animate">
     <div class="text-center">
-        <img src="logo.png" width="20%" height="20%" style="margin-top: 5%">
+        <img src="{{ asset('landing_page/images/LOGO.png') }}" style="margin-top: 5%">
     </div>
     <div class="col-md-7 d-flex mb-5 mt-5 mx-auto">
       <div class="cart-detail cart-total p-3 p-md-4">

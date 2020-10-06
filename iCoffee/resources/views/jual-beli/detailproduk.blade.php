@@ -78,7 +78,7 @@
 
 
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-    				<h3 class="font-weight-bold">{{ $products->nama_produk }}</h3>
+    				<h3 class="font-weight-bold">{{ $dataa->nama_produk }}</h3>
     				<!-- <div class="rating d-flex">
 							<p class="text-left mr-4">
 								<a href="#" class="mr-2">5.0</a>
@@ -96,17 +96,17 @@
 							</p>
 						</div> -->
 
-					  <p class="price font-weight-bold"><span style="color:red">Rp {{ number_format($products->harga,0,",",".") }} / Kg</span></p>
+					  <p class="price font-weight-bold"><span style="color:red">Rp {{ number_format($dataa->harga,0,",",".") }} / Kg</span></p>
 
             <div class="row">
                 <div class="col-5 col-md-3">
                   <i class="fas fa-boxes"></i>&nbsp;<a style="font-size: 16px" class="ml-0" style="color: #000;">Stok
                 </div>
                 <div class="col-auto">
-                  @if ( $products->stok == 0 )
+                  @if ( $dataa->stok == 0 )
                       <span class="mr-4" style="color: #bbb;">Kosong</span>
                   @else
-                      <span style="color: #000;">{{ number_format($products->stok,0,",",".") }} Kg</span>
+                      <span style="color: #000;">{{ number_format($dataa->stok,0,",",".") }} Kg</span>
                   @endif
                   
                 </div>
@@ -118,7 +118,7 @@
                   <i class="fas fa-tags"></i>&nbsp;<a style="font-size: 16px" class="ml-0" style="color: #000;">Kategori
                 </div>
                 <div class="col-auto">
-                  <span style="color: #000;">{{$products->category->kategori}}</span>
+                  <span style="color: #000;">{{$dataa->category->kategori}}</span>
                 </div>
                 </a>
             </div>
@@ -128,12 +128,12 @@
 
               <form action="/jual-beli/keranjang/tambah-produk" method="post"  enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id_produk" value="{{$products->id}}">
-                {{-- <input type="hidden" name="id_penjual" value="{{$products->id_pelanggan}}">
-                <input type="hidden" name="nama_produk" value="{{$products->nama_produk}}">
-                <input type="hidden" name="harga" value="{{$products->harga}}">
-                <input type="hidden" name="gambar" value="{{$products->gambar}}">
-                <input type="hidden" name="kode_produk" value="{{$products->kode_produk}}"> --}}
+                <input type="hidden" name="id_produk" value="{{$dataa->id}}">
+                {{-- <input type="hidden" name="id_penjual" value="{{$dataa->id_pelanggan}}">
+                <input type="hidden" name="nama_produk" value="{{$dataa->nama_produk}}">
+                <input type="hidden" name="harga" value="{{$dataa->harga}}">
+                <input type="hidden" name="gambar" value="{{$dataa->gambar}}">
+                <input type="hidden" name="kode_produk" value="{{$dataa->kode_produk}}"> --}}
 
 
               <div class="row mt-2">
@@ -183,10 +183,10 @@
                 @guest
                 <p><input type="submit" style="border-radius: 10px; padding: 17px 40%" class="btn btn-primary" value="Beli"></p>
                 @else
-                @if ($products->stok < 1)
+                @if ($dataa->stok < 1)
                   <input type="hidden" name="ketersedian" value="Kosong">
                   <p><input type="submit" style="border-radius: 10px" class="btn btn-secondary py-3 px-5" disabled value="Kosong"></p> 
-                @elseif($products->id_pelanggan == Auth::user()->id) 
+                @elseif($dataa->id_pelanggan == Auth::user()->id) 
                   <input type="hidden" name="Penjual" value="Penjual">
                   <p><input type="hidden" style="border-radius: 10px" class="btn btn-secondary py-3 px-5" value="Penjual" disabled></p> 
                 @else
@@ -208,7 +208,7 @@
             <h5><strong>Deskripsi Produk</strong></h5>
           </div>
           <div class="col mb-5 mt-2 ftco-animate">
-            {!! $products->detail_produk !!}
+            {!! $dataa->detail_produk !!}
           </div>
         </div>
         <br>
@@ -224,7 +224,7 @@
                 </div>
                 <div class="col-md-8 col-8 col-sm-8">
                   <div class="card-body">
-                    <h5 class="card-title">{{$products->user->name}}</h5>
+                    <h5 class="card-title">{{$dataa->user->name}}</h5>
                     <p style="font-size: 14px" class="card-text">{{ $alamat->province->nama }}, {{ $alamat->city->nama }}</p>
                     @if (!($rating_toko == 0))
 
@@ -275,11 +275,11 @@
             
     				<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 ftco-animate">
             <div class="product">
-              <a href="/jual-beli/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid rounded" src="{{ url('/Uploads/Produk/{'.$data->kode_produk.'}/'.$data->gambar) }}" alt="Colorlib Template">
+              <a href="/jual-beli/produk/{{ $data->slug }}" class="img-prod"><img class="img-fluid rounded" src="{{ url('/Uploads/Produk/{'.$data->kode_produk.'}/'.$data->gambar) }}" alt="Colorlib Template">
                 <div class="overlay"></div>
               </a>
               <div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="/jual-beli/produk/{{ $data->id }}" class="font-weight-bold">{{ $data->nama_produk }}</a></h3>
+                <h3><a href="/jual-beli/produk/{{ $data->slug }}" class="font-weight-bold">{{ $data->nama_produk }}</a></h3>
                 <div class="d-flex">
                   <div class="pricing">
                     <p class="price"><span class="price-sale font-weight-bold">Rp {{ number_format($data->harga,0,",",".") }} /Kg</span></p>
@@ -287,7 +287,7 @@
                 </div>
                 <div class="bottom-area d-flex px-3">
                   <div class="m-auto d-flex">
-                    <a href="/jual-beli/produk/{{ $data->id }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                    <a href="/jual-beli/produk/{{ $data->slug }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                       <span><i class="ion-ios-menu"></i></span>
                     </a>
                     <a href="/jual-beli/keranjang" class="buy-now d-flex justify-content-center align-items-center mx-1">
