@@ -49,7 +49,7 @@ class ProdukController extends Controller
 
         if(empty($alamat_utama)) {
             Alert::info('Tentukan Alamat Utama')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/edit');       
+            return redirect('/profile/edit');       
 
         }
 
@@ -145,7 +145,7 @@ class ProdukController extends Controller
         // $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         // dd($dom);
         // $content = $dom->saveHTML();
-
+        $slug = Str::slug($request->get('nama_produk'));
         $order = Shop_product::create([
             'id_pelanggan' => $id_pelanggan,
             'id_kategori' => $request->id_kategori,

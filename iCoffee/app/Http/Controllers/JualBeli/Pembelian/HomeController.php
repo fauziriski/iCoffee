@@ -48,7 +48,7 @@ class HomeController extends Controller
         }
 
 
-        $produk_terkait = Shop_product::where('id_kategori', $dataa->id_kategori)->where('id', '!=', $id)->take(4)->get();
+        $produk_terkait = Shop_product::where('id_kategori', $products->id_kategori)->where('id', '!=', $id)->take(4)->get();
         
 
         if($produk_terkait->isEmpty()){
