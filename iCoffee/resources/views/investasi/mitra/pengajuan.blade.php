@@ -85,201 +85,27 @@
                         </section>
                         <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
                 </form>
-
-        
+            </div>
+        </div>
         </div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <br>
-                <img src="\pengajuan-belum.png" width="100%" height="100%" style="border-radius: 10px;">
-                {{-- <form class="form-register" id="form-register" action="\mitra/pengajuan-dana" method="post">
-                    @csrf
-                    <div id="form-total">
-                        <!-- SECTION 1 -->
-                        <div class="content clearfix">
-                        <section>
-                            <div class="inner">
-                                <table id="invoiceitems" class=" table order-list">
-                                    <thead>
-                                        <tr>
-                                            <td>Nama Produk</td>
-                                            <td>Harga</td>
-                                            <td>Qty</td>
-                                            <td>Jumlah</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="product">
-                                            <td width="50%">
-                                                <input type="text" name="item[1][produk]" class="regular-text form-control" />
-                                            </td>
-                                            <td width="15%">
-                                                <input type="text" name="item[1][price]" class="price form-control" />
-                                            </td>
-                                            <td width="10%">
-                                                <input type="text" name="item[1][quantity]" class="quantity form-control" />
-                                            </td>
-                                            <td width="15%">
-                                                Rp. <span class="subtotal"></span>
-                                            </td>
-                                            <td width="5%">
-                                                <a class="deleteRow"></a>
-                                            </td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td>Total:</td>
-                                            <td>
-                                                Rp. <span class="grandtotal"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5" style="text-align: left;">
-                                                <input type="button" class="btn btn-lg btn-block " id="buttonadd" value="Tambah Produk" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                                
-                            </div>
-                        </section>
-                        <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
-                </form> --}}
+                <img src="\pengajuan-belum.png">
+
             </div>
         </div>
             </div>
             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                 <br>
-                <img src="\pengajuan-belum.png" width="100%" height="100%" style="border-radius: 10px;">
-                {{-- <form class="form-register" id="form-register" action="\mitra/pengajuan-dana" method="post">
-                    @csrf
-                    <div id="form-total">
-                        <!-- SECTION 1 -->
-                        <div class="content clearfix">
-                        <section>
-                            <div class="inner">
-                                <table id="invoiceitems" class=" table order-list">
-                                    <thead>
-                                        <tr>
-                                            <td>Nama Produk</td>
-                                            <td>Harga</td>
-                                            <td>Qty</td>
-                                            <td>Jumlah</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="product">
-                                            <td width="50%">
-                                                <input type="text" name="item[1][produk]" class="regular-text form-control" />
-                                            </td>
-                                            <td width="15%">
-                                                <input type="text" name="item[1][price]" class="price form-control" />
-                                            </td>
-                                            <td width="10%">
-                                                <input type="text" name="item[1][quantity]" class="quantity form-control" />
-                                            </td>
-                                            <td width="15%">
-                                                Rp. <span class="subtotal"></span>
-                                            </td>
-                                            <td width="5%">
-                                                <a class="deleteRow"></a>
-                                            </td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td>Total:</td>
-                                            <td>
-                                                Rp. <span class="grandtotal"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5" style="text-align: left;">
-                                                <input type="button" class="btn btn-lg btn-block " id="buttonadd" value="Tambah Produk" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                                
-                            </div>
-                        </section>
-                        <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
-                </form> --}}
+                <img src="\pengajuan-belum.png" width="100%" height="100%">
+                
                 </div>
             </div>
         </div>
         <div class="tab-pane fade" id="pills-pasca" role="tabpanel" aria-labelledby="pills-pasca-tab">
-            <br>
-            <img src="\pengajuan-belum.png" width="100%" height="100%" style="border-radius: 10px;">
-            {{-- <form class="form-register" id="form-register" action="\mitra/pengajuan-dana" method="post">
-                @csrf
-                <div id="form-total">
-                    <!-- SECTION 1 -->
-                    <div class="content clearfix">
-                    <section>
-                        <div class="inner">
-                            <table id="invoiceitems" class=" table order-list">
-                                <thead>
-                                    <tr>
-                                        <td>Nama Produk</td>
-                                        <td>Harga</td>
-                                        <td>Qty</td>
-                                        <td>Jumlah</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="product">
-                                        <td width="50%">
-                                            <input type="text" name="item[1][produk]" class="regular-text form-control" />
-                                        </td>
-                                        <td width="15%">
-                                            <input type="text" name="item[1][price]" class="price form-control" />
-                                        </td>
-                                        <td width="10%">
-                                            <input type="text" name="item[1][quantity]" class="quantity form-control" />
-                                        </td>
-                                        <td width="15%">
-                                            Rp. <span class="subtotal"></span>
-                                        </td>
-                                        <td width="5%">
-                                            <a class="deleteRow"></a>
-                                        </td>
-                                    </tr>
-                                    
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Total:</td>
-                                        <td>
-                                            Rp. <span class="grandtotal"></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5" style="text-align: left;">
-                                            <input type="button" class="btn btn-lg btn-block " id="buttonadd" value="Tambah Produk" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                            
-                        </div>
-                    </section>
-                    <button style="float:right; margin-top:10px;" type="submit" class="btn btn-info">Simpan</button>
-            </form> --}}
+            
+            <img src="\pengajuan-belum.png" width="100%" height="100%">
+        </div>
         
         </div>
     </div>
