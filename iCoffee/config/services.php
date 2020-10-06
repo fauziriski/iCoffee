@@ -38,8 +38,8 @@ return [
     ],
 
     'google' => [
-        'client_id'     => env('GOOGLE_ID'),
-        'client_secret' => env('GOOGLE_SECRET'),
+        'client_id'     => '841364276755-6kio36kto9e4aghttj3lkried4m03or0.apps.googleusercontent.com',
+        'client_secret' => 'xalChsfxl1_oZCVrpX4kXWri',
         'redirect'      => 'https://icoffee.asia/login/google/callback'
     ],
 
