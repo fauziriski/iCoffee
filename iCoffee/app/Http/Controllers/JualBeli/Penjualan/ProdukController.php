@@ -145,7 +145,7 @@ class ProdukController extends Controller
         // $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         // dd($dom);
         // $content = $dom->saveHTML();
-        $slug = Str::slug($request->get('nama_produk'));
+        $slug = Str::slug($request->get('nama_produk').'-'.rand(10000,99999));
         $order = Shop_product::create([
             'id_pelanggan' => $id_pelanggan,
             'id_kategori' => $request->id_kategori,
