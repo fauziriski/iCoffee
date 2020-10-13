@@ -63,7 +63,7 @@ class HomeController extends Controller
         if($cekalamat->isEmpty())
         {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');       
+            return redirect('/profile/tambahalamat');       
 
         }
 
@@ -72,7 +72,7 @@ class HomeController extends Controller
         if(empty($alamat_utama))
         {
             Alert::info('Tentukan Alamat Utama')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/edit');       
+            return redirect('/profile/edit');       
 
         }
 
@@ -224,7 +224,7 @@ class HomeController extends Controller
         if($cekalamat->isEmpty())
         {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');       
+            return redirect('/profile/tambahalamat');       
 
         }
 
@@ -243,7 +243,7 @@ class HomeController extends Controller
         if($cekalamat->isEmpty())
         {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');       
+            return redirect('/profile/tambahalamat');       
 
         }
 
@@ -327,18 +327,20 @@ class HomeController extends Controller
 
     public function tambahalamat()
     {
+        
         $links = session()->has('links') ? session('links') : [];
         $currentLink = request()->path(); // Getting current URI like 'category/books/'
         array_unshift($links, $currentLink); // Putting it in the beginning of links array
         session(['links' => $links]); // Saving links array to the session
        
         $id_customer = Auth::user()->id;
+        dd($id_customer);
         $alamat = Address::where('id_pelanggan', $id_customer)->whereIn('status', [0,1])->first();
 
         if(!(empty($alamat)))
         {
             Alert::info('Anda Sudah Mengisi Alamat')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/edit');  
+            return redirect('/profile/edit');  
         }
         $provinsi = Province::all();
         
@@ -376,7 +378,7 @@ class HomeController extends Controller
         }
         session()->forget('links');
         Alert::success('Berhasil');
-        return redirect('/profil/edit#pills-contact');
+        return redirect('/profile/alamat#pills-daftar-alamat');
         
     }
 
@@ -618,7 +620,7 @@ class HomeController extends Controller
         ]);
         Alert::info('Berhasil','Segera Konfirmasi Pembayaran Anda')->showConfirmButton('Ok', '#3085d6');
 
-        return redirect('/jual-beli/transaksi#pills-topup');
+        return redirect('profile/top_up/history#pills-topup-masuk');
     }
 
     public function konfirmasi_top_up()
