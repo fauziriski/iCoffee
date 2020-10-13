@@ -23,7 +23,7 @@
 
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-semua" role="tabpanel" aria-labelledby="pills-semua-tab">
-                            @foreach ($top_up as $item)
+                            @foreach ($allsaldo as $item)
                             @if ($item->title == 'top_up')
 
                             <div class="row mr-2 mt-2 ml-2 mb-2 " style=" border: 1px solid #ee4d2c;border-radius: 10px">
@@ -148,7 +148,6 @@
 
                         <div class="tab-pane fade show" id="pills-topup-masuk" role="tabpanel" aria-labelledby="pills-topup-masuk-tab">
                             @foreach ($top_up as $item)
-                            @if ($item->title == 'top_up')
 
                             <div class="row mr-2 mt-2 ml-2 mb-2 " style=" border: 1px solid #ee4d2c;border-radius: 10px">
                                 <div class="col-md-12">
@@ -206,13 +205,11 @@
                                 </div>
                             </div>
 
-                            @endif
                             @endforeach
                         </div>
 
                         <div class="tab-pane fade show" id="pills-topup-keluar" role="tabpanel" aria-labelledby="pills-topup-keluar-tab">
-                            @foreach ($top_up as $item)
-                            @if ($item->title == 'balance_withdrawal')
+                            @foreach ($balance_withdrawal as $item)
 
                             <div class="row mr-2 mt-2 ml-2 mb-2 " style=" border: 1px solid #ee4d2c;border-radius: 10px">
                                 <div class="col-md-12">
@@ -270,7 +267,6 @@
                                 </div>
                             </div>
 
-                            @endif
                             @endforeach
                         </div>
 

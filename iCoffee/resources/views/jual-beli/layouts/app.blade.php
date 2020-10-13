@@ -90,6 +90,9 @@
 <script src="{{asset('Jualbeli/js/main.js') }}"></script>
 <script src="{{asset('Jualbeli/js/images.js') }}"></script>
 <script src="{{asset('JualBeli/plugins/customPlugin/alert.js')}}"></script>
+{{-- <script src="{{asset('Jualbeli/plugins/adminlte/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('Jualbeli/plugins/adminlte/demo.js')}}"></script> --}}
 
 @yield('js')
 </body>

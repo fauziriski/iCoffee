@@ -27,7 +27,7 @@ Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallba
         ->where('social','twitter|facebook|linkedin|google|github');
 
 //profil
-route::get('/profil/tambahalamat', 'HomeController@tambahalamat');
+route::get('/profile/tambahalamat', 'HomeController@tambahalamat');
 route::post('/profil/tambah' , 'HomeController@tambah_alamat');
 route::get('/profile/edit', 'HomeController@profile');
 route::post('/profil/tambah' , 'HomeController@tambah_alamat');

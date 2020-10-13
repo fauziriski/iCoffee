@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="row">
                                     <p class="font-weight-bold">
-                                        Penambahan : Rp {{ number_format($$item->kelipatan,0,",",".")  }}
+                                        Penambahan : Rp {{ number_format($item->kelipatan,0,",",".")  }}
                                     </p>
                                 </div>
                             </div>

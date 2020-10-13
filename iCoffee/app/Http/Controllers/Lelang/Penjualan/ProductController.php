@@ -27,6 +27,7 @@ class ProductController extends Controller
     {
         $user_id = Auth::user()->id;
         $myProduct = Auction_product::where('id_pelelang', $user_id)->orderBy('created_at','desc')->paginate(12);
+        // dd($myProduct);
         return view('jual-beli.lelang.myProduct', compact('myProduct'));
 
     }
@@ -47,7 +48,7 @@ class ProductController extends Controller
         if(empty($alamat_utama))
         {
             Alert::info('Tentukan Alamat Utama')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/edit');       
+            return redirect('/profile/edit');       
 
         }
 
