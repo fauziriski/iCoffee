@@ -18,6 +18,13 @@ class TransactionController extends Controller
         $this->middleware('auth');
     }
 
+    public function getProvinceData()
+    {
+        $data = Helper::instance()->getSubdistrict(40);
+        dd($data);
+        return response()->json($data);
+    }
+
     public function index()
     {
         $user_id = Auth::user()->id;

@@ -2,18 +2,23 @@
 
 namespace App\Helper;
 use GuzzleHttp\Client;
+use App\Province;
+use App\City;
 
 class Helper
 {
+
+    public $apiKey = '90c0eb2631ea1750e8e024d99d413f41';
+
     public function getprovince()
     {
         $client = new Client();
 
         try{
-            $response = $client->get('https://api.rajaongkir.com/starter/province',
+            $response = $client->get('https://pro.rajaongkir.com/api/province',
                 array(
                     'headers' => array(
-                        'key' => '91c8040385b06b96e8ae36c7f5584bbd',
+                        'key' => $this->apiKey,
                         
                     )
                 )
@@ -37,6 +42,62 @@ class Helper
         }
 
         print_r($array_result);
+    }
+
+    public function getcity()
+    {
+        $client = new Client();
+
+        try{
+            $response = $client->get('https://pro.rajaongkir.com/api/city',
+                array(
+                    'headers' => array(
+                        'key' => $this->apiKey,
+                        
+                    )
+                )
+            );
+        }
+        catch(RequestException $e){
+            var_dump($e->getResponse()->getBody()->getContents());
+        }
+        $json = $response->getBody()->getContents();
+
+        $array_result = json_decode($json, true);
+
+        for ($i=0; $i < count($array_result['rajaongkir']['results']); $i++) { 
+            $city = City::where('id', $array_result['rajaongkir']['results'][$i]['province_id'])->first();
+            $city->update([
+                'type' => $array_result['rajaongkir']['results'][$i]['type']
+            ]);
+        }
+
+        return $array_result;
+    }
+
+    public function getSubdistrict($city)
+    {
+        $client = new Client();
+
+        try{
+            $response = $client->get('https://pro.rajaongkir.com/api/subdistrict?city='. $city,
+                array(
+                    'headers' => array(
+                        'key' => $this->apiKey,
+                        
+                    )
+                )
+            );
+        }
+        catch(RequestException $e){
+            var_dump($e->getResponse()->getBody()->getContents());
+        }
+        $json = $response->getBody()->getContents();
+
+        $array_result = json_decode($json, true);
+
+        return $array_result;
+        
     }
 
     public function cekOngkir($data)
