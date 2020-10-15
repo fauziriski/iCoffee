@@ -259,3 +259,13 @@ Route::group(['prefix' => 'mitra'], function(){
 Route::get('/nyoba','MitraController@test');
 Route::post('/daftar-mitra-nyoba','MitraController@nyoba');
 
+
+
+//blog
+Route::namespace('Blog')->group(function () {
+Route::get('/artikel', 'FrontController@index')->name('artikel-blog');
+Route::get('/artikel/{artikel}', 'FrontController@show')->name('artikel.detail');
+Route::get('/about', 'FrontController@about')->name('about');
+Route::get('/contact', 'FrontController@contact')->name('contact');
+Route::get('/artikel-kategori/{kategori}', 'FrontController@artikel_kategori')->name('artikel.kategori');
+});

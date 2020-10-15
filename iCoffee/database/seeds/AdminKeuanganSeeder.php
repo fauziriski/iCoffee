@@ -16,8 +16,9 @@ class AdminKeuanganSeeder extends Seeder
         
         $user = User::create([
             'name' => 'Admin Keuangan',
-            'email' => 'adminkeuanganicoffee@icoffee.co.id',
-            'password' =>  bcrypt('wifinyarusak'),
+            'email' => 'adminkeuangan@icoffee.asia',
+            'password' =>  bcrypt('icoffee.asia'),
+            'provider_id' => 'admin-icoffee',
         ]);
 
         $user->assignRole('adminkeuangan');

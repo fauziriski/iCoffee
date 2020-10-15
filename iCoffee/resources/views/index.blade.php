@@ -552,10 +552,10 @@
               <div class="ftco-footer-widget">
                 <h5 class="margin-bottom-30">Tentang iCoffee</h5>
                 <ul class="list-unstyled">
-                  <li><a class="link" href="#" class="py-2 d-block">Tentang Kami</a></li>
+                  <li><a class="link" href="{{url('about')}}" class="py-2 d-block">Tentang Kami</a></li>
                   <li><a class="link" href="#" class="py-2 d-block">FAQ</a></li>
                   <li><a class="link" href="#" class="py-2 d-block">Panduan Pengguna</a></li>
-                  <li><a class="link" href="#" class="py-2 d-block">Blog</a></li>
+                  <li><a class="link" href="{{url('artikel')}}" class="py-2 d-block">Blog</a></li>
                   <li><a class="link" href="#" class="py-2 d-block">Karir</a></li>
                 </ul>
               </div>

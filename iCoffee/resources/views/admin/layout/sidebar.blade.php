@@ -11,20 +11,23 @@
       </div>
 
       <!-- untuk superadmin -->
-      @can('isSuperadmin')
-      <div class="sidebar-brand-text mx-3">SuperAdmin</div>
+      @can('isAdminsuper')
+      <div class="sidebar-brand-text mx-3">Admin Super</div>
       @endcan
       @can('isAdminkeuangan')
       <div class="sidebar-brand-text mx-3">Admin Keuangan</div>
       @endcan
-      @can('isAdmin')
-      <div class="sidebar-brand-text mx-3">Admin</div>
+      @can('isAdminweb')
+      <div class="sidebar-brand-text mx-3">Admin Web</div>
+      @endcan
+      @can('isAdminUser')
+      <div class="sidebar-brand-text mx-3">Admin User</div>
       @endcan
     </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-    @can('isSuperadmin')
+    @can('isAdminsuper')
 
     <!-- Nav Item - Beranda -->
     <li class="nav-item active">
@@ -222,7 +225,7 @@
     @endcan
 
 
-    @can('isAdmin')
+    @can('isAdminuser')
 
     <!-- Nav Item - Beranda -->
     <li class="nav-item active">
@@ -320,6 +323,91 @@
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
       @endcan
+
+
+      @can('isAdminweb')
+
+<!-- Nav Item - Beranda -->
+<li class="nav-item active">
+  <a class="nav-link" href="{{url('akses-adminweb/beranda')}}">
+    <i class="fas fa-fw fa-tachometer-alt"></i>
+    <span>Beranda</span></a>
+  </li>
+
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Artikel
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-fw fa-pen"></i>
+      <span>Kelola Artikel</span>
+    </a>
+    <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Kelola Artikel :</h6>
+        <a class="collapse-item" href="{{url('akses-adminweb/kategori-artikel')}}">Kategori</a>
+        <a class="collapse-item" href="{{url('akses-adminweb/artikel-blog')}}">Artikel</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    SEO
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-fw fa-search-dollar"></i>
+      <span>Kelola SEO</span>
+    </a>
+    <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">kelola SEO :</h6>
+        <a class="collapse-item" href="{{url('akses-adminweb/slug-artikel')}}">Slug Artikel</a>
+        <a class="collapse-item" href="{{url('akses-adminweb/slug-produk')}}">Slug Produk</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Pengaturan 
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-fw fa-th-large"></i>
+      <span>Kelola Template</span>
+    </a>
+    <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Kelola Template:</h6>
+        <a class="collapse-item" href="#">Kotak Pesan</a>
+        <a class="collapse-item" href="#">Tentang</a>
+        <a class="collapse-item" href="#">Kontak</a>
+        <div class="collapse-divider"></div>
+      </div>
+    </div>
+  </li>
+  @endcan
+
+      
     </ul>
 
 
