@@ -84,7 +84,7 @@ class ArtikelController extends Controller
                 'judul' => $request->judul,
                 'slug' => \Str::slug($request->judul),
                 'body' => $request->body,
-                //'gambar' => $request->file('gambar')->store('artikel'),
+                //'gambar' => $request->file('gambar')->store('Artikel'),
                 'kategori_artikel_id' => $request->categoris_id,
             ]);
         } else {
