@@ -60,7 +60,7 @@
                     <div class="col-md-6">
                         <div class="post">
                             <a class="post-img" href="#">
-                                <img src="{{ asset('uploads/'.$all->gambar) }}" alt="" height="250px" width="250px"></a>
+                                <img src="{{ asset('Uploads/'.$all->gambar) }}" alt="" height="250px" width="250px"></a>
                             <div class="post-body">
                                 <div class="post-meta">
                                     <a class="post-category cat-2" href="#">
@@ -90,7 +90,7 @@
                     @foreach ($artikelterkait as $terkait)
                     <div class="post post-widget">
                         <a class="post-img" href="#">
-                            <img src="{{ asset('uploads/'.$terkait->gambar) }}" alt="" width="80px" height="80px"></a>
+                            <img src="{{ asset('Uploads/'.$terkait->gambar) }}" alt="" width="80px" height="80px"></a>
                         <div class="post-body">
                             <h3 class="post-title"><a href="{{ route('artikel.detail',$terkait->slug) }}">
                                     {{$terkait->judul}}
