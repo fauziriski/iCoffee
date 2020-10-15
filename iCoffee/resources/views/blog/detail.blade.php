@@ -43,7 +43,7 @@
 
                     @foreach ($artikelterkait as $item)
                     <div class="post post-thumb">
-                            <a class="post-img" href="#"><img src="{{ asset('uploads/'.$item->gambar)}}" alt=""></a>
+                            <a class="post-img" href="#"><img src="{{ asset('Uploads/'.$item->gambar)}}" alt=""></a>
                             <div class="post-body">
                                 <div class="post-meta">
                                     <a class="post-category cat-3" href="#">{{$item->kategori_artikel->nama_kategori}}</a>
