@@ -13,7 +13,7 @@
                     <div class="main-post">
                         <h3>{{$artikel_detail->judul}}</h3>
                         <figure class="figure-img">
-                            <img class="img-responsive" src="{{ asset('uploads/'.$artikel_detail->gambar)}}"
+                            <img class="img-responsive" src="{{ asset('Uploads/'.$artikel_detail->gambar)}}"
                                 width="600px" height="600px" alt="">
                         </figure>
                         {!! $artikel_detail->body !!}

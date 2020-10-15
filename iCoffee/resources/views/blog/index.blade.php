@@ -20,7 +20,7 @@
             <div class="col-md-6">
                 <div class="post post-thumb">
                     <a class="post-img" href="#">
-                        <img src="{{ asset('uploads/'.$a->gambar) }}" alt="" width="300" height="300"></a>
+                        <img src="{{ asset('Uploads/'.$a->gambar) }}" alt="" width="300" height="300"></a>
                     <div class="post-body">
                         <div class="post-meta">
                             <a class="post-category cat-2" href="category.html">{{$a->kategori_artikel->nama_kategori}}</a>
