@@ -325,13 +325,10 @@
 					$('#ok_button').click(function(){
 						$.ajax({
 							url:"hapus-produk/"+id_produk,
-							success:function(data)
-							{
-								setTimeout(function(){
-									$('#confirmModal').modal('hide');
-									$('#table_id').DataTable().ajax.reload();
-								}, 500);
-							}
+							success: function (data) {
+								swal('Berhasil', 'Data berhasil dihapus', 'success');
+								$('#table_id').DataTable().ajax.reload();
+								}
 						})
 					});
 

@@ -284,13 +284,10 @@
 		$('#ok_button').click(function(){
 			$.ajax({
 				url:"hapus-kategori/"+mitra_id,
-				success:function(data)
-				{
-					setTimeout(function(){
-						$('#confirmModal').modal('hide');
-						$('#kategori_table').DataTable().ajax.reload();
-					}, 500);
-				}
+				success: function (data) {
+				swal('Berhasil', 'Data berhasil dihapus', 'success');
+				$('#kategori_table').DataTable().ajax.reload();
+			}
 			})
 		});
 
