@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     protected $fillable = [
-        'id','nama','id_provinsi'
+        'id','nama','id_provinsi', 'type',
     ];
 
     public $timestamps = true;

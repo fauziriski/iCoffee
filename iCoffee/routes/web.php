@@ -166,6 +166,10 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	//Transaction
 	Route::get('/lelang/transaksi/pembelian', 'TransactionController@index');
 
+	//get data province new
+
+	Route::get('/get-new-province', 'TransactionController@getProvinceData');
+
 
 
 });
@@ -180,6 +184,8 @@ Route::namespace('Lelang\Penjualan')->group(function () {
 
 	//Transaction
 	Route::get('/lelang/transaksi/penjualan', 'TransactionController@index');
+
+
 
 
 });
@@ -207,6 +213,9 @@ Route::post('/lelang/pesanan/selesai', 'KeranjanglelangController@pesananselesai
 Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'KeranjanglelangController@komplain');
 Route::post('/lelang/pesanan/komplain', 'KeranjanglelangController@komplaindiproses');
 Route::post('/lelang/rating', 'KeranjanglelangController@rating');
+
+
+
 
 
 
