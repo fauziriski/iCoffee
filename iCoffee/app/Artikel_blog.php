@@ -10,7 +10,7 @@ class Artikel_blog extends Model
     
     protected $fillable = 
     [
-        'judul','body','slug','gambar','kategori_artikel_id'
+        'judul','body','slug','gambar','kategori_artikel_id','created_at'
     ];
 
     public $timestamps = true;

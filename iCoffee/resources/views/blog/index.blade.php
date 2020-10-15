@@ -66,7 +66,8 @@
                                     <a class="post-category cat-2" href="#">
                                         {{$all->kategori_artikel->nama_kategori}}
                                     </a>
-                                    <span class="post-date">March 27, 2018</span>
+                                    <span class="post-date">{{$all->created_at->format('l, d F Y H:i')}}</span>
+                                    
                                 </div>
                                 <h3 class="post-title">
                                     <a href="{{ route('artikel.detail',$all->slug) }}">

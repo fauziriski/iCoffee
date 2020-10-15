@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-group">
                     <label>Gambar</label><br>
-                    <img src="{{ asset('uploads/'.$artikel->gambar) }}" width="85px" height="85px" style="margin-left:5px"><hr>
+                    <img src="{{ asset('Uploads/'.$artikel->gambar) }}" width="85px" height="85px" style="margin-left:5px"><hr>
                     <input type="file"  class="form-control" name="gambar">
                 </div>
                 <div class="form-group">

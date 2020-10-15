@@ -159,4 +159,9 @@ class Helper
     {
         return new Helper();
     }
+
+        public function myDateFormat($value) {
+            return \Carbon\Carbon::createFromFormat($value, 'd/m/Y')->toDateTimeString();
+        }
+ 
 }

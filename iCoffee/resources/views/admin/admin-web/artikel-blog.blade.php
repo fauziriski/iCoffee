@@ -110,7 +110,7 @@
                                     @if($item->gambar==null)
                                     <td>Gambar Tidak Ada</td>
                                     @else
-                                    <td><img src="{{ asset('uploads/'.$item->gambar) }}" width="85px" height="55px" style="margin-left:5px"></td>
+                                    <td><img src="{{ asset('Uploads/'.$item->gambar) }}" width="85px" height="55px" style="margin-left:5px"></td>
                                     @endif
                                     <td>{{$item->kategori_artikel->nama_kategori}}</td>
                                     <td>{{$item->updated_at}}</td>

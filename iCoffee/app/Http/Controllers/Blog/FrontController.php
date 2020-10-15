@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blog;
 use App\Http\Controllers\Controller;
 use App\Kategori_artikel;
 use App\Artikel_blog;
+use Carbon;
 
 class FrontController extends Controller
 {
@@ -34,6 +35,8 @@ class FrontController extends Controller
 
         $data = Kategori_artikel::where('slug', $kategori)->first();
         $artikelall = Artikel_blog::where('kategori_artikel_id',$data->id)->get();
+
+        
 
         $artikelterkait = Artikel_blog::latest()->limit(4)->get();
 
