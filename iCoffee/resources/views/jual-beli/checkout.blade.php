@@ -26,7 +26,7 @@
 									<input type="hidden" name="nama_alamat" value="{{ $alamat->nama }}">
 
 									<div class="col-md-3 col-12">
-										<p><a href="/profil/edit#pills-contact" style="border-radius: 10px" class="btn btn-primary py-3 px-4 align-self-end">Ganti Alamat</a></p>	
+										<p><a href="/profile/alamat#pills-daftar-alamat" style="border-radius: 10px" class="btn btn-primary py-3 px-4 align-self-end">Ganti Alamat</a></p>	
 									</div>
 								</div>
 							</div>

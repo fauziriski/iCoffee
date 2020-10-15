@@ -56,7 +56,7 @@ class CheckoutController extends Controller
         //check address
         if($alamat_cadangan->isEmpty()) {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');  
+            return redirect('/profile/tambahalamat');  
         }
 
         //check active address
@@ -64,7 +64,7 @@ class CheckoutController extends Controller
 
         if (empty($alamat)) {
             Alert::info('Tentukan Alamat Utama')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/edit#pills-contact'); 
+            return redirect('/profile/edit#pills-contact'); 
         }
 
         $getProductData = Jbcart::whereIn('id', $id)->get();

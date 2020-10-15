@@ -28,9 +28,8 @@ Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallba
 
 //profil
 route::get('/profile/tambahalamat', 'HomeController@tambahalamat');
-route::post('/profil/tambah' , 'HomeController@tambah_alamat');
+route::post('/profile/tambah' , 'HomeController@tambah_alamat');
 route::get('/profile/edit', 'HomeController@profile');
-route::post('/profil/tambah' , 'HomeController@tambah_alamat');
 
 route::post('/profile/edit_profile', 'HomeController@edit_profile');
 route::post('/profile/edit_password', 'HomeController@update_password');

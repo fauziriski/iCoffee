@@ -40,7 +40,7 @@ class ProductController extends Controller
         if($cekalamat->isEmpty())
         {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');       
+            return redirect('/profile/tambahalamat');       
 
         }
         $alamat_utama = $cekalamat = Address::where('id_pelanggan', $id_pelanggan)->where('status', 1)->get();

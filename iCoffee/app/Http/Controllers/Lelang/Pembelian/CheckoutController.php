@@ -42,14 +42,14 @@ class CheckoutController extends Controller
 
         if (empty($cek_alamat_tersedia)) {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');
+            return redirect('/profile/tambahalamat');
         }
 
         $cek_alamat = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
 
         if (empty($cek_alamat)) {
             Alert::info('Tentukan Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/edit#pills-contact');
+            return redirect('/profile/edit#pills-contact');
         }
 
         $checkout = Auction_winner::where('id', $id)->first();

@@ -334,7 +334,6 @@ class HomeController extends Controller
         session(['links' => $links]); // Saving links array to the session
        
         $id_customer = Auth::user()->id;
-        dd($id_customer);
         $alamat = Address::where('id_pelanggan', $id_customer)->whereIn('status', [0,1])->first();
 
         if(!(empty($alamat)))

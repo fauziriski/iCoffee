@@ -41,7 +41,7 @@ class ProdukController extends Controller
 
         if($cekalamat->isEmpty()) {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');       
+            return redirect('/profile/tambahalamat');       
 
         }
 
