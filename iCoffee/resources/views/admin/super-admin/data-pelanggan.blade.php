@@ -36,7 +36,7 @@
 </div>
 
 <div id="formModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Pengguna</h5>
@@ -54,29 +54,29 @@
 					<table cellpadding="10" border="0">
 						<tr>
                         		<div class="form-group">
-								<th width="5%" style="text-align: right;">Nama Pelanggan&nbsp;&nbsp;&nbsp;:</th>	
-								<span class="text-danger">{{$errors->first('name')}}</span>
+								<th width="12%" style="text-align: right;">Nama Pelanggan&nbsp;&nbsp;&nbsp;:</th>	
+								
 								<th width="25%"><input type="text" name="name" id="name" class="form-control"/></th>
 							</div>
 						</tr>
 						<tr>
 							<div class="form-group">
-								<th width="5%" style="text-align: right;">Email&nbsp;&nbsp;&nbsp;:</th>	
-								<span class="text-danger">{{$errors->first('email')}}</span>
+								<th width="12%" style="text-align: right;">Email&nbsp;&nbsp;&nbsp;:</th>	
+								
 								<th width="25%"><input type="email" name="email" id="email" class="form-control"/></th>
 							</div>
 						</tr>
 						<tr>
 							<div class="form-group">
-								<th width="5%" style="text-align: right;">Password</th>
-								<span class="text-danger">{{$errors->first('password')}}</span>
+								<th width="12%" style="text-align: right;">Password&nbsp;&nbsp;&nbsp;:</th>
+						
                                 <th width="25%"><input type="password" name="password" id="password" class="form-control"/></th>
 							</div>
                         </tr>
                         <tr>
 							<div class="form-group">
-								<th width="5%" style="text-align: right;">Confirm Password</th>
-								<span class="text-danger">{{$errors->first('password_confirmation')}}</span>
+								<th width="12%" style="text-align: right;">Confirm Password&nbsp;&nbsp;&nbsp;:</th>
+							
                                 <th width="25%"><input type="password" name="password_confirmation" id="password_confirmation" class="form-control"/></th>
 							</div>	
                         </tr>
@@ -136,7 +136,7 @@
 							<table cellpadding="10" border="0">
 								<tr>
 									<div class="form-group">
-										<th width="13%" style="text-align: right;">name Pelanggan&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="13%" style="text-align: right;">Nama Pelanggan&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="nama"></a></th>
 									</div>	
 								</tr>
@@ -291,6 +291,7 @@ $('#create_record').click(function(){
 							}
 							html += '</div>';
 						}
+						$('#form_result').html(html);
 						if(data.success){	
 							$('#formModal').modal('hide');
 							swal('Berhasil', 'Data berhasil ditambah', 'success');
@@ -325,6 +326,7 @@ $('#create_record').click(function(){
 							}
 							html += '</div>';
 						}
+						$('#form_result').html(html);
 						if(data.success){	
 							$('#formModal').modal('hide');
 							swal('Berhasil', 'Data berhasil diubah', 'success');
@@ -361,21 +363,28 @@ $(document).on('click', '.lihat', function () {
     })
 });
 
-var user_id;
-
-$(document).on('click', '.delete', function(){
-	user_id = $(this).attr('id');
-	$('#confirmModal').modal('show');
-});
-
-$('#ok_button').click(function(){
-	$.ajax({
-		url:"hapus-pelanggan/"+user_id,
-		success: function (data) {
-			swal('Berhasil', 'Data berhasil dihapus', 'success');
-			$('#id_tabel').DataTable().ajax.reload();
-			}
-	})
+$(document).on('click', '.delete', function () {
+    var id = $(this).attr('id');
+    swal({
+        title: "Apakah anda yakin ingin menghapus ?",
+        type: "warning",
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Ya",
+        showCancelButton: true
+    }, function () {
+        $.ajax({
+            type: "GET",
+            url: "hapus-pelanggan/" + id,
+            dataType: "json",
+            success: function (data) {
+                swal('Berhasil', 'Data berhasil dihapus', 'success');
+                $('#id_tabel')
+                    .DataTable()
+                    .ajax
+                    .reload();
+            }
+        });
+    });
 });
 
 });

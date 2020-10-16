@@ -367,6 +367,11 @@ class HomeController extends Controller
             'status' => '1'
 
         ]);
+
+        $provider = User::where('id',$id_pelanggan);
+        $provider->update([
+            'provider_id' => "icoffee_id",
+        ]);
         
 
         
@@ -421,6 +426,8 @@ class HomeController extends Controller
             'no_hp'=> $request->no_hp_edit,
             'address' => $request->alamat_edit
         ]);
+
+
         
         return response()->json();
 
@@ -735,6 +742,11 @@ class HomeController extends Controller
             'address' => $request->alamat_alamat,
             'status' => '0'
 
+        ]);
+
+        $provider = User::where('id',$id_pelanggan);
+        $provider->update([
+            'provider_id' => "icoffee_id",
         ]);
 
         if ($tambah_alamat) {

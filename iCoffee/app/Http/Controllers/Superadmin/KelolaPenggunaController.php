@@ -29,12 +29,17 @@ class KelolaPenggunaController extends Controller
 
 			 return datatables()->of($pelanggan)
 			->addColumn('action', function($data){
-				$button = 
-				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0 mb-1"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
-				'<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm py-0"mb-1><i class="fa fa-edit"></i> Ubah</button>'.'&nbsp;&nbsp;'.
+				$button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm py-0"mb-1><i class="fa fa-edit"></i> Ubah</button>'.'&nbsp;&nbsp;'.
 				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm py-0 delete"><i class="fa fa-trash"></i> Hapus</button>';
+				$button .= '&nbsp;&nbsp;';
+				if($data->provider_id == "icoffee_id"){
+				$button .= 
+				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0 mb-1"><i class="fa fa-eye"></i> Profile</button>'.'&nbsp&nbsp';
+				
+				}	
 				return $button;
 			})
+
 			->addColumn('created_at', function($data){
 				$waktu =  $data->created_at->diffForHumans();  
 				return $waktu;
@@ -72,7 +77,7 @@ class KelolaPenggunaController extends Controller
 		if(request()->ajax()){
 
 			$get = User::find($id);
-			$data = Address::where('id_pelanggan', $get->id)->first();
+			$data = Address::where('id_pelanggan', $get->id)->where('status',"1")->first();
 			$provinsi = $data->province->nama;
 			$kota = $data->city->nama;
 			
