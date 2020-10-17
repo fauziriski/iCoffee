@@ -102,7 +102,7 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	Route::post('/jual-beli/konfirmasi/pembayaran', 'ConfirmPaymentController@store');
 
 	//Transaction
-	Route::get('/jual-beli/transaksi', 'TransactionController@index');
+	// Route::get('/jual-beli/transaksi', 'TransactionController@index');
 	Route::get('/jual-beli/transaksi/pembelian', 'TransactionController@indexBuy');
 
 });
@@ -154,6 +154,7 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	Route::get('/lelang/produk/{id}', 'HomeController@show')->middleware('auth');
 	Route::get('/lelang/kategori/{id}', 'HomeController@indexById');
 	Route::get('/lelang/produk/data/{id}', 'HomeController@getDataAuction');
+	Route::post('/lelang/produk/tawar', 'ProdukLelangController@bid');
 
 	//Cart
 	Route::get('/lelang/keranjang', 'CartController@index');
@@ -163,11 +164,19 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	Route::get('/lelang/checkout-barang', 'CheckoutController@checkId');
 	Route::post('/lelang/pesanbarang', 'CheckoutController@store');
 
+	//Confirm Payment
+	Route::get('/lelang/konfirmasi', 'ConfirmPaymentController@pembayaranlelang');
+	Route::post('/lelang/konfirmasi/pembayaran', 'ConfirmPaymentController@konfirmasipembayaranlelang');
+
+	//Invoice
+	Route::get('/lelang/invoice/{invoice}', 'InvoiceController@invoice');
+	Route::post('/lelang/pesanan/selesai', 'InvoiceController@pesananselesai');
+	Route::post('/lelang/rating', 'InvoiceController@rating');
+	
 	//Transaction
 	Route::get('/lelang/transaksi/pembelian', 'TransactionController@index');
 
 	//get data province new
-
 	Route::get('/get-new-province', 'TransactionController@getProvinceData');
 
 
@@ -185,6 +194,11 @@ Route::namespace('Lelang\Penjualan')->group(function () {
 	//Transaction
 	Route::get('/lelang/transaksi/penjualan', 'TransactionController@index');
 
+	//Invoice
+	Route::get('/lelang/invoice_penjual/{invoice}', 'InvoiceController@invoice_penjual');
+	Route::post('/lelang/pesanan/terima', 'InvoiceController@pesananditerima');
+	Route::post('/lelang/pesanan/inputresi', 'InvoiceController@inputresi');
+
 
 
 
@@ -195,24 +209,17 @@ Route::namespace('Lelang\Penjualan')->group(function () {
 //lelang
 
 
-
-Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
-Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaranlelang');
-Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
-
-Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
+// Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
 
 
-Route::get('/lelang/transaksi', 'KeranjanglelangController@transaksi');
-Route::get('/lelang/invoice/{invoice}', 'KeranjanglelangController@invoice');
-Route::get('/lelang/invoice_penjual/{invoice}', 'KeranjanglelangController@invoice_penjual');
+// Route::get('/lelang/transaksi', 'KeranjanglelangController@transaksi');
 
-Route::post('/lelang/pesanan/terima', 'KeranjanglelangController@pesananditerima');
-Route::post('/lelang/pesanan/inputresi', 'KeranjanglelangController@inputresi');
-Route::post('/lelang/pesanan/selesai', 'KeranjanglelangController@pesananselesai');
+
+
+
 Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'KeranjanglelangController@komplain');
 Route::post('/lelang/pesanan/komplain', 'KeranjanglelangController@komplaindiproses');
-Route::post('/lelang/rating', 'KeranjanglelangController@rating');
+
 
 
 
