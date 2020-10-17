@@ -89,10 +89,10 @@ public function update(Request $request)
     return response()->json(['success' => 'Data berhasil di ubah.']);
 }
 
-public function destroy($id)
+public function hapusPelanggan($id)
 {
 
-    $data = Category::findOrFail($id);
+    $data = User::findOrFail($id);
     $data->delete();
     return response()->json(['success' => 'Data berhasil di hapus.']);
 }
