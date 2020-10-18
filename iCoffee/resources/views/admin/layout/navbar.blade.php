@@ -162,13 +162,20 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
+            @can('isAdminsuper')
+              <a class="dropdown-item" href="{{url('akses-superadmin/profile-admin')}}">
+            @endcan
+            @can('isAdminuser')
+              <a class="dropdown-item" href="{{url('akses-admin/profile-admin')}}">
+            @endcan
+            @can('isAdminweb')
+              <a class="dropdown-item" href="{{url('akses-adminweb/profile-admin')}}">
+            @endcan
+            @can('isAdminkeuangan')
+              <a class="dropdown-item" href="{{url('akses-adminkeuangan/profile-admin')}}">
+            @endcan
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Pengaturan
               </a>
               <a class="dropdown-item" href="#">
                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>

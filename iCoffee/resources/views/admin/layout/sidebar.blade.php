@@ -31,7 +31,7 @@
 
     <!-- Nav Item - Beranda -->
     <li class="nav-item active">
-      <a class="nav-link" href="{{url('akses-superadminadmin/beranda')}}">
+      <a class="nav-link" href="{{url('akses-superadmin/beranda')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Beranda</span></a>
       </li>

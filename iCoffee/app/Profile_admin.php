@@ -9,7 +9,7 @@ class Profile_admin extends Model
     protected $table = 'profile_admin';
 
     protected $fillable = [
-        'nama','alamat','no_hp','foto','role',
+       'alamat','no_hp','foto','role',
     ];
 
     public $timestamps = true;
