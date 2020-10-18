@@ -197,7 +197,7 @@
 						</p>
 						</form>
 					@elseif($order->status == 1)
-						<p><a href="/jual-beli/konfirmasi/lelang" name="hapusalamat" type="button" class="btn btn-primary px-3 py-3">Konfirmasi Pembayaran</a></p>
+						<p><a href="/lelang/konfirmasi" name="hapusalamat" type="button" class="btn btn-primary px-3 py-3">Konfirmasi Pembayaran</a></p>
 					
 					</form>
 

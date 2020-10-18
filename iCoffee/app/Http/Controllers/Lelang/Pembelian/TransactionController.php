@@ -10,6 +10,7 @@ use App\Helper\Helper;
 use App\Auction_Order;
 use App\Category;
 use App\User;
+use File;
 
 class TransactionController extends Controller
 {
@@ -20,8 +21,13 @@ class TransactionController extends Controller
 
     public function getProvinceData()
     {
-        $data = Helper::instance()->getSubdistrict(40);
-        dd($data);
+        // $files = File::files(public_path());
+        $path = public_path() . "/country-calling-codes.min.json";
+        $str = File::get($path);
+        $datas = $array_result = json_decode($str, true);
+            $data = Helper::instance()->dialCode($datas);
+            dd($data);
+
         return response()->json($data);
     }
 

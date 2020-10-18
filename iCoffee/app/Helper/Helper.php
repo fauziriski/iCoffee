@@ -2,6 +2,9 @@
 
 namespace App\Helper;
 use GuzzleHttp\Client;
+use App\Internationaldestination;
+use App\Countrydialcode;
+use App\Subdistrict;
 use App\Province;
 use App\City;
 
@@ -64,13 +67,14 @@ class Helper
         $json = $response->getBody()->getContents();
 
         $array_result = json_decode($json, true);
+        dd($array_result);
 
-        for ($i=0; $i < count($array_result['rajaongkir']['results']); $i++) { 
-            $city = City::where('id', $array_result['rajaongkir']['results'][$i]['province_id'])->first();
-            $city->update([
-                'type' => $array_result['rajaongkir']['results'][$i]['type']
-            ]);
-        }
+        // for ($i=0; $i < count($array_result['rajaongkir']['results']); $i++) { 
+        //     $city = City::where('id', $array_result['rajaongkir']['results'][$i]['province_id'])->first();
+        //     $city->update([
+        //         'type' => $array_result['rajaongkir']['results'][$i]['type']
+        //     ]);
+        // }
 
         return $array_result;
     }
@@ -95,9 +99,50 @@ class Helper
         $json = $response->getBody()->getContents();
 
         $array_result = json_decode($json, true);
+        dd($array_result);
+
+        // for ($i=0; $i < count($array_result['rajaongkir']['results']); $i++) { 
+        //     $subdistrict = Subdistrict::create([
+        //         'province_id' => $array_result['rajaongkir']['results'][$i]['province_id'],
+        //         'city_id' => $array_result['rajaongkir']['results'][$i]['city_id'],
+        //         'name' => $array_result['rajaongkir']['results'][$i]['subdistrict_name']
+        //     ]);
+        // }
 
         return $array_result;
         
+    }
+
+    public function getInternationalDestination()
+    {
+        $client = new Client();
+
+        try{
+            $response = $client->get('https://pro.rajaongkir.com/api/v2/internationalDestination',
+                array(
+                    'headers' => array(
+                        'key' => $this->apiKey,
+                        
+                    )
+                )
+            );
+        }
+        catch(RequestException $e){
+            var_dump($e->getResponse()->getBody()->getContents());
+        }
+        $json = $response->getBody()->getContents();
+
+        $array_result = json_decode($json, true);
+
+        for ($i=0; $i < count($array_result['rajaongkir']['results']); $i++) { 
+            $subdistrict = Internationaldestination::create([
+                'country_name' => $array_result['rajaongkir']['results'][$i]['country_name'],
+            ]);
+        }
+
+        return $array_result;
+        
+
     }
 
     public function cekOngkir($data)
@@ -142,6 +187,23 @@ class Helper
             return $value;
         }
         
+    }
+
+    public function dialCode($data)
+    {
+        $count = count($data);
+        for ($i=0; $i < $count ; $i++) { 
+            $result = Countrydialcode::create([
+                'name' => $data[$i]['name'],
+                'code' => $data[$i]['code'], 
+                'callingCode' => $data[$i]['callingCode']
+            ]);
+
+            $datas[] = $result;
+        }
+
+
+        return $datas;
     }
 
     public function doUpload($file,$detailBuktiId){

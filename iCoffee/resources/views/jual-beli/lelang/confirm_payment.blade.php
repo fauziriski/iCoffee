@@ -4,7 +4,7 @@
 
                     <main class="col bg-faded py-1 border flex-grow-1 mt-2" style="border-radius: 20px">
                         <h3 class="text-center">Konfirmasi Pembayaran Lelang</h3>
-                        <form action="/jual-beli/konfirmasi/pembayaranlelang" method="post"  enctype="multipart/form-data">
+                        <form action="/lelang/konfirmasi/pembayaran" method="post"  enctype="multipart/form-data">
                           @csrf
                           <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
                             <div class="col-md-12">

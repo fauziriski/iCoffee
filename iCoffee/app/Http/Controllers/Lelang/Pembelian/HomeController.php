@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Auction_process;
 use App\Auction_product;
 use App\Auction_winner;
+use App\Joint_account;
 use App\Auction_image;
 use Carbon\Carbon;
 use App\Category;
@@ -127,6 +128,48 @@ class HomeController extends Controller
         $i = 1;
     
         return view('jual-beli.lelang.data',compact('penawar','i'));
+    }
+
+    
+    public function bid(Request $request)
+    {
+        $id_pelanggan = Auth::user()->id;
+
+        $produk = Auction_product::where('id', $request->id_produk)->first();
+        $cek_saldo = Joint_account::where('user_id', $id_pelanggan)->first();
+
+        $lima_persen = 5/100*$produk->harga_awal;
+
+        if($cek_saldo->saldo < $lima_persen)
+        {
+            return response()->json(['response' => 'Saldo', 'data' => $request]);
+        }
+
+
+
+        if($request->id_pelelang == $id_pelanggan){
+
+            return response()->json(['response' => 'Gagal', 'data' => $request]);
+        }
+
+
+        $process = Auction_process::create([
+            'id_produk' => $request->id_produk,
+            'id_pelelang' => $request->id_pelelang,
+            'id_penawar' => $request->id_penawar,
+            'nama' => $request->nama,
+            'penawaran' => $request->penawaran,
+            'pemenang' => '0',
+            'kelipatan' => $request->kelipatan,
+            'status' => '1'
+        ]);
+        $i = 1;
+        Alert::success('Tawaran Anda Berhasil');
+
+        return response()->json(['response' => 'Berhasil', 'data' => $process]);
+
+
+
     }
 
     
