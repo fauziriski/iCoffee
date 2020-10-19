@@ -9,7 +9,7 @@ class Profile_admin extends Model
     protected $table = 'profile_admin';
 
     protected $fillable = [
-        'nama','alamat','no_hp','foto','role',
+       'alamat','no_hp','foto','role',
     ];
 
     public $timestamps = true;
@@ -17,5 +17,11 @@ class Profile_admin extends Model
     public function User_role()
     {
     	return $this->belongsTo('App\User', 'role','id');
+    }
+
+    
+    public function users()
+    {
+    	return $this->belongsTo('App\User','role');
     }
 }

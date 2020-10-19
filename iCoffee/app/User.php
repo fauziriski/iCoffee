@@ -41,6 +41,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
 
      public function model_has_role()
     {
@@ -67,4 +68,11 @@ class User extends Authenticatable
     {
     	return $this->hasMany('App\Auction_winner');
     }
+
+    public function profile_admin()
+    {
+    	return $this->hasOne('App\Profile_admin');
+    }
+
+   
 }

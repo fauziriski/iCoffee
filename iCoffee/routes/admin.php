@@ -13,6 +13,12 @@
 Route::get('/', 'HomeController@index')->name('dashboard');
 Route::get('/beranda', 'HomeController@index')->name('beranda');
 
+//profile_admin
+Route::get('/profile-admin', 'HomeController@adminProfile')->name('profile-admin');
+Route::post('/profile/tambah', 'HomeController@tambahProfile')->name('profile.tambah');
+Route::post('/profile/update', 'HomeController@profileUpdate')->name('profile.update');
+Route::post('/profile2/update', 'HomeController@profile2Update')->name('profile2.update');
+
 Route::get('/kategori-produk', 'KelolaProdukController@index')->name('kategori-produk');
 Route::post('/kategori-produk/store', 'KelolaProdukController@store')->name('kategori-produk.store');
 Route::post('/kategori-produk/update', 'KelolaProdukController@update')->name('kategori-produk.update');

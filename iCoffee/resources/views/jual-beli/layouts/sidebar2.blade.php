@@ -52,7 +52,7 @@
                                             <li class="nav-item"><a class="nav-link" href="/lelang/transaksi/penjualan"><i class="fas fa-history"></i> Riwayat Penjualan</a></li>
                                             <li class="nav-item"><a class="nav-link" href="/lelang/produk-saya"><i class="fas fa-store-alt"></i> Produk Anda</a></li>
                                             <li class="nav-item"><a class="nav-link" href="/lelang/transaksi/pembelian"><i class="fas fa-history"></i> Riwayat Pembelian</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="/jual-beli/konfirmasi/lelang"><i class="fas fa-handshake"></i> Konfirmasi Pembayaran</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="/lelang/konfirmasi/"><i class="fas fa-handshake"></i> Konfirmasi Pembayaran</a></li>
                                         </ul>
                                     </li>
                                     {{-- <li class="nav-item">

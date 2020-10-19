@@ -13,6 +13,13 @@
 
 Route::get('/', 'HomeController@index')->name('dashboard');
 Route::get('/beranda', 'HomeController@index')->name('beranda');
+
+//profile_admin
+Route::get('/profile-admin', 'HomeController@adminProfile')->name('profile-admin');
+Route::post('/profile/tambah', 'HomeController@tambahProfile')->name('profile.tambah');
+Route::post('/profile/update', 'HomeController@profileUpdate')->name('profile.update');
+Route::post('/profile2/update', 'HomeController@profile2Update')->name('profile2.update');
+
 Route::get('/format-akun', 'FormatAkunController@dataPelanggan')->name('format-akun');
 // Route::get('/data-admin', 'KelolaPenggunaController@dataAdmin')->name('data-admin');
 // Route::get('/hapus-pengguna/{id}', 'KelolaPenggunaController@hapusPengguna')->name('hapus-pengguna');

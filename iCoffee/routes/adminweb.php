@@ -4,6 +4,12 @@
 Route::get('/', 'HomeController@index')->name('dashboard');
 Route::get('/beranda', 'HomeController@index')->name('beranda');
 
+//profile_admin
+Route::get('/profile-admin', 'HomeController@adminProfile')->name('profile-admin');
+Route::post('/profile/tambah', 'HomeController@tambahProfile')->name('profile.tambah');
+Route::post('/profile/update', 'HomeController@profileUpdate')->name('profile.update');
+Route::post('/profile2/update', 'HomeController@profile2Update')->name('profile2.update');
+
 //kategori artikel
 Route::get('/kategori-artikel', 'KategoriController@index')->name('kategori-artikel');
 Route::post('/kategori-artikel/store', 'KategoriController@store')->name('kategori-artikel.store');
