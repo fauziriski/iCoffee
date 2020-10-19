@@ -65,19 +65,19 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-      Admin
+      Hak Akses
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-coins"></i>
-          <span>Kelola Admin</span>
+          <i class="fas fa-fw fa-key"></i>
+          <span>Kelola Akses</span>
         </a>
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Kelola Admin :</h6>
-            <a class="collapse-item" href="{{url('validasi-pembayaran')}}">Data Admin</a>
+            <h6 class="collapse-header">Kelola Akses :</h6>
+            <a class="collapse-item" href="{{url('akses-superadmin/data-role')}}">Role</a>
             <a class="collapse-item" href="{{url('jenis-produk')}}">Hak Akses</a>
           </div>
         </div>
@@ -94,7 +94,7 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-money-check-alt"></i>
+          <i class="fas fa-fw fa-history"></i>
           <span>Aktivitas Pengguna</span>
         </a>
         <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

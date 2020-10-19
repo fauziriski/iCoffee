@@ -18,4 +18,10 @@ class Profile_admin extends Model
     {
     	return $this->belongsTo('App\User', 'role','id');
     }
+
+    
+    public function users()
+    {
+    	return $this->belongsTo('App\User','role');
+    }
 }

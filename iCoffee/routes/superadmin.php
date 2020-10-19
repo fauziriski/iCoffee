@@ -39,4 +39,9 @@ Route::post('/profile/tambah', 'KelolaAdminController@tambahProfile')->name('pro
 Route::post('/profile/update', 'KelolaAdminController@profileUpdate')->name('profile.update');
 Route::post('/profile2/update', 'KelolaAdminController@profile2Update')->name('profile2.update');
 
+//data-role
+Route::get('/data-role', 'KelolaRoleController@dataRole')->name('data-role');
+Route::get('/edit-role/{id}', 'KelolaRoleController@editRole')->name('edit-role');
+Route::post('/update-role', 'KelolaRoleController@updateRole')->name('update-role');
+
 
