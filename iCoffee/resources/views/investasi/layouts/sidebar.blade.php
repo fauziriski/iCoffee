@@ -8,7 +8,7 @@
           <header class="card-header"><h6 class="title">Profile</h6></header>
           <div class="filter-content">
             <div class="list-group list-group-flush">
-            <li href="#" class="list-group-item"><img src="/images/tonii.png" width="25%" style="border-radius: 50%">&nbsp;&nbsp; {{ Auth::user()->name }}</li>
+            <li href="#" class="list-group-item"><img src="{{Auth::user()->photo == null ? asset('picture-default.png') : asset('Uploads/Investasi/Profil/'.Auth::user()->photo) }}" style="height: 50px; width: 50px; border-radius: 50%; boxSizing: border-box; overflow: hidden;">&nbsp;&nbsp; {{ Auth::user()->name }}</li>
               <a href="{{url('invest/profil')}}" class="list-group-item"><span class="fa fa-coins"></span>&nbsp;&nbsp; Profil Investor</a>
             </div> 
           </div>

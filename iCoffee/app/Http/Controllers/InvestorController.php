@@ -68,6 +68,7 @@ class InvestorController extends Controller
     public function confirm()
     {
         $order = invest_order::where('id_investor', Auth::id())->where('status',1)->get();
+
         foreach($order as $ord){
             $produk[] = Invest_product::where('id', $ord->id_produk)->get();
         }
