@@ -151,11 +151,12 @@ class Helper
         $client = new Client();
 
         try{
-            $response = $client->request('POST','https://api.rajaongkir.com/starter/cost',
+            $response = $client->request('POST','https://pro.rajaongkir.com/api/cost',
                 [
-                    'body' => 'origin='.$data["origin"].'&destination='.$data["destination"].'&weight='.$data["weight"].'&courier='.$data["courier"],
+                    // 'body' => 'origin='.$data["origin"].'&destination='.$data["destination"].'&weight='.$data["weight"].'&courier='.$data["courier"],
+                    'body' => 'origin='.$data["origin"].'&originType=subdistrict&destination='.$data["destination"].'&destinationType=subdistrict&weight='.$data["weight"].'&courier='.$data["courier"],
                     'headers' => [
-                        'key' => '91c8040385b06b96e8ae36c7f5584bbd',
+                        'key' => $this->apiKey,
                         'content-type' => 'application/x-www-form-urlencoded',
                         
                     ]
@@ -166,16 +167,47 @@ class Helper
             var_dump($e->getResponse()->getBody()->getContents());
         }
         $json = $response->getBody()->getContents();
-
-
+        
         $array_result = json_decode($json, true);
-
-        $origin = $array_result['rajaongkir']['origin_details']['city_name'];
-        $destination = $array_result['rajaongkir']['destination_details']['city_name'];
+        
+        $origin = $array_result['rajaongkir']['origin_details']['city'];
+        
+        $destination = $array_result['rajaongkir']['destination_details']['city'];
 
         return $array_result;
 
     }
+
+    public function getwaybill($data)
+    {
+        $title = 'CEK SHIPPING RESULT';
+        $client = new Client();
+
+        try{
+            $response = $client->request('POST','https://pro.rajaongkir.com/api/waybill',
+                [
+                    // 'body' => 'waybill='.$data["waybill"].'&courier='.$data["courier"],
+                    'body' => 'waybill=JP7185093592&courier=jnt',
+                    'headers' => [
+                        'key' => $this->apiKey,
+                        'content-type' => 'application/x-www-form-urlencoded',
+                        
+                    ]
+                ]
+            );
+        }
+        catch(RequestException $e){
+            var_dump($e->getResponse()->getBody()->getContents());
+        }
+        $json = $response->getBody()->getContents();
+        
+        $array_result = json_decode($json, true);
+
+        return $array_result;
+
+    }
+
+    
 
     public function removeDot($value)
     {

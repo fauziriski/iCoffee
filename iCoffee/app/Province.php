@@ -19,4 +19,9 @@ class Province extends Model
     public function city(){ 
         return $this->hasMany('App\City'); 
     }
+
+    public function subdistrict()
+    {
+    	return $this->hasMany('App\Subdistrict');
+    }
 }

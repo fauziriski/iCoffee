@@ -21,5 +21,10 @@ class City extends Model
         return $this->hasMany('App\Address'); 
     }
 
+    public function subdistrict()
+    {
+    	return $this->hasMany('App\Subdistrict');
+    }
+
 
 }

@@ -30,6 +30,7 @@ Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallba
 route::get('/profile/tambahalamat', 'HomeController@tambahalamat');
 route::post('/profile/tambah' , 'HomeController@tambah_alamat');
 route::get('/profile/edit', 'HomeController@profile');
+Route::get('/profile/subdistrict/{id}', 'HomeController@subdistrict');
 
 route::post('/profile/edit_profile', 'HomeController@edit_profile');
 route::post('/profile/edit_password', 'HomeController@update_password');
@@ -122,6 +123,9 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 
 	//transaction
 	Route::get('/jual-beli/transaksi/penjualan', 'TransactionController@indexSell');
+
+	//getwaybill
+	Route::get('/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
 	
 });
 
@@ -131,15 +135,10 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 Route::get('/jual-beli/province/data', 'KeranjangjbController@province');
 Route::get('/jual-beli/url/', 'KeranjangjbController@file_get_content_curl');
 
-
 // Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 
-
-Route::get('/ceks', function(){
-	return view('jual-beli.cek');
-});
-
+Route::get('/ceks', function(){ return view('jual-beli.cek'); });
 
 Route::get('page/getprovince', 'ApiController@getprovince');
 Route::get('page/getcity', 'ApiController@getcity');
@@ -176,8 +175,14 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	//Transaction
 	Route::get('/lelang/transaksi/pembelian', 'TransactionController@index');
 
+	//Complain
+	Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'KeranjanglelangController@komplain');
+	Route::post('/lelang/pesanan/komplain', 'KeranjanglelangController@komplaindiproses');
+
 	//get data province new
 	Route::get('/get-new-province', 'TransactionController@getProvinceData');
+
+	
 
 
 
@@ -190,7 +195,6 @@ Route::namespace('Lelang\Penjualan')->group(function () {
 	Route::post('/pasang-lelang/berhasil', 'ProductController@store');
 	Route::get('/lelang/produk-saya','ProductController@index');
 
-
 	//Transaction
 	Route::get('/lelang/transaksi/penjualan', 'TransactionController@index');
 
@@ -200,29 +204,12 @@ Route::namespace('Lelang\Penjualan')->group(function () {
 	Route::post('/lelang/pesanan/inputresi', 'InvoiceController@inputresi');
 
 
-
-
 });
 
 
-
 //lelang
-
-
 // Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
-
-
 // Route::get('/lelang/transaksi', 'KeranjanglelangController@transaksi');
-
-
-
-
-Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'KeranjanglelangController@komplain');
-Route::post('/lelang/pesanan/komplain', 'KeranjanglelangController@komplaindiproses');
-
-
-
-
 
 
 

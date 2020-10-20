@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="row align-items-end mt-2 mb-5 justify-content-center">
-                                        <div class="col-md-3 offset-md-10 col-sm-3 pr-4 text-center mt-3">
+                                        <div class="col-md-3 text-center mt-3">
                                             <button type="submit" class="btn btn-primary py-3 px-4">Tarik Saldo</button>
                                         </div>
                                     </div>

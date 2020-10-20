@@ -1,7 +1,7 @@
-  <hr>
+  <hr style="border-width: 3px; border-color: #ee4d2c">
   <br>
   <footer class="ftco-footer ftco-section ftco-animate">
-    <div class="container">
+    <div class="container justify-content-start">
       <div class="row">
         <div class="mouse">
           <a href="#" class="mouse-icon">
@@ -81,3 +81,4 @@
       </div>
     </div>
   </footer>
+

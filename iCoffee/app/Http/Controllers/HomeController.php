@@ -27,6 +27,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 Use Redirect;
+use App\Subdistrict;
 use URL;
 
 
@@ -352,8 +353,29 @@ class HomeController extends Controller
         return response()->json($kota);
     }
 
+    public function subdistrict($id)
+    {
+        $subdistrict = Subdistrict::where('city_id', $id)->get();
+
+        if ($subdistrict) {
+            return response()->json($subdistrict);
+        }
+        
+    }
+
     public function tambah_alamat(Request $request)
     {
+
+        $validateData = $this->validate($request, [
+            'nama' => 'required|string|max:255',
+            'no_hp' => 'required|max:13|min:11',
+            'provinsi' => 'required|exists:provinces,id',
+            'kota_kabupaten' => 'required|exists:cities,id',
+            'kecamatan' => 'required|exists:subdistricts,id',
+            'kode_pos' => 'max:6|min:5',
+            'alamat' => 'required|string|max:255'
+        ]);
+
         $id_pelanggan = Auth::user()->id;
         $tambah_alamat = Address::create([
             'id_pelanggan' => $id_pelanggan,
@@ -393,11 +415,13 @@ class HomeController extends Controller
         $alamat = Address::where('id', $id)->first();
         $provinsi = $alamat->province->nama;
         $kota = $alamat->city->nama;
+        $kecamatan = $alamat->subdistrict->name;
 
         return response()->json(array(
             'alamat' => $alamat,
             'provinsi' =>  $provinsi,
-            'kota' => $kota  ));
+            'kota' => $kota,
+            'kecamatan' => $kecamatan  ));
     }
 
     public function editalamat(Request $request)

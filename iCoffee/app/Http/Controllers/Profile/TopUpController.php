@@ -23,6 +23,7 @@ class TopUpController extends Controller
         $user_id = Auth::user()->id;
         $top_up = Top_up::where('user_id', $user_id)->orderBy('created_at','desc')->paginate(1);
         $balance_withdrawal = Balance_withdrawal::where('user_id', $user_id)->orderBy('created_at','desc')->paginate(1);
+        $allsaldo = array();
 
         foreach ($balance_withdrawal as $key => $value) {
             $allsaldo[] = $value;

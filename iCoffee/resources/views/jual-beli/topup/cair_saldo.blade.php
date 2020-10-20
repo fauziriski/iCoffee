@@ -55,8 +55,8 @@
           </div>
 
 
-            <div class="col-md-12 mt-3">
-              <button type="submit" class="btn btn-primary float-right py-3 px-4">Tarik Saldo</button>
+            <div class="col-md-12 mt-3 text-center">
+              <button type="submit" class="btn btn-primary py-3 px-4">Tarik Saldo</button>
             </div>
 
 

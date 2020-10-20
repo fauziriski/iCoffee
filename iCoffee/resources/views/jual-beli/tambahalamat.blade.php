@@ -22,8 +22,8 @@
                                     <label for="no_hp">No Handphone</label>
                                     <div class="input-group">
                                       <input type="tel" class="form-control" id="" placeholder="" name="no_hp" required>
-                                      <span class="text-danger">{{$errors->first('no_hp')}}</span>
                                     </div>
+                                    <span class="text-danger">{{$errors->first('no_hp')}}</span>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
@@ -37,6 +37,7 @@
                                         @endforeach
                                       </select>
                                     </div>
+                                    <span class="text-danger">{{$errors->first('provinsi')}}</span>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
@@ -47,15 +48,18 @@
                                             <option class="form-control" value="">Pilih Kota</option>
                                         </select>
                                       </div>
+                                      <span class="text-danger">{{$errors->first('kota_kabupaten')}}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label for="stok">Kecamatan</label>
                                     <div class="input-group">
-                                      <input type="text" class="form-control" id="" placeholder="" name="kecamatan" required>
-                                      <span class="text-danger">{{$errors->first('kecamatan')}}</span>
+                                      <select name="kecamatan" id="" class="form-control" required>
+                                        <option class="form-control" value="">Pilih Kecamatan</option>
+                                      </select>
                                     </div>
+                                    <span class="text-danger">{{$errors->first('kecamatan')}}</span>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
@@ -63,8 +67,8 @@
                                     <label for="stok">Kode Pos</label>
                                     <div class="input-group">
                                       <input type="number" class="form-control" id="" placeholder="" name="kode_pos" required>
-                                      <span class="text-danger">{{$errors->first('kode_pos')}}</span>
                                     </div>
+                                    <span class="text-danger">{{$errors->first('kode_pos')}}</span>
                                   </div>
                                 </div>
                                 <div class="col-md-12">
@@ -77,7 +81,7 @@
                               </div>
                               <div class="row">
                                 <div class="col-md-12 mt-3 text-center">
-                                    <button type="submit" class="btn btn-primary py-3 px-4">Tambah Alamat</button>
+                                    <button type="submit" class="btn btn-block btn-primary py-3 px-4">Tambah Alamat</button>
                                 </div>
                               </div>
                             </div>
@@ -95,24 +99,41 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-    $('select[name="provinsi"]').on('change', function() {
+      $('select[name="provinsi"]').on('change', function() {
         var provinceID = $(this).val();
-            if(provinceID) {
-            $.ajax({
-                url: '/profile/carikota/'+encodeURI(provinceID),
-                type: "GET",
-                dataType: "json",
-                success:function(data) {
-                $('select[name="kota_kabupaten"]').empty();
-                $.each(data, function(key, value) {
-                    $('select[name="kota_kabupaten"]').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
-                    });
-                }
-            });
-            }else{
+        if(provinceID) {
+        $.ajax({
+            url: '/profile/carikota/'+encodeURI(provinceID),
+            type: "GET",
+            dataType: "json",
+            success:function(data) {
             $('select[name="kota_kabupaten"]').empty();
-              }
-           });
+            $('select[name="kota_kabupaten"]').append('<option selected="true" disabled="disabled">Pilih Kota/Kabupaten</option>');
+            $.each(data, function(key, value) {
+                $('select[name="kota_kabupaten"]').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
+                });
+            }
+        });
+        }
+      });
+      $('select[name="kota_kabupaten"]').on('change', function() {
+        var cityID = $(this).val();
+        if(cityID) {
+        $.ajax({
+            url: '/profile/subdistrict/'+encodeURI(cityID),
+            type: "GET",
+            dataType: "json",
+            success:function(data) {
+            $('select[name="kecamatan"]').empty();
+            $('select[name="kecamatan"]').append('<option selected="true" disabled="disabled">Pilih Kecamatan</option>');
+            $.each(data, function(key, value) {
+                $('select[name="kecamatan"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                });
+            }
+        });
+        }
+      });
+      
     });
 </script>
 
