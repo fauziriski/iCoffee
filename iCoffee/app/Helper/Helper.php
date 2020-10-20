@@ -7,6 +7,7 @@ use App\Countrydialcode;
 use App\Subdistrict;
 use App\Province;
 use App\City;
+use DB;
 
 class Helper
 {
@@ -205,6 +206,22 @@ class Helper
 
         return $array_result;
 
+    }
+
+    public function getPostalCode($data)
+    {
+        $postal_code = DB::table('postal_code')->where('kecamatan', $data)->get();
+
+        $kode_pos = array();
+
+        foreach ($postal_code as $key => $value) 
+        {
+            if(!(in_array($value->kode_pos, $kode_pos))) {
+                $kode_pos[] = $value->kode_pos;
+            }
+        }
+
+        return $kode_pos;
     }
 
     

@@ -81,7 +81,7 @@
                               </div>
                               <div class="row">
                                 <div class="col-md-12 mt-3 text-center">
-                                    <button type="submit" class="btn btn-block btn-primary py-3 px-4">Tambah Alamat</button>
+                                    <button type="submit" class="btn btn-primary py-3 px-4">Tambah Alamat</button>
                                 </div>
                               </div>
                             </div>

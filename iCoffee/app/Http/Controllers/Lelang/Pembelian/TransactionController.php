@@ -22,8 +22,8 @@ class TransactionController extends Controller
     public function getProvinceData()
     {
         // $files = File::files(public_path());
-
-        $subdistric = Helper::instance()->getwaybill(1);
+        $data = 'Tanjung Karang Pusat';
+        $subdistric = Helper::instance()->getPostalCode($data);
         dd($subdistric);
         // $path = public_path() . "/country-calling-codes.min.json";
         // $str = File::get($path);
