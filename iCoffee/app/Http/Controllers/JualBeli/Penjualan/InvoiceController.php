@@ -10,6 +10,7 @@ use App\Order;
 use App\Orderdetail;
 use App\Delivery;
 use App\Account;
+use App\Helper\Helper;
 
 class InvoiceController extends Controller
 {
@@ -27,7 +28,6 @@ class InvoiceController extends Controller
         $cek_resi = Delivery::where('id_order', $order->id)->first();
         $orderdetails = Orderdetail::where('invoice', $invoice)->where('id_order', $order->id)->get();
         $alamat_penjual = Orderdetail::where('invoice', $invoice)->where('id_order', $order->id)->first();
-        dd($order);
         $kurir = explode(': ', $order->shipping);
         $jumlah_seluruh = $kurir[0]+$order->total_bayar;
         $bank_information = Account::where('bank_name', $order->payment)->first();
@@ -142,6 +142,20 @@ class InvoiceController extends Controller
         }
 
         return redirect('/jual-beli/invoice_penjual/'. $request->invoice);
+    }
+
+    public function getWayBill($id)
+    {
+        $delivery = Delivery::where('id_order', $id)->first();
+        $kurir = explode(': ', $delivery->nama);
+        $courir = strtolower($kurir[1]);
+        $array = array(
+            "waybill" => $delivery->invoice,
+            "courier" => $courir,
+        );
+        $data = Helper::instance()->getwaybill($array);
+
+        return response()->json($data);
     }
     
 }

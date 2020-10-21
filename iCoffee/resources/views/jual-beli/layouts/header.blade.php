@@ -67,7 +67,7 @@
               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 &nbsp;&nbsp;&nbsp;Hai, {{ Auth::user()->name }} <span class="caret"></span>
                 @if (!empty($count_order['count_notif']))
-                <span class="badge badge-pill badge-danger py-1 align-middle">{{ $count_order['count_notif'] }}</span>
+                <span class="badge badge-pill badge-success py-1 align-middle">{{ $count_order['count_notif'] }}</span>
                 @endif 
             
               </a>
@@ -81,7 +81,7 @@
                 <a class="dropdown-item" href="/profile/edit">
                   <i class="ion-ios-person mr-3"></i>Profile
                   @if (!empty($count_order['count_notif']))
-                  &nbsp;<span class="badge badge-pill badge-danger py-1 align-middle">{{ $count_order['count_notif'] }}</span>
+                  &nbsp;<span class="badge badge-pill badge-success py-1 align-middle">{{ $count_order['count_notif'] }}</span>
                   @endif 
                 </a>
                 <a class="dropdown-item" href="{{ route('logout') }}"

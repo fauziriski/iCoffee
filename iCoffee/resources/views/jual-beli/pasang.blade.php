@@ -22,9 +22,9 @@
                                       <label for="harga">Harga </label>
                                       <div class="input-group">
                                         <div class="input-group-prepend">
-                                          <div class="input-group-text">Rp</div>
+                                          <div style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="input-group-text">Rp</div>
                                         </div>
-                                        <input type="text" id="harga" class="form-control" placeholder="Min : 1000" min="1000" name="harga" required>
+                                        <input style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" type="text" id="harga" class="form-control" placeholder="Min : 1000" min="1000" name="harga" required>
                                         <span class="text-danger">{{$errors->first('harga')}}</span>
                                       </div>
                                     </div>
@@ -35,11 +35,11 @@
                                       <label for="stok">Stok</label>
                                       <div class="input-group">
                                         <input type="text" class="form-control" id="stok" placeholder="Contoh : 10" min="1" name="stok" required>
-                                        <span class="text-danger">{{$errors->first('stok')}}</span>
                                         <div class="input-group-prepend">
-                                          <div class="input-group-text">Kg</div>
+                                          <div style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" class="input-group-text">Kg</div>
                                         </div>
                                       </div>
+                                      <span class="text-danger">{{$errors->first('stok')}}</span>
                                     </div>
                                   </div>
                       

@@ -16,8 +16,8 @@
       </ul>
       <div class="tab-content" id="pills-tabContent">
         {{-- Profil --}}
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...
-
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+          @livewire('investasi.profil')
         </div>
         {{-- Rekening --}}
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">

@@ -22,6 +22,11 @@ class Address extends Model
     	return $this->belongsTo('App\City', 'kota_kabupaten');
     }
 
+    public function subdistrict()
+    {
+    	return $this->belongsTo('App\Subdistrict', 'kecamatan');
+    }
+
     public function orders()
     {
     	return $this->hasMany('App\Order');

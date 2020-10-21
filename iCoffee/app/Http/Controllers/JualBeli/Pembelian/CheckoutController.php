@@ -167,14 +167,14 @@ class CheckoutController extends Controller
 
         for ($i=0; $i < $hitung_jumlah_alamat_penjual ; $i++) 
         { 
-            if (!(in_array($alamat_penjual[$i]->kota_kabupaten, $pengirim))) {
-                $pengirim[] = $alamat_penjual[$i]->kota_kabupaten;
+            if (!(in_array($alamat_penjual[$i]->kecamatan, $pengirim))) {
+                $pengirim[] = $alamat_penjual[$i]->kecamatan;
                 
             }
         }
         
 
-        $penerima = $alamat->kota_kabupaten;
+        $penerima = $alamat->kecamatan;
 
         session(['alamat_penjual' => $pengirim]);
         session(['alamat' => $penerima]);
@@ -183,7 +183,9 @@ class CheckoutController extends Controller
 
         $costjne = array();
         $costtiki = array();
-        $costpos = array();
+        $costjnt = array();
+        $costninja = array();
+        $costlion = array();
 
         
         for ($i=0; $i < $jumlah_penjual ; $i++) { 
@@ -191,6 +193,7 @@ class CheckoutController extends Controller
             //jne
 
             $array = array(
+
                 "origin" => $pengirim[$i],
                 "destination" => $penerima,
                 "weight" => $berat[$i],
@@ -208,20 +211,54 @@ class CheckoutController extends Controller
             );
             $costtiki[] = Helper::instance()->cekOngkir($array);
             
-            // //pos
+            //J&T
 
             $array = array(
                 "origin" => $pengirim[$i],
                 "destination" => $penerima,
                 "weight" => $berat[$i],
-                "courier" => "pos",
+                "courier" => "jnt",
             );
-            $costpos[] = Helper::instance()->cekOngkir($array);
+            $costjnt[] = Helper::instance()->cekOngkir($array);
+            
+
+            //Ninja
+
+            $array = array(
+                "origin" => $pengirim[$i],
+                "destination" => $penerima,
+                "weight" => $berat[$i],
+                "courier" => "ninja",
+            );
+
+            $costninja[] = Helper::instance()->cekOngkir($array);
+
+            
+            $array = array(
+                "origin" => $pengirim[$i],
+                "destination" => $penerima,
+                "weight" => $berat[$i],
+                "courier" => "lion",
+            );
+            $costlion[] = Helper::instance()->cekOngkir($array);
 
         }
 
 
-        return view('jual-beli.checkout', compact('getProductData','jumlah_penjual','jumlah_seluruh','alamat','jumlah','penjual','costpos','checkout_data','costtiki','costjne','jumlah_data_checkout'));
+        return view('jual-beli.checkout', compact(
+            'getProductData',
+            'jumlah_penjual',
+            'jumlah_seluruh',
+            'alamat',
+            'jumlah',
+            'penjual',
+            'costjnt',
+            'costninja',
+            'checkout_data',
+            'costtiki',
+            'costlion',
+            'costjne',
+            'jumlah_data_checkout'));
 
 
     }

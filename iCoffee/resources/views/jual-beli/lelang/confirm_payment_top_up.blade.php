@@ -10,14 +10,18 @@
       @csrf
       <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
         <div class="col-md-12">
-
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
-            <span class="text-danger">{{$errors->first('email')}}</span>
-          </div>
-          
           <div class="row">
+            <div class="col-md-12">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <div class="input-group">
+                <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
+              </div>
+              <span class="text-danger">{{$errors->first('email')}}</span>
+            </div>
+            </div>
+          
+          
 
             <div class="col-md-6">
                 <div class="form-group">
