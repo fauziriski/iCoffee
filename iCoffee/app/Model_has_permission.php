@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Model_has_role extends \Spatie\Permission\Models\Model_has_role
+class Model_has_permission extends Model
 {
     protected $fillable = [
-        'role_id','model_id',
+        'permission_id','model_id',
     ];
 
     public $timestamps = true;
@@ -21,5 +21,9 @@ class Model_has_role extends \Spatie\Permission\Models\Model_has_role
     {
     	return $this->hasOne('App\Role', 'id', 'role_id');
     }
-}
 
+    public function permissions()
+    {
+    	return $this->hasOne('App\Permission', 'id', 'permission_id');
+    }
+}

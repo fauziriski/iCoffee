@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends \Spatie\Permission\Models\Role
+class Permission extends \Spatie\Permission\Models\Permission
 {
     protected $fillable = [
         'name','guard_name',
@@ -12,7 +12,7 @@ class Role extends \Spatie\Permission\Models\Role
 
     public $timestamps = true;
 
-    public function model_has_role()
+    public function model_has_permission()
     {
     	return $this->hasMany('App\Model_has_role');
     }
@@ -21,5 +21,4 @@ class Role extends \Spatie\Permission\Models\Role
     {
     	return $this->hasMany('App\User');
     }
-
 }

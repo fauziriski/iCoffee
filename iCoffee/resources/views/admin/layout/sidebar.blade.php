@@ -78,7 +78,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Kelola Akses :</h6>
             <a class="collapse-item" href="{{url('akses-superadmin/data-role')}}">Role</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Hak Akses</a>
+            <a class="collapse-item" href="{{url('akses-superadmin/data-akses')}}">Hak Akses</a>
           </div>
         </div>
       </li>
