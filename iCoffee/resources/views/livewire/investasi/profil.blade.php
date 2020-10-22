@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <button  class="btn btn-success float-right" type="submit">Update</button>
+        <button class="btn btn-success float-right" type="submit">Update</button>
     </form>
 
     @section('scripts')
@@ -68,6 +68,16 @@
                     $(this).remove(); 
                 });
             }, 10000);   
+        </script>
+        <script type="text/javascript">
+            window.livewire.on('userStore', () => {
+                $('#exampleModal').modal('hide');
+            });
+        </script>
+        <script type="text/javascript">
+            window.livewire.on('update', () => {
+                $('#updateModal').modal('hide');
+            });
         </script>
     @endsection
 </div>
