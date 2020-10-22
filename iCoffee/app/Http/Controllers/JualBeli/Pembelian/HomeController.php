@@ -17,7 +17,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $products = Shop_product::orderBy('created_at','desc')->paginate(12);
+        $products = Shop_product::orderBy('created_at','desc')->where('status', 1)->paginate(12);
         $category = Category::all();
     
         return view('jual-beli.index',compact('products', 'category'));
