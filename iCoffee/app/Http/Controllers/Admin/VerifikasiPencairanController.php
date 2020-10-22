@@ -45,13 +45,13 @@ class  VerifikasiPencairanController extends Controller
 
 			->addColumn('status', function($data){
 				if ($data->status == "1") {
-					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
+					$status = '<span class="badge badge-info">belum divalidasi</span>';
 				}elseif ($data->status == "4") {
-					$status = '<button type="button" class="btn btn-secondary btn-sm py-0 btn-block">sedang diproses</button>';
+					$status = '<span class="badge badge-secondary">sedang diproses</span>';
 				}elseif ($data->status == "3") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">sudah divalidasi</button>';
+					$status = '<span class="badge badge-success">sudah divalidasi</span>';
 				}else{
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">validasi ditolak</button>';
+					$status = '<span class="badge badge-danger">validasi ditolak</span>';
 				}
 
 				return $status;

@@ -4,17 +4,18 @@
 
                     <main class="col bg-faded py-1 border flex-grow-1 mt-2" style="border-radius: 20px">
                         <h2 class="text-center">Edit Produk</h2>
-                        <form action="/pasang-produk/berhasil" method="post"  enctype="multipart/form-data">
+                        <form action="/jual-beli/produk/edit/berhasil" method="post"  enctype="multipart/form-data">
                             @csrf
+                          <input type="hidden" name="produk_id" value="{{$produk->id}}" required>
                             <div class="row mt-2 pl-4 pr-4 mb-5">
                               <div class="col-md-12">
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group">
                                       <label for="nama">Nama Produk</label>
-                                      <input type="text" class="form-control" name="nama_produk" value="{{$produk->nama_produk}}" required>
-                                      <span class="text-danger">{{$errors->first('nama_produk')}}</span>
+                                      <input type="text" class="form-control" name="nama_produk" value="{{$produk->nama_produk}}" >
                                     </div>
+                                    <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                                   </div>
                                 
                                   <div class="col-md-4">
@@ -24,22 +25,23 @@
                                         <div class="input-group-prepend">
                                           <div class="input-group-text">Rp</div>
                                         </div>
-                                        <input type="text" id="harga" class="form-control" placeholder="Min : 1000" value="{{$produk->harga}}" min="1000" name="harga" required>
-                                        <span class="text-danger">{{$errors->first('harga')}}</span>
+                                        <input type="text" id="harga" class="form-control" placeholder="Min : 1000" value="{{ number_format($produk->harga,0,",",".") }}" min="1000" name="harga" required>
                                       </div>
+                                      <span class="text-danger">{{$errors->first('harga')}}</span>
                                     </div>
                                   </div>
+                                  
                       
                                   <div class="col-md-4">
                                     <div class="form-group">
                                       <label for="stok">Stok</label>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" id="stok" placeholder="Contoh : 10" min="1" name="stok" value="{{$produk->stok}}" required>
-                                        <span class="text-danger">{{$errors->first('stok')}}</span>
+                                        <input type="text" class="form-control" id="stok" placeholder="Contoh : 10" min="1" name="stok" value="{{ number_format($produk->stok,0,",",".") }}" required>
                                         <div class="input-group-prepend">
                                           <div class="input-group-text">Kg</div>
                                         </div>
                                       </div>
+                                      <span class="text-danger">{{$errors->first('stok')}}</span>
                                     </div>
                                   </div>
                       
@@ -63,11 +65,16 @@
                                       <textarea id="summernote" class="form-control" rows="5" type="text" name="detail_produk" required>
                                         {{$produk->detail_produk}}
                                       </textarea>
-                                      <span class="text-danger">{{$errors->first('summernote')}}</span>
+                                      <span class="text-danger">{{$errors->first('detail_produk')}}</span>
                                     </div>
                                   </div>
 
-                                  <input type="hidden" name="old_image" value="{{$produk->nama_produk}}">
+                                  <input type="text" name="old_image" value="{{$produk->gambar}}">
+
+                                  @foreach ($images as $key => $value)
+                                  <input type="text" name="old{{$key}}images" value="{{$value->nama_gambar}}">
+                                  @endforeach
+                                  
                                   @foreach ($j as $i)
                                   <div class="col-md-12">
                                     <div class="form-group">
@@ -82,7 +89,7 @@
                                 </div>
                                 <div class="row justify-content-center">
                                   <div class="col-md-12 text-center mt-3">
-                                    <button type="submit" id="tambahproduk" class="btn btn-primary py-3 px-4">Pasang Produk</button>
+                                    <button type="submit" id="tambahproduk" class="btn btn-primary py-3 px-4">Edit Produk</button>
                                   </div>
                                 </div>
                             </div>
@@ -131,7 +138,6 @@
 
 
 <script>
- 
 
   $('#summernote').summernote({
         placeholder: 'Tuliskan Deskripsi Produk Disini ...',

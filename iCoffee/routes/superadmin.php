@@ -44,4 +44,8 @@ Route::get('/data-role', 'KelolaRoleController@dataRole')->name('data-role');
 Route::get('/edit-role/{id}', 'KelolaRoleController@editRole')->name('edit-role');
 Route::post('/update-role', 'KelolaRoleController@updateRole')->name('update-role');
 
+//data-hak-akses
+Route::get('/data-akses', 'KelolaAksesController@dataAkses')->name('data-akses');
+Route::get('/edit-akses/{id}', 'KelolaAksesController@editAkses')->name('edit-akses');
+Route::post('/update-akses', 'KelolaAksesController@updateAkses')->name('update-akses');
 

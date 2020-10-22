@@ -7,6 +7,7 @@ use App\Countrydialcode;
 use App\Subdistrict;
 use App\Province;
 use App\City;
+use DB;
 
 class Helper
 {
@@ -99,7 +100,7 @@ class Helper
         $json = $response->getBody()->getContents();
 
         $array_result = json_decode($json, true);
-        dd($array_result);
+        // dd($array_result);
 
         // for ($i=0; $i < count($array_result['rajaongkir']['results']); $i++) { 
         //     $subdistrict = Subdistrict::create([
@@ -151,11 +152,12 @@ class Helper
         $client = new Client();
 
         try{
-            $response = $client->request('POST','https://api.rajaongkir.com/starter/cost',
+            $response = $client->request('POST','https://pro.rajaongkir.com/api/cost',
                 [
-                    'body' => 'origin='.$data["origin"].'&destination='.$data["destination"].'&weight='.$data["weight"].'&courier='.$data["courier"],
+                    // 'body' => 'origin='.$data["origin"].'&destination='.$data["destination"].'&weight='.$data["weight"].'&courier='.$data["courier"],
+                    'body' => 'origin='.$data["origin"].'&originType=subdistrict&destination='.$data["destination"].'&destinationType=subdistrict&weight='.$data["weight"].'&courier='.$data["courier"],
                     'headers' => [
-                        'key' => '91c8040385b06b96e8ae36c7f5584bbd',
+                        'key' => $this->apiKey,
                         'content-type' => 'application/x-www-form-urlencoded',
                         
                     ]
@@ -166,16 +168,63 @@ class Helper
             var_dump($e->getResponse()->getBody()->getContents());
         }
         $json = $response->getBody()->getContents();
-
-
+        
         $array_result = json_decode($json, true);
-
-        $origin = $array_result['rajaongkir']['origin_details']['city_name'];
-        $destination = $array_result['rajaongkir']['destination_details']['city_name'];
+        
+        $origin = $array_result['rajaongkir']['origin_details']['city'];
+        
+        $destination = $array_result['rajaongkir']['destination_details']['city'];
 
         return $array_result;
 
     }
+
+    public function getwaybill($data)
+    {
+        $title = 'CEK SHIPPING RESULT';
+        $client = new Client();
+
+        try{
+            $response = $client->request('POST','https://pro.rajaongkir.com/api/waybill',
+                [
+                    // 'body' => 'waybill='.$data["waybill"].'&courier='.$data["courier"],
+                    'body' => 'waybill=JP7185093592&courier=jnt',
+                    'headers' => [
+                        'key' => $this->apiKey,
+                        'content-type' => 'application/x-www-form-urlencoded',
+                        
+                    ]
+                ]
+            );
+        }
+        catch(RequestException $e){
+            var_dump($e->getResponse()->getBody()->getContents());
+        }
+        $json = $response->getBody()->getContents();
+        
+        $array_result = json_decode($json, true);
+
+        return $array_result;
+
+    }
+
+    public function getPostalCode($data)
+    {
+        $postal_code = DB::table('postal_code')->where('kecamatan', $data)->get();
+
+        $kode_pos = array();
+
+        foreach ($postal_code as $key => $value) 
+        {
+            if(!(in_array($value->kode_pos, $kode_pos))) {
+                $kode_pos[] = $value->kode_pos;
+            }
+        }
+
+        return $kode_pos;
+    }
+
+    
 
     public function removeDot($value)
     {

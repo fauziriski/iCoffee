@@ -63,10 +63,12 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="kecamatan_alamat">Kecamatan</label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="kecamatan_alamat" placeholder="" name="kecamatan_alamat" style="border-radius: 10px"  required>
-                                                        <span class="col-md-12 text-danger">{{$errors->first('kecamatan_alamat')}}</span>
+                                                    <div class="select-wrap">
+                                                        <select name="kecamatan_alamat" id="" class="form-control" style="border-radius: 10px"  required>
+                                                            <option class="form-control" value="">Pilih Kecamatan</option>
+                                                        </select>
                                                     </div>
+                                                    <span class="col-md-12 text-danger">{{$errors->first('kecamatan_alamat')}}</span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -126,7 +128,7 @@
                                         </div>
                                         <div class="col-md-10">
                                             <p class="mb-0">{{ $item->address }}</p>
-                                            <p class="mb-0">{{ $item->kecamatan }} - {{ $item->city->nama }}</p>
+                                            <p class="mb-0">{{ $item->subdistrict->name }} - {{ $item->city->nama }}</p>
                                             <p class="mb-0">{{ $item->province->nama }}</p>
                                             <p class="">{{ $item->kode_pos }}</p>
                                         </div>
@@ -206,7 +208,9 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="kecamatan_edit" class="col-form-label">Kecamatan</label>
-                                            <input type="text" class="form-control" id="kecamatan_edit" name="kecamatan_edit">
+                                            <select name="kecamatan_edit" id="" class="form-control" required>
+                                                <option value="" id="kec_coba"></option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="kode_pos_edit" class="col-form-label">Kode Pos</label>
@@ -287,7 +291,7 @@
                             $('#no_hp_edit').replaceWith('<input type="text" class="form-control" id="no_hp_edit" name="no_hp_edit" required value="'+ data.alamat.no_hp +'">');
                             $('#prov_coba').replaceWith('<option value="'+ data.alamat.provinsi +'" selected>'+ data.provinsi +'</option>');
                             $('#kota_coba').replaceWith('<option value="'+ data.alamat.kota_kabupaten +'" selected>'+ data.kota +'</option>');
-                            $('#kecamatan_edit').replaceWith('<input type="text" class="form-control" id="kecamatan_edit" name="kecamatan_edit" required value="'+ data.alamat.kecamatan +'">');
+                            $('#kec_coba').replaceWith('<option value="'+ data.alamat.kecamatan +'" selected>'+ data.kecamatan +'</option>');
                             $('#kode_pos_edit').replaceWith('<input type="text" class="form-control" id="kode_pos_edit" name="kode_pos_edit" required value="'+ data.alamat.kode_pos +'">');
                             $('#alamat_edit').replaceWith('<input type="text" class="form-control" id="alamat_edit" name="alamat_edit" required value="'+ data.alamat.address +'">');
                             
@@ -308,6 +312,7 @@
                     dataType: "json",
                     success:function(data) {
                     $('select[name="kota_kabupaten_edit"]').empty();
+                    $('select[name="kota_kabupaten_edit"]').append('<option selected="true" disabled="disabled">Pilih Kota/Kabupaten</option>');
                     $.each(data, function(key, value) {
                         $('select[name="kota_kabupaten_edit"]').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
                         });
@@ -315,6 +320,42 @@
                 });
             } else{
                 $('select[name="kota_kabupaten_edit"]').empty();
+            }
+        });
+
+        $('select[name="kota_kabupaten_alamat"]').on('change', function() {
+            var cityID = $(this).val();
+            if(cityID) {
+                $.ajax({
+                    url: '/profile/subdistrict/'+encodeURI(cityID),
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                    $('select[name="kecamatan_alamat"]').empty();
+                    $('select[name="kecamatan_alamat"]').append('<option selected="true" disabled="disabled">Pilih Kecamatan</option>');
+                    $.each(data, function(key, value) {
+                        $('select[name="kecamatan_alamat"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                        });
+                    }
+                });
+            }
+        });
+
+        $('select[name="kota_kabupaten_edit"]').on('change', function() {
+            var cityID = $(this).val();
+            if(cityID) {
+                $.ajax({
+                    url: '/profile/subdistrict/'+encodeURI(cityID),
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                    $('select[name="kecamatan_edit"]').empty();
+                    $('select[name="kecamatan_edit"]').append('<option selected="true" disabled="disabled">Pilih Kecamatan</option>');
+                    $.each(data, function(key, value) {
+                        $('select[name="kecamatan_edit"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                        });
+                    }
+                });
             }
         });
     });

@@ -22,11 +22,14 @@ class TransactionController extends Controller
     public function getProvinceData()
     {
         // $files = File::files(public_path());
-        $path = public_path() . "/country-calling-codes.min.json";
-        $str = File::get($path);
-        $datas = $array_result = json_decode($str, true);
-            $data = Helper::instance()->dialCode($datas);
-            dd($data);
+        $data = 'Tanjung Karang Pusat';
+        $subdistric = Helper::instance()->getPostalCode($data);
+        dd($subdistric);
+        // $path = public_path() . "/country-calling-codes.min.json";
+        // $str = File::get($path);
+        // $datas = $array_result = json_decode($str, true);
+        //     $data = Helper::instance()->dialCode($datas);
+        //     dd($data);
 
         return response()->json($data);
     }

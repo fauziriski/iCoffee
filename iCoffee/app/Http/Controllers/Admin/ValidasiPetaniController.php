@@ -28,7 +28,8 @@ class ValidasiPetaniController extends Controller
 			'gambar' => $request->gambar,
 			'no_hp' => $request->no_hp,
 			'password' =>Hash::make($request->password),
-			'kode' =>$request->kode
+			'kode' =>$request->kode,
+			'saldo' => '0',
 		);
 
 		$form_data2 = array(
@@ -55,7 +56,8 @@ class ValidasiPetaniController extends Controller
 			'gambar' => $request->gambar,
 			'no_hp' => $request->no_hp,
 			'password' =>Hash::make($request->password),
-			'kode' =>$request->kode
+			'kode' =>$request->kode,
+			'saldo' => '0',
 		);
 
 		$form_data2 = array(
@@ -82,7 +84,8 @@ class ValidasiPetaniController extends Controller
 			'gambar' => $request->gambar,
 			'no_hp' => $request->no_hp,
 			'password' =>Hash::make($request->password),
-			'kode' =>$request->kode
+			'kode' =>$request->kode,
+			'saldo' => '0',
 		);
 
 		$form_data2 = array(

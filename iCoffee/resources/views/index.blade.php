@@ -309,7 +309,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item decoration-bottom">
-                            <strong>{{$n_format}}</strong>
+                            <strong>{{$transaction}}</strong>
                             <span>Tranksaksi</span>
                         </div>
                     </div>

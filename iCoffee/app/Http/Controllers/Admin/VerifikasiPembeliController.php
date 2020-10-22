@@ -49,29 +49,29 @@ class  VerifikasiPembeliController extends Controller
 
 			->addColumn('status', function($data){
 				if ($data->status == "1") {
-					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
+					$status = '<span class="badge badge-info">belum divalidasi</span>';
 				}elseif ($data->status == "2") {
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">validasi ditolak</button>';
+					$status = '<span class="badge badge-danger">validasi ditolak</span>';
 				}elseif ($data->status == "3") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">sudah divalidasi</button>';
+					$status = '<span class="badge badge-success">sudah divalidasi</span>';
 				}elseif ($data->status == "4") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">penjual menerima</button>';
+					$status = '<span class="badge badge-success">penjual menerima</span>';
 				}elseif ($data->status == "5") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">dikirim</button>';
+					$status = '<span class="badge badge-success">dikirim</span>';
 				}elseif ($data->status == "6") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">terkirim</button>';
+					$status = '<span class="badge badge-success">terkirim</span>';
 				}elseif ($data->status == "7") {
-					$status = '<button type="button" class="btn btn-warning btn-sm py-0 btn-block">komplain</button>';
+					$status = '<span class="badge badge-warning">komplain</span>';
 				}elseif ($data->status == "8") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">konfirmasi diproses</button>';
+					$status = '<span class="badge badge-success">konfirmasi diproses</span>';
 				}elseif ($data->status == "9") {
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">batalkan pesanan</button>';
+					$status = '<span class="badge badge-danger">batalkan pesanan</span>';
 				}elseif ($data->status == "10") {
-					$status = '<button type="button" class="btn btn-primary btn-sm py-0 btn-block">komplain diterima</button>';
+					$status = '<span class="badge badge-primary">komplain diterima</span>';
 				}elseif ($data->status == "11") {
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">komplain ditolak</button>';
+					$status = '<span class="badge badge-danger">komplain ditolak</span>';
 				}else{
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">ditolak</button>';
+					$status = '<span class="badge badge-danger">ditolak</span>';
 				}
 
 				return $status;

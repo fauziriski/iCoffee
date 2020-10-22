@@ -9,6 +9,7 @@ use App\Shop_product;
 use App\Auction_product;
 use App\Confirm_payment;
 use App\Mitra;
+use App\Order;
 
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,21 @@ class IndexController extends Controller
         // At least a billion
         $n_format = number_format($n / 1000000000, 3);
     }
+
+    $status = [3,4,5,6,8];
+
+    $order = Order::whereIn('status', $status)->get();
+
+    $invoice = array();
+    foreach($order as $key => $value)
+    {
+        if(!(in_array($value->invoice, $invoice))) {
+            $invoice[] = $value->invoice;
+        }
+    }
+
+    $count_transaction = count($invoice);
  
-    return view('/index')->with('pengguna',$pengguna)->with('produk',$produk)->with('n_format',$n_format)->with('mitra',$mitra);
+    return view('/index')->with('pengguna',$pengguna)->with('produk',$produk)->with('n_format',$n_format)->with('mitra',$mitra)->with('transaction', $count_transaction);
     }
 }

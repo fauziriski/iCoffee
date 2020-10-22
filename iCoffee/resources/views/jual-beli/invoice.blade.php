@@ -127,7 +127,7 @@
 						@endif
     					
     				</address>
-    			</div>
+				</div>
     		</div>
     	</div>
     </div>
@@ -178,15 +178,39 @@
 						</table>
 						
 						@if ( $order[$i]->status == 5)
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLongTitle">Lacak Paket</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+										<ul class="list-group list-group-flush" id="waybilltrackul">
+											<li class="list-group-item" id="waybilltrackli">
+
+											</li>
+										</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
 							<form action="/jual-beli/pesanan/selesai" method="post">
 								@csrf
 								<input type="hidden" name="id" required value="{{ $order[$i]->id }}">
 								<input type="hidden" name="invoice" required value="{{ $order[0]->invoice }}">
 								<input type="hidden" name="jumlah_seluruh" required value="{{ $order[$i]->total_bayar+$kurir[$i][0] }}">
-								<div class="text-center col-md-4 offset-md-8 col-12">
+								<div class="text-center col-md-6 offset-md-6 col-12">
 									<p class="row justify-content-center">
-										<input type="submit" style="border-radius: 10px; margin: auto; padding: 16px;" class="btn btn-secondary col-md-6 col-6 mr-1" name="submit" value="Komplain">
-										<input type="submit" style="border-radius: 10px; margin: auto; padding: 16px;" class="btn btn-primary col-md-5 col-5" name="submit" value="Diterima">
+										<button id="willbill" name="willbill" style="border-radius: 10px; margin: auto; padding: 16px;" value="{{ $order[$i]->id }}" type="button" class="btn btn-primary col-md-3 col-12 mt-1" data-toggle="modal" data-target="#exampleModalCenter">
+											Lacak Paket
+										</button>
+										<input type="submit" style="border-radius: 10px; margin: auto; padding: 16px;" class="btn btn-secondary col-md-4 col-12 mt-1 ml-1 mr-1" name="submit" value="Komplain">
+										<input type="submit" style="border-radius: 10px; margin: auto; padding: 16px;" class="btn btn-primary col-md-4 col-12 mt-1" name="submit" value="Diterima">
 									</p>
 								</div>
 							</form>
@@ -340,6 +364,34 @@
 		});
 	});
 
+</script>
+
+<script>
+	$(document).ready(function(){
+	        $('button[name="willbill"]').on('click', function() {
+            var orderID = $(this).val();
+			console.log(orderID);
+                if(orderID) {
+                    $.ajax({
+                        url: '/waybill/trasaction/'+encodeURI(orderID),
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
+							$('#waybilltrackul').empty();
+                        	$.each(data, function(key, value) {
+								count = value.result.manifest.length;
+								for (i = count-1; i >= 0; i--) {
+                            		$('#waybilltrackul').append('<li class="list-group-item" id="waybilltrackli">'+ value.result.manifest[i].manifest_date +' - ['+ value.result.manifest[i].city_name +'] '+ value.result.manifest[i].manifest_description +'</li>');
+								}
+                            
+                            });
+                        }
+                    });
+                }else{
+                	$('#waybilltrackul').empty();
+                }
+         });
+	});
 </script>
 
 

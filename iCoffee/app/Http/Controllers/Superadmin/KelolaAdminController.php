@@ -31,8 +31,6 @@ class KelolaAdminController extends Controller
             
 			$admin = User::whereIn('provider_id',[97100109105110,11010510910097])->get();
 			
-
-			
 		 	return datatables()->of($admin)
 			->addColumn('action', function($data){
 				$button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm py-0"mb-1><i class="fa fa-edit"></i> Ubah</button>'.'&nbsp;&nbsp;'.
@@ -101,6 +99,7 @@ class KelolaAdminController extends Controller
 	]);
 
 	$user->assignRole('adminweb');
+	$user->givePermissionTo('read');
 
     return response()->json(['success' => 'Data berhasil ditambah.']);
 }

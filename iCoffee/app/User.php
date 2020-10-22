@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
@@ -73,6 +74,7 @@ class User extends Authenticatable
     {
     	return $this->hasOne('App\Profile_admin');
     }
+
 
    
 }
