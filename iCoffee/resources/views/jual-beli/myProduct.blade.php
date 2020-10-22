@@ -32,12 +32,13 @@
                             <div class="col-md-2 align-self-center">
                                 <div class="row mb-0">
                                     <p class="font-weight-bold text-left">
-                                        Harga : Rp {{ $item->harga }}
+                                        Harga : Rp {{ number_format($item->harga,0,",",".") }}
+                                        
                                     </p>
                                 </div>
                                 <div class="row">
                                     <p class="font-weight-bold">
-                                        Stok : {{ $item->stok }} Kg
+                                        Stok : {{ number_format($item->stok,0,",",".") }} Kg
                                     </p>
                                 </div>
                             </div>
@@ -56,7 +57,7 @@
 
                             <div class="col-md-2 align-self-center">
                                 <div class="row justify-content-center">
-                                    <a class="justify-content-center" href="/jual-beli/produk/{{ $item->id }}">
+                                    <a class="justify-content-center" href="/jual-beli/produk/{{ $item->slug }}">
                                         <span class="oi oi-eye align-middle"></span>&nbsp; Lihat Produk 
                                     </a>
                                 </div>
@@ -65,16 +66,56 @@
                                         <span class="oi oi-pencil align-middle"></span>&nbsp; Edit Produk 
                                     </a>
                                 </div>
+                                <div class="row justify-content-center">
+                                    <a href="#" name="hapus_produk" value="{{ $item->id }}">
+                                        <span class="fas fa-trash-alt" align-middle"></span>&nbsp; Hapus Produk 
+                                    </a>
+                                </div>
                                 
                             </div>
                         </div>     
                         @endforeach
+
+                        <div class="row justify-content-center mt-2">
+                            <ul class="col-md-12">
+                                <li class="float-right">{{ $produk->links() }}</li>
+                            </ul>
+                        </div>
                         
                     </main>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('a[name="hapus_produk"]').on('click', function() {
+                var id = $(this).attr('value');
+                swal({
+                    title: "Apakah Anda Yakin!?",
+                    type: "warning",
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Hapus",
+                    showCancelButton: true,
+                }, function() {
+                    console.log(id);
+                    $.ajax({
+                        type: "GET",
+                        url: '/jual-beli/produk/delete/'+encodeURI(id),
+                        dataType: "json",
+                        success: function (data) {
+                                swal(
+                                'Berhasil',
+                                'Hapus Produk Berhasil',
+                                'success'
+                            );
+                            location.reload();
+                        }         
+                    });
+                });
+            });
+        });
+    </script>
 @endsection
 
 @section('footer')

@@ -100,7 +100,7 @@ class Helper
         $json = $response->getBody()->getContents();
 
         $array_result = json_decode($json, true);
-        dd($array_result);
+        // dd($array_result);
 
         // for ($i=0; $i < count($array_result['rajaongkir']['results']); $i++) { 
         //     $subdistrict = Subdistrict::create([

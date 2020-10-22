@@ -6,13 +6,14 @@
                         <h2 class="text-center">Edit Produk</h2>
                         <form action="/jual-beli/produk/edit/berhasil" method="post"  enctype="multipart/form-data">
                             @csrf
+                          <input type="hidden" name="produk_id" value="{{$produk->id}}" required>
                             <div class="row mt-2 pl-4 pr-4 mb-5">
                               <div class="col-md-12">
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group">
                                       <label for="nama">Nama Produk</label>
-                                      <input type="text" class="form-control" name="nama_produk" value="{{$produk->nama_produk}}" required>
+                                      <input type="text" class="form-control" name="nama_produk" value="{{$produk->nama_produk}}" >
                                     </div>
                                     <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                                   </div>
@@ -64,14 +65,14 @@
                                       <textarea id="summernote" class="form-control" rows="5" type="text" name="detail_produk" required>
                                         {{$produk->detail_produk}}
                                       </textarea>
-                                      <span class="text-danger">{{$errors->first('summernote')}}</span>
+                                      <span class="text-danger">{{$errors->first('detail_produk')}}</span>
                                     </div>
                                   </div>
 
-                                  <input type="hidden" name="old_image" value="{{$produk->gambar}}">
+                                  <input type="text" name="old_image" value="{{$produk->gambar}}">
 
                                   @foreach ($images as $key => $value)
-                                  <input type="hidden" name="old_images-{{$key}}" value="{{$value->nama_gambar}}">
+                                  <input type="text" name="old{{$key}}images" value="{{$value->nama_gambar}}">
                                   @endforeach
                                   
                                   @foreach ($j as $i)

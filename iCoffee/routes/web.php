@@ -120,6 +120,7 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	Route::post('/pasang-produk/berhasil', 'ProdukController@store');
 	Route::get('/jual-beli/produk/edit/{id}', 'ProdukController@edit');
 	Route::post('/jual-beli/produk/edit/berhasil', 'ProdukController@update');
+	Route::get('/jual-beli/produk/delete/{id}', 'ProdukController@delete');
 
 	//transaction
 	Route::get('/jual-beli/transaksi/penjualan', 'TransactionController@indexSell');
@@ -128,6 +129,7 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	Route::get('/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
 	
 });
+
 
 
 // jual beli

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Helper\Helper;
 use App\Shop_product;
 use App\Category;
 use App\Address;
@@ -27,7 +28,7 @@ class ProdukController extends Controller
     {
         $user_id = Auth::user()->id;
 
-        $produk = Shop_product::where('id_pelanggan', $user_id)->get();
+        $produk = Shop_product::where('id_pelanggan', $user_id)->where('status', 1)->orderBy('created_at', 'desc')->paginate('10');
         $category = Category::all();
 
         return view('jual-beli.myProduct', compact('produk', 'category'));
@@ -196,21 +197,27 @@ class ProdukController extends Controller
 
     public function update(Request $request)
     {
-        
         $validateData = $this->validate($request, [
+            'produk_id' =>'required|exists:shop_products,id',
             'nama_produk' => 'required|string|max:255',
             'harga' => 'required|max:11',
             'stok' => 'required|max:6',
             'id_kategori' => 'required|exists:categories,id',
             'detail_produk' => 'required',
             'old_image' => 'required',
-            'old_image-0' => 'required',
+            'old0image' => 'required',
         ]);
+        dd($validateData);
+        $id_pelanggan = Auth::user()->id;
+        
+
+        $produk = Shop_product::where('id', $request->produk_id)->first();
 
         $harga = $this->removeDot($request->harga);
         $stok = $this->removeDot($request->stok);
 
         $size = count($request->file());
+        $nama = array();
 
         if ($size) {
             if ($size == 0) {
@@ -261,13 +268,13 @@ class ProdukController extends Controller
                 }
             }
 
-            $produk = Shop_product::where('id', $request->produk_id)->first();
+           
 
-            $folderPath = public_path("Uploads/Produk/".$produk->invoice);
-            $nama = array();
+            $folderPath = public_path("Uploads/Produk/".$produk->kode_produk);
+            
             for ($i=0; $i < $size; $i++) { 
                 if($files = $image_file[$i]){
-                    $name = 'product_marketplace_' .$invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $files->getClientOriginalExtension();
+                    $name = 'product_marketplace_' .$produk->kode_produk .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $files->getClientOriginalExtension();
                     // $name = $files->getClientOriginalName();
                     $image_resize = Images::make($files->getRealPath());
                     $image_resize->resize(690, 547);
@@ -283,46 +290,59 @@ class ProdukController extends Controller
 
         $content = $request->detail_produk;
 
-
-        $update = $produk->update([
-            'id_pelanggan' => $id_pelanggan,
-            'id_kategori' => $request->id_kategori,
-            'nama_produk' => $request->nama_produk,
-            'detail_produk' => $content,
-            'gambar' => $nama[0],
-            'harga' => $harga,
-            'stok' => $stok,
-            'kode_produk' => $invoice,
-            'status' => '1',
-            'slug' => $slug
-
-        ]);
-
-        $id = $order->id;
-
-        
-        for ($i=1; $i < $size ; $i++) {
-            Image::create([
+        if ($nama) {
+            $update = $produk->update([
                 'id_pelanggan' => $id_pelanggan,
-                'id_produk' => $id,
-                'nama_gambar' => $nama[$i],
-                'kode_produk' => $invoice
+                'id_kategori' => $request->id_kategori,
+                'nama_produk' => $request->nama_produk,
+                'detail_produk' => $content,
+                'gambar' => $nama[0],
+                'harga' => $harga,
+                'stok' => $stok,
+                'status' => '1',
+    
+            ]);
 
+            $id = $produk->id;
+
+            $imageDelete = Image::where('id_produk', $id)->delete();
+            for ($i=1; $i < $size ; $i++) {
+                Image::create([
+                    'id_pelanggan' => $id_pelanggan,
+                    'id_produk' => $id,
+                    'nama_gambar' => $nama[$i],
+                    'kode_produk' => $produk->kode_produk
+    
+                ]);
+            }
+        }
+        elseif (!$nama) {
+            $update = $produk->update([
+                'id_pelanggan' => $id_pelanggan,
+                'id_kategori' => $request->id_kategori,
+                'nama_produk' => $request->nama_produk,
+                'detail_produk' => $content,
+                'harga' => $harga,
+                'stok' => $stok,
+                'status' => '1',
+    
             ]);
         }
 
-        return redirect('/jual-beli');
+        return redirect('/jual-beli/produk-saya');
 
       
-        $produk->update([
-            'nama_produk' => $request->nama_produk_edit,
-            'id_kategori' => $request->kategori_kopi_edit,
-            'harga' => $harga,
-            'stok' => $stok, 
-            'detail_produk' => $content
-        ]);
+    }
+    public function delete($id)
+    {
+        $produk = Shop_product::where('id', $id)->first();
+        if ($produk) {
+            $produk->update([
+                'status' => 0
+            ]);
 
-        return response()->json();
+            return response()->json('success');
+        }
     }
 
     public function removeDot($value)
@@ -335,5 +355,12 @@ class ProdukController extends Controller
             return $value;
         }
         
+    }
+
+    public function getSubdistric($id)
+    {
+        $data = Helper::instance()->getwaybill($id);
+
+        return response()->json($data);
     }
 }
