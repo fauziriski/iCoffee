@@ -26,4 +26,5 @@ class Model_has_permission extends Model
     {
     	return $this->hasOne('App\Permission', 'id', 'permission_id');
     }
+    
 }

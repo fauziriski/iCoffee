@@ -32,7 +32,7 @@ class KelolaPenggunaController extends Controller
 				$button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm py-0"mb-1><i class="fa fa-edit"></i> Ubah</button>'.'&nbsp;&nbsp;'.
 				'<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm py-0 delete"><i class="fa fa-trash"></i> Hapus</button>';
 				$button .= '&nbsp;&nbsp;';
-				if($data->provider_id == "icoffee_id"){
+				if($data->provider_id == "114101115117"){
 				$button .= 
 				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0 mb-1"><i class="fa fa-eye"></i> Profile</button>'.'&nbsp&nbsp';
 				
@@ -87,7 +87,7 @@ class KelolaPenggunaController extends Controller
 		'name' => $request->name,
 		'email' => $request->email,
 		'password' => Hash::make($request->password),
-		'provider_id' => 'icoffee',
+		'provider_id' => '117115101114',
 	]);
 
 	$user->assignRole('user');

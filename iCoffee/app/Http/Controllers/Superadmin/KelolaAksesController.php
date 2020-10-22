@@ -40,35 +40,29 @@ class KelolaAksesController extends Controller
             // ->get();
                     
 			$datas = User::whereIn('provider_id',[97100109105110,11010510910097])->get();
-			$permissions = Permission::all();
-            return view('admin.super-admin.data-akses', compact('datas','permissions'));
+            return view('admin.super-admin.data-akses', compact('datas'));
 	}
 	
 	public function editAkses($id)
 	{
-	
+			$akses = User::where('id', $id)->first();
 			$role = Model_has_permission::where('model_id', $id)->pluck('permission_id')->toArray();
-			// $role = Role::where('id', $id)->with('permissions')->first();
 			$permissions = Permission::all();
 
-			// $role = User::whereId($id)->first();
-			// $role = $user->permissions->pluck('id')->toArray();
-
-			
-			// return view('admin.super-admin.edit-akses')->withRole($role)->withPermissions($permissions);
-			return view('admin.super-admin.edit-akses', compact('role', 'permissions'));
+			return view('admin.super-admin.edit-akses', compact('role', 'permissions','akses'));
 			
 
 	}
 
 	public function updateAkses(Request $request)
-	{		
+	{	
+		
+		$user=User::whereId($request->id)->first();
+		$user->syncPermissions($request->input('tampung'));
+		$datas = User::whereIn('provider_id',[97100109105110,11010510910097])->get();
 
-
-		$user=User::whereId($request->hidden_id)->first();
-		$user->roles()->sync($request->role_baru);
-
-		return response()->json(['success' => 'Berhasil diubah']);
-
+	
+		Alert::success('Berhasil Diubah !');
+        return view('admin.super-admin.data-akses', compact('datas'));
 	}
 }

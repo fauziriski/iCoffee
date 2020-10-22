@@ -43,15 +43,15 @@ class KelolaRoleController extends Controller
             
             ->addColumn('role', function($data){
 				if ($data->role_id == "1") {
-					$role = '<button type="button" class="btn btn-danger btn-sm py-0 px-0 btn-block">admin-super</button>';
+					$role = '<span class="badge badge-danger">admin-super</span>';
 				}elseif ($data->role_id == "2") {
-					$role = '<button type="button" class="btn btn-warning btn-sm py-0 px-0 btn-block">admin-keuangan</button>';
+					$role = '<span class="badge badge-warning">admin-keuangan</span>';
 				}elseif ($data->role_id == "3") {
-					$role = '<button type="button" class="btn btn-secondary btn-sm py-0 px-0 btn-block">admin-web</button>';
+					$role = '<span class="badge badge-secondary">admin-web</span>';
 				}elseif ($data->role_id == "4") {
-					$role = '<button type="button" class="btn btn-success btn-sm py-0 px-0 btn-block">admin-user</button>';
+					$role = '<span class="badge badge-success">admin-user</span>';
 				}else{
-					$role = '<button type="button" class="btn btn-info btn-sm py-0 px-0 btn-block">user-pelanggan</button>';
+					$role = '<span class="badge badge-info">user-pelanggan</span>';
 				}
 
 				return $role;
@@ -88,11 +88,35 @@ class KelolaRoleController extends Controller
 
 	public function updateRole(Request $request)
 	{		
-
+		$profile = Profile_admin::where('role',$request->hidden_id)->first();
+		if($request->role_baru == '5'){
 
 		$user=User::whereId($request->hidden_id)->first();
 		$user->roles()->sync($request->role_baru);
-
+		$user->revokePermissionTo(['create','read','update','delete','verification']);
+		$up = $user->update([
+			'provider_id' => "117115101114",
+		]);
+		
+		}elseif($profile == NULL){
+			
+		$user=User::whereId($request->hidden_id)->first();
+		$user->roles()->sync($request->role_baru);
+		$user->revokePermissionTo(['create','update','delete','verification']);
+		$user->givePermissionTo('read');
+		$up = $user->update([
+			'provider_id' => "97100109105110",
+		]);
+	}else{
+		$user=User::whereId($request->hidden_id)->first();
+		$user->roles()->sync($request->role_baru);
+		$user->revokePermissionTo(['create','update','delete','verification']);
+		$user->givePermissionTo('read');
+		$up = $user->update([
+			'provider_id' => "11010510910097",
+		]);
+	}
+		
 		return response()->json(['success' => 'Berhasil diubah']);
 
 	}

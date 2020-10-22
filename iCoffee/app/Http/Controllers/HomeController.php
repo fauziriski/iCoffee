@@ -392,7 +392,7 @@ class HomeController extends Controller
 
         $provider = User::where('id',$id_pelanggan);
         $provider->update([
-            'provider_id' => "icoffee_id",
+            'provider_id' => "114101115117",
         ]);
         
 
@@ -723,7 +723,7 @@ class HomeController extends Controller
 
         $provider = User::where('id',$id_pelanggan);
         $provider->update([
-            'provider_id' => "icoffee_id",
+            'provider_id' => "114101115117",
         ]);
 
         if ($tambah_alamat) {

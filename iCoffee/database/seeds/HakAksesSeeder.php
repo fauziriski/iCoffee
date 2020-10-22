@@ -12,7 +12,7 @@ class HakAksesSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'created']);
+        Permission::create(['name' => 'create']);
         Permission::create(['name' => 'read']);
         Permission::create(['name' => 'update']);
         Permission::create(['name' => 'delete']);

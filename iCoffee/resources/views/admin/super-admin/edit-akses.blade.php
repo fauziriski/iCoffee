@@ -22,35 +22,43 @@
 			<div class="card-body mb-5">
 				<div class="container-fluid mt-5">
 
-						<form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
-							@csrf							
+					<form action="{{ route('superadmin.update-akses') }}" enctype="multipart/form-data" method="POST">
+							@csrf		
+							<input type="hidden" name="id" value="{{$akses->id}}"/>			
 							<div class="container">
 								<div class="col-md-12">
 									<div class="row">
 										<div class="table-responsive col-md-12 col-sm-12">
 											<table cellpadding="10" border="0">
 													<div class="form-group">
-														<th width="35%" style="text-align: center;">Pilih Hak Akses </th>	
-														<th width="55%">
-												
-
+														<tr>
+														<th width="30%"></th>
+														<th width="20%" style="text-align: center;">Pilih Hak Akses : </th>	
+														<th widtg="50%">
                                                         @foreach($permissions as $data)
-														
-                                                        <input type="checkbox" name="tampung[]" value="{{$data->id}}" {{ in_array($data->id, $role) ? "checked" : "" }}/>&nbsp;&nbsp;{{$data->name}}<br />
-														
-                                                      </div>
-													
+                                                       		 <input type="checkbox" name="tampung[]" value="{{$data->id}}" {{ in_array($data->id, $role) ? "checked" : "" }}/>&nbsp;&nbsp;{{$data->name}}<br />
                                                         @endforeach
-                                                        </div>
-													</div>	
-												</tr>
-										</table>
-									</div>
-								</div>
-								<br />
-								<div align="right">
-									<input type="submit" name="action_button" id="action_button" class="btn btn-primary" value="Simpan" />
-								</div>
+														</tr>
+														<tr>
+															<th width="30%"></th>
+															<th width="20%"></th>	
+															<th widtg="50%"></th>	
+														</tr>
+														<tr>
+															<th width="30%"></th>
+															<th width="20%"></th>	
+															<th widtg="50%"><input type="submit" class="btn btn-primary" id="submit" value="Simpan" /></th>
+														
+													</tr>
+													</div>
+                                                </div>
+											</div>	
+										</tr>
+								</table>
+							</div>
+						</div>
+						<br />
+								
 								</div>
 							</div>
 						</form>
@@ -60,7 +68,5 @@
 		</div>
 
 
-
-
-
 @endsection
+

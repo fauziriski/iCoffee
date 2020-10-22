@@ -19,10 +19,12 @@ use Hash;
 use Storage;
 
 
+
 use App\Transaction;
 
 class HomeController extends Controller
 {
+    
     public function index(){
 
     $produk_jb = count(Shop_product::All());
@@ -31,6 +33,7 @@ class HomeController extends Controller
 
     $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
     $data  = array($produk_jb,$produk_lelang,$produk_invest);
+    
     
     return view('admin.beranda',['kategori' => $kategori, 'Data' => $data]);
 
@@ -41,7 +44,8 @@ class HomeController extends Controller
     }
 
     public function adminProfile(){
-        $data = Profile_admin::where('role',Auth::user()->id)->first();
+
+   $data = Profile_admin::where('role',Auth::user()->id)->first();
 		$data2 = User::where('id',Auth::user()->id)->first();
 		$role_id = Model_has_role::where('model_id', Auth::user()->id)->first();
 		$role = $role_id->roles->name;

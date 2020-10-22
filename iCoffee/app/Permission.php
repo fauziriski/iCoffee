@@ -14,7 +14,7 @@ class Permission extends \Spatie\Permission\Models\Permission
 
     public function model_has_permission()
     {
-    	return $this->hasMany('App\Model_has_role');
+    	return $this->hasMany('App\Model_has_permission');
     }
 
     public function user()

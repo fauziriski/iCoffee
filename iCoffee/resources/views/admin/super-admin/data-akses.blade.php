@@ -38,13 +38,15 @@
                     <tbody>
                                 @foreach ($datas as $item)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
+                                    <td width="2%">{{$loop->iteration}}</td>
                                     <td>{{$item->name}}</td> 
                                     <td>{{$item->created_at->diffForHumans() }}</td>   
                                     <td>{{str_replace(array('[',']','"'),'', $item->roles()->pluck('name')) }}</td>
-                                    <td>{{ str_replace(array('[',']','"'),'', $item->permissions()->pluck('name')) }}</td>
-                                  
-                                 
+                                    <td width="20%">
+                                    <span class="badge badge-success">{{ str_replace(array('[',']','"'),'', $item->permissions()->pluck('name')) }}</span>
+                                    </td>
+
+                                             
                                     <td>
                                           <a href="{{ route('superadmin.edit-akses',$item->id) }}" class="edit role btn btn-primary btn-sm py-0 mb-1"> ganti hak akses</a>                       
                                         </form>
