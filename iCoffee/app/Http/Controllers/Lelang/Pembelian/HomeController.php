@@ -13,6 +13,7 @@ use App\Auction_image;
 use Carbon\Carbon;
 use App\Category;
 use App\User;
+use Alert;
 
 class HomeController extends Controller
 {

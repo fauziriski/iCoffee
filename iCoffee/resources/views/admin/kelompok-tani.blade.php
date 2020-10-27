@@ -372,7 +372,7 @@
 								$('#hidden_id2').val(html.data.id);
 								$('.modal-title').text("Konfirmasi");
 								$('#action_button').val("Tolak");
-								$('#status2').val("ditolak");
+								$('#status2').val("3");
 								$('.text').text("Apakah anda yakin ingin tolak?")
 								$('#action').val("Tolak");
 								$('#modalVerifikasi').modal('show');
@@ -389,7 +389,7 @@
 							success:function(html){
 								$('#hidden_id2').val(html.data.id);
 								$('.modal-title2').text("Konfirmasi");
-								$('#status2').val("divalidasi");
+								$('#status2').val("2");
 								$('#password2').val("password");
 								$('#id_mitra2').val(html.data.id_mitra);
 								$('#email2').val(html.data.email);

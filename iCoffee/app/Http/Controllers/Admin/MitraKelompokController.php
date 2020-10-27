@@ -42,9 +42,9 @@ class MitraKelompokController extends Controller
 			})
 			
 			->addColumn('status', function($data){
-				if ($data->status == "belum divalidasi") {
+				if ($data->status == "1") {
 					$status = '<span class="badge badge-info">belum divalidasi</span>';
-				}elseif ($data->status == "divalidasi") {
+				}elseif ($data->status == "2") {
 					$status = '<span class="badge badge-success">sudah divalidasi</span>';
 				}else{
 					$status = '<span class="badge badge-danger">validasi ditolak</span>';

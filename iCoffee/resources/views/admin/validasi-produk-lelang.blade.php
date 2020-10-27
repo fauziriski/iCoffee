@@ -356,7 +356,7 @@
 							dataType:"json",
 							success:function(html){
 								var kg = html.data.stok+" kg";
-								var lama = html.data.lama_lelang+" hari";
+								var lama = html.data.lama_lelang;
 								var rp = html.data.harga_awal;
 
 								var	reverse = rp.toString().split('').reverse().join(''),
@@ -379,7 +379,7 @@
 								for(var i = 0; i<panjang; i++){
 									var nama_gambar = lihat[i].nama_gambar;
 									var kode_produk = lihat[i].kode_produk;
-									var img = "/Uploads/Lelang/{" + kode_produk  + "}/" + nama_gambar +"";
+									var img = "/Uploads/Lelang/"+ kode_produk +"/"+ nama_gambar +"";
 									$("#foto"+i).attr("src",img);
 
 								}

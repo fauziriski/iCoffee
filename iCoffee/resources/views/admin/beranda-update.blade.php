@@ -49,11 +49,10 @@
 						</select>
 					<div class="form-group">
 					<button type="submit" class="btn btn-primary ml-3">Filter</button>
-					</div>
-					</form>
+                    </div>
+                    </form>
 				</div>
-			</div>
-			
+            </div>
 			
 
 			<div class="card-body mb-5">
