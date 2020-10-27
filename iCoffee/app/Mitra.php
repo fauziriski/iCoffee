@@ -28,4 +28,9 @@ class Mitra extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function banks()
+    {
+        return $this->hasMany('App\Mitra_bank');
+    }
 }

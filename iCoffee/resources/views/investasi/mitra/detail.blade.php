@@ -118,7 +118,7 @@
 					<div class="card-body">
                         <div class="row">
                             <div class="col-lg-4">
-                                <img  class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/{'.$produk->kode_produk.'}/'.$produk->gambar) }}">
+                                <img  class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/'.$produk->kode_produk.'/'.$produk->gambar) }}">
                             </div>
                             <div class="col-lg-8 col-sm-12">
 								<h5>{{$produk->nama_produk}} 
