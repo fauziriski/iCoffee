@@ -13,6 +13,7 @@
 Route::get('/', 'HomeController@index')->name('dashboard');
 
 Route::get('/beranda', 'HomeController@index')->name('beranda');
+Route::post('/beranda/update', 'HomeController@filter')->name('beranda.update');
 
 //profile_admin
 Route::get('/profile-admin', 'HomeController@adminProfile')->name('profile-admin');

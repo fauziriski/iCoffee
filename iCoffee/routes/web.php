@@ -155,7 +155,7 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	Route::get('/lelang/produk/{id}', 'HomeController@show')->middleware('auth');
 	Route::get('/lelang/kategori/{id}', 'HomeController@indexById');
 	Route::get('/lelang/produk/data/{id}', 'HomeController@getDataAuction');
-	Route::post('/lelang/produk/tawar', 'ProdukLelangController@bid');
+	Route::post('/lelang/produk/tawar', 'HomeController@bid');
 
 	//Cart
 	Route::get('/lelang/keranjang', 'CartController@index');
