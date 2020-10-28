@@ -22,7 +22,7 @@ Route::group(['middleware' => ['can:read']], function () {
     Route::get('/slug-produk', 'SeoController@slugProduk')->name('slug-produk');
 });
 
-Route::group(['middleware' => ['can:create']], function () {
+Route::group(['middleware' => ['can:created']], function () {
     Route::post('/kategori-artikel/store', 'KategoriController@store')->name('kategori-artikel.store');
     Route::get('/tambah-artikel', 'ArtikelController@create')->name('tambah-artikel'); 
 });

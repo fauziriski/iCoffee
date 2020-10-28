@@ -24,7 +24,7 @@ class  PencairanDanaProgresController extends Controller
 		if(request()->ajax())
 		{	
 			
-			$id = '8';
+			$id = '5';
 			$AKKIPR = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 
 			return datatables()->of($AKKIPR)
@@ -135,7 +135,7 @@ class  PencairanDanaProgresController extends Controller
 
 		$bukti = $request->file('bukti');
 		$timestamps = date('YmdHis');
-		$id = "8";
+		$id = "5";
 		$ido = Adm_jurnal::select('id')->latest()->first();
 		$jml_id = $ido->id+1;
 		$kode = "AKKIPR".$jml_id;
@@ -161,7 +161,7 @@ class  PencairanDanaProgresController extends Controller
 		// $sisa_saldo = $saldo_awal - $jumlah1;
 
 		$id = Adm_jurnal::create([
-			'id_kat_jurnal' =>'8',
+			'id_kat_jurnal' =>'5',
 			'nama_tran' => $nama_tran,
 			'bukti' =>  $new_name,
 			'catatan' => $request->catatan,
@@ -222,7 +222,7 @@ class  PencairanDanaProgresController extends Controller
 
 		$bukti = $request->file('bukti');
 		$timestamps = date('YmdHis');
-		$id = "8";
+		$id = "5";
 		$ido = Adm_jurnal::select('id')->latest()->first();
 		$jml_id = $ido->id+1;
 		$kode = "AKKIPR".$jml_id;
@@ -234,7 +234,7 @@ class  PencairanDanaProgresController extends Controller
 		$total_jumlah = $request->jumlah2;
 
 		$id = Adm_jurnal::create([
-			'id_kat_jurnal' =>'8',
+			'id_kat_jurnal' =>'5',
 			'nama_tran' => $request->nama_tran,
 			'bukti' =>  $new_name,
 			'catatan' => $request->catatan,
