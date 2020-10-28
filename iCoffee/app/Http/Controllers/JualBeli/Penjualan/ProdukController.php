@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Helper\Helper;
 use App\Shop_product;
@@ -184,7 +185,13 @@ class ProdukController extends Controller
 
         if (!$produk) {
             Alert::error('Gagal','Produk tidak ditemukan')->showConfirmButton('Ok', '#3085d6');
-           return back();
+            return back();
+        }
+
+        $array = array("satu", "dua", "tiga", "empat", "lima");
+        $imageData = array();
+        foreach ($images as $key => $value) {
+            $imageData[$array[$key]] = $value->nama_gambar;
         }
 
         $kategori = $produk->category->kategori;
@@ -192,7 +199,7 @@ class ProdukController extends Controller
         for ($i=0; $i <5 ; $i++) { 
             $j[] = $i;
         }
-        return view('jual-beli.editProduct', compact('produk', 'kategori','category', 'j', 'images'));
+        return view('jual-beli.editProduct', compact('produk', 'kategori','category', 'j', 'imageData'));
     }
 
     public function update(Request $request)
@@ -205,9 +212,8 @@ class ProdukController extends Controller
             'id_kategori' => 'required|exists:categories,id',
             'detail_produk' => 'required',
             'old_image' => 'required',
-            'old0image' => 'required',
+            'oldimages_satu' => 'required',
         ]);
-        dd($validateData);
         $id_pelanggan = Auth::user()->id;
         
 

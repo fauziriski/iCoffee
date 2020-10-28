@@ -69,10 +69,10 @@
                                     </div>
                                   </div>
 
-                                  <input type="text" name="old_image" value="{{$produk->gambar}}">
+                                  <input type="hidden" name="old_image" value="{{$produk->gambar}}">
 
-                                  @foreach ($images as $key => $value)
-                                  <input type="text" name="old{{$key}}images" value="{{$value->nama_gambar}}">
+                                  @foreach ($imageData as $key => $value)
+                                    <input type="hidden" name="oldimages_{{$key}}" value="{{$value}}" required>
                                   @endforeach
                                   
                                   @foreach ($j as $i)

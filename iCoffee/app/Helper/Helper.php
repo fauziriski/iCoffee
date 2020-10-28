@@ -5,6 +5,7 @@ use GuzzleHttp\Client;
 use App\Internationaldestination;
 use App\Countrydialcode;
 use App\Subdistrict;
+use App\Zip_codes;
 use App\Province;
 use App\City;
 use DB;
@@ -210,7 +211,9 @@ class Helper
 
     public function getPostalCode($data)
     {
-        $postal_code = DB::table('postal_code')->where('kecamatan', $data)->get();
+        // $postal_code = DB::table('postal_code')->where('kecamatan', $data)->get();
+
+        $postal_code = Zip_codes::where('kecamatan', $data)->get();
 
         $kode_pos = array();
 
