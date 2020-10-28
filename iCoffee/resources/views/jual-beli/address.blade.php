@@ -74,10 +74,12 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="kode_pos_alamat">Kode Pos</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" id="kode_pos_alamat" placeholder="" name="kode_pos_alamat" style="border-radius: 10px"  required>
+                                                        <div class="select-wrap">
+                                                            <select name="kode_pos_alamat" id="" class="form-control" style="border-radius: 10px"  required>
+                                                                <option class="form-control" value="">Pilih Kode Pos</option>
+                                                            </select>
+                                                        </div>
                                                         <span class="col-md-12 text-danger">{{$errors->first('kode_pos_alamat')}}</span>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -214,7 +216,9 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="kode_pos_edit" class="col-form-label">Kode Pos</label>
-                                            <input type="text" class="form-control" id="kode_pos_edit" name="kode_pos_edit">
+                                            <select name="kode_pos_edit" id="" class="form-control" required>
+                                                <option value="" id="kode_pos_coba"></option>
+                                            </select>
                                         </div>
                     
                                         <div class="form-group">
@@ -266,6 +270,7 @@
                         dataType: "json",
                         success:function(data) {
                             $('select[name="kota_kabupaten_alamat"]').empty();
+                            $('select[name="kota_kabupaten_alamat"]').append('<option selected="true" disabled="disabled">Pilih Kota/Kabupaten</option>');
                             $.each(data, function(key, value) {
                                 $('select[name="kota_kabupaten_alamat"]').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
                             });
@@ -276,52 +281,6 @@
                 }
         });
 
-        $('button[name="edit_alamat"]').on('click', function() {
-            var alamatID = $(this).val();
-                if(alamatID) {
-                    $.ajax({
-                        url: '/profile/cekalamat/'+encodeURI(alamatID),
-                        type: "GET",
-                        dataType: "json",
-                        success:function(data) {
-
-                        $.each(data, function(key, value) {
-                            $('#id_alamat_edit').replaceWith('<input type="hidden" id="id_alamat_edit" name="id_alamat_edit" required value="'+ data.alamat.id +'">');
-                            $('#nama_edit').replaceWith('<input type="text" class="form-control" id="nama_edit" name="nama_edit" required value="'+ data.alamat.nama +'">');
-                            $('#no_hp_edit').replaceWith('<input type="text" class="form-control" id="no_hp_edit" name="no_hp_edit" required value="'+ data.alamat.no_hp +'">');
-                            $('#prov_coba').replaceWith('<option value="'+ data.alamat.provinsi +'" selected>'+ data.provinsi +'</option>');
-                            $('#kota_coba').replaceWith('<option value="'+ data.alamat.kota_kabupaten +'" selected>'+ data.kota +'</option>');
-                            $('#kec_coba').replaceWith('<option value="'+ data.alamat.kecamatan +'" selected>'+ data.kecamatan +'</option>');
-                            $('#kode_pos_edit').replaceWith('<input type="text" class="form-control" id="kode_pos_edit" name="kode_pos_edit" required value="'+ data.alamat.kode_pos +'">');
-                            $('#alamat_edit').replaceWith('<input type="text" class="form-control" id="alamat_edit" name="alamat_edit" required value="'+ data.alamat.address +'">');
-                            
-                            });
-                        }
-                    });
-                }else{
-                $('select[name="kota_kabupaten_alamat"]').empty();
-                    }
-         });
-
-        $('select[name="provinsi_edit"]').on('change', function() {
-            var provinceID = $(this).val();
-            if(provinceID) {
-                $.ajax({
-                    url: '/profile/carikota/'+encodeURI(provinceID),
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                    $('select[name="kota_kabupaten_edit"]').empty();
-                    $('select[name="kota_kabupaten_edit"]').append('<option selected="true" disabled="disabled">Pilih Kota/Kabupaten</option>');
-                    $.each(data, function(key, value) {
-                        $('select[name="kota_kabupaten_edit"]').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
-                        });
-                    }
-                });
-            } else{
-                $('select[name="kota_kabupaten_edit"]').empty();
-            }
-        });
 
         $('select[name="kota_kabupaten_alamat"]').on('change', function() {
             var cityID = $(this).val();
@@ -338,6 +297,73 @@
                         });
                     }
                 });
+            }
+        });
+
+        $('select[name="kecamatan_alamat"]').on('change', function() {
+            var subdistrictID = $(this).val();
+            if(subdistrictID) {
+                $.ajax({
+                    url: '/profile/get-postal-code/'+encodeURI(subdistrictID),
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="kode_pos_alamat"]').empty();
+                        $('select[name="kode_pos_alamat"]').append('<option selected="true" disabled="disabled">Pilih Kode Pos</option>');
+                        $.each(data, function(key, value) {
+                            $('select[name="kode_pos_alamat"]').append('<option value="'+ value +'">'+ value +'</option>');
+                        });
+                    }
+                });
+            }
+        });
+
+        
+        $('button[name="edit_alamat"]').on('click', function() {
+            var alamatID = $(this).val();
+                if(alamatID) {
+                    $.ajax({
+                        url: '/profile/cekalamat/'+encodeURI(alamatID),
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
+
+                        $.each(data, function(key, value) {
+                            $('#id_alamat_edit').replaceWith('<input type="hidden" id="id_alamat_edit" name="id_alamat_edit" required value="'+ data.alamat.id +'">');
+                            $('#nama_edit').replaceWith('<input type="text" class="form-control" id="nama_edit" name="nama_edit" required value="'+ data.alamat.nama +'">');
+                            $('#no_hp_edit').replaceWith('<input type="text" class="form-control" id="no_hp_edit" name="no_hp_edit" required value="'+ data.alamat.no_hp +'">');
+                            $('#prov_coba').replaceWith('<option value="'+ data.alamat.provinsi +'" selected>'+ data.provinsi +'</option>');
+                            $('#kota_coba').replaceWith('<option value="'+ data.alamat.kota_kabupaten +'" selected>'+ data.kota +'</option>');
+                            $('#kec_coba').replaceWith('<option value="'+ data.alamat.kecamatan +'" selected>'+ data.kecamatan +'</option>');
+                            $('#kode_pos_coba').replaceWith('<option value="'+data.alamat.kode_pos+'" id="kode_pos_coba">'+data.alamat.kode_pos+'</option>');
+                            $('#alamat_edit').replaceWith('<textarea class="form-control" id="alamat_edit" name="alamat_edit" required>'+ data.alamat.address +'</textarea>');
+                            
+                            
+                            });
+                        }
+                    });
+                }else{
+                    $('select[name="kota_kabupaten_alamat"]').empty();
+                }
+         });
+
+        $('select[name="provinsi_edit"]').on('change', function() {
+            var provinceID = $(this).val();
+            if(provinceID) {
+                $.ajax({
+                    url: '/profile/carikota/'+encodeURI(provinceID),
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="kota_kabupaten_edit"]').empty();
+                        $('select[name="kota_kabupaten_edit"]').append('<option selected="true" disabled="disabled">Pilih Kota/Kabupaten</option>');
+                        $.each(data, function(key, value) {
+                            $('select[name="kota_kabupaten_edit"]').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
+                        });
+                    }
+                });
+            } else{
+                $('select[name="kota_kabupaten_edit"]').empty();
             }
         });
 
@@ -358,6 +384,28 @@
                 });
             }
         });
+
+        $('select[name="kecamatan_edit"]').on('change', function() {
+            var subdistrictID = $(this).val();
+            if(subdistrictID) {
+                $.ajax({
+                    url: '/profile/get-postal-code/'+encodeURI(subdistrictID),
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="kode_pos_edit"]').empty();
+                        $('select[name="kode_pos_edit"]').append('<option selected="true" disabled="disabled">Pilih Kode Pos</option>');
+                        $.each(data, function(key, value) {
+                            $('select[name="kode_pos_edit"]').append('<option value="'+ value +'">'+ value +'</option>');
+                        });
+                    }
+                });
+            }
+        });
+        
+        
+
+        
     });
 </script>
 

@@ -75,7 +75,13 @@
                                     <div class="row mr-1 ml-2 text-center">
                                         <div class="col-md-12 align-self-center">
                                         <p class="text-center font-weight-bold">
-                                            Status : {{ $item->status }}
+                                            @if ( $item->status == 1)
+                                            <div class="alert alert-warning text-center" role="alert">Menunggu Pembayaran</div>
+                                            @elseif ( $item->status == 2)
+                                            <div class="alert alert-danger text-center" role="alert">Konfirmasi Pembayaran Ditolak</div>
+                                            @elseif ( $item->status == 3)
+                                            <div class="alert alert-success text-center" role="alert">Konfirmasi Pembayaran Diterima</div>
+                                            @endif
                                         </p>
                                         </div>
                                     </div>
@@ -135,7 +141,17 @@
                                     <div class="row mr-1 ml-2 text-center">
                                         <div class="col-md-12 align-self-center">
                                         <p class="text-center font-weight-bold">
-                                            Status : {{ $item->status }}
+                                            @if ($item->status == 5)
+                                            <div class="alert alert-info text-center" role="alert">Menunggu Konfirmasi Admin</div>
+                                            @elseif($item->status == 2)
+                                            <div class="alert alert-danger text-center" role="alert">Gagal Mencairkan Dana</div>
+                                            @elseif($item->status == 3)
+                                            <div class="alert alert-success text-center" role="alert">Dana Berhasil Dicairkan</div>
+                                            @elseif($item->status == 4)
+                                            <div class="alert alert-info text-center" role="alert">Sedang dalam Proses</div>
+                                            @elseif($item->status == 5)
+                                            <div class="alert alert-danger text-center" role="alert">Penarikan Dibatalkan</div>
+                                            @endif
                                         </p>
                                         </div>
                                     </div>
@@ -198,7 +214,13 @@
                                     <div class="row mr-1 ml-2 text-center">
                                         <div class="col-md-12 align-self-center">
                                         <p class="text-center font-weight-bold">
-                                            Status : {{ $item->status }}
+                                            @if ( $item->status == 1)
+                                            <div class="alert alert-warning text-center" id="status" role="alert">Menunggu Pembayaran</div>
+                                            @elseif ( $item->status == 2)
+                                            <div class="alert alert-danger text-center" id="status" role="alert">Konfirmasi Pembayaran Ditolak</div>
+                                            @elseif ( $item->status == 3)
+                                            <div class="alert alert-success text-center" id="status" role="alert">Konfirmasi Pembayaran Diterima</div>
+                                            @endif
                                         </p>
                                         </div>
                                     </div>
@@ -260,7 +282,17 @@
                                     <div class="row mr-1 ml-2 text-center">
                                         <div class="col-md-12 align-self-center">
                                         <p class="text-center font-weight-bold">
-                                            Status : {{ $item->status }}
+                                            @if ($item->status == 1)
+                                            <div class="alert alert-info text-center" role="alert">Menunggu Konfirmasi Admin</div>
+                                            @elseif($item->status == 2)
+                                            <div class="alert alert-danger text-center" role="alert">Gagal Mencairkan Dana</div>
+                                            @elseif($item->status == 3)
+                                            <div class="alert alert-success text-center" role="alert">Dana Berhasil Dicairkan</div>
+                                            @elseif($item->status == 4)
+                                            <div class="alert alert-info text-center" role="alert">Sedang dalam Proses</div>
+                                            @elseif($item->status == 5)
+                                            <div class="alert alert-danger text-center" role="alert">Penarikan Dibatalkan</div>
+                                            @endif
                                         </p>
                                         </div>
                                     </div>
@@ -305,7 +337,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="alert alert-warning text-center" id="status" role="alert">
+                                        <div class="alert alert-warning text-center" id="status_topup" role="alert">
                                         </div>
                                     </div>
                                 </div>
@@ -426,14 +458,14 @@
                             $('#harga_edit').replaceWith('<input type="number" class="form-control" id="harga_edit" value="'+ data.invoice.jumlah.toLocaleString("id-ID") +'" name="harga_edit" readonly>');
                             $('#payment').replaceWith('<input type="text" class="form-control" value="'+ '(' + data.invoice.payment + ') '+ data.bank.no_rekening +'" id="payment"  name="payment" readonly>');
                             if ( data.invoice.status == 1) {
-                                $('#status').replaceWith('<div class="alert alert-warning text-center" id="status" role="alert">Menunggu Pembayaran</div>');
+                                $('#status_topup').replaceWith('<div class="alert alert-warning text-center" id="status" role="alert">Menunggu Pembayaran</div>');
                                 $('#konfirm').replaceWith('<a href="/profil/konfirmasi/top_up" type="submit" class="btn btn-primary" id="konfirm" >Konfirmasi Pembayaran</a>');
                             }
                             else if( data.invoice.status == 2) {
-                                $('#status').replaceWith('<div class="alert alert-danger text-center" id="status" role="alert">Konfirmasi Pembayaran Ditolak</div>');
+                                $('#status_topup').replaceWith('<div class="alert alert-danger text-center" id="status" role="alert">Konfirmasi Pembayaran Ditolak</div>');
                                 $('#konfirm').replaceWith('<a href="/profil/konfirmasi/top_up" class="btn btn-primary" style="color: #fff;" id="konfirm" >Konfirmasi Pembayaran</a>');
                             }else if ( data.invoice.status == 3) {
-                                $('#status').replaceWith('<div class="alert alert-success text-center" id="status" role="alert">Konfirmasi Pembayaran Diterima</div>');
+                                $('#status_topup').replaceWith('<div class="alert alert-success text-center" id="status" role="alert">Konfirmasi Pembayaran Diterima</div>');
                                 $('#konfirm').replaceWith('<a href="" style="color: #fff;height: 0px;width: 0px;overflow:hidden;" id="konfirm" >Selesai</a>');
                             }
                             
@@ -458,7 +490,7 @@
                         $.each(data, function(key, value) {
                             $('#tanggal_dana').replaceWith('<p class="tanggal_dana" id="tanggal_dana">Checkout berhasil pada tanggal, '+ data.created_at +' WIB</p>');
                             $('#invoice_dana').replaceWith('<td class="align-middle" id="invoice_dana"><strong>'+ data.invoice +'</strong></td>');
-                            $('#pemilik_rekening_dana').replaceWith('<td class="text-md-center" id="pemilik_rekening_dana"><strong>'+ data.pemilik_rekening +'</strong></td>');
+                            $('#pemilik_rekening_dana').replaceWith('<td class="" id="pemilik_rekening_dana"><strong>'+ data.pemilik_rekening +'</strong></td>');
                             $('#bank_dana').replaceWith('<td id="bank_dana"><strong>'+ data.bank +'</strong></td>');
                             $('#email_dana').replaceWith('<td id="email_dana"><strong>'+ data.email +'</strong></td>');
                             $('#no_rek_dana').replaceWith('<td class="align-middle" id="no_rek_dana"><strong>'+ data.no_rekening +'</strong></td>');

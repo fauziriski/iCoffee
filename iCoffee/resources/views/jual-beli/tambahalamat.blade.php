@@ -66,7 +66,9 @@
                                   <div class="form-group">
                                     <label for="stok">Kode Pos</label>
                                     <div class="input-group">
-                                      <input type="number" class="form-control" id="" placeholder="" name="kode_pos" required>
+                                      <select name="kode_pos" id="" class="form-control" required>
+                                        <option class="form-control" value="">Pilih Kode Pos</option>
+                                      </select>
                                     </div>
                                     <span class="text-danger">{{$errors->first('kode_pos')}}</span>
                                   </div>
@@ -133,6 +135,24 @@
         });
         }
       });
+
+      $('select[name="kecamatan"]').on('change', function() {
+            var subdistrictID = $(this).val();
+            if(subdistrictID) {
+                $.ajax({
+                    url: '/profile/get-postal-code/'+encodeURI(subdistrictID),
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="kode_pos"]').empty();
+                        $('select[name="kode_pos"]').append('<option selected="true" disabled="disabled">Pilih Kode Pos</option>');
+                        $.each(data, function(key, value) {
+                            $('select[name="kode_pos"]').append('<option value="'+ value +'">'+ value +'</option>');
+                        });
+                    }
+                });
+            }
+        });
       
     });
 </script>
