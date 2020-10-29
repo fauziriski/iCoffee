@@ -55,10 +55,10 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-sm font-weight-bold text-success mb-1">Pengguna</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">220</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{$user}}</div>
 							</div>
 							<div class="col-auto">
-								<i class="fas fa-chart-line fa-2x text-gray-300"></i>
+								<i class="fas fa-user fa-2x text-gray-300"></i>
 							</div>
 						</div>
 					</div>
@@ -74,12 +74,12 @@
 								<div class="text-sm font-weight-bold text-info mb-1">Artikel</div>
 								<div class="row no-gutters align-items-center">
 									<div class="col-auto">
-									<div class="h5 mb-0 font-weight-bold text-gray-800">25</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">{{$artikel}}</div>
 									</div>
 								</div>
 							</div>
 							<div class="col-auto">
-								<i class="fas fa-chart-line fa-2x text-gray-300"></i>
+								<i class="fas fa-pen fa-2x text-gray-300"></i>
 							</div>
 						</div>
 					</div>
@@ -93,10 +93,10 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-sm font-weight-bold text-warning mb-1">Kategori</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{$kat_artikel}}</div>
 							</div>
 							<div class="col-auto">
-								<i class="fas fa-chart-pie fa-2x text-gray-300"></i>
+								<i class="fas fa-list fa-2x text-gray-300"></i>
 							</div>
 						</div>
 					</div>
@@ -203,9 +203,9 @@
 		var myLineChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: "1",
+			labels: ['Jan','Feb','Mar','Apr','Mei','Jun'],
 			datasets: [{
-			label: "Tranksaksi ",
+			label: "Pengunjung ",
 			lineTension: 0.3,
 			backgroundColor: "rgba(78, 115, 223, 0.05)",
 			borderColor: "rgba(78, 115, 223, 1)",
@@ -217,7 +217,7 @@
 			pointHoverBorderColor: "rgba(78, 115, 223, 1)",
 			pointHitRadius: 10,
 			pointBorderWidth: 2,
-			data: "2",
+			data: [50,100,150,30,50,40],
 			}],
 		},
 		options: {

@@ -31,7 +31,8 @@ class KelolaRoleController extends Controller
 		{	
             
             $datas = DB::table('users')
-			->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')->get();
+			->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+			->whereIn('provider_id',[97100109105110,11010510910097,117115101114,114101115117])->get();
 					
              return datatables()->of($datas)
              

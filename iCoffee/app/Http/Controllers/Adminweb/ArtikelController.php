@@ -115,10 +115,8 @@ class ArtikelController extends Controller
 
         $artikel->delete();
 
-       
-
         // Alert::success('Berhasil Dihapus !');
-        // return view('admin.admin-web.artikel-blog', compact('artikel'));
+        // return view('dashboard-admin.artikel-blog', compact('artikel'));
         return response()->json();
     }
 

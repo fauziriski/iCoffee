@@ -232,8 +232,8 @@
 						</div>
 						<div class="text-center small mt-3">
 							<span class="mr-2">
-								<i class="fas fa-stop" style="color:#FA8072"></i> Arus Kas Masuk
-							</span>
+								<i class="fas fa-stop" style="color:#DAA520"></i> Arus Kas Masuk
+							</span>&nbsp;&nbsp;
 							<span class="mr-2">
 								<i class="fas fa-stop" style="color:#ADD8E6"></i> Arus Kas Keluar
 							</span><br>
@@ -329,13 +329,13 @@
 			yAxisID: 'Kas Masuk',
 			lineTension: 0.3,
 			backgroundColor: "rgba(78, 115, 223, 0.05)",
-			borderColor: "rgb(251, 160, 122)",
+			borderColor: "rgb(253, 215, 3)",
 			pointRadius: 3,
-			pointBackgroundColor: "rgb(251, 160, 122)",
-			pointBorderColor: "rgb(251, 160, 122)",
+			pointBackgroundColor: "rgb(253, 215, 3)",
+			pointBorderColor: "rgb(253, 215, 3)",
 			pointHoverRadius: 3,
-			pointHoverBackgroundColor: "rgb(233,150,122)",
-			pointHoverBorderColor: "rgb(233,150,122)",
+			pointHoverBackgroundColor: "rgb(218, 165, 32)",
+			pointHoverBorderColor: "rgb(218, 165, 32)",
 			pointHitRadius: 10,
 			pointBorderWidth: 2,
 			data: <?php echo json_encode($pemasukan); ?>

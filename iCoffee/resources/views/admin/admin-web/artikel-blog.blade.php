@@ -116,8 +116,7 @@
                                     <td>{{$item->updated_at}}</td>
                                     <td>
                                     <a href="{{ route('adminweb.artikel.edit',$item->id) }}" class="edit btn btn-info btn-sm py-0 mb-1"><i class="fa fa-edit"></i>ubah</a>                     
-                                    <a href="#" name="hapus" value="{{$item->id}}" type="button" class="delete btn btn-danger btn-sm py-0 mb-1"><i class="fa fa-trash"></i> hapus </a>   
-
+									<a href="#" name="hapus" value="{{$item->id}}" type="button" class="delete btn btn-danger btn-sm py-0 mb-1"><i class="fa fa-trash"></i> hapus </a>  
                                         </form>
                                      </td>
                                 </tr>
@@ -202,7 +201,6 @@
                 confirmButtonText: "Hapus",
                 showCancelButton: true,
             }, function() {
-                console.log(id);
                 $.ajax({
                     type: "GET",
                     url: 'hapus-artikel/'+encodeURI(id),
@@ -222,3 +220,4 @@
 
 </script>
 @stop
+

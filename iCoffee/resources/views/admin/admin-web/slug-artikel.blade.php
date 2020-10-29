@@ -25,19 +25,21 @@
 						<thead>
 							<tr>
                                 <th width="1%">No</th>
-								<th width="15%">Tanggal Publish</th>
-								<th width="25%">Slug</th>
-                                <th width="10%">Hyperlink</th>
+								<th width="15%">Publish</th>
+								<th width="25%">Artikel</th>
+                                <th width="40%">Hyperlink</th>
 							</tr>
 						</thead>
                         <tbody>
                                 @foreach ($artikel as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->updated_at}}</td>
-                                    <td>{{$item->slug}}</td>
+                                    <td>{{$item->updated_at->diffForHumans()}}</td>
+                                    <td>{{$item->judul}}</td>
                                     <td>  
-                                    <a href="http://127.0.0.1:8000/artikel/{{$item->slug}}" target="_blank" class="success btn btn-primary btn-sm py-0 mb-1"><i class="fa fa-link"></i> Link </a>   
+									<input type="text" id="copy_{{ $item->id }}" value="http://127.0.0.1:8000/artikel/{{$item->slug}}" style="width:60%;">
+                        			<button value="copy" onclick="copyToClipboard('copy_{{ $item->id }}')" class="success btn btn-primary btn-sm py-0 mb-1"><i class="fa fa-link"></i> Copy</button>
+					
                                         </form>
                                      </td>
                                 </tr>
@@ -53,6 +55,12 @@
   
 @endsection
 @section('js')
+<script>
+    function copyToClipboard(id) {
+        document.getElementById(id).select();
+        document.execCommand('copy');
+    }
+</script>
 <script>
     $(function () {
         $('#example2').DataTable()
