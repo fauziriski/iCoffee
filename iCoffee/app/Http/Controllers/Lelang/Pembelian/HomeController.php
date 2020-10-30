@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Lelang\Pembelian;
 
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -13,7 +14,6 @@ use App\Auction_image;
 use Carbon\Carbon;
 use App\Category;
 use App\User;
-use Alert;
 
 class HomeController extends Controller
 {
@@ -34,6 +34,12 @@ class HomeController extends Controller
         $nama_pelanggan = Auth::user()->name;
 
         $products = Auction_product::find($id);
+
+        if ($products->status == 1) {
+           
+            Alert::info('Gagal', 'Produk sedang di cek')->showConfirmButton('Ok', '#3085d6');
+            return back();
+        }
 
         $tanggal_selesai = $products->tanggal_berakhir;
 
@@ -165,7 +171,6 @@ class HomeController extends Controller
             'status' => '1'
         ]);
         $i = 1;
-        Alert::success('Tawaran Anda Berhasil');
 
         return response()->json(['response' => 'Berhasil', 'data' => $process]);
 

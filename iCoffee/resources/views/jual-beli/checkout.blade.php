@@ -19,7 +19,9 @@
 								<div class="row align-items-end">
 									<div class="col-md-9 col-12 ftco-animate">
 										<p class="col-lg-12">{{ $alamat->nama }}</p>
-										<p class="col-lg-12">{{ $alamat->address }} - {{ $alamat->province->nama }}, {{ $alamat->city->nama }}, {{ $alamat->subdistrict->name }},  {{ $alamat->kode_pos }}</p>
+										<p class="col-lg-12">
+											{{ $alamat->address }} - Provinsi {{ $alamat->province->nama }},{{ $alamat->city->type }} {{ $alamat->city->nama }}, Kecamatan {{ $alamat->subdistrict->name }}, Kode Pos +{{ $alamat->kode_pos }}
+										</p>
 									</div>
 
 									<input type="hidden" name="id_alamat" value="{{ $alamat->id }}">

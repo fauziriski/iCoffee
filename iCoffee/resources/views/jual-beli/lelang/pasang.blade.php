@@ -22,11 +22,11 @@
                                     <label for="harga_awal">Harga Awal</label>
                                     <div class="input-group">
                                       <div class="input-group-prepend">
-                                        <div class="input-group-text">Rp</div>
+                                        <div style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="input-group-text">Rp</div>
                                       </div>
                                       <input type="text" id="harga_awal" class="form-control" placeholder="Contoh : 100.000" min="10000" name="harga_awal" required>
-                                      <span class="text-danger">{{$errors->first('harga_awal')}}</span>
                                     </div>
+                                    <span class="text-danger">{{$errors->first('harga_awal')}}</span>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
@@ -34,11 +34,11 @@
                                     <label for="kelipatan">Kelipatan</label>
                                     <div class="input-group">
                                       <div class="input-group-prepend">
-                                        <div class="input-group-text">Rp</div>
+                                        <div style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"  class="input-group-text">Rp</div>
                                       </div>
                                       <input type="text" id="kelipatan" class="form-control" placeholder="Contoh : 1.000" min="1000" name="kelipatan" required>
-                                      <span class="text-danger">{{$errors->first('kelipatan')}}</span>
                                     </div>
+                                    <span class="text-danger">{{$errors->first('kelipatan')}}</span>
                                   </div>
                                 </div>       
                                 <div class="col-md-4">
@@ -74,12 +74,12 @@
                                   <div class="form-group">
                                     <label for="stok">Jumlah</label>
                                     <div class="input-group">
-                                      <input type="text" id="stok" class="form-control" id="" placeholder="Satuan" name="stok" min="10" max="30" required>
-                                      <span class="text-danger">{{$errors->first('stok')}}</span>
+                                      <input type="text" id="stok" class="form-control" id="" placeholder="Satuan" name="stok" min="10" max="100" required>
                                       <div class="input-group-prepend">
-                                        <div class="input-group-text">Kg</div>
+                                        <div style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"  class="input-group-text">Kg</div>
                                       </div>
                                     </div>
+                                    <span class="text-danger">{{$errors->first('stok')}}</span>
                                   </div>
                                 </div>
                                 <div class="col-md-12">

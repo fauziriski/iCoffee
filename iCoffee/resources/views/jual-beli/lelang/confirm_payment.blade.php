@@ -39,8 +39,8 @@
                                     <label for="no_telp">Nomor Telepon</label>
                                     <div class="input-group">
                                       <input type="tel" class="form-control" id="" placeholder="" name="no_telp" required>
-                                      <span class="text-danger">{{$errors->first('no_telp')}}</span>
                                     </div>
+                                    <span class="text-danger">{{$errors->first('no_telp')}}</span>
                                   </div>
                                 </div>
                                 <div class="col-md-6">

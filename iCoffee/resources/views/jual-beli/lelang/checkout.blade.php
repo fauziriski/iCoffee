@@ -18,7 +18,9 @@
 								<div class="row align-items-end">
 									<div class="col-xl-6 ftco-animate">
 										<p class="col-lg-12">{{ $alamat_pembeli->nama }}</p>
-										<p class="col-lg-12">{{ $alamat_pembeli->address }} - {{ $alamat_pembeli->province->nama }}, {{ $alamat_pembeli->city->nama }}, {{ $alamat_pembeli->kecamatan }},  {{ $alamat_pembeli->kode_pos }}</p>
+										<p class="col-lg-12">
+											{{ $alamat_pembeli->address }} - Provinsi {{ $alamat_pembeli->province->nama }}, {{ $alamat_pembeli->city->type }} {{ $alamat_pembeli->city->nama }}, Kecamatan {{ $alamat_pembeli->subdistrict->name }}, Kode Pos +{{ $alamat_pembeli->kode_pos }}
+										</p>
 									</div>
 										<input type="hidden" name="id_alamat_penjual" value="{{ $alamat_penjual->id }}">
 										<input type="hidden" name="id_alamat_pembeli" value="{{ $alamat_pembeli->id }}">
@@ -76,10 +78,6 @@
 												<input type="hidden" name="kode_lelang" value="{{ $checkout->auction_product->kode_lelang }}">
 												<input type="hidden" name="gambar" value="{{ $checkout->auction_product->gambar }}">
 												<input type="hidden" name="jumlah_penawaran" value="{{ $checkout->jumlah_penawaran }}">
-						
-					
-
-
 											
 											</tbody>
 											</table>
@@ -123,9 +121,21 @@
 														</option>
 														@endfor
 
-														@for ($k = 0; $k < count($costpos["rajaongkir"]["results"][0]["costs"]); $k++)
-														<option value="{{ $costpos["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"] }}: POS: {{ $costpos["rajaongkir"]["results"][0]["costs"][$k]["service"] }}">
-															POS Rp {{ number_format($costpos["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costpos["rajaongkir"]["results"][0]["costs"][$k]["service"] }} {{ $costpos["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["etd"] }} )
+														@for ($k = 0; $k < count($costjnt["rajaongkir"]["results"][0]["costs"]); $k++)
+														<option value="{{ $costjnt["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"] }}: JNT: {{ $costjnt["rajaongkir"]["results"][0]["costs"][$k]["service"] }}">
+															J&T Rp {{ number_format($costjnt["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costjnt["rajaongkir"]["results"][0]["costs"][$k]["service"] }} {{ $costjnt["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["etd"] }} )
+														</option>
+														@endfor
+
+														@for ($k = 0; $k < count($costlion["rajaongkir"]["results"][0]["costs"]); $k++)
+														<option value="{{ $costlion["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"] }}: Lion: {{ $costlion["rajaongkir"]["results"][0]["costs"][$k]["service"] }}">
+															Lion Rp {{ number_format($costlion["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costlion["rajaongkir"]["results"][0]["costs"][$k]["service"] }} {{ $costlion["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["etd"] }} )
+														</option>
+														@endfor
+
+														@for ($k = 0; $k < count($costninja["rajaongkir"]["results"][0]["costs"]); $k++)
+														<option value="{{ $costninja["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"] }}: Ninja: {{ $costninja["rajaongkir"]["results"][0]["costs"][$k]["service"] }}">
+															Ninja Rp {{ number_format($costninja["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["value"],0,",",".") }} ( {{ $costninja["rajaongkir"]["results"][0]["costs"][$k]["service"] }} {{ $costninja["rajaongkir"]["results"][0]["costs"][$k]["cost"][0]["etd"] }} )
 														</option>
 														@endfor
 												
