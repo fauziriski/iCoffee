@@ -20,10 +20,11 @@
 						
 						{{ $order->addresses_penjual->nama }}<br>
 						{{ $order->addresses_penjual->address }},
-						{{ $order->addresses_penjual->kecamatan }},
-						{{ $order->addresses_penjual->city->nama }},
-    					{{ $order->addresses_penjual->province->nama }}, 			
-						{{ $order->addresses_penjual->kode_pos }}
+						Kecamatan {{ $order->addresses_penjual->subdistrict->name }},
+						{{ $order->addresses_penjual->city->type }} {{ $order->addresses_penjual->city->nama }},
+						Provinsi {{ $order->addresses_penjual->province->nama }}, 
+						<br>			
+						Kode Pos : {{ $order->addresses_penjual->kode_pos }}
     				</address>
     			</div>
     			<div class="col-md-3 col-6">
@@ -31,10 +32,11 @@
         			<strong>Penerima :</strong><br>
 						{{ $order->addresses_pembeli->nama }}<br>
 						{{ $order->addresses_pembeli->address }},
-						{{ $order->addresses_pembeli->kecamatan }},
-						{{ $order->addresses_pembeli->city->nama }},
-						{{ $order->addresses_pembeli->province->nama }}, 			
-						{{ $order->addresses_pembeli->kode_pos }}
+						Kecamatan {{ $order->addresses_pembeli->subdistrict->name }},
+						{{ $order->addresses_pembeli->city->type }} {{ $order->addresses_pembeli->city->nama }},
+						Provinsi {{ $order->addresses_pembeli->province->nama }}, 	
+						<br>		
+						Kode Pos : {{ $order->addresses_pembeli->kode_pos }}
     				</address>
     			</div>
     		   		
@@ -170,20 +172,19 @@
 				<div class="panel-heading">
     				<h3 class="card-header"><strong>Total</strong><strong class="float-right">Rp {{ number_format($order->total_bayar,0,",",".") }}</strong></h3>
                 </div>
-                <div class="panel-body mt-3 float-right">
+                <div class="panel-body mt-3 row">
 					@if ( $order->status == 3)
 						<form action="/lelang/pesanan/terima" method="post">
 							@csrf
 							<input type="hidden" name="id" required value="{{ $order->id }}">
 							<input type="hidden" name="invoice" required value="{{ $order->invoice }}">
 							<input type="hidden" name="jumlah_seluruh" required value="{{  $order->total_bayar }}">
-							<p><input type="submit" class="btn btn-secondary  py-3 px-5" name="submit" value="Tolak">
+							<p><input type="submit" style="border-radius: 10px;" class="btn btn-secondary  py-3 px-5" name="submit" value="Tolak">
 								<input type="submit" class="btn btn-primary py-3 px-5" name="submit" value="Terima">
 						</p>
 						</form>
-					@endif
 
-					@if ( $order->status == 4)
+					@elseif ( $order->status == 4)
 						<form action="/lelang/pesanan/inputresi" method="post">
 							@csrf
 							<input type="hidden" name="id" required value="{{ $order->id }}">
@@ -195,22 +196,77 @@
 									</div>
 										<div class="col-md-6">
 											<input type="text" class="form-control"  name="input_resi" required>
-									<span class="text-danger">{{$errors->first('input_resi')}}</span>
+											<span class="text-danger">{{$errors->first('input_resi')}}</span>
 										</div>
 										<div class="col-md-4 text-center">
-											<input type="submit" class="btn btn-primary px-5" name="submit" value="Input">
+											<input type="submit" class="btn btn-primary px-5 py-2" name="submit" value="Input">
 										</div>
 
 								</div>	
 
 							
 						</form>
+					
+					@elseif($order->status == 5 || $order->status == 6 || $order->status == 7 || $order->status == 10 || $order->status == 11)
+					
+					<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">Lacak Paket</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+								<ul class="list-group list-group-flush" id="waybilltrackul">
+									<li class="list-group-item" id="waybilltrackli">
+
+									</li>
+								</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 text-center offset-md-9">
+						<button id="willbill" class="btn btn-primary text-center"  name="willbill" style="border-radius: 10px; margin: auto; padding: 16px;" value="{{ $order->id }}" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+							Lacak Paket
+						</button>
+					</div>
 					@endif
                 </div>
     		</div>
     	</div>
 	</div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+	        $('button[name="willbill"]').on('click', function() {
+            var orderID = $(this).val();
+                if(orderID) {
+                    $.ajax({
+                        url: '/lelang/waybill/trasaction/'+encodeURI(orderID),
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
+							$('#waybilltrackul').empty();
+                        	$.each(data, function(key, value) {
+								count = value.result.manifest.length;
+								for (i = count-1; i >= 0; i--) {
+                            		$('#waybilltrackul').append('<li class="list-group-item" id="waybilltrackli">'+ value.result.manifest[i].manifest_date +' - ['+ value.result.manifest[i].city_name +'] '+ value.result.manifest[i].manifest_description +'</li>');
+								}
+                            
+                            });
+                        }
+                    });
+                }else{
+                	$('#waybilltrackul').empty();
+                }
+         });
+	});
+</script>
 
 
 <style>
@@ -232,6 +288,8 @@
 }
 
 </style>
+
+
 
 
 @endsection

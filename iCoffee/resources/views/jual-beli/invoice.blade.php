@@ -373,7 +373,7 @@
 			console.log(orderID);
                 if(orderID) {
                     $.ajax({
-                        url: '/waybill/trasaction/'+encodeURI(orderID),
+                        url: '/jual-beli/waybill/trasaction/'+encodeURI(orderID),
                         type: "GET",
                         dataType: "json",
                         success:function(data) {

@@ -134,7 +134,7 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	Route::get('/jual-beli/transaksi/penjualan', 'TransactionController@indexSell');
 
 	//getwaybill
-	Route::get('/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
+	Route::get('/jual-beli/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
 	
 });
 
@@ -191,6 +191,9 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 
 	//get data province new
 	Route::get('/get-new-province', 'TransactionController@getProvinceData');
+
+	//getwaybill
+	Route::get('/lelang/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
 
 	
 

@@ -20,10 +20,11 @@
 						
 						{{ $order->addresses_penjual->nama }}<br>
 						{{ $order->addresses_penjual->address }},
-						{{ $order->addresses_penjual->kecamatan }},
-						{{ $order->addresses_penjual->city->nama }},
-    					{{ $order->addresses_penjual->province->nama }}, 			
-						{{ $order->addresses_penjual->kode_pos }}
+						Kecamatan {{ $order->addresses_penjual->subdistrict->name }},
+						{{ $order->addresses_pembeli->city->type }} {{ $order->addresses_penjual->city->nama }},
+						Provinsi {{ $order->addresses_penjual->province->nama }},
+						<br> 			
+						Kode Pos : {{ $order->addresses_penjual->kode_pos }}
     				</address>
     			</div>
     			<div class="col-md-3 col-6">
@@ -31,10 +32,11 @@
         			<strong>Penerima :</strong><br>
 						{{ $order->addresses_pembeli->nama }}<br>
 						{{ $order->addresses_pembeli->address }},
-						{{ $order->addresses_pembeli->kecamatan }},
-						{{ $order->addresses_pembeli->city->nama }},
-						{{ $order->addresses_pembeli->province->nama }}, 			
-						{{ $order->addresses_pembeli->kode_pos }}
+						Kecamatan {{ $order->addresses_pembeli->subdistrict->name }},
+						{{ $order->addresses_pembeli->city->type }} {{ $order->addresses_pembeli->city->nama }},
+						Provinsi {{ $order->addresses_pembeli->province->nama }}, 		
+						<br>	
+						Kode Pos : {{ $order->addresses_pembeli->kode_pos }}
     				</address>
     			</div>
     		   		
@@ -185,19 +187,49 @@
 				<div class="panel-heading">
     				<h3 class="card-header"><strong>Total</strong><strong class="float-right">Rp {{ number_format($order->total_bayar,0,",",".") }}</strong></h3>
                 </div>
-                <div class="panel-body mt-3 float-right">
+                <div class="panel-body mt-3">
 					@if ( $order->status == 5)
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle">Lacak Paket</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+									<ul class="list-group list-group-flush" id="waybilltrackul">
+										<li class="list-group-item" id="waybilltrackli">
+
+										</li>
+									</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<form action="/lelang/pesanan/selesai" method="post" enctype="multipart/form-data">
 							@csrf
 							<input type="hidden" name="id" required value="{{ $order->id }}">
                             <input type="hidden" name="invoice" required value="{{ $order->invoice }}">
                             <input type="hidden" name="jumlah_seluruh" required value="{{ $order->total_bayar }}">
-							<p><input type="submit" class="btn btn-secondary  py-3 px-5" name="submit" value="Komplain">
-								<input type="submit" class="btn btn-primary py-3 px-5" name="submit" value="Diterima">
-						</p>
+							<p class="row justify-content-end ">
+								<button id="willbill" name="willbill" style="border-radius: 10px; margin: auto; padding: 16px;" value="{{ $order->id }}" type="button" class="btn btn-primary col-md-3 mr-1 ml-1 mt-1" data-toggle="modal" data-target="#exampleModalCenter">
+									Lacak Paket
+								</button>
+								<input type="submit" style="border-radius: 10px" class="btn btn-secondary mr-1 ml-1 py-3 px-5 mt-1 col-md-3" name="submit" value="Komplain">
+								<input type="submit" class="btn btn-primary py-3 px-5 mt-1 mr-1 ml-1 col-md-3" name="submit" value="Diterima">
+							</p>
 						</form>
 					@elseif($order->status == 1)
-						<p><a href="/lelang/konfirmasi" name="hapusalamat" type="button" class="btn btn-primary px-3 py-3">Konfirmasi Pembayaran</a></p>
+						<p class="row">
+							<div class="col-md-9 offset-md-6 text-center">
+								<a href="/lelang/konfirmasi" name="konfirmasi_pembayaran" type="button" class="btn btn-primary px-3 py-3">
+									Konfirmasi Pembayaran
+								</a>
+							</div>
+						</p>
 					
 					</form>
 
@@ -325,6 +357,33 @@
 		});
 	});
 
+</script>
+
+<script>
+	$(document).ready(function(){
+	        $('button[name="willbill"]').on('click', function() {
+            var orderID = $(this).val();
+                if(orderID) {
+                    $.ajax({
+                        url: '/lelang/waybill/trasaction/'+encodeURI(orderID),
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
+							$('#waybilltrackul').empty();
+                        	$.each(data, function(key, value) {
+								count = value.result.manifest.length;
+								for (i = count-1; i >= 0; i--) {
+                            		$('#waybilltrackul').append('<li class="list-group-item" id="waybilltrackli">'+ value.result.manifest[i].manifest_date +' - ['+ value.result.manifest[i].city_name +'] '+ value.result.manifest[i].manifest_description +'</li>');
+								}
+                            
+                            });
+                        }
+                    });
+                }else{
+                	$('#waybilltrackul').empty();
+                }
+         });
+	});
 </script>
 
 
