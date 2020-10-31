@@ -13,12 +13,12 @@
             
     
             <div class="slider-item">
-              <img class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" alt="Colorlib Template">
+              <img class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/'.$products->kode_produk.'/'.$products->gambar) }}" alt="Colorlib Template">
             </div>
 
             @foreach($image as $data)
             <div class="slider-item">
-              <img class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/{'.$products->kode_produk.'}/'.$data->nama) }}" alt="Colorlib Template">
+              <img class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/'.$products->kode_produk.'/'.$data->nama) }}" alt="Colorlib Template">
             </div>
             @endforeach
           </div>
@@ -232,11 +232,11 @@
               <div class="col-md-4-sm-4">
                 <img src="{{$path}}" height="150px" width="150px" style="border-radius: 40%">
               </div>
-              <div class="col-md-7-sm-7-ml-2">
+              <div class="col-md-7-sm-7 ml-3">
                 <h5>{{$mitra->nama}}</h5>
                 <hr>
                 <p>Operator iCoffee</p>
-                <i class="fa fa-leaf fa-lg"></i> 331 Dikelola <i class="fa fa-user fa-lg"></i> {{$mitra->jumlah_petani}} Petani <i class="fa fa-map fa-lg"></i> {{$mitra->alamat}}
+                <i class="fa fa-leaf fa-lg"></i> 331 Dikelola &nbsp;&nbsp;<i class="fa fa-user fa-lg"></i> {{$mitra->jumlah_petani}} Petani &nbsp;&nbsp;<i class="fa fa-map fa-lg"></i> {{$mitra->alamat}}
               </div>
             </div>
           </div>
@@ -425,6 +425,6 @@
     });
     </script>
     <script src="{{asset('investasi/mitra/vendor/chart.js/Chart.min.js')}}"></script>
-    <link href="{{asset('investasi/mitra/css/sb-admin-2.min.css') }}" rel="stylesheet">
+  
 @endsection
 
