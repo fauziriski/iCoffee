@@ -52,7 +52,7 @@ route::get('/profil/produk','HomeController@produksaya');
 
 
 
-route::get('/profile/top_up/history', 'Profile\TopUpController@index');
+
 
 route::get('/profile/top_up', 'HomeController@top_up');
 route::get('/profile/konfirmasi/top_up', 'HomeController@konfirmasi_top_up');
@@ -65,6 +65,14 @@ route::post('/profile/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
 
 route::get('/profil/tarikdana/{invoice}', 'HomeController@cek_invoice_dana');
 route::get('/profil/batal/dana_cair/{invoice}', 'HomeController@batal_tarik_dana');
+
+Route::namespace('Profile')->group(function () {
+	//Address
+	Route::get('/profile/get-postal-code/{id}', 'AddressController@getPostalCode');
+
+	//Top Up
+	route::get('/profile/top_up/history', 'TopUpController@index');
+});
 
 
 
@@ -126,7 +134,7 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	Route::get('/jual-beli/transaksi/penjualan', 'TransactionController@indexSell');
 
 	//getwaybill
-	Route::get('/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
+	Route::get('/jual-beli/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
 	
 });
 
@@ -183,6 +191,9 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 
 	//get data province new
 	Route::get('/get-new-province', 'TransactionController@getProvinceData');
+
+	//getwaybill
+	Route::get('/lelang/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
 
 	
 

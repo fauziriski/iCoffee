@@ -35,14 +35,16 @@ class HomeController extends Controller
     $year = Carbon::now()->format('Y');
     $month = Carbon::now()->format('m');
         
-    
+     //grafik pie
     $produk_jb = count(Shop_product::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get());
     $produk_lelang = count(Auction_product::where('status',"2")->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get());
     $produk_invest = count(Invest_product::where('status',"2")->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get()); 
 
+   
     $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
     $data  = array($produk_jb,$produk_lelang,$produk_invest);
 
+    //grafik area
     $jan = count(Shop_product::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '1')->get());
     $feb = count(Shop_product::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '2')->get());
     $mar = count(Shop_product::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '3')->get());

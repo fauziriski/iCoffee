@@ -22,9 +22,10 @@
     				<ul class="product-category">
     					<li><a href=/lelang class="@if(Request::getRequestUri() == '/lelang')active
                 @endif">Semua</a></li>
+                
               @foreach ($category as $data)
     					<li><a href="/lelang/kategori/{{$data->id}}" class="{{ Request::segment(3) == $data->id ? 'active' : null }}">Kopi {{ $data->kategori }}</a></li>
-						@endforeach
+						  @endforeach
 						  <li><a href="/lelang">Lainnya</a></li>
     				</ul>
     			</div>

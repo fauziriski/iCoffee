@@ -7,7 +7,7 @@
 @section('css')
 <style>
 .ui-datepicker {
-	width: 490px;
+	width: 450px;
 	height: 300px;
 	background: #4E73DF;
 	border: 1px solid #555;
@@ -19,163 +19,197 @@
 @stop
 
 <body id="page-top">
-	<!-- Begin Page Content -->
-	<div class="container-fluid">
+<div class="container-fluid">
+		<div class="card shadow mb-4">
+			<!-- Card Header - Dropdown -->
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+			<h5 class="h5 mb-0 text-gray-800">RpDashboard</h5>
+			</div>
+			<!-- Card Body -->
 
-		<!-- Page Heading -->
-		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+			
+                <div class="col-md-6 ml-3">		
+				<div class="row">
+					<form action="{{ route('adminkeuangan.beranda.update') }}" method="POST" class="form-inline">
+						{{ csrf_field() }}
+						<select style="cursor:pointer;margin-top:1.5em;margin-bottom:1.5em;" class="form-control" id="tag_select" name="bulan">
+							<option value="0" selected disabled> Pilih Bulan</option>
+							<option value="01"> Januari</option>
+							<option value="02"> Februari</option>
+							<option value="03"> Maret</option>
+							<option value="04"> April</option>
+							<option value="05"> Mei</option>
+							<option value="06"> Juni</option>
+							<option value="07"> Juli</option>
+							<option value="08"> Agustus</option>
+							<option value="09"> September</option>
+							<option value="10"> Oktober</option>
+							<option value="11"> November</option>
+							<option value="12"> Desember</option>
+						</select>
+					<div class="form-group">
+					<button type="submit" class="btn btn-primary ml-3">Filter</button>
+					</div>
+					</form>
+				</div>
+			</div>
+			
+			
+
+			<div class="card-body mb-5">
+
+			<div class="row">
+			<!-- Pemasukan Hari ini Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-sm font-weight-bold text-primary mb-1">Kas Masuk Jual-Beli</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($masuk_jb)}}</div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-arrow-alt-circle-down fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Pengeluaran Hari ini Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-sm font-weight-bold text-success mb-1">Kas Masuk Lelang</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($masuk_le)}}</div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-arrow-alt-circle-down fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Pengeluaran Hari ini Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-info shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-sm font-weight-bold text-info mb-1">Kas Masuk Investasi</div>
+								<div class="row no-gutters align-items-center">
+									<div class="col-auto">
+									<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($masuk_in)}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-arrow-alt-circle-down fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Pending Requests Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-warning shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-sm font-weight-bold text-warning mb-1">Total Kas Masuk</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($total_masuk)}}</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-wallet fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		
+
 
 		<!-- Content Row -->
+
 		<div class="row">
 
-			<!-- Pemasukan (Hari ini Card Example -->
-			<div class="col-xl-3 col-md-6 mb-4">
-				<div class="card border-left-primary shadow h-100 py-2">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-primary mb-1">Pemasukan Hari ini</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp. 0 ,-</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-chart-line fa-2x text-gray-300"></i>
-							</div>
-						</div>
-					</div>
+<!-- Pemasukan Hari ini Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+	<div class="card border-left-primary shadow h-100 py-2">
+		<div class="card-body">
+			<div class="row no-gutters align-items-center">
+				<div class="col mr-2">
+					<div class="text-sm font-weight-bold text-primary mb-1">Kas Keluar Pencairan</div>
+					<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($keluar_pen)}}</div>
 				</div>
-				
-			</div>
-
-			<!-- Pemasukan Hari ini Card Example -->
-			<div class="col-xl-3 col-md-6 mb-4">
-				<div class="card border-left-success shadow h-100 py-2">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-success mb-1">Pemasukan Bulan ini</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp. 4,000,000 ,-</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-chart-line fa-2x text-gray-300"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Pemasukan Hari ini Card Example -->
-			<div class="col-xl-3 col-md-6 mb-4">
-				<div class="card border-left-info shadow h-100 py-2">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-info mb-1">Pemasukan Tahun ini</div>
-								<div class="row no-gutters align-items-center">
-									<div class="col-auto">
-									<div class="h5 mb-0 font-weight-bold text-gray-800">Rp. 45,000,000 ,-</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-chart-line fa-2x text-gray-300"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Pending Requests Card Example -->
-			<div class="col-xl-3 col-md-6 mb-4">
-				<div class="card border-left-warning shadow h-100 py-2">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-warning mb-1">Seluruh Pemasukan</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp. 45,000,000 ,-</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-chart-pie fa-2x text-gray-300"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	
-
-			<!-- Pemasukan Hari ini Card Example -->
-			<div class="col-xl-3 col-md-6 mb-4">
-				<div class="card border-left-primary shadow h-100 py-2">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-primary mb-1">Pengeluaran Hari ini</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp. 0 ,-</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-chart-line fa-2x text-gray-300"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Pengeluaran Hari ini Card Example -->
-			<div class="col-xl-3 col-md-6 mb-4">
-				<div class="card border-left-success shadow h-100 py-2">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-success mb-1">Pengeluaran Bulan ini</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp. 10,000,000 ,-</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-chart-line fa-2x text-gray-300"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Pengeluaran Hari ini Card Example -->
-			<div class="col-xl-3 col-md-6 mb-4">
-				<div class="card border-left-info shadow h-100 py-2">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-info mb-1">Pengeluaran Tahun ini</div>
-								<div class="row no-gutters align-items-center">
-									<div class="col-auto">
-									<div class="h5 mb-0 font-weight-bold text-gray-800">Rp. 25,000,000 ,-</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-chart-line fa-2x text-gray-300"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Pending Requests Card Example -->
-			<div class="col-xl-3 col-md-6 mb-4">
-				<div class="card border-left-warning shadow h-100 py-2">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-warning mb-1">Seluruh Pengeluaran</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp. 35,000,000 ,-</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-chart-pie fa-2x text-gray-300"></i>
-							</div>
-						</div>
-					</div>
+				<div class="col-auto">
+					<i class="fa fa-arrow-alt-circle-up fa-2x text-gray-300"></i>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+
+<!-- Pengeluaran Hari ini Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+	<div class="card border-left-success shadow h-100 py-2">
+		<div class="card-body">
+			<div class="row no-gutters align-items-center">
+				<div class="col mr-2">
+					<div class="text-sm font-weight-bold text-success mb-1">Kas Keluar Operasional</div>
+					<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($keluar_op)}}</div>
+				</div>
+				<div class="col-auto">
+					<i class="fa fa-arrow-alt-circle-up fa-2x text-gray-300"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Pengeluaran Hari ini Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+	<div class="card border-left-info shadow h-100 py-2">
+		<div class="card-body">
+			<div class="row no-gutters align-items-center">
+				<div class="col mr-2">
+					<div class="text-sm font-weight-bold text-info mb-1">Kas Keluar Mitra</div>
+					<div class="row no-gutters align-items-center">
+						<div class="col-auto">
+						<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($keluar_mit)}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-auto">
+					<i class="fa fa-arrow-alt-circle-up fa-2x text-gray-300"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Pending Requests Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+	<div class="card border-left-warning shadow h-100 py-2">
+		<div class="card-body">
+			<div class="row no-gutters align-items-center">
+				<div class="col mr-2">
+					<div class="text-sm font-weight-bold text-warning mb-1">Total Kas Keluar</div>
+					<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($total_keluar)}}</div>
+				</div>
+				<div class="col-auto">
+					<i class="fas fa-wallet fa-2x text-gray-300"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
 
 
 		<!-- Content Row -->
@@ -183,11 +217,12 @@
 		<div class="row">
 
 			<!-- Area Chart -->
-			<div class="col-xl-8 col-lg-7">
+				<!-- Area Chart -->
+				<div class="col-xl-8 col-lg-7">
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
 					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-primary">Grafik</h6>
+						<h6 class="m-0 font-weight-bold text-primary">Grafik Area</h6>
 					
 					</div>
 					<!-- Card Body -->
@@ -195,9 +230,19 @@
 						<div class="chart-area">
 							<canvas id="myAreaChart"></canvas>
 						</div>
+						<div class="text-center small mt-3">
+							<span class="mr-2">
+								<i class="fas fa-stop" style="color:#DAA520"></i> Arus Kas Masuk
+							</span>&nbsp;&nbsp;
+							<span class="mr-2">
+								<i class="fas fa-stop" style="color:#ADD8E6"></i> Arus Kas Keluar
+							</span><br>
+						</div>
 					</div>
 				</div>
 			</div>
+
+			
 
 			<!-- Pie Chart -->
 			<div class="col-xl-4 col-lg-5">
@@ -221,19 +266,19 @@
 			</div>
 		</div>
 
-	
 
-			</div>
+</div>
 		</div>
-
 	</div>
+</div>
+</div>
+</div>
+</div>
 
 	@endsection
 
 	@section('js')
-
 	<script type="text/javascript" src="{{asset('investasi/js/Chart.js')}}"></script>
-
 
 	<script>
     $(function () {
@@ -241,8 +286,10 @@
 			inline: true, sideBySide: true
 		});
     });
-	</script>
-	<script>
+</script>
+
+
+<script>
 			// Set new default font family and font color to mimic Bootstrap's default styling
 		Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 		Chart.defaults.global.defaultFontColor = '#858796';
@@ -277,22 +324,38 @@
 		var myLineChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: <?php echo json_encode($tahun); ?>,
+			labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Des'],
 			datasets: [{
-			label: "Tranksaksi ",
+			yAxisID: 'Kas Masuk',
 			lineTension: 0.3,
 			backgroundColor: "rgba(78, 115, 223, 0.05)",
-			borderColor: "rgba(78, 115, 223, 1)",
+			borderColor: "rgb(253, 215, 3)",
 			pointRadius: 3,
-			pointBackgroundColor: "rgba(78, 115, 223, 1)",
-			pointBorderColor: "rgba(78, 115, 223, 1)",
+			pointBackgroundColor: "rgb(253, 215, 3)",
+			pointBorderColor: "rgb(253, 215, 3)",
 			pointHoverRadius: 3,
-			pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-			pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+			pointHoverBackgroundColor: "rgb(218, 165, 32)",
+			pointHoverBorderColor: "rgb(218, 165, 32)",
 			pointHitRadius: 10,
 			pointBorderWidth: 2,
-			data: <?php echo json_encode($jumlah); ?>,
-			}],
+			data: <?php echo json_encode($pemasukan); ?>
+			},
+			{
+			yAxisID: 'Kas Keluar',
+			lineTension: 0.3,
+			backgroundColor: "rgba(78, 115, 223, 0.05)",
+			borderColor: "rgb(173, 216, 230)",
+			pointRadius: 3,
+			pointBackgroundColor: "rgb(173, 216, 230)",
+			pointBorderColor: "rgb(173, 216, 230)",
+			pointHoverRadius: 3,
+			pointHoverBackgroundColor: "rgb(70, 130, 180)",
+			pointHoverBorderColor: "rgb(70, 130, 180)",
+			pointHitRadius: 10,
+			pointBorderWidth: 2,
+			data: <?php echo json_encode($pengeluaran); ?>
+			
+			}]
 		},
 		options: {
 			maintainAspectRatio: false,
@@ -305,35 +368,13 @@
 			}
 			},
 			scales: {
-			xAxes: [{
-				time: {
-				unit: 'date'
-				},
-				gridLines: {
-				display: false,
-				drawBorder: false
-				},
-				ticks: {
-				maxTicksLimit: 7
-				}
-			}],
-			yAxes: [{
-				ticks: {
-				maxTicksLimit: 5,
-				padding: 10,
-				// Include a dollar sign in the ticks
-				callback: function(value, index, values) {
-					return number_format(value);
-				}
-				},
-				gridLines: {
-				color: "rgb(234, 236, 244)",
-				zeroLineColor: "rgb(234, 236, 244)",
-				drawBorder: false,
-				borderDash: [2],
-				zeroLineBorderDash: [2]
-				}
-			}],
+            yAxes: [{
+                id: 'Kas Keluar',
+                type: 'linear'
+            }, {
+                id: 'Kas Masuk',
+                type: 'linear'
+            }]
 			},
 			legend: {
 			display: false
@@ -363,6 +404,7 @@
 		});
 
 	</script>
+
 
 @stop
 

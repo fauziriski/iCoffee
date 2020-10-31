@@ -69,7 +69,7 @@
 								<div class="h5 mb-0 font-weight-bold text-gray-800">{{$pem_tervalidasi}}</div>
 							</div>
 							<div class="col-auto">
-								<i class="fa fa-shopping-cart fa-2x text-gray-300"></i>
+								<i class="fa fa-cash-register fa-2x text-gray-300"></i>
 							</div>
 						</div>
 					</div>
@@ -86,7 +86,7 @@
 								<div class="h5 mb-0 font-weight-bold text-gray-800">{{$pem_novalidasi}}</div>
 							</div>
 							<div class="col-auto">
-								<i class="fa fa-shopping-cart fa-2x text-gray-300"></i>
+								<i class="fa fa-info-circle fa-2x text-gray-300"></i>
 							</div>
 						</div>
 					</div>
@@ -107,7 +107,7 @@
 								</div>
 							</div>
 							<div class="col-auto">
-								<i class="fa fa-shopping-cart fa-2x text-gray-300"></i>
+								<i class="fa fa-retweet fa-2x text-gray-300"></i>
 							</div>
 						</div>
 					</div>
@@ -124,7 +124,7 @@
 								<div class="h5 mb-0 font-weight-bold text-gray-800">{{$saldo}}</div>
 							</div>
 							<div class="col-auto">
-								<i class="fas fa-chart-pie fa-2x text-gray-300"></i>
+								<i class="fas fa-wallet fa-2x text-gray-300"></i>
 							</div>
 						</div>
 					</div>
@@ -148,7 +148,7 @@
 					<div class="h5 mb-0 font-weight-bold text-gray-800">{{$prdk_tervalidasi}}</div>
 				</div>
 				<div class="col-auto">
-					<i class="fa fa-shopping-cart fa-2x text-gray-300"></i>
+					<i class="fa fa-dolly-flatbed fa-2x text-gray-300"></i>
 				</div>
 			</div>
 		</div>
@@ -165,7 +165,7 @@
 					<div class="h5 mb-0 font-weight-bold text-gray-800">{{$prdk_novalidasi}}</div>
 				</div>
 				<div class="col-auto">
-					<i class="fa fa-shopping-cart fa-2x text-gray-300"></i>
+					<i class="fa fa-info-circle fa-2x text-gray-300"></i>
 				</div>
 			</div>
 		</div>
@@ -186,7 +186,7 @@
 					</div>
 				</div>
 				<div class="col-auto">
-					<i class="fa fa-shopping-cart fa-2x text-gray-300"></i>
+					<i class="fa fa-hands-helping fa-2x text-gray-300"></i>
 				</div>
 			</div>
 		</div>
@@ -203,7 +203,7 @@
 					<div class="h5 mb-0 font-weight-bold text-gray-800">{{$novalid_mitra}}</div>
 				</div>
 				<div class="col-auto">
-					<i class="fas fa-chart-pie fa-2x text-gray-300"></i>
+					<i class="fas fa-info-circle fa-2x text-gray-300"></i>
 				</div>
 			</div>
 		</div>
@@ -222,13 +222,18 @@
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
 					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-primary">Grafik Produk/Tahun</h6>
+						<h6 class="m-0 font-weight-bold text-primary">Grafik Area</h6>
 					
 					</div>
 					<!-- Card Body -->
 					<div class="card-body">
 						<div class="chart-area">
 							<canvas id="myAreaChart"></canvas>
+						</div>
+						<div class="text-center small mt-3">
+							<span class="mr-2">
+								<i class="fas fa-stop" style="color:#2c9faf"></i> Produk/Tahun
+							</span><br>
 						</div>
 					</div>
 				</div>
@@ -239,7 +244,7 @@
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
 					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-primary">Produk Terpasang</h6>
+						<h6 class="m-0 font-weight-bold text-primary">Grafik Pie</h6>
 					</div>
 					<!-- Card Body -->
 					<div class="card-body">

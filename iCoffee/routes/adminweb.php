@@ -10,10 +10,6 @@ Route::post('/profile/tambah', 'HomeController@tambahProfile')->name('profile.ta
 Route::post('/profile/update', 'HomeController@profileUpdate')->name('profile.update');
 Route::post('/profile2/update', 'HomeController@profile2Update')->name('profile2.update');
 
-Route::group(['middleware' => ['can:read|create|update|delete']], function () {
-Route::resource('artikel', 'ArtikelController');
-});
-
 
 Route::group(['middleware' => ['can:read']], function () {
     Route::get('/kategori-artikel', 'KategoriController@index')->name('kategori-artikel');
@@ -22,9 +18,10 @@ Route::group(['middleware' => ['can:read']], function () {
     Route::get('/slug-produk', 'SeoController@slugProduk')->name('slug-produk');
 });
 
-Route::group(['middleware' => ['can:create']], function () {
+Route::group(['middleware' => ['can:created']], function () {
     Route::post('/kategori-artikel/store', 'KategoriController@store')->name('kategori-artikel.store');
     Route::get('/tambah-artikel', 'ArtikelController@create')->name('tambah-artikel'); 
+    Route::resource('artikel', 'ArtikelController');
 });
 
 Route::group(['middleware' => ['can:update']], function () {

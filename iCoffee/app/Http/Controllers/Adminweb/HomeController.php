@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Adminweb;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
 use Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
+use Validator;
+use Hash;
+use Storage;
+use App\User;
 use App\Invest_product;
 use App\Shop_product;
 use App\Auction_product;
@@ -13,10 +17,10 @@ use DB;
 use Auth;
 use App\Profile_admin;
 use App\Model_has_role;
-use RealRashid\SweetAlert\Facades\Alert;
-use Validator;
-use Hash;
-use Storage;
+use App\Artikel_blog;
+use App\Kategori_artikel;
+use Analytics;
+use Spatie\Analytics\Period;
 
 
 use App\Transaction;
@@ -25,20 +29,21 @@ class HomeController extends Controller
 {
     public function index(){
 
-    $produk_jb = count(Shop_product::All());
-    $produk_lelang = count(Auction_product::where('status',"2")->get());
-    $produk_invest = count(Invest_product::where('status',"2")->get());   
+    $user = count(User::All());
+    $artikel = count(Artikel_blog::All());
+    $kat_artikel = count(Kategori_artikel::All());
 
-    $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
-    $data  = array($produk_jb,$produk_lelang,$produk_invest);
+    // $a = Analytics::fetchVisitorsAndPageViews(Period::days(7));
+
     
-    return view('admin.admin-web.beranda',['kategori' => $kategori, 'Data' => $data]);
+    return view('admin.admin-web.beranda',[
+        'user' => $user,
+        'artikel' => $artikel,
+        'kat_artikel' => $kat_artikel
+        ]);
 
     }
 
-     public function validasiPembeli(){
-    	return view('admin.validasi-pembeli');
-    }
 
     public function adminProfile(){
         $data = Profile_admin::where('role',Auth::user()->id)->first();

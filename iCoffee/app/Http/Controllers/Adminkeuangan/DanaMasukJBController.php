@@ -26,7 +26,7 @@ class DanaMasukJBController extends Controller
 		if(request()->ajax())
 		{	
 			
-			$id = '5';
+			$id = '6';
 			$AKMJB = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 
 			return datatables()->of($AKMJB)

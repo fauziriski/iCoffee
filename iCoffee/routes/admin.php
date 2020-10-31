@@ -62,7 +62,7 @@ Route::group(['middleware' => ['can:read']], function () {
     Route::get('/lihat-validasi-pencairan-petani/{id}', 'VerifikasiProgresController@lihatPencairanPetani')->name('lihat-validasi-pencairan-petani');
 
 });
-Route::group(['middleware' => ['can:create']], function () {
+Route::group(['middleware' => ['can:created']], function () {
     //kategori-produk
     Route::post('/kategori-produk/store', 'KelolaProdukController@store')->name('kategori-produk.store');
 });

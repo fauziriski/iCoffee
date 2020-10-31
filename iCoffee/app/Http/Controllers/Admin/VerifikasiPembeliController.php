@@ -230,7 +230,7 @@ class  VerifikasiPembeliController extends Controller
 		}
 
 
-		$id = "5";
+		$id = "6";
 		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
 		$jml_id = count($id)+1;
 		$kode = "AKMJU".$jml_id;
@@ -240,7 +240,7 @@ class  VerifikasiPembeliController extends Controller
 		$nama_akun = "Pembelian Produk Jual-Beli";
 
 		$id = Adm_jurnal::create([
-			'id_kat_jurnal' => '5',
+			'id_kat_jurnal' => '6',
 			'kode' => $kode,
 			'catatan' => $catatan,
 			'tujuan_tran' => $tujuan_tran,

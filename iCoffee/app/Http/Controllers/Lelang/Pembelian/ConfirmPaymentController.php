@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Confirm_payment;
+use App\Helper\Helper;
 use App\Auction_Order;
 
 class ConfirmPaymentController extends Controller
@@ -29,8 +30,17 @@ class ConfirmPaymentController extends Controller
     {
         $id_pelanggan = Auth::user()->id;
         $this->validate($request,[
+            'email' => 'required',
+            'nama_bank_pengirim' => 'required',
+            'no_rekening_pengirim' => 'required',
+            'no_telp' => 'required',
+            'nama_pemilik_pengirim' => 'required',
+            'jumlah_transfer' => 'required',
+            'invoice' => 'required|exists:auction_orders,invoice',
             'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
+        $jumlah_transfer =  Helper::instance()->removeDot($request->jumlah_transfer);
 
         $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/{".$request->invoice."}");
         $response = mkdir($folderPath);
@@ -48,7 +58,7 @@ class ConfirmPaymentController extends Controller
             'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
             'jasa' => '2',
             'no_telp' => $request->no_telp,
-            'jumlah_transfer' => $request->jumlah_transfer,
+            'jumlah_transfer' => $jumlah_transfer,
             'invoice' => $request->invoice,
             'foto_bukti' => $name,
             'status' => '1'
