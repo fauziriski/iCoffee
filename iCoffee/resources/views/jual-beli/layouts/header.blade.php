@@ -73,7 +73,7 @@
                 @endif 
             
               </a>
-              <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu dropdown-menu-right mt-0 px-1" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-wallet mr-3"></i>Rp {{ number_format(Auth::user()->joint_accounts->saldo) }}
                 </a>

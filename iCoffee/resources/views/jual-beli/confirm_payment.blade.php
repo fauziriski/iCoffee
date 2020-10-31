@@ -60,6 +60,9 @@
                                     <div class="form-group">
                                       <label for="jumlah_transfer">Jumlah Transfer</label>
                                       <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <div style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"  class="input-group-text">Rp</div>
+                                        </div>
                                         <input type="text" class="form-control" id="jumlah_transfer" name="jumlah_transfer" required>
                                       </div>
                                       <span class="text-danger">{{$errors->first('jumlah_transfer')}}</span>

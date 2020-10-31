@@ -141,7 +141,7 @@
                                     <div class="row mr-1 ml-2 text-center">
                                         <div class="col-md-12 align-self-center">
                                         <p class="text-center font-weight-bold">
-                                            @if ($item->status == 5)
+                                            @if ($item->status == 1)
                                             <div class="alert alert-info text-center" role="alert">Menunggu Konfirmasi Admin</div>
                                             @elseif($item->status == 2)
                                             <div class="alert alert-danger text-center" role="alert">Gagal Mencairkan Dana</div>

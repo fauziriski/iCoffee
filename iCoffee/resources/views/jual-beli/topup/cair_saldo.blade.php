@@ -44,7 +44,12 @@
 
           <div class="form-group">
             <label for="jumlah">Jumlah</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"  class="input-group-text">Rp</div>
+              </div>
             <input type="number" class="form-control" name="jumlah" min="10000" max="{{ $cek_saldo->saldo }}" required>
+            </div>
             <span class="text-danger">{{$errors->first('jumlah')}}</span>
           </div>
 
