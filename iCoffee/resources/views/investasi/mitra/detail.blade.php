@@ -26,11 +26,11 @@
 								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Stok</div>
 								<div class="row no-gutters align-items-center">
 									<div class="col-auto">
-										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$qty}}/{{$produk->stok}}</div>
+										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
 									</div>
 									<div class="col">
 										<div class="progress progress-sm mr-2">
-											<div class="progress-bar-animated bg-success" role="progressbar" style="width: {{$qty/$produk->stok*100}}%" aria-valuenow="{{$qty}}" aria-valuemin="0" aria-valuemax="{{$produk->stok}}"></div>
+											<div class="progress-bar-animated bg-success" role="progressbar"  aria-valuenow="{{$qty}}" aria-valuemin="0" aria-valuemax="{{$produk->stok}}"></div>
 										</div>
 									</div>
 								</div>

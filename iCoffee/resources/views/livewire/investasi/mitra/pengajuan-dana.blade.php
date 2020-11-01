@@ -1,4 +1,10 @@
 <div>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button> 
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
     <form wire:submit.prevent="pengajuan">
         <div class="form-group mt-0">
             <label for="exampleInputEmail1">Produk Investasi</label>
@@ -48,7 +54,7 @@
                     </td>
                     <td width="5%">
                         @if ($key == 0)
-                            <button wire:click.prevent="add" class="btn btn-info" >Tambah</button>
+                            <button wire:click.prevent="add"  class="btn btn-info" >Tambah</button>
                         @else
                             <button wire:click.prevent="remove({{$key}})" class="btn btn-danger" >Hapus</button>
                         @endif
@@ -69,9 +75,75 @@
                 </tr>
             </tfoot>
         </table>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Riwayat Pengajuan</button>
         <button type="submit" class="btn btn-success float-right mb-3">Submit</button>
     </form>
-
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Riwayat Pengajuan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion" id="accordionExample">
+                        @forelse($pengajuan_dana as $item)
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
+                                            #{{$loop->iteration}} - {{$item->judul}} - {{Carbon::parse( $item->created_at )->translatedFormat('l, d F Y')}}
+                                            @if($item->status == 0)
+                                                <span class="badge badge-warning float-right">Diproses</span>
+                                            @elseif($item->status == 1)
+                                                <span class="badge badge-success float-right">Sukses</span>
+                                            @elseif($item->status == 2)
+                                                <span class="badge badge-danger float-right">Ditolak</span>
+                                            @endif
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse{{$item->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Produk</th>
+                                                    <th scope="col">Harga</th>
+                                                    <th scope="col">Qty</th>
+                                                    <th scope="col">Jumlah</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($item->rincian_pengajuan as $i)
+                                                <tr>
+                                                    <th scope="row">{{$loop->iteration}}</th>
+                                                    <td>{{$i->produk}}</td>
+                                                    <td>{{$i->harga}}</td>
+                                                    <td>{{$i->qty}}</td>
+                                                    <td>@money($i->jumlah)</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-center">Data Tidak Tersedia</p>
+                        @endforelse
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+      
     @section('js')
     <script>
         $(document).ready(function () {
@@ -117,6 +189,8 @@
           $('.grandtotal').text(parseFloat(grandTotal).toFixed(2));
       }
       </script>
-      @endsection
+    
+
+    @endsection
 </div>
 
