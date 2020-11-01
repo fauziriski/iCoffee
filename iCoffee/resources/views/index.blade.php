@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">  
-    <title>iCoffee</title>
+    <title>iCoffeee</title>
     <!-- Additional CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{asset('landing_page/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('landing_page/css/font-awesome.css') }}">
