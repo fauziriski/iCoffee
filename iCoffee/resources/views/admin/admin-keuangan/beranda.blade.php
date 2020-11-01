@@ -82,7 +82,7 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-success mb-1">Kas Masuk Lelang</div>
+								<div class="text-sm font-weight-bold text-success mb-1">Kas Masuk Lelang / TopUp</div>
 								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($masuk_le)}}</div>
 							</div>
 							<div class="col-auto">

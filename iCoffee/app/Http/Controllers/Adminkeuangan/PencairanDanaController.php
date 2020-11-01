@@ -15,6 +15,8 @@ use App\Adm_sub2_akun;
 use App\Joint_account;
 use Carbon;
 use Validator;
+use Storage;
+use App\Helper\Helper;
 
 
 class  PencairanDanaController extends Controller
@@ -94,14 +96,12 @@ class  PencairanDanaController extends Controller
 		if(request()->ajax())
 		{
 			$data = Balance_withdrawal::findOrFail($id);
-			$user_id = $data->user_id;
-
 			$nama_tran = "Penarikan saldo pelanggan";
 			$catatan = "Penarikan saldo pelanggan dengan total saldo Rp.".number_format($data->jumlah).": Bank ".$data->bank."/".$data->pemilik_rekening."-".$data->no_rekening;
 
-			$tujuan_tran = "Bank ".$data->bank."/Atas nama ".$data->pemilik_rekening;
+			$tujuan_tran = "Bank ".$data->bank;
 			$nama_akun_debit = "Pencairan Saldo Pelanggan";
-			$jumlah_debit = $data->jumlah;
+			$jumlah_debit = number_format($data->jumlah);
 			$debit = "Debit";
 			
 			return response()->json([
@@ -123,7 +123,7 @@ class  PencairanDanaController extends Controller
 	{	
 	
 		$rules = array(	
-			'nama_akun2' => 'required',
+			'akun_kredit' => 'required',
 			'jumlah2' => 'required',
 			'bukti' =>  'required|image|max:2048'
 		);
@@ -135,57 +135,42 @@ class  PencairanDanaController extends Controller
 			return response()->json(['errors' => $error->errors()->all()]);
 		}
 
-		$bukti = $request->file('bukti');
-		$timestamps = date('YmdHis');
-		$id = "8";
-		$ido = Adm_jurnal::select('id')->latest()->first();
-		$jml_id = $ido->id+1;
-		$kode = "AKKJULE".$jml_id;
-
-		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
-
-		$bukti->move(public_path('Uploads/Adm_bukti/AKKJULE'), $new_name);
-
-		$total_jumlah = $request->jumlah2;
-
 		$data = Balance_withdrawal::findOrFail($request->hidden_id);
 		$user_id = $data->user_id;
+		$jumlah_kredit = Helper::instance()->removeDot($request->jumlah2);
 
 		$nama_tran = "Penarikan saldo pelanggan";
-		
-		$tujuan_tran = "Bank ".$data->bank."/Atas nama ".$data->pemilik_rekening;
-		$nama_akun1 = "Pencairan Saldo Pelanggan";
-		$jumlah1 = $data->jumlah;
-		$posisi1 = "Debit";
+		$tujuan_tran = "Bank ".$data->bank;
+		$nama_akun_debit = "Pencairan Saldo Pelanggan";
+		$catatan = "Penarikan saldo pelanggan dengan total saldo Rp.".number_format($data->jumlah).": Bank ".$data->bank."/".$data->pemilik_rekening."-".$data->no_rekening;
 
 		$data_saldo = Joint_account::where('user_id',$user_id)->first();
 		$saldo_awal = $data_saldo->saldo;
-		$sisa_saldo = $saldo_awal - $jumlah1;
+		$sisa_saldo = $saldo_awal - $jumlah_kredit;
 
-		$id = Adm_jurnal::create([
-			'id_kat_jurnal' =>'8',
-			'nama_tran' => $nama_tran,
-			'bukti' =>  $new_name,
-			'catatan' => $request->catatan,
-			'kode' => $kode,
-			'total_jumlah' => $total_jumlah,
-			'tujuan_tran' => $tujuan_tran		
-		]);
-
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun1,
-			'posisi' => $posisi1,
-			'jumlah' => $jumlah1
-		]);
-
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $request->nama_akun2,
-			'posisi' => $request->posisi2,
-			'jumlah' => $request->jumlah2
-		]);
+		$noTrans = Adm_jurnal::noTrans();
+		$noJurnal = Adm_akun::noJurnal();
 		
+
+		$simpan = Adm_jurnal::create([
+			'id_kat_jurnal' => 8,
+			'nama_tran' => $nama_tran,
+			'bukti' => $request->file('bukti')->store('Adm_bukti/AKKJULE'),
+			'catatan' => $catatan,
+			'no_tran' => $noTrans,
+			'total_jumlah' => $jumlah_kredit,
+			'tujuan_tran' => $tujuan_tran			
+		]);
+
+		Adm_akun::create([
+			'id_adm_jurnal' => $simpan->id,
+			'no_jurnal' =>$noJurnal,
+			'akun_debit' => $nama_akun_debit,
+			'akun_kredit' => $request->akun_kredit,
+			'debit' => 0,
+			'kredit' => $jumlah_kredit
+		]);
+
 
 		$form_data = array(
 			'status' => '3',
@@ -208,10 +193,9 @@ class  PencairanDanaController extends Controller
 			'nama_tran' =>  'required',
 			'tujuan_tran' => 'required',
 			'catatan' =>  'required',
-			'akun1' => 'required',
-			'akun2' => 'required',
+			'akun_kredit' => 'required',
+			'akun_debit' => 'required',
 			'jumlah1' => 'required',
-			'jumlah2' => 'required',
 			'bukti' =>  'required|image|max:2048'
 		);
 
@@ -222,54 +206,38 @@ class  PencairanDanaController extends Controller
 			return response()->json(['errors' => $error->errors()->all()]);
 		}
 
-		$bukti = $request->file('bukti');
-		$timestamps = date('YmdHis');
-		$id = "8";
-		$ido = Adm_jurnal::select('id')->latest()->first();
-		$jml_id = $ido->id+1;
-		$kode = "AKKJULE".$jml_id;
+		$noTrans = Adm_jurnal::noTrans();
+		$noJurnal = Adm_akun::noJurnal();
+		$jumlah = Helper::instance()->removeDot($request->jumlah1);
 
-		$new_name = $kode.$timestamps. '.' . $bukti->getClientOriginalExtension();
-
-		$bukti->move(public_path('Uploads/Adm_bukti/AKKJULE'), $new_name);
-
-		$total_jumlah = $request->jumlah2;
-
-		$id = Adm_jurnal::create([
-			'id_kat_jurnal' =>'8',
+		$simpan = Adm_jurnal::create([
+			'id_kat_jurnal' => 8,
 			'nama_tran' => $request->nama_tran,
-			'bukti' =>  $new_name,
+			'bukti' => $request->file('bukti')->store('Adm_bukti/AKKOP'),
 			'catatan' => $request->catatan,
-			'kode' => $kode,
-			'total_jumlah' => $total_jumlah,
-			'tujuan_tran' => $request->tujuan_tran,
-			'created_at' => Carbon::now(),
-			'updated_at' => Carbon::now()
-
-				
+			'no_tran' => $noTrans,
+			'total_jumlah' => $jumlah,
+			'tujuan_tran' => $request->tujuan_tran			
 		]);
 
 		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $request->akun1,
-			'posisi' => $request->posisi1,
-			'jumlah' => $request->jumlah1,
+			'id_adm_jurnal' => $simpan->id,
+			'no_jurnal' =>$noJurnal,
+			'akun_debit' => $request->akun_debit,
+			'akun_kredit' => $request->akun_kredit,
+			'debit' => 0,
+			'kredit' => $jumlah
 		]);
 
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $request->akun2,
-			'posisi' => $request->posisi2,
-			'jumlah' => $request->jumlah2
-		]);
-	
 		return response()->json(['success' => 'Data berhasil ditambah.']);
 	}
+
 
 	public function hapus($id)
 	{
 
 		$data = Adm_jurnal::findOrFail($id);
+		Storage::delete($data->bukti);
 		$data->delete();
 
 		return response()->json();
@@ -281,12 +249,12 @@ class  PencairanDanaController extends Controller
 	{
 		if(request()->ajax())
 		{	
-			$akun = Adm_akun::where('id_adm_jurnal',$id)->get();
+			$data2 = Adm_akun::where('id_adm_jurnal',$id)->first();
 
 			$data = Adm_jurnal::findOrFail($id);
 			return response()->json([
 				'data' => $data,
-				'akun' => $akun
+				'data2' => $data2
 			]);
 		}
 	}

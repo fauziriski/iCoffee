@@ -124,23 +124,22 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-         Pencatatan Pendapatan
+         Pencatatan Kas Masuk
        </div>
 
        <!-- Nav Item - Pages Collapse Menu -->
        <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fa fa-fa fa-arrow-circle-down"></i>
-          <span>Pendapatan</span>
+          <span>Kas Masuk</span>
         </a>
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-investasi')}}">Dana Investasi</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-utama')}}">Kas Utama</a>
             <div class="collapse-divider"></div>
-            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-jualbeli')}}">Dana Jual-Beli</a>
-            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lelang')}}">Dana Lelang</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-investasi')}}">Kas Investasi</a>
             <h6 class="collapse-header">Lain-Lain :</h6>
-            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lain')}}">Pendapatan Lainnya</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lain')}}">Kas Lainnya</a>
           </div>
         </div>
       </li>
@@ -150,23 +149,22 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-       Pencatatan Pengeluaran
+       Pencatatan Kas Keluar
      </div>
 
      <!-- Nav Item - Pages Collapse Menu -->
      <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapseTwo">
         <i class="fa fa-fa fa-arrow-circle-up"></i>
-        <span>Pengeluaran</span>
+        <span>Kas Keluar</span>
       </a>
       <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Investasi :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-bagi-hasil')}}">Bagi Hasil</a>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana-progres')}}">Dana Progres</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Kas Utama</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana-progres')}}">Kas Investasi</a>
           <h6 class="collapse-header">Lain-Lain :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Pencairan Dana</a>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Biaya Operasional</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Kas Operasional</a>
         </div>
       </div>
     </li>
@@ -188,8 +186,10 @@
       <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Kelola Keuangan:</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/arus-kas')}}">Arus Kas</a>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/jurnal')}}">Jurnal</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/posisi-kas')}}">Posisi Kas</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/tranksaksi-kas')}}">Tranksaksi Kas</a>
+          <!-- <a class="collapse-item" href="{{url('akses-adminkeuangan/arus-kas')}}">Arus Kas</a> -->
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/jurnal')}}">Jurnal Umum</a>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/neraca')}}">Neraca</a>
           <div class="collapse-divider"></div>
         </div>
@@ -213,7 +213,7 @@
       <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Pengaturan:</h6>
-          <a class="collapse-item" href="{{url('validasi-pembayaran')}}">Format Arus Kas</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/akun-bank')}}">Akun Bank</a>
           <div class="collapse-divider"></div>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/format-akun')}}">Format Akun</a>
           <div class="collapse-divider"></div>

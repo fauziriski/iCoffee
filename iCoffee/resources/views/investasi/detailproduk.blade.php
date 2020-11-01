@@ -13,12 +13,12 @@
             
     
             <div class="slider-item">
-              <img class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/{'.$products->kode_produk.'}/'.$products->gambar) }}" alt="Colorlib Template">
+              <img class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/'.$products->kode_produk.'/'.$products->gambar) }}" alt="Colorlib Template">
             </div>
 
             @foreach($image as $data)
             <div class="slider-item">
-              <img class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/{'.$products->kode_produk.'}/'.$data->nama) }}" alt="Colorlib Template">
+              <img class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/'.$products->kode_produk.'/'.$data->nama) }}" alt="Colorlib Template">
             </div>
             @endforeach
           </div>

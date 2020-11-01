@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin Keuangan | Dana Masuk Investasi')
+@section('title', 'Admin Keuangan | Kas Masuk Investasi')
 
 @section('content')
 
@@ -76,7 +76,7 @@
 		<div class="card shadow mb-4">
 			<!-- Card Header - Dropdown -->
 			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h5>Dana Masuk Investasi</h5>
+				<h5>Kas Masuk Investasi</h5>
 			</div>
 			<!-- Card Body -->
 			<div class="card-body">
@@ -84,9 +84,9 @@
 					<table id="id_tabel" class="table table-striped table-bordered" border="0" style="width:100%">
 						<thead>
 							<tr>
-								<th>Kode</th>
+								<th>Tanggal</th>
+								<th>No Tranksaksi</th>
 								<th>Nama Tranksaksi</th>
-								<th>Waktu Tranksaksi</th>
 								<th>Tujuan Tranksaksi</th>
 								<th>Jumlah</th>
 								<th> </th>
@@ -134,7 +134,7 @@
                                     <div class="form-group">
                                         <th width="35%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
                                         <th colspan="4">
-                                            <a id="kode2"></a>
+                                            <a id="no_tran2"></a>
                                         </th>
                                     </div>
                                 </tr>
@@ -216,26 +216,39 @@
                                 <table cellpadding="10" border="1">
                                     <tr style="background-color: #4e73df; color: white;">
                                         <div class="form-group">
-                                            <th width="40%">Akun&nbsp;&nbsp;:</th>
-                                            <th width="15%">Posisi&nbsp;&nbsp;:</th>
+                                            <th width="40%">Nama Akun&nbsp;&nbsp;:</th>
+											<th width="15%">Posisi&nbsp;&nbsp;:</th>
                                             <th width="20%">Jumlah&nbsp;&nbsp;:</th>
                                         </div>
                                     </tr>
-                                    @for ($i = 0; $i < 2; $i++)
+                                   
                                     <tr>
                                         <div class="form-group">
                                             <th>
-                                                <a id="akun11{{$i}}"></a>
+                                                <a id="akun_debit2"></a>
+                                            </th>
+											<th>
+                                                <a>Debit</a>
                                             </th>
                                             <th>
-                                                <a id="posisi11{{$i}}"></a>
-                                            </th>
-                                            <th>
-                                                <a id="jumlah11{{$i}}"></a>
+                                                <a id="debit2"></a>
                                             </th>
                                         </div>
                                     </tr>
-                                    @endfor
+									<tr>
+                                        <div class="form-group">
+                                            <th>
+                                                <a id="akun_kredit2"></a>
+                                            </th>
+											<th>
+                                                <a>Kredit</a>
+                                            </th>
+                                            <th>
+                                                <a id="kredit2"></a>
+                                            </th>
+                                        </div>
+                                    </tr>
+                                  
                                 </table>
 								</div>
                             </div>
@@ -323,9 +336,9 @@
 							},
 							columns:[
 
-							{data: 'kode', name: 'kode'},
-							{data: 'nama_tran', name:'nama_tran'},
 							{data: 'created_at', name:'created_at'},
+							{data: 'no_tran', name: 'no_tran'},
+							{data: 'nama_tran', name:'nama_tran'},
 							{data: 'tujuan_tran', name:'tujuan_tran'},
 							{data: 'total_jumlah', name:'total_jumlah'},
 							{data: 'action',name: 'action',orderable: false},
@@ -364,7 +377,7 @@
 								success:function(html){
 									$('#modalLihat').modal('show');
 									$('.modal-title').text("Detai Pencatatan");
-									document.getElementById("kode2").innerHTML = html.data.kode;
+									document.getElementById("no_tran2").innerHTML = html.data.no_tran;
 									document.getElementById("nama_tran2").innerHTML = html.data.nama_tran;
 									document.getElementById("created_at2").innerHTML = html.data.created_at;
 									document.getElementById("tujuan_tran2").innerHTML = html.data.tujuan_tran;
@@ -373,23 +386,22 @@
 									var img = "/Uploads/Investasi/Konfirmasi/" + html.data.bukti;
 									$('#bukti2').attr("src",img);
 
-									var data = html.akun;
-									var banyak = data.length;
+									var debit = html.data2.debit;
+									var kredit = html.data2.kredit;
 
-									for(var i = 0; i<banyak; i++){
-										var nama_akun = data[i].nama_akun;
-										var posisi_akun = data[i].posisi;
-										var jumlah = data[i].jumlah;
+									var	reverse = debit.toString().split('').reverse().join(''),
+									debit_ribuan 	= reverse.match(/\d{1,3}/g);
+									debit_ribuan	= debit_ribuan.join('.').split('').reverse().join('');
 
-										var	reverse = jumlah.toString().split('').reverse().join(''),
-										ribuan 	= reverse.match(/\d{1,3}/g);
-										ribuan	= ribuan.join('.').split('').reverse().join('');
+									var	reverse = kredit.toString().split('').reverse().join(''),
+									kredit_ribuan 	= reverse.match(/\d{1,3}/g);
+									kredit_ribuan	= kredit_ribuan.join('.').split('').reverse().join('');
+											
+									document.getElementById("akun_debit2").innerHTML = html.data2.akun_debit;
+									document.getElementById("akun_kredit2").innerHTML = html.data2.akun_kredit;
+									document.getElementById("debit2").innerHTML = "Rp "+debit_ribuan;
+									document.getElementById("kredit2").innerHTML = "Rp "+kredit_ribuan;
 
-										document.getElementById("akun11"+i).innerHTML = nama_akun;
-										document.getElementById("posisi11"+i).innerHTML = posisi_akun;
-										document.getElementById("jumlah11"+i).innerHTML = "Rp. "+ribuan;
-
-									}
 
 								}
 							})

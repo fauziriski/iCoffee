@@ -25,15 +25,18 @@ class JurnalController extends Controller
      {
       if(!empty($request->from_date))
       {
-       $data = DB::table('adm_jurnal')
+       $data = DB::table('adm_akun')
          ->whereBetween('created_at', array($request->from_date, $request->to_date))
          ->get();
          
       }
       else
       {
-       $data = DB::table('adm_jurnal')
-         ->get();
+
+       $data = DB::table('adm_akun')
+       ->join('adm_jurnal', 'adm_akun.id_adm_jurnal', '=', 'adm_jurnal.id')
+       ->get();
+       
       }
       
       return datatables()->of($data)
@@ -43,11 +46,17 @@ class JurnalController extends Controller
 				return $waktu;
 			})
 
-			->addColumn('total_jumlah', function($data){
-				$rp = "Rp. ";
-				$total_jumlah = $rp. number_format($data->total_jumlah); 
-				return $total_jumlah;
-            })
+			// ->addColumn('debit', function($data){
+			// 	$rp = "Rp. ";
+			// 	$debit = $rp. number_format($data->debit); 
+			// 	return $debit;
+      // })
+      
+			// ->addColumn('kredit', function($data){
+			// 	$rp = "Rp. ";
+			// 	$kredit = $rp. number_format($data->kredit); 
+			// 	return $kredit;
+      // })
            
 			->make(true);
       

@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin Keuangan | Laporan Jurnal')
+@section('title', 'Admin Keuangan | Laporan Jurnal Umum')
 
 @section('content')
 
@@ -81,7 +81,7 @@
 
 		<div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h5>Laporan Jurnal</h5>
+				<h5>Laporan Jurnal Umum</h5>
 			</div>
 			<!-- Card Header - Dropdown -->
             <div class="row" style="padding-top:2%;"></div>
@@ -100,13 +100,21 @@
 					<table id="order_table" class="table table-striped table-bordered" border="0" style="width:100%">
 						<thead>
 							<tr>
-								<th>Kode</th>
+								<th>Tanggal</th>
+								<th>No Jurnal</th>
+								<th>No Tranksaksi</th>
 								<th>Nama Tranksaksi</th>
-								<th>Waktu Tranksaksi</th>
-								<th>Tujuan Tranksaksi</th>
-								<th>JumlahTranksaksi</th>
+								<th>Debit</th>
+								<th>Kredit</th>
 							</tr>
 						</thead>
+							<tfoot>
+								<tr>
+									<th colspan="4" style="text-align:right">TOTAL JUMLAH:</th>
+									<th></th>
+									<th></th>
+								</tr>
+						</tfoot>
 					</table>
 				</div>
 			</div>
@@ -266,6 +274,43 @@
 					function load_data(from_date = '', to_date = '')
 					{
 					$('#order_table').DataTable({
+						"footerCallback" : function (row, data, start, end, display) {
+							var api = this.api(),data;
+							var intVal = function (i) {
+								return typeof i === 'string'
+									? i.replace(/[\$,]/g, '') * 1
+									: typeof i === 'number'
+										? i
+										: 0;
+							};
+
+							// Jumlah Kredit
+							total = api.column(5).data().reduce(function (a, b) {
+									return intVal(a) + intVal(b);
+								}, 0);
+
+							pageTotal1 = api.column(5, {page: 'current'}).data().reduce(function (a, b) {
+									return intVal(a) + intVal(b);
+								}, 0);
+
+								var numFormat1 = $.fn.dataTable.render.number( '\,', '.', 0, 'Rp ' ).display;
+								$( api.column( 5 ).footer() ).html( numFormat1( pageTotal1 ) );
+
+							//jumlah debit
+
+							total = api.column(4).data().reduce(function (a, b) {
+									return intVal(a) + intVal(b);
+								}, 0);
+
+							pageTotal2 = api.column(4, {page: 'current'}).data().reduce(function (a, b) {
+									return intVal(a) + intVal(b);
+								}, 0);
+								var numFormat2 = $.fn.dataTable.render.number( '\,', '.', 0, 'Rp ' ).display;
+								$( api.column( 4 ).footer() ).html( numFormat2( pageTotal2 ) );
+
+							
+						},
+
 						"paging":   false,
 								dom: 'Bfrtip',
 								buttons: [
@@ -274,7 +319,10 @@
 								footer: true,
 								exportOptions: {
 										columns: [0,1,2,3,4]
-									}
+									},
+									messageTop: 'Laporan jurnal.',
+									download: 'open',
+									 image: 'data:images/logo.png'
 							},
 							{
 								extend: 'csv',
@@ -312,12 +360,12 @@
 								data:{from_date:from_date, to_date:to_date}
 							},
 							columns: [
-
-															{data: 'kode', name: 'kode'},
-															{data: 'nama_tran', name:'nama_tran'},
-															{data: 'created_at', name:'created_at'},
-															{data: 'tujuan_tran', name:'tujuan_tran'},
-															{data: 'total_jumlah', name:'total_jumlah'},
+								{data: 'created_at', name:'created_at'},
+								{data: 'no_jurnal', name: 'no_jurnal'},
+								{data: 'no_tran', name: 'no_tran'},
+								{data: 'nama_tran', name:'nama_tran'},
+								{data: 'debit', name:'debit', render: $.fn.dataTable.render.number( '\,', '.', 0, 'Rp ' ).display},
+								{data: 'kredit', name:'kredit', render: $.fn.dataTable.render.number( '\,', '.', 0, 'Rp ' ).display}
 							]
 							});
 							}

@@ -389,7 +389,7 @@
 								document.getElementById("unit").innerHTML = unit;
 								document.getElementById("total_bayar").innerHTML = "Rp. "+ribuan;
 								document.getElementById("total_dibayar").innerHTML = "Rp. "+ribuan;
-								document.getElementById("tujuan").innerHTML = html.nama_bank+" iCoffee";
+								document.getElementById("tujuan").innerHTML = html.nama_bank;
 								
 								var img = "/Uploads/Investasi/Konfirmasi/" + html.data.gambar;
 								$('#bukti2').attr("src",img);
