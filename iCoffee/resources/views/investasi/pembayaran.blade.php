@@ -221,28 +221,28 @@
         <p>{{$bank->no_rekening}}</p>
         <label>Atas Nama:</label>
         <p>iCoffee</p>
-         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirm') }}">Konfirmasi</a>
+         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirmasi') }}">Konfirmasi</a>
       @elseif($bank->id == 2)
         <label>Nomor Rekening:</label>
         <img src="\bri.png" class="logo-card">
         <p>{{$bank->no_rekening}}</p>
         <label>Atas Nama:</label>
         <p>iCoffee</p>
-         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirm') }}">Konfirmasi</a>
+         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirmasi') }}">Konfirmasi</a>
       @elseif($bank->id == 3)
         <label>Nomor Rekening:</label>
         <img src="\bni.png" class="logo-card">
         <p>{{$bank->no_rekening}}</p>
         <label>Atas Nama:</label>
         <p>iCoffee</p>
-         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirm') }}">Konfirmasi</a>
+         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirmasi') }}">Konfirmasi</a>
       @elseif($bank->id == 4)
         <label>Nomor Rekening:</label>
         <img src="\mandiri.svg" class="logo-card">
         <p>{{$bank->no_rekening}}</p>
         <label>Atas Nama:</label>
         <p>iCoffee</p>
-         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirm') }}">Konfirmasi</a>
+         <a class="btn btn-primary btn-sm float-right" href="{{ url('invest/konfirmasi') }}">Konfirmasi</a>
       @endif
       
     </div>

@@ -299,7 +299,7 @@ ul li:hover {
 					<table class='order-table'>
 						<tbody>
 						<tr>
-              <td><img src="{{ asset('Uploads/Investasi/Produk/{'.$produk->kode_produk.'}/'.$produk->gambar) }}" style="border-radius: 40%" class='full-width'>
+              <td><img src="{{ asset('Uploads/Investasi/Produk/'.$produk->kode_produk.'/'.$produk->gambar) }}" style="border-radius: 40%" class='full-width'>
 							</td>
 							<td>
 							<br> <span class='thin'>{{$produk->nama_produk}}</span>
@@ -581,5 +581,6 @@ window.onclick = function(e) {
   });
   </script>
   <script src="{{asset('investasi/mitra/vendor/chart.js/Chart.min.js')}}"></script>
-  
+  <link href="{{asset('investasi/css/sb-admin-2.min.css') }}" rel="stylesheet">
+  <link href="{{asset('investasi/css/style.css') }}" rel="stylesheet" type="text/css">
 @endsection

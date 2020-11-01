@@ -104,6 +104,7 @@ class TransactionController extends Controller
         $invoice = array();
         $tanggal = array();
 
+
         for ($i=0; $i < $jumlah_transaksi_beli; $i++) { 
             if(!(in_array($transaksipembeli[$i]->invoice, $invoice))){
                 $invoice[] = $transaksipembeli[$i]->invoice;
@@ -112,8 +113,11 @@ class TransactionController extends Controller
         }
         
         $cek_data = array();
+        $payment_method = array();
+        $sum_cost = array();
 
         $hitung_invoice = count($invoice);
+        
         for ($i=0; $i < $hitung_invoice; $i++) { 
             $total_pembayaran = 0;
             $total_ongkos_kirim = 0;
@@ -122,6 +126,7 @@ class TransactionController extends Controller
             $total_berat;
             $jumlah_invoice = Order::where('invoice', $invoice[$i])->get();
             $cek_payement = Order::where('invoice', $invoice[$i])->first();
+            
             $hitung_jumlah_invoice = count($jumlah_invoice);
             for ($j=0; $j < $hitung_jumlah_invoice ; $j++) { 
                 $kurir = explode(': ', $jumlah_invoice[$j]->shipping);
@@ -130,6 +135,7 @@ class TransactionController extends Controller
 
             }
             $payment_method[] = $cek_payement->payment;
+            
             $sum_cost[] = $jumlah_seluruh;
             $cek_data[] =  $jumlah_seluruh+$ongkir;
 

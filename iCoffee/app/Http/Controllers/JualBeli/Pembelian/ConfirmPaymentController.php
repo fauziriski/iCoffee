@@ -66,7 +66,7 @@ class ConfirmPaymentController extends Controller
         $name=$image->getClientOriginalName();
 
 
-        $jumlah_transfer = Helper::instance()->removeDot($request->jumlah_transfer);;
+        $jumlah_transfer = Helper::instance()->removeDot($request->jumlah_transfer);
 
         $confirm_pesanan = Confirm_payment::create([
             'id_pelanggan' => $id_pelanggan,

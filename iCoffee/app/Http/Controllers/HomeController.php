@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Hash;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 Use Redirect;
 use App\Subdistrict;
+use App\Helper\Helper;
 use URL;
 
 
@@ -785,6 +786,8 @@ class HomeController extends Controller
         $id_pelanggan = Auth::user()->id;
         $user = User::where('id', $id_pelanggan)->first();
         $password = Str::camel($user->password);
+
+        $jumlah = Helper::instance()->removeDot($request->jumlah);
 
         $timestamps = date('YmdHis');
         $id_pelanggan = Auth::user()->id;

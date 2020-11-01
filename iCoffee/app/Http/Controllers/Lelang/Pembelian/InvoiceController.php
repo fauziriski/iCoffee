@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Auction_delivery;
+use App\Helper\Helper;
 use App\Joint_account;
 use App\Auction_Order;
 use App\Account;
@@ -105,5 +106,18 @@ class InvoiceController extends Controller
         ]);
 
         return response()->json();
+    }
+
+    public function getWayBill($id)
+    {
+        $delivery = Auction_delivery::where('id_order', $id)->first();
+        $kurir = $delivery->delivery_category->judul;
+        $array = array(
+            "waybill" => $delivery->invoice,
+            "courier" => $kurir,
+        );
+        $data = Helper::instance()->getwaybill($array);
+
+        return response()->json($data);
     }
 }

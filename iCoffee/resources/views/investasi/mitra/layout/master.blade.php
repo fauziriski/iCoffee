@@ -37,6 +37,7 @@
 
 
 	</style>
+	@livewireStyles
 	@yield('css')
 
 </head>
@@ -105,6 +106,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <script type="text/javascript" src="{{asset('DataTables/datatables.min.js') }}"></script>
+@livewireScripts
 @yield('js')
 
 
