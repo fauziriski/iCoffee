@@ -190,10 +190,8 @@ class  VerifikasiPembayaranLelangController extends Controller
 	{
 		$ambil = Auction_Order::where('invoice',$request->invoice2)->first();
 		$bank = $ambil->payment;
-
 		$total_bayar = Auction_Order::where('invoice',$request->invoice2)->select('sub_total')->sum('sub_total');
 		$kg = Auction_Order::where('invoice',$request->invoice2)->select('jumlah')->sum('jumlah');
-
 		$qty = Auction_Order::where('invoice',$request->invoice2)->get();
 		$jml = count($qty);
 
@@ -208,13 +206,11 @@ class  VerifikasiPembayaranLelangController extends Controller
 			return $collection->sum();
 		});
 
-		$catatan = "pembelian kopi lelang sebanyak ".$kg."Kg dengan total harga Rp.".number_format($total_bayar)." dan total ongkos kirim sebesar Rp.".$total_ongkir;
-		$tujuan_tran = "Bank ".$bank." iCoffee";
-
-
+		$jumlah = $total_bayar+$total_ongkir;
+		$catatan = "Pembelian kopi lelang sebanyak ".$kg."Kg dengan total harga Rp.".number_format($total_bayar)." dan total ongkos kirim sebesar Rp.".$total_ongkir;
+		$tujuan_tran = "Bank ".$bank;
 		$nama_akun_debit = "Bank ".$request->nama_bank_pengirim2."/".$request->nama_pemilik_pengirim2."-".$request->no_rekening_pengirim2;
 		$nama_akun_kredit = "Pembelian Produk Lelang";
-
 		$qty = Auction_Order::where('invoice',$request->invoice2)->get();
 		$jml = count($qty);
 
@@ -227,43 +223,32 @@ class  VerifikasiPembayaranLelangController extends Controller
 			$shop_produk = Auction_product::where('id',$produk[$i]->id_produk)->where('id_pelelang', $produk[$i]->id_penjual)->get();
 			$nama[] = $shop_produk[$i]->nama_produk;
 			$produks= implode(",", $nama);
-			$nama_tran = "Beli produk lelang : ".$produks;
+			$nama_tran = "Pembelian produk lelang ".$produks;
 
 		}
 
+		$noTrans = Adm_jurnal::noTrans();
+		$noJurnal = Adm_akun::noJurnal();
+		$data_val = Confirm_payment::whereId($request->hidden_id2)->where('jasa',2)->first();
+		$foto_bukti = $data_val->foto_bukti;
 
-		$id = "7";
-		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
-		$jml_id = count($id)+1;
-		$kode = "AKMLE".$jml_id;
-
-		$bukti = $request->foto_bukti2;
-		$new_name = $request->invoice2." ".$bukti;
-
-		$nama_akun = "Pembelian Produk Lelang";
-
-		$id = Adm_jurnal::create([
-			'id_kat_jurnal' => '7',
-			'kode' => $kode,
-			'catatan' => $catatan,
-			'tujuan_tran' => $tujuan_tran,
-			'bukti' =>  $new_name,
+		$simpan = Adm_jurnal::create([
+			'id_kat_jurnal' => 7,
 			'nama_tran' => $nama_tran,
-			'total_jumlah' => $request->jumlah_transfer2	
+			'bukti' => $foto_bukti,
+			'catatan' => $catatan,
+			'no_tran' => $noTrans,
+			'total_jumlah' => $jumlah,
+			'tujuan_tran' => $tujuan_tran			
 		]);
 
 		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun_debit,
-			'posisi' => 'Debit',
-			'jumlah' => $request->jumlah_transfer2
-		]);
-
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun_kredit,
-			'posisi' => 'Kredit',
-			'jumlah' => $request->jumlah_transfer2
+			'id_adm_jurnal' => $simpan->id,
+			'no_jurnal' =>$noJurnal,
+			'akun_debit' => $nama_akun_debit,
+			'akun_kredit' => $nama_akun_kredit,
+			'debit' => $jumlah,
+			'kredit' => 0
 		]);
 
 
@@ -317,33 +302,33 @@ class  VerifikasiPembayaranLelangController extends Controller
 				return $button;
 			})
 
-
+		
 
 			->addColumn('status', function($data){
 				if ($data->status == "1") {
-					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
+					$status = '<span class="badge badge-info">belum divalidasi</span>';
 				}elseif ($data->status == "2") {
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">validasi ditolak</button>';
+					$status = '<span class="badge badge-danger">validasi ditolak</span>';
 				}elseif ($data->status == "3") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">sudah divalidasi</button>';
+					$status = '<span class="badge badge-success">sudah divalidasi</span>';
 				}elseif ($data->status == "4") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">penjual menerima</button>';
+					$status = '<span class="badge badge-success">penjual menerima</span>';
 				}elseif ($data->status == "5") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">dikirim</button>';
+					$status = '<span class="badge badge-success">dikirim</span>';
 				}elseif ($data->status == "6") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">terkirim</button>';
+					$status = '<span class="badge badge-success">terkirim</span>';
 				}elseif ($data->status == "7") {
-					$status = '<button type="button" class="btn btn-warning btn-sm py-0 btn-block">komplain</button>';
+					$status = '<span class="badge badge-warning">komplain</span>';
 				}elseif ($data->status == "8") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">konfirmasi diproses</button>';
+					$status = '<span class="badge badge-success">konfirmasi diproses</span>';
 				}elseif ($data->status == "9") {
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">batalkan pesanan</button>';
+					$status = '<span class="badge badge-danger">batalkan pesanan</span>';
 				}elseif ($data->status == "10") {
-					$status = '<button type="button" class="btn btn-primary btn-sm py-0 btn-block">komplain diterima</button>';
+					$status = '<span class="badge badge-primary">komplain diterima</span>';
 				}elseif ($data->status == "11") {
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">komplain ditolak</button>';
+					$status = '<span class="badge badge-danger">komplain ditolak</span>';
 				}else{
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">ditolak</button>';
+					$status = '<span class="badge badge-danger">ditolak</span>';
 				}
 
 				return $status;
@@ -427,52 +412,40 @@ class  VerifikasiPembayaranLelangController extends Controller
 	public function validasiTopUp(Request $request)
 	{
 
-		// $ambil = Top_up::where('invoice',$request->invoice2)->first();
-		// $bank = $ambil->payment;
+		$total_bayar = Top_up::where('invoice',$request->invoice2)->select('jumlah')->sum('jumlah');
+		$top = Top_up::where('invoice',$request->invoice2)->first();
+		$bank = $top->payment;
 
-		$jumlah = Top_up::where('invoice',$request->invoice2)->select('jumlah')->sum('jumlah');
-
-		$catatan = "pembelian saldo awal untuk mengikuti lelang sebesar Rp.".number_format($jumlah);
-		// $tujuan_tran = "Bank ".$bank." iCoffee";
-
-		$tujuan_tran = "Bank iCoffee BCA";
-		$nama_tran =  "Pengisian saldo lelang : Rp.".number_format($jumlah);
+		$catatan = "Pengisian saldo top-up sebesar Rp.".number_format($total_bayar);
+		$tujuan_tran = "Bank ".$bank;
+		$nama_tran =  "Pengisian saldo top-up";
 		$nama_akun_debit = "Bank ".$request->nama_bank_pengirim2."/".$request->nama_pemilik_pengirim2."-".$request->no_rekening_pengirim2;
-		$nama_akun_kredit = "Pengisian saldo top-up";
+		$nama_akun_kredit = "Pengisian Saldo Top-Up";
 
-		$id = "7";
-		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
-		$jml_id = count($id)+1;
-		$kode = "AKMLE".$jml_id;
+		$noTrans = Adm_jurnal::noTrans();
+		$noJurnal = Adm_akun::noJurnal();
+		$data_val = Confirm_payment::whereId($request->hidden_id2)->where('jasa',3)->first();
+		$foto_bukti = $data_val->foto_bukti;
 
-		$bukti = $request->foto_bukti2;
-		$new_name = $request->invoice2." ".$bukti;
-		
-		$nama_akun = "Pengisian saldo top-up";
-
-		$id = Adm_jurnal::create([
-			'id_kat_jurnal' => '7',
-			'kode' => $kode,
-			'catatan' => $catatan,
-			'tujuan_tran' => $tujuan_tran,
-			'bukti' =>  $new_name,
+		$simpan = Adm_jurnal::create([
+			'id_kat_jurnal' => 7,
 			'nama_tran' => $nama_tran,
-			'total_jumlah' => $request->jumlah_transfer2	
+			'bukti' => $foto_bukti,
+			'catatan' => $catatan,
+			'no_tran' => $noTrans,
+			'total_jumlah' => $total_bayar,
+			'tujuan_tran' => $tujuan_tran			
 		]);
 
 		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun_debit,
-			'posisi' => 'Debit',
-			'jumlah' => $request->jumlah_transfer2
+			'id_adm_jurnal' => $simpan->id,
+			'no_jurnal' =>$noJurnal,
+			'akun_debit' => $nama_akun_debit,
+			'akun_kredit' => $nama_akun_kredit,
+			'debit' => $total_bayar,
+			'kredit' => 0
 		]);
 
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun_kredit,
-			'posisi' => 'Kredit',
-			'jumlah' => $request->jumlah_transfer2
-		]);
 
 		$form_data = array(
 			'status' => $request->status,

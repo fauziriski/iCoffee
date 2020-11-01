@@ -26,8 +26,7 @@ class DanaMasukJBController extends Controller
 		if(request()->ajax())
 		{	
 			
-			$id = '6';
-			$AKMJB = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+			$AKMJB = Adm_jurnal::whereIn('id_kat_jurnal', [6,7])->get();
 
 			return datatables()->of($AKMJB)
 			->addColumn('action', function($data){
@@ -72,7 +71,7 @@ class DanaMasukJBController extends Controller
 		if(request()->ajax())
 		{	
 
-			$akun = Adm_akun::where('id_adm_jurnal',$id)->get();
+			$data2 = Adm_akun::where('id_adm_jurnal',$id)->first();
 
 			$data = Adm_jurnal::findOrFail($id);
 			$total_jumlah = $data->total_jumlah;
@@ -81,11 +80,18 @@ class DanaMasukJBController extends Controller
 			$foto_bukti = $ambil->foto_bukti;
 			$invoice = $ambil->invoice;
 
+			if($ambil->jasa == 1){
+				$path = "/Uploads/Konfirmasi_Pembayaran/JualBeli/";
+			}else{
+				$path = "/Uploads/Konfirmasi_Pembayaran/Lelang/";
+			}
+
 			return response()->json([
+				'data2' => $data2,
 				'data' => $data,
-				'akun' => $akun,
 				'foto_bukti' => $foto_bukti,
-				'invoice' => $invoice
+				'invoice' => $invoice,
+				'path' => $path
 			]);
 		}
 	}

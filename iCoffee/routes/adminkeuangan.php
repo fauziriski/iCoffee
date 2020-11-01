@@ -30,12 +30,12 @@ Route::group(['middleware' => ['can:read']], function () {
     Route::get('/setor-lelang', 'SetorPelelangController@dataSetorpelelang')->name('setor-lelang');
     Route::get('/lihat-pelelang/{id}', 'SetorPelelangController@lihatpelelang')->name('lihat-pelelang');
     Route::get('/detail-pelelang/{id}', 'SetorPelelangController@detailpelelang')->name('detail-pelelang');
-    Route::get('/dana-masuk-jualbeli', 'DanaMasukJBController@danaMasuk')->name('dana-masuk-jualbeli');
+    Route::get('/dana-masuk-utama', 'DanaMasukJBController@danaMasuk')->name('dana-masuk-jualbeli');
     Route::get('/detail-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@detailDanaMasuk')->name('detail-dana-masuk-jualbeli');
     Route::get('/dana-masuk-investasi', 'DanaMasukInvestasiController@danaMasuk')->name('dana-masuk-investasi');
     Route::get('/detail-dana-masuk-investasi/{id}', 'DanaMasukInvestasiController@detailDanaMasuk')->name('detail-dana-masuk-investasi');
-    Route::get('/dana-masuk-lelang', 'DanaMasukLelangController@danaMasuk')->name('dana-masuk-lelang');
-    Route::get('/detail-dana-masuk-lelang/{id}', 'DanaMasukLelangController@detailDanaMasuk')->name('detail-dana-masuk-lelang');
+    // Route::get('/dana-masuk-lelang', 'DanaMasukLelangController@danaMasuk')->name('dana-masuk-lelang');
+    // Route::get('/detail-dana-masuk-lelang/{id}', 'DanaMasukLelangController@detailDanaMasuk')->name('detail-dana-masuk-lelang');
     Route::get('/dana-masuk-lain', 'DanaMasukLainController@dataDanaMasuk')->name('dana-masuk-lain');
     Route::get('/lihat-dana-masuk-lain/{id}', 'DanaMasukLainController@detailDanaMasuk')->name('lihat-dana-masuk-lain');
     Route::get('/detail-dana-masuk-lain/{id}', 'DanaMasukLainController@detailDanaMasuk')->name('detail-dana-masuk-lain');
@@ -59,6 +59,7 @@ Route::group(['middleware' => ['can:read']], function () {
     // Route::get('/laporan-arus-kas', 'ArusKasController@update')->name('laporan-arus-kas');
     Route::resource('/jurnal', 'JurnalController');
     Route::resource('/neraca', 'NeracaController');
+    Route::resource('/tranksaksi-kas', 'TranksaksiKasController');
     
 });
 
@@ -89,7 +90,7 @@ Route::group(['middleware' => ['can:delete']], function () {
     Route::get('/hapus-pelelang/{id}', 'SetorPelelangController@hapus')->name('hapus-pelelang');
     Route::get('/hapus-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@hapus')->name('hapus-dana-masuk-jualbeli');
     Route::get('/hapus-dana-masuk-investasi/{id}', 'DanaMasukInvestasiController@hapus')->name('hapus-dana-masuk-investasi');
-    Route::get('/hapus-dana-masuk-lelang/{id}', 'DanaMasukLelangController@hapus')->name('hapus-dana-masuk-lelang');
+    // Route::get('/hapus-dana-masuk-lelang/{id}', 'DanaMasukLelangController@hapus')->name('hapus-dana-masuk-lelang');
     Route::get('/hapus-dana-masuk-lain/{id}', 'DanaMasukLainController@hapus')->name('hapus-dana-masuk-lain');
     Route::get('/hapus-pencairan-dana/{id}', 'PencairanDanaController@hapus')->name('hapus-pencairan-dana');
     Route::get('/hapus-pencairan-dana-progres/{id}', 'PencairanDanaProgresController@hapus')->name('hapus-pencairan-dana-progres');

@@ -10,5 +10,7 @@ class Account extends Model
         'bank_name', 'no_rekening',
     ];
     public $timestamps = true;
+
+
     
 }
