@@ -132,15 +132,15 @@ class ProdukInvestasiController extends Controller
         if(Str::contains($mitra->id_mitra, 'KT')){
             $kode = $mitra->kode;
             $gambar = $mitra->gambar;
-            $path = "\Uploads/Kelompok_tani/{{$kode}}/{$gambar}";
+            $path = "\Uploads/Kelompok_tani/{$kode}/{$gambar}";
         }elseif(Str::contains($mitra->id_mitra, 'KP')){
             $kode = $mitra->kode;
             $gambar = $mitra->gambar;
-            $path = "\Uploads/Mitra_Koperasi/{{$kode}}/$gambar";
+            $path = "\Uploads/Mitra_Koperasi/{$kode}/$gambar";
         }else{
             $kode = $mitra->kode;
             $gambar = $mitra->gambar;
-            $path = "\Uploads/Mitra_Perorangan/{{$kode}}/{$gambar}";
+            $path = "\Uploads/Mitra_Perorangan/{$kode}/{$gambar}";
         }
     
         return view('investasi.detailproduk',compact('products','image','produk_terkait','mitra','path'));

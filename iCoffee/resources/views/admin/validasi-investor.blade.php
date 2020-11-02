@@ -174,42 +174,42 @@
 							<table cellpadding="10" border="0">
 								<tr>
 									<div class="form-group">
-										<th width="45%" style="text-align: right;">Terdaftar Pada&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="32%" style="text-align: right;">Terdaftar Pada&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="created_at"></a></th>
 										
 									</div>	
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="45%" style="text-align: right;">Nama Pengguna&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="32%" style="text-align: right;">Nama Pengguna&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="name"></a></th>
 										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="45%" style="text-align: right;">Email Pengguna&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="32%" style="text-align: right;">Email Pengguna&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="email"></a></th>
 										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="45%" style="text-align: right;">No KTP&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="32%" style="text-align: right;">No KTP&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="no_ktp"></a></th>
 										
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="45%" style="text-align: right;">No NPWP&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="32%" style="text-align: right;">No NPWP&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="no_npwp"></a></th>
 										
 									</div>	
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="45%" style="text-align: right;">Foto KTP&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="32%" style="text-align: right;">Foto KTP&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%">
 											<div id="image">
 												<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
@@ -229,7 +229,7 @@
 											</tr>
 											<tr>
 												<div class="form-group">
-													<th width="45%" style="text-align: right;">Foto NPWP&nbsp;&nbsp;&nbsp;:</th>	
+													<th width="32%" style="text-align: right;">Foto NPWP&nbsp;&nbsp;&nbsp;:</th>	
 													<th width="25%">
 														<div id="image">
 															<a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">

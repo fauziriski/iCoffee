@@ -137,21 +137,13 @@ class VerifikasiPembiayaanController extends Controller
 	public function validasiPembiayaan(Request $request)
 	{
 
-	// 	$form_data = array(
-	// 		'status' => $request->status,
-	// 	);
-
-	// 	Invest_confirm::whereId($request->hidden_id2)->update($form_data);
-	// 	return response()->json(['success' => 'Berhasil Ditolak']);
-	// }
-
 		$ambil = Invest_confirm::where('id',$request->hidden_id2)->first();
 		$biaya= $ambil->nominal;
 		$id_order = $ambil->id_order;
 		$bank_pengirim = $ambil->bank;
 		$nama_pengirim = $ambil->nama;
 		$no_rekening_pengirim = $ambil->norek;
-		$new_name = $ambil->gambar;
+		$foto_bukti = $ambil->gambar;
 
 		$order = Invest_order::where('id',$id_order)->first();
 		$id_bank = $order->id_bank;
@@ -167,43 +159,32 @@ class VerifikasiPembiayaanController extends Controller
 		$profit_periode = $produk->profit_periode;
 		$roi = $produk->roi;
 
-		$nama_tran =  "Beli produk Investasi";
-		$tujuan_tran = "Bank ".$nama_bank." iCoffee";
-		$catatan = "pembiayaan produk investasi ".$nama_produk." dengan biaya investasi Rp.".number_format($biaya)." Sebanyak ".$qty." Unit, kontrak selama ".$kontrak." tahun, bagi hasil ".$profit_periode." tahun, dengan return ".$roi." %/tahun";
-		$nama_akun_debit = $bank_pengirim."/".$nama_pengirim."-".$no_rekening_pengirim;
-		$nama_akun_kredit = "Pembelian produk investasi";
+		$nama_tran =  "Pembelian produk investasi ".$nama_produk;
+		$tujuan_tran = "Bank ".$nama_bank;
+		$catatan = "Pembiayaan produk investasi ".$nama_produk." dengan biaya investasi Rp.".number_format($biaya)." Sebanyak ".$qty." Unit, kontrak selama ".$kontrak." tahun, bagi hasil ".$profit_periode." tahun, dengan return ".$roi." %/tahun";
+		$nama_akun_debit = "Bank ".$bank_pengirim."/".$nama_pengirim."-".$no_rekening_pengirim;
+		$nama_akun_kredit = "Pembelian Produk Investasi";
 
-		$id = "3";
-		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
-		$jml_id = count($id)+1;
-		$kode = "AKMIV".$jml_id;
+		$noTrans = Adm_jurnal::noTrans();
+		$noJurnal = Adm_akun::noJurnal();
 
-		$nama_akun = "Pembelian produk investasi";
-		$data_produk = Invest_product::where('id',$id_produk)->first();
-		$stok = $data_produk->stok;
-		$kurang_stok = $stok - $qty;
-		$id = Adm_jurnal::create([
-			'id_kat_jurnal' => '3',
-			'kode' => $kode,
-			'catatan' => $catatan,
-			'tujuan_tran' => $tujuan_tran,
-			'bukti' =>  $new_name,
+		$simpan = Adm_jurnal::create([
+			'id_kat_jurnal' => 3,
 			'nama_tran' => $nama_tran,
-			'total_jumlah' => $biaya	
+			'bukti' => $foto_bukti,
+			'catatan' => $catatan,
+			'no_tran' => $noTrans,
+			'total_jumlah' => $biaya,
+			'tujuan_tran' => $tujuan_tran			
 		]);
 
 		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun_debit,
-			'posisi' => 'Debit',
-			'jumlah' => $biaya
-		]);
-
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun_kredit,
-			'posisi' => 'Kredit',
-			'jumlah' => $biaya
+			'id_adm_jurnal' => $simpan->id,
+			'no_jurnal' =>$noJurnal,
+			'akun_debit' => $nama_akun_debit,
+			'akun_kredit' => $nama_akun_kredit,
+			'debit' => $biaya,
+			'kredit' => 0
 		]);
 
 		$form_data = array(
@@ -214,6 +195,10 @@ class VerifikasiPembiayaanController extends Controller
 			'status' => $request->status,
 		);
 
+		$data_produk = Invest_product::where('id',$id_produk)->first();
+		$stok = $data_produk->stok;
+		$kurang_stok = $stok - $qty;
+		
 		$form_data3 = array(
 			'stok' => $kurang_stok,
 		);

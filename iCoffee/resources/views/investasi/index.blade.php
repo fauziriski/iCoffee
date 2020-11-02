@@ -25,7 +25,7 @@
               @foreach($products as $data)
         <div class="col-md-6 col-lg-3 ftco-animate">
           <div class="product">
-            <a href="/invest/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid" src="{{ url('/Uploads/Investasi/Produk/{'.$data->kode_produk.'}/'.$data->gambar) }}" alt="Colorlib Template">
+            <a href="/invest/produk/{{ $data->id }}" class="img-prod"><img class="img-fluid" src="{{ url('/Uploads/Investasi/Produk/'.$data->kode_produk.'/'.$data->gambar) }}" alt="Colorlib Template">
               <div class="overlay"></div>
             </a>
             <div class="text py-3 pb-4 px-3 text-center">

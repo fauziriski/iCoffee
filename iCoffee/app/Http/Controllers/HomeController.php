@@ -537,7 +537,7 @@ class HomeController extends Controller
             'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/JualBeli/{".$request->invoice."}");
+        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/JualBeli/".$request->invoice."");
         $response = mkdir($folderPath);
         
         $image = $request->foto_bukti;
@@ -657,7 +657,7 @@ class HomeController extends Controller
 
         $image = $request->foto_bukti;
         $name = 'confirm_top_up_' .$request->invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $image->getClientOriginalExtension();
-        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/".$request->invoice);
+        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/".$request->invoice."");
         $response = mkdir($folderPath);
         $image_resize = Images::make($image->getRealPath());
         $image_resize->save($folderPath .'/'. $name);

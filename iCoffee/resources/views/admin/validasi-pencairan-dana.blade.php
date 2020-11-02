@@ -194,7 +194,7 @@
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Email Pengguna&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Email&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="email"></a></th>
 									</div>
 								</tr>

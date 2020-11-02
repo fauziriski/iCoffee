@@ -19,6 +19,7 @@ use App\Shop_product;
 use Carbon;
 
 
+
 class  VerifikasiPembeliController extends Controller
 {
 	public function dataOrder()
@@ -211,10 +212,9 @@ class  VerifikasiPembeliController extends Controller
 			return $collection->sum();
 		});
 
-		$catatan = "pembelian kopi sebanyak ".$kg."Kg dengan total harga Rp. ".number_format($total_bayar)." dan total ongkos kirim sebesar Rp. ".number_format($total_ongkir);
-		$tujuan_tran = "Bank ".$bank." iCoffee";
-
-
+		$jumlah = $total_bayar+$total_ongkir;
+		$catatan = "Pembelian kopi sebanyak ".$kg."Kg dengan total harga Rp. ".number_format($total_bayar)." dan total ongkos kirim sebesar Rp. ".number_format($total_ongkir);
+		$tujuan_tran = "Bank ".$bank;
 		$nama_akun_debit = "Bank ".$request->nama_bank_pengirim2."/".$request->nama_pemilik_pengirim2."-".$request->no_rekening_pengirim2;
 		$nama_akun_kredit = "Pembelian Produk Jual-Beli";
 
@@ -225,42 +225,31 @@ class  VerifikasiPembeliController extends Controller
 			$produk[] = $qty[$i]; 
 			$nama_tran1[] = $produk[$i]->nama_produk;
 			$produks= implode(",", $nama_tran1);
-			$nama_tran = "Beli produk : ".$produks;
-
+			$nama_tran = "Pembelian ".$produks;
 		}
 
+		$noTrans = Adm_jurnal::noTrans();
+		$noJurnal = Adm_akun::noJurnal();
+		$data_val = Confirm_payment::whereId($request->hidden_id2)->where('jasa',1)->first();
+		$foto_bukti = $data_val->foto_bukti;
 
-		$id = "6";
-		$id = Adm_jurnal::where('id_kat_jurnal',$id)->get();
-		$jml_id = count($id)+1;
-		$kode = "AKMJU".$jml_id;
-
-		$bukti = $request->foto_bukti2;
-		$new = $request->invoice2." ".$bukti;
-		$nama_akun = "Pembelian Produk Jual-Beli";
-
-		$id = Adm_jurnal::create([
-			'id_kat_jurnal' => '6',
-			'kode' => $kode,
-			'catatan' => $catatan,
-			'tujuan_tran' => $tujuan_tran,
-			'bukti' =>  $new,
+		$simpan = Adm_jurnal::create([
+			'id_kat_jurnal' => 6,
 			'nama_tran' => $nama_tran,
-			'total_jumlah' => $request->jumlah_transfer2	
+			'bukti' => $foto_bukti,
+			'catatan' => $catatan,
+			'no_tran' => $noTrans,
+			'total_jumlah' => $jumlah,
+			'tujuan_tran' => $tujuan_tran			
 		]);
 
 		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun_debit,
-			'posisi' => 'Debit',
-			'jumlah' => $request->jumlah_transfer2
-		]);
-
-		Adm_akun::create([
-			'id_adm_jurnal' => $id->id,
-			'nama_akun' => $nama_akun_kredit,
-			'posisi' => 'Kredit',
-			'jumlah' => $request->jumlah_transfer2
+			'id_adm_jurnal' => $simpan->id,
+			'no_jurnal' =>$noJurnal,
+			'akun_debit' => $nama_akun_debit,
+			'akun_kredit' => $nama_akun_kredit,
+			'debit' => $jumlah,
+			'kredit' => 0
 		]);
 
 
