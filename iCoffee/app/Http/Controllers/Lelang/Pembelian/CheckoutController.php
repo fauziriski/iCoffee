@@ -67,12 +67,12 @@ class CheckoutController extends Controller
         $costninja = array();
         $costlion = array();
 
-        $array = array(
-            "origin" => $alamat_penjual->kota_kabupaten,
-            "destination" => $alamat_pembeli->kota_kabupaten,
-            "weight" => $berat_kg,
-            "courier" => "jne",
-        );
+        // $array = array(
+        //     "origin" => $alamat_penjual->kota_kabupaten,
+        //     "destination" => $alamat_pembeli->kota_kabupaten,
+        //     "weight" => $berat_kg,
+        //     "courier" => "jne",
+        // );
 
         $costjne = Helper::instance()->cekOngkir($array);
 

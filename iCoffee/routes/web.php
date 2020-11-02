@@ -81,6 +81,7 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	Route::get('/jual-beli','HomeController@index');
 	Route::get('/jual-beli/kategori/{slug}', 'HomeController@category');
 	Route::get('/jual-beli/produk/{slug}','HomeController@detail');
+	Route::post('/jual-beli/search', 'HomeController@search');
 
 	//Cart
 	Route::get('/jual-beli/keranjang','CartController@index');
@@ -164,6 +165,7 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	Route::get('/lelang/kategori/{id}', 'HomeController@indexById');
 	Route::get('/lelang/produk/data/{id}', 'HomeController@getDataAuction');
 	Route::post('/lelang/produk/tawar', 'HomeController@bid');
+	Route::post('/lelang/search', 'HomeController@search');
 
 	//Cart
 	Route::get('/lelang/keranjang', 'CartController@index');

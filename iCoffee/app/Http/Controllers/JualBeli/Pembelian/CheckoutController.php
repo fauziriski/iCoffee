@@ -192,14 +192,14 @@ class CheckoutController extends Controller
 
             //jne
 
-            $array = array(
+            // $array = array(
 
-                "origin" => $pengirim[$i],
-                "destination" => $penerima,
-                "weight" => $berat[$i],
-                "courier" => "jne",
-            );
-            $costjne[] = Helper::instance()->cekOngkir($array);
+            //     "origin" => $pengirim[$i],
+            //     "destination" => $penerima,
+            //     "weight" => $berat[$i],
+            //     "courier" => "jne",
+            // );
+            // $costjne[] = Helper::instance()->cekOngkir($array);
         
             //tiki
 
@@ -257,7 +257,6 @@ class CheckoutController extends Controller
             'checkout_data',
             'costtiki',
             'costlion',
-            'costjne',
             'jumlah_data_checkout'));
 
 

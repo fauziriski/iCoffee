@@ -12,6 +12,7 @@ use App\Rating;
 use App\Order;
 use App\Orderdetail;
 use RealRashid\SweetAlert\Facades\Alert;
+use DB;
 
 class HomeController extends Controller
 {
@@ -33,6 +34,28 @@ class HomeController extends Controller
         }
         else {
             Alert::error('Kategori Tidak Ditemukan');
+        }
+        
+    }
+
+    public function search(Request $request)
+    {
+        $validateData = $this->validate($request, [
+            'search' =>'required|string',
+        ]);
+
+        $products = DB::table('shop_products')
+                ->where('nama_produk', 'like', '%'.$request->search.'%')
+                ->paginate(12);
+
+        $category = Category::all();
+
+        if ($products) {
+            return view('jual-beli.index',compact('products', 'category'));
+        }
+        else {
+            return back();
+            Alert::error('Gagal','Kopi Tidak Ditemukan');
         }
         
     }
