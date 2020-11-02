@@ -27,8 +27,15 @@
                     </div>
                     <div class="form-group">
                         <label for="jumlah">Jumlah</label>
-                        <input type="number" class="form-control" name="jumlah" min="50000" placeholder="Contoh : 50000"
-                            max="1000000" required>
+                        <div class="input-group-prepend">
+                            <div class="input-group">
+                                <div style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"
+                                    class="input-group-text">Rp</div>
+
+                                <input type="text" class="form-control" id="jumlah" name="jumlah" min="50000"
+                                    placeholder="Contoh : 50.000" max="1000000" required>
+                            </div>
+                        </div>
                         <span class="text-danger">{{ $errors->first('jumlah') }}</span>
                     </div>
                 </div>
@@ -44,4 +51,14 @@
     </div>
     </div>
     </section>
+    <script src="{{ asset('JualBeli/plugins/customPlugin/rupiahFormat.js') }}"></script>
+    <script type="text/javascript">
+        var kelipatan = document.getElementById('jumlah');
+        kelipatan.addEventListener('keyup', function(e) {
+            // tambahkan 'Rp.' pada saat form di ketik
+            // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+            kelipatan.value = formatRupiah(this.value, 'Rp. ');
+        });
+
+    </script>
 @endsection

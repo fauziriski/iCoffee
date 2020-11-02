@@ -83,17 +83,21 @@ class HomeController extends Controller
         {
             if(!($cek_rating_toko[$i]->rating == 0))
             {
+                $cek_data_rating[] = $cek_rating_toko[$i]->rating;
                 $cek_data[] = Orderdetail::where('invoice', $cek_rating_toko[$i]->invoice)->get();
                 $jumlah_data += 1;
-                $sum = $cek_rating_toko[$i]->sum('rating');
-                $rating_toko = $sum/$jumlah_data;
+
 
             }
         }
-        $count = 0;
-        foreach ($cek_data as $data) {
-            $count+= count($data);
-        }
+
+        $sum = array_sum($cek_data_rating);
+        $rating_toko = round($sum/$jumlah_data,1);;
+        
+        $count = $jumlah_data;
+        // foreach ($cek_data_rating as $data) {
+        //     $count+= count($data);
+        // }
 
         
         return view('jual-beli.detailproduk',compact('products','image','produk_terkait', 'alamat', 'jumlah_terjual_produk', 'rating_toko', 'jumlah_data','count'));

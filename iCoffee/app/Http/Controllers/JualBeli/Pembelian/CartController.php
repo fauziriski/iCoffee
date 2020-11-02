@@ -125,7 +125,7 @@ class CartController extends Controller
 
         if($tombol == 'plus')
         {
-            if ($cart->jumlah >= 30) 
+            if ($cart->jumlah >= 100) 
             {
                 $jumlah = $cart->jumlah;
                 $total = $cart->total;
@@ -172,11 +172,11 @@ class CartController extends Controller
     {
         $cart = Jbcart::where('id', $id)->first();
 
-        if ($jumlah > 30) 
+        if ($jumlah > 100) 
         {
             $jumlah_seluruh = $cart->jumlah;
             $total = $cart->total;
-            return response()->json(['jumlah' => $jumlah_seluruh, 'total' => $total, 'status' => 'lebih30']);
+            return response()->json(['jumlah' => $jumlah_seluruh, 'total' => $total, 'status' => 'lebih100']);
         }
         elseif ($jumlah < 1) {
             $jumlah_seluruh = $cart->jumlah;

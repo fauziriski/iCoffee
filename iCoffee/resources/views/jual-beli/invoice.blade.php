@@ -44,26 +44,21 @@
                             <address>
                                 <strong>Metode Pembayaran :</strong><br>
                                 {{ $rekening[$i]->bank_name }} {{ $rekening[$i]->no_rekening }}<br>
-
                             </address>
-
+                            <address>
+                                <strong>Pesan untuk pembeli :</strong><br>
+                                {{ $order[$i]->pesan }}<br>
+                            </address>
                             @if ($order[$i]->status == 5 || 6 || 7 || 10 || 11)
                                 <address>
                                     <strong>No Resi :</strong><br>
                                     {{ $kurir[$i][1] }} {{ $cek_resi[$i]->invoice }}<br>
-
                                 </address>
-
                             @else
-
                                 <address>
                                     <strong>No Resi :</strong><br>
                                     {{ $kurir[$i][1] }}<br>
-
-
                                 </address>
-
-
                             @endif
                         </div>
                         <div class="col-md-3 col-6">
@@ -277,8 +272,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                @elseif($order->status == 7 || $order->status == 10 || $order->status == 11)
-                                    <div class="text-center col-md-6 offset-md-6 col-12">
+                                @elseif($order[$i]->status == 7 || $order[$i]->status == 10 || $order[$i]->status == 11)
+                                    <div class="text-center col-md-3 offset-md-9 col-12">
                                         <p class="row justify-content-center">
 
                                             <button id="willbill" name="willbill"

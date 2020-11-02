@@ -23,7 +23,7 @@ class TransactionController extends Controller
     {
         // $files = File::files(public_path());
         $data = 'Tanjung Karang Pusat';
-        $subdistric = Helper::instance()->getPostalCode($data);
+        $subdistric = Helper::instance()->getcity();
         dd($subdistric);
         // $path = public_path() . "/country-calling-codes.min.json";
         // $str = File::get($path);

@@ -99,8 +99,9 @@ class HomeController extends Controller
             return back();
             
         }
-        $harga = $this->removeDot($request->harga);
-        $stok = $this->removeDot($request->stok);
+
+        $harga = Helper::instance()->removeDot($request->harga);
+        $stok = Helper::instance()->removeDot($request->stok);
         
         $timestamps = date('YmdHis');
         $id_pelanggan = Auth::user()->id;
@@ -264,6 +265,7 @@ class HomeController extends Controller
             'password' => 'required|min:8',
         ]);
 
+
         $user_id = Auth::user()->id;
         $password = Auth::user()->password;
 
@@ -416,12 +418,14 @@ class HomeController extends Controller
         $alamat = Address::where('id', $id)->first();
         $provinsi = $alamat->province->nama;
         $kota = $alamat->city->nama;
+        $type = $alamat->city->type;
         $kecamatan = $alamat->subdistrict->name;
 
         return response()->json(array(
             'alamat' => $alamat,
             'provinsi' =>  $provinsi,
             'kota' => $kota,
+            'type' => $type,
             'kecamatan' => $kecamatan  ));
     }
 
@@ -541,7 +545,7 @@ class HomeController extends Controller
         $image_resize = Images::make($image->getRealPath());
         $image_resize->save($folderPath .'/'. $name);
 
-        $jumlah_transfer = $this->removeDot($request->jumlah_transfer);
+        $jumlah_transfer = Helper::instance()->removeDot($request->jumlah_transfer);
 
         $confirm_pesanan = Confirm_payment::create([
             'id_pelanggan' => $id_pelanggan,
@@ -590,15 +594,31 @@ class HomeController extends Controller
 
     public function top_up_diproses(Request $request)
     {
+       
+        $this->validate($request,[
+            'email' => 'required',
+            'bank' => 'required|exists:accounts,bank_name',
+            'jumlah' => 'required'
+
+        ]);
+        
+        $jumlah = Helper::instance()->removeDot($request->jumlah);
+
         $user_id = Auth::user()->id;
         $timestamps = date('YmdHis');
         $oldMarker = $timestamps.$user_id;
+
+        if ($jumlah > 1000000) {
+            Alert::error('Gagal', 'Max top up Rp 1.000.000')->showConfirmButton('Ok', '#3085d6');
+            return back();
+        }
+
 
         $top_up = Top_up::create([
             'user_id' => $user_id, 
             'email'=> $request->email, 
             'invoice'=> $oldMarker, 
-            'jumlah'=> $request->jumlah,
+            'jumlah'=> $jumlah,
             'payment' => $request->bank, 
             'status' => 1
         ]);
@@ -633,6 +653,8 @@ class HomeController extends Controller
             'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         
+        $jumlah = Helper::instance()->removeDot($request->jumlah_transfer);
+
         $image = $request->foto_bukti;
         $name = 'confirm_top_up_' .$request->invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $image->getClientOriginalExtension();
         $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/".$request->invoice);
@@ -648,7 +670,7 @@ class HomeController extends Controller
             'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
             'jasa' => '3',
             'no_telp' => $request->no_telp,
-            'jumlah_transfer' => $request->jumlah_transfer,
+            'jumlah_transfer' => $jumlah,
             'invoice' => $request->invoice,
             'foto_bukti' => $name,
             'status' => '1'
@@ -665,8 +687,6 @@ class HomeController extends Controller
 
         Alert::error('Gagal','Konfirmasi top up gagal')->showConfirmButton('Ok', '#3085d6');
         return back();
-
-        
     }
 
     public function produksaya()
@@ -783,11 +803,17 @@ class HomeController extends Controller
             'password' => 'required',
 
         ]);
+        $jumlah = Helper::instance()->removeDot($request->jumlah);
+
+        if ($cek_saldo->saldo < $jumlah) {
+            Alert::error('Gagal', 'Gagal melakukan penarikan, saldo yang anda miliki '. $cek_saldo->saldo )->showConfirmButton('Ok', '#3085d6');
+            return back();
+        }
         $id_pelanggan = Auth::user()->id;
+        $cek_saldo = Joint_account::where('user_id', $id_pelanggan)->first();
+
         $user = User::where('id', $id_pelanggan)->first();
         $password = Str::camel($user->password);
-
-        $jumlah = Helper::instance()->removeDot($request->jumlah);
 
         $timestamps = date('YmdHis');
         $id_pelanggan = Auth::user()->id;
@@ -798,7 +824,7 @@ class HomeController extends Controller
            $tariksaldo =  Balance_withdrawal::create([
                             'user_id' => $id_pelanggan, 
                             'invoice' => $oldMarker, 
-                            'jumlah' => $request->jumlah, 
+                            'jumlah' => $jumlah, 
                             'status' => 1,
                             'email' => $request->email,
                             'bank' => $request->bank,
@@ -807,7 +833,7 @@ class HomeController extends Controller
                         ]);
             
             if ($tariksaldo) {
-                Alert::success('Berhasi', 'Berhasil melakukan penarikan, tunggu infor selanjutnya')->showConfirmButton('Ok', '#3085d6');
+                Alert::success('Berhasi', 'Berhasil melakukan penarikan, tunggu info selanjutnya')->showConfirmButton('Ok', '#3085d6');
                 return redirect('/profile/top_up/history#pills-topup-keluar');
             }
                 Alert::error('Gagal', 'Gagal melakukan petarikan')->showConfirmButton('Ok', '#3085d6');
@@ -837,23 +863,9 @@ class HomeController extends Controller
         ]);
 
         Alert::success('Berhasi', 'Pencairan Dana Anda Berhasil Dibatalkan')->showConfirmButton('Ok', '#3085d6');
-        return redirect('/jual-beli/transaksi#pills-topup');
+        return redirect('/profile/top_up/history#pills-topup-keluar');
         
     }
-
-    public function removeDot($value)
-    {
-        $trueValue = str_replace('.', '', $value);
-        if ($trueValue) {
-            return $trueValue;
-        }
-        else {
-            return $value;
-        }
-        
-    }
-
-
 
 
 }

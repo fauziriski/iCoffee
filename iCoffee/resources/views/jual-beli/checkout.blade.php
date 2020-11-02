@@ -21,7 +21,7 @@
                                             <p class="col-lg-12">{{ $alamat->nama }}</p>
                                             <p class="col-lg-12">
                                                 {{ $alamat->address }} - Provinsi
-                                                {{ $alamat->province->nama }},{{ $alamat->city->type }}
+                                                {{ $alamat->province->nama }}, {{ $alamat->city->type }}
                                                 {{ $alamat->city->nama }}, Kecamatan {{ $alamat->subdistrict->name }}, Kode
                                                 Pos +{{ $alamat->kode_pos }}
                                             </p>
@@ -310,9 +310,7 @@
 
         <script>
             $(document).ready(function() {
-                var penjual = {
-                    !!json_encode($penjual) !!
-                };
+                var penjual = {!!json_encode($penjual) !!};
                 length = penjual.length
                 for (i = 0; i < length; i++) {
                     id = penjual[i].id;
@@ -321,16 +319,13 @@
                     $(".kurir").change(function() {
                         var sum = 0;
                         for (i = 0; i < length; i++) {
-                            console.log('mantap');
                             $("#kurir" + penjual[i].id).each(function() {
                                 sum += parseInt($(this).val());
                             });
 
                         }
                         var c = sum.toLocaleString("id-ID");
-                        var y = {
-                            !!json_encode($jumlah_seluruh) !!
-                        };
+                        var y = {!!json_encode($jumlah_seluruh) !!};
                         var b = y.toLocaleString("id-ID");
                         var z = parseInt(sum) + parseInt(y);
                         var a = z.toLocaleString("id-ID");

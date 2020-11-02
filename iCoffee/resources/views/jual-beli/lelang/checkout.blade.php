@@ -301,9 +301,7 @@
             var x = document.getElementById("kurir").value;
             var a = parseInt(x)
             document.getElementById("demo").innerHTML = a;
-            var y = {
-                !!json_encode($checkout - > jumlah_penawaran) !!
-            };
+            var y = {!!json_encode($checkout->jumlah_penawaran)!!};
             var z = parseInt(x) + parseInt(y);
             document.getElementById("demo").innerHTML = "Rp " + a.toLocaleString("id-ID");
             document.getElementById("total").innerHTML = "Rp " + z.toLocaleString("id-ID");

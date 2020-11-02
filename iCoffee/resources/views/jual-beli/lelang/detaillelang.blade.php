@@ -238,9 +238,7 @@
     </script>
     <script>
         // Set the date we're counting down to
-        var u = {
-            !!json_encode($products) !!
-        };
+        var u = {!!json_encode($products)!!};
         var id = u.tanggal_berakhir;
 
         var countDownDate = new Date(id).getTime();
@@ -271,9 +269,7 @@
                 $('#tawar').replaceWith(
                     '<input style="border-radius: 10px; padding: 17px 40%" class="btn btn-primary py-3 px-1" id="selesai" value="Selesai" disabled>'
                 );
-                var penawar_terakhir = {
-                    !!json_encode($penawar) !!
-                };
+                var penawar_terakhir = {!!json_encode($penawar)!!};
                 document.getElementById("demo1").innerHTML = "EXPIRED";
             }
         }, 1000);
@@ -285,18 +281,12 @@
         // Set the date we're counting down to
         var sis = 27;
 
-        var data = {
-            !!json_encode($data - > tanggal_berakhir) !!
-        };
-        var u = {
-            !!json_encode($produk_terkait) !!
-        };
+        var data = {!!json_encode($data->tanggal_berakhir) !!};
+        var u = {!!json_encode($produk_terkait)!!};
         var p = u;
 
         var length = p.length;
-        var panjang = {
-            !!json_encode($panjang) !!
-        };
+        var panjang = {!!json_encode($panjang)!!};
 
 
         // var countDownDate = new Date("2020-01-21 15:37:25").getTime();

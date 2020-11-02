@@ -45,14 +45,16 @@
                         <address>
                             <strong>Metode Pembayaran :</strong><br>
                             {{ $bank_information->bank_name }} {{ $bank_information->no_rekening }}<br>
-
+                        </address>
+                        <address>
+                            <strong>Pesan untuk penjual :</strong>
+                            {{ $order->pesan }}<br>
                         </address>
 
                         @if ($order->status == 5 || 6 || 7 || 10 || 11)
                             <address>
                                 <strong>No Resi :</strong><br>
                                 {{ $kurir[1] }} {{ $cek_resi->invoice }}<br>
-
                             </address>
 
                         @else
@@ -60,8 +62,6 @@
                             <address>
                                 <strong>No Resi :</strong><br>
                                 {{ $kurir[1] }}<br>
-
-
                             </address>
 
 
@@ -194,19 +194,17 @@
                     </div>
                     <div class="panel-body mt-3">
                         @if ($order->status == 5)
-                            <button id="willbill" name="willbill" style="border-radius: 10px; margin: auto; padding: 16px;"
-                                value="{{ $order->id }}" type="button" class="btn btn-primary col-md-3 mr-1 ml-1 mt-1"
-                                data-toggle="modal" data-target="#exampleModalCenter1">
-                                Lacak Paket
-                            </button>
-
                             <form action="/lelang/pesanan/selesai" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" required value="{{ $order->id }}">
                                 <input type="hidden" name="invoice" required value="{{ $order->invoice }}">
                                 <input type="hidden" name="jumlah_seluruh" required value="{{ $order->total_bayar }}">
                                 <p class="row justify-content-end ">
-
+                                    <button id="willbill" name="willbill" style="border-radius: 10px; margin: auto; padding: 16px;"
+                                        value="{{ $order->id }}" type="button" class="btn btn-primary col-md-3 mr-1 ml-1 mt-1"
+                                        data-toggle="modal" data-target="#exampleModalCenter1">
+                                        Lacak Paket
+                                    </button>
                                     <input type="submit" style="border-radius: 10px"
                                         class="btn btn-secondary mr-1 ml-1 py-3 px-5 mt-1 col-md-3" name="submit"
                                         value="Komplain">
@@ -286,11 +284,15 @@
                                 </div>
                             </div>
                         @elseif($order->status == 7 || $order->status == 10 || $order->status == 11)
-                            <button id="willbill" name="willbill" style="border-radius: 10px; margin: auto; padding: 16px;"
-                                value="{{ $order->id }}" type="button" class="btn btn-primary col-md-3 mr-1 ml-1 mt-1"
-                                data-toggle="modal" data-target="#exampleModalCenter1">
-                                Lacak Paket
-                            </button>
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 offset-md-10 text-center">
+                                <button id="willbill" name="willbill" style="border-radius: 10px; margin: auto; padding: 16px;"
+                                    value="{{ $order->id }}" type="button" class="btn btn-primary mr-1 ml-1 mt-1"
+                                    data-toggle="modal" data-target="#exampleModalCenter1">
+                                    Lacak Paket
+                                </button>
+                            </div>
+                        </div>
 
                         @endif
 

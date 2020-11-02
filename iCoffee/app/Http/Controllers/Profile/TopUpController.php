@@ -21,13 +21,19 @@ class TopUpController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $top_up = Top_up::where('user_id', $user_id)->orderBy('created_at','desc')->paginate(1);
-        $balance_withdrawal = Balance_withdrawal::where('user_id', $user_id)->orderBy('created_at','desc')->paginate(1);
+        $top_up = Top_up::where('user_id', $user_id)->orderBy('created_at','desc')->paginate(5);
+        $balance_withdrawal = Balance_withdrawal::where('user_id', $user_id)->orderBy('created_at','desc')->paginate(5);
         $allsaldo = array();
 
         foreach ($balance_withdrawal as $key => $value) {
             $allsaldo[] = $value;
         }
+
+        foreach ($top_up as $key => $value) {
+            $allsaldo[] = $value;
+        }
+
+
 
      
         foreach ($allsaldo as $key => $value) {
@@ -50,6 +56,7 @@ class TopUpController extends Controller
             $allsaldo[$i]=$allsaldo[$k];
             $allsaldo[$k]=$dummy;
           }
+
           return view('jual-beli.topup.index', compact('allsaldo', 'top_up', 'balance_withdrawal'));
     }
 }

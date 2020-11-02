@@ -63,8 +63,8 @@ route::get('/profile/tarik_saldo', 'HomeController@tarik_saldo');
 route::post('/profile/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
 
 
-route::get('/profil/tarikdana/{invoice}', 'HomeController@cek_invoice_dana');
-route::get('/profil/batal/dana_cair/{invoice}', 'HomeController@batal_tarik_dana');
+route::get('/profile/tarikdana/{invoice}', 'HomeController@cek_invoice_dana');
+route::get('/profile/batal/dana_cair/{invoice}', 'HomeController@batal_tarik_dana');
 
 Route::namespace('Profile')->group(function () {
 	//Address
@@ -186,8 +186,8 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	Route::get('/lelang/transaksi/pembelian', 'TransactionController@index');
 
 	//Complain
-	Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'KeranjanglelangController@komplain');
-	Route::post('/lelang/pesanan/komplain', 'KeranjanglelangController@komplaindiproses');
+	Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'ComplainController@komplain');
+	Route::post('/lelang/pesanan/komplain', 'ComplainController@komplaindiproses');
 
 	//get data province new
 	Route::get('/get-new-province', 'TransactionController@getProvinceData');
