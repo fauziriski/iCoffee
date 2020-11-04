@@ -72,11 +72,12 @@ class Helper
         dd($array_result);
 
         // for ($i=0; $i < count($array_result['rajaongkir']['results']); $i++) { 
-        //     $city = City::where('id', $array_result['rajaongkir']['results'][$i]['province_id'])->first();
+        //     $city = City::where('id', $array_result['rajaongkir']['results'][$i]['city_id'])->first();
         //     $city->update([
         //         'type' => $array_result['rajaongkir']['results'][$i]['type']
         //     ]);
         // }
+        
 
         return $array_result;
     }

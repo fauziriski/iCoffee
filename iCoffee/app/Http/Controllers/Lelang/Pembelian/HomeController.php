@@ -14,6 +14,7 @@ use App\Auction_image;
 use Carbon\Carbon;
 use App\Category;
 use App\User;
+use DB;
 
 class HomeController extends Controller
 {
@@ -125,6 +126,30 @@ class HomeController extends Controller
 
         return view('jual-beli.lelang.index', compact('products','panjang','category'));
 
+    }
+
+    public function search(Request $request)
+    {
+        $validateData = $this->validate($request, [
+            'search' =>'required|string',
+        ]);
+
+        $products = DB::table('auction_products')
+                ->where('nama_produk', 'like', '%'.$request->search.'%')
+                ->where('status', '=', '2')
+                ->paginate(12);
+
+        $category = Category::all();
+        $panjang = count($products);
+
+        if ($products) {
+            return view('jual-beli.lelang.index',compact('products','panjang', 'category'));
+        }
+        else {
+            return back();
+            Alert::error('Gagal','Kopi Tidak Ditemukan');
+        }
+        
     }
 
     public function getDataAuction($id)

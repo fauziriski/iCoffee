@@ -131,7 +131,7 @@
                                                             --}}
                                                             <option selected disabled="disabled" value="">Pilih Kurir
                                                             </option>
-                                                            @for ($k = 0; $k < count($costjne['rajaongkir']['results'][0]['costs']); $k++)
+                                                            {{-- @for ($k = 0; $k < count($costjne['rajaongkir']['results'][0]['costs']); $k++)
                                                                 <option
                                                                     value="{{ $costjne['rajaongkir']['results'][0]['costs'][$k]['cost'][0]['value'] }}: JNE: {{ $costjne['rajaongkir']['results'][0]['costs'][$k]['service'] }} ">
                                                                     JNE Rp
@@ -141,7 +141,7 @@
                                                                     {{ $costjne['rajaongkir']['results'][0]['costs'][$k]['cost'][0]['etd'] }}
                                                                     Hari )
                                                                 </option>
-                                                            @endfor
+                                                            @endfor --}}
 
                                                             @for ($k = 0; $k < count($costtiki['rajaongkir']['results'][0]['costs']); $k++)
                                                                 <option
@@ -301,9 +301,7 @@
             var x = document.getElementById("kurir").value;
             var a = parseInt(x)
             document.getElementById("demo").innerHTML = a;
-            var y = {
-                !!json_encode($checkout - > jumlah_penawaran) !!
-            };
+            var y = {!!json_encode($checkout->jumlah_penawaran)!!};
             var z = parseInt(x) + parseInt(y);
             document.getElementById("demo").innerHTML = "Rp " + a.toLocaleString("id-ID");
             document.getElementById("total").innerHTML = "Rp " + z.toLocaleString("id-ID");

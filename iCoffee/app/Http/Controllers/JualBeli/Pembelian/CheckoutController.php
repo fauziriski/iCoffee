@@ -80,7 +80,7 @@ class CheckoutController extends Controller
         foreach ($getProductData as $data) 
         {
             if ($data->shop_product->stok <= $data->jumlah ) {
-                Alert::warning('Gagal','Stok produk tidak mencukupi')->showConfirmButton('Ok', '#3085d6');
+                Alert::warning('Gagal','Stok produk tidak mencukupi, sisa stok produk '. $data->shop_product->nama_produk . ' adalah '. $data->shop_product->stok)->showConfirmButton('Ok', '#3085d6');
                 return redirect('/jual-beli/keranjang');
             }
         }
@@ -192,14 +192,14 @@ class CheckoutController extends Controller
 
             //jne
 
-            $array = array(
+            // $array = array(
 
-                "origin" => $pengirim[$i],
-                "destination" => $penerima,
-                "weight" => $berat[$i],
-                "courier" => "jne",
-            );
-            $costjne[] = Helper::instance()->cekOngkir($array);
+            //     "origin" => $pengirim[$i],
+            //     "destination" => $penerima,
+            //     "weight" => $berat[$i],
+            //     "courier" => "jne",
+            // );
+            // $costjne[] = Helper::instance()->cekOngkir($array);
         
             //tiki
 
@@ -257,7 +257,6 @@ class CheckoutController extends Controller
             'checkout_data',
             'costtiki',
             'costlion',
-            'costjne',
             'jumlah_data_checkout'));
 
 

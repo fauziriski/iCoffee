@@ -298,7 +298,7 @@
                                 );
                             $.each(data, function(key, value) {
                                 $('select[name="kota_kabupaten_alamat"]').append(
-                                    '<option value="' + value.id + '">' + value
+                                    '<option value="' + value.id + '">'+ value.type +' '+ value
                                     .nama + '</option>');
                             });
                         }
@@ -362,7 +362,7 @@
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-
+                            
                             $.each(data, function(key, value) {
                                 $('#id_alamat_edit').replaceWith(
                                     '<input type="hidden" id="id_alamat_edit" name="id_alamat_edit" required value="' +
@@ -377,7 +377,7 @@
                                     .alamat.provinsi + '" selected>' + data
                                     .provinsi + '</option>');
                                 $('#kota_coba').replaceWith('<option value="' + data
-                                    .alamat.kota_kabupaten + '" selected>' + data
+                                    .alamat.kota_kabupaten + '" selected>'+ data.type +' ' + data
                                     .kota + '</option>');
                                 $('#kec_coba').replaceWith('<option value="' + data
                                     .alamat.kecamatan + '" selected>' + data
@@ -412,7 +412,7 @@
                                 );
                             $.each(data, function(key, value) {
                                 $('select[name="kota_kabupaten_edit"]').append(
-                                    '<option value="' + value.id + '">' + value
+                                    '<option value="' + value.id + '">'+ value.type +' '+ value
                                     .nama + '</option>');
                             });
                         }

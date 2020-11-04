@@ -8,6 +8,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use App\Order;
 use App\Orderdetail;
+use App\Joint_account;
 use App\Delivery;
 use App\Account;
 use App\Helper\Helper;

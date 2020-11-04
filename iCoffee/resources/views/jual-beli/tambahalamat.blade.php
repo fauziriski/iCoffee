@@ -117,7 +117,7 @@
                                 );
                             $.each(data, function(key, value) {
                                 $('select[name="kota_kabupaten"]').append(
-                                    '<option value="' + value.id + '">' + value
+                                    '<option value="' + value.id + '">'+ value.type +' ' + value
                                     .nama + '</option>');
                             });
                         }

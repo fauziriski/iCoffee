@@ -21,7 +21,7 @@
                                             <p class="col-lg-12">{{ $alamat->nama }}</p>
                                             <p class="col-lg-12">
                                                 {{ $alamat->address }} - Provinsi
-                                                {{ $alamat->province->nama }},{{ $alamat->city->type }}
+                                                {{ $alamat->province->nama }}, {{ $alamat->city->type }}
                                                 {{ $alamat->city->nama }}, Kecamatan {{ $alamat->subdistrict->name }}, Kode
                                                 Pos +{{ $alamat->kode_pos }}
                                             </p>
@@ -132,7 +132,7 @@
                                                                 --}}
                                                                 <option selected disabled="disabled" value="">Pilih Kurir
                                                                 </option>
-                                                                @for ($k = 0; $k < count($costjne[$i]['rajaongkir']['results'][0]['costs']); $k++)
+                                                                {{-- @for ($k = 0; $k < count($costjne[$i]['rajaongkir']['results'][0]['costs']); $k++)
                                                                     <option
                                                                         value="{{ $costjne[$i]['rajaongkir']['results'][0]['costs'][$k]['cost'][0]['value'] }}: JNE: {{ $costjne[$i]['rajaongkir']['results'][0]['costs'][$k]['service'] }} ">
                                                                         JNE Rp
@@ -142,7 +142,7 @@
                                                                         {{ $costjne[$i]['rajaongkir']['results'][0]['costs'][$k]['cost'][0]['etd'] }}
                                                                         Hari )
                                                                     </option>
-                                                                @endfor
+                                                                @endfor --}}
 
                                                                 @for ($k = 0; $k < count($costtiki[$i]['rajaongkir']['results'][0]['costs']); $k++)
                                                                     <option
@@ -183,7 +183,7 @@
                                                                 @for ($k = 0; $k < count($costlion[$i]['rajaongkir']['results'][0]['costs']); $k++)
                                                                     <option
                                                                         value="{{ $costlion[$i]['rajaongkir']['results'][0]['costs'][$k]['cost'][0]['value'] }}: Lion: {{ $costlion[$i]['rajaongkir']['results'][0]['costs'][$k]['service'] }}">
-                                                                        Ninja Rp
+                                                                        Lion Rp
                                                                         {{ number_format($costlion[$i]['rajaongkir']['results'][0]['costs'][$k]['cost'][0]['value'], 0, ',', '.') }}
                                                                         (
                                                                         {{ $costlion[$i]['rajaongkir']['results'][0]['costs'][$k]['service'] }}
@@ -310,9 +310,7 @@
 
         <script>
             $(document).ready(function() {
-                var penjual = {
-                    !!json_encode($penjual) !!
-                };
+                var penjual = {!!json_encode($penjual) !!};
                 length = penjual.length
                 for (i = 0; i < length; i++) {
                     id = penjual[i].id;
@@ -321,16 +319,13 @@
                     $(".kurir").change(function() {
                         var sum = 0;
                         for (i = 0; i < length; i++) {
-                            console.log('mantap');
                             $("#kurir" + penjual[i].id).each(function() {
                                 sum += parseInt($(this).val());
                             });
 
                         }
                         var c = sum.toLocaleString("id-ID");
-                        var y = {
-                            !!json_encode($jumlah_seluruh) !!
-                        };
+                        var y = {!!json_encode($jumlah_seluruh) !!};
                         var b = y.toLocaleString("id-ID");
                         var z = parseInt(sum) + parseInt(y);
                         var a = z.toLocaleString("id-ID");

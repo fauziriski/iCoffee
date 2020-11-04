@@ -44,7 +44,10 @@
                         <address>
                             <strong>Metode Pembayaran :</strong><br>
                             {{ $bank_information->bank_name }} {{ $bank_information->no_rekening }}<br>
-
+                        </address>
+                        <address>
+                            <strong>Pesan untuk Penjual :</strong>
+                            {{ $order->pesan }}<br>
                         </address>
                         @if ($order->status == 5 || 6 || 7 || 10 || 11)
                             <address>
@@ -168,39 +171,42 @@
                     </div>
                     <div class="panel-body mt-3 row">
                         @if ($order->status == 3)
+                        <div class="col-md-12 offset-md-4">
                             <form action="/lelang/pesanan/terima" method="post">
                                 @csrf
                                 <input type="hidden" name="id" required value="{{ $order->id }}">
                                 <input type="hidden" name="invoice" required value="{{ $order->invoice }}">
                                 <input type="hidden" name="jumlah_seluruh" required value="{{ $order->total_bayar }}">
-                                <p><input type="submit" style="border-radius: 10px;" class="btn btn-secondary  py-3 px-5"
+                                <p class="row justify-content-center"><input type="submit" style="border-radius: 10px;" class="btn btn-secondary mr-1 py-3 px-5"
                                         name="submit" value="Tolak">
                                     <input type="submit" class="btn btn-primary py-3 px-5" name="submit" value="Terima">
                                 </p>
                             </form>
-
+                        </div>
                         @elseif ( $order->status == 4)
+                        <div class="col-md-6 offset-md-6">
                             <form action="/lelang/pesanan/inputresi" method="post">
                                 @csrf
                                 <input type="hidden" name="id" required value="{{ $order->id }}">
                                 <input type="hidden" name="invoice" required value="{{ $order->invoice }}">
 
-                                <div class="row">
-                                    <div class="col-md-2">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-2 mt-1">
                                         <label for="input_resi">Masukan Resi</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 mt-1">
                                         <input type="text" class="form-control" name="input_resi" required>
                                         <span class="text-danger">{{ $errors->first('input_resi') }}</span>
                                     </div>
-                                    <div class="col-md-4 text-center">
-                                        <input type="submit" class="btn btn-primary px-5 py-2" name="submit" value="Input">
+                                    <div class="col-md-4 mt-1 text-center">
+                                        <input type="submit" class="btn btn-primary px-5"   style="border-radius: 10px; margin: auto; padding: 14px;" name="submit" value="Input">
                                     </div>
 
                                 </div>
 
 
                             </form>
+                        </div>
 
                         @elseif($order->status == 5 || $order->status == 6 || $order->status == 7 || $order->status ==
                             10 || $order->status == 11)

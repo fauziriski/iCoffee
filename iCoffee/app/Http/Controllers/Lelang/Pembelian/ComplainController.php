@@ -32,7 +32,7 @@ class ComplainController extends Controller
         $response = mkdir($folderPath);
         
         $image = $request->foto_bukti;
-        $name = 'complain_auction_' .$request->invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $files->getClientOriginalExtension();
+        $name = 'complain_auction_' .$request->invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $image->getClientOriginalExtension();
         // $name=$image->getClientOriginalName();
         $image_resize = Images::make($image->getRealPath());
         $image_resize->save($folderPath .'/'. $name);

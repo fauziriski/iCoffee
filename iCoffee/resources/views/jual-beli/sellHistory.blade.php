@@ -80,6 +80,10 @@
                 </div>
             </div>
         @endforeach
+        <ul>
+            <li>{{ $transaksipenjual->links() }}</li>
+        </ul>
+        
     </main>
     </div>
     </div>

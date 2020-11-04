@@ -24,11 +24,14 @@ class ComplaintController extends Controller
 
     public function update(Request $request)
     {
+
         $this->validate($request,[
 
             'email' => 'required',
+            'invoice_data' => 'required|exists:orders,invoice',
+            'invoice' => 'required|exists:orders,invoice',
             'keterangan' => 'required',
-            'foto_bukti' => 'required|image'
+            'foto_bukti' => 'required|image|max:2048'
 
         ]);
 
@@ -36,11 +39,17 @@ class ComplaintController extends Controller
 
         if ($order) {
 
-            $folderPath = public_path("Uploads/Komplain/JualBeli/{".$request->invoice."}");
+            $folderPath = public_path("Uploads/Komplain/JualBeli/".$request->invoice);
             $response = mkdir($folderPath);
             
+            // $image = $request->foto_bukti;
+            // $name=$image->getClientOriginalName();
+            // $image_resize = Images::make($image->getRealPath());
+            // $image_resize->save($folderPath .'/'. $name);
+
             $image = $request->foto_bukti;
-            $name=$image->getClientOriginalName();
+            $name = 'complain_jualbeli_' .$request->invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $image->getClientOriginalExtension();
+            // $name=$image->getClientOriginalName();
             $image_resize = Images::make($image->getRealPath());
             $image_resize->save($folderPath .'/'. $name);
     

@@ -35,7 +35,7 @@
                                                 <td class="product-remove"><input type="checkbox" name="" id="" disabled>
                                                 </td>
                                             @else
-                                                <td class="product-remove"><input type="checkbox"
+                                                <td class="product-remove"><input type="checkbox" class="checkbox-keranjang"
                                                         id="id_produk{{ $data->id }}" name="id[]" value="{{ $data->id }}">
                                                 </td>
                                             @endif
@@ -88,8 +88,7 @@
                                             </td>
 
                                             <td class="total"><output name="total" id="total{{ $data->id }}"
-                                                    for="harga jumlah">Rp
-                                                    {{ number_format($data->total, 0, ',', '.') }}</output></td>
+                                                    for="harga jumlah">Rp {{ number_format($data->total, 0, ',', '.') }}</output></td>
                                             <td class="product-remove"><a name="delete_product" value={{ $data->id }}><span
                                                         class="oi oi-trash"></span></a></td>
                                         </tr><!-- END TR-->
@@ -105,8 +104,8 @@
                     <div class="col-lg-5 mt-5 cart-wrap ftco-animate">
                         <div class="cart-total mb-3">
                             <p class="d-flex total-price">
-                                <span>Sub Total ({{ $carttotal }}) Produk</span>
-                                <span id="sub_total">Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
+                                <span id="sub_total_info">Sub Total (0) Produk</span>
+                                <span id="sub_total">Rp 0</span>
                             </p>
                         </div>
                         {{-- <p><a href="/jual-beli/checkout"
@@ -131,40 +130,44 @@
 
         <script>
             $(document).ready(function() {
-                var u = {
-                    !!json_encode($subtotal) !!
-                };
+                // var u = {!!json_encode($subtotal)!!};
+                var u = 0;
+                var subTotalInfo = 0;
                 var quantitiy = 0;
                 $('.quantity-right-plus').click(function(e) {
+                    
                     var y = $(this).val();
                     var z = $('#qty-' + y).val();
                     var x = $('#total' + y).val();
-                    if (z < 30) {
+                    if (z < 100) {
                         var w = $('#harga' + y).val();
                         var v = parseInt(w) + parseInt(u);
+
+                        if (document.getElementById("id_produk"+y).checked == true) {
+                            $('#sub_total').replaceWith('<span id="sub_total">Rp ' + v
+                            .toLocaleString("id-ID") + ' </span>');
+                            u = v;
+                        }
 
                         $.ajax({
                             type: 'GET',
                             url: "/jual-beli/update-keranjang/" + y + "/plus",
                             data: "id=y&type=jumlah",
                             success: function(data) {
-
                                 $('#qty-' + y).replaceWith('<input type="text" id="qty-' + y +
                                     '" name="quantity[]" class="qty form-control input-number" required value="' +
                                     data.jumlah + '" min="1" max="100">');
                                 $('#total' + y).replaceWith('<output name="total" id="total' +
                                     y + '" for="harga jumlah">Rp ' + data.total
                                     .toLocaleString("id-ID") + '</output>');
-                                $('#sub_total').replaceWith('<span id="sub_total">Rp ' + v
-                                    .toLocaleString("id-ID") + ' </span>');
-                                u = v;
+                                
                             },
                             error: function(XMLHttpRequest, textStatus, errorThrown) {
                                 errorMessage('Gagal Mengedit Produk');
                             }
                         });
                     } else {
-                        errorMessage('Maximal Pembelian 30 Buah');
+                        errorMessage('Maximal Pembelian 100 Buah');
                     }
 
                 });
@@ -176,6 +179,12 @@
                     if (z > 1) {
                         var w = $('#harga' + y).val();
                         var v = parseInt(u) - parseInt(w);
+
+                        if (document.getElementById("id_produk"+y).checked == true) {
+                            $('#sub_total').replaceWith('<span id="sub_total">Rp ' + v
+                            .toLocaleString("id-ID") + ' </span>');                                
+                            u = v;
+                        }
                         $.ajax({
                             type: 'GET',
                             url: "/jual-beli/update-keranjang/" + y + "/minus",
@@ -187,9 +196,7 @@
                                 $('#total' + y).replaceWith('<output name="total" id="total' +
                                     y + '" for="harga jumlah">Rp ' + data.total
                                     .toLocaleString("id-ID") + '</output>');
-                                $('#sub_total').replaceWith('<span id="sub_total">Rp ' + v
-                                    .toLocaleString("id-ID") + ' </span>');
-                                u = v;
+
                             },
                             error: function(XMLHttpRequest, textStatus, errorThrown) {
                                 errorMessage('Gagal Mengedit Produk');
@@ -228,8 +235,8 @@
                                 setTimeout(function() {
                                     location.reload();
                                 }, 1000);
-                            } else if (data.status == 'lebih30') {
-                                errorMessage('Jumlah Tidak Boleh Lebih Dari 30');
+                            } else if (data.status == 'lebih100') {
+                                errorMessage('Jumlah Tidak Boleh Lebih Dari 100');
                                 location.reload();
                             } else if (data.status == 'kurang1') {
                                 errorMessage('Jumlah Tidak Boleh Kurang Dari 1');
@@ -247,6 +254,42 @@
 
 
                 });
+
+                $('.checkbox-keranjang').on('click', function() {
+                var y = $(this).val();
+                if (document.getElementById("id_produk"+y).checked == false) {
+                    var x = $('#total' + y).val();
+                    var removedot = x.split(".").join("");
+                    var data = removedot.replace('Rp ','');
+                    var sumSubtotal = parseInt(u) - parseInt(data);
+                    u = sumSubtotal
+
+                    subTotalInfo = subTotalInfo-1
+
+
+                    $('#sub_total').replaceWith('<span id="sub_total">Rp ' + u
+                                    .toLocaleString("id-ID") + ' </span>');
+                    $('#sub_total_info').replaceWith('<span id="sub_total_info">Sub Total ('+ subTotalInfo +') Produk</span>');
+
+                }
+
+                if (document.getElementById("id_produk"+y).checked == true) {
+                    var x = $('#total' + y).val();
+                    var x = $('#total' + y).val();
+                    var removedot = x.split(".").join("");
+                    var data = removedot.replace('Rp ','');
+                    var sumSubtotal = parseInt(u) + parseInt(data);
+                    u = sumSubtotal
+                    
+                    subTotalInfo = subTotalInfo+1
+
+                    $('#sub_total').replaceWith('<span id="sub_total">Rp ' + u
+                                    .toLocaleString("id-ID") + ' </span>');
+                    $('#sub_total_info').replaceWith('<span id="sub_total_info">Sub Total ('+ subTotalInfo +') Produk</span>');
+  
+                }
+                
+            });
 
 
 
@@ -273,6 +316,10 @@
                 });
 
             });
+
+            
+
+            
 
         </script>
 

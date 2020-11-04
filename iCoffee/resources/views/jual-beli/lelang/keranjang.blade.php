@@ -26,8 +26,9 @@
                                 <tbody>
                                     @foreach ($keranjang as $data)
                                         <tr class="text-center">
-                                            <td class="product-remove"><input type="radio" name="id" value="{{ $data->id }}"
-                                                    required></td>
+                                            <td class="product-remove"><input type="radio" id="id_produk{{ $data->id }}"
+                                                    name="id" class="checkbox-keranjang" value="{{ $data->id }}" required>
+                                            </td>
                                             <td class="image-prod">
                                                 <img class="img"
                                                     src="{{ asset('Uploads/Lelang/' . $data->auction_product->kode_lelang . '/' . $data->auction_product->gambar) }}"
@@ -38,7 +39,8 @@
                                                 <p>{{ $data->pelelang->name }}</p>
                                             </td>
                                             <td class="price">Rp
-                                                {{ number_format($data->auction_product->harga_awal, 0, ',', '.') }}</td>
+                                                {{ number_format($data->auction_product->harga_awal, 0, ',', '.') }}
+                                            </td>
                                             <input type="hidden" id="harga" name="harga"
                                                 value="{{ $data->auction_product->harga_awal }}" readonly>
                                             <td class="quantity">
@@ -53,7 +55,9 @@
                                                 </form>
                                             </td>
                                             <td class="price" name="total" for="harga jumlah">Rp
-                                                {{ number_format($data->jumlah_penawaran, 0, ',', '.') }}</td>
+                                                {{ number_format($data->jumlah_penawaran, 0, ',', '.') }}
+                                            </td>
+                                            <input type="hidden" id="total{{ $data->id }}" value="Rp{{ number_format($data->jumlah_penawaran, 0, ',', '.') }}">
                                             <td class="product-remove">
                                                 <a href="#">
                                                     <span class="oi oi-trash"></span>
@@ -71,8 +75,8 @@
                     <div class="col-lg-5 mt-5 cart-wrap ftco-animate">
                         <div class="cart-total mb-3">
                             <p class="d-flex total-price">
-                                <span>Sub Total ({{ $carttotal }}) Produk</span>
-                                <span>Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
+                                <span id="sub_total_info">Sub Total ({{ $carttotal }}) Produk</span>
+                                <span id="sub_total">Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
                             </p>
                         </div>
                         {{-- <p><a href="/jual-beli/checkout"
@@ -100,7 +104,8 @@
 
         <script>
             $(document).ready(function() {
-
+                var u = 0;
+                var subTotalInfo = 0;
                 var quantitiy = 0;
                 $('.quantity-right-plus').click(function(e) {
 
@@ -138,6 +143,49 @@
                     if (quantity > 0) {
                         $('#quantity').val(quantity - 1);
                     }
+                });
+
+                $('.checkbox-keranjang').on('click', function() {
+                    var u = 0;
+                    var subTotalInfo = 0;
+                    var y = $(this).val();
+
+                    if (document.getElementById("id_produk" + y).checked == false) {
+
+                        var x = $('#total' + y).val();
+                        var removedot = x.split(".").join("");
+                        var data = removedot.replace('Rp', '');
+
+                        var sumSubtotal = parseInt(u) - parseInt(data);
+                        u = sumSubtotal
+
+                        subTotalInfo = subTotalInfo - 1
+
+                        $('#sub_total').replaceWith('<span id="sub_total">Rp ' + u
+                            .toLocaleString("id-ID") + ' </span>');
+                        $('#sub_total_info').replaceWith('<span id="sub_total_info">Sub Total (' +
+                            subTotalInfo + ') Produk </span>');
+
+                    }
+
+                    if (document.getElementById("id_produk" + y).checked == true) {
+                        var x = $('#total' + y).val();
+                        var removedot = x.split(".").join("");
+                        var data = removedot.replace('Rp', '');
+
+                        var sumSubtotal = parseInt(u) + parseInt(data);
+                        u = sumSubtotal
+                        subTotalInfo = subTotalInfo + 1
+
+                        $('#sub_total').replaceWith('<span id="sub_total">Rp ' + u
+                            .toLocaleString("id-ID") + ' </span>');
+                        $('#sub_total_info').replaceWith('<span id="sub_total_info">Sub Total (' +
+                            subTotalInfo + ') Produk </span>');
+
+                    }
+
+
+
                 });
 
             });

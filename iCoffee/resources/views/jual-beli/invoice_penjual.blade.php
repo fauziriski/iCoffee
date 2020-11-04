@@ -44,6 +44,10 @@
                             <strong>Metode Pembayaran :</strong><br>
                             {{ $bank_information->bank_name }} {{ $bank_information->no_rekening }}<br>
                         </address>
+                        <address>
+                            <strong>Pesan untuk penjual :</strong>
+                            {{ $order->pesan }}<br>
+                        </address>
                         @if ($order->status == 5 || 6 || 7 || 10 || 11)
                             <address>
                                 <strong>No Resi :</strong><br>
@@ -209,6 +213,40 @@
 
 
                             </form>
+                            @elseif($order->status == 5 || $order->status == 6 || $order->status == 7 || $order->status == 10 || $order->status == 11)
+                                <div class="text-center col-md-6 offset-md-8 col-12">
+                                    <p class="row justify-content-center">
+
+                                        <button id="willbill" name="willbill"
+                                            style="border-radius: 10px; margin: auto; padding: 16px;"
+                                            value="{{ $order->id }}" type="button" class="btn btn-primary py-3 px-5"
+                                            data-toggle="modal" data-target="#exampleModalCenter1">
+                                            Lacak Paket
+                                        </button>
+                                    </p>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Lacak Paket</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="list-group list-group-flush" id="waybilltrackul">
+                                                <li class="list-group-item" id="waybilltrackli">
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -236,6 +274,40 @@
         }
 
     </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('button[name="willbill"]').on('click', function() {
+            var orderID = $(this).val();
+            console.log(orderID);
+            if (orderID) {
+                $.ajax({
+                    url: '/jual-beli/waybill/trasaction/' + encodeURI(orderID),
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        $('#waybilltrackul').empty();
+                        $.each(data, function(key, value) {
+                            count = value.result.manifest.length;
+                            for (i = count - 1; i >= 0; i--) {
+                                $('#waybilltrackul').append(
+                                    '<li class="list-group-item" id="waybilltrackli">' +
+                                    value.result.manifest[i].manifest_date +
+                                    ' - [' + value.result.manifest[i]
+                                    .city_name + '] ' + value.result.manifest[i]
+                                    .manifest_description + '</li>');
+                            }
+
+                        });
+                    }
+                });
+            } else {
+                $('#waybilltrackul').empty();
+            }
+        });
+    });
+
+</script>
 
 
 @endsection
