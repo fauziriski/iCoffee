@@ -45,7 +45,7 @@
               <a class="collapse-item" href="{{url('mitra/progress-investasi')}}">Progress Investasi</a>
               <div class="collapse-divider"></div>
               <h6 class="collapse-header">Laporan :</h6>
-              <a class="collapse-item" href="{{url('mitra/laporan-penjualan')}}">Laporan Investasi</a>
+              <a class="collapse-item" href="#">Laporan Investasi</a>
             </div>
           </div>
         </li>
@@ -72,7 +72,7 @@
               <a class="collapse-item" href="{{url('mitra/pengajuan-dana')}}">Pengajuan Dana</a>
               <div class="collapse-divider"></div>
               <h6 class="collapse-header">Laporan :</h6>
-              <a class="collapse-item" href="{{url('laporan-investasi')}}">Laporan Keuangan</a>
+              <a class="collapse-item" href="#">Laporan Keuangan</a>
             </div>
           </div>
         </li>

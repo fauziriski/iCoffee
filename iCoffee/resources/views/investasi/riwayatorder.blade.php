@@ -1,5 +1,5 @@
 @extends('investasi.layouts.app')
-@section('title', 'Produk Investasi | Investasi')
+@section('title', 'Profil Investasi | Investasi')
 @section('content')
 
     <div class="col-md-9">

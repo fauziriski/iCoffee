@@ -246,6 +246,7 @@ Route::group(['prefix' => 'invest','middleware' => 'auth'], function(){
 	Route::get('/konfirmasi','InvestorController@confirm');
 	Route::post('/konfirmasi/store','InvestorController@confirmStore');
 	Route::get('/pembiayaan','InvestorController@orderHistory');
+	Route::get('/progress','InvestorController@progress');
 });
 
 
@@ -270,6 +271,7 @@ Route::group(['prefix' => 'mitra'], function(){
 	// Route::post('/pengajuan-dana-4', 'PengajuanDanaController@pengajuanDana4');
 	Route::post('/tambah-bank','MitraController@tambahBank');
 	Route::post('/tarik-saldo','MitraController@tarikSaldo');
+	Route::get('/progress-investasi','MitraController@progressInvestasi');
 	Route::get('/logout','Mitra\LoginController@logout');
 });
 Route::get('/nyoba','MitraController@test');

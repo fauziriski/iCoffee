@@ -34,6 +34,7 @@
             </div>
         </div>
         <p class="font-weight-bold mt-3 mb-1">Riwayat Pembayaran</p>
+        
         <table class="table table-sm table-responsive-sm table-hover">
             <thead>
               <tr>
@@ -46,11 +47,14 @@
             </thead>
             <tbody>
               <tr>
-                <td>Ahmad Fathoni</td>
+                  <td colspan="5">
+                <p class="text-center">Data Tidak Tersedia</p>
+                  </td>
+                {{-- <td>Ahmad Fathoni</td>
                 <td>Mandiri</td>
                 <td>Rp. 1.000.000,-</td>
                 <td>20-10-2020</td>
-                <td><span class="badge badge-success">Sukses</span></td>
+                <td><span class="badge badge-success">Sukses</span></td> --}}
               </tr>
             </tbody>
         </table>
