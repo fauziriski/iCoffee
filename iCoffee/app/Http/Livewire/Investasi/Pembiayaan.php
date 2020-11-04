@@ -20,10 +20,7 @@ class Pembiayaan extends Component
         $this->orders = invest_order::where('id_investor', Auth::id())->get();
         if(!$this->orders->isEmpty()){
             foreach($this->orders as $ord){
-                $this->produk = Invest_product::where('id', $ord->id_produk)->get();
-            }
-            foreach($this->produk as $ord){
-                $this->progress = Progress_investasi::where('kode_produk', $ord->kode_produk)->get();
+                $this->produk[] = Invest_product::where('id', $ord->id_produk)->get();
             }
             return view('livewire.investasi.pembiayaan');
         }else
