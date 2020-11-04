@@ -6,9 +6,12 @@ use Livewire\Component;
 use App\Investor_Bank;
 use Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Livewire\WithPagination;
 
 class Bank extends Component
 {
+    use WithPagination;
+
     public $bank_name, $name, $norek, $bank_id;
 
     public function render()

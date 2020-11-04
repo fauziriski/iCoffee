@@ -67,14 +67,14 @@
                 </div>
               </p>
             </div>
-
+{{-- 
             <div class="row">
               <p class="text-left">
                 <div class="col">
                   <i class="fa fa-leaf"></i> Telah tertanam 331 Unit disponsori 170 orang
                 </div>
               </p>
-            </div>
+            </div> --}}
 
             <div class="row">
               <p class="text-left">
@@ -120,7 +120,7 @@
                       </button>
                   </span>
               
-                  <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                  <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="{{$products->stok}}">
                   <span class="input-group-btn ml-2">
                       <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
                         <i class="ion-ios-add"></i>

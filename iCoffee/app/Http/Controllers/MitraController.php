@@ -130,4 +130,9 @@ class MitraController extends Controller
     {
         return view('investasi.nyoba');
     }
+
+    public function progressInvestasi()
+    {
+        return view('investasi.mitra.progress');
+    }
 }

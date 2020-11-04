@@ -92,9 +92,7 @@
 			</div>
 
 			
-		</div>
-
-		
+		</div>	
 
 		<!-- Content Row -->
 

@@ -14,13 +14,9 @@
                  <div class="form-group">
                    <div class="avatar-upload" align="center">
                        <div class="avatar-edit">
-                           <input type='file' name="gambar" id="imageUpload" accept="images/*" />
+                           <input type='file' name="gambar" id="imageUpload" accept="image/*" />
                            <small class="text-muted">(Format JPG/JPEG/PNG, Max 2MB)</small>
                            <label for="imageUpload"></label>
-                       </div>
-                       <div class="avatar-preview">
-                           <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-                           </div>
                        </div>
                    </div>
                  </div>

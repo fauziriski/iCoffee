@@ -30,10 +30,6 @@ class PengajuanDana extends Component
         ];
     }
 
-    public function hydrate()
-    {
-    }
-
     public function render()
     {
         return view('livewire.investasi.mitra.pengajuan-dana', [
@@ -54,12 +50,12 @@ class PengajuanDana extends Component
             'judul' => $this->judul,
             'deskripsi' => $this->desc,
             'kode_produk' => $this->product,
-            'status' => 0,
+            'status' => 1,
             'total' => $total
         ]);
-        // 0 = diproses
-        // 1 = disetujui
-        // 2 = ditolak
+        // 0 = ditolak
+        // 1 = diproses
+        // 2 = sukses
         foreach ($this->inputs as $item){
             $jumlah = 0;
             $jumlah = $item['price'] * $item['qty'];

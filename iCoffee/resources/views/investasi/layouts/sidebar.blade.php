@@ -18,7 +18,7 @@
           <div class="filter-content">
             <div class="list-group list-group-flush">
               <a href="{{url('invest/pembiayaan')}}" class="list-group-item"><span class="fa fa-mug-hot"></span>&nbsp;&nbsp; Pembiayaan</a>
-              <a href="#" class="list-group-item"><span class="icon icon-spinner"></span>&nbsp;&nbsp; Progress Investasi</a>
+              <a href="{{url('invest/progress')}}" class="list-group-item"><span class="icon icon-spinner"></span>&nbsp;&nbsp; Progress Investasi</a>
             </div> 
           </div>
         </article> 

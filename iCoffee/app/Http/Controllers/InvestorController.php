@@ -119,4 +119,9 @@ class InvestorController extends Controller
     {
         return view('investasi.riwayatorder');
     }
+
+    public function progress()
+    {
+        return view('investasi.progress');
+    }
 }

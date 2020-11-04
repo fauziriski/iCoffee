@@ -26,7 +26,7 @@
             <textarea wire:model="desc" class="form-control" ></textarea>
         </div>
         <p>Rincian Pengajuan</p>
-        <table id="invoiceitems" class=" table order-list">
+        <table id="invoiceitems" class=" table table-responsive order-list">
             <thead>
                 <tr>
                     <td>Nama Produk</td>
@@ -94,20 +94,22 @@
                                 <div class="card-header" id="headingOne">
                                     <h2 class="mb-0">
                                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
-                                            #{{$loop->iteration}} - {{$item->judul}} - {{Carbon::parse( $item->created_at )->translatedFormat('l, d F Y')}}
-                                            @if($item->status == 0)
-                                                <span class="badge badge-warning float-right">Diproses</span>
-                                            @elseif($item->status == 1)
-                                                <span class="badge badge-success float-right">Sukses</span>
+                                            #{{$loop->iteration}} - {{$item->judul}}
+                                            @if($item->status == 1)
+                                                <span class="badge badge-warning float-right">Belum Divalidasi</span>
                                             @elseif($item->status == 2)
                                                 <span class="badge badge-danger float-right">Ditolak</span>
+                                            @elseif($item->status == 3)
+                                                <span class="badge badge-success float-right">Divalidasi</span>
+                                                @elseif($item->status == 4)
+                                                <span class="badge badge-info float-right">On Progress</span>
                                             @endif
                                         </button>
                                     </h2>
                                 </div>
                                 <div id="collapse{{$item->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover table-sm">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
@@ -118,6 +120,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <p class="mb-0">Tanggal: {{Carbon::parse( $item->created_at )->translatedFormat('l, d F Y')}}</p>
+                                                <p>Deskripsi: {{$item->deskripsi}}</p>
                                                 @foreach($item->rincian_pengajuan as $i)
                                                 <tr>
                                                     <th scope="row">{{$loop->iteration}}</th>
@@ -127,6 +131,10 @@
                                                     <td>@money($i->jumlah)</td>
                                                 </tr>
                                                 @endforeach
+                                                <tr>
+                                                    <td colspan="4" class="font-weight-bold text-right">Total</td>
+                                                    <td>@money($item->total)</td>
+                                                </tr>
                                             </tbody>
                                           </table>
                                     </div>
