@@ -96,11 +96,13 @@
                                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
                                             #{{$loop->iteration}} - {{$item->judul}}
                                             @if($item->status == 1)
-                                                <span class="badge badge-warning float-right">Diproses</span>
+                                                <span class="badge badge-warning float-right">Belum Divalidasi</span>
                                             @elseif($item->status == 2)
-                                                <span class="badge badge-success float-right">Sukses</span>
-                                            @elseif($item->status == 0)
                                                 <span class="badge badge-danger float-right">Ditolak</span>
+                                            @elseif($item->status == 3)
+                                                <span class="badge badge-success float-right">Divalidasi</span>
+                                                @elseif($item->status == 4)
+                                                <span class="badge badge-info float-right">On Progress</span>
                                             @endif
                                         </button>
                                     </h2>
