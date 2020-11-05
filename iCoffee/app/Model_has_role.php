@@ -16,5 +16,10 @@ class Model_has_role extends Model
     {
     	return $this->hasOne('App\User', 'id', 'model_id');
     }
+
+    public function roles()
+    {
+    	return $this->hasOne('App\Role', 'id', 'role_id');
+    }
 }
 

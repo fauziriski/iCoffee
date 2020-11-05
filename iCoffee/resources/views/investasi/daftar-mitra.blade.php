@@ -239,7 +239,7 @@
           <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
             {{-- Mitra Perorangan --}}
             <form action="/daftar-perorangan/store" method="POST" enctype="multipart/form-data">
-            @csrf
+              @csrf
             <input type="hidden" name="status" value="belum divalidasi">
             <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
               <div class="col-md-12">

@@ -26,11 +26,11 @@
 								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Stok</div>
 								<div class="row no-gutters align-items-center">
 									<div class="col-auto">
-										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$qty}}/{{$produk->stok}}</div>
+										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$produk->stok}}</div>
 									</div>
 									<div class="col">
 										<div class="progress progress-sm mr-2">
-											<div class="progress-bar-animated bg-success" role="progressbar" style="width: {{$qty/$produk->stok*100}}%" aria-valuenow="{{$qty}}" aria-valuemin="0" aria-valuemax="{{$produk->stok}}"></div>
+											<div class="progress-bar-animated bg-success" role="progressbar"  aria-valuenow="{{$qty}}" aria-valuemin="0" aria-valuemax="{{$produk->stok}}"></div>
 										</div>
 									</div>
 								</div>
@@ -90,7 +90,7 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Dana Keluar</div>
-								<div class="h6 mb-0 font-weight-bold text-gray-800">Rp. 3,000,000.00</div>
+								<div class="h6 mb-0 font-weight-bold text-gray-800">Rp. 0,00</div>
 							</div>
 							<div class="col-auto">
 								<i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
@@ -118,7 +118,7 @@
 					<div class="card-body">
                         <div class="row">
                             <div class="col-lg-4">
-                                <img  class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/{'.$produk->kode_produk.'}/'.$produk->gambar) }}">
+                                <img  class="img-fluid" src="{{ asset('Uploads/Investasi/Produk/'.$produk->kode_produk.'/'.$produk->gambar) }}">
                             </div>
                             <div class="col-lg-8 col-sm-12">
 								<h5>{{$produk->nama_produk}} 

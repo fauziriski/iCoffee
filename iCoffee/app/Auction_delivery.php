@@ -16,4 +16,9 @@ class Auction_delivery extends Model
     {
         return $this->belongsTo('App\Auction_Order', 'id_order');
     }
+
+    public function delivery_category()
+    {
+        return $this->belongsTo('App\Delivery_category', 'id_kategori_kurir');
+    }
 }

@@ -227,13 +227,14 @@
 							}
 							html += '</div>';
 						}
-						if(data.success)
-						{
-							html = '<div class="alert alert-success">' + data.success + '</div>';
-							$('#sample_form')[0].reset();
+						if(data.success){	
+							$('#formModal').modal('hide');
+							swal('Berhasil', 'Data berhasil ditambah', 'success');
 							$('#kategori_table').DataTable().ajax.reload();
+							$('#formModal').on('hidden.bs.modal', function(e) {
+							$(this).find('#sample_form')[0].reset();
+							});	
 						}
-						$('#form_result').html(html);
 					}
 				})
 			}
@@ -260,13 +261,14 @@
 							}
 							html += '</div>';
 						}
-						if(data.success)
-						{
-							html = '<div class="alert alert-success">' + data.success + '</div>';
-							$('#sample_form')[0].reset();
+						if(data.success){	
+							$('#formModal').modal('hide');
+							swal('Berhasil', 'Data berhasil diubah', 'success');
 							$('#kategori_table').DataTable().ajax.reload();
+							$('#formModal').on('hidden.bs.modal', function(e) {
+							$(this).find('#sample_form')[0].reset();
+							});	
 						}
-						$('#form_result').html(html);
 					}
 				});
 			}
@@ -282,13 +284,10 @@
 		$('#ok_button').click(function(){
 			$.ajax({
 				url:"hapus-kategori/"+mitra_id,
-				success:function(data)
-				{
-					setTimeout(function(){
-						$('#confirmModal').modal('hide');
-						$('#kategori_table').DataTable().ajax.reload();
-					}, 500);
-				}
+				success: function (data) {
+				swal('Berhasil', 'Data berhasil dihapus', 'success');
+				$('#kategori_table').DataTable().ajax.reload();
+			}
 			})
 		});
 

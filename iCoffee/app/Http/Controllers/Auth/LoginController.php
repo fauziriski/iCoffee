@@ -42,7 +42,7 @@ class LoginController extends Controller
      * @return void
      */
     public function __construct()
-    {
+    {  
       $this->middleware('guest')->except('logout');
     }
 
@@ -60,26 +60,24 @@ class LoginController extends Controller
 
       Alert::success('Berhasil Masuk');
 
-      if($user->hasRole('admin')){
+      if($user->hasRole('adminuser')){
+
         return redirect()->route('admin.dashboard');
-      }elseif ($user->hasRole('superadmin')) {
-        return redirect()->route('superadmin.dashboard');
+
+      }elseif ($user->hasRole('adminweb')) {
+
+        return redirect()->route('adminweb.dashboard');
+
       }elseif ($user->hasRole('adminkeuangan')) {
+
         return redirect()->route('adminkeuangan.dashboard');
-      }
 
+      }elseif ($user->hasRole('adminsuper')) {
 
-      if($user->hasRole('admin'))
-      {
-        return redirect()->route('admin.dashboard');
-
-      }elseif ($user->hasRole('superadmin')) 
-      {
         return redirect()->route('superadmin.dashboard');
+
       }
-
-    }
-
+  }
     //login sosmed
     public function socialLogin($social) {
       return Socialite::driver($social)->redirect();

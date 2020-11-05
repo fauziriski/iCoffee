@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     protected $fillable = [
-        'id','nama','id_provinsi'
+        'id','nama','id_provinsi', 'type',
     ];
 
     public $timestamps = true;
@@ -19,6 +19,11 @@ class City extends Model
 
     public function address(){ 
         return $this->hasMany('App\Address'); 
+    }
+
+    public function subdistrict()
+    {
+    	return $this->hasMany('App\Subdistrict');
     }
 
 

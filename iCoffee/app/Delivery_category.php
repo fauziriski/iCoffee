@@ -16,4 +16,9 @@ class Delivery_category extends Model
     {
     	return $this->hasMany('App\Delivery');
     }
+
+    public function aution_delivery()
+    {
+        return $this->hasMany('App\Aution_delivery');
+    }
 }

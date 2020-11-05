@@ -27,6 +27,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 Use Redirect;
+use App\Subdistrict;
+use App\Helper\Helper;
 use URL;
 
 
@@ -63,7 +65,7 @@ class HomeController extends Controller
         if($cekalamat->isEmpty())
         {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');       
+            return redirect('/profile/tambahalamat');       
 
         }
 
@@ -72,7 +74,7 @@ class HomeController extends Controller
         if(empty($alamat_utama))
         {
             Alert::info('Tentukan Alamat Utama')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/edit');       
+            return redirect('/profile/edit');       
 
         }
 
@@ -97,8 +99,9 @@ class HomeController extends Controller
             return back();
             
         }
-        $harga = $this->removeDot($request->harga);
-        $stok = $this->removeDot($request->stok);
+
+        $harga = Helper::instance()->removeDot($request->harga);
+        $stok = Helper::instance()->removeDot($request->stok);
         
         $timestamps = date('YmdHis');
         $id_pelanggan = Auth::user()->id;
@@ -224,7 +227,7 @@ class HomeController extends Controller
         if($cekalamat->isEmpty())
         {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');       
+            return redirect('/profile/tambahalamat');       
 
         }
 
@@ -243,7 +246,7 @@ class HomeController extends Controller
         if($cekalamat->isEmpty())
         {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');       
+            return redirect('/profile/tambahalamat');       
 
         }
 
@@ -261,6 +264,7 @@ class HomeController extends Controller
             'nama' => 'required|string|max:255',
             'password' => 'required|min:8',
         ]);
+
 
         $user_id = Auth::user()->id;
         $password = Auth::user()->password;
@@ -327,6 +331,7 @@ class HomeController extends Controller
 
     public function tambahalamat()
     {
+        
         $links = session()->has('links') ? session('links') : [];
         $currentLink = request()->path(); // Getting current URI like 'category/books/'
         array_unshift($links, $currentLink); // Putting it in the beginning of links array
@@ -338,7 +343,7 @@ class HomeController extends Controller
         if(!(empty($alamat)))
         {
             Alert::info('Anda Sudah Mengisi Alamat')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/edit');  
+            return redirect('/profile/edit');  
         }
         $provinsi = Province::all();
         
@@ -351,8 +356,29 @@ class HomeController extends Controller
         return response()->json($kota);
     }
 
+    public function subdistrict($id)
+    {
+        $subdistrict = Subdistrict::where('city_id', $id)->get();
+
+        if ($subdistrict) {
+            return response()->json($subdistrict);
+        }
+        
+    }
+
     public function tambah_alamat(Request $request)
     {
+
+        $validateData = $this->validate($request, [
+            'nama' => 'required|string|max:255',
+            'no_hp' => 'required|max:13|min:11',
+            'provinsi' => 'required|exists:provinces,id',
+            'kota_kabupaten' => 'required|exists:cities,id',
+            'kecamatan' => 'required|exists:subdistricts,id',
+            'kode_pos' => 'max:6|min:5',
+            'alamat' => 'required|string|max:255'
+        ]);
+
         $id_pelanggan = Auth::user()->id;
         $tambah_alamat = Address::create([
             'id_pelanggan' => $id_pelanggan,
@@ -366,6 +392,11 @@ class HomeController extends Controller
             'status' => '1'
 
         ]);
+
+        $provider = User::where('id',$id_pelanggan);
+        $provider->update([
+            'provider_id' => "114101115117",
+        ]);
         
 
         
@@ -376,7 +407,7 @@ class HomeController extends Controller
         }
         session()->forget('links');
         Alert::success('Berhasil');
-        return redirect('/profil/edit#pills-contact');
+        return redirect('/profile/alamat#pills-daftar-alamat');
         
     }
 
@@ -387,11 +418,15 @@ class HomeController extends Controller
         $alamat = Address::where('id', $id)->first();
         $provinsi = $alamat->province->nama;
         $kota = $alamat->city->nama;
+        $type = $alamat->city->type;
+        $kecamatan = $alamat->subdistrict->name;
 
         return response()->json(array(
             'alamat' => $alamat,
             'provinsi' =>  $provinsi,
-            'kota' => $kota  ));
+            'kota' => $kota,
+            'type' => $type,
+            'kecamatan' => $kecamatan  ));
     }
 
     public function editalamat(Request $request)
@@ -420,6 +455,8 @@ class HomeController extends Controller
             'no_hp'=> $request->no_hp_edit,
             'address' => $request->alamat_edit
         ]);
+
+
         
         return response()->json();
 
@@ -484,18 +521,7 @@ class HomeController extends Controller
         return view('jual-beli.confirm_payment', compact('data_invoice', 'jumlah', 'data_tanggal','transaksipenjual'));
     }
 
-    public function pembayaranlelang()
-    {
-        $id_pelanggan = Auth::user()->id;
-        $transaksipenjual = Auction_Order::where('id_pembeli', $id_pelanggan)->whereIn('status',[1,2])->orderBy('created_at','desc')->get();
-        $data_tanggal = array();
-        foreach ($transaksipenjual as $data) {
-            $data_tanggal = date('Y-m-d', strtotime($data->created_at));   
-        }
-
-
-        return view('jual-beli.lelang.confirm_payment', compact('data_tanggal','transaksipenjual'));
-    } 
+    
 
     public function konfirmasipembayaran(Request $request)
     {
@@ -511,7 +537,7 @@ class HomeController extends Controller
             'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/JualBeli/{".$request->invoice."}");
+        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/JualBeli/".$request->invoice."");
         $response = mkdir($folderPath);
         
         $image = $request->foto_bukti;
@@ -519,7 +545,7 @@ class HomeController extends Controller
         $image_resize = Images::make($image->getRealPath());
         $image_resize->save($folderPath .'/'. $name);
 
-        $jumlah_transfer = $this->removeDot($request->jumlah_transfer);
+        $jumlah_transfer = Helper::instance()->removeDot($request->jumlah_transfer);
 
         $confirm_pesanan = Confirm_payment::create([
             'id_pelanggan' => $id_pelanggan,
@@ -554,43 +580,7 @@ class HomeController extends Controller
         
     }
 
-    public function konfirmasipembayaranlelang(Request $request)
-    {
-        $id_pelanggan = Auth::user()->id;
-        $this->validate($request,[
-            'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
 
-        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/{".$request->invoice."}");
-        $response = mkdir($folderPath);
-        
-        $image = $request->foto_bukti;
-        $name=$image->getClientOriginalName();
-        $image_resize = Images::make($image->getRealPath());
-        $image_resize->save($folderPath .'/'. $name);
-
-        $confirm_pesanan = Confirm_payment::create([
-            'id_pelanggan' => $id_pelanggan,
-            'email' => $request->email,
-            'no_rekening_pengirim' => $request->no_rekening_pengirim,
-            'nama_bank_pengirim' => $request->nama_bank_pengirim,
-            'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
-            'jasa' => '2',
-            'no_telp' => $request->no_telp,
-            'jumlah_transfer' => $request->jumlah_transfer,
-            'invoice' => $request->invoice,
-            'foto_bukti' => $name,
-            'status' => '1'
-        ]);
-
-        $order = Auction_Order::where('invoice', $request->invoice)->update([
-            'status' => '8'
-        ]);
-
-        Alert::success('Berhasil')->showConfirmButton('Ok', '#3085d6');
-
-        return redirect('/lelang/invoice/'.$request->invoice);
-    }
 
     public function top_up()
     {
@@ -604,21 +594,37 @@ class HomeController extends Controller
 
     public function top_up_diproses(Request $request)
     {
+       
+        $this->validate($request,[
+            'email' => 'required',
+            'bank' => 'required|exists:accounts,bank_name',
+            'jumlah' => 'required'
+
+        ]);
+        
+        $jumlah = Helper::instance()->removeDot($request->jumlah);
+
         $user_id = Auth::user()->id;
         $timestamps = date('YmdHis');
         $oldMarker = $timestamps.$user_id;
+
+        if ($jumlah > 1000000) {
+            Alert::error('Gagal', 'Max top up Rp 1.000.000')->showConfirmButton('Ok', '#3085d6');
+            return back();
+        }
+
 
         $top_up = Top_up::create([
             'user_id' => $user_id, 
             'email'=> $request->email, 
             'invoice'=> $oldMarker, 
-            'jumlah'=> $request->jumlah,
+            'jumlah'=> $jumlah,
             'payment' => $request->bank, 
             'status' => 1
         ]);
         Alert::info('Berhasil','Segera Konfirmasi Pembayaran Anda')->showConfirmButton('Ok', '#3085d6');
 
-        return redirect('/jual-beli/transaksi#pills-topup');
+        return redirect('profile/top_up/history#pills-topup-masuk');
     }
 
     public function konfirmasi_top_up()
@@ -647,9 +653,11 @@ class HomeController extends Controller
             'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         
+        $jumlah = Helper::instance()->removeDot($request->jumlah_transfer);
+
         $image = $request->foto_bukti;
         $name = 'confirm_top_up_' .$request->invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $image->getClientOriginalExtension();
-        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/".$request->invoice);
+        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/".$request->invoice."");
         $response = mkdir($folderPath);
         $image_resize = Images::make($image->getRealPath());
         $image_resize->save($folderPath .'/'. $name);
@@ -662,7 +670,7 @@ class HomeController extends Controller
             'nama_pemilik_pengirim' => $request->nama_pemilik_pengirim,
             'jasa' => '3',
             'no_telp' => $request->no_telp,
-            'jumlah_transfer' => $request->jumlah_transfer,
+            'jumlah_transfer' => $jumlah,
             'invoice' => $request->invoice,
             'foto_bukti' => $name,
             'status' => '1'
@@ -679,8 +687,6 @@ class HomeController extends Controller
 
         Alert::error('Gagal','Konfirmasi top up gagal')->showConfirmButton('Ok', '#3085d6');
         return back();
-
-        
     }
 
     public function produksaya()
@@ -734,6 +740,11 @@ class HomeController extends Controller
             'address' => $request->alamat_alamat,
             'status' => '0'
 
+        ]);
+
+        $provider = User::where('id',$id_pelanggan);
+        $provider->update([
+            'provider_id' => "114101115117",
         ]);
 
         if ($tambah_alamat) {
@@ -792,7 +803,15 @@ class HomeController extends Controller
             'password' => 'required',
 
         ]);
+        $jumlah = Helper::instance()->removeDot($request->jumlah);
+
+        if ($cek_saldo->saldo < $jumlah) {
+            Alert::error('Gagal', 'Gagal melakukan penarikan, saldo yang anda miliki '. $cek_saldo->saldo )->showConfirmButton('Ok', '#3085d6');
+            return back();
+        }
         $id_pelanggan = Auth::user()->id;
+        $cek_saldo = Joint_account::where('user_id', $id_pelanggan)->first();
+
         $user = User::where('id', $id_pelanggan)->first();
         $password = Str::camel($user->password);
 
@@ -805,7 +824,7 @@ class HomeController extends Controller
            $tariksaldo =  Balance_withdrawal::create([
                             'user_id' => $id_pelanggan, 
                             'invoice' => $oldMarker, 
-                            'jumlah' => $request->jumlah, 
+                            'jumlah' => $jumlah, 
                             'status' => 1,
                             'email' => $request->email,
                             'bank' => $request->bank,
@@ -814,7 +833,7 @@ class HomeController extends Controller
                         ]);
             
             if ($tariksaldo) {
-                Alert::success('Berhasi', 'Berhasil melakukan penarikan, tunggu infor selanjutnya')->showConfirmButton('Ok', '#3085d6');
+                Alert::success('Berhasi', 'Berhasil melakukan penarikan, tunggu info selanjutnya')->showConfirmButton('Ok', '#3085d6');
                 return redirect('/profile/top_up/history#pills-topup-keluar');
             }
                 Alert::error('Gagal', 'Gagal melakukan petarikan')->showConfirmButton('Ok', '#3085d6');
@@ -844,23 +863,9 @@ class HomeController extends Controller
         ]);
 
         Alert::success('Berhasi', 'Pencairan Dana Anda Berhasil Dibatalkan')->showConfirmButton('Ok', '#3085d6');
-        return redirect('/jual-beli/transaksi#pills-topup');
+        return redirect('/profile/top_up/history#pills-topup-keluar');
         
     }
-
-    public function removeDot($value)
-    {
-        $trueValue = str_replace('.', '', $value);
-        if ($trueValue) {
-            return $trueValue;
-        }
-        else {
-            return $value;
-        }
-        
-    }
-
-
 
 
 }

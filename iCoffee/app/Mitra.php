@@ -17,7 +17,7 @@ class Mitra extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nama', 'email', 'password','deskripsi','alamat','jumlah_petani','gambar','id_mitra','no_hp','kode',
+        'nama', 'email', 'password','deskripsi','alamat','jumlah_petani','gambar','id_mitra','no_hp','kode', 'saldo'
     ];
 
     /**
@@ -28,4 +28,9 @@ class Mitra extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function banks()
+    {
+        return $this->hasMany('App\Mitra_bank');
+    }
 }

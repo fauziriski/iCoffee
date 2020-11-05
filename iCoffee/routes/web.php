@@ -27,10 +27,10 @@ Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallba
         ->where('social','twitter|facebook|linkedin|google|github');
 
 //profil
-route::get('/profil/tambahalamat', 'HomeController@tambahalamat');
-route::post('/profil/tambah' , 'HomeController@tambah_alamat');
+route::get('/profile/tambahalamat', 'HomeController@tambahalamat');
+route::post('/profile/tambah' , 'HomeController@tambah_alamat');
 route::get('/profile/edit', 'HomeController@profile');
-route::post('/profil/tambah' , 'HomeController@tambah_alamat');
+Route::get('/profile/subdistrict/{id}', 'HomeController@subdistrict');
 
 route::post('/profile/edit_profile', 'HomeController@edit_profile');
 route::post('/profile/edit_password', 'HomeController@update_password');
@@ -52,7 +52,7 @@ route::get('/profil/produk','HomeController@produksaya');
 
 
 
-route::get('/profile/top_up/history', 'Profile\TopUpController@index');
+
 
 route::get('/profile/top_up', 'HomeController@top_up');
 route::get('/profile/konfirmasi/top_up', 'HomeController@konfirmasi_top_up');
@@ -63,8 +63,16 @@ route::get('/profile/tarik_saldo', 'HomeController@tarik_saldo');
 route::post('/profile/saldo/tarik', 'HomeController@tarik_saldo_konfirmasi');
 
 
-route::get('/profil/tarikdana/{invoice}', 'HomeController@cek_invoice_dana');
-route::get('/profil/batal/dana_cair/{invoice}', 'HomeController@batal_tarik_dana');
+route::get('/profile/tarikdana/{invoice}', 'HomeController@cek_invoice_dana');
+route::get('/profile/batal/dana_cair/{invoice}', 'HomeController@batal_tarik_dana');
+
+Route::namespace('Profile')->group(function () {
+	//Address
+	Route::get('/profile/get-postal-code/{id}', 'AddressController@getPostalCode');
+
+	//Top Up
+	route::get('/profile/top_up/history', 'TopUpController@index');
+});
 
 
 
@@ -73,6 +81,7 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	Route::get('/jual-beli','HomeController@index');
 	Route::get('/jual-beli/kategori/{slug}', 'HomeController@category');
 	Route::get('/jual-beli/produk/{slug}','HomeController@detail');
+	Route::post('/jual-beli/search', 'HomeController@search');
 
 	//Cart
 	Route::get('/jual-beli/keranjang','CartController@index');
@@ -103,7 +112,7 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	Route::post('/jual-beli/konfirmasi/pembayaran', 'ConfirmPaymentController@store');
 
 	//Transaction
-	Route::get('/jual-beli/transaksi', 'TransactionController@index');
+	// Route::get('/jual-beli/transaksi', 'TransactionController@index');
 	Route::get('/jual-beli/transaksi/pembelian', 'TransactionController@indexBuy');
 
 });
@@ -120,11 +129,16 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	Route::post('/pasang-produk/berhasil', 'ProdukController@store');
 	Route::get('/jual-beli/produk/edit/{id}', 'ProdukController@edit');
 	Route::post('/jual-beli/produk/edit/berhasil', 'ProdukController@update');
+	Route::get('/jual-beli/produk/delete/{id}', 'ProdukController@delete');
 
 	//transaction
 	Route::get('/jual-beli/transaksi/penjualan', 'TransactionController@indexSell');
+
+	//getwaybill
+	Route::get('/jual-beli/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
 	
 });
+
 
 
 // jual beli
@@ -132,15 +146,10 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 Route::get('/jual-beli/province/data', 'KeranjangjbController@province');
 Route::get('/jual-beli/url/', 'KeranjangjbController@file_get_content_curl');
 
-
 // Route::post('/jual-beli/pesanbarang', 'KeranjangjbController@pesanbarang');
 Route::get('/jual-beli/checkout/kurir/{kurir}', 'KeranjangjbController@cekongkir');
 
-
-Route::get('/ceks', function(){
-	return view('jual-beli.cek');
-});
-
+Route::get('/ceks', function(){ return view('jual-beli.cek'); });
 
 Route::get('page/getprovince', 'ApiController@getprovince');
 Route::get('page/getcity', 'ApiController@getcity');
@@ -155,6 +164,8 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	Route::get('/lelang/produk/{id}', 'HomeController@show')->middleware('auth');
 	Route::get('/lelang/kategori/{id}', 'HomeController@indexById');
 	Route::get('/lelang/produk/data/{id}', 'HomeController@getDataAuction');
+	Route::post('/lelang/produk/tawar', 'HomeController@bid');
+	Route::post('/lelang/search', 'HomeController@search');
 
 	//Cart
 	Route::get('/lelang/keranjang', 'CartController@index');
@@ -164,8 +175,29 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	Route::get('/lelang/checkout-barang', 'CheckoutController@checkId');
 	Route::post('/lelang/pesanbarang', 'CheckoutController@store');
 
+	//Confirm Payment
+	Route::get('/lelang/konfirmasi', 'ConfirmPaymentController@pembayaranlelang');
+	Route::post('/lelang/konfirmasi/pembayaran', 'ConfirmPaymentController@konfirmasipembayaranlelang');
+
+	//Invoice
+	Route::get('/lelang/invoice/{invoice}', 'InvoiceController@invoice');
+	Route::post('/lelang/pesanan/selesai', 'InvoiceController@pesananselesai');
+	Route::post('/lelang/rating', 'InvoiceController@rating');
+	
 	//Transaction
 	Route::get('/lelang/transaksi/pembelian', 'TransactionController@index');
+
+	//Complain
+	Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'ComplainController@komplain');
+	Route::post('/lelang/pesanan/komplain', 'ComplainController@komplaindiproses');
+
+	//get data province new
+	Route::get('/get-new-province', 'TransactionController@getProvinceData');
+
+	//getwaybill
+	Route::get('/lelang/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
+
+	
 
 
 
@@ -178,36 +210,21 @@ Route::namespace('Lelang\Penjualan')->group(function () {
 	Route::post('/pasang-lelang/berhasil', 'ProductController@store');
 	Route::get('/lelang/produk-saya','ProductController@index');
 
-
 	//Transaction
 	Route::get('/lelang/transaksi/penjualan', 'TransactionController@index');
+
+	//Invoice
+	Route::get('/lelang/invoice_penjual/{invoice}', 'InvoiceController@invoice_penjual');
+	Route::post('/lelang/pesanan/terima', 'InvoiceController@pesananditerima');
+	Route::post('/lelang/pesanan/inputresi', 'InvoiceController@inputresi');
 
 
 });
 
 
-
 //lelang
-
-
-
-Route::post('/lelang/produk/tawar', 'ProdukLelangController@tawar');
-Route::get('/jual-beli/konfirmasi/lelang', 'HomeController@pembayaranlelang');
-Route::post('/jual-beli/konfirmasi/pembayaranlelang', 'HomeController@konfirmasipembayaranlelang');
-
-Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
-
-
-Route::get('/lelang/transaksi', 'KeranjanglelangController@transaksi');
-Route::get('/lelang/invoice/{invoice}', 'KeranjanglelangController@invoice');
-Route::get('/lelang/invoice_penjual/{invoice}', 'KeranjanglelangController@invoice_penjual');
-
-Route::post('/lelang/pesanan/terima', 'KeranjanglelangController@pesananditerima');
-Route::post('/lelang/pesanan/inputresi', 'KeranjanglelangController@inputresi');
-Route::post('/lelang/pesanan/selesai', 'KeranjanglelangController@pesananselesai');
-Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'KeranjanglelangController@komplain');
-Route::post('/lelang/pesanan/komplain', 'KeranjanglelangController@komplaindiproses');
-Route::post('/lelang/rating', 'KeranjanglelangController@rating');
+// Route::get('/lelang/checkout', 'KeranjanglelangController@checkout');
+// Route::get('/lelang/transaksi', 'KeranjanglelangController@transaksi');
 
 
 
@@ -231,6 +248,7 @@ Route::group(['prefix' => 'invest','middleware' => 'auth'], function(){
 	Route::get('/konfirmasi','InvestorController@confirm');
 	Route::post('/konfirmasi/store','InvestorController@confirmStore');
 	Route::get('/pembiayaan','InvestorController@orderHistory');
+	Route::get('/progress','InvestorController@progress');
 });
 
 
@@ -248,15 +266,26 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::get('/produk/{kode_produk}','MitraController@produkDetail')->middleware('auth:mitra');
 	Route::get('/pengajuan-dana', 'PengajuanDanaController@produkPengajuanDana')->middleware('auth:mitra');
 	Route::get('/rekening-mitra','MitraController@rekeningMitra')->name('investasi.mitra.rekening');
-	Route::get('/pengajuan-dana/{kode_produk}', 'PengajuanDanaController@pengajuanDana');
-	Route::post('/pengajuan-dana-1', 'PengajuanDanaController@pengajuanDana1');
-	Route::post('/pengajuan-dana-2', 'PengajuanDanaController@pengajuanDana2');
-	Route::post('/pengajuan-dana-3', 'PengajuanDanaController@pengajuanDana3');
-	Route::post('/pengajuan-dana-4', 'PengajuanDanaController@pengajuanDana4');
+	// Route::get('/pengajuan-dana/{kode_produk}', 'PengajuanDanaController@pengajuanDana');
+	// Route::post('/pengajuan-dana-1', 'PengajuanDanaController@pengajuanDana1');
+	// Route::post('/pengajuan-dana-2', 'PengajuanDanaController@pengajuanDana2');
+	// Route::post('/pengajuan-dana-3', 'PengajuanDanaController@pengajuanDana3');
+	// Route::post('/pengajuan-dana-4', 'PengajuanDanaController@pengajuanDana4');
 	Route::post('/tambah-bank','MitraController@tambahBank');
 	Route::post('/tarik-saldo','MitraController@tarikSaldo');
+	Route::get('/progress-investasi','MitraController@progressInvestasi');
 	Route::get('/logout','Mitra\LoginController@logout');
 });
 Route::get('/nyoba','MitraController@test');
 Route::post('/daftar-mitra-nyoba','MitraController@nyoba');
 
+
+
+//blog
+Route::namespace('Blog')->group(function () {
+Route::get('/artikel', 'FrontController@index')->name('artikel-blog');
+Route::get('/artikel/{artikel}', 'FrontController@show')->name('artikel.detail');
+Route::get('/about', 'FrontController@about')->name('about');
+Route::get('/contact', 'FrontController@contact')->name('contact');
+Route::get('/artikel-kategori/{kategori}', 'FrontController@artikel_kategori')->name('artikel.kategori');
+});

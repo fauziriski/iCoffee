@@ -28,7 +28,7 @@ class JualBeliController extends Controller
 			})
 
 			->addColumn('stok', function($data){
-				$stok =  $data->stok." Kg"; 
+				$stok =  number_format($data->stok)." Kg"; 
 				return $stok;
 			})
 

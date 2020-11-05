@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'provider_id',
+        'name', 'email', 'password', 'provider_id','telephone','photo',
     ];
 
     protected $guarded = [
@@ -41,6 +42,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
 
      public function model_has_role()
     {
@@ -67,4 +69,12 @@ class User extends Authenticatable
     {
     	return $this->hasMany('App\Auction_winner');
     }
+
+    public function profile_admin()
+    {
+    	return $this->hasOne('App\Profile_admin');
+    }
+
+
+   
 }

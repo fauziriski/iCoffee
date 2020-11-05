@@ -36,11 +36,11 @@ class ValidasiKomplainController extends Controller
 
 			->addColumn('status', function($data){
 				if ($data->status == "1") {
-					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
+					$status = '<span class="badge badge-info">belum divalidasi</span>';
 				}elseif ($data->status == "11") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">komplain success</button>';
+					$status = '<span class="badge badge-success">komplain success</span>';
 				}else{
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">validasi ditolak</button>';
+					$status = '<span class="badge badge-danger">validasi ditolak</span>';
 				}
 
 				return $status;

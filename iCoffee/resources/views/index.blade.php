@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">  
-    <title>iCoffee</title>
+    <title>iCoffeee</title>
     <!-- Additional CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{asset('landing_page/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('landing_page/css/font-awesome.css') }}">
@@ -309,7 +309,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item decoration-bottom">
-                            <strong>{{$n_format}}</strong>
+                            <strong>{{$transaction}}</strong>
                             <span>Tranksaksi</span>
                         </div>
                     </div>
@@ -552,10 +552,10 @@
               <div class="ftco-footer-widget">
                 <h5 class="margin-bottom-30">Tentang iCoffee</h5>
                 <ul class="list-unstyled">
-                  <li><a class="link" href="#" class="py-2 d-block">Tentang Kami</a></li>
+                  <li><a class="link" href="{{url('about')}}" class="py-2 d-block">Tentang Kami</a></li>
                   <li><a class="link" href="#" class="py-2 d-block">FAQ</a></li>
                   <li><a class="link" href="#" class="py-2 d-block">Panduan Pengguna</a></li>
-                  <li><a class="link" href="#" class="py-2 d-block">Blog</a></li>
+                  <li><a class="link" href="{{url('artikel')}}" class="py-2 d-block">Blog</a></li>
                   <li><a class="link" href="#" class="py-2 d-block">Karir</a></li>
                 </ul>
               </div>

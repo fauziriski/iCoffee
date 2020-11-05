@@ -125,7 +125,7 @@ class CartController extends Controller
 
         if($tombol == 'plus')
         {
-            if ($cart->jumlah >= 30) 
+            if ($cart->jumlah >= 100) 
             {
                 $jumlah = $cart->jumlah;
                 $total = $cart->total;
@@ -172,11 +172,11 @@ class CartController extends Controller
     {
         $cart = Jbcart::where('id', $id)->first();
 
-        if ($jumlah > 30) 
+        if ($jumlah > 100) 
         {
             $jumlah_seluruh = $cart->jumlah;
             $total = $cart->total;
-            return response()->json(['jumlah' => $jumlah_seluruh, 'total' => $total, 'status' => 'lebih30']);
+            return response()->json(['jumlah' => $jumlah_seluruh, 'total' => $total, 'status' => 'lebih100']);
         }
         elseif ($jumlah < 1) {
             $jumlah_seluruh = $cart->jumlah;
@@ -212,11 +212,11 @@ class CartController extends Controller
         
     }
 
-    public function storeById($id)
+    public function storeById(string $slug)
     {
         $id_customer = Auth::user()->id;
 
-        $produk = Shop_product::where('id', $id)->first();
+        $produk = Shop_product::where(['slug'=> $slug])->get()->first();
 
         if ($produk->id_pelanggan == $id_customer) {
             Alert::warning('Anda tidak boleh membeli produk ini')->showConfirmButton('Ok', '#3085d6');
@@ -229,7 +229,7 @@ class CartController extends Controller
             return redirect('/jual-beli');
         }
 
-        $cek_keranjang = Jbcart::where('id_produk', $id)->where('id_pelanggan', $id_customer)->first();
+        $cek_keranjang = Jbcart::where('id_produk', $produk->id)->where('id_pelanggan', $id_customer)->first();
 
         if ($cek_keranjang) {
             $jumlah = 1 + $cek_keranjang->jumlah;
@@ -244,7 +244,7 @@ class CartController extends Controller
 
         $keranjang = Jbcart::create([
             'id_pelanggan' => $id_customer,
-            'id_produk' => $id,
+            'id_produk' => $produk->id,
             'nama_produk' => $produk->nama_produk,
             'jumlah' => 1,
             'harga' => $produk->harga,
@@ -261,7 +261,7 @@ class CartController extends Controller
         }
         else {
             Alert::error('Gagal menambahkan keranjang')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/jual-beli/produk/'.$produk->id);
+            return redirect('/jual-beli/produk/'.$produk->slug);
         }
     }
 

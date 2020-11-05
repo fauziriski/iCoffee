@@ -11,24 +11,27 @@
       </div>
 
       <!-- untuk superadmin -->
-      @can('isSuperadmin')
-      <div class="sidebar-brand-text mx-3">SuperAdmin</div>
+      @can('isAdminsuper')
+      <div class="sidebar-brand-text mx-3">Admin Super</div>
       @endcan
       @can('isAdminkeuangan')
       <div class="sidebar-brand-text mx-3">Admin Keuangan</div>
       @endcan
-      @can('isAdmin')
-      <div class="sidebar-brand-text mx-3">Admin</div>
+      @can('isAdminweb')
+      <div class="sidebar-brand-text mx-3">Admin Web</div>
+      @endcan
+      @can('isAdminUser')
+      <div class="sidebar-brand-text mx-3">Admin User</div>
       @endcan
     </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-    @can('isSuperadmin')
+    @can('isAdminsuper')
 
     <!-- Nav Item - Beranda -->
     <li class="nav-item active">
-      <a class="nav-link" href="{{url('akses-superadminadmin/beranda')}}">
+      <a class="nav-link" href="{{url('akses-superadmin/beranda')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Beranda</span></a>
       </li>
@@ -62,21 +65,20 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Keuangan
+      Hak Akses
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-coins"></i>
-          <span>Laporan Penjualan</span>
+          <i class="fas fa-fw fa-key"></i>
+          <span>Kelola Akses</span>
         </a>
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Kelola Keuangan :</h6>
-            <a class="collapse-item" href="{{url('validasi-pembayaran')}}">Dana Masuk</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Dana Keluar</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Saldo</a>
+            <h6 class="collapse-header">Kelola Akses :</h6>
+            <a class="collapse-item" href="{{url('akses-superadmin/data-role')}}">Role</a>
+            <a class="collapse-item" href="{{url('akses-superadmin/data-akses')}}">Hak Akses</a>
           </div>
         </div>
       </li>
@@ -86,21 +88,20 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Pengeluaran Dana
+        Aktivitas
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-money-check-alt"></i>
-          <span>Laporan Keuangan</span>
+          <i class="fas fa-fw fa-history"></i>
+          <span>Aktivitas Pengguna</span>
         </a>
         <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Kelola Pengeluaran:</h6>
-            <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Administrasi</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Pembelian Aset</a>
-            <a class="collapse-item" href="{{url('jenis-produk')}}">Lain-lain</a>
+            <h6 class="collapse-header">Aktivitas Pengguna:</h6>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Aktivitas Admin</a>
+            <a class="collapse-item" href="{{url('jenis-produk')}}">Aktivitas Pelanggan</a>
             <div class="collapse-divider"></div>
           </div>
         </div>
@@ -123,23 +124,22 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-         Pencatatan Pendapatan
+         Pencatatan Kas Masuk
        </div>
 
        <!-- Nav Item - Pages Collapse Menu -->
        <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fa fa-fa fa-arrow-circle-down"></i>
-          <span>Pendapatan</span>
+          <span>Kas Masuk</span>
         </a>
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-investasi')}}">Dana Investasi</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-utama')}}">Kas Utama</a>
             <div class="collapse-divider"></div>
-            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-jualbeli')}}">Dana Jual-Beli</a>
-            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lelang')}}">Dana Lelang</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-investasi')}}">Kas Investasi</a>
             <h6 class="collapse-header">Lain-Lain :</h6>
-            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lain')}}">Pendapatan Lainnya</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lain')}}">Kas Lainnya</a>
           </div>
         </div>
       </li>
@@ -149,23 +149,22 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-       Pencatatan Pengeluaran
+       Pencatatan Kas Keluar
      </div>
 
      <!-- Nav Item - Pages Collapse Menu -->
      <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapseTwo">
         <i class="fa fa-fa fa-arrow-circle-up"></i>
-        <span>Pengeluaran</span>
+        <span>Kas Keluar</span>
       </a>
       <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Investasi :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-bagi-hasil')}}">Bagi Hasil</a>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana-progres')}}">Dana Progres</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Kas Utama</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana-progres')}}">Kas Investasi</a>
           <h6 class="collapse-header">Lain-Lain :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Pencairan Dana</a>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Biaya Operasional</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Kas Operasional</a>
         </div>
       </div>
     </li>
@@ -187,8 +186,10 @@
       <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Kelola Keuangan:</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/arus-kas')}}">Arus Kas</a>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/jurnal')}}">Jurnal</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/posisi-kas')}}">Posisi Kas</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/tranksaksi-kas')}}">Tranksaksi Kas</a>
+          <!-- <a class="collapse-item" href="{{url('akses-adminkeuangan/arus-kas')}}">Arus Kas</a> -->
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/jurnal')}}">Jurnal Umum</a>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/neraca')}}">Neraca</a>
           <div class="collapse-divider"></div>
         </div>
@@ -212,7 +213,7 @@
       <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Pengaturan:</h6>
-          <a class="collapse-item" href="{{url('validasi-pembayaran')}}">Format Arus Kas</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/akun-bank')}}">Akun Bank</a>
           <div class="collapse-divider"></div>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/format-akun')}}">Format Akun</a>
           <div class="collapse-divider"></div>
@@ -222,7 +223,7 @@
     @endcan
 
 
-    @can('isAdmin')
+    @can('isAdminuser')
 
     <!-- Nav Item - Beranda -->
     <li class="nav-item active">
@@ -320,6 +321,91 @@
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
       @endcan
+
+
+      @can('isAdminweb')
+
+<!-- Nav Item - Beranda -->
+<li class="nav-item active">
+  <a class="nav-link" href="{{url('akses-adminweb/beranda')}}">
+    <i class="fas fa-fw fa-tachometer-alt"></i>
+    <span>Beranda</span></a>
+  </li>
+
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Artikel
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-fw fa-pen"></i>
+      <span>Kelola Artikel</span>
+    </a>
+    <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Kelola Artikel :</h6>
+        <a class="collapse-item" href="{{url('akses-adminweb/kategori-artikel')}}">Kategori</a>
+        <a class="collapse-item" href="{{url('akses-adminweb/artikel-blog')}}">Artikel</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    SEO
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-fw fa-search-dollar"></i>
+      <span>Kelola SEO</span>
+    </a>
+    <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">kelola SEO :</h6>
+        <a class="collapse-item" href="{{url('akses-adminweb/slug-artikel')}}">Slug Artikel</a>
+        <a class="collapse-item" href="{{url('akses-adminweb/slug-produk')}}">Slug Produk</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Pengaturan 
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-fw fa-th-large"></i>
+      <span>Kelola Template</span>
+    </a>
+    <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Kelola Template:</h6>
+        <a class="collapse-item" href="#">Kotak Pesan</a>
+        <a class="collapse-item" href="#">Tentang</a>
+        <a class="collapse-item" href="#">Kontak</a>
+        <div class="collapse-divider"></div>
+      </div>
+    </div>
+  </li>
+  @endcan
+
+      
     </ul>
 
 

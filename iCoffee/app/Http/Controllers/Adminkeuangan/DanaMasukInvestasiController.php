@@ -26,10 +26,9 @@ class DanaMasukInvestasiController extends Controller
 		if(request()->ajax())
 		{	
 			
-			$id = '3';
-			$AKMI = Adm_jurnal::where('id_kat_jurnal',$id)->get();
+			$AKMIV = Adm_jurnal::where('id_kat_jurnal', 3)->get();
 
-			return datatables()->of($AKMI)
+			return datatables()->of($AKMIV)
 			->addColumn('action', function($data){
 				$button = 
 				'<button type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm py-0"><i class="fa fa-eye"></i> Lihat</button>'.'&nbsp&nbsp'.
@@ -72,18 +71,14 @@ class DanaMasukInvestasiController extends Controller
 		if(request()->ajax())
 		{	
 
-			$akun = Adm_akun::where('id_adm_jurnal',$id)->get();
+			$data2 = Adm_akun::where('id_adm_jurnal',$id)->first();
 
 			$data = Adm_jurnal::findOrFail($id);
 			$total_jumlah = $data->total_jumlah;
 
-			// $ambil = Confirm_payment::where('jumlah_transfer',$total_jumlah)->select('foto_bukti')->first();
-			
-			// $invoice = $ambil->invoice;
-
 			return response()->json([
 				'data' => $data,
-				'akun' => $akun
+				'data2' => $data2
 			]);
 		}
 	}

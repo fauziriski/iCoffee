@@ -21,34 +21,42 @@ class TopUpController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $top_up = Top_up::where('user_id', $user_id)->orderBy('created_at','desc')->get();
-        $balance_withdrawal = Balance_withdrawal::where('user_id', $user_id)->orderBy('created_at','desc')->get();
+        $top_up = Top_up::where('user_id', $user_id)->orderBy('created_at','desc')->paginate(5);
+        $balance_withdrawal = Balance_withdrawal::where('user_id', $user_id)->orderBy('created_at','desc')->paginate(5);
+        $allsaldo = array();
 
         foreach ($balance_withdrawal as $key => $value) {
-            $top_up[] = $value;
+            $allsaldo[] = $value;
         }
+
+        foreach ($top_up as $key => $value) {
+            $allsaldo[] = $value;
+        }
+
+
 
      
-        foreach ($top_up as $key => $value) {
-           if ($top_up[$key]->bank) {
-               $top_up[$key]->title = "balance_withdrawal";
+        foreach ($allsaldo as $key => $value) {
+           if ($allsaldo[$key]->bank) {
+               $allsaldo[$key]->title = "balance_withdrawal";
            }
            else {
-               $top_up[$key]->title = "top_up";
+               $allsaldo[$key]->title = "top_up";
            }
         }
 
-        for ($i = 0;$i < count($top_up);$i++){
+        for ($i = 0;$i < count($allsaldo);$i++){
             $k = $i;
-            for ($j = $i+1;$j<count($top_up);$j++){
-              if ($top_up[$j]->created_at > $top_up[$k]->created_at) {
+            for ($j = $i+1;$j<count($allsaldo);$j++){
+              if ($allsaldo[$j]->created_at > $allsaldo[$k]->created_at) {
                   $k = $j;
                 }
             }   
-            $dummy=$top_up[$i];
-            $top_up[$i]=$top_up[$k];
-            $top_up[$k]=$dummy;
+            $dummy=$allsaldo[$i];
+            $allsaldo[$i]=$allsaldo[$k];
+            $allsaldo[$k]=$dummy;
           }
-          return view('jual-beli.topup.index', compact('top_up'));
+
+          return view('jual-beli.topup.index', compact('allsaldo', 'top_up', 'balance_withdrawal'));
     }
 }

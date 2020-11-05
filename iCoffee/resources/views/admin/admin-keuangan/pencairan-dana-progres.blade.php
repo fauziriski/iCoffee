@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin | Pencairan Progres Investasi')
+@section('title', 'Admin | Kas Keluar Progres')
 
 @section('content')
 
@@ -82,7 +82,7 @@
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
 					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h5>Pencairan Progres Petani</h5>
+						<h5>Kas Keluar Progres Petani</h5>
 						<div align="right">
 							<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fa fa-plus-square"></i> Tambah Pencatatan</button>
 						</div>
@@ -93,9 +93,9 @@
 							<table id="id_tabel" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th>Kode</th>
+										<th>Tanggal</th>
+										<th>No Tranksaksi</th>
 										<th>Nama Tranksaksi</th>
-										<th>Waktu Tranksaksi</th>
 										<th>Tujuan Tranksaksi</th>
 										<th>Jumlah</th>
 										<th> </th>
@@ -107,7 +107,7 @@
 				</div>
 			</div>
 
-			<!-- Pie Chart -->
+			
 			<div class="col-xl-4 col-lg-5">
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
@@ -121,8 +121,8 @@
 							<table id="id_tabel2" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th>Kode</th>
-										<th>Biaya</th>
+										<th>Invoice</th>
+										<th>Jumlah</th>
 										<th></th>
 									</tr>
 								</thead>
@@ -172,7 +172,6 @@
 														<th width="25%" style="text-align: center;">Daftar Akun  </th>	
 														<th width="35%" colspan="2">Akun :</th>
 														<th width="25%">Posisi :</th>
-														<th width="25%">Jumlah (IDR) :</th>
 													</div>
 												</tr>
 												
@@ -180,7 +179,7 @@
 													<div class="form-group">
 														<th rowspan="2"></th>
 														<th colspan="2">
-														<select class="form-control" name="akun1" id="akun1" style="width: 100%">
+														<select class="form-control" name="akun_debit" id="akun_debit" style="width: 100%">
 																<option value="" selected>----- Pilih Akun -----</option>
 																@foreach($kategori as $kat)
 																<optgroup label="{{$kat->no_akun}}.&nbsp;&nbsp;{{$kat->nama_kat}}">{{$kat->nama_kat}}</optgroup>
@@ -202,12 +201,10 @@
 															</select>
 														</th>
 														<th>
-															<select class="form-control" name="posisi1" id="posisi1" style="width: 100%">
-																<option value="Debit">Debit</option>
-																<option value="Kredit">Kredit</option>
+															<select class="form-control" style="width: 100%">
+																<option>Debit</option>
 															</select>
 														</th>
-														<th><input type="number" name="jumlah1" id="jumlah1" class="form-control" /></th>
 
 													</div>
 												</tr>
@@ -215,7 +212,7 @@
 												<tr>
 													<div class="form-group">	
 														<th colspan="2">
-															<select class="form-control" name="akun2" id="akun2" style="width: 100%">
+															<select class="form-control" name="akun_kredit" id="akun_kredit" style="width: 100%">
 																<option value="" selected>----- Pilih Akun -----</option>
 																@foreach($kategori as $kat)
 																<optgroup label="{{$kat->no_akun}}.&nbsp;&nbsp;{{$kat->nama_kat}}">{{$kat->nama_kat}}</optgroup>
@@ -237,14 +234,16 @@
 															</select>
 														</th>
 														<th>
-															<select class="form-control" name="posisi2" id="posisi2" style="width: 100%">	
-																<option value="Kredit">Kredit</option>
-																<option value="Debit">Debit</option>
+															<select class="form-control" style="width: 100%">	
+																<option>Kredit</option>
 															</select>
 														</th>
-														<th><input type="number" name="jumlah2" id="jumlah2" class="form-control" /></th>
-
+														
 													</div>
+												</tr>
+												<tr>
+													<th width="25%" style="text-align: center;">Jumlah  </th>
+													<th colspan="4"><input type="text" name="jumlah1" id="jumlah1" class="form-control" style="width: 100%" /></th>
 												</tr>
 												<tr>
 													<div class="form-group">
@@ -276,7 +275,7 @@
 								<br />
 								<div align="right">
 									<input type="hidden" name="action" id="action" value="" />
-									<input type="hidden" name="hidden_id" id="hidden_id" value="hidden_id"/>
+									<input type="hidden" name="hidden_id" id="hidden_id" />
 									<input type="submit" name="action_button" id="action_button" class="btn btn-primary" value="Tambah" />
 								</div>
 							</div>
@@ -302,7 +301,7 @@
                                     <div class="form-group">
                                         <th width="35%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
                                         <th colspan="4">
-                                            <a id="kode2"></a>
+                                            <a id="no_tran2"></a>
                                         </th>
                                     </div>
                                 </tr>
@@ -384,26 +383,39 @@
                                 <table cellpadding="10" border="1">
                                     <tr style="background-color: #4e73df; color: white;">
                                         <div class="form-group">
-                                            <th width="40%">Akun&nbsp;&nbsp;:</th>
-                                            <th width="15%">Posisi&nbsp;&nbsp;:</th>
+                                            <th width="40%">Nama Akun&nbsp;&nbsp;:</th>
+											<th width="15%">Posisi&nbsp;&nbsp;:</th>
                                             <th width="20%">Jumlah&nbsp;&nbsp;:</th>
                                         </div>
                                     </tr>
-                                    @for ($i = 0; $i < 2; $i++)
+                                   
                                     <tr>
                                         <div class="form-group">
                                             <th>
-                                                <a id="akun11{{$i}}"></a>
+                                                <a id="akun_debit2"></a>
+                                            </th>
+											<th>
+                                                <a>Debit</a>
                                             </th>
                                             <th>
-                                                <a id="posisi11{{$i}}"></a>
-                                            </th>
-                                            <th>
-                                                <a id="jumlah11{{$i}}"></a>
+                                                <a id="debit2"></a>
                                             </th>
                                         </div>
                                     </tr>
-                                    @endfor
+									<tr>
+                                        <div class="form-group">
+                                            <th>
+                                                <a id="akun_kredit2"></a>
+                                            </th>
+											<th>
+                                                <a>Kredit</a>
+                                            </th>
+                                            <th>
+                                                <a id="kredit2"></a>
+                                            </th>
+                                        </div>
+                                    </tr>
+                                  
                                 </table>
 								</div>
                             </div>
@@ -471,7 +483,7 @@
 													<tr>
 														<div class="form-group">	
 															<th colspan="2">
-																<select class="form-control" name="nama_akun2" id="nama_akun2" style="width: 100%">
+																<select class="form-control" name="akun_kredit" id="akun_kredit" style="width: 100%">
 																	<option></option>
 																	@foreach($kategori as $kat)
 																	<optgroup label="{{$kat->no_akun}}.&nbsp;&nbsp;{{$kat->nama_kat}}">{{$kat->nama_kat}}</optgroup>
@@ -493,12 +505,11 @@
 																</select>
 															</th>
 															<th>
-																<select class="form-control" name="posisi2" id="posisi2" style="width: 100%">	
+																<select class="form-control" style="width: 100%">	
 																	<option value="Kredit">Kredit</option>
-																	<option value="Debit">Debit</option>
 																</select>
 															</th>
-															<th><input type="number" name="jumlah2" id="jumlah2" class="form-control" /></th>
+															<th><input type="text" name="jumlah2" id="jumlah2" class="form-control" /></th>
 
 														</div>
 													</tr>
@@ -520,7 +531,7 @@
 														<div class="form-group">
 															<th style="text-align: center;">Catatan </th>
 															<th colspan="4">
-                                                            <textarea name="catatan" class="form-control" id="catatan1"></textarea>
+																<textarea name="catatan" class="form-control" id="catatan1"></textarea>
 																</th>
 															</div>
 														</tr>
@@ -546,6 +557,18 @@
 
 	@endsection
 	@section('js')
+	<script src="{{asset('JualBeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
+	<script>
+		var harga1 = document.getElementById('jumlah1');
+		harga1.addEventListener('keyup', function (e) {
+			harga1.value = formatRupiah(this.value, 'Rp ');
+		});
+
+		var harga2 = document.getElementById('jumlah2');
+		harga2.addEventListener('keyup', function (e) {
+			harga2.value = formatRupiah(this.value, 'Rp ');
+		});
+	</script>
 
 <script>
     $(document).ready(function () {
@@ -570,11 +593,10 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('adminkeuangan.penarikan-dana-progres') }}",
+				url: "{{ route('adminkeuangan.penarikan-dana-progres') }}",
                 dataType: "json"
             },
             columns: [
-
                 {
                     data: 'kode_produk',
                     name: 'kode_produk'
@@ -586,7 +608,6 @@
                     name: 'action',
                     orderable: false
                 }
-
             ]
         })
     });
@@ -746,9 +767,9 @@
 				},
 				columns:[
 
-				{data: 'kode', name: 'kode'},
-				{data: 'nama_tran', name:'nama_tran'},
 				{data: 'created_at', name:'created_at'},
+				{data: 'no_tran', name: 'no_tran'},
+				{data: 'nama_tran', name:'nama_tran'},
 				{data: 'tujuan_tran', name:'tujuan_tran'},
 				{data: 'total_jumlah', name:'total_jumlah'},
 				{data: 'action',name: 'action',orderable: false},
@@ -809,31 +830,30 @@
 									success:function(html){
 										$('#modalLihat').modal('show');
 										$('.modal-title').text("Detai Pencatatan");
-										document.getElementById("kode2").innerHTML = html.data.kode;
+										document.getElementById("no_tran2").innerHTML = html.data.no_tran;
 										document.getElementById("nama_tran2").innerHTML = html.data.nama_tran;
 										document.getElementById("created_at2").innerHTML = html.data.created_at;
 										document.getElementById("tujuan_tran2").innerHTML = html.data.tujuan_tran;
 										document.getElementById("catatan2").innerHTML = html.data.catatan;
 										
-										var img = "/Uploads/Adm_bukti/AKKIPR/" + html.data.bukti  +"";
+										var img = "/Uploads/" + html.data.bukti  +"";
 										$('#bukti2').attr("src",img);
 
-										var data = html.akun;
-										var banyak = data.length;
+											var debit = html.data2.debit;
+											var kredit = html.data2.kredit;
 
-										for(var i = 0; i<banyak; i++){
-											var nama_akun = data[i].nama_akun;
-											var posisi_akun = data[i].posisi;
-											var jumlah = data[i].jumlah;
+											var	reverse = debit.toString().split('').reverse().join(''),
+											debit_ribuan 	= reverse.match(/\d{1,3}/g);
+											debit_ribuan	= debit_ribuan.join('.').split('').reverse().join('');
 
-											var	reverse = jumlah.toString().split('').reverse().join(''),
-											ribuan 	= reverse.match(/\d{1,3}/g);
-											ribuan	= ribuan.join('.').split('').reverse().join('');
-
-											document.getElementById("akun11"+i).innerHTML = nama_akun;
-											document.getElementById("posisi11"+i).innerHTML = posisi_akun;
-											document.getElementById("jumlah11"+i).innerHTML = "Rp. "+ribuan;
-										}
+											var	reverse = kredit.toString().split('').reverse().join(''),
+											kredit_ribuan 	= reverse.match(/\d{1,3}/g);
+											kredit_ribuan	= kredit_ribuan.join('.').split('').reverse().join('');
+											
+											document.getElementById("akun_debit2").innerHTML = html.data2.akun_debit;
+											document.getElementById("akun_kredit2").innerHTML = html.data2.akun_kredit;
+											document.getElementById("debit2").innerHTML = "Rp "+debit_ribuan;
+											document.getElementById("kredit2").innerHTML = "Rp "+kredit_ribuan;
 									}
 								})
 							});

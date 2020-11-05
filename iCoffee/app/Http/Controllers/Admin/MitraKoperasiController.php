@@ -42,12 +42,12 @@ class MitraKoperasiController extends Controller
 			})
 
 			->addColumn('status', function($data){
-				if ($data->status == "belum divalidasi") {
-					$status = '<button type="button" class="btn btn-info btn-sm py-0 btn-block">belum divalidasi</button>';
-				}elseif ($data->status == "divalidasi") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0 btn-block">sudah divalidasi</button>';
+				if ($data->status == "1") {
+					$status = '<span class="badge badge-info">belum divalidasi</span>';
+				}elseif ($data->status == "2") {
+					$status = '<span class="badge badge-success">sudah divalidasi</span>';
 				}else{
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0 btn-block">validasi ditolak</button>';
+					$status = '<span class="badge badge-danger">validasi ditolak</span>';
 				}
 
 				return $status;

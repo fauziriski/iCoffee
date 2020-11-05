@@ -63,14 +63,21 @@ class MitraController extends Controller
         $dana = invest_order::where('status',2)->where('id_produk',$produk->id)->get();
         $total = 0;
         $qty = 0;
-        for($i=0;$i<count($dana);$i++){
-            $total += $dana[$i]->total;
-            $qty += $dana[$i]->qty;
-            $nama[] = User::where('id', $dana[$i]->id_investor)->first();
+        if(!$dana->isEmpty()){
+            for($i=0;$i<count($dana);$i++){
+                $total += $dana[$i]->total;
+                $qty += $dana[$i]->qty;
+                $nama[] = User::where('id', $dana[$i]->id_investor)->first();
+            }
+            $investor = invest_order::where('id_produk',$produk->id)->where('status',2)->distinct()->count('id_investor');
+    
+            return view('investasi.mitra.detail')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('qty',$qty)->with(compact('dana'))->with(compact('nama'));
         }
-        $investor = invest_order::where('id_produk',$produk->id)->where('status',2)->distinct()->count('id_investor');
-
-        return view('investasi.mitra.detail')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('qty',$qty)->with(compact('dana'))->with(compact('nama'));
+        else{
+            $investor = invest_order::where('id_produk',$produk->id)->where('status',2)->distinct()->count('id_investor');
+            return view('investasi.mitra.detail')->with('produk',$produk)->with('total',$total)->with('investor',$investor)->with('qty',$qty)->with(compact('dana'));
+        }
+        
     }
 
 
@@ -79,10 +86,15 @@ class MitraController extends Controller
         $saldo = Mitra::where('id_mitra',Auth::user()->id_mitra)->first('saldo');
         $rekening = Mitra_bank::where('id_mitra', Auth::user()->id_mitra)->get();
         $withdraws = Mitra_withdraw::where('id_mitra', Auth::user()->id_mitra)->get();
-        for ($i=0; $i < count($withdraws); $i++) {
-            $bank_withdraws[$i] = Mitra_bank::where('id_mitra',Auth::user()->id_mitra)->where('id',$withdraws[$i]->id_bank)->get();
+        if(!$withdraws->isEmpty()){
+            for ($i=0; $i < count($withdraws); $i++) {
+                $bank_withdraws[$i] = Mitra_bank::where('id_mitra',Auth::user()->id_mitra)->where('id',$withdraws[$i]->id_bank)->get();
+            }
+            return view('investasi.mitra.rekening', compact('rekening','withdraws','bank_withdraws'))->with('saldo');
         }
-        return view('investasi.mitra.rekening',compact('rekening','withdraws','bank_withdraws'))->with('saldo',$saldo->saldo);
+        else{
+            return view('investasi.mitra.rekening', compact('rekening','withdraws'))->with('saldo');
+        }
     
     }
     public function tambahBank(Request $request)
@@ -117,5 +129,10 @@ class MitraController extends Controller
     public function test()
     {
         return view('investasi.nyoba');
+    }
+
+    public function progressInvestasi()
+    {
+        return view('investasi.mitra.progress');
     }
 }

@@ -42,14 +42,14 @@ class CheckoutController extends Controller
 
         if (empty($cek_alamat_tersedia)) {
             Alert::info('Lengkapi Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/tambahalamat');
+            return redirect('/profile/tambahalamat');
         }
 
         $cek_alamat = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
 
         if (empty($cek_alamat)) {
             Alert::info('Tentukan Alamat Terlebih Dahulu')->showConfirmButton('Ok', '#3085d6');
-            return redirect('/profil/edit#pills-contact');
+            return redirect('/profile/alamat#pills-daftar-alamat');
         }
 
         $checkout = Auction_winner::where('id', $id)->first();
@@ -60,13 +60,19 @@ class CheckoutController extends Controller
         
         $alamat_pembeli = Address::where('id_pelanggan', $id_customer)->where('status', 1)->first();
         $alamat_penjual = Address::where('id_pelanggan', $checkout->id_pelelang)->where('status', 1)->first();
+        
+        $costjne = array();
+        $costtiki = array();
+        $costjnt = array();
+        $costninja = array();
+        $costlion = array();
 
-        $array = array(
-            "origin" => $alamat_penjual->kota_kabupaten,
-            "destination" => $alamat_pembeli->kota_kabupaten,
-            "weight" => $berat_kg,
-            "courier" => "jne",
-        );
+        // $array = array(
+        //     "origin" => $alamat_penjual->kota_kabupaten,
+        //     "destination" => $alamat_pembeli->kota_kabupaten,
+        //     "weight" => $berat_kg,
+        //     "courier" => "jne",
+        // );
 
         $costjne = Helper::instance()->cekOngkir($array);
 
@@ -83,13 +89,38 @@ class CheckoutController extends Controller
             "origin" => $alamat_penjual->kota_kabupaten,
             "destination" => $alamat_pembeli->kota_kabupaten,
             "weight" => $berat_kg,
-            "courier" => "pos",
+            "courier" => "jnt",
         );
 
-        $costpos = Helper::instance()->cekOngkir($array);
+        $costjnt = Helper::instance()->cekOngkir($array);
 
+        $array = array(
+            "origin" => $alamat_penjual->kota_kabupaten,
+            "destination" => $alamat_pembeli->kota_kabupaten,
+            "weight" => $berat_kg,
+            "courier" => "ninja",
+        );
 
-        return view('jual-beli.lelang.checkout', compact('checkout','alamat_pembeli', 'alamat_penjual', 'costjne', 'costtiki', 'costpos'));
+        $costninja = Helper::instance()->cekOngkir($array);
+
+        
+        $array = array(
+            "origin" => $alamat_penjual->kota_kabupaten,
+            "destination" => $alamat_pembeli->kota_kabupaten,
+            "weight" => $berat_kg,
+            "courier" => "lion",
+        );
+        $costlion = Helper::instance()->cekOngkir($array);
+
+        return view('jual-beli.lelang.checkout', 
+        compact('checkout',
+                'alamat_pembeli', 
+                'alamat_penjual', 
+                'costjne', 
+                'costtiki', 
+                'costjnt',
+                'costninja',
+                'costlion'));
         
     }
 

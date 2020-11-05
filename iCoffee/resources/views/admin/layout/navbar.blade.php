@@ -158,17 +158,32 @@
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-              <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              <?php
+                  $id = Auth::user()->id;
+                  $data= App\Profile_admin::where('role',$id)->first();     
+              ?>
+              <?php if ($data == NULL){ ?>
+                <img class="img-profile rounded-circle" src="{{asset('images/user.png') }}" width="60px" height="60px">
+              <?php }else{ ?>
+              <img class="img-profile rounded-circle" src="{{ asset('Uploads/'.$data->foto) }}" width="60px" height="60px">
+              <?php } ?>
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
+            @can('isAdminsuper')
+              <a class="dropdown-item" href="{{url('akses-superadmin/profile-admin')}}">
+            @endcan
+            @can('isAdminuser')
+              <a class="dropdown-item" href="{{url('akses-admin/profile-admin')}}">
+            @endcan
+            @can('isAdminweb')
+              <a class="dropdown-item" href="{{url('akses-adminweb/profile-admin')}}">
+            @endcan
+            @can('isAdminkeuangan')
+              <a class="dropdown-item" href="{{url('akses-adminkeuangan/profile-admin')}}">
+            @endcan
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Pengaturan
               </a>
               <a class="dropdown-item" href="#">
                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>

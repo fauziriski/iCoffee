@@ -68,12 +68,16 @@ class InvestorController extends Controller
     public function confirm()
     {
         $order = invest_order::where('id_investor', Auth::id())->where('status',1)->get();
-        foreach($order as $ord){
-            $produk[] = Invest_product::where('id', $ord->id_produk)->get();
+        if(!$order->isEmpty()){
+            foreach($order as $ord){
+                $produk[] = Invest_product::where('id', $ord->id_produk)->get();
+            }
+            return view('investasi.konfirmasi',compact('order','produk'));
+        }else
+        {
+            Alert::toast('Silahkan pesan terlebih dahulu!', 'warning');
+            return redirect('/invest');
         }
-        
-        // $produk = Invest_produk::where('id',$)
-        return view('investasi.konfirmasi',compact('order','produk'));
     }
 
     public function confirmStore(Request $request)
@@ -113,10 +117,11 @@ class InvestorController extends Controller
 
     public function orderHistory()
     {
-        $order = invest_order::where('id_investor',Auth::id())->paginate(3);
-        foreach($order as $ord){
-            $produk[] = Invest_product::where('id', $ord->id_produk)->get();
-        }
-        return view('investasi.riwayatorder',compact('order','produk'));
+        return view('investasi.riwayatorder');
+    }
+
+    public function progress()
+    {
+        return view('investasi.progress');
     }
 }

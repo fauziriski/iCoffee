@@ -303,7 +303,7 @@
 								for(var i = 0; i<panjang; i++){
 									var nama_gambar = lihat[i].nama_gambar;
 									var kode_produk = lihat[i].kode_produk;
-									var img = "/Uploads/Produk/{" + kode_produk  + "}/" + nama_gambar +"";
+									var img = "/Uploads/Produk/"+ kode_produk +"/"+ nama_gambar +"";
 									$("#foto"+i).attr("src",img);
 
 								}
@@ -325,13 +325,10 @@
 					$('#ok_button').click(function(){
 						$.ajax({
 							url:"hapus-produk/"+id_produk,
-							success:function(data)
-							{
-								setTimeout(function(){
-									$('#confirmModal').modal('hide');
-									$('#table_id').DataTable().ajax.reload();
-								}, 500);
-							}
+							success: function (data) {
+								swal('Berhasil', 'Data berhasil dihapus', 'success');
+								$('#table_id').DataTable().ajax.reload();
+								}
 						})
 					});
 

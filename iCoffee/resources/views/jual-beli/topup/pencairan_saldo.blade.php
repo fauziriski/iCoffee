@@ -48,7 +48,12 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="jumlah">Jumlah</label>
-                                                <input type="number" class="form-control" name="jumlah" min="10000" max="{{ $cek_saldo->saldo }}" required>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                      <div style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"  class="input-group-text">Rp</div>
+                                                    </div>
+                                                <input type="text" class="form-control" id="jumlah" name="jumlah" min="10000" max="{{ $cek_saldo->saldo }}" required>
+                                                </div>
                                                 <span class="text-danger">{{$errors->first('jumlah')}}</span>
                                             </div> 
                                         </div>
@@ -61,7 +66,7 @@
                                         </div>
                                     </div>
                                     <div class="row align-items-end mt-2 mb-5 justify-content-center">
-                                        <div class="col-md-3 offset-md-10 col-sm-3 pr-4 text-center mt-3">
+                                        <div class="col-md-3 text-center mt-3">
                                             <button type="submit" class="btn btn-primary py-3 px-4">Tarik Saldo</button>
                                         </div>
                                     </div>
@@ -78,6 +83,19 @@
 
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="{{asset('JualBeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
+<script type="text/javascript">
+		
+  var harga = document.getElementById('jumlah');
+  harga.addEventListener('keyup', function(e){
+    // tambahkan 'Rp.' pada saat form di ketik
+    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    harga.value = formatRupiah(this.value, 'Rp. ');
+  });
+
+  
+</script>
 
 @endsection
 

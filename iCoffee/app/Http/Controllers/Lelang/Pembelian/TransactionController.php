@@ -10,12 +10,28 @@ use App\Helper\Helper;
 use App\Auction_Order;
 use App\Category;
 use App\User;
+use File;
 
 class TransactionController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function getProvinceData()
+    {
+        // $files = File::files(public_path());
+        $data = 'Tanjung Karang Pusat';
+        $subdistric = Helper::instance()->getcity();
+        dd($subdistric);
+        // $path = public_path() . "/country-calling-codes.min.json";
+        // $str = File::get($path);
+        // $datas = $array_result = json_decode($str, true);
+        //     $data = Helper::instance()->dialCode($datas);
+        //     dd($data);
+
+        return response()->json($data);
     }
 
     public function index()

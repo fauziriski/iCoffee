@@ -13,11 +13,12 @@ class AdminUserSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'name' => 'Admin Icoffee',
-            'email' => 'adminicoffee@icoffee.co.id',
-            'password' =>  bcrypt('wifinyarusak'),
+            'name' => 'Admin User',
+            'email' => 'adminuser@icoffee.asia',
+            'password' =>  bcrypt('icoffee.asia'),
+            'provider_id' => 'admin-icoffee',
         ]);
 
-        $user->assignRole('admin');
+        $user->assignRole('adminuser');
     }
 }

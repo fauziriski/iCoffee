@@ -24,7 +24,9 @@
   </div>
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
+      <a href="/">
       <img src="{{ asset('landing_page/images/logo3.png') }}">
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -67,13 +69,13 @@
               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 &nbsp;&nbsp;&nbsp;Hai, {{ Auth::user()->name }} <span class="caret"></span>
                 @if (!empty($count_order['count_notif']))
-                <span class="badge badge-pill badge-danger py-1 align-middle">{{ $count_order['count_notif'] }}</span>
+                <span class="badge badge-pill badge-success py-1 align-middle">{{ $count_order['count_notif'] }}</span>
                 @endif 
             
               </a>
-              <div class="dropdown-menu dropdown-menu-right px-1" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu dropdown-menu-right mt-0 px-1" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">
-                  <i class="fas fa-wallet mr-3"></i>Rp {{ number_format(Auth::user()->joint_accounts->saldo) }}
+                  <i class="fas fa-wallet mr-3"></i>Rp {{ number_format(Auth::user()->joint_accounts->saldo, 0, ',', '.') }}
                 </a>
                 <a class="dropdown-item" href="/profile/top_up">
                   <i class="mr-2"><iconify-icon data-icon="ion-server-sharp"></iconify-icon></i> Top Up Saldo
@@ -81,7 +83,7 @@
                 <a class="dropdown-item" href="/profile/edit">
                   <i class="ion-ios-person mr-3"></i>Profile
                   @if (!empty($count_order['count_notif']))
-                  &nbsp;<span class="badge badge-pill badge-danger py-1 align-middle">{{ $count_order['count_notif'] }}</span>
+                  &nbsp;<span class="badge badge-pill badge-success py-1 align-middle">{{ $count_order['count_notif'] }}</span>
                   @endif 
                 </a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
