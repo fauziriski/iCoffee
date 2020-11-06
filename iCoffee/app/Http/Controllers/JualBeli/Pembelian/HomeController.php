@@ -26,7 +26,7 @@ class HomeController extends Controller
 
     public function category($id)
     {
-        $products = Shop_product::where('id_kategori', $id)->orderBy('created_at','desc')->paginate(12);
+        $products = Shop_product::where('id_kategori', $id)->orderBy('created_at','desc')->where('status', 1)->paginate(12);
         $category = Category::all();
 
         if ($products) {
@@ -46,6 +46,7 @@ class HomeController extends Controller
 
         $products = DB::table('shop_products')
                 ->where('nama_produk', 'like', '%'.$request->search.'%')
+                ->where('status', '=', 1)
                 ->paginate(12);
 
         $category = Category::all();
@@ -83,7 +84,7 @@ class HomeController extends Controller
         $cek_rating_toko = Rating::where('id_penjual', $products->id_pelanggan)->get();
         $cek_jumlah_data_rating = count($cek_rating_toko);
 
-
+        
         $jumlah_terjual = Orderdetail::where('id_produk', $id)->get();
         $jumlah_data_terjual = $jumlah_terjual->count();
         $jumlah_terjual_produk = 0;
@@ -102,6 +103,7 @@ class HomeController extends Controller
         $sum = 0;
         $rating_toko = 0;
         $cek_data = array();
+        $cek_data_rating = array();
         for ($i=0; $i < $cek_jumlah_data_rating; $i++)
         {
             if(!($cek_rating_toko[$i]->rating == 0))
@@ -112,15 +114,19 @@ class HomeController extends Controller
 
 
             }
+           
         }
 
+        if ($jumlah_data > 0) {
+           
         $sum = array_sum($cek_data_rating);
         $rating_toko = round($sum/$jumlah_data,1);;
-        
-        $count = $jumlah_data;
         // foreach ($cek_data_rating as $data) {
         //     $count+= count($data);
         // }
+
+        }
+        $count = $jumlah_data;
 
         
         return view('jual-beli.detailproduk',compact('products','image','produk_terkait', 'alamat', 'jumlah_terjual_produk', 'rating_toko', 'jumlah_data','count'));
