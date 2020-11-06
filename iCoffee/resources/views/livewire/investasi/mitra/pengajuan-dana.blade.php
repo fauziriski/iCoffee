@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
             <label>Deskripsi</label>
-            <textarea wire:model="desc" class="form-control" ></textarea>
+            <textarea wire:model="desc" class="form-control" required></textarea>
         </div>
         <p>Rincian Pengajuan</p>
         <table id="invoiceitems" class=" table table-responsive order-list">
