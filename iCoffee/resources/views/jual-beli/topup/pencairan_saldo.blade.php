@@ -84,7 +84,7 @@
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script src="{{asset('/JualBeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
+<script src="{{asset('/JualBeli/js/customPlugin/rupiahFormat.js')}}"></script>
 <script type="text/javascript">
 		
   var harga = document.getElementById('jumlah');
