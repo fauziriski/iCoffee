@@ -74,7 +74,7 @@ class CheckoutController extends Controller
         //     "courier" => "jne",
         // );
 
-        $costjne = Helper::instance()->cekOngkir($array);
+        // $costjne = Helper::instance()->cekOngkir($array);
 
         $array = array(
             "origin" => $alamat_penjual->kota_kabupaten,
