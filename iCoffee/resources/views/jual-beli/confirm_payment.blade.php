@@ -126,7 +126,7 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('JualBeli/plugins/customPlugin/rupiahFormat.js') }}"></script>
+<script src="{{asset('Jualbeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
     <script type="text/javascript">
         var harga = document.getElementById('jumlah_transfer');
         harga.addEventListener('keyup', function(e) {

@@ -51,7 +51,7 @@
     </div>
     </div>
     </section>
-    <script src="{{ asset('JualBeli/plugins/customPlugin/rupiahFormat.js') }}"></script>
+    <script src="{{asset('Jualbeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
     <script type="text/javascript">
         var kelipatan = document.getElementById('jumlah');
         kelipatan.addEventListener('keyup', function(e) {
