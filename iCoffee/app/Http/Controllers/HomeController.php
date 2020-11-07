@@ -805,12 +805,14 @@ class HomeController extends Controller
         ]);
         $jumlah = Helper::instance()->removeDot($request->jumlah);
 
+        $cek_saldo = Joint_account::where('user_id', $id_pelanggan)->first();
+
         if ($cek_saldo->saldo < $jumlah) {
             Alert::error('Gagal', 'Gagal melakukan penarikan, saldo yang anda miliki '. $cek_saldo->saldo )->showConfirmButton('Ok', '#3085d6');
             return back();
         }
         $id_pelanggan = Auth::user()->id;
-        $cek_saldo = Joint_account::where('user_id', $id_pelanggan)->first();
+
 
         $user = User::where('id', $id_pelanggan)->first();
         $password = Str::camel($user->password);
