@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">  
-    <title>iCoffeee</title>
+    <title>iCoffee</title>
     <!-- Additional CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{asset('landing_page/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('landing_page/css/font-awesome.css') }}">
@@ -95,8 +95,8 @@
                                 <div class="icon">
                                     <i><img src="{{ asset('landing_page/images/ico1.png') }}" alt=""></i>
                                 </div>
-                                <h5 class="features-title">Layanan Jual Beli</h5>
-                                <p>Layanan ini sebagai marketplace yang menyediakan beragam jenis kategori biji kopi dengan sistem penjualan terjamin.</p>
+                                <h5 class="features-title">Layanan Jual Beli</h5></a>
+                                <p href="{{url('/jual-beli')}}">Layanan ini sebagai marketplace yang menyediakan beragam jenis kategori biji kopi dengan sistem penjualan terjamin.</p>
                             </div>
                         </div>
                         <!-- ***** Features Small Item End ***** -->
@@ -255,7 +255,7 @@
                 </div>
                 <div class="offset-lg-3 col-lg-6">
                     <div class="center-text">
-                        <p>Pasang produk kopi anda melalui platform dibawah ini.</p>
+                        <p>Pilih dan Pasang produk kopi anda melalui platform dibawah ini.</p>
                     </div>
                 </div>
             </div>
@@ -267,7 +267,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                 <div class="shop-cat-box">
-                                    <img class="img-fluid" src="{{ asset('landing_page/images/product-3.jpg') }}" alt=""/>
+                                    <img class="img-fluid" href="{{url('/jual-beli')}}" src="{{ asset('landing_page/images/product-3.jpg') }}" alt=""/>
                                     <a class="hvr-hover" href="{{url('/jual-beli')}}">Jual-Beli</a>
                                 </div>
                             </div>

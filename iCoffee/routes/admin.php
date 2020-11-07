@@ -10,6 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |*/
 
+Route::get('/404', function() {
+    return view('admin.404');
+});
+
+
 Route::get('/', 'HomeController@index')->name('dashboard');
 
 Route::get('/beranda', 'HomeController@index')->name('beranda');
@@ -135,9 +140,6 @@ Route::group(['middleware' => ['can:verification']], function () {
     Route::post('/validasi-bagi-hasil/update', 'VerifikasiBagiHasilController@validasiBagiHasil')->name('validasi-bagi-hasil.update');
 
 });
-
-
-
 
 
 

@@ -26,9 +26,13 @@ class NeracaController extends Controller
       if(!empty($request->from_date))
       {
        $data = DB::table('adm_akun')
-         ->whereBetween('created_at', array($request->from_date, $request->to_date))
+         ->join('adm_jurnal', 'adm_akun.id_adm_jurnal', '=', 'adm_jurnal.id')
+        //  ->join('adm_kat_jurnal', 'adm_jurnal.id_kat_jurnal', '=', 'adm_kat_jurnal.id')
+         ->whereBetween('adm_jurnal.created_at', array($request->from_date, $request->to_date))
+      
          ->get();
-         
+
+        
       }
       else
       {

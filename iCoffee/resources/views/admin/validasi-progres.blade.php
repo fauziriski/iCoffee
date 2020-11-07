@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin | Validasi Pencairan Dana Pelanggan')
+@section('title', 'Admin | Validasi Pengajuan Progres')
 
 @section('content')
 
@@ -66,7 +66,7 @@
         <!-- Card Header - Dropdown -->
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h5>Validasi Pencairan Progres Petani</h5>
+            <h5>Validasi Pengajuan Dana Progres</h5>
         </div>
         <!-- Card Body -->
         <div class="card-body">
@@ -75,12 +75,12 @@
 			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
 				<thead>
 					<tr>
+						<th>Tanggal</th>
+						<th>Id Mitra</th>
 						<th>Kode</th>
-						<th>Nama Produk</th>
-						<th>Jumlah/Qty</th>
-						<th>Total Harga</th>
-						<th>Progres</th>
-						<th>Terdaftar</th>
+						<th>Judul</th>
+						<th>Deskripsi</th>
+						<th>Total Pengajuan</th>
 						<th>Status</th>		
 						<th></th>	
 					</tr>
@@ -170,49 +170,36 @@
 							<table cellpadding="10" border="0">
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Status&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="status"></a></th>
+										<th width="25%" style="text-align: right;">Status&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="status1"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Terdaftar&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%" style="text-align: right;">Terdaftar&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="terdaftar"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="kode_produk"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Progres&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="progres"></a></th>
+										<th width="25%" style="text-align: right;">Judul&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="judul"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Nama Produk&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="nama_produk"></a></th>
+										<th width="25%" style="text-align: right;">Deskripsi&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="deskripsi"></a></th>
 									</div>
 								</tr>
-								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Jumlah/Qty&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="jumlah"></a></th>
-									</div>
-								</tr>
-								<tr>
-									<div class="form-group">
-										<th width="35%" style="text-align: right;">Harga/Qty&nbsp;&nbsp;&nbsp;:</th>	
-										<th width="25%"><a id="harga"></a></th>
-									</div>
-								</tr>
-								<tr>
-									<div class="form-group">
-										<th width="35%" style="text-align: right;">Total&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%" style="text-align: right;">Total&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="total"></a></th>
 									</div>
 								</tr>
@@ -305,15 +292,15 @@
 
 			columns:[
 
-			{data: 'kode_produk', name:'kode_produk'},
-			{data: 'produk', name:'produk'},	
-			{data: 'jumlah', name:'jumlah'},
-			{data: 'total', name:'total'},
-			{data: 'progress', name:'progress'},
 			{data: 'created_at', name:'created_at'},
+			{data: 'id_mitra', name:'id_mitra'},	
+			{data: 'kode_produk', name:'kode_produk'},
+			{data: 'judul', name:'judul'},
+			{data: 'deskripsi', name:'deskripsi'},
+			{data: 'total', name:'total'},
 			{data: 'status', name:'status'},
 			{data: 'action', name: 'action',orderable: false}
-							
+
 			]
 		});
 
@@ -324,29 +311,22 @@
 				dataType:"json",
 				success:function(html){
 
-					var rp = html.data.harga;
-					var rp2 = html.data.total;
-					var progress = "progres ke-"+html.data.progress;
+					var total = html.data.total
+					var	reverse = total.toString().split('').reverse().join(''),
+					total_rp 	= reverse.match(/\d{1,3}/g);
+					total_rp	= total_rp.join(',').split('').reverse().join('');
 
-					var	reverse = rp.toString().split('').reverse().join(''),
-					ribuan 	= reverse.match(/\d{1,3}/g);
-					ribuan	= ribuan.join('.').split('').reverse().join('');
-
-					var	reverse = rp2.toString().split('').reverse().join(''),
-					ribuan2 	= reverse.match(/\d{1,3}/g);
-					ribuan2	= ribuan2.join('.').split('').reverse().join('');
+				
 
 
 					$('#modalLihat').modal('show');
 					$('.modal-title').text("Detail Pencairan");
 					document.getElementById("kode_produk").innerHTML = html.data.kode_produk;
 					document.getElementById("terdaftar").innerHTML = html.data.created_at;
-					document.getElementById("nama_produk").innerHTML = html.data.produk;
-					document.getElementById("jumlah").innerHTML = html.data.jumlah;
-					document.getElementById("progres").innerHTML = progress;
-					document.getElementById("status").innerHTML = html.status;
-					document.getElementById("harga").innerHTML = "Rp. "+ribuan;
-					document.getElementById("total").innerHTML = "Rp. "+ribuan2;
+					document.getElementById("judul").innerHTML = html.data.judul;
+					document.getElementById("deskripsi").innerHTML = html.data.deskripsi;
+					document.getElementById("status1").innerHTML = html.status1;
+					document.getElementById("total").innerHTML = "Rp "+total_rp;
 
 					
 				}

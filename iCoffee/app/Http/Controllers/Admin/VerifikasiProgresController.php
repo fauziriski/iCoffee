@@ -60,10 +60,6 @@ class  VerifikasiProgresController extends Controller
 				return $total;
 			})
 
-			->addColumn('progress', function($data){
-				$harga = "progres ke-".$data->progress;
-				return $harga;
-			})
 
 			->addColumn('created_at', function($data){
 				$waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i'); 
@@ -83,23 +79,23 @@ class  VerifikasiProgresController extends Controller
 		if(request()->ajax())
 		{
 			$data = Pengajuan_dana::findOrFail($id);
-			$user_id = $data->user_id;
 
 			if($data->status !== NULL){
 				if ($data->status == "1") {
-					$status = '<button type="button" class="btn btn-info btn-sm py-0">belum divalidasi</button>';
+					$status1 = '<button type="button" class="btn btn-info btn-sm py-0">belum divalidasi</button>';
 				}elseif ($data->status == "4") {
-					$status = '<button type="button" class="btn btn-secondary btn-sm py-0">sedang diproses</button>';
+					$status1 = '<button type="button" class="btn btn-secondary btn-sm py-0">sedang diproses</button>';
 				}elseif ($data->status == "3") {
-					$status = '<button type="button" class="btn btn-success btn-sm py-0">sudah divalidasi</button>';
+					$status1 = '<button type="button" class="btn btn-success btn-sm py-0">sudah divalidasi</button>';
 				}else{
-					$status = '<button type="button" class="btn btn-danger btn-sm py-0">validasi ditolak</button>';
+					$status1 = '<button type="button" class="btn btn-danger btn-sm py-0">validasi ditolak</button>';
 				}
 			}
 
+
 			return response()->json([
 				'data' => $data,
-				'status' => $status
+				'status1' => $status1
 
 			]);
 

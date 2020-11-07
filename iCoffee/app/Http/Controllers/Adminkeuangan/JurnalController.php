@@ -26,9 +26,10 @@ class JurnalController extends Controller
       if(!empty($request->from_date))
       {
        $data = DB::table('adm_akun')
-         ->whereBetween('created_at', array($request->from_date, $request->to_date))
+       ->join('adm_jurnal', 'adm_akun.id_adm_jurnal', '=', 'adm_jurnal.id')
+         ->whereBetween('adm_jurnal.created_at', array($request->from_date, $request->to_date))
          ->get();
-         
+       
       }
       else
       {
@@ -45,18 +46,6 @@ class JurnalController extends Controller
 				$waktu =  Carbon::parse($data->created_at)->format('l, d F Y H:i'); 
 				return $waktu;
 			})
-
-			// ->addColumn('debit', function($data){
-			// 	$rp = "Rp. ";
-			// 	$debit = $rp. number_format($data->debit); 
-			// 	return $debit;
-      // })
-      
-			// ->addColumn('kredit', function($data){
-			// 	$rp = "Rp. ";
-			// 	$kredit = $rp. number_format($data->kredit); 
-			// 	return $kredit;
-      // })
            
 			->make(true);
       

@@ -33,10 +33,10 @@ class TranksaksiKasController extends Controller
       }
       else
       {
-        $year = Carbon::now()->format('Y');
-        $month = Carbon::now()->format('m');
+        // $year = Carbon::now()->format('Y');
+        // $month = Carbon::now()->format('m');
         
-       $data = DB::table('adm_jurnal')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+       $data = DB::table('adm_jurnal')->get();
       }
       
       return datatables()->of($data)
