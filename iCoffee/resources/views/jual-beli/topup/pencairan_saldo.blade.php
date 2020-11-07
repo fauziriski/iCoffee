@@ -84,14 +84,14 @@
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script src="{{asset('/JualBeli/js/customplugin/rupiahformat.js')}}"></script>
+<script src="{{asset('Jualbeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
 <script type="text/javascript">
 		
   var harga = document.getElementById('jumlah');
   harga.addEventListener('keyup', function(e){
     // tambahkan 'Rp.' pada saat form di ketik
     // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-    harga.value = formatrupiah(this.value, 'Rp. ');
+    harga.value = formatRupiah(this.value, 'Rp. ');
   });
 
   
