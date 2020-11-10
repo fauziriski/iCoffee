@@ -308,7 +308,7 @@
             <a class="collapse-item" href="{{url('akses-admin/mitra-perorangan')}}">Mitra Perorangan</a>
             <h6 class="collapse-header">Kelola Investasi :</h6>
             <a class="collapse-item" href="{{url('akses-admin/validasi-produk-investasi')}}">Validasi Produk</a>
-            <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan-petani')}}">Validasi Progres</a>
+            <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan-petani')}}">Validasi Pengajuan</a>
             <a class="collapse-item" href="{{url('akses-admin/404')}}">Validasi Bagi Hasil</a>
             <h6 class="collapse-header">Kelola Investor :</h6>
             <a class="collapse-item" href="{{url('akses-admin/validasi-investor')}}">Validasi Investor</a>

@@ -61,7 +61,7 @@ class ConfirmPaymentController extends Controller
             'foto_bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/JualBeli/{".$request->invoice."}");
+        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/JualBeli/".$request->invoice."");
         $image = $request->foto_bukti;
         $name=$image->getClientOriginalName();
 

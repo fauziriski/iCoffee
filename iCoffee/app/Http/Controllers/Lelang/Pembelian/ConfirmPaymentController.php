@@ -42,7 +42,7 @@ class ConfirmPaymentController extends Controller
 
         $jumlah_transfer =  Helper::instance()->removeDot($request->jumlah_transfer);
 
-        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/{".$request->invoice."}");
+        $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/Lelang/".$request->invoice."");
         $response = mkdir($folderPath);
         
         $image = $request->foto_bukti;

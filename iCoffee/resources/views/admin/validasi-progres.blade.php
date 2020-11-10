@@ -75,7 +75,7 @@
 			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
 				<thead>
 					<tr>
-						<th>Tanggal</th>
+						<th>Tanggal Pengajuan</th>
 						<th>Id Mitra</th>
 						<th>Kode</th>
 						<th>Judul</th>
@@ -157,10 +157,10 @@
 </div>
 
 <div id="modalLihat" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-md">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Detail Pencatatan</h5>
+				<h5 class="modal-title">Detail Pengajuan</h5>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
@@ -170,46 +170,51 @@
 							<table cellpadding="10" border="0">
 								<tr>
 									<div class="form-group">
-										<th width="25%" style="text-align: right;">Status&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="20%" style="text-align: right;">Status&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="status1"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="25%" style="text-align: right;">Terdaftar&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="20%" style="text-align: right;">Tanggal Pengajuan&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="terdaftar"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="25%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="20%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="kode_produk"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="25%" style="text-align: right;">Judul&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="20%" style="text-align: right;">Judul&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="judul"></a></th>
 									</div>
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="25%" style="text-align: right;">Deskripsi&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="20%" style="text-align: right;">Deskripsi&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="deskripsi"></a></th>
 									</div>
 								</tr>
+								<tr>
 									<div class="form-group">
-										<th width="25%" style="text-align: right;">Total&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="20%" style="text-align: right;">Total&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="total"></a></th>
 									</div>
 								</tr>
 								
-							</table>
 						</div>
 
 					</table>
 				</div>
-			</div>
+				<div class="table-responsive">
+					<div class="container">
+                        <div class="row">
+                        <div class="col-md-12 col-sm-12" id="tabel_rincian">
+						</div>
+				</div><br>
 
 			<div align="right">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
@@ -309,25 +314,45 @@
 			$.ajax({
 				url:"lihat-validasi-pencairan-petani/"+id,
 				dataType:"json",
-				success:function(html){
+				success:function(data1){
 
-					var total = html.data.total
+					var total = data1.data.total
 					var	reverse = total.toString().split('').reverse().join(''),
 					total_rp 	= reverse.match(/\d{1,3}/g);
 					total_rp	= total_rp.join(',').split('').reverse().join('');
 
-				
-
-
 					$('#modalLihat').modal('show');
 					$('.modal-title').text("Detail Pencairan");
-					document.getElementById("kode_produk").innerHTML = html.data.kode_produk;
-					document.getElementById("terdaftar").innerHTML = html.data.created_at;
-					document.getElementById("judul").innerHTML = html.data.judul;
-					document.getElementById("deskripsi").innerHTML = html.data.deskripsi;
-					document.getElementById("status1").innerHTML = html.status1;
+					document.getElementById("kode_produk").innerHTML = data1.data.kode_produk;
+					document.getElementById("terdaftar").innerHTML = data1.data.created_at;
+					document.getElementById("judul").innerHTML = data1.data.judul;
+					document.getElementById("deskripsi").innerHTML = data1.data.deskripsi;
+					document.getElementById("status1").innerHTML = data1.status1;
 					document.getElementById("total").innerHTML = "Rp "+total_rp;
+					
+					var table_header = "<table cellpadding='10' border='1' style='margin-top: -5%;'><tr style='background-color: #4e73df; color: white;'><div class='form-group'><th width='40%' style='text-align: center;'>Nama Produk&nbsp;&nbsp;:</th><th width='20%' style='text-align: center;'>Harga&nbsp;&nbsp;:</th><th width='10%' style='text-align: center;'>Qty&nbsp;&nbsp;:</th><th width='20%' style='text-align: center;'>Total&nbsp;&nbsp;:</th></tr></div>";
+					var table_footer = "<tr><th colspan='3' style='text-align: center;'>Total Pengajuan</th><th style='text-align: center;'>Rp "+total_rp+"</th></tr></table></div>"
+					var html = "";
 
+					data1.rincian.forEach(function(data2){
+
+					var harga = data2.harga
+					var	reverse = harga.toString().split('').reverse().join(''),
+					harga_rp 	= reverse.match(/\d{1,3}/g);
+					harga_rp	= harga_rp.join(',').split('').reverse().join('');
+
+					var jumlah = data2.jumlah
+					var	reverse = jumlah.toString().split('').reverse().join(''),
+					jumlah_rp 	= reverse.match(/\d{1,3}/g);
+					jumlah_rp	= jumlah_rp.join(',').split('').reverse().join('');
+
+
+						html += "<tr><th style='text-align: center;'>"+data2.produk+"</th><th style='text-align: center;'>Rp "+harga_rp+"</th><th style='text-align: center;'>"+data2.qty+"</th><th style='text-align: center;'>Rp "+jumlah_rp+"</th></tr></br>";
+					});
+					
+					var all = table_header +html+ table_footer;
+					document.getElementById("tabel_rincian").innerHTML = all;
+					
 					
 				}
 			})

@@ -10,6 +10,7 @@ use App\Adm_tranksaksi;
 use App\Adm_kat_akun;
 use App\Joint_account;
 use App\Pengajuan_dana;
+use App\Rincian_pengajuan;
 use Carbon;
 
 
@@ -92,10 +93,12 @@ class  VerifikasiProgresController extends Controller
 				}
 			}
 
+			$rincian = Rincian_pengajuan::where('pengajuan_dana_id',$id)->get();
 
 			return response()->json([
 				'data' => $data,
-				'status1' => $status1
+				'status1' => $status1,
+				'rincian' => $rincian
 
 			]);
 
