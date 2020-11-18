@@ -76,7 +76,7 @@
 				<thead>
 					<tr>
 						<th>Tanggal Pengajuan</th>
-						<th>Id Mitra</th>
+						<th>Mitra</th>
 						<th>Kode</th>
 						<th>Judul</th>
 						<th>Deskripsi</th>
@@ -141,6 +141,8 @@
 					@csrf
 					<input type="hidden" name="status" id="status2" value="" />
 					<input type="hidden" name="hidden_id2" id="hidden_id2" />
+					<input type="hidden" name="id_mitra" id="id_mitra2" />
+					<input type="hidden" name="total_pengajuan" id="total_pengajuan2" />
 					<input type="hidden" name="action" id="action2" />
 					<div class="text2">
 						<h5 class="mt-3" align="center" style="margin:0;">Apakah anda yakin ingin diproses?</h5>
@@ -389,13 +391,34 @@
 					$('#hidden_id2').val(html.data.id);
 					$('.modal-title2').text("Konfirmasi");
 					$('#action_button2').val("diproses");
-					$('#status2').val("4");
+					$('#status2').val("3");
 					$('.text2').text("Apakah anda yakin ingin diproses?")
 					$('#action2').val("diproses");
 					$('#modalVerifikasi').modal('show');
 				}
 			})
 		});
+
+		$(document).on('click', '.validasi', function () {
+			var id = $(this).attr('id');
+			$('#form_konfirmasi').html('');
+			$.ajax({
+				url:"lihat-validasi-pencairan-petani/"+id,
+				dataType: "json",
+				success: function (html) {
+					$('#hidden_id2').val(html.data.id);
+					$('#id_mitra2').val(html.data.id_mitra);
+					$('#total_pengajuan2').val(html.data.total);
+					$('.modal-title2').text("Konfirmasi");
+					$('#action_button2').val("divalidasi");
+					$('#status2').val("2");
+					$('.text2').text("Apakah anda yakin ingin divalidasi?")
+					$('#action2').val("divalidasi");
+					$('#modalVerifikasi').modal('show');
+				}
+			})
+		});
+
 
 		$(document).on('click', '.pesan', function(){
 			var id = $(this).attr('id');
@@ -438,6 +461,26 @@
 
 
 			if($('#action2').val() == "diproses")
+			{
+				$.ajax({
+					url:"{{ route('admin.proses-pencairan-petani.update') }}",
+					method:"POST",
+					data: new FormData(this),
+					contentType: false,
+					cache:false,
+					processData: false,
+					dataType:"json",
+					success:function(data)
+					{
+						setTimeout(function(){
+							$('#modalVerifikasi').modal('hide');
+							$('#table_id').DataTable().ajax.reload();
+						}, 500);
+					}
+				});
+			}
+
+			if($('#action2').val() == "divalidasi")
 			{
 				$.ajax({
 					url:"{{ route('admin.validasi-pencairan-petani.update') }}",

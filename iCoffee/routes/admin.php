@@ -136,6 +136,7 @@ Route::group(['middleware' => ['can:verification']], function () {
     Route::post('/proses-komplain/update', 'ValidasiKomplainController@ProsesKomplain')->name('proses-komplain');  
     Route::post('/tolak-pencairan-petani/update', 'VerifikasiProgresController@tolakPencairanPetani')->name('tolak-pencairan-petani.update');
     Route::post('/validasi-pencairan-petani/update', 'VerifikasiProgresController@validasiPencairanPetani')->name('validasi-pencairan-petani.update'); 
+    Route::post('/proses-pencairan-petani/update', 'VerifikasiProgresController@prosesPencairanPetani')->name('proses-pencairan-petani.update'); 
     Route::post('/tolak-bagi-hasil/update', 'VerifikasiBagiHasilController@tolakBagiHasil')->name('tolak-bagi-hasil.update');
     Route::post('/validasi-bagi-hasil/update', 'VerifikasiBagiHasilController@validasiBagiHasil')->name('validasi-bagi-hasil.update');
 

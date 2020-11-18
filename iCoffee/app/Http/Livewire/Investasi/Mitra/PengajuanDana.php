@@ -54,8 +54,9 @@ class PengajuanDana extends Component
             'total' => $total
         ]);
         // 0 = ditolak
-        // 1 = diproses
+        // 1 = belum
         // 2 = sukses
+        // 3 = proses
         foreach ($this->inputs as $item){
             $jumlah = 0;
             $jumlah = $item['price'] * $item['qty'];
