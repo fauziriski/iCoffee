@@ -121,7 +121,7 @@
 							<table id="id_tabel2" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th>Invoice</th>
+										<th>Mitra</th>
 										<th>Jumlah</th>
 										<th></th>
 									</tr>
@@ -598,11 +598,11 @@
             },
             columns: [
                 {
-                    data: 'kode_produk',
-                    name: 'kode_produk'
+                    data: 'name',
+                    name: 'name'
                 }, {
-                    data: 'total',
-                    name: 'total'
+                    data: 'jumlah',
+                    name: 'jumlah'
                 }, {
                     data: 'action',
                     name: 'action',

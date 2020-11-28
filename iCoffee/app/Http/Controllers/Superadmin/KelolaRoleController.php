@@ -68,7 +68,7 @@ class KelolaRoleController extends Controller
 			->make(true);
 		}
 
-		$list = Role::All();
+		$list = Role::All()->except([1]);
 		return view('admin.super-admin.data-role', compact('list'));
 	}
 	

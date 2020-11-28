@@ -83,17 +83,20 @@ class MitraController extends Controller
 
     public function rekeningMitra()
     {
-        $saldo = Mitra::where('id_mitra',Auth::user()->id_mitra)->first('saldo');
+        // $saldo = Mitra::where('id_mitra',Auth::user()->id_mitra)->first('saldo');
+        $data = Mitra::where('id_mitra',Auth::user()->id_mitra)->first();
+        $saldo_tercatat = $data->saldo;
+
         $rekening = Mitra_bank::where('id_mitra', Auth::user()->id_mitra)->get();
         $withdraws = Mitra_withdraw::where('id_mitra', Auth::user()->id_mitra)->get();
         if(!$withdraws->isEmpty()){
             for ($i=0; $i < count($withdraws); $i++) {
                 $bank_withdraws[$i] = Mitra_bank::where('id_mitra',Auth::user()->id_mitra)->where('id',$withdraws[$i]->id_bank)->get();
             }
-            return view('investasi.mitra.rekening', compact('rekening','withdraws','bank_withdraws'))->with('saldo');
+            return view('investasi.mitra.rekening', compact('rekening','withdraws','bank_withdraws','saldo_tercatat'))->with('saldo');
         }
         else{
-            return view('investasi.mitra.rekening', compact('rekening','withdraws'))->with('saldo');
+            return view('investasi.mitra.rekening', compact('rekening','withdraws','saldo_tercatat'))->with('saldo');
         }
     
     }
