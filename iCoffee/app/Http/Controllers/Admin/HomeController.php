@@ -249,10 +249,10 @@ return view('admin.beranda-update',[
 				'name' => $request->nama,
             ]);
             
-            $provider = User::where('id',$id_admin);
-            $provider->update([
-                'provider_id' => "11010510910097",
-            ]);
+            // $provider = User::where('id',$id_admin);
+            // $provider->update([
+            //     'provider_id' => "11010510910097",
+            // ]);
         } else {
 
 			$data2 = Profile_admin::where('role',Auth::user()->id)->first();
@@ -266,21 +266,22 @@ return view('admin.beranda-update',[
 			$data3->update([
 				'name' => $request->nama,
             ]);
-            $provider = User::where('id',$id_admin);
-            $provider->update([
-                'provider_id' => "11010510910097",
-            ]);
+            // $provider = User::where('id',$id_admin);
+            // $provider->update([
+            //     'provider_id' => "11010510910097",
+            // ]);
 			
 		}
     
-        $produk_jb = count(Shop_product::All());
-        $produk_lelang = count(Auction_product::where('status',"2")->get());
-        $produk_invest = count(Invest_product::where('status',"2")->get());   
+        // $produk_jb = count(Shop_product::All());
+        // $produk_lelang = count(Auction_product::where('status',"2")->get());
+        // $produk_invest = count(Invest_product::where('status',"2")->get());   
     
-        $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
-        $data  = array($produk_jb,$produk_lelang,$produk_invest);
+        // $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
+        // $data  = array($produk_jb,$produk_lelang,$produk_invest);
         Alert::success('Berhasil diupdate !');
-        return view('admin.beranda',['kategori' => $kategori, 'Data' => $data]);
+        // return view('admin.beranda',['kategori' => $kategori, 'Data' => $data]);
+        return redirect()->action('Admin\HomeController@index');
         
     }
 
@@ -311,15 +312,17 @@ return view('admin.beranda-update',[
         }
 
       
-		$produk_jb = count(Shop_product::All());
-        $produk_lelang = count(Auction_product::where('status',"2")->get());
-        $produk_invest = count(Invest_product::where('status',"2")->get());   
+		// $produk_jb = count(Shop_product::All());
+        // $produk_lelang = count(Auction_product::where('status',"2")->get());
+        // $produk_invest = count(Invest_product::where('status',"2")->get());   
 
-        $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
-        $data  = array($produk_jb,$produk_lelang,$produk_invest);
+        // $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
+        // $data  = array($produk_jb,$produk_lelang,$produk_invest);
         
         Alert::success('Berhasil disimpan !');
-        return view('admin.beranda',['kategori' => $kategori, 'Data' => $data]);	
+        // return view('admin.beranda',['kategori' => $kategori, 'Data' => $data]);	
+
+        return redirect()->action('Admin\HomeController@index');
         
 	}
 	
@@ -343,15 +346,17 @@ return view('admin.beranda-update',[
 			]);
 
        
-        $produk_jb = count(Shop_product::All());
-        $produk_lelang = count(Auction_product::where('status',"2")->get());
-        $produk_invest = count(Invest_product::where('status',"2")->get());   
+        // $produk_jb = count(Shop_product::All());
+        // $produk_lelang = count(Auction_product::where('status',"2")->get());
+        // $produk_invest = count(Invest_product::where('status',"2")->get());   
     
-        $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
-        $data  = array($produk_jb,$produk_lelang,$produk_invest);
+        // $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
+        // $data  = array($produk_jb,$produk_lelang,$produk_invest);
         
         Alert::success('Berhasil diupdate !');
-        return view('admin.beranda',['kategori' => $kategori, 'Data' => $data]);
+        // return view('admin.beranda',['kategori' => $kategori, 'Data' => $data]);
+
+        return redirect()->action('Admin\HomeController@index');
         
     }
 }
