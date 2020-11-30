@@ -405,7 +405,8 @@
 					$('.modal-title').text("Detail Progres");
 					document.getElementById("kode_produk").innerHTML = data1.data.kode_produk;
 					document.getElementById("nama_produk").innerHTML = data1.produk.nama_produk;
-					document.getElementById("periode_kontrak").innerHTML = data1.data.periode;
+					var periode = data1.produk.periode+" Tahun";
+					document.getElementById("periode_kontrak").innerHTML = periode;
 					document.getElementById("status").innerHTML = data1.status;
 					document.getElementById("tanggal_progres").innerHTML = data1.data.created_at;
 					document.getElementById("nama_mitra").innerHTML = data1.mitra.nama;

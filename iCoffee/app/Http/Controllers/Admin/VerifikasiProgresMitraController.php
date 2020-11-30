@@ -60,9 +60,9 @@ class  VerifikasiProgresMitraController extends Controller
 			->addColumn('status1', function($data){
 				if ($data->status1 == "1") {
 					$status1 = '<span class="badge badge-info">belum divalidasi</span>';
-				}elseif ($data->status1 == "4") {
-					$status1 = '<span class="badge badge-secondary">sedang diproses</span>';
 				}elseif ($data->status1 == "3") {
+					$status1 = '<span class="badge badge-secondary">sedang diproses</span>';
+				}elseif ($data->status1 == "2") {
 					$status1 = '<span class="badge badge-success">sudah divalidasi</span>';
 				}else{
 					$status1 = '<span class="badge badge-danger">validasi ditolak</span>';
@@ -128,42 +128,36 @@ class  VerifikasiProgresMitraController extends Controller
 		}
 	}
 
-	public function tolakPencairanPetani(Request $request)
+	public function tolakProgres(Request $request)
 	{
 
 		$form_data = array(
 			'status' => $request->status,
 		);
 
-		Pengajuan_dana::whereId($request->hidden_id2)->update($form_data);
+		Progress_investasi::whereId($request->hidden_id2)->update($form_data);
 		return response()->json(['success' => 'Berhasil Ditolak']);
 	}
 
-	public function prosesPencairanPetani(Request $request)
+	public function prosesProgres(Request $request)
 	{
 
 		$form_data = array(
 			'status' => $request->status,
 		);
 
-		Pengajuan_dana::whereId($request->hidden_id2)->update($form_data);
+		Progress_investasi::whereId($request->hidden_id2)->update($form_data);
 		return response()->json(['success' => 'Berhasil Divalidasi']);
 	}
 
-	public function validasiPencairanPetani(Request $request)
+	public function validasiProgres(Request $request)
 	{
 
 		$form_data = array(
 			'status' => $request->status,
 		);
 
-
-		$up = Mitra::where('id_mitra',$request->id_mitra)->first();
-		$up->update([
-			'saldo' => $request->total_pengajuan
-		]);
-
-		Pengajuan_dana::whereId($request->hidden_id2)->update($form_data);
+		Progress_investasi::whereId($request->hidden_id2)->update($form_data);
 		return response()->json(['success' => 'Berhasil Divalidasi']);
 	}
 

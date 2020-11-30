@@ -96,6 +96,7 @@ Route::group(['middleware' => ['can:update']], function () {
     Route::post('/tolak-pembiayaan/update', 'VerifikasiPembiayaanController@tolakPembiayaan')->name('tolak-pembiayaan.update');
     Route::post('/validasi-pembiayaan/update', 'VerifikasiPembiayaanController@validasiPembiayaan')->name('validasi-pembiayaan.update');
 
+
 });
 
 Route::group(['middleware' => ['can:delete']], function () {
@@ -148,7 +149,7 @@ Route::group(['middleware' => ['can:verification']], function () {
 
     Route::post('/validasi-progres-mitra/update', 'VerifikasiProgresMitraController@validasiProgres')->name('validasi-progres-mitra.update'); 
     Route::post('/tolak-progres-mitra/update', 'VerifikasiProgresMitraController@tolakProgres')->name('tolak-progres-mitra.update');
-    Route::post('/proses-progres-mitra/update', 'VerifikasiProgresController@prosesProgres')->name('proses-progres-mitra.update'); 
+    Route::post('/proses-progres-mitra/update', 'VerifikasiProgresMitraController@prosesProgres')->name('proses-progres-mitra.update'); 
 
 });
 
