@@ -104,9 +104,9 @@
                                             <span class="badge badge-danger">Ditolak</span></h5>
                                         @elseif( $withdraws[$i]->status == 1)
                                             <span class="badge badge-warning">Belum Divalidasi</span></h5>
-                                        @elseif( $withdraws[$i]->status == 3)
+                                        @elseif( $withdraws[$i]->status == 2)
                                             <span class="badge badge-success">Dikirim</span></h5>
-                                        @elseif( $withdraws[$i]->status == 4)
+                                        @elseif( $withdraws[$i]->status == 3)
                                             <span class="badge badge-success">Diproses</span></h5>
                                         @endif
                                     </td>

@@ -24,13 +24,15 @@
                                 Total: @money($item->total)
                                 <span style="float:right;">
                                 Status:
-                                @if($item->status == 1)
-                                    <span class="badge badge-warning text-right">Diproses</span>
-                                @elseif($item->status == 2)
-                                    <span class="badge badge-success text-right">Sukses</span>
-                                @elseif($item->status == 0)
-                                    <span class="badge badge-danger text-right">Ditolak</span>
-                                @endif
+                                if($item->status == 1)
+                                                <span class="badge badge-warning float-right">Belum Divalidasi</span>
+                                            @elseif($item->status == 0)
+                                                <span class="badge badge-danger float-right">Ditolak</span>
+                                            @elseif($item->status == 2)
+                                                <span class="badge badge-success float-right">Divalidasi</span>
+                                                @elseif($item->status == 3)
+                                                <span class="badge badge-info float-right">On Progress</span>
+                                            @endif
                                 </span>
                             </p>
                             <a class="btn btn-secondary mt-5 float-right" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -47,12 +49,14 @@
                                     <h2 class="mb-0">
                                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
                                             #{{$loop->iteration}} - {{$item->judul}} - {{Carbon::parse( $item->created_at )->translatedFormat('l, d F Y')}}
-                                            @if($item->status == 1)
-                                                <span class="badge badge-warning text-right">Diproses</span>
-                                            @elseif($item->status == 2)
-                                                <span class="badge badge-success text-right">Sukses</span>
+                                            if($item->status == 1)
+                                                <span class="badge badge-warning float-right">Belum Divalidasi</span>
                                             @elseif($item->status == 0)
-                                                <span class="badge badge-danger text-right">Ditolak</span>
+                                                <span class="badge badge-danger float-right">Ditolak</span>
+                                            @elseif($item->status == 2)
+                                                <span class="badge badge-success float-right">Divalidasi</span>
+                                                @elseif($item->status == 3)
+                                                <span class="badge badge-info float-right">On Progress</span>
                                             @endif
                                         </button>
                                     </h2>

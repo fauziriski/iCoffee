@@ -67,6 +67,9 @@ Route::group(['middleware' => ['can:read']], function () {
     Route::get('/lihat-validasi-pencairan-petani/{id}', 'VerifikasiProgresController@lihatPencairanPetani')->name('lihat-validasi-pencairan-petani');
     Route::get('/validasi-pencairan-mitra', 'VerifikasiSaldoMitraController@dataPencairan')->name('validasi-pencairan-mitra');
     Route::get('/lihat-validasi-pencairan-mitra/{id}', 'VerifikasiSaldoMitraController@lihatPencairan')->name('lihat-validasi-pencairan-mitra');
+
+    Route::get('/validasi-progres-mitra', 'VerifikasiProgresMitraController@dataProgres')->name('validasi-progres-mitra');
+    Route::get('/lihat-validasi-progres-mitra/{id}', 'VerifikasiProgresMitraController@lihatProgres')->name('lihat-validasi-progres-mitra');
 });
 Route::group(['middleware' => ['can:created']], function () {
     //kategori-produk
@@ -142,6 +145,10 @@ Route::group(['middleware' => ['can:verification']], function () {
     Route::post('/validasi-bagi-hasil/update', 'VerifikasiBagiHasilController@validasiBagiHasil')->name('validasi-bagi-hasil.update');
     Route::post('/tolak-pencairan-mitra/update', 'VerifikasiSaldoMitraController@tolakPencairan')->name('tolak-pencairan-mitra.update');
     Route::post('/validasi-pencairan-mitra/update', 'VerifikasiSaldoMitraController@validasiPencairan')->name('validasi-pencairan-mitra.update');
+
+    Route::post('/validasi-progres-mitra/update', 'VerifikasiProgresMitraController@validasiProgres')->name('validasi-progres-mitra.update'); 
+    Route::post('/tolak-progres-mitra/update', 'VerifikasiProgresMitraController@tolakProgres')->name('tolak-progres-mitra.update');
+    Route::post('/proses-progres-mitra/update', 'VerifikasiProgresController@prosesProgres')->name('proses-progres-mitra.update'); 
 
 });
 

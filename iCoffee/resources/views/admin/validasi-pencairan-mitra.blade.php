@@ -218,7 +218,7 @@
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Saldo Tercatat&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Saldo Sekarang&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="saldo_pengguna"></a></th>
 									</div>
 								</tr>
@@ -368,7 +368,7 @@
 					$('#hidden_id2').val(html.data.id);
 					$('.modal-title2').text("Konfirmasi");
 					$('#action_button2').val("Tolak");
-					$('#status2').val("2");
+					$('#status2').val("0");
 					$('.text2').text("Apakah anda yakin ingin tolak?")
 					$('#action2').val("Tolak");
 					$('#modalVerifikasi').modal('show');
@@ -387,7 +387,7 @@
 					$('#hidden_id2').val(html.data.id);
 					$('.modal-title2').text("Konfirmasi");
 					$('#action_button2').val("diproses");
-					$('#status2').val("4");
+					$('#status2').val("3");
 					$('.text2').text("Apakah anda yakin ingin diproses?")
 					$('#action2').val("diproses");
 					$('#modalVerifikasi').modal('show');

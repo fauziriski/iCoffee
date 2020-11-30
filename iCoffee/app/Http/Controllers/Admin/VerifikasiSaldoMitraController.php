@@ -25,7 +25,7 @@ class VerifikasiSaldoMitraController extends Controller
 	{
 		if(request()->ajax())
 		{	
-			$konfirmasi = Mitra_withdraw::All();
+			// $konfirmasi = Mitra_withdraw::All();
             $konfirmasi = DB::table('Mitra_banks')
 			->join('Mitra_withdraws', 'Mitra_banks.id', '=', 'Mitra_withdraws.id_bank')
 			->get();
@@ -52,9 +52,9 @@ class VerifikasiSaldoMitraController extends Controller
 			->addColumn('status', function($data){
 				if ($data->status == "1") {
 					$status = '<span class="badge badge-info">belum divalidasi</span>';
-				}elseif ($data->status == "4") {
-					$status = '<span class="badge badge-secondary">sedang diproses</span>';
 				}elseif ($data->status == "3") {
+					$status = '<span class="badge badge-secondary">sedang diproses</span>';
+				}elseif ($data->status == "2") {
 					$status = '<span class="badge badge-success">sudah divalidasi</span>';
 				}else{
 					$status = '<span class="badge badge-danger">validasi ditolak</span>';
@@ -89,14 +89,14 @@ class VerifikasiSaldoMitraController extends Controller
 			$data = Mitra_withdraw::findOrFail($id);
 			$bank = Mitra_bank::whereId($data->id_bank)->first();
 
-			$mitra = Mitra::where('id',$data->id_bank)->first();
+			$mitra = Mitra::where('id_mitra',$data->id_mitra)->first();
 
 			if($data->status !== NULL){
 				if ($data->status == "1") {
 					$status = '<button type="button" class="btn btn-info btn-sm py-0">belum divalidasi</button>';
-				}elseif ($data->status == "4") {
-					$status = '<button type="button" class="btn btn-secondary btn-sm py-0">sedang diproses</button>';
 				}elseif ($data->status == "3") {
+					$status = '<button type="button" class="btn btn-secondary btn-sm py-0">sedang diproses</button>';
+				}elseif ($data->status == "2") {
 					$status = '<button type="button" class="btn btn-success btn-sm py-0">sudah divalidasi</button>';
 				}else{
 					$status = '<button type="button" class="btn btn-danger btn-sm py-0">validasi ditolak</button>';

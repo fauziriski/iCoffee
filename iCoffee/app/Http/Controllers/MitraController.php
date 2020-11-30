@@ -86,7 +86,7 @@ class MitraController extends Controller
         // $saldo = Mitra::where('id_mitra',Auth::user()->id_mitra)->first('saldo');
         $data = Mitra::where('id_mitra',Auth::user()->id_mitra)->first();
         $saldo_tercatat = $data->saldo;
-
+        
         $rekening = Mitra_bank::where('id_mitra', Auth::user()->id_mitra)->get();
         $withdraws = Mitra_withdraw::where('id_mitra', Auth::user()->id_mitra)->get();
         if(!$withdraws->isEmpty()){

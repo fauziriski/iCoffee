@@ -218,7 +218,7 @@
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Saldo Tercatat&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Saldo Sekarang&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="saldo_pengguna"></a></th>
 									</div>
 								</tr>

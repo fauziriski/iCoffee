@@ -70,7 +70,7 @@ class  PencairanDanaProgresController extends Controller
 
 	public function dataPenarikan()
 	{
-		$status = '4';
+		$status = '3';
 		// $penarikan = Mitra_withdraw::where('status',$status)->get();
 
 		$penarikan = DB::table('Mitra_banks')
@@ -177,7 +177,7 @@ class  PencairanDanaProgresController extends Controller
 
 
 		$form_data = array(
-			'status' => '3',
+			'status' => '2',
 		);
 
 		$form_data2 = array(

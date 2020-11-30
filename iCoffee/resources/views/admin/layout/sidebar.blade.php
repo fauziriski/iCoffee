@@ -345,7 +345,7 @@
             <a class="collapse-item" href="{{url('akses-admin/validasi-produk-investasi')}}">Validasi Produk</a>
             <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan-petani')}}">Validasi Pengajuan</a>
             <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan-mitra')}}">Validasi Saldo</a>
-            <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan-progres')}}">Validasi Progres</a>
+            <a class="collapse-item" href="{{url('akses-admin/validasi-progres-mitra')}}">Validasi Progres</a>
             <a class="collapse-item" href="{{url('akses-admin/404')}}">Validasi Bagi Hasil</a>
             </div>
         </div>
