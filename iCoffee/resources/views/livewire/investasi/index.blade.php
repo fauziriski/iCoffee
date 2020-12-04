@@ -36,7 +36,7 @@
                                 <a href="/invest/produk/{{ $data->id }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                     <span><i class="ion-ios-menu"></i></span>
                                 </a>
-                                <a href="cart.html" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <a href="/invest/produk/{{ $data->id }}" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
                             </div>

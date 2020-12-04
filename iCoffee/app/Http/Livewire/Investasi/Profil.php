@@ -41,12 +41,19 @@ class Profil extends Component
 
         User::find(Auth::id())->update([
             'name' => $this->name,
-            'email' => $this->email,
-            'photo' => $this->photo->getFilename()
+            'email' => $this->email
         ]);
 
         if($this->photo != null){
+            User::find(Auth::id())->update([
+                'photo' => $this->photo->getFilename()
+            ]);
             $this->photo->storeAs('Investasi/Profil', $this->photo->getFilename());
+        }
+        if($this->telephone != null) {
+            User::find(Auth::id())->update([
+                'telephone' => $this->telephone
+            ]);
         }
         if($this->password != null){
             User::find(Auth::id())->update([

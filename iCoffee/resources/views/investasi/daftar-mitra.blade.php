@@ -76,6 +76,9 @@
                   </div>
                 <div class="form-group">
                     <label for="nama">Nama Koperasi</label>
+                    <a href="#"data-toggle="tooltip" data-html="true" data-placement="right" title="Isi dengan nama koperasi anda. <em>Contoh: Koperasi Petani Kopi Unila</em>">
+                      <i class="fas fa-question-circle"></i>
+                    </a>
                     <input type="text" class="form-control" name="nama_koperasi" required>
                     <span class="text-danger">{{$errors->first('nama_produk')}}</span>
                 </div>
@@ -359,7 +362,11 @@
 <script src="{{asset('js/google-map.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
-
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
 
 </body>
 </html>
