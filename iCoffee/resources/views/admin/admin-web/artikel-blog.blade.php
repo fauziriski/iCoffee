@@ -86,7 +86,7 @@
 		<div class="card shadow mb-4">
 			<!-- Card Header - Dropdown -->
 			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<a href="{{url('akses-adminweb/tambah-artikel')}}" class="btn btn-success btn-sm"><i class="fa fa-plus-square"></i> Tambah Artikel</a>
+				<a href="{{url('akses-superadmin/tambah-artikel')}}" class="btn btn-success btn-sm"><i class="fa fa-plus-square"></i> Tambah Artikel</a>
 			</div>
 			<!-- Card Body -->
 			<div class="card-body">
@@ -115,7 +115,7 @@
                                     <td>{{$item->kategori_artikel->nama_kategori}}</td>
                                     <td>{{$item->updated_at}}</td>
                                     <td>
-                                    <a href="{{ route('adminweb.artikel.edit',$item->id) }}" class="edit btn btn-info btn-sm py-0 mb-1"><i class="fa fa-edit"></i>ubah</a>                     
+                                    <a href="{{ route('superadmin.artikel.edit',$item->id) }}" class="edit btn btn-info btn-sm py-0 mb-1"><i class="fa fa-edit"></i>ubah</a>                     
 									<a href="#" name="hapus" value="{{$item->id}}" type="button" class="delete btn btn-danger btn-sm py-0 mb-1"><i class="fa fa-trash"></i> hapus </a>  
                                         </form>
                                      </td>

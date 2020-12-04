@@ -57,7 +57,7 @@
             {{-- Mitra Koperasi --}}
             <form action="/daftar-koperasi/store" method="POST" enctype="multipart/form-data">
               @csrf
-              <input type="hidden" name="status" value="belum divalidasi">
+              <input type="hidden" name="status" value="1">
               <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
                 <div class="col-md-12">
                   <div class="form-group">
@@ -161,7 +161,7 @@
             {{-- Mitra Kelompok Tani --}}
             <form action="/daftar-kelompok/store" method="POST" enctype="multipart/form-data">
               @csrf
-              <input type="hidden" name="status" value="belum divalidasi">
+              <input type="hidden" name="status" value="1">
               <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
                 <div class="col-md-12">
                   <div class="form-group">
@@ -243,7 +243,7 @@
             {{-- Mitra Perorangan --}}
             <form action="/daftar-perorangan/store" method="POST" enctype="multipart/form-data">
               @csrf
-            <input type="hidden" name="status" value="belum divalidasi">
+            <input type="hidden" name="status" value="1">
             <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
               <div class="col-md-12">
                 <div class="form-group">

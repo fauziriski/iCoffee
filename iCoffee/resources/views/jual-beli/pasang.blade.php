@@ -150,7 +150,7 @@
         $('.note-statusbar').hide();
 
     </script>
-    <script src="{{ asset('JualBeli/plugins/customPlugin/rupiahFormat.js') }}"></script>
+    <script src="{{asset('Jualbeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
     <script type="text/javascript">
         var harga = document.getElementById('harga');
         harga.addEventListener('keyup', function(e) {

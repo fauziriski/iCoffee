@@ -166,7 +166,7 @@
 			processing: true,
 			serverSide: true,
 			ajax:{
-				url: "{{ route('adminweb.kategori-artikel') }}",
+				url: "{{ route('superadmin.kategori-artikel') }}",
 				dataType:"json",
 			},
 			columns:[
@@ -210,7 +210,7 @@
 			if($('#action').val() == 'Tambah')
 			{
 				$.ajax({
-					url:"{{ route('adminweb.kategori-artikel.store') }}",
+					url:"{{ route('superadmin.kategori-artikel.store') }}",
 					method:"POST",
 					data: new FormData(this),
 					contentType: false,
@@ -244,7 +244,7 @@
 			if($('#action').val() == "Edit")
 			{
 				$.ajax({
-					url:"{{ route('adminweb.kategori-artikel.update') }}",
+					url:"{{ route('superadmin.kategori-artikel.update') }}",
 					method:"POST",
 					data: new FormData(this),
 					contentType: false,

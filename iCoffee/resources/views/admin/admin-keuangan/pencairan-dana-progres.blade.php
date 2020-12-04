@@ -121,7 +121,7 @@
 							<table id="id_tabel2" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th>Invoice</th>
+										<th>Mitra</th>
 										<th>Jumlah</th>
 										<th></th>
 									</tr>
@@ -557,7 +557,7 @@
 
 	@endsection
 	@section('js')
-	<script src="{{asset('JualBeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
+	<script src="{{asset('Jualbeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
 	<script>
 		var harga1 = document.getElementById('jumlah1');
 		harga1.addEventListener('keyup', function (e) {
@@ -598,11 +598,11 @@
             },
             columns: [
                 {
-                    data: 'kode_produk',
-                    name: 'kode_produk'
+                    data: 'name',
+                    name: 'name'
                 }, {
-                    data: 'total',
-                    name: 'total'
+                    data: 'jumlah',
+                    name: 'jumlah'
                 }, {
                     data: 'action',
                     name: 'action',

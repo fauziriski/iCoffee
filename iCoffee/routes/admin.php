@@ -10,6 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |*/
 
+Route::get('/404', function() {
+    return view('admin.404');
+});
+
+
 Route::get('/', 'HomeController@index')->name('dashboard');
 
 Route::get('/beranda', 'HomeController@index')->name('beranda');
@@ -60,7 +65,11 @@ Route::group(['middleware' => ['can:read']], function () {
     Route::get('/data-investor/{id}', 'ValidasiInvestorController@idInvestor')->name('data-investor');
     Route::get('/lihat-validasi-bagi-hasil/{id}', 'VerifikasiBagiHasilController@lihatBagiHasil')->name('lihat-validasi-bagi-hasil');
     Route::get('/lihat-validasi-pencairan-petani/{id}', 'VerifikasiProgresController@lihatPencairanPetani')->name('lihat-validasi-pencairan-petani');
+    Route::get('/validasi-pencairan-mitra', 'VerifikasiSaldoMitraController@dataPencairan')->name('validasi-pencairan-mitra');
+    Route::get('/lihat-validasi-pencairan-mitra/{id}', 'VerifikasiSaldoMitraController@lihatPencairan')->name('lihat-validasi-pencairan-mitra');
 
+    Route::get('/validasi-progres-mitra', 'VerifikasiProgresMitraController@dataProgres')->name('validasi-progres-mitra');
+    Route::get('/lihat-validasi-progres-mitra/{id}', 'VerifikasiProgresMitraController@lihatProgres')->name('lihat-validasi-progres-mitra');
 });
 Route::group(['middleware' => ['can:created']], function () {
     //kategori-produk
@@ -86,6 +95,7 @@ Route::group(['middleware' => ['can:update']], function () {
     Route::post('/proses-produk-investasi/update', 'ValidasiProdukInvestasiController@ProsesProdukInvestasi')->name('proses-produk-investasi');
     Route::post('/tolak-pembiayaan/update', 'VerifikasiPembiayaanController@tolakPembiayaan')->name('tolak-pembiayaan.update');
     Route::post('/validasi-pembiayaan/update', 'VerifikasiPembiayaanController@validasiPembiayaan')->name('validasi-pembiayaan.update');
+
 
 });
 
@@ -131,13 +141,17 @@ Route::group(['middleware' => ['can:verification']], function () {
     Route::post('/proses-komplain/update', 'ValidasiKomplainController@ProsesKomplain')->name('proses-komplain');  
     Route::post('/tolak-pencairan-petani/update', 'VerifikasiProgresController@tolakPencairanPetani')->name('tolak-pencairan-petani.update');
     Route::post('/validasi-pencairan-petani/update', 'VerifikasiProgresController@validasiPencairanPetani')->name('validasi-pencairan-petani.update'); 
+    Route::post('/proses-pencairan-petani/update', 'VerifikasiProgresController@prosesPencairanPetani')->name('proses-pencairan-petani.update'); 
     Route::post('/tolak-bagi-hasil/update', 'VerifikasiBagiHasilController@tolakBagiHasil')->name('tolak-bagi-hasil.update');
     Route::post('/validasi-bagi-hasil/update', 'VerifikasiBagiHasilController@validasiBagiHasil')->name('validasi-bagi-hasil.update');
+    Route::post('/tolak-pencairan-mitra/update', 'VerifikasiSaldoMitraController@tolakPencairan')->name('tolak-pencairan-mitra.update');
+    Route::post('/validasi-pencairan-mitra/update', 'VerifikasiSaldoMitraController@validasiPencairan')->name('validasi-pencairan-mitra.update');
+
+    Route::post('/validasi-progres-mitra/update', 'VerifikasiProgresMitraController@validasiProgres')->name('validasi-progres-mitra.update'); 
+    Route::post('/tolak-progres-mitra/update', 'VerifikasiProgresMitraController@tolakProgres')->name('tolak-progres-mitra.update');
+    Route::post('/proses-progres-mitra/update', 'VerifikasiProgresMitraController@prosesProgres')->name('proses-progres-mitra.update'); 
 
 });
-
-
-
 
 
 

@@ -20,7 +20,7 @@
 			</div>
 			<!-- Card Body -->
 			<div class="card-body">
-			<form action="{{ route('adminweb.artikel.store') }}" enctype="multipart/form-data" method="POST">
+			<form action="{{ route('superadmin.artikel.store') }}" enctype="multipart/form-data" method="POST">
 					@csrf
 						<div class="form-group">
 							@if($errors->has('judul'))
@@ -65,7 +65,7 @@
 
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary">Tambah Artikel</button>
-						<a href="{{url('akses-adminweb/artikel-blog')}}" class="btn btn-danger">Kembali</a>
+						<a href="{{url('akses-superadmin/artikel-blog')}}" class="btn btn-danger">Kembali</a>
 					</div>
 
 				</form>

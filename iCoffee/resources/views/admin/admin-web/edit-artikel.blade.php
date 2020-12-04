@@ -20,7 +20,7 @@
 			</div>
 			<!-- Card Body -->
 			<div class="card-body">
-            <form action="{{ route('adminweb.artikel.update',$artikel->id) }}" enctype="multipart/form-data" method="POST">
+            <form action="{{ route('superadmin.artikel.update',$artikel->id) }}" enctype="multipart/form-data" method="POST">
              @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group">
                     <button type="submit" class="btn btn-primary">Update Artikel</button>
-                    <a href="{{url('akses-adminweb/artikel-blog')}}" class="btn btn-danger">Kembali</a>
+                    <a href="{{url('akses-superadmin/artikel-blog')}}" class="btn btn-danger">Kembali</a>
                 </div>
             </form>
 			</div>

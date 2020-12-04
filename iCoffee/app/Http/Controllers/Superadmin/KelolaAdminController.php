@@ -98,7 +98,7 @@ class KelolaAdminController extends Controller
 		'provider_id' => $provider_id,
 	]);
 
-	$user->assignRole('adminweb');
+	$user->assignRole('adminuser');
 	$user->givePermissionTo('read');
 
     return response()->json(['success' => 'Data berhasil ditambah.']);

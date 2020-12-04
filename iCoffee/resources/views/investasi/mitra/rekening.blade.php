@@ -11,7 +11,7 @@
             <div class="card-body">
                 <div class="row">
                     <div align="center" class="col-lg-4 mt-5 mb-4">
-                        <h3>@money($saldo)</h3>
+                        <h3>@money($saldo_tercatat)</h3>
                         <small class="text-muted">Saldo Tersedia</small>
                     </div>
                     <div class="col-lg-8 col-sm-12">
@@ -103,9 +103,11 @@
                                         @if ($withdraws[$i]->status == 0)
                                             <span class="badge badge-danger">Ditolak</span></h5>
                                         @elseif( $withdraws[$i]->status == 1)
-                                            <span class="badge badge-warning">Diproses</span></h5>
+                                            <span class="badge badge-warning">Belum Divalidasi</span></h5>
                                         @elseif( $withdraws[$i]->status == 2)
-                                            <span class="badge badge-success">Terkirim</span></h5>
+                                            <span class="badge badge-success">Dikirim</span></h5>
+                                        @elseif( $withdraws[$i]->status == 3)
+                                            <span class="badge badge-success">Diproses</span></h5>
                                         @endif
                                     </td>
                                 </tr>

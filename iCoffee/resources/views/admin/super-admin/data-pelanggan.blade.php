@@ -355,7 +355,7 @@ $(document).on('click', '.lihat', function () {
 			document.getElementById("no_hp").innerHTML = html.data.no_hp;
 			document.getElementById("provinsi").innerHTML = html.provinsi;
 			document.getElementById("kota").innerHTML = html.kota;
-			document.getElementById("kecamatan").innerHTML = html.data.kecamatan;
+			document.getElementById("kecamatan").innerHTML = html.kecamatan;
 			document.getElementById("kode_pos").innerHTML = html.data.kode_pos;
 			document.getElementById("alamat").innerHTML = html.data.address;
 

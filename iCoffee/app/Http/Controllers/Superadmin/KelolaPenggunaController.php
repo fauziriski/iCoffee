@@ -59,11 +59,13 @@ class KelolaPenggunaController extends Controller
 			$data = Address::where('id_pelanggan', $get->id)->where('status',"1")->first();
 			$provinsi = $data->province->nama;
 			$kota = $data->city->nama;
-			
+			$kecamatan = $data->subdistrict->name;
+
 			return response()->json([
 				'data' => $data,
 				'provinsi' => $provinsi,
-				'kota' => $kota
+				'kota' => $kota,
+				'kecamatan' => $kecamatan
 			]);
 		}
 	}

@@ -81,7 +81,7 @@
 
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Pengeluaran Operasional</h1>
+		<h1 class="h3 mb-0 text-gray-800">Kas Masuk Lain-Lain</h1>
 		</div>
 		<div class="card shadow mb-4">
 			<!-- Card Header - Dropdown -->
@@ -564,7 +564,7 @@
 
 				@endsection
 				@section('js')
-				<script src="{{asset('JualBeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
+				<script src="{{asset('Jualbeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
 
 					<script type="text/javascript">				
 						var harga = document.getElementById('jumlah1');

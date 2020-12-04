@@ -1,6 +1,10 @@
 <?php
 
 
+Route::get('/404', function() {
+    return view('admin.404');
+});
+
 Route::get('/', 'HomeController@index')->name('dashboard');
 Route::get('/beranda', 'HomeController@index')->name('beranda');
 

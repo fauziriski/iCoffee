@@ -170,21 +170,23 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-            @can('isAdminsuper')
-              <a class="dropdown-item" href="{{url('akses-superadmin/profile-admin')}}">
-            @endcan
+            
             @can('isAdminuser')
-              <a class="dropdown-item" href="{{url('akses-admin/profile-admin')}}">
-            @endcan
-            @can('isAdminweb')
-              <a class="dropdown-item" href="{{url('akses-adminweb/profile-admin')}}">
-            @endcan
-            @can('isAdminkeuangan')
-              <a class="dropdown-item" href="{{url('akses-adminkeuangan/profile-admin')}}">
-            @endcan
-                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+              <a class="dropdown-item" href="{{url('akses-admin/profile-admin')}}"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
               </a>
+            @endcan
+            @can('isAdminweb')
+              <a class="dropdown-item" href="{{url('akses-adminweb/profile-admin')}}"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                Profile
+              </a>
+            @endcan
+            @can('isAdminkeuangan')
+              <a class="dropdown-item" href="{{url('akses-adminkeuangan/profile-admin')}}"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                Profile
+              </a>
+            @endcan
+                
               <a class="dropdown-item" href="#">
                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                 Riwayat Aktivitas

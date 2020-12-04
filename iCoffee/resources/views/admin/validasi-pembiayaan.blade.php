@@ -62,11 +62,14 @@
 <body id="page-top">
 	<!-- Begin Page Content -->
 	<div class="container-fluid">
-
-		<!-- Page Heading -->
-		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Validasi Pembiyaan Investasi</h1>
-		</div>
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h5>Validasi Pembiyaan Investasi</h5>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
 		
 		<div class="table-responsive">
 			<table id="table_id" class="table table-striped table-bordered" style="width:100%">
@@ -83,9 +86,12 @@
 					</tr>
 				</thead>
 			</table>
+			</div>
+		</div>	
 		</div>
 	</div>
 </div>
+
 
 <div id="modalVerifikasi" class="modal fade" role="dialog">
 	<div class="modal-dialog">

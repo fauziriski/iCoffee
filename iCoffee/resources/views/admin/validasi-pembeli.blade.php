@@ -221,7 +221,7 @@
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="35%" style="text-align: right;">Statusk&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="35%" style="text-align: right;">Status&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="status"></a></th>
 									</div>	
 								</tr>

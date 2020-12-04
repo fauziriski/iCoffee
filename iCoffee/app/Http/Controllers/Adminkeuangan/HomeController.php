@@ -590,21 +590,22 @@ class HomeController extends Controller
     
 		Alert::success('Berhasil diupdate !');
 		
-		$data = DB::table('Confirm_payments')
-		->select(
-			DB::raw('YEAR(created_at) as year'),
-			DB::raw('SUM(jumlah_transfer) as sum')
-		)
-		->where('status',"3")
-		->groupBy('year')
-		->get();     
+		// $data = DB::table('Confirm_payments')
+		// ->select(
+		// 	DB::raw('YEAR(created_at) as year'),
+		// 	DB::raw('SUM(jumlah_transfer) as sum')
+		// )
+		// ->where('status',"3")
+		// ->groupBy('year')
+		// ->get();     
 
-		for($i=0; $i<count($data); $i++){
-			$tahun[] = $data[$i]->year;
-			$jumlah[]=$data[$i]->sum;
-		}
+		// for($i=0; $i<count($data); $i++){
+		// 	$tahun[] = $data[$i]->year;
+		// 	$jumlah[]=$data[$i]->sum;
+		// }
 
-		return view('admin.admin-keuangan.beranda',['jumlah' => $jumlah, 'tahun' => $tahun]);
+		// return view('admin.admin-keuangan.beranda',['jumlah' => $jumlah, 'tahun' => $tahun]);
+		return redirect()->action('Adminkeuangan\HomeController@index');
         
     }
 
@@ -635,21 +636,22 @@ class HomeController extends Controller
         }
 
 		Alert::success('Berhasil disimpan !');
-		$data = DB::table('Confirm_payments')
-		->select(
-			DB::raw('YEAR(created_at) as year'),
-			DB::raw('SUM(jumlah_transfer) as sum')
-		)
-		->where('status',"3")
-		->groupBy('year')
-		->get();     
+		// $data = DB::table('Confirm_payments')
+		// ->select(
+		// 	DB::raw('YEAR(created_at) as year'),
+		// 	DB::raw('SUM(jumlah_transfer) as sum')
+		// )
+		// ->where('status',"3")
+		// ->groupBy('year')
+		// ->get();     
 
-		for($i=0; $i<count($data); $i++){
-			$tahun[] = $data[$i]->year;
-			$jumlah[]=$data[$i]->sum;
-		}
+		// for($i=0; $i<count($data); $i++){
+		// 	$tahun[] = $data[$i]->year;
+		// 	$jumlah[]=$data[$i]->sum;
+		// }
 
-		return view('admin.admin-keuangan.beranda',['jumlah' => $jumlah, 'tahun' => $tahun]);
+		// return view('admin.admin-keuangan.beranda',['jumlah' => $jumlah, 'tahun' => $tahun]);
+		return redirect()->action('Adminkeuangan\HomeController@index');
 	}
 	
 	public function profile2Update(Request $request){
@@ -672,21 +674,22 @@ class HomeController extends Controller
 			]);
 
         Alert::success('Berhasil diupdate !');
-		$data = DB::table('Confirm_payments')
-		->select(
-			DB::raw('YEAR(created_at) as year'),
-			DB::raw('SUM(jumlah_transfer) as sum')
-		)
-		->where('status',"3")
-		->groupBy('year')
-		->get();     
+		// $data = DB::table('Confirm_payments')
+		// ->select(
+		// 	DB::raw('YEAR(created_at) as year'),
+		// 	DB::raw('SUM(jumlah_transfer) as sum')
+		// )
+		// ->where('status',"3")
+		// ->groupBy('year')
+		// ->get();     
 
-		for($i=0; $i<count($data); $i++){
-			$tahun[] = $data[$i]->year;
-			$jumlah[]=$data[$i]->sum;
-		}
+		// for($i=0; $i<count($data); $i++){
+		// 	$tahun[] = $data[$i]->year;
+		// 	$jumlah[]=$data[$i]->sum;
+		// }
 
-		return view('admin.admin-keuangan.beranda',['jumlah' => $jumlah, 'tahun' => $tahun]);
+		// return view('admin.admin-keuangan.beranda',['jumlah' => $jumlah, 'tahun' => $tahun]);
+		return redirect()->action('Adminkeuangan\HomeController@index');
         
     }
 }

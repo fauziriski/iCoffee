@@ -17,6 +17,9 @@ use Carbon;
 use Validator;
 use Storage;
 use App\Helper\Helper;
+use App\Mitra_withdraw;
+use App\Mitra;
+use App\Mitra_bank;
 
 
 class  PencairanDanaProgresController extends Controller
@@ -67,8 +70,13 @@ class  PencairanDanaProgresController extends Controller
 
 	public function dataPenarikan()
 	{
-		$status = '4';
-		$penarikan = Pengajuan_dana::where('status',$status)->get();
+		$status = '3';
+		// $penarikan = Mitra_withdraw::where('status',$status)->get();
+
+		$penarikan = DB::table('Mitra_banks')
+					->join('Mitra_withdraws', 'Mitra_banks.id', '=', 'Mitra_withdraws.id_bank')
+					->where('status',$status)
+					->get();
 
 		return datatables()->of($penarikan)
 		->addColumn('action', function($data){
@@ -77,10 +85,10 @@ class  PencairanDanaProgresController extends Controller
 			return $button;
 		})
 
-		->addColumn('total', function($data){
+		->addColumn('jumlah', function($data){
 			$rp = "Rp. ";
-			$total = $rp. number_format($data->total); 
-			return $total;
+			$jumlah = $rp. number_format($data->jumlah); 
+			return $jumlah;
 		})
 
 		->rawColumns(['action'])
@@ -93,13 +101,14 @@ class  PencairanDanaProgresController extends Controller
 	{
 		if(request()->ajax())
 		{
-			$data = Pengajuan_dana::findOrFail($id);
-			$nama_tran = "Pencairan dana progres petani";
-			$catatan = "Pengajuan dana progres ".$data->progress." dengan total Rp. ".number_format($data->total)." dengan rincian progress : ".$data->produk." dengan jumlah(".$data->jumlah.") @Rp. ".number_format($data->harga);
-
-			$tujuan_tran = "Bank ".$data->bank;
-			$nama_akun_debit = "Progres Investasi ".$data->progress;
-			$jumlah_debit = number_format($data->total);
+			$data = Mitra_withdraw::findOrFail($id);
+			$bank = Mitra_bank::whereId($data->id_bank)->first();
+			$nama_tran = "Pencairan saldo mitra";
+			$catatan = "Pencairan saldo mitra dengan total Rp.".number_format($data->jumlah).": Bank ".$bank->bank_name."/".$bank->name."-".$bank->norek;
+			
+			$tujuan_tran = "Bank ".$bank->bank_name;
+			$nama_akun_debit = "Pencairan Saldo Mitra ";
+			$jumlah_debit = number_format($data->jumlah);
 			$debit = "Debit";
 			
 			return response()->json([
@@ -134,14 +143,19 @@ class  PencairanDanaProgresController extends Controller
 		}
 
 		$jumlah_kredit = Helper::instance()->removeDot($request->jumlah2);
-		$data = Pengajuan_dana::findOrFail($request->hidden_id); 
-        $nama_tran = "Pencairan dana progres petani";
+		$data = Mitra_withdraw::findOrFail($request->hidden_id); 
+		$bank = Mitra_bank::whereId($data->id_bank)->first();
+        $nama_tran = "Pencairan Saldo Mitra";
 	
-		$tujuan_tran = "Bank ".$data->bank;
+		$tujuan_tran = "Bank ".$bank->bank_name;
 		$noTrans = Adm_jurnal::noTrans();
 		$noJurnal = Adm_akun::noJurnal();
-		$catatan = "Pengajuan dana progres ".$data->progress." dengan total Rp. ".number_format($data->total)." dengan rincian progress : ".$data->produk." dengan jumlah(".$data->jumlah.") @Rp. ".number_format($data->harga);
-		$nama_akun_debit = "Pencairan Progres Petani";
+		$catatan = "Pencairan saldo mitra dengan total Rp.".number_format($data->jumlah).": Bank ".$bank->bank_name."/".$bank->name."-".$bank->norek;			
+		$nama_akun_debit = "Pencairan Saldo Mitra ";
+
+		$data_saldo = Mitra::where('id_mitra',$data->id_mitra)->first();
+		$sisa_saldo = $data_saldo->saldo - $jumlah_kredit;
+
 		$simpan = Adm_jurnal::create([
 			'id_kat_jurnal' => 5,
 			'nama_tran' => $nama_tran,
@@ -163,15 +177,15 @@ class  PencairanDanaProgresController extends Controller
 
 
 		$form_data = array(
-			'status' => '3',
+			'status' => '2',
 		);
 
-		// $form_data2 = array(
-		// 	'saldo' => $sisa_saldo,
-		// );
+		$form_data2 = array(
+			'saldo' => $sisa_saldo,
+		);
 
-		Pengajuan_dana::whereId($request->hidden_id)->update($form_data);
-		// Joint_account::where('user_id',$user_id)->update($form_data2);
+		Mitra_withdraw::whereId($request->hidden_id)->update($form_data);
+		Mitra::where('id_mitra',$data->id_mitra)->update($form_data2);
 
 		return response()->json(['success' => 'Data berhasil ditambah.']);
 	}

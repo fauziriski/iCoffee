@@ -97,11 +97,11 @@
                                             #{{$loop->iteration}} - {{$item->judul}}
                                             @if($item->status == 1)
                                                 <span class="badge badge-warning float-right">Belum Divalidasi</span>
-                                            @elseif($item->status == 2)
+                                            @elseif($item->status == 0)
                                                 <span class="badge badge-danger float-right">Ditolak</span>
-                                            @elseif($item->status == 3)
+                                            @elseif($item->status == 2)
                                                 <span class="badge badge-success float-right">Divalidasi</span>
-                                                @elseif($item->status == 4)
+                                                @elseif($item->status == 3)
                                                 <span class="badge badge-info float-right">On Progress</span>
                                             @endif
                                         </button>

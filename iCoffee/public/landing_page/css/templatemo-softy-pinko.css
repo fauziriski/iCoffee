@@ -770,7 +770,7 @@ features
 }
 
 .features-small-item:hover .icon {
-  background-image: linear-gradient(127deg, #C9AA5A 0%, #9ACD5A 91%);
+  /* background-image: linear-gradient(127deg, #C9AA5A 0%, #9ACD5A 91%); */
 }
 
 .features-small-item .icon {
