@@ -60,20 +60,15 @@
               <input type="hidden" name="status" value="1">
               <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
                 <div class="col-md-12">
-                  <div class="form-group">
-                    <div class="avatar-upload" align="center">
+                <div class="form-group">
+                  <div align="center">
+                    <br>
+                      <label for="gambar">Foto Profile</label>
+                      <small class="text-muted mt-0">(Format JPG/JPEG/PNG, Max 2MB)</small>
                       <br>
-                        <div class="avatar-edit">
-                            <input type='file' name="gambar" id="imageUpload" accept="images/*" required/>
-                            <small class="text-muted">(Format JPG/JPEG/PNG, Max 2MB)</small>
-                            <label for="imageUpload"></label>
-                        </div>
-                        <div class="avatar-preview">
-                            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-                            </div>
-                        </div>
-                    </div>
+                      <input type='file' name="gambar" accept="images/*" required/>
                   </div>
+                </div>
                 <div class="form-group">
                     <label for="nama">Nama Koperasi</label>
                     <a href="#"data-toggle="tooltip" data-html="true" data-placement="right" title="Isi dengan nama koperasi anda. <em>Contoh: Koperasi Petani Kopi Unila</em>">
@@ -165,18 +160,13 @@
               <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <div class="avatar-upload">
-                      <div class="avatar-edit" align="center">
+                    <div align="center">
+                      <br>
+                        <label for="gambar">Foto Profile</label>
+                        <small class="text-muted mt-0">(Format JPG/JPEG/PNG, Max 2MB)</small>
                         <br>
-                          <input type='file' name="gambar" id="imageUpload" accept="images/*" required/>
-                          <small class="text-muted">(Format JPG/JPEG/PNG, Max 2MB)</small>
-                          <label for="imageUpload"></label>
-                      </div>
-                      <div class="avatar-preview">
-                          <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-                          </div>
-                      </div>
-                  </div>
+                        <input type='file' name="gambar" accept="images/*" required/>
+                    </div>
                   </div>
     
                 <div class="form-group">
@@ -247,17 +237,12 @@
             <div class="row align-items-end mt-2 pl-4 pr-4 mb-5">
               <div class="col-md-12">
                 <div class="form-group">
-                  <div class="avatar-upload">
-                      <div class="avatar-edit" align="center">
-                        <br>
-                          <input type='file' name="gambar" id="imageUpload" accept="images/*" required/>
-                          <small class="text-muted">(Format JPG/JPEG/PNG, Max 2MB)</small>
-                          <label for="imageUpload"></label>
-                      </div>
-                      <div class="avatar-preview">
-                          <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-                          </div>
-                      </div>
+                  <div align="center">
+                    <br>
+                      <label for="gambar">Foto Profile</label>
+                      <small class="text-muted mt-0">(Format JPG/JPEG/PNG, Max 2MB)</small>
+                      <br>
+                      <input type='file' name="gambar" accept="images/*" required/>
                   </div>
                 </div>
               <div class="form-group">
