@@ -120,7 +120,7 @@
                       </button>
                   </span>
               
-                  <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="{{$products->stok}}">
+                  <input type="number" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="{{$products->stok}}">
                   <span class="input-group-btn ml-2">
                       <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
                         <i class="ion-ios-add"></i>
@@ -156,6 +156,7 @@
             $collect->push($profit);
           }
           $collect->push(0);
+          $stok=$products->stok;
       @endphp
 			<div class="col mb-5 ftco-animate">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -270,7 +271,7 @@
   <script>
 		$(document).ready(function(){
 
-		var quantitiy=0;
+    var quantitiy=0;
 		   $('.quantity-right-plus').click(function(e){
 		        
 		        // Stop acting like a button
@@ -282,7 +283,9 @@
 		            
 		            $('#quantity').val(quantity + 1);
 
-		          
+                if(quantity>={!! json_encode($stok)!!}){
+                  $('#quantity').val({!! json_encode($stok)!!});
+                }
 		            // Increment
 		        
 		    });

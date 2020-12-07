@@ -14,7 +14,7 @@
                  <div class="form-group">
                    <div class="avatar-upload" align="center">
                        <div class="avatar-edit">
-                           <input type='file' name="gambar" id="imageUpload" accept="image/*" />
+                           <input type='file' name="gambar" required id="imageUpload" accept="image/*" />
                            <small class="text-muted">(Format JPG/JPEG/PNG, Max 2MB)</small>
                            <label for="imageUpload"></label>
                        </div>
