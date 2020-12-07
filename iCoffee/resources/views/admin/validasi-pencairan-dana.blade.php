@@ -311,10 +311,10 @@
 			columns:[
 
 			{data: 'invoice', name:'invoice'},
-			{data: 'pemilik_rekening', name:'pemilik_rekening'},	
-			{data: 'jumlah', name:'jumlah'},
-			{data: 'bank', name:'bank'},
+			{data: 'pemilik_rekening', name:'pemilik_rekening'},
 			{data: 'no_rekening', name:'no_rekening'},
+			{data: 'bank', name:'bank'},
+			{data: 'jumlah', name:'jumlah'},
 			{data: 'created_at', name:'created_at'},
 			{data: 'status', name:'status'},
 			{data: 'action', name: 'action',orderable: false},
