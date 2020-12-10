@@ -73,6 +73,7 @@
               <div class="collapse-divider"></div>
               <h6 class="collapse-header">Laporan :</h6>
               <a class="collapse-item" href="{{url('mitra/laporan-penjualan')}}">Laporan Penjualan</a>
+              <a class="collapse-item" href="{{url('mitra/riwayat-penjualan')}}">Riwayat Penjualan</a>
             </div>
           </div>
         </li>

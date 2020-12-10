@@ -275,6 +275,7 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::post('/tarik-saldo','MitraController@tarikSaldo');
 	Route::get('/progress-investasi','MitraController@progressInvestasi');
 	Route::get('/laporan-penjualan','LaporanPenjualanController@index')->middleware('auth:mitra');
+	Route::get('/riwayat-penjualan','LaporanPenjualanController@riwayatIndex')->middleware('auth:mitra');
 	Route::get('/logout','Mitra\LoginController@logout');
 });
 Route::get('/nyoba','MitraController@test');

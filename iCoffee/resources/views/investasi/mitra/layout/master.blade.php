@@ -91,8 +91,9 @@
 </div>
 <!-- Bootstrap core JavaScript-->
 <script src="{{asset('investasi/mitra/vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{asset('investasi/mitra/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="{{asset('investasi/js/bootstrap.min.js')}}"></script>
+
 <!-- Core plugin JavaScript-->
 <script src="{{asset('investasi/mitra/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 <script src="{{asset('investasi/mitra/vendor/chart.js/Chart.min.js')}}"></script>
