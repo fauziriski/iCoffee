@@ -327,7 +327,7 @@
 								document.getElementById("email").innerHTML = html.data.email;
                                 document.getElementById("keterangan").innerHTML = html.data.keterangan;
 
-								var img = "/Uploads/Komplain/JualBeli/{" + html.data.invoice  + "}/" + html.data.gambar +"";
+								var img = "/Uploads/Komplain/JualBeli/" + html.data.invoice  + "/" + html.data.gambar +"";
 								$("#gambar").attr("src",img);
 
 							}

@@ -416,6 +416,7 @@
 							]
 
 						});
+						$('.modal-title').text("List Penawaran");
 						$('#modalLihatPenawaran').on('hidden.bs.modal', function () {
 							$('#penawaran').dataTable().fnDestroy();
 						});
