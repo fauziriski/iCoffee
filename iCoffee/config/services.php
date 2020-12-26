@@ -34,13 +34,13 @@ return [
     'facebook' => [
         'client_id'     => '406780327067617',
         'client_secret' => 'c144e84c21900a84cc8503abddeda296',
-        'redirect'      => 'https://icoffee.id/facebook/callback'
+        'redirect'      => 'https://icoffee.id/login/facebook/callback'
     ],
 
     'google' => [
         'client_id'     => '474980426984-jot32r5q8sjv4r8ko5gkq5e032rf3s14.apps.googleusercontent.com',
         'client_secret' => 'CF8yhvS7BD_z794zIIbrHlbB',
-        'redirect'      => 'https://icoffee.id/google/callback'
+        'redirect'      => 'https://icoffee.id/login/google/callback'
     ],
 
 ];
