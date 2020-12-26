@@ -38,7 +38,7 @@
                                     <td>{{$item->nama_produk}}</td>
                                     <td>  
                                   
-									<input type="text" id="copy_{{ $item->id }}" value="http://127.0.0.1:8000/jual-beli/produk/{{$item->slug}}" style="width:70%;">
+									<input type="text" id="copy_{{ $item->id }}" value="https://icoffee.id/jual-beli/produk/{{$item->slug}}" style="width:70%;">
                         			<button value="copy" onclick="copyToClipboard('copy_{{ $item->id }}')" class="success btn btn-primary btn-sm py-0 mb-1"><i class="fa fa-link"></i> Copy</button>  
                                         </form>
                                      </td>

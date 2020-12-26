@@ -383,7 +383,7 @@ var myPieChart = new Chart(ctx, {
 		var myLineChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Des'],
+			labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'],
 			datasets: [{
 			label: "produk",
 			lineTension: 0.3,

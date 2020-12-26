@@ -76,8 +76,8 @@
 				<thead>
 					<tr>
 						<th>Tanggal Pengajuan</th>
-						<th>Mitra</th>
-						<th>Kode</th>
+						<th>Kode Mitra</th>
+						<th>Kode Produk</th>
 						<th>Judul</th>
 						<th>Deskripsi</th>
 						<th>Total Pengajuan</th>
@@ -332,7 +332,7 @@
 					document.getElementById("status1").innerHTML = data1.status1;
 					document.getElementById("total").innerHTML = "Rp "+total_rp;
 					
-					var table_header = "<table cellpadding='10' border='1' style='margin-top: -5%;'><tr style='background-color: #4e73df; color: white;'><div class='form-group'><th width='40%' style='text-align: center;'>Nama Produk&nbsp;&nbsp;:</th><th width='20%' style='text-align: center;'>Harga&nbsp;&nbsp;:</th><th width='10%' style='text-align: center;'>Qty&nbsp;&nbsp;:</th><th width='20%' style='text-align: center;'>Total&nbsp;&nbsp;:</th></tr></div>";
+					var table_header = "<table cellpadding='10' border='1' style='margin-top: -5%;'><tr style='background-color: #4e73df; color: white;'><div class='form-group'><th width='40%' style='text-align: center;'>Nama Produk&nbsp;&nbsp;</th><th width='20%' style='text-align: center;'>Harga&nbsp;&nbsp;</th><th width='10%' style='text-align: center;'>Qty&nbsp;&nbsp;</th><th width='20%' style='text-align: center;'>Total&nbsp;&nbsp;</th></tr></div>";
 					var table_footer = "<tr><th colspan='3' style='text-align: center;'>Total Pengajuan</th><th style='text-align: center;'>Rp "+total_rp+"</th></tr></table></div>"
 					var html = "";
 

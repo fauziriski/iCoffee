@@ -240,7 +240,7 @@
 											</tr>
 											<tr>
 												<div class="form-group">
-													<th width="25%" style="text-align: right;">Suratt Nikah&nbsp;&nbsp;&nbsp;:</th>	
+													<th width="25%" style="text-align: right;">Surat Nikah&nbsp;&nbsp;&nbsp;:</th>	
 													<th width="25%"><a href="" target="_blank" class="btn btn-success py-0" id="surat_nikah">lihat berkas</a></th>
 												</div>
 											</tr>

@@ -37,7 +37,7 @@
                                     <td>{{$item->updated_at->diffForHumans()}}</td>
                                     <td>{{$item->judul}}</td>
                                     <td>  
-									<input type="text" id="copy_{{ $item->id }}" value="http://127.0.0.1:8000/artikel/{{$item->slug}}" style="width:60%;">
+									<input type="text" id="copy_{{ $item->id }}" value="https://icoffee.id/artikel/{{$item->slug}}" style="width:60%;">
                         			<button value="copy" onclick="copyToClipboard('copy_{{ $item->id }}')" class="success btn btn-primary btn-sm py-0 mb-1"><i class="fa fa-link"></i> Copy</button>
 					
                                         </form>

@@ -23,7 +23,7 @@
 		<div class="card shadow mb-4">
 			<!-- Card Header - Dropdown -->
 			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-			<h5 class="h5 mb-0 text-gray-800">RpDashboard</h5>
+			<h5 class="h5 mb-0 text-gray-800">Dashboard</h5>
 			</div>
 			<!-- Card Body -->
 
@@ -66,7 +66,7 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-sm font-weight-bold text-primary mb-1">Kas Masuk Jual-Beli</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($masuk_jb)}}</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($masuk_jb)}}</div>
 							</div>
 							<div class="col-auto">
 								<i class="fa fa-arrow-alt-circle-down fa-2x text-gray-300"></i>
@@ -83,7 +83,7 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-sm font-weight-bold text-success mb-1">Kas Masuk Lelang / TopUp</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($masuk_le)}}</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($masuk_le)}}</div>
 							</div>
 							<div class="col-auto">
 								<i class="fa fa-arrow-alt-circle-down fa-2x text-gray-300"></i>
@@ -102,7 +102,7 @@
 								<div class="text-sm font-weight-bold text-info mb-1">Kas Masuk Investasi</div>
 								<div class="row no-gutters align-items-center">
 									<div class="col-auto">
-									<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($masuk_in)}}</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($masuk_in)}}</div>
 									</div>
 								</div>
 							</div>
@@ -121,7 +121,7 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-sm font-weight-bold text-warning mb-1">Total Kas Masuk</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($total_masuk)}}</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($total_masuk)}}</div>
 							</div>
 							<div class="col-auto">
 								<i class="fas fa-wallet fa-2x text-gray-300"></i>
@@ -145,7 +145,7 @@
 			<div class="row no-gutters align-items-center">
 				<div class="col mr-2">
 					<div class="text-sm font-weight-bold text-primary mb-1">Kas Keluar Pencairan</div>
-					<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($keluar_pen)}}</div>
+					<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($keluar_pen)}}</div>
 				</div>
 				<div class="col-auto">
 					<i class="fa fa-arrow-alt-circle-up fa-2x text-gray-300"></i>
@@ -162,7 +162,7 @@
 			<div class="row no-gutters align-items-center">
 				<div class="col mr-2">
 					<div class="text-sm font-weight-bold text-success mb-1">Kas Keluar Operasional</div>
-					<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($keluar_op)}}</div>
+					<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($keluar_op)}}</div>
 				</div>
 				<div class="col-auto">
 					<i class="fa fa-arrow-alt-circle-up fa-2x text-gray-300"></i>
@@ -181,7 +181,7 @@
 					<div class="text-sm font-weight-bold text-info mb-1">Kas Keluar Mitra</div>
 					<div class="row no-gutters align-items-center">
 						<div class="col-auto">
-						<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($keluar_mit)}}</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($keluar_mit)}}</div>
 						</div>
 					</div>
 				</div>
@@ -200,7 +200,7 @@
 			<div class="row no-gutters align-items-center">
 				<div class="col mr-2">
 					<div class="text-sm font-weight-bold text-warning mb-1">Total Kas Keluar</div>
-					<div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{number_format($total_keluar)}}</div>
+					<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($total_keluar)}}</div>
 				</div>
 				<div class="col-auto">
 					<i class="fas fa-wallet fa-2x text-gray-300"></i>
@@ -324,7 +324,7 @@
 		var myLineChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Des'],
+			labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'],
 			datasets: [{
 			yAxisID: 'Kas Masuk',
 			lineTension: 0.3,

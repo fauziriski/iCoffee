@@ -324,7 +324,7 @@
 		var myLineChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Des'],
+			labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'],
 			datasets: [{
 			yAxisID: 'Kas Masuk',
 			lineTension: 0.3,

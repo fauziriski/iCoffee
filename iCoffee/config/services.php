@@ -32,15 +32,15 @@ return [
 
     /* Social Media */
     'facebook' => [
-        'client_id'     => '2358125997657846',
-        'client_secret' => '7987e797cf85adea42010d7609bd2acb',
-        'redirect'      => 'https://icoffee.asia/login/facebook/callback'
+        'client_id'     => '406780327067617',
+        'client_secret' => 'c144e84c21900a84cc8503abddeda296',
+        'redirect'      => 'https://icoffee.id/login/facebook/callback'
     ],
 
     'google' => [
         'client_id'     => '841364276755-6kio36kto9e4aghttj3lkried4m03or0.apps.googleusercontent.com',
         'client_secret' => 'xalChsfxl1_oZCVrpX4kXWri',
-        'redirect'      => 'https://icoffee.asia/login/google/callback'
+        'redirect'      => 'https://icoffee.id/login/google/callback'
     ],
 
 ];

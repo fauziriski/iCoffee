@@ -354,7 +354,7 @@
 											var data2 = data2;
 
 											$('#modalLihat').modal('show');
-											$('.modal-title').text("Detai Investor");
+											$('.modal-title').text("Detail Investor");
 											document.getElementById("name").innerHTML = html.data2.name;
 											document.getElementById("email").innerHTML = html.data2.email;
 											document.getElementById("no_ktp").innerHTML = html.data.no_ktp;

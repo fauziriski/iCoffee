@@ -212,90 +212,86 @@
 </div>
 
 
-		<!-- Content Row -->
+			<!-- Content Row -->
 
-		<div class="row">
+			<div class="row">
 
-			<!-- Area Chart -->
-				<!-- Area Chart -->
-				<div class="col-xl-8 col-lg-7">
-				<div class="card shadow mb-4">
-					<!-- Card Header - Dropdown -->
-					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-primary">Grafik Area</h6>
-					
-					</div>
-					<!-- Card Body -->
-					<div class="card-body">
-						<div class="chart-area">
-							<canvas id="myAreaChart"></canvas>
-						</div>
-						<div class="text-center small mt-3">
-							<span class="mr-2">
-								<i class="fas fa-stop" style="color:#2c9faf"></i> Produk/Tahun
-							</span><br>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			
-			<div class="col-xl-4 col-lg-7">
-				<div class="card shadow mb-4">
-					<!-- Card Header - Dropdown -->
-					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-primary">Grafik Pie</h6>
-					</div>
-					<!-- Card Body -->
-					<div class="card-body">
-						<div class="chart-area">
-							<canvas id="myPieChart"></canvas>
-						</div>
-					</div>
-					<div class="text-center small">
-							<span class="mr-2">
-								<i class="fas fa-circle" style="color:#FFA07A"></i> Jual-Beli
-							</span>
-							<span class="mr-2">
-								<i class="fas fa-circle" style="color:#36b9cc"></i> Lelang
-							</span>
-							<span class="mr-2">
-								<i class="fas fa-circle" style="color:#1cc88a"></i> Investasi
-							</span><br><br>
-						</div>
-				</div>
-			</div>
-
-			<!-- Pie Chart -->
-			<div class="col-xl-4 col-lg-5">
-				<div class="card shadow mb-4">
-					<!-- Card Header - Dropdown -->
-					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-primary">Kalender</h6>			
-						</div>
-					<!-- Card Body -->
-					<div class="card-body">
-					<div style="overflow:hidden;">
-						<div class="form-group">
-							<div class="row">
-								<div class="col-md-8">
-									<div id="datetimepicker12"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+<!-- Area Chart -->
+	<!-- Area Chart -->
+	<div class="col-xl-4 col-lg-7">
+	<div class="card shadow mb-4">
+		<!-- Card Header - Dropdown -->
+		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+			<h6 class="m-0 font-weight-bold text-primary">Grafik Produk/Tahun</h6>
+		
+		</div>
+		<!-- Card Body -->
+		<div class="card-body">
+			<div class="chart-area">
+				<canvas id="myAreaChart"></canvas>
 			</div>
 		</div>
-
-
+	</div>
 </div>
+
+
+<div class="col-xl-4 col-lg-7">
+	<div class="card shadow mb-4">
+		<!-- Card Header - Dropdown -->
+		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+			<h6 class="m-0 font-weight-bold text-primary">Produk Terpasang</h6>
+		</div>
+		<!-- Card Body -->
+		<div class="card-body">
+			<div class="chart-area">
+				<canvas id="myPieChart"></canvas>
+			</div>
+		</div>
+		<div class="text-center small">
+				<span class="mr-2">
+					<i class="fas fa-circle" style="color:#FFA07A"></i> Jual-Beli
+				</span>
+				<span class="mr-2">
+					<i class="fas fa-circle" style="color:#36b9cc"></i> Lelang
+				</span>
+				<span class="mr-2">
+					<i class="fas fa-circle" style="color:#1cc88a"></i> Investasi
+				</span><br><br>
+			</div>
+	</div>
+</div>
+
+<!-- Pie Chart -->
+<div class="col-xl-4 col-lg-5">
+	<div class="card shadow mb-4">
+		<!-- Card Header - Dropdown -->
+		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+			<h6 class="m-0 font-weight-bold text-primary">Kalender</h6>			
+			</div>
+		<!-- Card Body -->
+		<div class="card-body">
+		<div style="overflow:hidden;">
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-8">
+						<div id="datetimepicker12"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 </div>
+
+
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 
 	@endsection
 

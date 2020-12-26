@@ -43,7 +43,7 @@ class HomeController extends Controller
    
     $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
     $data  = array($produk_jb,$produk_lelang,$produk_invest);
-
+  
     //grafik area
     $jan = count(Shop_product::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '1')->get());
     $feb = count(Shop_product::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '2')->get());
@@ -100,7 +100,7 @@ class HomeController extends Controller
     $nomitra3 = count(Mitra_perorangan::whereIn('status',[1,3])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get());
     $novalid_mitra = $nomitra1 + $nomitra2 + $nomitra3;
     
-    
+   
     return view('admin.beranda',[
         'kategori' => $kategori, 
         'data' => $data,
@@ -112,8 +112,7 @@ class HomeController extends Controller
         'prdk_novalidasi' => $prdk_novalidasi,
         'mitra_tervalidasi' =>  $mitra_tervalidasi,
         'novalid_mitra' => $novalid_mitra,
-        'jml_bulan' => $jml_bulan
-
+        'jml_bulan' => $jml_bulan,
         ]);
 
 }
@@ -123,11 +122,11 @@ public function filter(Request $request){
 
 $year = Carbon::now()->format('Y');
 $month = $request->bulan;
-    
+$month_now = Carbon::now()->format('m');
 
-$produk_jb = count(Shop_product::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get());
-$produk_lelang = count(Auction_product::where('status',"2")->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get());
-$produk_invest = count(Invest_product::where('status',"2")->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get()); 
+$produk_jb = count(Shop_product::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month_now)->get());
+$produk_lelang = count(Auction_product::where('status',"2")->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month_now)->get());
+$produk_invest = count(Invest_product::where('status',"2")->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month_now)->get()); 
 
 $kategori = array('Jual-Beli', 'Lelang', 'Investasi');
 $data  = array($produk_jb,$produk_lelang,$produk_invest);
