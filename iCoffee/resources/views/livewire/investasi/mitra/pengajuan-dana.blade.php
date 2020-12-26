@@ -101,7 +101,7 @@
                                                 <span class="badge badge-danger float-right">Ditolak</span>
                                             @elseif($item->status == 2)
                                                 <span class="badge badge-success float-right">Divalidasi</span>
-                                                @elseif($item->status == 3)
+                                            @elseif($item->status == 3)
                                                 <span class="badge badge-info float-right">On Progress</span>
                                             @endif
                                         </button>
