@@ -26,7 +26,7 @@ class VerifikasiSaldoMitraController extends Controller
 		if(request()->ajax())
 		{	
 			// $konfirmasi = Mitra_withdraw::All();
-            $konfirmasi = DB::table('Mitra_banks')
+            $konfirmasi = DB::table('mitra_banks')
 			->join('Mitra_withdraws', 'Mitra_banks.id', '=', 'Mitra_withdraws.id_bank')
 			->get();
 		
