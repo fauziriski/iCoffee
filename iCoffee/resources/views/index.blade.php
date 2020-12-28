@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{asset('landing_page/slick/slick-theme.css') }}">
     <link rel="stylesheet" href="{{asset('landing_page/magnific-popup/magnific-popup.css') }}">
     <link rel="shortcut icon" href="{{asset('landing_page/images/favicon.png') }}">
-    <meta name="google-site-verification" content="yr0b1EXiV-YTqxP_WX3A3LGbEtl805Xnq-hrlgDxj78" />
+    <meta name="google-site-verification" content="xGd-YEBxPR806nRnX5awZLhO3qQMzx-NnYhNRh0ulkY" />
     
     </head>
     
