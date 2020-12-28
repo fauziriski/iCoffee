@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\support\Facades\DB;
+use DB;
 use App\Adm_jurnal;
 use App\Adm_tranksaksi;
 use App\Adm_kat_akun;
@@ -32,7 +32,7 @@ class  VerifikasiProgresMitraController extends Controller
                         ->join('mitras', 'progress_investasis.id_mitra', '=', 'mitras.id_mitra')
                         ->select('invest_product.*', 'progress_investasis.created_at as waktu', 'progress_investasis.judul', 'mitras.nama', 'progress_investasis.status as status1', 'progress_investasis.id as id_progres')
                         ->get();
-
+			
 			return datatables()->of($konfirmasi)
 			->addColumn('action', function($data){
 				
