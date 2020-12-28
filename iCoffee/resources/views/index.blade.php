@@ -72,7 +72,7 @@
             <div class="container">
                 <div class="row">
                     <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12">
-                        <h1><strong>iCoffee.asia</strong></h1>
+                        <h1><strong>iCoffee.id</strong></h1>
                         <p>Platform jual beli, lelang, dan investasi di bidang kopi.</p>
                         <a href="#features" class="main-button-slider">Selengkapnya</a>
                     </div>
