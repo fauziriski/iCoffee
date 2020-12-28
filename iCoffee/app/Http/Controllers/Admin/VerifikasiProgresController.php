@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\support\Facades\DB;
+use DB;
 use App\Adm_jurnal;
 use App\Adm_tranksaksi;
 use App\Adm_kat_akun;
