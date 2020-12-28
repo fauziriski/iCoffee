@@ -27,7 +27,7 @@ class VerifikasiSaldoMitraController extends Controller
 		{	
 			// $konfirmasi = Mitra_withdraw::All();
             $konfirmasi = DB::table('mitra_banks')
-			->join('Mitra_withdraws', 'Mitra_banks.id', '=', 'Mitra_withdraws.id_bank')
+			->join('mitra_withdraws', 'mitra_banks.id', '=', 'mitra_withdraws.id_bank')
 			->get();
 		
 
