@@ -132,7 +132,7 @@
                                                                 --}}
                                                                 <option selected disabled="disabled" value="">Pilih Kurir
                                                                 </option>
-                                                                {{-- @for ($k = 0; $k < count($costjne[$i]['rajaongkir']['results'][0]['costs']); $k++)
+                                                                @for ($k = 0; $k < count($costjne[$i]['rajaongkir']['results'][0]['costs']); $k++)
                                                                     <option
                                                                         value="{{ $costjne[$i]['rajaongkir']['results'][0]['costs'][$k]['cost'][0]['value'] }}: JNE: {{ $costjne[$i]['rajaongkir']['results'][0]['costs'][$k]['service'] }} ">
                                                                         JNE Rp
@@ -142,7 +142,7 @@
                                                                         {{ $costjne[$i]['rajaongkir']['results'][0]['costs'][$k]['cost'][0]['etd'] }}
                                                                         Hari )
                                                                     </option>
-                                                                @endfor --}}
+                                                                @endfor
 
                                                                 @for ($k = 0; $k < count($costtiki[$i]['rajaongkir']['results'][0]['costs']); $k++)
                                                                     <option

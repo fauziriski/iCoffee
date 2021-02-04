@@ -163,18 +163,21 @@ class CheckoutController extends Controller
         
         $jumlah_seluruh = array_sum($jumlah);
 
-        $pengirim =  array();
+        $pengirimCity =  array();
+        $pengirimSubdistrict = array();
 
         for ($i=0; $i < $hitung_jumlah_alamat_penjual ; $i++) 
         { 
             if (!(in_array($alamat_penjual[$i]->kecamatan, $pengirim))) {
-                $pengirim[] = $alamat_penjual[$i]->kecamatan;
+                $pengirimSubdistrict[] = $alamat_penjual[$i]->kecamatan;
+                $pengirimCity[] = $alamat_penjual[$i]->kota_alamat;
                 
             }
         }
         
 
-        $penerima = $alamat->kecamatan;
+        $penerimaSubdistrict = $alamat->kecamatan;
+        $penerimaCity = $alamat->kota_kabupaten;
 
         session(['alamat_penjual' => $pengirim]);
         session(['alamat' => $penerima]);
@@ -192,20 +195,20 @@ class CheckoutController extends Controller
 
             //jne
 
-            // $array = array(
+            $array = array(
 
-            //     "origin" => $pengirim[$i],
-            //     "destination" => $penerima,
-            //     "weight" => $berat[$i],
-            //     "courier" => "jne",
-            // );
-            // $costjne[] = Helper::instance()->cekOngkir($array);
+                "origin" => $pengirimCity[$i],
+                "destination" => $penerimaCity,
+                "weight" => $berat[$i],
+                "courier" => "jne",
+            );
+            $costjne[] = Helper::instance()->cekOngkirByCity($array);
         
             //tiki
 
             $array = array(
-                "origin" => $pengirim[$i],
-                "destination" => $penerima,
+                "origin" => $pengirimSubdistrict[$i],
+                "destination" => $penerimaSubdistrict,
                 "weight" => $berat[$i],
                 "courier" => "tiki",
             );
@@ -214,19 +217,19 @@ class CheckoutController extends Controller
             //J&T
 
             $array = array(
-                "origin" => $pengirim[$i],
-                "destination" => $penerima,
+                "origin" => $pengirimCity[$i],
+                "destination" => $penerimaSubdistrict,
                 "weight" => $berat[$i],
                 "courier" => "jnt",
             );
-            $costjnt[] = Helper::instance()->cekOngkir($array);
+            $costjnt[] = Helper::instance()->cekOngkirMix($array);
             
 
             //Ninja
 
             $array = array(
-                "origin" => $pengirim[$i],
-                "destination" => $penerima,
+                "origin" => $pengirimSubdistrict[$i],
+                "destination" => $penerimaSubdistrict,
                 "weight" => $berat[$i],
                 "courier" => "ninja",
             );
@@ -235,12 +238,12 @@ class CheckoutController extends Controller
 
             
             $array = array(
-                "origin" => $pengirim[$i],
-                "destination" => $penerima,
+                "origin" => $pengirimCity[$i],
+                "destination" => $penepenerimaCityrima,
                 "weight" => $berat[$i],
                 "courier" => "lion",
             );
-            $costlion[] = Helper::instance()->cekOngkir($array);
+            $costlion[] = Helper::instance()->cekOngkirByCity($array);
 
         }
 
@@ -255,6 +258,7 @@ class CheckoutController extends Controller
             'costjnt',
             'costninja',
             'checkout_data',
+            'costjne',
             'costtiki',
             'costlion',
             'jumlah_data_checkout'));
