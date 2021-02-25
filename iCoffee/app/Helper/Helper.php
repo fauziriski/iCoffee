@@ -257,7 +257,7 @@ class Helper
             $response = $client->request('POST','https://pro.rajaongkir.com/api/waybill',
                 [
                     // 'body' => 'waybill='.$data["waybill"].'&courier='.$data["courier"],
-                    'body' => 'waybill=JP7185093592&courier=jnt',
+                    'body' => 'waybill='.$data["waybill"].'&courier='.$data["courier"],
                     'headers' => [
                         'key' => $this->apiKey,
                         'content-type' => 'application/x-www-form-urlencoded',

@@ -121,7 +121,10 @@ class InvoiceController extends Controller
         }        
 
 
-        return view('jual-beli.invoice', compact('order', 'penilaian','cek_resi', 'hitung', 'kurir', 'jumlah_seluruh' , 'hitungdataorder' , 'orderdetaildata', 'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'hitung', 'rekening'));
+        return view('jual-beli.invoice', compact(
+            'order', 'penilaian','cek_resi', 'hitung', 'kurir', 'jumlah_seluruh' , 'hitungdataorder' , 'orderdetaildata', 
+            'alamat_penjual', 'alamat_pembeli', 'id_penjual', 'hitung', 'rekening'
+        ));
     }
 
     public function cancelOrder($invoice)
