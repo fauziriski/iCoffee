@@ -173,9 +173,9 @@ class Helper
         
         $array_result = json_decode($json, true);
         
-        $origin = $array_result['rajaongkir']['origin_details']['city'];
+        $origin = $array_result['rajaongkir']['origin_details']['city_id'];
         
-        $destination = $array_result['rajaongkir']['destination_details']['city'];
+        $destination = $array_result['rajaongkir']['destination_details']['city_id'];
 
         return $array_result;
 
@@ -206,9 +206,9 @@ class Helper
         
         $array_result = json_decode($json, true);
         
-        $origin = $array_result['rajaongkir']['origin_details']['city'];
+        $origin = $array_result['rajaongkir']['origin_details']['city_id'];
         
-        $destination = $array_result['rajaongkir']['destination_details']['city'];
+        $destination = $array_result['rajaongkir']['destination_details']['city_id'];
 
         return $array_result;
 
@@ -239,9 +239,9 @@ class Helper
         
         $array_result = json_decode($json, true);
         
-        $origin = $array_result['rajaongkir']['origin_details']['city'];
+        $origin = $array_result['rajaongkir']['origin_details']['city_id'];
         
-        $destination = $array_result['rajaongkir']['destination_details']['city'];
+        $destination = $array_result['rajaongkir']['destination_details']['city_id'];
 
         return $array_result;
 

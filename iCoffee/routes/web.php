@@ -17,7 +17,7 @@
 // 	return view('index');
 // });
 
-route::get('/', 'IndexController@index');
+route::get('/', 'IndexController@index')->name('home');
 
 //login sosmed
 Auth::routes();
@@ -138,6 +138,9 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	Route::get('/jual-beli/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
 	
 });
+
+Route::get('/bycript/{data}', 'HomeController@bycript');
+Route::get('/permission', 'HomeController@updatepersmisson');
 
 
 

@@ -168,9 +168,9 @@ class CheckoutController extends Controller
 
         for ($i=0; $i < $hitung_jumlah_alamat_penjual ; $i++) 
         { 
-            if (!(in_array($alamat_penjual[$i]->kecamatan, $pengirim))) {
+            if (!(in_array($alamat_penjual[$i]->kecamatan, $pengirimSubdistrict))) {
                 $pengirimSubdistrict[] = $alamat_penjual[$i]->kecamatan;
-                $pengirimCity[] = $alamat_penjual[$i]->kota_alamat;
+                $pengirimCity[] = $alamat_penjual[$i]->kota_kabupaten;
                 
             }
         }
@@ -179,8 +179,10 @@ class CheckoutController extends Controller
         $penerimaSubdistrict = $alamat->kecamatan;
         $penerimaCity = $alamat->kota_kabupaten;
 
-        session(['alamat_penjual' => $pengirim]);
-        session(['alamat' => $penerima]);
+        session(['kecamatan_alamat_penjual' => $pengirimSubdistrict]);
+        session(['kota_alamat_penjual' => $pengirimCity]);
+        session(['kecamatan_penerima' => $penerimaSubdistrict]);
+        session(['kota_penerima' => $penerimaCity]);
         session(['berat' => $berat]);
 
 
@@ -194,7 +196,6 @@ class CheckoutController extends Controller
         for ($i=0; $i < $jumlah_penjual ; $i++) { 
 
             //jne
-
             $array = array(
 
                 "origin" => $pengirimCity[$i],
@@ -212,7 +213,9 @@ class CheckoutController extends Controller
                 "weight" => $berat[$i],
                 "courier" => "tiki",
             );
+            
             $costtiki[] = Helper::instance()->cekOngkir($array);
+           
             
             //J&T
 
@@ -239,7 +242,7 @@ class CheckoutController extends Controller
             
             $array = array(
                 "origin" => $pengirimCity[$i],
-                "destination" => $penepenerimaCityrima,
+                "destination" => $penerimaCity,
                 "weight" => $berat[$i],
                 "courier" => "lion",
             );
@@ -255,10 +258,10 @@ class CheckoutController extends Controller
             'alamat',
             'jumlah',
             'penjual',
+            'costjne',
             'costjnt',
             'costninja',
             'checkout_data',
-            'costjne',
             'costtiki',
             'costlion',
             'jumlah_data_checkout'));
