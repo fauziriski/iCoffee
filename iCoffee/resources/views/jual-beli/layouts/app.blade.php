@@ -55,6 +55,27 @@
             border-radius: 10px;
         }
 
+        
+        i.notif {
+        position: relative;
+        /* color: white; */
+        cursor: pointer;
+        }
+        span.fa-circle {
+        position: absolute;
+        font-size: 1.3em;
+        top: -11px;
+        color: red;
+        right: -11px;
+        }
+        span.num {
+        position: absolute;
+        font-size: 12px;
+        top: -7px;
+        color: #fff;
+        right: -5px;
+        }
+
     </style>
 
 </head>

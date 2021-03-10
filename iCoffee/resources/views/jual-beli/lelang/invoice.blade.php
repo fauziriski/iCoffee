@@ -54,14 +54,18 @@
                         @if ($order->status == 5 || 6 || 7 || 10 || 11)
                             <address>
                                 <strong>No Resi :</strong><br>
-                                {{ $kurir[1] }} {{ $cek_resi->invoice }}<br>
+                                <p class="text-uppercase">
+                                    {{ $kurir[1] }} {{ $cek_resi->invoice }}<br>
+                                </p>
                             </address>
 
                         @else
 
                             <address>
                                 <strong>No Resi :</strong><br>
-                                {{ $kurir[1] }}<br>
+                                <p class="text-uppercase">
+                                    {{ $kurir[1] }}<br>
+                                </p>
                             </address>
 
 

@@ -57,7 +57,9 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right px-1 mt-0" aria-labelledby="navbarDropdown2">
                 <a class="dropdown-item" href="/jual-beli/keranjang">
-                  <i class="fas fa-luggage-cart mr-2"></i>JualBeli
+                  <i class="fas fa-luggage-cart mr-2 notif">  
+                    <span class="fa fa-circle"></span>
+                    <span class="num">2</span></i>JualBeli
                 </a>
                 <a class="dropdown-item" href="/lelang/keranjang">
                   <i class="icon icon-timer mr-2"></i>&nbsp;Lelang
