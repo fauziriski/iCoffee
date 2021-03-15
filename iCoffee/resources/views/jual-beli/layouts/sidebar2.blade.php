@@ -121,7 +121,7 @@
                                             @if (!empty($count_order['count_order_lelang']))
                                             <i class="fas fa-stopwatch fa-fw notif">
                                                 <span class="fa fa-circle" style="top: -10px; right: -5px;"></span>
-                                                <span class="num" style="top: -7px; right: -1px;">{{ $count_order['count_order_lelang'] }}</span>
+                                                <span class="num" style="top: -7px; right: 0px;">{{ $count_order['count_order_lelang'] }}</span>
                                             </i>
                                             @else
                                             <i class="fas fa-stopwatch fa-fw"></i>

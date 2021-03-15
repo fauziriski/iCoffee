@@ -550,18 +550,18 @@
         });
     </script>
 
-<script>
+    <script>
 
-    $(function(){
-        $('a[name="images-modal"]').on("click",function(){
-            var data = document.getElementById("complain_image").src;
-            // // var src = $(this).attr("src");
-            // console.log(data);
-            $(".modal-img").prop("src",data);
+        $(function(){
+            $('a[name="images-modal"]').on("click",function(){
+                var data = document.getElementById("complain_image").src;
+                // // var src = $(this).attr("src");
+                // console.log(data);
+                $(".modal-img").prop("src",data);
+            })
         })
-    })
 
-</script>
+    </script>
 
 
 @endsection
