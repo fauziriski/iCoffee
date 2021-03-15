@@ -57,12 +57,25 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right px-1 mt-0" aria-labelledby="navbarDropdown2">
                 <a class="dropdown-item" href="/jual-beli/keranjang">
+                  @if (!empty( $count_order['cart']))
                   <i class="fas fa-luggage-cart mr-2 notif">  
                     <span class="fa fa-circle"></span>
-                    <span class="num">2</span></i>JualBeli
+                    <span class="num">{{ $count_order['cart'] }}</span>
+                  </i>JualBeli
+                  @else
+                  <i class="fas fa-luggage-cart mr-2"></i>JualBeli
+                  @endif
                 </a>
                 <a class="dropdown-item" href="/lelang/keranjang">
-                  <i class="icon icon-timer mr-2"></i>&nbsp;Lelang
+                  {{-- <i class="fas fa-stopwatch fa-fw mr-2"></i>&nbsp;Lelang --}}
+                  @if (!empty( $count_order['auction_winner']))
+                  <i class="fas fa-stopwatch fa-fw mr-2 notif" style="right= -4">  
+                    <span class="fa fa-circle"></span>
+                    <span class="num">{{ $count_order['auction_winner'] }}</span>
+                  </i>Lelang
+                  @else
+                  <i class="fas fa-stopwatch fa-fw mr-2" ></i>Lelang
+                  @endif
                 </a>
               </div>
             </li>

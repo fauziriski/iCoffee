@@ -218,39 +218,98 @@
 
                             </form>
                             @elseif($order->status == 5 || $order->status == 6 || $order->status == 7 || $order->status == 10 || $order->status == 11)
-                                <div class="text-center col-md-6 offset-md-8 col-12">
+                                <div class="text-center col-md-7 offset-md-6 col-12">
                                     <p class="row justify-content-center">
 
                                         <button id="willbill" name="willbill"
                                             style="border-radius: 10px; margin: auto; padding: 16px;"
-                                            value="{{ $order->id }}" type="button" class="btn btn-primary py-3 px-5"
+                                            value="{{ $order->id }}" type="button" class="btn btn-primary ml-3 mr-3 mt-2 py-3 px-5"
                                             data-toggle="modal" data-target="#exampleModalCenter1">
                                             Lacak Paket
+                                        </button>
+
+                                        
+                                        <button id="see_coplain" name="see_coplain"
+                                            style="border-radius: 10px; padding: 16px;"
+                                            value="{{ $order->id }}" type="button" class="btn btn-primary ml-2 mr-2 mt-2 py-3 px-5"
+                                            data-toggle="modal" data-target="#see_complain_modal">
+                                            Lihat Komplain
                                         </button>
                                     </p>
                                 </div>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Lacak Paket</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <ul class="list-group list-group-flush" id="waybilltrackul">
+                                                    <li class="list-group-item" id="waybilltrackli">
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="see_complain_modal" tabindex="-1" role="dialog"
+                                aria-labelledby="see_complain_modal_title" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Lacak Paket</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Lihat Komplain</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <ul class="list-group list-group-flush" id="waybilltrackul">
-                                                <li class="list-group-item" id="waybilltrackli">
-
-                                                </li>
-                                            </ul>
+                                        <dl class="row">
+                                            <dt class="col-md-3" style="font-size: 17px;">
+                                                Invoice :
+                                            </dt>
+                                            <dd class="col-md-9" style="font-size: 17px;">
+                                                <p id="complain_code"></p>
+                                            </dd>
+                                            <dt class="col-md-3" style="font-size: 17px;">
+                                                Komplain :
+                                            </dt>
+                                            <dd class="col-md-9" style="font-size: 17px;">
+                                                <p id="complain_content"></p>
+                                            </dd>
+                                            <dt class="col-md-3"  style="font-size: 17px;">
+                                                Bukti :
+                                            </dt>
+                                            <div class="col-md-9">
+                                                <div id="image">
+                                                    <a name="images-modal" href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
+                                                        <img src="" alt="" srcset="" id="complain_image">
+                                                    </a>
+                                                </div>
+                                                <div>   
+                                                    <div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog modal-md">
+                                                            <div class="modal-content">
+                                                                <img class="modal-img" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dl>
+                                     
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         @endif
                     </div>
                 </div>
@@ -310,6 +369,48 @@
             }
         });
     });
+
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('button[name="see_coplain"]').on('click', function() {
+            var orderID = $(this).val();
+            console.log(orderID);
+            if (orderID) {
+                $.ajax({
+                    url : '/jual-beli/komplain/' + encodeURI(orderID),
+                    type : "GET",
+                    dataType : "JSON",
+                    success : function(data) {
+                        $('#complain_content').empty();
+                        $('#complain_code').empty();
+                        $('#complain_image').empty();
+
+                        $('#complain_code').replaceWith("<p id='complain_code'>"+data[0].invoice+"</p>");
+                        $('#complain_content').replaceWith("<p id='complain_content'>"+data[0].keterangan+"</p>");
+                        $('#complain_image').replaceWith(`<img id='complain_image' height="100px" width="100px" src="{{asset('Uploads/Komplain/JualBeli/${data[0].invoice}/${data[0].gambar}')}}" alt='' srcset=''>`);
+                        
+                    }
+                })
+                
+            } else {
+                
+            }
+        });
+    });
+</script>
+
+<script>
+
+$(function(){
+    $('a[name="images-modal"]').on("click",function(){
+        var data = document.getElementById("complain_image").src;
+        // // var src = $(this).attr("src");
+        // console.log(data);
+        $(".modal-img").prop("src",data);
+    })
+})
 
 </script>
 

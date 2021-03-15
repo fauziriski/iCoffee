@@ -9,6 +9,7 @@ use App\Order;
 use Intervention\Image\ImageManagerStatic as Images;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use DB;
 
 class ComplaintController extends Controller
 {
@@ -91,5 +92,11 @@ class ComplaintController extends Controller
         }
         
 
+    }
+
+    public function show($id) 
+    {
+        $complain = DB::select('SELECT * FROM complaints WHERE `id_order` = '. $id, [1]);
+        return response()->json($complain);
     }
 }

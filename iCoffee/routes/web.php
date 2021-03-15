@@ -106,6 +106,7 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	//Complaint
 	Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'ComplaintController@index');
 	Route::post('/jual-beli/pesanan/komplain', 'ComplaintController@update');
+	Route::get('/jual-beli/komplain/{id}', 'ComplaintController@show');
 
 	//Confirm Payment
 	Route::get('/jual-beli/konfirmasi', 'ConfirmPaymentController@index');
@@ -114,6 +115,7 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	//Transaction
 	// Route::get('/jual-beli/transaksi', 'TransactionController@index');
 	Route::get('/jual-beli/transaksi/pembelian', 'TransactionController@indexBuy');
+	
 
 });
 

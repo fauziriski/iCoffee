@@ -77,13 +77,21 @@
                                     </li>
                                     <li class="nav-item has-treeview">
                                         <a class="nav-link pl-0" data-toggle="collapse" id="menu-3" href="#submenu-3">
+                                            
+                                            @if (!empty($count_order['count_order_produk']))
+                                            <i class="fas fa-store-alt fa-fw notif">
+                                                <span class="fa fa-circle" style="top: -10px; right: -8px;"></span>
+                                                <span class="num" style="top: -7px; right: -3px;">{{ $count_order['count_order_produk'] }}</span>
+                                            </i>
+                                            @else
                                             <i class="fas fa-store-alt fa-fw"></i>
+                                            @endif
                                             <span class="font-weight-bold d-none d-md-inline">Jual Beli &nbsp
                                                 <i id="icons-3" class="fas fa-chevron-down"></i>
-                                                @if (!empty($count_order['count_order_produk']))
+                                                {{-- @if (!empty($count_order['count_order_produk']))
                                                     &nbsp;<span
-                                                        class="badge badge-pill badge-success py-1 align-middle">{{ $count_order['count_order_produk'] }}</span>
-                                                @endif
+                                                        class="badge badge-pill badge-success py-1 align-middle"></span>
+                                                @endif --}}
                                             </span>
                                         </a>
                                         <ul id="submenu-3" class="panel-collapse collapse panel-switch pl-0"
@@ -108,13 +116,23 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link pl-0" data-toggle="collapse" id="menu-4" href="#submenu-4">
+                                            {{-- <i class="fas fa-stopwatch fa-fw"></i> --}}
+                                            
+                                            @if (!empty($count_order['count_order_lelang']))
+                                            <i class="fas fa-stopwatch fa-fw notif">
+                                                <span class="fa fa-circle" style="top: -10px; right: -5px;"></span>
+                                                <span class="num" style="top: -7px; right: -1px;">{{ $count_order['count_order_lelang'] }}</span>
+                                            </i>
+                                            @else
                                             <i class="fas fa-stopwatch fa-fw"></i>
+                                            @endif
+
                                             <span class="font-weight-bold d-none d-md-inline">Lelang &nbsp
                                                 <i id="icons-4" class="fas fa-chevron-down"></i>
-                                                @if (!empty($count_order['count_order_lelang']))
+                                                {{-- @if (!empty($count_order['count_order_lelang']))
                                                     &nbsp;<span
                                                         class="badge badge-pill badge-success py-1 align-middle">{{ $count_order['count_order_lelang'] }}</span>
-                                                @endif
+                                                @endif --}}
                                             </span>
                                         </a>
                                         <ul id="submenu-4" class="panel-collapse collapse panel-switch pl-0"
