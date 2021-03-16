@@ -507,7 +507,7 @@
                 console.log(orderID);
                 if (orderID) {
                     $.ajax({
-                        url : '/jual-beli/komplain/' + encodeURI(orderID),
+                        url : '/lelang/komplain/' + encodeURI(orderID),
                         type : "GET",
                         dataType : "JSON",
                         success : function(data) {
@@ -517,7 +517,7 @@
 
                             $('#complain_code').replaceWith("<p id='complain_code'>"+data[0].invoice+"</p>");
                             $('#complain_content').replaceWith("<p id='complain_content'>"+data[0].keterangan+"</p>");
-                            $('#complain_image').replaceWith(`<img id='complain_image' height="100px" width="100px" src="{{asset('Uploads/Komplain/JualBeli/${data[0].invoice}/${data[0].gambar}')}}" alt='' srcset=''>`);
+                            $('#complain_image').replaceWith(`<img id='complain_image' height="100px" width="100px" src="{{asset('Uploads/Komplain/Lelang/${data[0].invoice}/${data[0].gambar}')}}" alt='' srcset=''>`);
                             
                         }
                     })

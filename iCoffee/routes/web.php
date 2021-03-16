@@ -195,6 +195,7 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	//Complain
 	Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'ComplainController@komplain');
 	Route::post('/lelang/pesanan/komplain', 'ComplainController@komplaindiproses');
+	Route::get('/lelang/komplain/{id}', 'ComplainController@show');
 
 	//get data province new
 	Route::get('/get-new-province', 'TransactionController@getProvinceData');

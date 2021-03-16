@@ -12,7 +12,8 @@
 
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" value="{{ auth()->user()->email }}" name="email" required>
+                        <input type="email" class="form-control" value="{{ auth()->user()->email }}" name="email"
+                        readonly required>
                         <span class="text-danger">{{ $errors->first('email') }}</span>
                     </div>
                     <div class="row">

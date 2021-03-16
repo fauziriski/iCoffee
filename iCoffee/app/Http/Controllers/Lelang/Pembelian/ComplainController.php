@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Auction_complaint;
 use App\Auction_Order;
+use DB;
 
 class ComplainController extends Controller
 {
@@ -57,5 +58,12 @@ class ComplainController extends Controller
         ]);
 
         return redirect('/lelang/invoice/'. $request->invoice);
+    }
+
+    public function show($id) 
+    {
+        $complain = DB::select("SELECT * FROM auction_complaints WHERE `id_order` =". $id, [1]);
+
+        return response()->json($complain);
     }
 }
