@@ -114,7 +114,7 @@ class MitraController extends Controller
 
     public function tarikSaldo(Request $request)
     {
-        Mitra::where('id_mitra',Auth::user()->id_mitra)->decrement('saldo',$request->jumlah);
+        Mitra::where('id_mitra',Auth::user()->id_mitra);
         Mitra_withdraw::create([
             'id_mitra' => Auth::user()->id_mitra,
             'id_bank' => $request->id_bank,

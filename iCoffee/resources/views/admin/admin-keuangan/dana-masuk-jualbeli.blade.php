@@ -67,6 +67,10 @@
 	table{border-collapse:collapse}
 	th{border:1px solid blue}
 
+	input.form-control {
+		width: auto;
+	}
+
 </style>
 
 @stop
@@ -82,14 +86,14 @@
 			<!-- Card Body -->
 			<div class="card-body">
 				<div class="table-responsive">
-					<table id="id_tabel" class="table table-striped table-bordered" border="1" style="width:100%">
+					<table id="id_tabel" class="table table-striped table-bordered" border="0" style="width:100%">
 						<thead>
 							<tr>
 								<th>Tanggal</th>
 								<th>No Tranksaksi</th>
 								<th>Nama Tranksaksi</th>
 								<th>Tujuan Tranksaksi</th>
-								<th>Jumlah</th>
+								<th>Jumlah Tranksaksi</th>
 								<th> </th>
 							</tr>
 						</thead>
@@ -97,29 +101,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
-
-	<div id="confirmModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4>Konfirmasi</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<h5 align="center" style="margin:0;">Apakah anda yakin ingin menghapus?</h5>
-				</div>
-				<div class="modal-footer">
-					<button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div id="modalLihat" class="modal fade" role="dialog">
+	
+	<div id="modalLihat" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -133,9 +117,9 @@
                             <table cellpadding="10" border="0">
                                 <tr>
                                     <div class="form-group">
-                                        <th width="35%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+                                        <th width="35%" style="text-align: right;">No Jurnal&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
                                         <th colspan="4">
-                                            <a id="no_tran2"></a>
+                                            <a id="no_jurnal2"></a>
                                         </th>
                                     </div>
                                 </tr>
@@ -143,7 +127,7 @@
                                     <div class="form-group">
                                         <th width="35%" style="text-align: right;">Nama Tranksaksi&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
                                         <th colspan="4">
-                                            <a id="nama_tran2"></a>
+                                            <a id="nama_transaksi2"></a>
                                         </th>
                                     </div>
                                 </tr>
@@ -266,17 +250,29 @@
             </div>
         </div>
 
-
 				@endsection
 				@section('js')
+				<script src="{{asset('Jualbeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
 
+					<script type="text/javascript">				
+						var harga = document.getElementById('jumlah1');
+						harga.addEventListener('keyup', function(e){
+							harga.value = formatRupiah(this.value, 'Rp ');
+						});
+		
+						var harga2 = document.getElementById('jumlah22');
+						harga2.addEventListener('keyup', function(e){
+							harga2.value = formatRupiah(this.value, 'Rp ');
+						});
 
-				<script>
-					$(document).ready(function(){
+					</script>
+				
+					<script>
+						$(document).ready(function(){
 
-						$('#id_tabel').DataTable({
-							dom: 'Bfrtip',
-							buttons: [
+							$('#id_tabel').DataTable({
+								dom: 'Bfrtip',
+								buttons: [
 							{
 								extend: 'pdf',
 								footer: true,
@@ -314,82 +310,64 @@
 							}           
 							],  
 
-							oLanguage: {
-								"sProcessing":   "Sedang memproses ...",
-								"sLengthMenu":   "Tampilkan _MENU_ entri",
-								"sZeroRecords":  "Tidak ditemukan data yang sesuai",
-								"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-								"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
-								"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
-								"sInfoPostFix":  "",
-								"sSearch":       "Cari:",
-								"sUrl":          "",
-								"oPaginate": {
-									"sFirst":    "Pertama",
-									"sPrevious": "Sebelumnya",
-									"sNext":     "Selanjutnya",
-									"sLast":     "Terakhir"
-								}
-							},
-							processing: true,
-							serverSide: true,
-							ajax:{
-								url: "{{ route('adminkeuangan.dana-masuk-jualbeli') }}",
-								dataType:"json",
-							},
-							columns:[
+								oLanguage: {
+									"sProcessing":   "Sedang memproses ...",
+									"sLengthMenu":   "Tampilkan _MENU_ entri",
+									"sZeroRecords":  "Tidak ditemukan data yang sesuai",
+									"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+									"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+									"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+									"sInfoPostFix":  "",
+									"sSearch":       "Cari:",
+									"sUrl":          "",
+									"oPaginate": {
+										"sFirst":    "Pertama",
+										"sPrevious": "Sebelumnya",
+										"sNext":     "Selanjutnya",
+										"sLast":     "Terakhir"
+									}
+								},
+								processing: true,
+								serverSide: true,
+								ajax:{
+									url: "{{ route('adminkeuangan.dana-masuk-jualbeli') }}",
+									dataType:"json",
+								},
+								columns:[
 
-							{data: 'created_at', name:'created_at'},
-							{data: 'no_tran', name: 'no_tran'},
-							{data: 'nama_tran', name:'nama_tran'},
-							{data: 'tujuan_tran', name:'tujuan_tran'},
-							{data: 'total_jumlah', name:'total_jumlah'},
-							{data: 'action',name: 'action',orderable: false},
-							{data: 'bukti', name:'bukti', visible: false}
+								{data: 'created_at', name:'created_at'},
+								{data: 'no_transaksi', name: 'no_transaksi'},
+								{data: 'nama_transaksi', name:'nama_transaksi'},
+								{data: 'nama_tujuan', name:'nama_tujuan'},
+								{data: 'total_jumlah', name:'total_jumlah'},
+								{data: 'action',name: 'action',orderable: false},
+								{data: 'bukti', name:'bukti', visible: false}
 
-							]
+								]
 
-						});
-
-						var id;
-						$(document).on('click', '.delete', function(){
-							id = $(this).attr('id');
-							$('#confirmModal').modal('show');
-						});
-
-						$('#ok_button').click(function(){
-							$.ajax({
-								url:"hapus-dana-masuk-jualbeli/"+id,
-								success:function(data)
-								{
-									setTimeout(function(){
-										$('#confirmModal').modal('hide');
-										$('#id_tabel').DataTable().ajax.reload();
-									}, 500);
-								}
-							})
-						});
+							});
 
 
-						$(document).on('click', '.lihat', function(){
-							var id = $(this).attr('id');
-							$.ajax({
-								url:"detail-dana-masuk-jualbeli/"+id,
-								dataType:"json",
-								success:function(html){
-									$('#modalLihat').modal('show');
-										$('.modal-title').text("Detai Pencatatan");
-										document.getElementById("no_tran2").innerHTML = html.data.no_tran;
-										document.getElementById("nama_tran2").innerHTML = html.data.nama_tran;
+							$(document).on('click', '.lihat', function(){
+								var id = $(this).attr('id');
+								$.ajax({
+									url:"detail-dana-masuk-jualbeli/"+id,
+									dataType:"json",
+									success:function(html){
+										$('#modalLihat').modal('show');
+										$('.modal-title').text("Detail Pencatatan");
+
+										document.getElementById("no_jurnal2").innerHTML = html.no_jurnal;
+										document.getElementById("nama_transaksi2").innerHTML = html.data.nama_transaksi;
 										document.getElementById("created_at2").innerHTML = html.data.created_at;
-										document.getElementById("tujuan_tran2").innerHTML = html.data.tujuan_tran;
+										document.getElementById("tujuan_tran2").innerHTML = html.nama_tujuan;
 										document.getElementById("catatan2").innerHTML = html.data.catatan;
 										
-										var img = html.path + html.invoice + "/" + html.foto_bukti +"";
+										var img = "/Uploads/" + html.data.bukti  +"";
 										$('#bukti2').attr("src",img);
 
-											var debit = html.data2.debit;
-											var kredit = html.data2.kredit;
+											var debit = html.debit;
+											var kredit = html.kredit;
 
 											var	reverse = debit.toString().split('').reverse().join(''),
 											debit_ribuan 	= reverse.match(/\d{1,3}/g);
@@ -399,29 +377,67 @@
 											kredit_ribuan 	= reverse.match(/\d{1,3}/g);
 											kredit_ribuan	= kredit_ribuan.join('.').split('').reverse().join('');
 											
-											document.getElementById("akun_debit2").innerHTML = html.data2.akun_debit;
-											document.getElementById("akun_kredit2").innerHTML = html.data2.akun_kredit;
+											document.getElementById("akun_debit2").innerHTML = html.akun_debit;
+											document.getElementById("akun_kredit2").innerHTML = html.akun_kredit;
 											document.getElementById("debit2").innerHTML = "Rp "+debit_ribuan;
 											document.getElementById("kredit2").innerHTML = "Rp "+kredit_ribuan;
 
-								}
-							})
+									}
+								})
+							});
+
 						});
 
-					});
+					</script>
 
-				</script>
+					<script>
+						$(document).on('click', '.delete', function () {
+							var id = $(this).attr('id');
+							swal({
+								title: "Apakah anda yakin ingin menghapus ?",
+								type: "warning",
+								confirmButtonClass: "btn-danger",
+								confirmButtonText: "Ya",
+								showCancelButton: true
+							}, function () {
+								$.ajax({
+									type: "GET",
+									url:"hapus-dana-masuk-jualbeli/"+id,
+									dataType: "json",
+									success: function (data) {
+										swal('Berhasil', 'Data berhasil dihapus', 'success');
+										$('#id_tabel').DataTable().ajax.reload();
+									}
+								});
+							});
+						});
+					</script>
 				
+					<script>
+					
+						$('#inputGroupFile02').on('change',function(){
+							var fileName = $(this).val();
+							$(this).next('.custom-file-label').html(fileName);
+						});
 
-				<script>
+						$('#inputGroupFile03').on('change',function(){
+							var fileName = $(this).val();
+							$(this).next('.custom-file-label').html(fileName);
+						});
 
-					$(function(){
-						$("#image img").on("click",function(){
-							var src = $(this).attr("src");
-							$(".modal-img").prop("src",src);
+					</script>
+
+					<script>
+
+						$(function(){
+							$("#image img").on("click",function(){
+								var src = $(this).attr("src");
+								$(".modal-img").prop("src",src);
+							})
 						})
-					})
 
+					</srcipt>	
 
-					@stop
+		
+						@stop
 

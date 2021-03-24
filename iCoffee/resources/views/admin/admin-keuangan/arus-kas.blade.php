@@ -1,283 +1,169 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin Keuangan | Arus Kas')
+@section('title', 'Arus Kas')
 
 @section('content')
 
+@section('css')
+
+<style>
+
+    table {
+        border-collapse: collapse;
+    }
+
+
+</style>
+
+@stop
+
 <body id="page-top">
+	<!-- Begin Page Content -->
 	<div class="container-fluid">
 
 		<div class="card shadow mb-4">
-			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 				<h5>Laporan Arus Kas</h5>
-				<div class="dropdown no-arrow">			
-					<button class="btn btn-success btn-sm" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fas fa-filter"></i> Pencarian Tanggal</button>		
-					<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"  style="width: 200%;">
-						<div class="container">
-							<p class="mt-2"><strong>Tanggal Awal</strong></p>
-							<input type="text" name="from_date" id="from_date" class="form-control" placeholder="MM/DD/YYYY" />
-							<p class="mt-2"><strong>Tanggal Ahkir</strong></p>
-							<input type="text" name="to_date" id="to_date" class="form-control" placeholder="MM/DD/YYYY" />
-							<input type="submit" name="filter" id="filter" class="btn btn-primary mt-3" value="Tampilkan" />
-						</div>
-					</div>
+			</div>
+		<!-- Card Header - Dropdown -->
+        <div class="row" style="padding-top:2%;"></div>
+                <div class="container-fluid">
+				<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-8">
+					<div class="row mb-4">
+						<form action="{{ route('adminkeuangan.arus-kas-update') }}" method="POST" class="form-inline">
+							{{ csrf_field() }}
+							<input type="text" name="from_date" id="from_date" class="form-control" placeholder="MM/DD/YYYY" required/>
+							<input type="text" name="to_date" id="to_date" class="form-control ml-3" placeholder="MM/DD/YYYY" required/>
+							<button type="submit" name="filter" id="filter" class="btn btn-primary ml-3">Filter</button>
+						</form>
+                    <a href="{{url('akses-adminkeuangan/cetak-arus-kas')}}" class="btn btn-success ml-2"><i class="fa fa-print"></i> Download PDF</a>
+				</div>
+             </div>
+			 </div>
+ 		</div>
+           
+			<!-- Card Body -->
+			<div class="card-body">
+            <div class="container">
+				<div class="table-responsive">
+                        <table class="table table-bordered border-primary" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th colspan="3" style="text-align: left">AKTIVITAS OPERASIONAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+								<tr>
+                                    <th colspan="3" style="text-align: left">Penerimaan Kas Dari :</th>
+                                </tr>
+                                @foreach($data1 as $pendapatan)
+                                <tr>
+                                    <td>{{$pendapatan->nama_akun}}</td>
+									<td></td>
+                                    <td>Rp {{number_format($pendapatan->total)}}</td>
+                                </tr>
+                                @endforeach
+                                <tr>
+                                    <th colspan="2" style="text-align: right">Total :</th>
+									<th>Rp {{number_format($total_pendapatan)}}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="text-align: left">Pengeluaran Kas Untuk :</th>
+                                </tr>
+                                @foreach($data2 as $pengeluaran)
+                                <tr>
+                                    <td>{{$pengeluaran->nama_akun}}</td>
+                                    <td>Rp {{number_format($pengeluaran->total)}}</td>
+                                    <td></td>
+                                </tr>
+                                @endforeach
+                                <tr>
+                                    <th colspan="2" style="text-align: right">Total :</th>
+									<th>Rp {{number_format($total_beban)}}</th>
+                                </tr>
+                                <tr class="table-primary">
+                                    <th colspan="2" style="text-align: left">ARUS KAS AKTIVITAS OPERASIONAL :</th>
+                                    <th>Rp {{number_format($laba)}}</td>
+                                </tr>
+								<tr>
+                                    <th colspan="3" style="height: 15px;"></th>
+                                </tr>
+								<tr>
+                                    <th colspan="3" style="text-align: left">AKTIVITAS INVESTASI</th>
+                                </tr>
+								<tr>
+                                    <th colspan="3" style="text-align: left">Pengeluaran untuk :</th>
+                                </tr>
+                                @foreach($investasi as $keluar)
+                                <tr>
+                                    <td>{{$keluar->nama_akun}}</td>
+									<td></td>
+                                    <td>Rp {{number_format($keluar->total)}}</td>
+                                </tr>
+                                @endforeach
+								<tr class="table-primary">
+                                    <th colspan="2" style="text-align: left">ARUS KAS AKTIVITAS INVESSTASI :</th>
+                                    <th>Rp {{number_format($total_investasi)}}</td>
+                                </tr>
+								<tr>
+                                    <th colspan="3" style="height: 15px;"></th>
+                                </tr>
+								<tr>
+                                    <th colspan="3" style="text-align: left">AKTIVITAS PENDANAAN</th>
+                                </tr>
+								<tr>
+                                    <th colspan="3" style="text-align: left">Pengeluaran untuk :</th>
+                                </tr>
+                                <tr>
+                                    <td></td>
+									<td></td>
+                                    <td>Rp 0</td>
+                                </tr>
+								<tr class="table-primary">
+                                    <th colspan="2" style="text-align: left">ARUS KAS AKTIVITAS PENDANAAN :</th>
+                                    <th>Rp 0</td>
+                                </tr>
+								<tr>
+                                    <th colspan="3" style="height: 15px;"></th>
+                                </tr>
+								<tr>
+                                    <th colspan="2" style="text-align: left">Penurunan Kas :</th>
+                                    <th>Rp {{number_format($kas)}}</td>
+                                </tr>
+								<tr>
+                                    <th colspan="2" style="text-align: left">Saldo Kas Awal :</th>
+                                    <th>Rp {{number_format($laba)}}</td>
+                                </tr>
+								<tr class="table-primary">
+                                    <th colspan="2" style="text-align: left">Saldo Kas Akhir :</th>
+                                    <th>Rp {{number_format($total_investasi)}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 				</div>
 			</div>
-
-				<div class="card-body mt-3">
-					<div class="table-responsive">
-						<table cellpadding="5" border="0" style="width: 100%;">
-							<tr cellpadding="1">
-								<th colspan="3" style="text-align: center;">
-									<h5>PT. ICOFFEE</h5>
-								</th>
-							</tr>
-							<tr>
-								<th colspan="3" style="text-align: center;">
-									<h5><strong>Laporan Arus Kas</strong></h5>
-								</th>
-							</tr>
-							<tr>
-								<th colspan="3" style="text-align: center;">
-									<h5>Periode 02 February 2020 s.d 29 February 2020</h5>
-								</th>
-							</tr>
-						</table>
-						<table cellpadding="10" class="table mt-5" border="0" style="width:100%">
-							<tr>
-								<td><strong>A. </strong></td>
-								<td><strong>ARUS KAS DARI AKTIVITAS OPERASIONAL</strong></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>1.&nbsp;&nbsp; Arus Kas Masuk - Operasional :</td>
-								<td></td>
-							</tr>
-							@foreach($ambil6 as $key)	
-							<tr>
-								<td></td>
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{$key->nama_akun}}</td>
-								<td>@money($key->total)</td>
-							</tr>
-							@endforeach
-							<tr>
-								<td></td>
-								<td><strong>TOTAL KAS MASUK DARI AKTIVITAS OPERASIONAL :</strong></td>
-								<td>@money($total6)</td>
-							</tr>
-							<tr rowspan="2">
-								<td colspan="3"></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>2.&nbsp;&nbsp; Arus Kas Keluar - Operasional :</td>
-								<td></td>
-							</tr>
-							@foreach($ambil1 as $key)	
-							<tr>
-								<td></td>
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{$key->nama_akun}}</td>
-								<td>@money($key->total)</td>
-							</tr>
-							@endforeach
-							<tr>
-								<td></td>
-								<td><strong>TOTAL KAS KELUAR DARI AKTIVITAS OPERASIONAL :</strong></td>
-								<td>@money($total1)</td>
-							</tr>
-							<tr rowspan="2">
-								<td colspan="3"></td>
-							</tr>
-							<tr>
-								<td><strong>B. </strong></td>
-								<td><strong>ARUS KAS DARI AKTIVITAS JUAL/BELI</strong></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>1.&nbsp;&nbsp; Arus Kas Masuk - Jual/Beli :</td>
-								<td></td>
-							</tr>
-							@foreach($ambil7 as $key)	
-							<tr>
-								<td></td>
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{$key->nama_akun}}</td>
-								<td>@money($key->total)</td>
-							</tr>
-							@endforeach
-							<tr>
-								<td></td>
-								<td><strong>TOTAL KAS MASUK DARI AKTIVITAS JUAL/BELI :</strong></td>
-								<td>@money($total7)</td>
-							</tr>
-							<tr rowspan="2">
-								<td colspan="3"></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>2.&nbsp;&nbsp; Arus Kas Keluar - Jual/Beli :</td>
-								<td></td>
-							</tr>
-							@foreach($ambil2 as $key)	
-							<tr>
-								<td></td>
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{$key->nama_akun}}</td>
-								<td>@money($key->total)</td>
-							</tr>
-							@endforeach
-							<tr>
-								<td></td>
-								<td><strong>TOTAL KAS KELUAR DARI AKTIVITAS JUAL/BELI :</strong></td>
-								<td>@money($total2)</td>
-							</tr>
-							<tr>
-								<tr>
-									<td colspan="3"></td>
-								</tr>
-
-								<tr>
-									<td><strong>C. </strong></td>
-									<td><strong>ARUS KAS DARI AKTIVITAS LELANG</strong></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>1.&nbsp;&nbsp; Arus Kas Masuk - Lelang :</td>
-									<td></td>
-								</tr>
-								@foreach($ambil8 as $key)	
-								<tr>
-									<td></td>
-									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{$key->nama_akun}}</td>
-									<td>@money($key->total)</td>
-								</tr>
-								@endforeach
-								<tr>
-									<td></td>
-									<td><strong>TOTAL KAS MASUK DARI AKTIVITAS LELANG :</strong></td>
-									<td>@money($total8)</td>
-								</tr>
-								<tr rowspan="2">
-									<td colspan="3"></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>2.&nbsp;&nbsp; Arus Kas Keluar - Lelang :</td>
-									<td></td>
-								</tr>
-								@foreach($ambil3 as $key)	
-								<tr>
-									<td></td>
-									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{$key->nama_akun}}</td>
-									<td>@money($key->total)</td>
-								</tr>
-								@endforeach
-								<tr>
-									<td></td>
-									<td><strong>TOTAL KAS KELUAR DARI AKTIVITAS LELANG :</strong></td>
-									<td>@money($total3)</td>
-								</tr>
-								<tr>
-									<td colspan="3"></td>
-								</tr>
-
-								<tr>
-									<td><strong>D. </strong></td>
-									<td><strong>ARUS KAS DARI AKTIVITAS INVESTASI</strong></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>1.&nbsp;&nbsp; Arus Kas Masuk - Investasi :</td>
-									<td></td>
-								</tr>
-								@foreach($ambil9 as $key)	
-								<tr>
-									<td></td>
-									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{$key->nama_akun}}</td>
-									<td>@money($key->total)</td>
-								</tr>
-								@endforeach
-								<tr>
-									<td></td>
-									<td><strong>TOTAL KAS MASUK DARI AKTIVITAS INVESTASI :</strong></td>
-									<td>@money($total9)</td>
-								</tr>
-								<tr rowspan="2">
-									<td colspan="3"></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>2.&nbsp;&nbsp; Arus Kas Keluar - Investasi :</td>
-									<td></td>
-								</tr>
-								@foreach($ambil4 as $key)	
-								<tr>
-									<td></td>
-									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{$key->nama_akun}}</td>
-									<td>@money($key->total)</td>
-								</tr>
-								@endforeach
-								<tr>
-									<td></td>
-									<td><strong>TOTAL KAS KELUAR DARI AKTIVITAS INVESTASI :</strong></td>
-									<td>@money($total4)</td>
-								</tr>
-								<tr>
-									<td colspan="3"></td>
-								</tr>
-								<tr>
-									<td colspan="3"></td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
+		</div>
 
 		</div>
-	</div>
-
-	@endsection
-	@section('js')
-
-	<script>
-		$(document).ready(function(){  
-           $.datepicker.setDefaults({  
-                dateFormat: 'yy-mm-dd'   
-           });  
-           $(function(){  
-                $("#from_date").datepicker();  
-                $("#to_date").datepicker();  
-           }); 
-
-		$('#filter').click(function () {
-			var from_date = $('#from_date').val();
-			var to_date = $('#to_date').val();
-			if (from_date != '' && to_date != '') {
-				$.ajax({
-					url: "{{ route('adminkeuangan.update-aruskas') }}",
-					method: "POST",
-					data: {
-						from_date: from_date,
-						to_date: to_date,
-						"_token": "{{ csrf_token() }}"
-					},
-					success: function (data, html) {
-						if (data.error) {
-							swal('Tidak ada', 'Tanggal inputan tidak ada', 'error');
-						}
-					}
-				});
-			} else {
-				swal('Gagal', 'Silahkan pilih tanggal', 'error');
-			}
-		});
-	});  
-
-	</script>
-
-	@stop
+				
+		@endsection
+				@section('js')
+				
+				<script>
+					$(document).ready(function(){
+						$.datepicker.setDefaults({
+							dateFormat: 'yy-mm-dd'
+						});
+						$(function () {
+							$("#from_date").datepicker();
+							$("#to_date").datepicker();
+						});
+				
+                });
+                
+		    	</script>
+			@stop
 

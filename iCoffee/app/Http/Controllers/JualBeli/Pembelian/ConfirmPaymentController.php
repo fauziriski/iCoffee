@@ -64,7 +64,7 @@ class ConfirmPaymentController extends Controller
         $folderPath = public_path("Uploads/Konfirmasi_Pembayaran/JualBeli/".$request->invoice."");
         $image = $request->foto_bukti;
         $name=$image->getClientOriginalName();
-
+        $foto_bukti = "Konfirmasi_Pembayaran/JualBeli/".$request->invoice."/".$name;
 
         $jumlah_transfer = Helper::instance()->removeDot($request->jumlah_transfer);
 
@@ -78,7 +78,7 @@ class ConfirmPaymentController extends Controller
             'no_telp' => $request->no_telp,
             'jumlah_transfer' => $jumlah_transfer,
             'invoice' => $request->invoice,
-            'foto_bukti' => $name,
+            'foto_bukti' => $foto_bukti,
             'status' => '1'
         ]);
 

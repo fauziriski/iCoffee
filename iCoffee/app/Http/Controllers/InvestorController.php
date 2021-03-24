@@ -94,6 +94,7 @@ class InvestorController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = $request->id_order.time().'.'.$extension;
             $file->move('Uploads/Investasi/Konfirmasi',$filename);
+            $gambar = "Investasi/Konfirmasi/".$filename;
         }
 
         Invest_confirm::create([
@@ -102,7 +103,7 @@ class InvestorController extends Controller
             'bank' => $request->nama_bank,
             'nama' => $request->nama,
             'nominal' =>$request->nominal,
-            'gambar' => $filename,
+            'gambar' => $gambar,
             'status' => 1,
             'norek' => $request->norek
         ]);
