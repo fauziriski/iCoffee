@@ -25,8 +25,42 @@ class ProdukInvestasiController extends Controller
 		{	
 			return datatables()->of(Invest_product::where('id_mitra', Auth::user()->id_mitra)->latest()->get())
 			->addColumn('action', function($data){
-				$button = '<a href="produk/'.$data->kode_produk.'" type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</a>';
-				return $button;
+                if($data->status == 2){
+                    $button = 
+                    '<a href="produk/'.$data->kode_produk.'" type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</a>'.'&nbsp'.
+                    '<a href="editproduk/'.$data->kode_produk.'" type="button" name="edit" id="'.$data->id.'" class="edit btn btn-secondary btn-sm"><i class="fa fa-edit"></i> Edit</a>'.'&nbsp';
+                    return $button;
+                }else{
+                    $button = 
+                    '<a href="produk/'.$data->kode_produk.'" type="button" name="lihat" id="'.$data->id.'" class="lihat btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</a>'.'&nbsp'.
+                    '<a href="editproduk/'.$data->kode_produk.'" type="button" name="edit" id="'.$data->id.'" class="edit btn btn-secondary btn-sm"><i class="fa fa-edit"></i> Edit</a>'.'&nbsp'.
+                    '<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-trash"></i> Hapus
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Hapus Produk Investasi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                Apakah anda yakin ingin menghapus produk investasi ini?
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+                            <a href="hapusproduk/'.$data->kode_produk.'" name="edit" id="'.$data->id.'" class="hapus btn-danger btn-sm">Hapus</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>';
+                    return $button;
+                }
+                
             })
             ->addColumn('proses', function($data){
 				if ($data->status == 1) {
@@ -178,5 +212,31 @@ class ProdukInvestasiController extends Controller
         ]);
         Alert::toast('Pembelian Berhasil!', 'success');
         return view('investasi.pembayaran',compact('produk','mitra'))->with('qty',$qty)->with('bank', $bank);
+    }
+
+    public function editProduk($id){
+        $produk = Invest_product::where('kode_produk',$id)->first();
+        return view('investasi.mitra.edit-produk')->with('produk', $produk);
+    }
+
+    public function edit(Request $request){
+        Invest_product::where('kode_produk',$request->kode_produk)->update([
+            'nama_produk' => $request->nama_produk,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+            'id_kategori' => $request->id_kategori,
+            'periode' => $request->periode,
+            'profit_periode' => $request->profit_periode,
+            'roi' => $request->roi,
+            'detail_produk' => $request->detail_produk
+        ]);
+        Alert::toast('Edit Produk Berhasil!', 'success');
+        return redirect('/mitra/produk-investasi');
+    }
+
+    public function hapusProduk($id){
+        Invest_product::where('kode_produk',$id)->delete();
+        Alert::toast('Hapus Produk Berhasil!', 'success');
+        return redirect('/mitra/produk-investasi');
     }
 }

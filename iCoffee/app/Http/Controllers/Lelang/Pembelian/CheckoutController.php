@@ -67,18 +67,18 @@ class CheckoutController extends Controller
         $costninja = array();
         $costlion = array();
 
-        // $array = array(
-        //     "origin" => $alamat_penjual->kota_kabupaten,
-        //     "destination" => $alamat_pembeli->kota_kabupaten,
-        //     "weight" => $berat_kg,
-        //     "courier" => "jne",
-        // );
-
-        // $costjne = Helper::instance()->cekOngkir($array);
-
         $array = array(
             "origin" => $alamat_penjual->kota_kabupaten,
             "destination" => $alamat_pembeli->kota_kabupaten,
+            "weight" => $berat_kg,
+            "courier" => "jne",
+        );
+
+        $costjne = Helper::instance()->cekOngkirByCity($array);
+
+        $array = array(
+            "origin" => $alamat_penjual->kecamatan,
+            "destination" => $alamat_pembeli->kecamatan,
             "weight" => $berat_kg,
             "courier" => "tiki",
         );
@@ -87,16 +87,16 @@ class CheckoutController extends Controller
 
         $array = array(
             "origin" => $alamat_penjual->kota_kabupaten,
-            "destination" => $alamat_pembeli->kota_kabupaten,
+            "destination" => $alamat_pembeli->kecamatan,
             "weight" => $berat_kg,
             "courier" => "jnt",
         );
 
-        $costjnt = Helper::instance()->cekOngkir($array);
+        $costjnt = Helper::instance()->cekOngkirmix($array);
 
         $array = array(
-            "origin" => $alamat_penjual->kota_kabupaten,
-            "destination" => $alamat_pembeli->kota_kabupaten,
+            "origin" => $alamat_penjual->kecamatan,
+            "destination" => $alamat_pembeli->kecamatan,
             "weight" => $berat_kg,
             "courier" => "ninja",
         );

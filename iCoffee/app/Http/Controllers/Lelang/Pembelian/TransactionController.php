@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Auction_Order;
+use App\Address;
 use App\Category;
 use App\User;
 use File;
@@ -22,7 +23,20 @@ class TransactionController extends Controller
     public function getProvinceData()
     {
         // $files = File::files(public_path());
-        $data = 'Tanjung Karang Pusat';
+        $cek_alamat = Address::where('id_pelanggan', 6)->where('status', 1)->first();
+        $alamat_pembeli = Address::where('id_pelanggan', 7)->where('status', 1)->first();
+        $berat_kg = 1000;
+        $costjne = array();
+        
+        $array = array(
+            "origin" => $cek_alamat->kota_kabupaten,
+            "destination" => $alamat_pembeli->kota_kabupaten,
+            "weight" => $berat_kg,
+            "courier" => "jne",
+        );
+        $costjnt = Helper::instance()->cekOngkirByCity($array);
+        dd($costjnt);
+
         $subdistric = Helper::instance()->getcity();
         dd($subdistric);
         // $path = public_path() . "/country-calling-codes.min.json";

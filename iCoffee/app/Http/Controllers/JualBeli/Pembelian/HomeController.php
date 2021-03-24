@@ -72,11 +72,11 @@ class HomeController extends Controller
         }
 
 
-        $produk_terkait = Shop_product::where('id_kategori', $products->id_kategori)->where('id', '!=', $id)->take(4)->get();
+        $produk_terkait = Shop_product::where('id_kategori', $products->id_kategori)->where('status', 1)->where('id', '!=', $id)->take(4)->get();
         
 
         if($produk_terkait->isEmpty()){
-            $produk_terkait = Shop_product::where('id', '!=', $id)->orderBy('created_at','desc')->take(4)->get();
+            $produk_terkait = Shop_product::where('id', '!=', $id)->orderBy('created_at','desc')->where('status', 1)->take(4)->get();
         }
         $image = Image::where('id_produk', $products->id)->get();
         $alamat =  Address::where('id_pelanggan', $products->id_pelanggan)->whereIn('status', [0,1])->first();
@@ -129,6 +129,8 @@ class HomeController extends Controller
         $count = $jumlah_data;
 
         
-        return view('jual-beli.detailproduk',compact('products','image','produk_terkait', 'alamat', 'jumlah_terjual_produk', 'rating_toko', 'jumlah_data','count'));
+        return view('jual-beli.detailproduk',compact(
+            'products','image','produk_terkait', 'alamat', 'jumlah_terjual_produk', 'rating_toko', 'jumlah_data','count'
+        ));
     }
 }

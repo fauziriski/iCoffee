@@ -173,13 +173,80 @@ class Helper
         
         $array_result = json_decode($json, true);
         
-        $origin = $array_result['rajaongkir']['origin_details']['city'];
+        $origin = $array_result['rajaongkir']['origin_details']['city_id'];
         
-        $destination = $array_result['rajaongkir']['destination_details']['city'];
+        $destination = $array_result['rajaongkir']['destination_details']['city_id'];
 
         return $array_result;
 
     }
+
+    public function cekOngkirByCity($data)
+    {
+        $title = 'CEK SHIPPING RESULT';
+        $client = new Client();
+
+        try{
+            $response = $client->request('POST','https://pro.rajaongkir.com/api/cost',
+                [
+                    // 'body' => 'origin='.$data["origin"].'&destination='.$data["destination"].'&weight='.$data["weight"].'&courier='.$data["courier"],
+                    'body' => 'origin='.$data["origin"].'&originType=city&destination='.$data["destination"].'&destinationType=city&weight='.$data["weight"].'&courier='.$data["courier"],
+                    'headers' => [
+                        'key' => $this->apiKey,
+                        'content-type' => 'application/x-www-form-urlencoded',
+                        
+                    ]
+                ]
+            );
+        }
+        catch(RequestException $e){
+            var_dump($e->getResponse()->getBody()->getContents());
+        }
+        $json = $response->getBody()->getContents();
+        
+        $array_result = json_decode($json, true);
+        
+        $origin = $array_result['rajaongkir']['origin_details']['city_id'];
+        
+        $destination = $array_result['rajaongkir']['destination_details']['city_id'];
+
+        return $array_result;
+
+    }
+
+    public function cekOngkirMix($data)
+    {
+        $title = 'CEK SHIPPING RESULT';
+        $client = new Client();
+
+        try{
+            $response = $client->request('POST','https://pro.rajaongkir.com/api/cost',
+                [
+                    // 'body' => 'origin='.$data["origin"].'&destination='.$data["destination"].'&weight='.$data["weight"].'&courier='.$data["courier"],
+                    'body' => 'origin='.$data["origin"].'&originType=city&destination='.$data["destination"].'&destinationType=subdistrict&weight='.$data["weight"].'&courier='.$data["courier"],
+                    'headers' => [
+                        'key' => $this->apiKey,
+                        'content-type' => 'application/x-www-form-urlencoded',
+                        
+                    ]
+                ]
+            );
+        }
+        catch(RequestException $e){
+            var_dump($e->getResponse()->getBody()->getContents());
+        }
+        $json = $response->getBody()->getContents();
+        
+        $array_result = json_decode($json, true);
+        
+        $origin = $array_result['rajaongkir']['origin_details']['city_id'];
+        
+        $destination = $array_result['rajaongkir']['destination_details']['city_id'];
+
+        return $array_result;
+
+    }
+    
 
     public function getwaybill($data)
     {
@@ -190,7 +257,7 @@ class Helper
             $response = $client->request('POST','https://pro.rajaongkir.com/api/waybill',
                 [
                     // 'body' => 'waybill='.$data["waybill"].'&courier='.$data["courier"],
-                    'body' => 'waybill=JP7185093592&courier=jnt',
+                    'body' => 'waybill='.$data["waybill"].'&courier='.$data["courier"],
                     'headers' => [
                         'key' => $this->apiKey,
                         'content-type' => 'application/x-www-form-urlencoded',

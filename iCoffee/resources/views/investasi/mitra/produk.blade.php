@@ -25,8 +25,7 @@
 						<th>Periode</th>
 						<th>Periode Return</th>
 						<th>Status</th>
-						<th></th>
-
+						<th>Aksi</th>
 					</tr>
 				</thead>
 			</table>

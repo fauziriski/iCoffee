@@ -30,6 +30,7 @@ Use Redirect;
 use App\Subdistrict;
 use App\Helper\Helper;
 use URL;
+use DB;
 
 
 class HomeController extends Controller
@@ -580,6 +581,36 @@ class HomeController extends Controller
         
     }
 
+    public function updatepersmisson()
+    {
+        for ($i=11; $i <14 ; $i++) { 
+            for ($j=5; $j <6 ; $j++) { 
+                $update = DB::table('model_has_permissions')->insert(
+                    ["permission_id" => $j, "model_type" => "App\User", "model_id" => $i]
+                );
+            }
+            
+        }
+        
+    }
+
+    public function bycript($data)
+    {
+            // $user = User::create([
+            //     'name' => 'Admin User',
+            //     'email' => 'adminuser@icoffee.asia',
+            //     'password' =>  bcrypt('icoffee.asia'),
+            //     'provider_id' => 'admin-icoffee',
+            // ]);
+
+            $decrypt = bcrypt($data);
+            dd($decrypt);
+
+
+    
+            // $user->assignRole('adminuser');
+    }
+
 
 
     public function top_up()
@@ -661,6 +692,7 @@ class HomeController extends Controller
         $response = mkdir($folderPath);
         $image_resize = Images::make($image->getRealPath());
         $image_resize->save($folderPath .'/'. $name);
+        $foto_bukti = "Konfirmasi_Pembayaran/Lelang/".$request->invoice."/".$name;
 
         $confirm_pesanan = Confirm_payment::create([
             'id_pelanggan' => $id_pelanggan,
@@ -672,7 +704,7 @@ class HomeController extends Controller
             'no_telp' => $request->no_telp,
             'jumlah_transfer' => $jumlah,
             'invoice' => $request->invoice,
-            'foto_bukti' => $name,
+            'foto_bukti' => $foto_bukti,
             'status' => '1'
         ]);
 

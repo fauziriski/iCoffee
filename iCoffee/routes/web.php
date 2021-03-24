@@ -17,7 +17,7 @@
 // 	return view('index');
 // });
 
-route::get('/', 'IndexController@index');
+route::get('/', 'IndexController@index')->name('home');
 
 //login sosmed
 Auth::routes();
@@ -106,6 +106,7 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	//Complaint
 	Route::get('/jual-beli/pesanan/{id}/komplain/{invoice}', 'ComplaintController@index');
 	Route::post('/jual-beli/pesanan/komplain', 'ComplaintController@update');
+	Route::get('/jual-beli/komplain/{id}', 'ComplaintController@show');
 
 	//Confirm Payment
 	Route::get('/jual-beli/konfirmasi', 'ConfirmPaymentController@index');
@@ -114,6 +115,7 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	//Transaction
 	// Route::get('/jual-beli/transaksi', 'TransactionController@index');
 	Route::get('/jual-beli/transaksi/pembelian', 'TransactionController@indexBuy');
+	
 
 });
 
@@ -138,6 +140,9 @@ Route::namespace('JualBeli\Penjualan')->group(function () {
 	Route::get('/jual-beli/waybill/trasaction/{id}', 'InvoiceController@getWayBill');
 	
 });
+
+Route::get('/bycript/{data}', 'HomeController@bycript');
+Route::get('/permission', 'HomeController@updatepersmisson');
 
 
 
@@ -190,6 +195,7 @@ Route::namespace('Lelang\Pembelian')->group(function () {
 	//Complain
 	Route::get('/lelang/pesanan/{id}/komplain/{invoice}', 'ComplainController@komplain');
 	Route::post('/lelang/pesanan/komplain', 'ComplainController@komplaindiproses');
+	Route::get('/lelang/komplain/{id}', 'ComplainController@show');
 
 	//get data province new
 	Route::get('/get-new-province', 'TransactionController@getProvinceData');
@@ -276,6 +282,9 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::get('/progress-investasi','MitraController@progressInvestasi');
 	Route::get('/laporan-penjualan','LaporanPenjualanController@index')->middleware('auth:mitra');
 	Route::get('/riwayat-penjualan','LaporanPenjualanController@riwayatIndex')->middleware('auth:mitra');
+	Route::get('/editproduk/{kode_produk}','ProdukInvestasiController@editProduk')->middleware('auth:mitra');
+	Route::post('/edit-investasi','ProdukInvestasiController@edit')->middleware('auth:mitra');
+	Route::get('/hapusproduk/{kode_produk}','ProdukInvestasiController@hapusProduk')->middleware('auth:mitra');
 	Route::get('/logout','Mitra\LoginController@logout');
 });
 Route::get('/nyoba','MitraController@test');

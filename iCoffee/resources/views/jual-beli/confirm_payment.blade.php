@@ -12,7 +12,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}"
+                                <input type="email" class="form-control" name="email" readonly value="{{ Auth::user()->email }}"
                                     required>
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                             </div>

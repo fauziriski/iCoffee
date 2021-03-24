@@ -4,81 +4,72 @@ namespace App\Http\Controllers\Adminkeuangan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Adm_kat_akun;
-use App\Adm_sub1_akun;
-use App\Adm_sub2_akun;
+use App\Akt_kat_akun;
+use App\Akt_akun;
 use DB;
 use DataTables;
-
+use Carbon;
+use Validator;
 
 
 class FormatAkunController extends Controller
 {
-	public function dataPelanggan(){
 
-		// $kategori = Adm_kat_akun::All();
-		// $hitung_kategori = count($kategori);
-
-
-		// for($i=0; $i < $hitung_kategori; $i++){
-		// 	$lihat_nama[] = $kategori[$i]->nama_kat;
-			
-			
-		// 	$sub1[] = Adm_sub1_akun::Where('id_kat_akun', $kategori[$i]->id)->get();
-
-		// 	$hitung_sub1[] = count($sub1);
-
-		// 	for($j=0; $j < $hitung_sub1; $j++){
-		// 		$lihat_sub1[] = $sub1[$i][$j]->nama_sub;
-
-		// 		$sub2[] = Adm_sub2_akun::Where('id_kat_akun', $kategori[$i]->id)->Where('id_sub1_akun', $sub1[$i][$j]->id)->get();
-
-		// 		$hitung_sub2  = count($sub2);
-
-		// 		for($k=0; $k < $hitung_sub2; $k++){
-
-		// 			$lihat_nama[] = $sub2[$i][$j][$k]->nama_sub;
-
-		// 		}
-		// 	}
-
-		// }
-
-		// dd($sub2);
-
-
-
-
-		return view('admin.admin-keuangan.format-akun');
-	}
-
-	public function dataAdmin(){
+	public function dataAkun(){
 
 		if(request()->ajax())
 		{	
-
-			$admin = Model_has_role::with('user')->whereRoleId(2)->get()->pluck('user');
-
-			return datatables()->of($admin)
+			$akun = DB::table('akt_kat_akun')
+			->join('akt_akun', 'akt_kat_akun.id', '=', 'akt_akun.id_kat_akun')
+			->orderBy('no_akun')
+			->get();
+			
+			return datatables()->of($akun)
 			->addColumn('action', function($data){
-				$button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> Ubah</button>';
-				$button .= '&nbsp;&nbsp;';
-				$button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
+				$button = '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>';
 				return $button;
 			})
 			->rawColumns(['action'])
 			->make(true);
 		}
 
-		return view('admin.super-admin.data-administrator');
+		$kategori = Akt_kat_akun::All();
+
+		return view('admin.admin-keuangan.format-akun',compact('kategori'));
 	}
 
-	public function hapusPengguna($id)
+	public function tambah(Request $request)
+	{	
+		$rules = array(	
+			'id_kategori' =>  'required',
+			'no_akun' =>  ['required','unique:akt_akun'],
+			'nama_akun' => 'required'		
+		);
+
+		$error = Validator::make($request->all(), $rules);
+
+		if($error->fails())
+		{
+			return response()->json(['errors' => $error->errors()->all()]);
+		}
+
+		$simpan = Akt_akun::create([
+			'id_kat_akun' => $request->id_kategori,
+			'no_akun' => $request->no_akun,
+			'nama_akun' => $request->nama_akun,		
+		]);
+
+
+		return response()->json(['success' => 'Data berhasil ditambah.']);
+	}
+
+
+	public function hapus($id)
 	{
 
-		$data = User::findOrFail($id);
+		$data = Akt_akun::findOrFail($id);
 		$data->delete();
-		return view('admin.super-admin.data-pelanggan');
+		return response()->json();
 
 	}
 

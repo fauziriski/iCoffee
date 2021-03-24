@@ -12,7 +12,12 @@
       <div class="row mb-5">
         <div class="col-md">
           <div class="ftco-footer-widget mb-4">
-            <h2 class="ftco-heading-2"><img src="{{asset('logo.png') }}" width="35%" height="8%"></h2>
+            <h2 class="ftco-heading-2">
+              {{-- <img src="{{asset('logo.png') }}" width="35%" height="8%"> --}}
+              <a href="/">
+                <img src="{{ asset('landing_page/images/logo3.png') }}">
+                </a>
+            </h2>
             <h2>Hubungi</h2>
             <div class="block-23 mb-3">
               <ul>

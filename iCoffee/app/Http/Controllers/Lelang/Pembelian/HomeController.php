@@ -57,16 +57,39 @@ class HomeController extends Controller
         $waktu = $endday-$now;
 
         if($waktu <= 0) {
-            $pemenang = Auction_process::where('id_produk', $products->id)->latest('updated_at')->first();
+            $auction_proses = Auction_process::where('id_produk', $products->id)->take(4)->latest('updated_at')->get();
+            // $temp = array();
+            // for ($i=0; $i <count($pemenang) ; $i--) { 
+            //     for ($j=count($pemenang); $j <$i ; $j--) { 
+            //         if ($pemenang->penawaran[$j] < $pemenang[$j-1]->penawaran) {
+            //             $temp = $pemenang[$j]->penawaran;
+            //             $pemenang[$j]->penawaran = $pemenang[$j-1]->penawaran;
+            //             $pemenang[$j-1]->penawaran = $temp;
+            //         }
+            //     }
+            // }
+
+            // $size = count($pemenang)-1;
+            // for ($i=0; $i<$size; $i++) {
+            //     for ($j=0; $j<$size-$i; $j++) {
+            //         $k = $j+1;
+            //         if ($pemenang[$k]->penawaran > $pemenang[$j]->penawaran) {
+            //             // Swap elements at indices: $j, $k
+            //             list($pemenang[$j], $pemenang[$k]) = array($pemenang[$k], $pemenang[$j]);
+            //         }
+            //     }
+            // }
+
+            $pemenang = $this->bubble_sort($auction_proses);
 
             $cek_auction_winner = Auction_winner::where('id_produk_lelang', $products->id)->first();
 
             if($cek_auction_winner == NULL) {
                 $pemenang_lelang = Auction_winner::create([
-                    'id_pemenang' => $pemenang->id_penawar,
-                    'id_pelelang' => $pemenang->id_pelelang,
-                    'id_produk_lelang' => $pemenang->id_produk,
-                    'jumlah_penawaran' => $pemenang->penawaran,
+                    'id_pemenang' => $pemenang[0]->id_penawar,
+                    'id_pelelang' => $pemenang[0]->id_pelelang,
+                    'id_produk_lelang' => $pemenang[0]->id_produk,
+                    'jumlah_penawaran' => $pemenang[0]->penawaran,
                     'status' => '1'
                 ]);
             }
@@ -110,7 +133,9 @@ class HomeController extends Controller
         
         $image = Auction_image::where('id_produk', $products->id)->get();
 
-        $penawar = Auction_process::where('id_produk', $products->id)->latest('updated_at')->take(4)->get();
+        $bids = Auction_process::where('id_produk', $products->id)->latest('updated_at')->take(4)->get();
+        $penawar = $this->bubble_sort($bids);
+        
 
         $i = 1;
     
@@ -156,8 +181,10 @@ class HomeController extends Controller
     {
         $products = Auction_product::find($id);
 
-        $penawar = Auction_process::where('id_produk', $products->id)->latest('updated_at')->take(4)->get();
+        $bids = Auction_process::where('id_produk', $products->id)->latest('updated_at')->take(4)->get();
         $i = 1;
+        $penawar = $this->bubble_sort($bids);
+
     
         return view('jual-beli.lelang.data',compact('penawar','i'));
     }
@@ -201,6 +228,21 @@ class HomeController extends Controller
 
 
 
+    }
+
+    
+    public function bubble_sort($arr) {
+        $size = count($arr)-1;
+        for ($i=0; $i<$size; $i++) {
+            for ($j=0; $j<$size-$i; $j++) {
+                $k = $j+1;
+                if ($arr[$k]->penawaran > $arr[$j]->penawaran) {
+                    // Swap elements at indices: $j, $k
+                    list($arr[$j], $arr[$k]) = array($arr[$k], $arr[$j]);
+                }
+            }
+        }
+        return $arr;
     }
 
     
