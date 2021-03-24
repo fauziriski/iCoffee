@@ -91,7 +91,7 @@ class DanaMasukLainController extends Controller
 			'id_akt_tujuan' => $request->id_tujuan,
 			'no_transaksi' => $noTrans,
 			'nama_transaksi' => $request->nama_transaksi,
-			'bukti' => $request->file('bukti')->store('Akt_bukti/AKML'),
+			'bukti' => $request->file('bukti')->store('Akt_bukti'),
 			'catatan' => $request->catatan,
 			'total_jumlah' => $jumlah,
 				
