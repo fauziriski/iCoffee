@@ -91,7 +91,7 @@ class DanaMasukLainController extends Controller
 			'id_akt_tujuan' => $request->id_tujuan,
 			'no_transaksi' => $noTrans,
 			'nama_transaksi' => $request->nama_transaksi,
-			'bukti' => $request->file('bukti')->store('Akt_bukti\AKML'),
+			'bukti' => $request->file('bukti')->store('BuktiAKML'),
 			'catatan' => $request->catatan,
 			'total_jumlah' => $jumlah,
 				
@@ -140,7 +140,7 @@ class DanaMasukLainController extends Controller
 			Storage::delete($file->bukti);
 			$jumlah22 = Helper::instance()->removeDot($request->jumlah22);
 			$file->update([
-				'bukti' => $request->file('foto_baru22')->store('Akt_bukti/AKML'),
+				'bukti' => $request->file('foto_baru22')->store('BuktiAKML'),
 				'nama_transaksi' => $request->nama_transaksi22,
 				'catatan' => $request->catatan22,
 				'total_jumlah' => $jumlah22,
