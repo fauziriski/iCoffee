@@ -93,7 +93,7 @@ class AdministrasiController extends Controller
 			'id_akt_tujuan' => $request->id_tujuan,
 			'no_transaksi' => $noTrans,
 			'nama_transaksi' => $request->nama_transaksi,
-			'bukti' => $request->file('bukti')->store('Akt_bukti/AKML'),
+			'bukti' => $request->file('bukti')->store('BuktiAKKL'),
 			'catatan' => $request->catatan,
 			'total_jumlah' => $jumlah,
 				
@@ -141,7 +141,7 @@ class AdministrasiController extends Controller
 			Storage::delete($file->bukti);
 			$jumlah22 = Helper::instance()->removeDot($request->jumlah22);
 			$file->update([
-				'bukti' => $request->file('foto_baru22')->store('Akt_bukti/AKKL'),
+				'bukti' => $request->file('foto_baru22')->store('BuktiAKKL'),
 				'nama_transaksi' => $request->nama_transaksi22,
 				'catatan' => $request->catatan22,
 				'total_jumlah' => $jumlah22,
