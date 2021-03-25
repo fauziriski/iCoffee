@@ -6,12 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use App\Confirm_payment;
-use App\Adm_jurnal;
-use App\Adm_tranksaksi;
-use App\Adm_kat_akun;
-use App\Adm_akun;
-use App\Adm_sub1_akun;
-use App\Adm_sub2_akun;
+use App\Akt_jurnal;
+use App\Akt_akun_jurnal;
+use App\Akt_tujuan;
+use App\Akt_kat_akun;
+use App\Akt_akun;
 use App\Orderdetail;
 use App\Order;
 use App\Joint_account;
@@ -214,9 +213,10 @@ class  VerifikasiPembeliController extends Controller
 
 		$jumlah = $total_bayar+$total_ongkir;
 		$catatan = "Pembelian kopi sebanyak ".$kg."Kg dengan total harga Rp. ".number_format($total_bayar)." dan total ongkos kirim sebesar Rp. ".number_format($total_ongkir);
-		$tujuan_tran = "Bank ".$bank;
-		$nama_akun_debit = "Bank ".$request->nama_bank_pengirim2."/".$request->nama_pemilik_pengirim2."-".$request->no_rekening_pengirim2;
-		$nama_akun_kredit = "Pembelian Produk Jual-Beli";
+		$akun = Akt_akun::where('nama_akun', 'LIKE', "%$bank%")->first();
+		$id_akt_akun = $akun->id;
+		$tujuan = Akt_tujuan::where('nama_tujuan', 'LIKE', "%$bank%")->first();
+		$id_tujuan = $tujuan->id;
 
 		$qty = Orderdetail::where('invoice',$request->invoice2)->get();
 		$jml = count($qty);
@@ -228,29 +228,38 @@ class  VerifikasiPembeliController extends Controller
 			$nama_tran = "Pembelian ".$produks;
 		}
 
-		$noTrans = Adm_jurnal::noTrans();
-		$noJurnal = Adm_akun::noJurnal();
+		$noTrans = Akt_jurnal::noTrans();
+		$noJurnal = Akt_akun_jurnal::noJurnal();
 		$data_val = Confirm_payment::whereId($request->hidden_id2)->where('jasa',1)->first();
 		$foto_bukti = $data_val->foto_bukti;
 
-		$simpan = Adm_jurnal::create([
-			'id_kat_jurnal' => 6,
-			'nama_tran' => $nama_tran,
+		$simpan = Akt_jurnal::create([
+			'id_kat_jurnal' => 1,
+			'id_akt_tujuan' => $id_tujuan,
+			'no_transaksi' => $noTrans,
+			'nama_transaksi' => $nama_tran,
 			'bukti' => $foto_bukti,
 			'catatan' => $catatan,
-			'no_tran' => $noTrans,
 			'total_jumlah' => $jumlah,
-			'tujuan_tran' => $tujuan_tran			
+				
 		]);
 
-		Adm_akun::create([
-			'id_adm_jurnal' => $simpan->id,
+		Akt_akun_jurnal::create([
+			'id_akt_jurnal' => $simpan->id,
 			'no_jurnal' =>$noJurnal,
-			'akun_debit' => $nama_akun_debit,
-			'akun_kredit' => $nama_akun_kredit,
+			'id_akt_akun' => $id_akt_akun,
 			'debit' => $jumlah,
 			'kredit' => 0
 		]);
+
+		Akt_akun_jurnal::create([
+			'id_akt_jurnal' => $simpan->id,
+			'no_jurnal' =>$noJurnal,
+			'id_akt_akun' => 41,
+			'debit' => 0,
+			'kredit' => $jumlah
+		]);
+
 
 
 		$form_data = array(

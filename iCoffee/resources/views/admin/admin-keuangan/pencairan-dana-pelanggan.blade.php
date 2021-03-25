@@ -81,13 +81,10 @@
 			<div class="col-xl-8 col-lg-7">
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
-					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h5>Kas Keluar Penjualan</h5>
-						<div align="right">
-							<button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fa fa-plus-square"></i> Tambah Pencatatan</button>
-						</div>
-					</div>
-					<!-- Card Body -->
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h5>Kas Keluar Penjualan</h5>
+			</div>
+			<!-- Card Body -->
 					<div class="card-body">
 						<div class="table-responsive">
 							<table id="id_tabel" class="table table-striped table-bordered" style="width:100%">
@@ -134,156 +131,7 @@
 		</div>
 	</div>
 
-	<div id="formModal" class="modal fade" tabindex="-1" role="dialog">
-			<div class="modal-dialog modal-xl">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Tambah Pencatatan</h5>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body mt-3">
-						<span id="form_result"></span>
-						<form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
-							@csrf
-							<div class="container">
-								<div class="col-md-12">
-									<div class="row">
-										<div class="table-responsive">	
-											<table cellpadding="10" border="1">
-												<tr>
-													<div class="form-group">
-														<th width="25%" style="text-align: center;">Nama Tranksaksi  </th>	
-														<th colspan="4"><input type="text" name="nama_tran" id="nama_tran" class="form-control" style="width: 100%" /></th>
-													</div>
-												</tr>
-												<tr>
-													<div class="form-group">
-														<th width="25%" style="text-align: center;">Tujuan Tranksaksi  </th>	
-														<th colspan="4"><select class="form-control" name="tujuan_tran" id="tujuan_tran" style="width: 100%">
-															<option value="" selected>---- Pilih Tujuan -----</option>
-															@foreach($tran as $key)
-															<option value="{{$key->nama_tran}}">{{$key->nama_tran}}</option>
-															@endforeach
-														</select></th>
-													</div>	
-												</tr>
-												<tr>
-													<div class="form-group">
-														<th width="25%" style="text-align: center;">Daftar Akun  </th>	
-														<th width="35%" colspan="2">Akun :</th>
-														<th width="25%">Posisi :</th>
-													</div>
-												</tr>
-												
-												<tr>
-													<div class="form-group">
-														<th rowspan="2"></th>
-														<th colspan="2">
-														<select class="form-control" name="akun_debit" id="akun_debit" style="width: 100%">
-																<option value="" selected>----- Pilih Akun -----</option>
-																@foreach($kategori as $kat)
-																<optgroup label="{{$kat->no_akun}}.&nbsp;&nbsp;{{$kat->nama_kat}}">{{$kat->nama_kat}}</optgroup>
 
-																@foreach($satu as $sub1)
-																@if($kat->id==$sub1->adm_kat_akun->id)
-																<option value="{{ $sub1->nama_sub }}">{{$sub1->no_akun}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
-																@endif
-
-																@foreach($dua as $sub2)
-																@if($sub1->id==$sub2->adm_sub1_akun->id && $kat->id==$sub2->adm_kat_akun->id)
-																
-																<option value="{{ $sub2->nama_sub }}">{{$sub2->no_akun}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
-																@endif
-
-																@endforeach
-																@endforeach
-																@endforeach							
-															</select>
-														</th>
-														<th>
-															<select class="form-control" style="width: 100%">
-																<option>Debit</option>
-															</select>
-														</th>
-
-													</div>
-												</tr>
-
-												<tr>
-													<div class="form-group">	
-														<th colspan="2">
-															<select class="form-control" name="akun_kredit" id="akun_kredit" style="width: 100%">
-																<option value="" selected>----- Pilih Akun -----</option>
-																@foreach($kategori as $kat)
-																<optgroup label="{{$kat->no_akun}}.&nbsp;&nbsp;{{$kat->nama_kat}}">{{$kat->nama_kat}}</optgroup>
-
-																@foreach($satu as $sub1)
-																@if($kat->id==$sub1->adm_kat_akun->id)
-																<option value="{{ $sub1->nama_sub }}">{{$sub1->no_akun}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
-																@endif
-
-																@foreach($dua as $sub2)
-																@if($sub1->id==$sub2->adm_sub1_akun->id && $kat->id==$sub2->adm_kat_akun->id)
-																
-																<option value="{{ $sub2->nama_sub }}">{{$sub2->no_akun}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
-																@endif
-
-																@endforeach
-																@endforeach
-																@endforeach							
-															</select>
-														</th>
-														<th>
-															<select class="form-control" style="width: 100%">	
-																<option>Kredit</option>
-															</select>
-														</th>
-														
-													</div>
-												</tr>
-												<tr>
-													<th width="25%" style="text-align: center;">Jumlah  </th>
-													<th colspan="4"><input type="text" name="jumlah1" id="jumlah1" class="form-control" style="width: 100%" /></th>
-												</tr>
-												<tr>
-													<div class="form-group">
-														<th width="25%" style="text-align: center;">Bukti  </th>	
-														<th colspan="4">
-															<div class="form-group">
-																<div class="custom-file">
-																	<input type="file" class="custom-file-input" name="bukti" id="inputGroupFile02"/>
-																	<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-																</div>
-															</div>
-														</th>
-													</div>
-												</tr>
-												<tr>
-													<div class="form-group">
-														<th style="text-align: center;">Catatan </th>
-														<th colspan="4">
-															<textarea name="catatan" class="form-control" id="ckeditor"></textarea>
-														</th>
-													</div>
-												</tr>
-
-
-											</table>
-										</div>
-									</div>
-								</div>
-								<br />
-								<div align="right">
-									<input type="hidden" name="action" id="action" value="" />
-									<input type="hidden" name="hidden_id" id="hidden_id" />
-									<input type="submit" name="action_button" id="action_button" class="btn btn-primary" value="Tambah" />
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
 
 	<div id="modalLihat" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -299,9 +147,9 @@
                             <table cellpadding="10" border="0">
                                 <tr>
                                     <div class="form-group">
-                                        <th width="35%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+                                        <th width="35%" style="text-align: right;">No Jurnal&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
                                         <th colspan="4">
-                                            <a id="no_tran2"></a>
+                                            <a id="no_jurnal2"></a>
                                         </th>
                                     </div>
                                 </tr>
@@ -309,7 +157,7 @@
                                     <div class="form-group">
                                         <th width="35%" style="text-align: right;">Nama Tranksaksi&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
                                         <th colspan="4">
-                                            <a id="nama_tran2"></a>
+                                            <a id="nama_transaksi2"></a>
                                         </th>
                                     </div>
                                 </tr>
@@ -419,8 +267,6 @@
                                 </table>
 								</div>
                             </div>
-                       
-						
 
                         <div align="right" class="mt-5 mb-3">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
@@ -483,26 +329,19 @@
 													<tr>
 														<div class="form-group">	
 															<th colspan="2">
-																<select class="form-control" name="akun_kredit" id="akun_kredit" style="width: 100%">
-																	<option></option>
-																	@foreach($kategori as $kat)
-																	<optgroup label="{{$kat->no_akun}}.&nbsp;&nbsp;{{$kat->nama_kat}}">{{$kat->nama_kat}}</optgroup>
+															<select class="form-control" name="akun_kredit" id="akun_kredit22" style="width: 100%">
+																<option value="" selected>----- Pilih Akun -----</option>
+																@foreach($kategori as $kat)
+																<optgroup label="{{$kat->no_akun}}&nbsp;&nbsp;{{$kat->nama_kategori}}">{{$kat->nama_kategori}}</optgroup>
 
-																	@foreach($satu as $sub1)
-																	@if($kat->id==$sub1->adm_kat_akun->id)
-																	<option value="{{ $sub1->nama_sub }}">{{$sub1->no_akun}}.&nbsp;&nbsp;{{ $sub1->nama_sub }}</option>
-																	@endif
+																@foreach($satu as $sub1)
+																@if($kat->id==$sub1->kat_akun->id)
+																<option value="{{ $sub1->id }}">{{$sub1->no_akun}}&nbsp;---&nbsp;{{ $sub1->nama_akun }}</option>
+																@endif
 
-																	@foreach($dua as $sub2)
-																	@if($sub1->id==$sub2->adm_sub1_akun->id && $kat->id==$sub2->adm_kat_akun->id)
-
-																	<option value="{{ $sub2->nama_sub }}">{{$sub2->no_akun}}.&nbsp;&nbsp;{{ $sub2->nama_sub }}</option>
-																	@endif
-
-																	@endforeach
-																	@endforeach
-																	@endforeach							
-																</select>
+																@endforeach
+																@endforeach				
+															</select>
 															</th>
 															<th>
 																<select class="form-control" style="width: 100%">	
@@ -543,7 +382,7 @@
 										</div>
 										<br />
 										<div align="right">
-											<input type="hidden" name="action" id="action33" value="" />
+											<input type="hidden" name="action33" id="action33" value="" />
 											<input type="hidden" name="hidden_id" id="hidden_id33" value="" />
 											<input type="submit" name="action_button" id="action_button" class="btn btn-primary" value="Validasi" />
 										</div>
@@ -559,10 +398,6 @@
 	@section('js')
 	<script src="{{asset('Jualbeli/plugins/customPlugin/rupiahFormat.js')}}"></script>
 	<script>
-		var harga1 = document.getElementById('jumlah1');
-		harga1.addEventListener('keyup', function (e) {
-			harga1.value = formatRupiah(this.value, 'Rp ');
-		});
 
 		var harga2 = document.getElementById('jumlah2');
 		harga2.addEventListener('keyup', function (e) {
@@ -631,7 +466,7 @@
 
 					$('.modal-title').text("Validasi Pencatatan");
 					$('#action_button').val("Validasi");
-					$('#action').val("Validasi");
+					$('#action33').val("Validasi");
 					$('#modalValidasi').modal('show');
 					$('#form_result').html(html);
 
@@ -645,7 +480,7 @@
 
 		$('#sample_form33').on('submit', function(event){
 			event.preventDefault();
-			if($('#action').val() == 'Validasi')
+			if($('#action33').val() == 'Validasi')
 			{
 				$.ajax({
 					url:"{{ route('adminkeuangan.tambah-penarikan-dana') }}",
@@ -769,80 +604,38 @@
 				},
 				columns:[
 
-				{data: 'created_at', name:'created_at'},
-				{data: 'no_tran', name: 'no_tran'},
-				{data: 'nama_tran', name:'nama_tran'},
-				{data: 'tujuan_tran', name:'tujuan_tran'},
-				{data: 'total_jumlah', name:'total_jumlah'},
-				{data: 'action',name: 'action',orderable: false},
-				{data: 'bukti', name:'bukti', visible: false}
+					{data: 'created_at', name:'created_at'},
+					{data: 'no_transaksi', name: 'no_transaksi'},
+					{data: 'nama_transaksi', name:'nama_transaksi'},
+					{data: 'nama_tujuan', name:'nama_tujuan'},
+					{data: 'total_jumlah', name:'total_jumlah'},
+					{data: 'action',name: 'action',orderable: false},
+					{data: 'bukti', name:'bukti', visible: false}
 
-				]
+								]
 
 			});
 
-				$('#create_record').click(function () {
-					$('.modal-title').text("Tambah Pencatatan");
-					$('#action_button').val("Tambah");
-					$('#action').val("Tambah");
-					$('#formModal').modal('show');
-				});
-
-				
-				$('#sample_form').on('submit', function (event) {
-					event.preventDefault();
-					if ($('#action').val() == 'Tambah') {
-						$.ajax({
-							url: "{{ route('adminkeuangan.tambah-pencairan-dana') }}",
-							method: "POST",
-							data: new FormData(this),
-							contentType: false,
-							cache: false,
-							processData: false,
-							dataType: "json",
-							success: function (data) {
-								var html = '';
-								if (data.errors) {
-									html = '<div class="alert alert-danger">';
-									for (var count = 0; count < data.errors.length; count++) {
-										html += '<p>' + data.errors[count] + '</p>';
-									}
-									html += '</div>';
-								}
-								$('#form_result').html(html);
-								if (data.success) {
-									$('#formModal').modal('hide');
-									swal('Berhasil', 'Data berhasil ditambahkan', 'success');
-									$('#id_tabel').DataTable().ajax.reload();
-									$('#formModal').on('hidden.bs.modal', function (e) {
-										$(this).find('#sample_form')[0].reset();
-									});
-								}
-							}
-						})
-					}
-				});
-
-			
-							$(document).on('click', '.lihat', function(){
+						$(document).on('click', '.lihat', function(){
 								var id = $(this).attr('id');
 								$.ajax({
 									url:"detail-pencairan-dana/"+id,
 									dataType:"json",
 									success:function(html){
 										$('#modalLihat').modal('show');
-										$('.modal-title').text("Detai Pencatatan");
-										document.getElementById("no_tran2").innerHTML = html.data.no_tran;
-										document.getElementById("nama_tran2").innerHTML = html.data.nama_tran;
+										$('.modal-title').text("Detail Pencatatan");
+
+										document.getElementById("no_jurnal2").innerHTML = html.no_jurnal;
+										document.getElementById("nama_transaksi2").innerHTML = html.data.nama_transaksi;
 										document.getElementById("created_at2").innerHTML = html.data.created_at;
-										document.getElementById("tujuan_tran2").innerHTML = html.data.tujuan_tran;
+										document.getElementById("tujuan_tran2").innerHTML = html.nama_tujuan;
 										document.getElementById("catatan2").innerHTML = html.data.catatan;
 										
 										var img = "/Uploads/" + html.data.bukti  +"";
 										$('#bukti2').attr("src",img);
 
-											var debit = html.data2.debit;
-											var kredit = html.data2.kredit;
+											var debit = html.debit;
+											var kredit = html.kredit;
 
 											var	reverse = debit.toString().split('').reverse().join(''),
 											debit_ribuan 	= reverse.match(/\d{1,3}/g);
@@ -852,14 +645,17 @@
 											kredit_ribuan 	= reverse.match(/\d{1,3}/g);
 											kredit_ribuan	= kredit_ribuan.join('.').split('').reverse().join('');
 											
-											document.getElementById("akun_debit2").innerHTML = html.data2.akun_debit;
-											document.getElementById("akun_kredit2").innerHTML = html.data2.akun_kredit;
+											document.getElementById("akun_debit2").innerHTML = html.akun_debit;
+											document.getElementById("akun_kredit2").innerHTML = html.akun_kredit;
 											document.getElementById("debit2").innerHTML = "Rp "+debit_ribuan;
 											document.getElementById("kredit2").innerHTML = "Rp "+kredit_ribuan;
+
 									}
 								})
 							});
+
 						});
+
 							
 					</script>
 

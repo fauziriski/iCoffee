@@ -65,7 +65,7 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-primary mb-1">Kas Masuk Jual-Beli</div>
+								<div class="text-sm font-weight-bold text-primary mb-1">Kas Penjualan</div>
 								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($masuk_jb)}}</div>
 							</div>
 							<div class="col-auto">
@@ -82,8 +82,8 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-success mb-1">Kas Masuk Lelang / TopUp</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($masuk_le)}}</div>
+								<div class="text-sm font-weight-bold text-success mb-1">Kas Masuk Pembiayaan</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($masuk_investasi)}}</div>
 							</div>
 							<div class="col-auto">
 								<i class="fa fa-arrow-alt-circle-down fa-2x text-gray-300"></i>
@@ -99,10 +99,10 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<div class="text-sm font-weight-bold text-info mb-1">Kas Masuk Investasi</div>
+								<div class="text-sm font-weight-bold text-info mb-1">Kas Masuk Mitra</div>
 								<div class="row no-gutters align-items-center">
 									<div class="col-auto">
-									<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($masuk_in)}}</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($masuk_mitra)}}</div>
 									</div>
 								</div>
 							</div>
@@ -144,7 +144,7 @@
 		<div class="card-body">
 			<div class="row no-gutters align-items-center">
 				<div class="col mr-2">
-					<div class="text-sm font-weight-bold text-primary mb-1">Kas Keluar Pencairan</div>
+					<div class="text-sm font-weight-bold text-primary mb-1">Kas Keluar Penjualan</div>
 					<div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{number_format($keluar_pen)}}</div>
 				</div>
 				<div class="col-auto">

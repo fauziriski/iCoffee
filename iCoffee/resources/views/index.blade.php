@@ -21,7 +21,7 @@
     </head>
     
     <body>
-    
+{{--     
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">
@@ -30,7 +30,7 @@
             <div></div>
         </div>
     </div>  
-    <!-- ***** Preloader End ***** -->
+    <!-- ***** Preloader End ***** --> --}}
     
     
     <!-- ***** Header Area Start ***** -->
@@ -52,6 +52,7 @@
                             <li><a href="#pricing-plans">Produk</a></li>
                             <li><a href="#testimonials">Tim</a></li>
                             <li><a href="#contact-us">Kontak</a></li>
+                            <li><a href="/login">Masuk</a></li>
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>

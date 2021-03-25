@@ -238,13 +238,13 @@
                                         data-target="#exampleModalCenter1">
                                         Lacak Paket
                                     </button>
-                                    <input type="submit" class="btn col-12 col-md-4 btn-primary mr-1 mt-1 py-3 px-5"
-                                        data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating">
+                                    {{-- <input type="submit" class="btn col-12 col-md-4 btn-primary mr-1 mt-1 py-3 px-5"
+                                        data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating"> --}}
                                 </div>
                             </div>
                             </p>
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                            {{-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -286,7 +286,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         @elseif($order->status == 7 || $order->status == 10 || $order->status == 11)
                         <div class="row justify-content-center">
                             <div class="col-md-6 offset-md-8 text-center">
@@ -443,7 +443,7 @@
 
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#rating').on('click', function() {
                 var data = $('#rating_form').serialize();
@@ -465,7 +465,7 @@
             });
         });
 
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {
@@ -477,19 +477,24 @@
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            $('#waybilltrackul').empty();
-                            $.each(data, function(key, value) {
-                                count = value.result.manifest.length;
-                                for (i = count - 1; i >= 0; i--) {
-                                    $('#waybilltrackul').append(
-                                        '<li class="list-group-item" id="waybilltrackli">' +
-                                        value.result.manifest[i].manifest_date +
-                                        ' - [' + value.result.manifest[i]
-                                        .city_name + '] ' + value.result.manifest[i]
-                                        .manifest_description + '</li>');
-                                }
+                            console.log(data);
+                            $('#waybilltrackul').empty();       
+                                $.each(data, function(key, value) {
+                                    count = value.result.manifest.length;
+                                    for (i = count - 1; i >= 0; i--) {
+                                        $('#waybilltrackul').append(
+                                            '<li class="list-group-item" id="waybilltrackli">' +
+                                            value.result.manifest[i].manifest_date +
+                                            ' - [' + value.result.manifest[i]
+                                            .city_name + '] ' + value.result.manifest[i]
+                                            .manifest_description + '</li>');
+                                    
+                            }
 
                             });
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            errorMessage('Gagal Melacak Paket');
                         }
                     });
                 } else {
@@ -515,9 +520,9 @@
                             $('#complain_code').empty();
                             $('#complain_image').empty();
 
-                            $('#complain_code').replaceWith("<p id='complain_code'>"+data[0].invoice+"</p>");
-                            $('#complain_content').replaceWith("<p id='complain_content'>"+data[0].keterangan+"</p>");
-                            $('#complain_image').replaceWith(`<img id='complain_image' height="100px" width="100px" src="{{asset('Uploads/Komplain/Lelang/${data[0].invoice}/${data[0].gambar}')}}" alt='' srcset=''>`);
+                            $('#complain_code').replaceWith("<p id='complain_code'>"+data.invoice+"</p>");
+                            $('#complain_content').replaceWith("<p id='complain_content'>"+data.keterangan+"</p>");
+                            $('#complain_image').replaceWith(`<img id='complain_image' height="100px" width="100px" src="{{asset('Uploads/Komplain/Lelang/${data.invoice}/${data.gambar}')}}" alt='' srcset=''>`);
                             
                         }
                     })

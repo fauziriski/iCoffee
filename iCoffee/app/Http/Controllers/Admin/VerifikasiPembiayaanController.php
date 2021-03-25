@@ -10,13 +10,11 @@ use App\Invest_product;
 use App\Invest_product_image;
 use App\Account;
 use App\User;
-use App\Adm_jurnal;
-use App\Adm_tranksaksi;
-use App\Adm_kat_akun;
-use App\Adm_arus_kas;
-use App\Adm_akun;
-use App\Adm_sub1_akun;
-use App\Adm_sub2_akun;
+use App\Akt_jurnal;
+use App\Akt_akun_jurnal;
+use App\Akt_tujuan;
+use App\Akt_kat_akun;
+use App\Akt_akun;
 use DB;
 use DataTables;
 use Carbon;
@@ -150,8 +148,14 @@ class VerifikasiPembiayaanController extends Controller
 		$id_produk = $order->id_produk;	
 		$qty = $order->qty;
 
-		$bank = Account::where('id',$id_bank)->first();
-		$nama_bank = $bank->bank_name;
+		// $bank = Account::where('id',$id_bank)->first();
+		$nama_bank = "syariah";
+
+		$akun = Akt_akun::where('nama_akun', 'LIKE', "%$nama_bank%")->first();
+		$id_akt_akun = $akun->id;
+
+		$tujuan = Akt_tujuan::where('nama_tujuan', 'LIKE', "%$nama_bank%")->first();
+		$id_tujuan = $tujuan->id;
 
 		$produk= Invest_product::where('id',$id_produk)->first();
 		$nama_produk = $produk->nama_produk;
@@ -165,26 +169,34 @@ class VerifikasiPembiayaanController extends Controller
 		$nama_akun_debit = "Bank ".$bank_pengirim."/".$nama_pengirim."-".$no_rekening_pengirim;
 		$nama_akun_kredit = "Pembelian Produk Investasi";
 
-		$noTrans = Adm_jurnal::noTrans();
-		$noJurnal = Adm_akun::noJurnal();
+		$noTrans = Akt_jurnal::noTrans();
+		$noJurnal = Akt_akun_jurnal::noJurnal();
 
-		$simpan = Adm_jurnal::create([
-			'id_kat_jurnal' => 3,
-			'nama_tran' => $nama_tran,
+		$simpan = Akt_jurnal::create([
+			'id_kat_jurnal' => 2,
+			'id_akt_tujuan' => $id_tujuan,
+			'no_transaksi' => $noTrans,
+			'nama_transaksi' => $nama_tran,
 			'bukti' => $foto_bukti,
 			'catatan' => $catatan,
-			'no_tran' => $noTrans,
 			'total_jumlah' => $biaya,
-			'tujuan_tran' => $tujuan_tran			
+				
 		]);
 
-		Adm_akun::create([
-			'id_adm_jurnal' => $simpan->id,
+		Akt_akun_jurnal::create([
+			'id_akt_jurnal' => $simpan->id,
 			'no_jurnal' =>$noJurnal,
-			'akun_debit' => $nama_akun_debit,
-			'akun_kredit' => $nama_akun_kredit,
+			'id_akt_akun' => $id_akt_akun,
 			'debit' => $biaya,
 			'kredit' => 0
+		]);
+
+		Akt_akun_jurnal::create([
+			'id_akt_jurnal' => $simpan->id,
+			'no_jurnal' =>$noJurnal,
+			'id_akt_akun' => 46,
+			'debit' => 0,
+			'kredit' => $biaya
 		]);
 
 		$form_data = array(

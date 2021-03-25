@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Laporan Tranksaksi Kas')
+@section('title', 'Tranksaksi Kas')
 
 @section('content')
 
@@ -81,7 +81,7 @@
 
 		<div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h5>Laporan Tranksaksi Kas</h5>
+				<h5>Tranksaksi Kass</h5>
 			</div>
 			<!-- Card Header - Dropdown -->
             <div class="row" style="padding-top:2%;"></div>
@@ -105,6 +105,7 @@
 								<th>Nama Tranksaksi</th>
 								<th>Tujuan Tranksaksi</th>
 								<th>Jumlah Tranksaksi</th>
+								<th> </th>
 							</tr>
 						</thead>
 					</table>
@@ -113,7 +114,7 @@
 		</div>
 
 		</div>
-	<div id="modalLihat" class="modal fade" role="dialog">
+		<div id="modalLihat" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -127,9 +128,9 @@
                             <table cellpadding="10" border="0">
                                 <tr>
                                     <div class="form-group">
-                                        <th width="35%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
+                                        <th width="35%" style="text-align: right;">No Jurnal&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
                                         <th colspan="4">
-                                            <a id="kode2"></a>
+                                            <a id="no_jurnal2"></a>
                                         </th>
                                     </div>
                                 </tr>
@@ -137,7 +138,7 @@
                                     <div class="form-group">
                                         <th width="35%" style="text-align: right;">Nama Tranksaksi&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
                                         <th colspan="4">
-                                            <a id="nama_tran2"></a>
+                                            <a id="nama_transaksi2"></a>
                                         </th>
                                     </div>
                                 </tr>
@@ -211,26 +212,39 @@
                                 <table cellpadding="10" border="1">
                                     <tr style="background-color: #4e73df; color: white;">
                                         <div class="form-group">
-                                            <th width="40%">Akun&nbsp;&nbsp;:</th>
-                                            <th width="15%">Posisi&nbsp;&nbsp;:</th>
+                                            <th width="40%">Nama Akun&nbsp;&nbsp;:</th>
+											<th width="15%">Posisi&nbsp;&nbsp;:</th>
                                             <th width="20%">Jumlah&nbsp;&nbsp;:</th>
                                         </div>
                                     </tr>
-                                    @for ($i = 0; $i < 2; $i++)
+                                   
                                     <tr>
                                         <div class="form-group">
                                             <th>
-                                                <a id="akun11{{$i}}"></a>
+                                                <a id="akun_debit2"></a>
+                                            </th>
+											<th>
+                                                <a>Debit</a>
                                             </th>
                                             <th>
-                                                <a id="posisi11{{$i}}"></a>
-                                            </th>
-                                            <th>
-                                                <a id="jumlah11{{$i}}"></a>
+                                                <a id="debit2"></a>
                                             </th>
                                         </div>
                                     </tr>
-                                    @endfor
+									<tr>
+                                        <div class="form-group">
+                                            <th>
+                                                <a id="akun_kredit2"></a>
+                                            </th>
+											<th>
+                                                <a>Kredit</a>
+                                            </th>
+                                            <th>
+                                                <a id="kredit2"></a>
+                                            </th>
+                                        </div>
+                                    </tr>
+                                  
                                 </table>
 								</div>
                             </div>
@@ -246,8 +260,7 @@
                 </div>
             </div>
         </div>
-
-
+	
 				@endsection
 				@section('js')
 				
@@ -319,13 +332,57 @@
 							},
 							columns: [
 								{data: 'created_at', name:'created_at'},
-								{data: 'no_tran', name: 'no_tran'},
-								{data: 'nama_tran', name:'nama_tran'},
-								{data: 'tujuan_tran', name:'tujuan_tran'},
-								{data: 'total_jumlah', name:'total_jumlah'}
+								{data: 'no_transaksi', name: 'no_transaksi'},
+								{data: 'nama_transaksi', name:'nama_transaksi'},
+								{data: 'nama_tujuan', name:'nama_tujuan'},
+								{data: 'total_jumlah', name:'total_jumlah', render: $.fn.dataTable.render.number( '\,', '.', 0, 'Rp ' ).display},
+								{data: 'action',name: 'action',orderable: false},
+								{data: 'bukti', name:'bukti', visible: false}
+
 							]
 							});
+
 							}
+
+							$(document).on('click', '.lihat', function(){
+								var id = $(this).attr('id');
+								$.ajax({
+									url:"detail-transaksi/"+id,
+									dataType:"json",
+									success:function(html){
+										$('#modalLihat').modal('show');
+										$('.modal-title').text("Detai Pencatatan");
+										
+										document.getElementById("no_jurnal2").innerHTML = html.no_jurnal;
+										document.getElementById("nama_transaksi2").innerHTML = html.data.nama_transaksi;
+										document.getElementById("created_at2").innerHTML = html.data.created_at;
+										document.getElementById("tujuan_tran2").innerHTML = html.nama_tujuan;
+										document.getElementById("catatan2").innerHTML = html.data.catatan;
+										
+										var img = "/Uploads/" + html.data.bukti  +"";
+										$('#bukti2').attr("src",img);
+
+										var debit = html.debit;
+										var kredit = html.kredit;
+
+											var	reverse = debit.toString().split('').reverse().join(''),
+											debit_ribuan 	= reverse.match(/\d{1,3}/g);
+											debit_ribuan	= debit_ribuan.join('.').split('').reverse().join('');
+
+											var	reverse = kredit.toString().split('').reverse().join(''),
+											kredit_ribuan 	= reverse.match(/\d{1,3}/g);
+											kredit_ribuan	= kredit_ribuan.join('.').split('').reverse().join('');
+											
+											document.getElementById("akun_debit2").innerHTML = html.akun_debit;
+											document.getElementById("akun_kredit2").innerHTML = html.akun_kredit;
+											document.getElementById("debit2").innerHTML = "Rp "+debit_ribuan;
+											document.getElementById("kredit2").innerHTML = "Rp "+kredit_ribuan;
+
+									}
+								})
+							});
+
+					
 
 							$('#filter').click(function(){
 							var from_date = $('#from_date').val();

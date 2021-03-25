@@ -511,6 +511,9 @@
                                 }
 
                             });
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            errorMessage('Gagal Melacak Paket');
                         }
                     });
                 } else {

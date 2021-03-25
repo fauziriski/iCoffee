@@ -168,6 +168,7 @@
             <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-utama')}}">Kas Utama</a>
             <div class="collapse-divider"></div>
             <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-investasi')}}">Kas Investasi</a>
+            <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-mitra')}}">Kas Mitra</a>
             <h6 class="collapse-header">Lain-Lain :</h6>
             <a class="collapse-item" href="{{url('akses-adminkeuangan/dana-masuk-lain')}}">Kas Lainnya</a>
           </div>
@@ -192,9 +193,10 @@
         <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Investasi :</h6>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana')}}">Kas Utama</a>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana-progres')}}">Kas Investasi</a>
+          <!-- <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana-progres')}}">Kas Investasi</a> -->
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/pencairan-dana-progres')}}">Kas Mitra</a>
           <h6 class="collapse-header">Lain-Lain :</h6>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Kas Operasional</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/administrasi')}}">Kas Lainnya</a>
         </div>
       </div>
     </li>
@@ -215,12 +217,17 @@
       </a>
       <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Kelola Keuangan:</h6>
+          <h6 class="collapse-header">Kelola Rekapitulasi :</h6>
           <!-- <a class="collapse-item" href="{{url('akses-adminkeuangan/404')}}">Posisi Kas</a> -->
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/tranksaksi-kas')}}">Tranksaksi Kas</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/tranksaksi-kas')}}">Transaksi Kas</a>
           <!-- <a class="collapse-item" href="{{url('akses-adminkeuangan/arus-kas')}}">Arus Kas</a> -->
           <a class="collapse-item" href="{{url('akses-adminkeuangan/jurnal')}}">Jurnal Umum</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/neraca-saldo')}}">Neraca Saldo</a>
+          <h6 class="collapse-header">Laporan Keuangan :</h6>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/laba-rugi')}}">Laba Rugi</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/perubahan-modal')}}">Perubahan Modal</a>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/neraca')}}">Neraca</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/arus-kas')}}">Arus Kas</a>
           <div class="collapse-divider"></div>
         </div>
       </div>
@@ -245,7 +252,7 @@
           <h6 class="collapse-header">Pengaturan:</h6>
           <a class="collapse-item" href="{{url('akses-adminkeuangan/404')}}">Akun Bank</a>
           <div class="collapse-divider"></div>
-          <a class="collapse-item" href="{{url('akses-adminkeuangan/404')}}">Format Akun</a>
+          <a class="collapse-item" href="{{url('akses-adminkeuangan/format-akun')}}">Daftar Akun</a>
           <div class="collapse-divider"></div>
         </div>
       </div>
@@ -346,7 +353,7 @@
             <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan-petani')}}">Validasi Pengajuan</a>
             <a class="collapse-item" href="{{url('akses-admin/validasi-pencairan-mitra')}}">Validasi Saldo</a>
             <a class="collapse-item" href="{{url('akses-admin/validasi-progres-mitra')}}">Validasi Progres</a>
-            <a class="collapse-item" href="{{url('akses-admin/404')}}">Validasi Laporan</a>
+            <a class="collapse-item" href="{{url('akses-admin/validasi-laporan-penjualan')}}">Validasi Laporan</a>
             </div>
         </div>
       </li>

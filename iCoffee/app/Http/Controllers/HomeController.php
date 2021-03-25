@@ -692,6 +692,7 @@ class HomeController extends Controller
         $response = mkdir($folderPath);
         $image_resize = Images::make($image->getRealPath());
         $image_resize->save($folderPath .'/'. $name);
+        $foto_bukti = "Konfirmasi_Pembayaran/Lelang/".$request->invoice."/".$name;
 
         $confirm_pesanan = Confirm_payment::create([
             'id_pelanggan' => $id_pelanggan,
@@ -703,7 +704,7 @@ class HomeController extends Controller
             'no_telp' => $request->no_telp,
             'jumlah_transfer' => $jumlah,
             'invoice' => $request->invoice,
-            'foto_bukti' => $name,
+            'foto_bukti' => $foto_bukti,
             'status' => '1'
         ]);
 
