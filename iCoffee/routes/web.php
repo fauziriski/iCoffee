@@ -115,6 +115,9 @@ Route::namespace('JualBeli\Pembelian')->group(function () {
 	//Transaction
 	// Route::get('/jual-beli/transaksi', 'TransactionController@index');
 	Route::get('/jual-beli/transaksi/pembelian', 'TransactionController@indexBuy');
+
+	//Term And Condition
+	Route::get('/term-condition', 'HomeController@termCondition');
 	
 
 });

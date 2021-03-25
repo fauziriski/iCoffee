@@ -4,6 +4,7 @@ namespace App\Http\Controllers\JualBeli\Pembelian;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Terms_and_condition;
 use App\Shop_product;
 use App\Category;
 use App\Image;
@@ -132,5 +133,12 @@ class HomeController extends Controller
         return view('jual-beli.detailproduk',compact(
             'products','image','produk_terkait', 'alamat', 'jumlah_terjual_produk', 'rating_toko', 'jumlah_data','count'
         ));
+    }
+
+    public function termCondition()
+    {
+        $data  = Terms_and_condition::all();
+
+        return response()->json($data);
     }
 }

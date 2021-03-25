@@ -212,9 +212,17 @@
                             </form>
                         </div>
 
-                        @elseif($order->status == 5 || $order->status == 6 || $order->status == 7 || $order->status ==
-                            10 || $order->status == 11)
+                        @elseif($order->status == 5 || $order->status == 6)
 
+                            <div class="col-md-4 text-center offset-md-9">
+                                <button id="willbill" class="btn btn-primary mr-3 ml-3 mt-1 text-center" name="willbill"
+                                    style="border-radius: 10px; margin: auto; padding: 16px;" value="{{ $order->id }}"
+                                    type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Lacak Paket
+                                </button>
+
+                            </div>
+                        @elseif($order->status == 7 || $order->status == 10 || $order->status == 11)
                             <div class="col-md-4 text-center offset-md-8">
                                 <button id="willbill" class="btn btn-primary mr-3 ml-3 mt-1 text-center" name="willbill"
                                     style="border-radius: 10px; margin: auto; padding: 16px;" value="{{ $order->id }}"
@@ -231,83 +239,83 @@
                                 </button>
                             </div>
 
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Lacak Paket</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <ul class="list-group list-group-flush" id="waybilltrackul">
-                                                <li class="list-group-item" id="waybilltrackli">
-
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal fade" id="see_complain_modal" tabindex="-1" role="dialog"
-                                aria-labelledby="see_complain_modal_title" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Lihat Komplain</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                        <dl class="row">
-                                            <dt class="col-md-3" style="font-size: 17px;">
-                                                Invoice :
-                                            </dt>
-                                            <dd class="col-md-9" style="font-size: 17px;">
-                                                <p id="complain_code"></p>
-                                            </dd>
-                                            <dt class="col-md-3" style="font-size: 17px;">
-                                                Komplain :
-                                            </dt>
-                                            <dd class="col-md-9" style="font-size: 17px;">
-                                                <p id="complain_content"></p>
-                                            </dd>
-                                            <dt class="col-md-3"  style="font-size: 17px;">
-                                                Bukti :
-                                            </dt>
-                                            <div class="col-md-9">
-                                                <div id="image">
-                                                    <a name="images-modal" href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
-                                                        <img src="" alt="" srcset="" id="complain_image">
-                                                    </a>
-                                                </div>
-                                                <div>   
-                                                    <div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
-                                                        <div class="modal-dialog modal-md">
-                                                            <div class="modal-content">
-                                                                <img class="modal-img" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </dl>
-                                    
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
                         @endif
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Lacak Paket</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush" id="waybilltrackul">
+                        <li class="list-group-item" id="waybilltrackli">
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="see_complain_modal" tabindex="-1" role="dialog"
+        aria-labelledby="see_complain_modal_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Lihat Komplain</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <dl class="row">
+                    <dt class="col-md-3" style="font-size: 17px;">
+                        Invoice :
+                    </dt>
+                    <dd class="col-md-9" style="font-size: 17px;">
+                        <p id="complain_code"></p>
+                    </dd>
+                    <dt class="col-md-3" style="font-size: 17px;">
+                        Komplain :
+                    </dt>
+                    <dd class="col-md-9" style="font-size: 17px;">
+                        <p id="complain_content"></p>
+                    </dd>
+                    <dt class="col-md-3"  style="font-size: 17px;">
+                        Bukti :
+                    </dt>
+                    <div class="col-md-9">
+                        <div id="image">
+                            <a name="images-modal" href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
+                                <img src="" alt="" srcset="" id="complain_image">
+                            </a>
+                        </div>
+                        <div>   
+                            <div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+                                        <img class="modal-img" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dl>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -334,6 +342,9 @@
                                 }
 
                             });
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            errorMessage('Gagal Melacak Paket');
                         }
                     });
                 } else {
@@ -355,13 +366,14 @@
                         type : "GET",
                         dataType : "JSON",
                         success : function(data) {
+                            console.log(data);
                             $('#complain_content').empty();
                             $('#complain_code').empty();
                             $('#complain_image').empty();
 
-                            $('#complain_code').replaceWith("<p id='complain_code'>"+data[0].invoice+"</p>");
-                            $('#complain_content').replaceWith("<p id='complain_content'>"+data[0].keterangan+"</p>");
-                            $('#complain_image').replaceWith(`<img id='complain_image' height="100px" width="100px" src="{{asset('Uploads/Komplain/Lelang/${data[0].invoice}/${data[0].gambar}')}}" alt='' srcset=''>`);
+                            $('#complain_code').replaceWith("<p id='complain_code'>"+data.invoice+"</p>");
+                            $('#complain_content').replaceWith("<p id='complain_content'>"+data.keterangan+"</p>");
+                            $('#complain_image').replaceWith(`<img id='complain_image' height="100px" width="100px" src="{{asset('Uploads/Komplain/Lelang/${data.invoice}/${data.gambar}')}}" alt='' srcset=''>`);
                             
                         }
                     })

@@ -30,7 +30,10 @@ class ComplainController extends Controller
 
     
         $folderPath = public_path("Uploads/Komplain/Lelang/".$request->invoice);
-        $response = mkdir($folderPath);
+
+        if (!is_dir($folderPath)) {
+            $response = mkdir($folderPath);
+        }
         
         $image = $request->foto_bukti;
         $name = 'complain_auction_' .$request->invoice .'_' . \Carbon\Carbon::now()->format('Ymd_His'). '-' .uniqid() . '.' . $image->getClientOriginalExtension();
@@ -62,8 +65,10 @@ class ComplainController extends Controller
 
     public function show($id) 
     {
-        $complain = DB::select("SELECT * FROM auction_complaints WHERE `id_order` =". $id, [1]);
+        // $complain = DB::select("SELECT * FROM auction_complaints ORDER BY CREATED_AT AND WHERE DESC `id_order` =". $id, [1]);
+        $complain = Auction_complaint::where('id_order', $id)->orderBy('created_at', 'DESC')->first();
 
+        // dd($complain);
         return response()->json($complain);
     }
 }
