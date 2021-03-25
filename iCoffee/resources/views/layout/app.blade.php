@@ -28,7 +28,7 @@
    <link rel="stylesheet" href="{{asset('css/flaticon.css') }}">
    <link rel="stylesheet" href="{{asset('css/icomoon.css') }}">
    <link rel="stylesheet" href="{{asset('css/style.css') }}">
-   <link rel="stylesheet" href="{{asset('css/images.css') }}">
+   {{-- <link rel="stylesheet" href="{{asset('css/images.css') }}"> --}}
    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
    <link rel="shortcut icon" href="{{asset('landing_page/images/favicon.png') }}">
    <meta name="google-site-verification" content="yr0b1EXiV-YTqxP_WX3A3LGbEtl805Xnq-hrlgDxj78" />
@@ -60,9 +60,10 @@
     <script src="{{asset('js/jquery.animateNumber.min.js') }}"></script>
     <script src="{{asset('js/bootstrap-datepicker.js') }}"></script>
     <script src="{{asset('js/scrollax.min.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="{{asset('js/google-map.js') }}"></script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> --}}
+    {{-- <script src="{{asset('js/google-map.js') }}"></script> --}}
     <script src="{{asset('js/main.js') }}"></script>
+    <script src="{{ asset('Jualbeli/plugins/customPlugin/alert.js') }}"></script>
 
 </body>
 </html>

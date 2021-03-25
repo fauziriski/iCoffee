@@ -41,7 +41,10 @@ class ComplaintController extends Controller
         if ($order) {
 
             $folderPath = public_path("Uploads/Komplain/JualBeli/".$request->invoice);
-            $response = mkdir($folderPath);
+
+            if (!is_dir($folderPath)) {
+                $response = mkdir($folderPath);
+            }
             
             // $image = $request->foto_bukti;
             // $name=$image->getClientOriginalName();
@@ -96,7 +99,8 @@ class ComplaintController extends Controller
 
     public function show($id) 
     {
-        $complain = DB::select('SELECT * FROM complaints WHERE `id_order` = '. $id, [1]);
+        // $complain = DB::select('SELECT * FROM complaints WHERE `id_order` = '. $id, [1]);
+        $complain = Complaint::where('id_order', $id)->orderBy('created_at', 'DESC')->get();
         return response()->json($complain);
     }
 }

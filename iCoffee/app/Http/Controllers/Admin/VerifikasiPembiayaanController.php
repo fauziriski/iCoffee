@@ -172,25 +172,6 @@ class VerifikasiPembiayaanController extends Controller
 		$noTrans = Akt_jurnal::noTrans();
 		$noJurnal = Akt_akun_jurnal::noJurnal();
 
-		// $simpan = Akt_jurnal::create([
-		// 	'id_kat_jurnal' => 3,
-		// 	'nama_tran' => $nama_tran,
-		// 	'bukti' => $foto_bukti,
-		// 	'catatan' => $catatan,
-		// 	'no_tran' => $noTrans,
-		// 	'total_jumlah' => $biaya,
-		// 	'tujuan_tran' => $tujuan_tran			
-		// ]);
-
-		// Akt_akun::create([
-		// 	'id_adm_jurnal' => $simpan->id,
-		// 	'no_jurnal' =>$noJurnal,
-		// 	'akun_debit' => $nama_akun_debit,
-		// 	'akun_kredit' => $nama_akun_kredit,
-		// 	'debit' => $biaya,
-		// 	'kredit' => 0
-		// ]);
-
 		$simpan = Akt_jurnal::create([
 			'id_kat_jurnal' => 2,
 			'id_akt_tujuan' => $id_tujuan,

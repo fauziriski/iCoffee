@@ -70,6 +70,8 @@ Route::group(['middleware' => ['can:read']], function () {
 
     Route::get('/validasi-progres-mitra', 'VerifikasiProgresMitraController@dataProgres')->name('validasi-progres-mitra');
     Route::get('/lihat-validasi-progres-mitra/{id}', 'VerifikasiProgresMitraController@lihatProgres')->name('lihat-validasi-progres-mitra');
+    Route::get('/validasi-laporan-penjualan', 'VerifikasiLaporanPenjualanController@dataLaporan')->name('validasi-laporan-penjualan');
+    Route::get('/lihat-laporan-penjualan/{id}', 'VerifikasiLaporanPenjualanController@lihatLaporan')->name('lihat-laporan-penjualan');
 });
 Route::group(['middleware' => ['can:created']], function () {
     //kategori-produk
@@ -150,7 +152,8 @@ Route::group(['middleware' => ['can:verification']], function () {
     Route::post('/validasi-progres-mitra/update', 'VerifikasiProgresMitraController@validasiProgres')->name('validasi-progres-mitra.update'); 
     Route::post('/tolak-progres-mitra/update', 'VerifikasiProgresMitraController@tolakProgres')->name('tolak-progres-mitra.update');
     Route::post('/proses-progres-mitra/update', 'VerifikasiProgresMitraController@prosesProgres')->name('proses-progres-mitra.update'); 
-
+    Route::post('/validasi-laporan-penjualan/update', 'VerifikasiLaporanPenjualanController@validasiLaporan')->name('validasi-laporan-penjualan.update'); 
+    Route::post('/tolak-laporan-penjualan/update', 'VerifikasiLaporanPenjualanController@tolakLaporan')->name('tolak-laporan-penjualan.update');
 });
 
 
