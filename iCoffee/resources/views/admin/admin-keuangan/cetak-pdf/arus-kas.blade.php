@@ -1,54 +1,74 @@
-@extends('admin.layout.master')
+<html>
+    <head>
+        <style>
+            /** 
+                Set the margins of the page to 0, so the footer and the header
+                can be of the full height and width !
+             **/
+            @page {
+                margin: 0;
+            }
 
-@section('title', 'Arus Kas')
+            table {
+                padding-top: 5%;
+                border-collapse: collapse;
+            }
+            th {
+                padding-left: 2%;
+            }
 
-@section('content')
+            td {
+                padding-left: 5%;
+            }
 
-@section('css')
+            h3 {
+                text-align: center;
+                line-height: 4px;
+            }
+            /** Define now the real margins of every page in the PDF **/
+            body {
+                margin: 3cm 2cm 2cm;
+            }
 
-<style>
+            /** Define the header rules **/
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3cm;
+            }
 
-    table {
-        border-collapse: collapse;
-    }
+            /** Define the footer rules **/
+            footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 2cm;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Define header and footer blocks before your content -->
+        <!-- <header> <img src="{{ public_path('landing_page/images/LOGO.png') }}"
+        width="100%" height="100%"/> </header> <footer> <img src="footer.png"
+        width="100%" height="100%"/> </footer> -->
 
+        <!-- Wrap the content of your PDF inside a main tag -->
+        <main>
+            <h3>PT. ICOFFEE.ID</h3>
+            <h3>LAPORAN ARUS KAS</h3>
+            <h3>Periode
+                {{$periode}}</h3>
 
-</style>
-
-@stop
-
-<body id="page-top">
-	<!-- Begin Page Content -->
-	<div class="container-fluid">
-
-		<div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h5>Laporan Arus Kas</h5>
-			</div>
-		<!-- Card Header - Dropdown -->
-        <div class="row" style="padding-top:2%;"></div>
-                <div class="container-fluid">
-				<div class="row">
-				<div class="col-md-3"></div>
-				<div class="col-md-8">
-					<div class="row mb-4">
-						<form action="{{ route('adminkeuangan.arus-kas-update') }}" method="POST" class="form-inline">
-							{{ csrf_field() }}
-							<input type="text" name="from_date" id="from_date" class="form-control" placeholder="MM/DD/YYYY" required/>
-							<input type="text" name="to_date" id="to_date" class="form-control ml-3" placeholder="MM/DD/YYYY" required/>
-							<button type="submit" name="filter" id="filter" class="btn btn-primary ml-3">Filter</button>
-						</form>
-                    <a href="{{url('akses-adminkeuangan/cetak-arus-kas')}}" class="btn btn-success ml-2"><i class="fa fa-print"></i> Download PDF</a>
-				</div>
-             </div>
-			 </div>
- 		</div>
-           
-			<!-- Card Body -->
-			<div class="card-body">
-            <div class="container">
-				<div class="table-responsive">
-                        <table class="table table-bordered border-primary" style="width:100%;">
+            <div class="row">
+                <div class="col-md-6">
+                <div class="table-responsive">
+                       <table
+                            class="table table-striped table-bordered"
+                            border="1"
+                            style="width:100%;">
                             <thead>
                                 <tr>
                                     <th colspan="3" style="text-align: left">AKTIVITAS OPERASIONAL</th>
@@ -143,27 +163,9 @@
                             </tbody>
                         </table>
                     </div>
-				</div>
-			</div>
-		</div>
+                        </div>
 
-		</div>
-				
-		@endsection
-				@section('js')
-				
-				<script>
-					$(document).ready(function(){
-						$.datepicker.setDefaults({
-							dateFormat: 'yy-mm-dd'
-						});
-						$(function () {
-							$("#from_date").datepicker();
-							$("#to_date").datepicker();
-						});
-				
-                });
-                
-		    	</script>
-			@stop
+                    </main>
+                </body>
 
+            </html>

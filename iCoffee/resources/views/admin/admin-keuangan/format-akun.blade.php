@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Admin Keuangan | Format Akun')
+@section('title', 'Admin Keuangan | Daftar Akun')
 
 @section('content')
 
@@ -10,7 +10,7 @@
 	<div class="container-fluid">
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Format Akun</h1>
+		<h1 class="h3 mb-0 text-gray-800">Daftar Akun</h1>
 		</div>
 		<div class="card shadow mb-4">
 			<!-- Card Header - Dropdown -->
@@ -102,6 +102,7 @@
 					$(document).ready(function(){
 
 						$('#id_tabel').DataTable({
+							paging:   false,
 							dom: 'Bfrtip',
 							buttons: [
 							{

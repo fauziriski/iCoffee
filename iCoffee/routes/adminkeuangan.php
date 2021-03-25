@@ -40,6 +40,8 @@ Route::group(['middleware' => ['can:read']], function () {
     Route::get('/detail-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@detailDanaMasuk')->name('detail-dana-masuk-jualbeli');
     Route::get('/dana-masuk-investasi', 'DanaMasukInvestasiController@danaMasuk')->name('dana-masuk-investasi');
     Route::get('/detail-dana-masuk-investasi/{id}', 'DanaMasukInvestasiController@detailDanaMasuk')->name('detail-dana-masuk-investasi');
+    Route::get('/dana-masuk-mitra', 'DanaMasukMitraController@danaMasuk')->name('dana-masuk-mitra');
+    Route::get('/detail-dana-masuk-mitra/{id}', 'DanaMasukMitraController@detailDanaMasuk')->name('detail-dana-masuk-mitra');
     // Route::get('/dana-masuk-lelang', 'DanaMasukLelangController@danaMasuk')->name('dana-masuk-lelang');
     // Route::get('/detail-dana-masuk-lelang/{id}', 'DanaMasukLelangController@detailDanaMasuk')->name('detail-dana-masuk-lelang');
     Route::get('/dana-masuk-lain', 'DanaMasukLainController@dataDanaMasuk')->name('dana-masuk-lain');
@@ -60,6 +62,7 @@ Route::group(['middleware' => ['can:read']], function () {
 
     //laporan keuangan
     Route::get('/format-akun', 'FormatAkunController@dataAkun')->name('format-akun');
+    Route::get('/detail-transaksi/{id}', 'TranksaksiKasController@detailTransaksi')->name('detail-transaksi');
 
     Route::resource('/tranksaksi-kas', 'TranksaksiKasController');
     Route::resource('/jurnal', 'JurnalController'); 
@@ -121,6 +124,7 @@ Route::group(['middleware' => ['can:delete']], function () {
     Route::get('/hapus-pelelang/{id}', 'SetorPelelangController@hapus')->name('hapus-pelelang');
     Route::get('/hapus-dana-masuk-jualbeli/{id}', 'DanaMasukJBController@hapus')->name('hapus-dana-masuk-jualbeli');
     Route::get('/hapus-dana-masuk-investasi/{id}', 'DanaMasukInvestasiController@hapus')->name('hapus-dana-masuk-investasi');
+    Route::get('/hapus-dana-masuk-mitra/{id}', 'DanaMasukMitraController@hapus')->name('hapus-dana-masuk-mitra');
     // Route::get('/hapus-dana-masuk-lelang/{id}', 'DanaMasukLelangController@hapus')->name('hapus-dana-masuk-lelang');
     Route::get('/hapus-dana-masuk-lain/{id}', 'DanaMasukLainController@hapus')->name('hapus-dana-masuk-lain');
     Route::get('/hapus-pencairan-dana/{id}', 'PencairanDanaController@hapus')->name('hapus-pencairan-dana');
