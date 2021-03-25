@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Adminkeuangan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\support\Facades\DB;
+
 use App\Balance_withdrawal;
 use App\Akt_jurnal;
 use App\Akt_akun_jurnal;
@@ -16,6 +16,8 @@ use Carbon;
 use Validator;
 use Storage;
 use App\Helper\Helper;
+use DB;
+
 
 
 class  PencairanDanaController extends Controller
@@ -160,7 +162,7 @@ class  PencairanDanaController extends Controller
 			'id_akt_tujuan' => $id_tujuan,
 			'no_transaksi' => $noTrans,
 			'nama_transaksi' => $nama_tran,
-			'bukti' => $request->file('bukti')->store('Akt_bukti/AKML'),
+			'bukti' => $request->file('bukti')->store('BuktiAKKU'),
 			'catatan' => $catatan,
 			'total_jumlah' => $jumlah,
 				

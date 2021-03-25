@@ -160,7 +160,7 @@ class  PencairanDanaProgresController extends Controller
 			'id_akt_tujuan' => $id_tujuan,
 			'no_transaksi' => $noTrans,
 			'nama_transaksi' => $nama_tran,
-			'bukti' => $request->file('bukti')->store('Akt_bukti/AKKM'),
+			'bukti' => $request->file('bukti')->store('BuktiAKKM'),
 			'catatan' => $catatan,
 			'total_jumlah' => $jumlah_kredit,
 				

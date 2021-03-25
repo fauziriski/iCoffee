@@ -114,15 +114,22 @@ class MitraController extends Controller
 
     public function tarikSaldo(Request $request)
     {
-        Mitra::where('id_mitra',Auth::user()->id_mitra);
-        Mitra_withdraw::create([
-            'id_mitra' => Auth::user()->id_mitra,
-            'id_bank' => $request->id_bank,
-            'jumlah' => $request->jumlah,
-            'status' => 1
-        ]);
-        Alert::toast('Permintaan Tarik Saldo Berhasil!', 'success');
-        return redirect('/mitra/rekening-mitra');
+        $saldo = Mitra::where('id_mitra',Auth::user()->id_mitra)->pluck('saldo')->first();
+        if($saldo <= $request->jumlah){
+            Alert::toast('Permintaan Tarik Saldo Gagal!', 'error');
+            return redirect('/mitra/rekening-mitra');
+        }
+        else{
+            Mitra::where('id_mitra',Auth::user()->id_mitra)->decrement('saldo',$request->jumlah);
+            Mitra_withdraw::create([
+                'id_mitra' => Auth::user()->id_mitra,
+                'id_bank' => $request->id_bank,
+                'jumlah' => $request->jumlah,
+                'status' => 1
+            ]);
+            Alert::toast('Permintaan Tarik Saldo Berhasil!', 'success');
+            return redirect('/mitra/rekening-mitra');
+        }
     }
 
     public function nyoba(Request $request)
