@@ -32,13 +32,18 @@
 				<div class="col-md-3"></div>
 				<div class="col-md-8">
 					<div class="row mb-4">
-						<form action="{{ route('adminkeuangan.arus-kas-update') }}" method="POST" class="form-inline">
+                    <form action="{{ route('adminkeuangan.arus-kas-update') }}" method="POST" class="form-inline">
 							{{ csrf_field() }}
 							<input type="text" name="from_date" id="from_date" class="form-control" placeholder="MM/DD/YYYY" required/>
 							<input type="text" name="to_date" id="to_date" class="form-control ml-3" placeholder="MM/DD/YYYY" required/>
 							<button type="submit" name="filter" id="filter" class="btn btn-primary ml-3">Filter</button>
 						</form>
-                    <a href="{{url('akses-adminkeuangan/cetak-arus-kas')}}" class="btn btn-success ml-2"><i class="fa fa-print"></i> Download PDF</a>
+                    <form action="{{ route('adminkeuangan.cetak-arus-kas-update') }}" method="POST" class="form-inline">
+                        {{ csrf_field() }}
+                        <input type="text" name="from_date" value="{{$from_date}}" hidden/>
+                        <input type="text" name="to_date" value="{{$to_date}}" hidden/>
+                        <button type="submit" class="btn btn-success ml-2"><i class="fa fa-print"></i> Download PDF</a>
+                    </form>
 				</div>
              </div>
 			 </div>

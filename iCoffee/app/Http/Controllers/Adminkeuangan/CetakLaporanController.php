@@ -409,7 +409,165 @@ class CetakLaporanController extends Controller
         }
     }
 
-    function arusKas(){
+    function arusKas(Request $request){
+        if(!empty($request->from_date))
+        {
+            $data1 = DB::table('akt_akun')
+            ->select('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun',
+                DB::raw('SUM(kredit) - SUM(debit) as total'))
+                ->join('akt_akun_jurnal', 'akt_akun_jurnal.id_akt_akun', '=', 'akt_akun.id')
+                ->groupBy('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun')
+                ->whereBetween('akt_akun_jurnal.created_at', array($request->from_date, $request->to_date))
+                ->where('id_kat_akun', 4)
+                ->orderBy('no_akun')
+                ->get()->toArray();
+
+            $data2 = DB::table('akt_akun')
+                ->select('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun',
+                    DB::raw('SUM(debit) - SUM(kredit) as total'))
+                    ->join('akt_akun_jurnal', 'akt_akun_jurnal.id_akt_akun', '=', 'akt_akun.id')
+                    ->groupBy('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun')
+                    ->whereBetween('akt_akun_jurnal.created_at', array($request->from_date, $request->to_date))
+                    ->where('id_kat_akun', 5)
+                    ->orderBy('no_akun')
+                    ->get()->toArray();
+
+            $investasi = DB::table('akt_akun')
+             ->select('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun',
+                DB::raw('SUM(debit) - SUM(kredit) as total'))
+                ->join('akt_akun_jurnal', 'akt_akun_jurnal.id_akt_akun', '=', 'akt_akun.id')
+                ->groupBy('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun')
+                ->whereBetween('akt_akun_jurnal.created_at', array($request->from_date, $request->to_date))
+                ->where('id_kat_akun', 1)
+                ->whereBetween('no_akun', array(131, 199))
+                ->orderBy('no_akun')
+                ->get()->toArray();
+    
+                        
+            $ambil_modal = DB::table('akt_akun')
+            ->select('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun',
+                DB::raw('SUM(kredit) as total'))
+                ->join('akt_akun_jurnal', 'akt_akun_jurnal.id_akt_akun', '=', 'akt_akun.id')
+                ->groupBy('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun')
+                ->whereBetween('akt_akun_jurnal.created_at', array($request->from_date, $request->to_date))
+                ->where('id_kat_akun', 3)->where('nama_akun', 'LIKE', '%modal%')
+                ->orderBy('no_akun')
+                ->get()->toArray();  
+                
+            $jumlah1 = [];
+            foreach($data1 as $jml){
+                $jumlah1[] = $jml->total;
+            }
+            $total_pendapatan = array_sum($jumlah1);
+
+            $jumlah2 = [];
+            foreach($data2 as $jml){
+                $jumlah2[] = $jml->total;
+            }
+
+            $total_beban = array_sum($jumlah2);
+            $laba = $total_pendapatan - $total_beban;
+
+            $from_date = $request->from_date; 
+            $to_date = $request->to_date;
+
+            $jumlah3 = [];
+                foreach($investasi as $jml){
+                    $jumlah3[] = $jml->total;
+                }
+                $total_investasi = array_sum($jumlah3);
+                
+                $jumlah4 = [];
+                foreach($ambil_modal as $jml){
+                    $jumlah4[] = $jml->total;
+                }  
+                $modal = array_sum($jumlah4);
+
+                $kas = $laba-$total_investasi;
+                $saldo = $kas + $modal;
+
+                $periode = date('d/M/Y', strtotime($request->to_date));
+
+                $pdf = PDF::loadView('admin.admin-keuangan.cetak-pdf.arus-kas',compact('saldo','data1','data2','total_pendapatan','total_beban','laba','total_investasi','investasi','kas','modal','from_date','to_date','periode'));
+                return $pdf->download('laporan-arus-kas');
+            }else{
+            
+            $year = Carbon::now()->format('Y');
+            $periode = Carbon::now()->format('d/M/Y');
+
+            $data1 = DB::table('akt_akun')
+            ->select('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun',
+                DB::raw('SUM(kredit) - SUM(debit) as total'))
+                ->join('akt_akun_jurnal', 'akt_akun_jurnal.id_akt_akun', '=', 'akt_akun.id')
+                ->groupBy('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun')
+                ->whereYear('akt_akun_jurnal.created_at', '=',$year)
+                ->where('id_kat_akun', 4)
+                ->orderBy('no_akun')
+                ->get()->toArray();
+
+            $data2 = DB::table('akt_akun')
+            ->select('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun',
+                DB::raw('SUM(debit) - SUM(kredit) as total'))
+                ->join('akt_akun_jurnal', 'akt_akun_jurnal.id_akt_akun', '=', 'akt_akun.id')
+                ->groupBy('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun')
+                ->whereYear('akt_akun_jurnal.created_at', '=',$year)
+                ->where('id_kat_akun', 5)
+                ->orderBy('no_akun')
+                ->get()->toArray();
+
+            $investasi = DB::table('akt_akun')
+                ->select('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun',
+                    DB::raw('SUM(debit) - SUM(kredit) as total'))
+                    ->join('akt_akun_jurnal', 'akt_akun_jurnal.id_akt_akun', '=', 'akt_akun.id')
+                    ->groupBy('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun')
+                    ->whereYear('akt_akun_jurnal.created_at', '=',$year)
+                    ->where('id_kat_akun', 1)
+                    ->whereBetween('no_akun', array(131, 199))
+                    ->orderBy('no_akun')
+                    ->get()->toArray();
+
+                    
+                $ambil_modal = DB::table('akt_akun')
+                ->select('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun',
+                    DB::raw('SUM(kredit) as total'))
+                    ->join('akt_akun_jurnal', 'akt_akun_jurnal.id_akt_akun', '=', 'akt_akun.id')
+                    ->groupBy('akt_akun.id', 'akt_akun.id_kat_akun', 'akt_akun.no_akun', 'akt_akun.nama_akun')
+                    ->whereYear('akt_akun_jurnal.created_at', '=',$year)
+                    ->where('id_kat_akun', 3)->where('nama_akun', 'LIKE', '%modal%')
+                    ->orderBy('no_akun')
+                    ->get()->toArray();
+                
+                $jumlah1 = [];
+                foreach($data1 as $jml){
+                    $jumlah1[] = $jml->total;
+                }
+                $total_pendapatan = array_sum($jumlah1);
+
+                $jumlah2 = [];
+                foreach($data2 as $jml){
+                    $jumlah2[] = $jml->total;
+                }
+                $total_beban = array_sum($jumlah2);
+                $laba = $total_pendapatan - $total_beban;
+
+                $jumlah3 = [];
+                foreach($investasi as $jml){
+                    $jumlah3[] = $jml->total;
+                }
+                $total_investasi = array_sum($jumlah3);
+                
+                $jumlah4 = [];
+                foreach($ambil_modal as $jml){
+                    $jumlah4[] = $jml->total;
+                }  
+                $modal = array_sum($jumlah4);
+
+                $kas = $laba-$total_investasi;
+                $saldo = $kas + $modal;
+
+                $pdf = PDF::loadView('admin.admin-keuangan.cetak-pdf.arus-kas',compact('saldo','data1','data2','total_pendapatan','total_beban','laba','total_investasi','investasi','kas','modal','periode'));
+                return $pdf->download('laporan-arus-kas');
+            }
 
     }
 }
