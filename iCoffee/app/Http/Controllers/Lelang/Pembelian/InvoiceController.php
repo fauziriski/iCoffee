@@ -65,15 +65,15 @@ class InvoiceController extends Controller
                 'status' => 6
             ]);
 
-            $rating = Rating::create([
-                'id_penjual' => $order->id_penjual,
-                'id_pembeli' => $order->id_pembeli,
-                'id_order' => $order->id,
-                'invoice' => $order->invoice,
-                'rating' => 0,
-                'jasa' => 2
+            // $rating = Rating::create([
+            //     'id_penjual' => $order->id_penjual,
+            //     'id_pembeli' => $order->id_pembeli,
+            //     'id_order' => $order->id,
+            //     'invoice' => $order->invoice,
+            //     'rating' => 0,
+            //     'jasa' => 2
 
-            ]);
+            // ]);
 
             $rekber = Joint_account::where('user_id', $order->id_penjual)->first();
 

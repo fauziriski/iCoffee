@@ -238,13 +238,13 @@
                                         data-target="#exampleModalCenter1">
                                         Lacak Paket
                                     </button>
-                                    <input type="submit" class="btn col-12 col-md-4 btn-primary mr-1 mt-1 py-3 px-5"
-                                        data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating">
+                                    {{-- <input type="submit" class="btn col-12 col-md-4 btn-primary mr-1 mt-1 py-3 px-5"
+                                        data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating"> --}}
                                 </div>
                             </div>
                             </p>
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                            {{-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -286,7 +286,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         @elseif($order->status == 7 || $order->status == 10 || $order->status == 11)
                         <div class="row justify-content-center">
                             <div class="col-md-6 offset-md-8 text-center">
@@ -443,7 +443,7 @@
 
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#rating').on('click', function() {
                 var data = $('#rating_form').serialize();
@@ -465,7 +465,7 @@
             });
         });
 
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {
