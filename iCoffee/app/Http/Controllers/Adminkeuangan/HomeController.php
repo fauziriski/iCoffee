@@ -15,7 +15,7 @@ use App\User;
 use Auth;
 use App\Profile_admin;
 use App\Model_has_role;
-Use App\Adm_jurnal;
+Use App\Akt_jurnal;
 
 
 class HomeController extends Controller
@@ -28,35 +28,35 @@ class HomeController extends Controller
 			
 		//dana masuk jual-beli
 		$data_jb[] = 0;
-		$data_total_jb = Adm_jurnal::where('id_kat_jurnal','6')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		$data_total_jb = Akt_jurnal::where('id_kat_jurnal','1')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
 		for($i=0; $i<count($data_total_jb); $i++){
 			$data_jb[] = $data_total_jb[$i]->total_jumlah;	
 		}
 		$masuk_jb = array_sum($data_jb);
 
-		//dana masuk lelang
-		$data_le[] = 0;
-		$data_total_le = Adm_jurnal::where('id_kat_jurnal','7')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
-		for($i=0; $i<count($data_total_le); $i++) {
-			$data_le[] = $data_total_le[$i]->total_jumlah;
-		}
-		$masuk_le = array_sum($data_le);
-
-		//dana masuk invest
+		//dana masuk invest pembiayaan
 		$data_in[] = 0;
-		$data_total_in = Adm_jurnal::where('id_kat_jurnal','3')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		$data_total_in = Akt_jurnal::where('id_kat_jurnal','2')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
 		for($i=0; $i<count($data_total_in); $i++) {
 			$data_in[] = $data_total_in[$i]->total_jumlah;
 		}
-		$masuk_in = array_sum($data_in);
+		$masuk_investasi = array_sum($data_in);
+
+		//dana masuk Mitra/hasil panen
+		$data_mit[] = 0;
+		$data_total_in = Akt_jurnal::where('id_kat_jurnal','3')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		for($i=0; $i<count($data_total_in); $i++) {
+			$data_mit[] = $data_total_in[$i]->total_jumlah;
+		}
+		$masuk_mitra = array_sum($data_mit);
 
 		//total kas masuk
-		$total_masuk = $masuk_jb+ $masuk_le + $masuk_in;
+		$total_masuk = $masuk_jb+ $masuk_mitra + $masuk_investasi;
 
 		
-		//pengeluaran pencairan
+		//pengeluaran pencairan saldo pelanggan
 		$data_pen[] = 0;
-		$data_total_pen = Adm_jurnal::where('id_kat_jurnal','8')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		$data_total_pen = Akt_jurnal::where('id_kat_jurnal','5')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
 		for($i=0; $i<count($data_total_pen); $i++) {
 			$data_pen[] = $data_total_pen[$i]->total_jumlah;
 		}
@@ -64,19 +64,19 @@ class HomeController extends Controller
 		
 		//pengeluaran operasional
 		$data_op[] = 0;
-		$data_total_op = Adm_jurnal::where('id_kat_jurnal','2')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		$data_total_op = Akt_jurnal::where('id_kat_jurnal','8')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
 		for($i=0; $i<count($data_total_op); $i++) {
 			$data_op[] = $data_total_op[$i]->total_jumlah;
 		}
 		$keluar_op = array_sum($data_op);
 
 		//pengeluaran mitra
-		$data_mit[]=0;
-		$data_total_mit = Adm_jurnal::where('id_kat_jurnal','5')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		$data_mit_ke[]=0;
+		$data_total_mit = Akt_jurnal::where('id_kat_jurnal','7')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
 		for($i=0; $i<count($data_total_mit); $i++) {		
-			$data_mit[] = $data_total_mit[$i]->total_jumlah;
+			$data_mit_ke[] = $data_total_mit[$i]->total_jumlah;
 		}
-		$keluar_mit = array_sum($data_mit);
+		$keluar_mit = array_sum($data_mit_ke);
 
 		//total pengeluaran
 		$total_keluar = $keluar_pen+ $keluar_op + $keluar_mit;
@@ -85,84 +85,84 @@ class HomeController extends Controller
 
 		//total aruskas masuk /bulan
 		$jan1[] = 0;
-		$jan = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '1')->get();
+		$jan = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '1')->get();
 		for($i=0; $i<count($jan); $i++) {
 			$jan1[] = $jan[$i]->total_jumlah;		
 		}
 		$b1 = array_sum($jan1);
 
 		$feb2[] = 0;
-		$feb = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '2')->get();
+		$feb = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '2')->get();
 		for($i=0; $i<count($feb); $i++) {
 			$feb2[] = $feb[$i]->total_jumlah;		
 		}
 		$b2 = array_sum($feb2);
 
 		$mar3[] = 0;
-		$mar = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '3')->get();
+		$mar = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '3')->get();
 		for($i=0; $i<count($mar); $i++) {
 			$mar3[] = $mar[$i]->total_jumlah;		
 		}
 		$b3 = array_sum($mar3);
 
 		$apr4[] = 0;
-		$apr = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '4')->get();
+		$apr = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '4')->get();
 		for($i=0; $i<count($apr); $i++) {
 			$apr4[] = $apr[$i]->total_jumlah;		
 		}
 		$b4 = array_sum($apr4);
 	
 		$mei5[] = 0;
-		$mei = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '5')->get();
+		$mei = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '5')->get();
 		for($i=0; $i<count($mei); $i++) {
 			$mei5[] = $mei[$i]->total_jumlah;		
 		}
 		$b5 = array_sum($mei5);
 
 		$jun6[] = 0;
-		$jun = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '6')->get();
+		$jun = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '6')->get();
 		for($i=0; $i<count($jun); $i++) {
 			$jun6[] = $jun[$i]->total_jumlah;		
 		}
 		$b6 = array_sum($jun6);
 
 		$jul7[] = 0;
-		$jul = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '7')->get();
+		$jul = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '7')->get();
 		for($i=0; $i<count($jul); $i++) {
 			$jul7[] = $jul[$i]->total_jumlah;		
 		}
 		$b7 = array_sum($jul7);
 	
 		$ags8[] = 0;
-		$ags = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '8')->get();
+		$ags = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '8')->get();
 		for($i=0; $i<count($ags); $i++) {
 			$ags8[] = $ags[$i]->total_jumlah;		
 		}
 		$b8 = array_sum($ags8);
 		
 		$sep9[] = 0;
-		$sep = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '9')->get();
+		$sep = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '9')->get();
 		for($i=0; $i<count($sep); $i++) {
 			$sep9[] = $sep[$i]->total_jumlah;		
 		}
 		$b9 = array_sum($sep9);
 
 		$okt10[] = 0;
-		$okt = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '10')->get();
+		$okt = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '10')->get();
 		for($i=0; $i<count($okt); $i++) {
 			$okt10[] = $okt[$i]->total_jumlah;		
 		}
 		$b10 = array_sum($okt10);
 
 		$nov11[] = 0;
-		$nov = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '11')->get();
+		$nov = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '11')->get();
 		for($i=0; $i<count($nov); $i++) {
 			$nov11[] = $nov[$i]->total_jumlah;		
 		}
 		$b11 = array_sum($nov11);
 
 		$des12[] = 0;
-		$des = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '12')->get();
+		$des = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '12')->get();
 		for($i=0; $i<count($des); $i++) {
 			$des12[] = $des[$i]->total_jumlah;		
 		}
@@ -173,84 +173,84 @@ class HomeController extends Controller
 		// BATASSSSSSSSSSSSSSSSS
 		//total aruskas keluar /bulan
 		$ke_jan1[] = 0;
-		$ke_jan = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '1')->get();
+		$ke_jan = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '1')->get();
 		for($i=0; $i<count($ke_jan); $i++) {
 			$ke_jan1[] = $ke_jan[$i]->total_jumlah;
 		}
 		$ke_b1 = array_sum($ke_jan1);
 
 		$ke_feb2[] = 0;
-		$ke_feb = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '2')->get();
+		$ke_feb = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '2')->get();
 		for($i=0; $i<count($ke_feb); $i++) {
 			$ke_feb2[] = $ke_feb[$i]->total_jumlah;
 		}
 		$ke_b2 = array_sum($ke_feb2);
 
 		$ke_mar3[] = 0;
-		$ke_mar = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '3')->get();
+		$ke_mar = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '3')->get();
 		for($i=0; $i<count($ke_mar); $i++) {
 			$ke_mar3[] = $ke_mar[$i]->total_jumlah;
 		}
 		$ke_b3 = array_sum($ke_mar3);
 
 		$ke_apr4[] = 0;
-		$ke_apr = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '4')->get();
+		$ke_apr = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '4')->get();
 		for($i=0; $i<count($ke_apr); $i++) {
 			$ke_apr4[] = $ke_apr[$i]->total_jumlah;
 		}
 		$ke_b4 = array_sum($ke_apr4);
 
 		$ke_mei5[] = 0;
-		$ke_mei = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '5')->get();
+		$ke_mei = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '5')->get();
 		for($i=0; $i<count($ke_mei); $i++) {
 			$ke_mei5[] = $ke_mei[$i]->total_jumlah;
 		}
 		$ke_b5 = array_sum($ke_mei5);
 
 		$ke_jun6[] = 0;
-		$ke_jun = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '6')->get();
+		$ke_jun = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '6')->get();
 		for($i=0; $i<count($ke_jun); $i++) {
 			$ke_jun6[] = $ke_jun[$i]->total_jumlah;
 		}
 		$ke_b6 = array_sum($ke_jun6);
 
 		$ke_jul7[] = 0;
-		$ke_jul = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '7')->get();
+		$ke_jul = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '7')->get();
 		for($i=0; $i<count($ke_jul); $i++) {
 			$ke_jul7[] = $ke_jul[$i]->total_jumlah;
 		}
 		$ke_b7 = array_sum($ke_jul7);
 
 		$ke_ags8[] = 0;
-		$ke_ags = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '8')->get();
+		$ke_ags = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '8')->get();
 		for($i=0; $i<count($ke_ags); $i++) {
 			$ke_ags8[] = $ke_ags[$i]->total_jumlah;
 		}
 		$ke_b8 = array_sum($ke_ags8);
 
 		$ke_sep9[] = 0;
-		$ke_sep = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '9')->get();
+		$ke_sep = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '9')->get();
 		for($i=0; $i<count($ke_sep); $i++) {
 			$ke_sep9[] = $ke_sep[$i]->total_jumlah;
 		}
 		$ke_b9 = array_sum($ke_sep9);
 
 		$ke_okt10[] = 0;
-		$ke_okt = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '10')->get();
+		$ke_okt = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '10')->get();
 		for($i=0; $i<count($ke_okt); $i++) {
 			$ke_okt10[] = $ke_okt[$i]->total_jumlah;
 		}
 		$ke_b10 = array_sum($ke_okt10);
 
 		$ke_nov11[] = 0;
-		$ke_nov = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '11')->get();
+		$ke_nov = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '11')->get();
 		for($i=0; $i<count($ke_nov); $i++) {
 			$ke_nov11[] = $ke_nov[$i]->total_jumlah;
 		}
 		$ke_b11 = array_sum($ke_nov11);
 
 		$ke_des12[] = 0;
-		$ke_des = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '12')->get();
+		$ke_des = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '12')->get();
 		for($i=0; $i<count($ke_des); $i++) {
 			$ke_des12[] = $ke_des[$i]->total_jumlah;
 		}
@@ -263,8 +263,8 @@ class HomeController extends Controller
 			// 'kategori' => $kategori, 
 			// 'data' => $data,
 			'masuk_jb' => $masuk_jb,
-			'masuk_le'=> $masuk_le,
-			'masuk_in' => $masuk_in,
+			'masuk_mitra'=> $masuk_mitra,
+			'masuk_investasi' => $masuk_investasi,
 			'total_masuk' => $total_masuk,
 			'keluar_pen' => $keluar_pen,
 			'keluar_op' => $keluar_op,
@@ -283,141 +283,142 @@ class HomeController extends Controller
 			
 		//dana masuk jual-beli
 		$data_jb[] = 0;
-		$data_total_jb = Adm_jurnal::where('id_kat_jurnal','6')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		$data_total_jb = Akt_jurnal::where('id_kat_jurnal','1')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
 		for($i=0; $i<count($data_total_jb); $i++){
 			$data_jb[] = $data_total_jb[$i]->total_jumlah;	
 		}
 		$masuk_jb = array_sum($data_jb);
 
-		//dana masuk lelang
-		$data_le[] = 0;
-		$data_total_le = Adm_jurnal::where('id_kat_jurnal','7')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
-		for($i=0; $i<count($data_total_le); $i++) {
-			$data_le[] = $data_total_le[$i]->total_jumlah;
-		}
-		$masuk_le = array_sum($data_le);
-
-		//dana masuk invest
+		//dana masuk invest pembiayaan
 		$data_in[] = 0;
-		$data_total_in = Adm_jurnal::where('id_kat_jurnal','3')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		$data_total_in = Akt_jurnal::where('id_kat_jurnal','2')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
 		for($i=0; $i<count($data_total_in); $i++) {
 			$data_in[] = $data_total_in[$i]->total_jumlah;
 		}
-		$masuk_in = array_sum($data_in);
+		$masuk_investasi = array_sum($data_in);
+
+		//dana masuk Mitra/hasil panen
+		$data_mit[] = 0;
+		$data_total_in = Akt_jurnal::where('id_kat_jurnal','3')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		for($i=0; $i<count($data_total_in); $i++) {
+			$data_mit[] = $data_total_in[$i]->total_jumlah;
+		}
+		$masuk_mitra = array_sum($data_mit);
 
 		//total kas masuk
-		$total_masuk = $masuk_jb+ $masuk_le + $masuk_in;
+		$total_masuk = $masuk_jb+ $masuk_mitra + $masuk_investasi;
 
 		
-		//pengeluaran pencairan
+		//pengeluaran pencairan saldo pelanggan
 		$data_pen[] = 0;
-		$data_total_pen = Adm_jurnal::where('id_kat_jurnal','8')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		$data_total_pen = Akt_jurnal::where('id_kat_jurnal','5')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
 		for($i=0; $i<count($data_total_pen); $i++) {
 			$data_pen[] = $data_total_pen[$i]->total_jumlah;
 		}
 		$keluar_pen = array_sum($data_pen);
-		
+
 		//pengeluaran operasional
 		$data_op[] = 0;
-		$data_total_op = Adm_jurnal::where('id_kat_jurnal','2')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		$data_total_op = Akt_jurnal::where('id_kat_jurnal','8')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
 		for($i=0; $i<count($data_total_op); $i++) {
 			$data_op[] = $data_total_op[$i]->total_jumlah;
 		}
 		$keluar_op = array_sum($data_op);
 
 		//pengeluaran mitra
-		$data_mit[]=0;
-		$data_total_mit = Adm_jurnal::where('id_kat_jurnal','5')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
+		$data_mit_ke[]=0;
+		$data_total_mit = Akt_jurnal::where('id_kat_jurnal','7')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get();
 		for($i=0; $i<count($data_total_mit); $i++) {		
-			$data_mit[] = $data_total_mit[$i]->total_jumlah;
+			$data_mit_ke[] = $data_total_mit[$i]->total_jumlah;
 		}
-		$keluar_mit = array_sum($data_mit);
+		$keluar_mit = array_sum($data_mit_ke);
 
 		//total pengeluaran
 		$total_keluar = $keluar_pen+ $keluar_op + $keluar_mit;
+
 
 		//grafik line
 
 		//total aruskas masuk /bulan
 		$jan1[] = 0;
-		$jan = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '1')->get();
+		$jan = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '1')->get();
 		for($i=0; $i<count($jan); $i++) {
 			$jan1[] = $jan[$i]->total_jumlah;		
 		}
 		$b1 = array_sum($jan1);
 
 		$feb2[] = 0;
-		$feb = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '2')->get();
+		$feb = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '2')->get();
 		for($i=0; $i<count($feb); $i++) {
 			$feb2[] = $feb[$i]->total_jumlah;		
 		}
 		$b2 = array_sum($feb2);
 
 		$mar3[] = 0;
-		$mar = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '3')->get();
+		$mar = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '3')->get();
 		for($i=0; $i<count($mar); $i++) {
 			$mar3[] = $mar[$i]->total_jumlah;		
 		}
 		$b3 = array_sum($mar3);
 
 		$apr4[] = 0;
-		$apr = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '4')->get();
+		$apr = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '4')->get();
 		for($i=0; $i<count($apr); $i++) {
 			$apr4[] = $apr[$i]->total_jumlah;		
 		}
 		$b4 = array_sum($apr4);
 	
 		$mei5[] = 0;
-		$mei = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '5')->get();
+		$mei = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '5')->get();
 		for($i=0; $i<count($mei); $i++) {
 			$mei5[] = $mei[$i]->total_jumlah;		
 		}
 		$b5 = array_sum($mei5);
 
 		$jun6[] = 0;
-		$jun = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '6')->get();
+		$jun = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '6')->get();
 		for($i=0; $i<count($jun); $i++) {
 			$jun6[] = $jun[$i]->total_jumlah;		
 		}
 		$b6 = array_sum($jun6);
 
 		$jul7[] = 0;
-		$jul = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '7')->get();
+		$jul = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '7')->get();
 		for($i=0; $i<count($jul); $i++) {
 			$jul7[] = $jul[$i]->total_jumlah;		
 		}
 		$b7 = array_sum($jul7);
 	
 		$ags8[] = 0;
-		$ags = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '8')->get();
+		$ags = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '8')->get();
 		for($i=0; $i<count($ags); $i++) {
 			$ags8[] = $ags[$i]->total_jumlah;		
 		}
 		$b8 = array_sum($ags8);
 		
 		$sep9[] = 0;
-		$sep = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '9')->get();
+		$sep = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '9')->get();
 		for($i=0; $i<count($sep); $i++) {
 			$sep9[] = $sep[$i]->total_jumlah;		
 		}
 		$b9 = array_sum($sep9);
 
 		$okt10[] = 0;
-		$okt = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '10')->get();
+		$okt = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '10')->get();
 		for($i=0; $i<count($okt); $i++) {
 			$okt10[] = $okt[$i]->total_jumlah;		
 		}
 		$b10 = array_sum($okt10);
 
 		$nov11[] = 0;
-		$nov = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '11')->get();
+		$nov = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '11')->get();
 		for($i=0; $i<count($nov); $i++) {
 			$nov11[] = $nov[$i]->total_jumlah;		
 		}
 		$b11 = array_sum($nov11);
 
 		$des12[] = 0;
-		$des = Adm_jurnal::whereIn('id_kat_jurnal',[1,3,6,7,9])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '12')->get();
+		$des = Akt_jurnal::whereIn('id_kat_jurnal',[1,2,3,4])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '12')->get();
 		for($i=0; $i<count($des); $i++) {
 			$des12[] = $des[$i]->total_jumlah;		
 		}
@@ -428,84 +429,84 @@ class HomeController extends Controller
 		// BATASSSSSSSSSSSSSSSSS
 		//total aruskas keluar /bulan
 		$ke_jan1[] = 0;
-		$ke_jan = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '1')->get();
+		$ke_jan = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '1')->get();
 		for($i=0; $i<count($ke_jan); $i++) {
 			$ke_jan1[] = $ke_jan[$i]->total_jumlah;
 		}
 		$ke_b1 = array_sum($ke_jan1);
 
 		$ke_feb2[] = 0;
-		$ke_feb = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '2')->get();
+		$ke_feb = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '2')->get();
 		for($i=0; $i<count($ke_feb); $i++) {
 			$ke_feb2[] = $ke_feb[$i]->total_jumlah;
 		}
 		$ke_b2 = array_sum($ke_feb2);
 
 		$ke_mar3[] = 0;
-		$ke_mar = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '3')->get();
+		$ke_mar = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '3')->get();
 		for($i=0; $i<count($ke_mar); $i++) {
 			$ke_mar3[] = $ke_mar[$i]->total_jumlah;
 		}
 		$ke_b3 = array_sum($ke_mar3);
 
 		$ke_apr4[] = 0;
-		$ke_apr = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '4')->get();
+		$ke_apr = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '4')->get();
 		for($i=0; $i<count($ke_apr); $i++) {
 			$ke_apr4[] = $ke_apr[$i]->total_jumlah;
 		}
 		$ke_b4 = array_sum($ke_apr4);
 
 		$ke_mei5[] = 0;
-		$ke_mei = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '5')->get();
+		$ke_mei = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '5')->get();
 		for($i=0; $i<count($ke_mei); $i++) {
 			$ke_mei5[] = $ke_mei[$i]->total_jumlah;
 		}
 		$ke_b5 = array_sum($ke_mei5);
 
 		$ke_jun6[] = 0;
-		$ke_jun = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '6')->get();
+		$ke_jun = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '6')->get();
 		for($i=0; $i<count($ke_jun); $i++) {
 			$ke_jun6[] = $ke_jun[$i]->total_jumlah;
 		}
 		$ke_b6 = array_sum($ke_jun6);
 
 		$ke_jul7[] = 0;
-		$ke_jul = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '7')->get();
+		$ke_jul = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '7')->get();
 		for($i=0; $i<count($ke_jul); $i++) {
 			$ke_jul7[] = $ke_jul[$i]->total_jumlah;
 		}
 		$ke_b7 = array_sum($ke_jul7);
 
 		$ke_ags8[] = 0;
-		$ke_ags = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '8')->get();
+		$ke_ags = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '8')->get();
 		for($i=0; $i<count($ke_ags); $i++) {
 			$ke_ags8[] = $ke_ags[$i]->total_jumlah;
 		}
 		$ke_b8 = array_sum($ke_ags8);
 
 		$ke_sep9[] = 0;
-		$ke_sep = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '9')->get();
+		$ke_sep = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '9')->get();
 		for($i=0; $i<count($ke_sep); $i++) {
 			$ke_sep9[] = $ke_sep[$i]->total_jumlah;
 		}
 		$ke_b9 = array_sum($ke_sep9);
 
 		$ke_okt10[] = 0;
-		$ke_okt = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '10')->get();
+		$ke_okt = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '10')->get();
 		for($i=0; $i<count($ke_okt); $i++) {
 			$ke_okt10[] = $ke_okt[$i]->total_jumlah;
 		}
 		$ke_b10 = array_sum($ke_okt10);
 
 		$ke_nov11[] = 0;
-		$ke_nov = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '11')->get();
+		$ke_nov = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '11')->get();
 		for($i=0; $i<count($ke_nov); $i++) {
 			$ke_nov11[] = $ke_nov[$i]->total_jumlah;
 		}
 		$ke_b11 = array_sum($ke_nov11);
 
 		$ke_des12[] = 0;
-		$ke_des = Adm_jurnal::whereIn('id_kat_jurnal',[2,4,5,8,10])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '12')->get();
+		$ke_des = Akt_jurnal::whereIn('id_kat_jurnal',[5,6,7,8])->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', '12')->get();
 		for($i=0; $i<count($ke_des); $i++) {
 			$ke_des12[] = $ke_des[$i]->total_jumlah;
 		}
@@ -518,8 +519,8 @@ class HomeController extends Controller
 			// 'kategori' => $kategori, 
 			// 'data' => $data,
 			'masuk_jb' => $masuk_jb,
-			'masuk_le'=> $masuk_le,
-			'masuk_in' => $masuk_in,
+			'masuk_mitra'=> $masuk_mitra,
+			'masuk_investasi' => $masuk_investasi,
 			'total_masuk' => $total_masuk,
 			'keluar_pen' => $keluar_pen,
 			'keluar_op' => $keluar_op,
