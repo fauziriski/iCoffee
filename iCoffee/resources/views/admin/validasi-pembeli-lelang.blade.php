@@ -429,7 +429,7 @@
 								document.getElementById("total_ongkir").innerHTML = "Rp. "+totalo;
 								document.getElementById("total_dibayar").innerHTML = "Rp. "+totald;
 
-								var img = "/Uploads/Konfirmasi_Pembayaran/Lelang/" + html.data.invoice + "/" + html.data.foto_bukti +"";
+								var img = "/Uploads/" + html.data.foto_bukti +"";
 								$('#bukti2').attr("src",img);
 
 							}

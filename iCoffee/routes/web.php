@@ -285,6 +285,9 @@ Route::group(['prefix' => 'mitra'], function(){
 	Route::get('/progress-investasi','MitraController@progressInvestasi');
 	Route::get('/laporan-penjualan','LaporanPenjualanController@index')->middleware('auth:mitra');
 	Route::get('/riwayat-penjualan','LaporanPenjualanController@riwayatIndex')->middleware('auth:mitra');
+	Route::get('/editproduk/{kode_produk}','ProdukInvestasiController@editProduk')->middleware('auth:mitra');
+	Route::post('/edit-investasi','ProdukInvestasiController@edit')->middleware('auth:mitra');
+	Route::get('/hapusproduk/{kode_produk}','ProdukInvestasiController@hapusProduk')->middleware('auth:mitra');
 	Route::get('/logout','Mitra\LoginController@logout');
 });
 Route::get('/nyoba','MitraController@test');

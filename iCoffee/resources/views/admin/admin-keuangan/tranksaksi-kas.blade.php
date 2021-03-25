@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Laporan Tranksaksi Kas')
+@section('title', 'Tranksaksi Kas')
 
 @section('content')
 
@@ -81,7 +81,7 @@
 
 		<div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h5>Laporan Tranksaksi Kas</h5>
+				<h5>Tranksaksi Kas</h5>
 			</div>
 			<!-- Card Header - Dropdown -->
             <div class="row" style="padding-top:2%;"></div>
@@ -113,141 +113,7 @@
 		</div>
 
 		</div>
-	<div id="modalLihat" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Detail Pencatatan</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="table-responsive col-md-12 col-sm-12">
-                            <table cellpadding="10" border="0">
-                                <tr>
-                                    <div class="form-group">
-                                        <th width="35%" style="text-align: right;">Kode&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-                                        <th colspan="4">
-                                            <a id="kode2"></a>
-                                        </th>
-                                    </div>
-                                </tr>
-                                <tr>
-                                    <div class="form-group">
-                                        <th width="35%" style="text-align: right;">Nama Tranksaksi&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-                                        <th colspan="4">
-                                            <a id="nama_tran2"></a>
-                                        </th>
-                                    </div>
-                                </tr>
-                                <tr>
-                                    <div class="form-group">
-                                        <th style="text-align: right;">Catatan&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-                                        <th colspan="4">
-                                            <a id="catatan2"></a>
-                                        </th>
-                                    </th>
-                                </div>
-                            </tr>
-                        </table>
-                    </div>
-					</div>
-
-                    <div class="table-responsive col-md-12 col-sm-12 mt-3">
-                        <div class="row">
-                            <table cellpadding="10" border="0">
-                                <tr>
-                                    <div class="form-group">
-                                        <th width="35%" style="text-align: right;">Waktu Tranksaksi&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-                                        <th colspan="4">
-                                            <a id="created_at2"></a>
-                                        </th>
-                                    </div>
-                                </tr>
-                                <tr>
-                                    <div class="form-group">
-                                        <th width="35%" style="text-align: right;">Tujuan Tranksaksi&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-                                        <th colspan="4">
-                                            <a id="tujuan_tran2"></a>
-                                        </th>
-                                    </div>
-                                </tr>
-                                <tr>
-                                    <div class="form-group">
-                                        <th width="35%" style="text-align: right;">Foto Bukti&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</th>
-                                        <th colspan="4">
-                                            <div id="image">
-                                                <a href="#imagemodal" data-toggle="modal" data-target="#imagemodal">
-                                                    <img src="" id="bukti2" width="100px" height="100px"/>
-                                                </a>
-                                                <div>
-                                                    <div>
-                                                        <div
-                                                            class="modal fade "
-                                                            id="imagemodal"
-                                                            tabindex="-1"
-                                                            role="dialog"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog modal-sm">
-                                                                <div class="modal-content">
-                                                                    <img class="modal-img"/>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </tr>
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-						<div class="table-responsive">
-						<div class="container">
-                        <div class="row">
-                            
-                            <div class="col-md-12 col-sm-12">
-                                <table cellpadding="10" border="1">
-                                    <tr style="background-color: #4e73df; color: white;">
-                                        <div class="form-group">
-                                            <th width="40%">Akun&nbsp;&nbsp;:</th>
-                                            <th width="15%">Posisi&nbsp;&nbsp;:</th>
-                                            <th width="20%">Jumlah&nbsp;&nbsp;:</th>
-                                        </div>
-                                    </tr>
-                                    @for ($i = 0; $i < 2; $i++)
-                                    <tr>
-                                        <div class="form-group">
-                                            <th>
-                                                <a id="akun11{{$i}}"></a>
-                                            </th>
-                                            <th>
-                                                <a id="posisi11{{$i}}"></a>
-                                            </th>
-                                            <th>
-                                                <a id="jumlah11{{$i}}"></a>
-                                            </th>
-                                        </div>
-                                    </tr>
-                                    @endfor
-                                </table>
-								</div>
-                            </div>
-                       
-						
-
-                        <div align="right" class="mt-5 mb-3">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                        </div>
-						</div>
-                    </div>
-					</div>
-                </div>
-            </div>
-        </div>
-
-
+	
 				@endsection
 				@section('js')
 				
@@ -319,10 +185,10 @@
 							},
 							columns: [
 								{data: 'created_at', name:'created_at'},
-								{data: 'no_tran', name: 'no_tran'},
-								{data: 'nama_tran', name:'nama_tran'},
-								{data: 'tujuan_tran', name:'tujuan_tran'},
-								{data: 'total_jumlah', name:'total_jumlah'}
+								{data: 'no_transaksi', name: 'no_transaksi'},
+								{data: 'nama_transaksi', name:'nama_transaksi'},
+								{data: 'nama_tujuan', name:'nama_tujuan'},
+								{data: 'total_jumlah', name:'total_jumlah', render: $.fn.dataTable.render.number( '\,', '.', 0, 'Rp ' ).display}
 							]
 							});
 							}
