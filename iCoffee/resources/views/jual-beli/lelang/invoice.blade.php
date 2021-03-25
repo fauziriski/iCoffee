@@ -238,8 +238,8 @@
                                         data-target="#exampleModalCenter1">
                                         Lacak Paket
                                     </button>
-                                    <input type="submit" class="btn col-12 col-md-4 btn-primary mr-1 mt-1 py-3 px-5"
-                                        data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating">
+                                    {{-- <input type="submit" class="btn col-12 col-md-4 btn-primary mr-1 mt-1 py-3 px-5"
+                                        data-toggle="modal" data-target="#exampleModalCenter" name="submit" value="Rating"> --}}
                                 </div>
                             </div>
                             </p>
@@ -443,7 +443,7 @@
 
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#rating').on('click', function() {
                 var data = $('#rating_form').serialize();
@@ -465,7 +465,7 @@
             });
         });
 
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {
