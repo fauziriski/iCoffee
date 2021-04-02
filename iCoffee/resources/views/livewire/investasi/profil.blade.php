@@ -10,8 +10,8 @@
         @endif
         <img class="shadow-lg p-3 mb-2 mt-2 mx-auto d-block" style="height: 150px; width: 150px; border-radius: 50%; boxSizing: border-box; overflow: hidden;"  src="{{ $photo != null ? $photo->temporaryUrl() : ($foto != null ? asset('Uploads/Investasi/Profil/'.$foto) : asset('picture-default.png')) }}" id="image" >
         @error('photo') <small style="color:red" class="text-center form-text">File diatas 1MB</small>@enderror
-        <small id="emailHelp" class="form-text text-center text-muted" >(Format: JPG/PNG, Max 1MB)</small>
-        <input type="file" id="myfile" style="display: none;" accept="image/png, image/jpg, image/jpeg" wire:model="photo">
+        <small id="emailHelp" class="form-text text-center text-muted" >(Format: PNG, Max 1MB)</small>
+        <input type="file" id="myfile" style="display: none;" accept="image/png" wire:model="photo">
     
         <div class="row mt-5">
             <div class="col-md-6">
