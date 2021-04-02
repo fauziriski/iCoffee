@@ -71,8 +71,8 @@ class  PencairanDanaProgresController extends Controller
 		$status = '3';
 		// $penarikan = Mitra_withdraw::where('status',$status)->get();
 
-		$penarikan = DB::table('Mitra_banks')
-					->join('Mitra_withdraws', 'Mitra_banks.id', '=', 'Mitra_withdraws.id_bank')
+		$penarikan = DB::table('mitra_banks')
+					->join('mitra_withdraws', 'mitra_banks.id', '=', 'mitra_withdraws.id_bank')
 					->where('status',$status)
 					->get();
 

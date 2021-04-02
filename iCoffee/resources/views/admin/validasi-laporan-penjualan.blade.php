@@ -177,7 +177,13 @@
 								</tr>
 								<tr>
 									<div class="form-group">
-										<th width="20%" style="text-align: right;">Tanggal Pengajuan&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="20%" style="text-align: right;">Nama Mitra&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="nama_mitra"></a></th>
+									</div>
+								</tr>
+								<tr>
+									<div class="form-group">
+										<th width="20%" style="text-align: right;">Tanggal Setor&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="terdaftar"></a></th>
 									</div>
 								</tr>
@@ -343,6 +349,7 @@
 					document.getElementById("kode_produk").innerHTML = data1.data.kode_produk;
 					document.getElementById("terdaftar").innerHTML = data1.data.created_at;
 					document.getElementById("kode_produk").innerHTML = data1.data.kode_produk;
+					document.getElementById("nama_mitra").innerHTML = data1.data2.nama;
 					document.getElementById("total_berat").innerHTML = data1.data.total_berat + " Kg";
 					document.getElementById("total_penjualan").innerHTML = "Rp "+total_rp;
 					document.getElementById("status1").innerHTML = data1.status1;

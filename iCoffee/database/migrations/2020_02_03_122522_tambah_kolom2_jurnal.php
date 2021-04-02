@@ -13,9 +13,9 @@ class TambahKolom2Jurnal extends Migration
      */
     public function up()
     {
-     Schema::table('adm_jurnal', function (Blueprint $table) {
-        $table->string('total_jumlah');
-    });
+    //  Schema::table('adm_jurnal', function (Blueprint $table) {
+    //     $table->string('total_jumlah');
+    // });
    }
 
     /**

@@ -13,14 +13,14 @@ class DropColumnToAdmAkun extends Migration
      */
     public function up()
     {
-        Schema::table('adm_akun', function (Blueprint $table) {
-            $table->dropColumn('posisi');
-            $table->dropColumn('jumlah');
-        });
+        // Schema::table('adm_akun', function (Blueprint $table) {
+        //     $table->dropColumn('posisi');
+        //     $table->dropColumn('jumlah');
+        // });
 
-        Schema::table('adm_jurnal', function (Blueprint $table) {
-            $table->dropColumn('kode');
-        });
+        // Schema::table('adm_jurnal', function (Blueprint $table) {
+        //     $table->dropColumn('kode');
+        // });
     }
 
     /**
@@ -30,8 +30,8 @@ class DropColumnToAdmAkun extends Migration
      */
     public function down()
     {
-        Schema::table('adm_akun', function (Blueprint $table) {
-            //
-        });
+        // Schema::table('adm_akun', function (Blueprint $table) {
+        //     //
+        // });
     }
 }

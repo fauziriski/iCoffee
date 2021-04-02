@@ -65,6 +65,6 @@ class JualBeliController extends Controller
 
 		$data = Shop_product::findOrFail($id);
 		$data->delete();
-		return response()->json(['success' => 'Data berhasil di hapus.']);
+		return response()->json();
 	}
 }

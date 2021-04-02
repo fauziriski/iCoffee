@@ -14,17 +14,17 @@ class AddKolomToAdm extends Migration
     
     public function up()
     {
-        Schema::table('adm_kat_akun', function (Blueprint $table) {
-            $table->string('no_akun');
-        });
+        // Schema::table('adm_kat_akun', function (Blueprint $table) {
+        //     $table->string('no_akun');
+        // });
 
-        Schema::table('adm_sub1_akun', function (Blueprint $table) {
-            $table->string('no_akun');
-        });
+        // Schema::table('adm_sub1_akun', function (Blueprint $table) {
+        //     $table->string('no_akun');
+        // });
 
-        Schema::table('adm_sub2_akun', function (Blueprint $table) {
-            $table->string('no_akun');
-        });
+        // Schema::table('adm_sub2_akun', function (Blueprint $table) {
+        //     $table->string('no_akun');
+        // });
     }
 
     /**
@@ -34,17 +34,17 @@ class AddKolomToAdm extends Migration
      */
     public function down()
     {
-        Schema::table('adm_kat_akun', function (Blueprint $table) {
-            //
-        });
+        // Schema::table('adm_kat_akun', function (Blueprint $table) {
+        //     //
+        // });
 
-        Schema::table('adm_sub1_akun', function (Blueprint $table) {
-            //
-        });
+        // Schema::table('adm_sub1_akun', function (Blueprint $table) {
+        //     //
+        // });
 
-        Schema::table('adm_sub2_akun', function (Blueprint $table) {
-            //
-        });
+        // Schema::table('adm_sub2_akun', function (Blueprint $table) {
+        //     //
+        // });
     }
 }
 

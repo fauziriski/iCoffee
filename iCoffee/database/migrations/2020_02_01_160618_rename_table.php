@@ -14,7 +14,7 @@ class RenameTable extends Migration
     public function up()
     {
 
-        Schema::rename('adm_sub_akun', 'adm_sub1_akun');
+        // Schema::rename('adm_sub_akun', 'adm_sub1_akun');
  }
 
     /**

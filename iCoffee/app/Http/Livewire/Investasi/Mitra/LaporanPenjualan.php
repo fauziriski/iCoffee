@@ -56,6 +56,7 @@ class LaporanPenjualan extends Component
             'kode_produk' => $id,
             'total_berat' => $berat_tot,
             'total_penjualan' => $harga_tot,
+            'gambar' => "kosong",
             'status' => 1
         ]);
 

@@ -13,13 +13,13 @@ class BuatTabelArusKas extends Migration
      */
     public function up()
     {
-        Schema::create('adm_arus_kas', function (Blueprint $table) {
-        $table->bigIncrements('id');
-        $table->string('kode');
-        $table->string('nama_akun');
-        $table->bigInteger('total');
-        $table->timestamps();
-    });
+    //     Schema::create('adm_arus_kas', function (Blueprint $table) {
+    //     $table->bigIncrements('id');
+    //     $table->string('kode');
+    //     $table->string('nama_akun');
+    //     $table->bigInteger('total');
+    //     $table->timestamps();
+    // });
    }
 
     /**

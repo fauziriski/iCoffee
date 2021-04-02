@@ -13,23 +13,23 @@ class CreateAdmSub2AkunTable extends Migration
      */
     public function up()
     {
-         Schema::create('adm_sub2_akun', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_kat_akun');
-            $table->unsignedBigInteger('id_sub1_akun');
-            $table->string('nama_sub');
-            $table->timestamps();
+        // //  Schema::create('adm_sub2_akun', function (Blueprint $table) {
+        // //     $table->bigIncrements('id');
+        // //     $table->unsignedBigInteger('id_kat_akun');
+        // //     $table->unsignedBigInteger('id_sub1_akun');
+        // //     $table->string('nama_sub');
+        // //     $table->timestamps();
 
-            $table->foreign('id_kat_akun')
-            ->references('id')
-            ->on('adm_kat_akun')
-            ->onDelete('cascade');
+        // //     $table->foreign('id_kat_akun')
+        // //     ->references('id')
+        // //     ->on('adm_kat_akun')
+        // //     ->onDelete('cascade');
 
-            $table->foreign('id_sub1_akun')
-            ->references('id')
-            ->on('adm_sub1_akun')
-            ->onDelete('cascade');
-        });
+        // //     $table->foreign('id_sub1_akun')
+        // //     ->references('id')
+        // //     ->on('adm_sub1_akun')
+        // //     ->onDelete('cascade');
+        // });
     }
 
     /**
@@ -39,6 +39,6 @@ class CreateAdmSub2AkunTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adm_sub2_akun');
+        // Schema::dropIfExists('adm_sub2_akun');
     }
 }

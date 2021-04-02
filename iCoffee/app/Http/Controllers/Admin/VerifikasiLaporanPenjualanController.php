@@ -92,7 +92,7 @@ class VerifikasiLaporanPenjualanController extends Controller
 		if(request()->ajax())
 		{
 			$data = Riwayat_penjualan::findOrFail($id);
-
+			$data2 = Mitra::where('id_mitra', $data->id_mitra)->first();
 			if($data->status !== NULL){
 				if ($data->status == "1") {
 					$status1 = '<button type="button" class="btn btn-info btn-sm py-0">belum divalidasi</button>';
@@ -109,6 +109,7 @@ class VerifikasiLaporanPenjualanController extends Controller
 
 			return response()->json([
 				'data' => $data,
+				'data2' => $data2,
 				'status1' => $status1,
 				'rincian' => $rincian
 
@@ -137,6 +138,7 @@ class VerifikasiLaporanPenjualanController extends Controller
 		);
 
         $data = Riwayat_penjualan::whereId($request->hidden_id2)->first();
+		$data3 = Mitra::where('id_mitra', $data->id_mitra)->first();
         $data2 = Invest_product::where('kode_produk',$data->kode_produk)->first();
         $nama_bank = "syariah";
 		$akun = Akt_akun::where('nama_akun', 'LIKE', "%$nama_bank%")->first();
@@ -146,7 +148,7 @@ class VerifikasiLaporanPenjualanController extends Controller
         $noTrans = Akt_jurnal::noTrans();
 		$noJurnal = Akt_akun_jurnal::noJurnal();
         $nama_tran =  "Pendapatan Penjualan Hasil Panen ".$data2->nama_produk;
-        $catatan = "Pendapatan Penjualan Hasil Panen ".$data2->nama_produk." dengan total berat penjualan ".$data->total_berat." Kg dengan total penjualan Rp ".number_format($data->total_penjualan)."";
+        $catatan = "Pendapatan Penjualan Hasil Panen ".$data2->nama_produk." dari mitra ".$data3->nama." dengan total berat penjualan ".$data->total_berat." Kg dengan total penjualan Rp ".number_format($data->total_penjualan)."";
         $foto_bukti = $data->gambar;
 
 		$simpan = Akt_jurnal::create([

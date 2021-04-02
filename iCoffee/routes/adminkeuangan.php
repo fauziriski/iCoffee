@@ -59,6 +59,8 @@ Route::group(['middleware' => ['can:read']], function () {
     Route::get('/detail-pencairan-bagi-hasil/{id}', 'PencairanBagiHasilController@detailpencairan')->name('detail-pencairan-bagi-hasil');
     Route::get('/penarikan-bagi-hasil', 'PencairanBagiHasilController@dataPenarikan')->name('penarikan-bagi-hasil');
     Route::get('/lihat-penarikan-bagi-hasil/{id}', 'PencairanBagiHasilController@lihatPenarikan')->name('lihat-penarikan-bagi-hasil');
+    Route::get('/dana-keluar-bagi-hasil', 'DanaKeluarBagiHasilController@dataLaporan')->name('dana-keluar-bagi-hasil');
+    Route::get('/detail-dana-keluar-bagi-hasil/{id}', 'DanaKeluarBagiHasilController@lihatLaporan')->name('detail-dana-keluar-bagi-hasil');
 
     //laporan keuangan
     Route::get('/format-akun', 'FormatAkunController@dataAkun')->name('format-akun');

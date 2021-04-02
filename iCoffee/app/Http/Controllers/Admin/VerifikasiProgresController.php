@@ -84,6 +84,7 @@ class  VerifikasiProgresController extends Controller
 		if(request()->ajax())
 		{
 			$data = Pengajuan_dana::findOrFail($id);
+			$data2 = Mitra::where('id_mitra', $data->id_mitra)->first();
 
 			if($data->status !== NULL){
 				if ($data->status == "1") {
@@ -101,6 +102,7 @@ class  VerifikasiProgresController extends Controller
 
 			return response()->json([
 				'data' => $data,
+				'data2' => $data2,
 				'status1' => $status1,
 				'rincian' => $rincian
 

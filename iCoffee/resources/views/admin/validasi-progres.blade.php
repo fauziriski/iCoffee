@@ -178,6 +178,12 @@
 								</tr>
 								<tr>
 									<div class="form-group">
+										<th width="20%" style="text-align: right;">Nama Mitra&nbsp;&nbsp;&nbsp;:</th>	
+										<th width="25%"><a id="nama_mitra"></a></th>
+									</div>
+								</tr>
+								<tr>
+									<div class="form-group">
 										<th width="20%" style="text-align: right;">Tanggal Pengajuan&nbsp;&nbsp;&nbsp;:</th>	
 										<th width="25%"><a id="terdaftar"></a></th>
 									</div>
@@ -328,6 +334,7 @@
 					document.getElementById("judul").innerHTML = data1.data.judul;
 					document.getElementById("deskripsi").innerHTML = data1.data.deskripsi;
 					document.getElementById("status1").innerHTML = data1.status1;
+					document.getElementById("nama_mitra").innerHTML = data1.data2.nama;
 					document.getElementById("total").innerHTML = "Rp "+total_rp;
 					
 					var table_header = "<table cellpadding='10' border='1' style='margin-bottom: 5%;'><tr style='background-color: #4e73df; color: white;'><div class='form-group'><th width='40%' style='text-align: center;'>Nama Produk&nbsp;&nbsp;</th><th width='20%' style='text-align: center;'>Harga&nbsp;&nbsp;</th><th width='10%' style='text-align: center;'>Qty&nbsp;&nbsp;</th><th width='20%' style='text-align: center;'>Total&nbsp;&nbsp;</th></tr></div>";
