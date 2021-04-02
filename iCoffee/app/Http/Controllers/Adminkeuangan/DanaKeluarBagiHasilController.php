@@ -16,7 +16,7 @@ use App\Rincian_pengajuan;
 use App\Riwayat_penjualan;
 use App\Laporan_penjualan;
 use App\Invest_product;
-use App\Invest_order;
+use App\invest_order;
 use App\Mitra;
 use Carbon;
 
@@ -80,7 +80,7 @@ class DanaKeluarBagiHasilController extends Controller
             $data3 = Invest_product::where('kode_produk', $data->kode_produk)->first();
             $date = $data3->created_at;
             $tahun = $date->format('Y');
-            $data4 = Invest_order::where('id_produk', $data3->id)->whereYear('created_at', '=',$tahun)->get();
+            $data4 = invest_order::where('id_produk', $data3->id)->whereYear('created_at', '=',$tahun)->get();
             $modal_awal = [];
                 foreach($data4 as $jml){
                      $modal_awal[] = $jml->total;
