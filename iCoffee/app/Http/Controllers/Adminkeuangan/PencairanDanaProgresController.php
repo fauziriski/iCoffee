@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Adminkeuangan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\support\Facades\DB;
 use App\Pengajuan_dana;
 use App\Akt_jurnal;
 use App\Akt_akun_jurnal;
@@ -19,6 +18,7 @@ use App\Helper\Helper;
 use App\Mitra_withdraw;
 use App\Mitra;
 use App\Mitra_bank;
+use DB;
 
 
 class  PencairanDanaProgresController extends Controller

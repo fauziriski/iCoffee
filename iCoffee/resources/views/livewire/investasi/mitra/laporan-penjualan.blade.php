@@ -13,7 +13,7 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Tambal Laporan Penjualan</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Laporan Penjualan</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -51,7 +51,7 @@
               </div>
               <p class="mt-3 mb-0">Foto Kwitansi/Nota</p>
               <div class="input-group">
-                <div class="custom-file">
+                <div class="custom-file-produk">
                   <input wire:model="foto_nota" type="file" accept="image/*" id="foto-nota" required>
                 </div>
               </div>

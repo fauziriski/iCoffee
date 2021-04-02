@@ -115,7 +115,7 @@ class MitraController extends Controller
     public function tarikSaldo(Request $request)
     {
         $saldo = Mitra::where('id_mitra',Auth::user()->id_mitra)->pluck('saldo')->first();
-        if($saldo <= $request->jumlah){
+        if($saldo < $request->jumlah){
             Alert::toast('Permintaan Tarik Saldo Gagal!', 'error');
             return redirect('/mitra/rekening-mitra');
         }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Adminkeuangan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\support\Facades\DB;
 use App\Balance_withdrawal;
 use App\Adm_jurnal;
 use App\Adm_tranksaksi;
@@ -15,6 +14,7 @@ use App\Adm_sub2_akun;
 use App\Joint_account;
 use Carbon;
 use Validator;
+use DB;
 
 
 class  PencairanBagiHasilController extends Controller

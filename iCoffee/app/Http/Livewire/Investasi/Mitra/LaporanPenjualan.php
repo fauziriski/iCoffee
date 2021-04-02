@@ -33,6 +33,7 @@ class LaporanPenjualan extends Component
     }
 
     public function addpenjualan(){
+        dd($this->foto_nota);
         Laporan_penjualan::create([
             'kode_produk' => $this->product,
             'berat_produk' => $this->berat,
