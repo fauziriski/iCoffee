@@ -13,10 +13,10 @@ class AddKolomTabelAdmAkun extends Migration
      */
     public function up()
     {
-        Schema::table('adm_akun', function (Blueprint $table) {
-            $table->string('akun_debit')->after('no_jurnal');
-            $table->string('akun_kredit')->after('akun_debit');
-        });
+        // Schema::table('adm_akun', function (Blueprint $table) {
+        //     $table->string('akun_debit')->after('no_jurnal');
+        //     $table->string('akun_kredit')->after('akun_debit');
+        // });
     }
 
     /**
@@ -26,8 +26,8 @@ class AddKolomTabelAdmAkun extends Migration
      */
     public function down()
     {
-        Schema::table('adm_akun', function (Blueprint $table) {
-        //
-        });
+        // Schema::table('adm_akun', function (Blueprint $table) {
+        // //
+        // });
     }
 }

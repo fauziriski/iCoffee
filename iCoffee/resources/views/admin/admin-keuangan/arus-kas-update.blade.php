@@ -109,7 +109,7 @@
                                 </tr>
                                 @endforeach
 								<tr class="table-primary">
-                                    <th colspan="2" style="text-align: left">ARUS KAS AKTIVITAS INVESSTASI :</th>
+                                    <th colspan="2" style="text-align: left">ARUS KAS AKTIVITAS INVESTASI :</th>
                                     <th>Rp {{number_format($total_investasi)}}</td>
                                 </tr>
 								<tr>

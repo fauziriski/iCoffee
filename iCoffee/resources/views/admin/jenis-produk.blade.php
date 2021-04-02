@@ -84,24 +84,6 @@
 </div>
 
 
-<div id="confirmModal" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>Konfirmasi</h4>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
-			<div class="modal-body">
-				<h5 align="center" style="margin:0;">Apakah anda yakin ingin menghapus produk?</h5>
-			</div>
-			<div class="modal-footer">
-				<button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
 
 <div id="modalLihat" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-md">
@@ -311,31 +293,36 @@
 							}
 						})
 					});
-
-
-
-
-
-					var id_produk;
-					$(document).on('click', '.delete', function(){
-						id_produk = $(this).attr('id');
-						$('#confirmModal').modal('show');
-					});
-
-					$('#ok_button').click(function(){
-						$.ajax({
-							url:"hapus-produk/"+id_produk,
-							success: function (data) {
-								swal('Berhasil', 'Data berhasil dihapus', 'success');
-								$('#table_id').DataTable().ajax.reload();
-								}
-						})
-					});
-
 				});
 
 			</script>
 
+			<script>
+				$(document).on('click', '.delete', function () {
+					var id = $(this).attr('id');
+					swal({
+						title: "Apakah anda yakin ingin menghapus ?",
+						type: "warning",
+						confirmButtonClass: "btn-danger",
+						confirmButtonText: "Ya",
+						showCancelButton: true
+					}, function () {
+					
+						$.ajax({
+							type: "GET",
+							url:"hapus-produk/"+id,
+							dataType: "json",
+							success: function (data) {
+								swal('Berhasil', 'Data berhasil dihapus', 'success');
+								$('#table_id')
+									.DataTable()
+									.ajax
+									.reload();
+							}
+						});
+					});
+				});
+			</script>
 			<script>
 
 				$(function(){

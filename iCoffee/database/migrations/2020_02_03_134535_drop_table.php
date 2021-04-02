@@ -14,14 +14,14 @@ class DropTable extends Migration
     public function up()
     {
 
-       Schema::table('adm_jurnal', function (Blueprint $table) {
-        $table->dropForeign(['id_kat_jurnal']);
-    });
+    //    Schema::table('adm_jurnal', function (Blueprint $table) {
+    //     $table->dropForeign(['id_kat_jurnal']);
+    // });
 
 
-       Schema::table('adm_jurnal', function (Blueprint $table) {
-         $table->dropForeign(['id_tranksaksi']);
-     });
+    //    Schema::table('adm_jurnal', function (Blueprint $table) {
+    //      $table->dropForeign(['id_tranksaksi']);
+    //  });
 
    }
 

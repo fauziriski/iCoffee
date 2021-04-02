@@ -13,9 +13,9 @@ class DropKolomTabelAdmAkun extends Migration
      */
     public function up()
     {
-        Schema::table('adm_akun', function (Blueprint $table) {
-            $table->dropColumn('nama_akun');
-        });
+        // Schema::table('adm_akun', function (Blueprint $table) {
+        //     $table->dropColumn('nama_akun');
+        // });
     }
 
     /**
@@ -25,8 +25,8 @@ class DropKolomTabelAdmAkun extends Migration
      */
     public function down()
     {
-        Schema::table('adm_akun', function (Blueprint $table) {
-          //
-        });
+        // Schema::table('adm_akun', function (Blueprint $table) {
+        //   //
+        // });
     }
 }

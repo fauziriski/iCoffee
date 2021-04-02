@@ -13,9 +13,9 @@ class TambahKolomJurnal extends Migration
      */
     public function up()
     {
-        Schema::table('adm_jurnal', function (Blueprint $table) {
-            $table->string('kode');
-        });
+        // Schema::table('adm_jurnal', function (Blueprint $table) {
+        //     $table->string('kode');
+        // });
     }
 
     /**

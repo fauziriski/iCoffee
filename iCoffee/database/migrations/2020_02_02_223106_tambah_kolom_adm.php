@@ -14,13 +14,13 @@ class TambahKolomAdm extends Migration
     public function up()
     {
 
-      Schema::table('adm_sub1_akun', function (Blueprint $table) {
-        $table->string('saldo_normal');
-    });
+    //   Schema::table('adm_sub1_akun', function (Blueprint $table) {
+    //     $table->string('saldo_normal');
+    // });
 
-      Schema::table('adm_sub2_akun', function (Blueprint $table) {
-        $table->string('saldo_normal');
-    });
+    //   Schema::table('adm_sub2_akun', function (Blueprint $table) {
+    //     $table->string('saldo_normal');
+    // });
   }
 
     /**

@@ -13,9 +13,9 @@ class HapusKolomDiakun extends Migration
      */
     public function up()
     {
-        Schema::table('adm_akun', function (Blueprint $table) {
-        $table->dropColumn('kode');
-    });
+    //     Schema::table('adm_akun', function (Blueprint $table) {
+    //     $table->dropColumn('kode');
+    // });
   }
 
     /**
