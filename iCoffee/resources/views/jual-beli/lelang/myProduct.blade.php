@@ -57,11 +57,15 @@
                         </div>
                     @elseif($item->status == 1)
                         <div class="text-center alert alert-info" role="alert">
-                            Sedang dicek
+                            Menunggu Konfirmasi Admin
                         </div>
                     @elseif($item->status == 2)
                         <div class="text-center alert alert-info" role="alert">
                             Sedang Berjalan
+                        </div>
+                    @elseif($item->status == 3)
+                        <div class="text-center alert alert-secondary" role="alert">
+                            Sedang Proses Pengecekan
                         </div>
                     @endif
                 </div>

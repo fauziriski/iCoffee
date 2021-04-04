@@ -79,7 +79,7 @@ class CheckoutController extends Controller
     
         foreach ($getProductData as $data) 
         {
-            if ($data->shop_product->stok <= $data->jumlah ) {
+            if ($data->shop_product->stok < $data->jumlah ) {
                 Alert::warning('Gagal','Stok produk tidak mencukupi, sisa stok produk '. $data->shop_product->nama_produk . ' adalah '. $data->shop_product->stok)->showConfirmButton('Ok', '#3085d6');
                 return redirect('/jual-beli/keranjang');
             }

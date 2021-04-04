@@ -45,6 +45,20 @@
 
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate">
                     <h3 class="font-weight-bold">{{ $products->nama_produk }}</h3>
+
+                    @if (!($products->rating == 0))
+                        <div class="star-rating mb-2">
+                            <span class="fa fa-star-o" data-rating="1"></span>
+                            <span class="fa fa-star-o" data-rating="2"></span>
+                            <span class="fa fa-star-o" data-rating="3"></span>
+                            <span class="fa fa-star-o" data-rating="4"></span>
+                            <span class="fa fa-star-o" data-rating="5"></span>
+                            ({{ $products->rating }})
+                            <input type="hidden" name="whatever1" class="rating-value"
+                                value="{{ $products->rating }}" required>
+                        </div>
+                    @endif
+
                     <div class="row">
                         <p class="text-left">
                         <div class="col-5">
@@ -211,6 +225,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script src="http://malsup.github.com/jquery.form.js"></script>
+
+    <style>
+        .star-rating {
+            line-height: 0px;
+            font-size: 1.10em;
+        }
+
+        .star-rating .fa-star {
+            color: orange;
+        }
+
+    </style>
 
     <script>
         $(document).ready(function() {
@@ -379,6 +405,29 @@
         });
 
     </script>
+
+    
+    <script>
+        var $star_rating = $('.star-rating .fa');
+
+        var SetRatingStar = function() {
+            return $star_rating.each(function() {
+                if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data(
+                        'rating'))) {
+                    return $(this).removeClass('fa-star-o').addClass('fa-star');
+                } else {
+                    return $(this).removeClass('fa-star').addClass('fa-star-o');
+                }
+            });
+        };
+
+        SetRatingStar();
+        $(document).ready(function() {
+
+        });
+
+    </script>
+
 
 
 @endsection

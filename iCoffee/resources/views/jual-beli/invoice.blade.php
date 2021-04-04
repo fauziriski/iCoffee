@@ -477,9 +477,11 @@
                     data: data,
                     success: function(data) {
                         successMessage('Berhasil Memberikan Ratting')
+                        location.reload();
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         errorMessage('Gagal Memberikan Ratting');
+                        location.reload();
                     }
                 });
 

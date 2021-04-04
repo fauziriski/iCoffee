@@ -54,9 +54,9 @@
           <h2 class="ftco-heading-2">Jual Beli</h2>
           <div class="d-flex">
             <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
-              <li><a href="#" class="py-2 d-block">Cara Beli Produk di iCoffee</a></li>
-              <li><a href="#" class="py-2 d-block">Cara Pengembalian Barang (Pembeli)</a></li>
-              <li><a href="#" class="py-2 d-block">Cara Jual Produk di iCoffee</a></li>
+              <li><a href="https://drive.google.com/file/d/1KUruij91PKiAfzZcUygBUWKK_EmVvdcA/view?usp=sharing" class="py-2 d-block">Cara Beli Produk di iCoffee</a></li>
+              <li><a href="https://drive.google.com/file/d/1KUruij91PKiAfzZcUygBUWKK_EmVvdcA/view?usp=sharing" class="py-2 d-block">Cara Pengembalian Barang (Pembeli)</a></li>
+              <li><a href="https://drive.google.com/file/d/1KUruij91PKiAfzZcUygBUWKK_EmVvdcA/view?usp=sharing" class="py-2 d-block">Cara Jual Produk di iCoffee</a></li>
             </ul>
           </div>
         </div>
@@ -66,8 +66,8 @@
           <h2 class="ftco-heading-2">Lelang</h2>
           <div class="d-flex">
             <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
-              <li><a href="#" class="py-2 d-block">Ikut Lelang di iCoffee</a></li>
-              <li><a href="#" class="py-2 d-block">Daftarkan Produk ke Lelang</a></li>
+              <li><a href="https://drive.google.com/file/d/1GOWmvieCapArDuYS9QjvxQgtsUrWQMoj/view?usp=sharing" class="py-2 d-block">Ikut Lelang di iCoffee</a></li>
+              <li><a href="https://drive.google.com/file/d/1GOWmvieCapArDuYS9QjvxQgtsUrWQMoj/view?usp=sharing" class="py-2 d-block">Daftarkan Produk ke Lelang</a></li>
             </ul>
           </div>
         </div>

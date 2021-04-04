@@ -8,7 +8,7 @@ class Auction_product extends Model
 {
     protected $fillable = [
         'id_pelelang', 'nama_produk', 'desc_produk','stok', 'kelipatan', 'harga_awal', 'lama_lelang', 'status', 'gambar', 'kode_lelang','id_kategori',
-        'tanggal_mulai','tanggal_berakhir','id'
+        'tanggal_mulai','tanggal_berakhir','id', 'rating'
     ];
 
     public $timestamps = true;

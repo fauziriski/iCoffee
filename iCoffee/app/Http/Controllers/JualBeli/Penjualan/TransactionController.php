@@ -20,7 +20,7 @@ class TransactionController extends Controller
     public function indexSell()
     {
         $id_pelanggan = Auth::user()->id;
-        $transaksipenjual = Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7])->orderBy('created_at','desc')->paginate(5);
+        $transaksipenjual = Order::where('id_penjual', $id_pelanggan)->whereIn('status',[0,3,4,5,6,7,10,11])->orderBy('created_at','desc')->paginate(5);
         $jumlah_transaksi_penjual = count($transaksipenjual);
         $kurir_data = array();
         $total_bayar = array();

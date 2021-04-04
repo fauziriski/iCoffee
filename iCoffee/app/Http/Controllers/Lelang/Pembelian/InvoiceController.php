@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Auction_delivery;
+use App\Auction_product;
 use App\Helper\Helper;
 use App\Joint_account;
 use App\Auction_Order;
 use App\Account;
 use App\Rating;
+use DB;
 
 class InvoiceController extends Controller
 {
@@ -22,15 +24,16 @@ class InvoiceController extends Controller
         $kurir = explode(': ', $order->shipping);
         $bank_information = Account::where('bank_name', $order->payment)->first();
 
-        $rating;
-        $rating = Rating::where('id_order', $order->id)->where('jasa', 2)->first();
+        $product;
+        // $rating = Rating::where('id_order', $order->id)->where('jasa', 2)->first();
+        $product = Auction_product::where('id', $order->id_produk)->first('rating');
 
-        if(empty($rating))
+        if(empty($product->rating))
             {
                 $penilaian = 0;
             }
             else{
-                $penilaian = $rating->rating;
+                $penilaian = $product->rating;
             }
         
         $cek_resi = Auction_delivery::where('id_order', $order->id)->first();
@@ -65,7 +68,7 @@ class InvoiceController extends Controller
                 'status' => 6
             ]);
 
-            // $rating = Rating::create([
+            // $rating = Auction_product::create([
             //     'id_penjual' => $order->id_penjual,
             //     'id_pembeli' => $order->id_pembeli,
             //     'id_order' => $order->id,
@@ -100,10 +103,14 @@ class InvoiceController extends Controller
 
     public function rating(Request $request)
     {
-        $rating = Rating::where('id_order', $request->id_lelang_rating)->where('jasa', 2)->first();
-        $rating->update([
+        $order = Auction_Order::where('id', $request->id_lelang_rating)->first();
+        $product = Auction_product::where('id',$order->id_produk)->first();
+        
+        // $rating = Rating::where('id_order', $request->id_lelang_rating)->where('jasa', 2)->first();
+        $update = $product->update([
             'rating' => $request->whatever1
         ]);
+    //    $update =  DB::select(`UPDATE auction_product SET 'rating' = $request->whatever1 WHERE 'id'= $request->id_lelang_rating`);
 
         return response()->json();
     }

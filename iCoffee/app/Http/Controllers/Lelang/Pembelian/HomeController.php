@@ -38,10 +38,15 @@ class HomeController extends Controller
 
         if ($products->status == 1) {
            
-            Alert::info('Gagal', 'Produk sedang di cek')->showConfirmButton('Ok', '#3085d6');
+            Alert::info('Gagal', 'Menunggu Konfirmasi Admin')->showConfirmButton('Ok', '#3085d6');
             return back();
         }
 
+        elseif ($products->status == 3) {
+           
+            Alert::info('Gagal', 'Sedang Dalam Pengecekan')->showConfirmButton('Ok', '#3085d6');
+            return back();
+        }
         $tanggal_selesai = $products->tanggal_berakhir;
 
         $cek = Carbon::parse($tanggal_selesai);
