@@ -27,7 +27,6 @@ class ComplainController extends Controller
             'foto_bukti' => 'required|image|max:2048'
 
         ]);
-
     
         $folderPath = public_path("Uploads/Komplain/Lelang/".$request->invoice);
 
@@ -52,7 +51,8 @@ class ComplainController extends Controller
             'keterangan' => $request->keterangan,
             'email' => $request->email,
             'gambar' => $name,
-            'status' => 1
+            'status' => 1,
+            'video_unboxing' => $request->video,
 
         ]);
 

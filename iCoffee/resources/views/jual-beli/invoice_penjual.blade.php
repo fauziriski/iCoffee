@@ -318,6 +318,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <dt class="col-md-3"  style="font-size: 17px;">
+                                                    Video Unboxing :
+                                                </dt>
+                                                <dd class="col-md-6 ml-0" style="font-size: 17px;">
+                                                    <p id="complain_video"></p>
+                                                </dd>
                                             </dl>
                                         
                                             </div>
@@ -402,11 +408,12 @@
                         $('#complain_content').empty();
                         $('#complain_code').empty();
                         $('#complain_image').empty();
+                        $('#complain_video').empty();
 
                         $('#complain_code').replaceWith("<p id='complain_code'>"+data[0].invoice+"</p>");
                         $('#complain_content').replaceWith("<p id='complain_content'>"+data[0].keterangan+"</p>");
                         $('#complain_image').replaceWith(`<img id='complain_image' height="100px" width="100px" src="{{asset('Uploads/Komplain/JualBeli/${data[0].invoice}/${data[0].gambar}')}}" alt='' srcset=''>`);
-                        
+                        $('#complain_video').replaceWith(`<p id='complain_video'><a href="${data[0].video_unboxing}">Klik Disini</a></p>`);
                     }
                 })
                 

@@ -1,5 +1,5 @@
 @extends('jual-beli.layouts.app')
-@section('title', 'Jual Beli | Komplain Pesanan')
+@section('title', 'Lelang | Komplain Pesanan')
 @section('content')
 
     <main class="col bg-faded py-1 border flex-grow-1 mt-2" style="border-radius: 20px">
@@ -52,6 +52,15 @@
                             </div>
                         </div>
 
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="video">Link Video Unboxing</label>
+                                <div class="input-group">
+                                    <input type="url" name="video" class="form-control" required>
+                                    <span class="text-danger">{{ $errors->first('video') }}</span>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>

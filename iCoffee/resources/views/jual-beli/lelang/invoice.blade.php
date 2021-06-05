@@ -372,6 +372,13 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <dt class="col-md-3"  style="font-size: 17px;">
+                                            Video Unboxing :
+                                        </dt>
+                                        <dd class="col-md-6 ml-0" style="font-size: 17px;">
+                                            <p id="complain_video"></p>
+                                        </dd>
+
                                     </dl>
                                 
                                     </div>
@@ -523,7 +530,7 @@
                             $('#complain_code').replaceWith("<p id='complain_code'>"+data.invoice+"</p>");
                             $('#complain_content').replaceWith("<p id='complain_content'>"+data.keterangan+"</p>");
                             $('#complain_image').replaceWith(`<img id='complain_image' height="100px" width="100px" src="{{asset('Uploads/Komplain/Lelang/${data.invoice}/${data.gambar}')}}" alt='' srcset=''>`);
-                            
+                            $('#complain_video').replaceWith(`<p id='complain_video'><a href="${data.video_unboxing}">Klik Disini</a></p>`);
                         }
                     })
                     

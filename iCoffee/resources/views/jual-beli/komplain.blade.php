@@ -53,6 +53,16 @@
                             </div>
                         </div>
 
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="video">Video Unboxing</label>
+                                <div class="input-group">
+                                    <input type="url" name="video" class="form-control" required>
+                                    <span class="text-danger">{{ $errors->first('video') }}</span>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>
