@@ -15,7 +15,7 @@
             </div>
             <div class="col-md pr-4 d-flex topper align-items-center">
               <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="oi oi-globe"></span></div>
-              <span class="text">Jl. Pagar Alam No.44, Kedaton</span>
+              <span class="text">Jl. Pagar Alam No.44, Kedatonn</span>
             </div>
           </div>
         </div>
